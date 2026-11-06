@@ -35,7 +35,7 @@ local active = false
 local function updateZone()
 	local text = GetMinimapZoneText and GetMinimapZoneText() or GetZoneText()
 	zoneText:SetText(text or "")
-	local pvp = GetZonePVPInfo and GetZonePVPInfo()
+	local pvp = C_PvP.GetZonePVPInfo()
 	local c = pvp and PVP_COLORS[pvp] or NORMAL
 	zoneText:SetTextColor(c[1], c[2], c[3])
 end

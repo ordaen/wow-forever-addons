@@ -21,17 +21,14 @@ local BACKDROP = { -- same as the Ordaen Dev gear button
 local TRACKING_ICON = "Interface\\Icons\\INV_Misc_Spyglass_02"
 local RETRY_DELAY = 5 -- some Blizzard buttons are created after login
 
--- Blizzard buttons, each by its possible names on different clients (first found wins).
+-- Blizzard's buttons on Forever's (modern) minimap. The API dump confirms MinimapCluster.Tracking,
+-- .IndicatorFrame and ExpansionLandingPageMinimapButton; the frames inside IndicatorFrame are one level
+-- deeper than the dump goes (their mixins exist), so they are looked up and skipped when missing.
 local BLIZZARD = {
-	{ id = "tracking", names = { "MinimapCluster.Tracking", "MiniMapTracking" }, skin = true },
-	{ id = "worldMap", names = { "MiniMapWorldMapButton" } },
-	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame", "MiniMapMailFrame" } },
+	{ id = "tracking", names = { "MinimapCluster.Tracking" }, skin = true },
+	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame" } },
 	{ id = "craftingOrder", names = { "MinimapCluster.IndicatorFrame.CraftingOrderFrame" } },
-	{ id = "battlefield", names = { "MiniMapBattlefieldFrame" } },
-	{ id = "lfg", names = { "MiniMapLFGFrame", "QueueStatusMinimapButton" } },
-	{ id = "difficulty", names = { "MinimapCluster.InstanceDifficulty", "MiniMapInstanceDifficulty" } },
-	{ id = "challenge", names = { "MiniMapChallengeMode" } },
-	{ id = "landing", names = { "ExpansionLandingPageMinimapButton", "GarrisonLandingPageMinimapButton" } },
+	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" } },
 }
 
 local db
@@ -215,12 +212,6 @@ end
 
 local trackingLook -- our styled frame shown under Blizzard's (invisible) tracking button
 
-local function updateTrackingIcon()
-	-- Classic clients show what is being tracked (herbs, minerals); otherwise a spyglass.
-	local texture = GetTrackingTexture and GetTrackingTexture()
-	trackingLook.icon:SetTexture(texture or TRACKING_ICON)
-end
-
 local function highlightOn()
 	trackingLook.highlight:Show()
 end
@@ -232,8 +223,7 @@ end
 --- Dress Blizzard's tracking button in our style. Blizzard's frame stays on top and gets the clicks
 --- (its menu keeps working); its own art is made invisible and ours sits underneath.
 local function skinTracking(frame)
-	local classic = _G.MiniMapTrackingButton
-	local clickable = childButton(frame) or (type(classic) == "table" and classic) or frame
+	local clickable = childButton(frame) or frame
 	trackingLook = newStyled("OrdaenMinimapTrackingButton", "Frame")
 	trackingLook:EnableMouse(false)
 	trackingLook.highlight:SetDrawLayer("OVERLAY")
@@ -249,13 +239,8 @@ local function skinTracking(frame)
 	hideArt(frame)
 	clickable:HookScript("OnEnter", highlightOn)
 	clickable:HookScript("OnLeave", highlightOff)
-	updateTrackingIcon()
-	if GetTrackingTexture then
-		local events = CreateFrame("Frame")
-		if pcall(events.RegisterEvent, events, "MINIMAP_UPDATE_TRACKING") then
-			events:SetScript("OnEvent", updateTrackingIcon)
-		end
-	end
+	-- Forever has no API for the tracked type's icon (no GetTrackingTexture), so a spyglass.
+	trackingLook.icon:SetTexture(TRACKING_ICON)
 	return clickable
 end
 

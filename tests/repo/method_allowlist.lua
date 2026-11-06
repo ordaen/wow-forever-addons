@@ -27,6 +27,10 @@ return {
 	-- loaded during the dump, so its canvas methods aren't listed. Same call as SexyMap's Shapes.lua.
 	SetUseMaskTexture = "HybridMinimap.MapCanvas (load-on-demand, not in the dump)",
 
+	-- Vector2D objects (C_Map.GetWorldPosFromMapPos returns one, per docs.txt; Info.lua). Dump 1.60.1-70790
+	-- lists Vector2DMixin.GetXY in namespaces.txt.
+	GetXY = "Vector2DMixin (namespaces.txt: Vector2DMixin.GetXY)",
+
 	-- LibDBIcon-1.0 (embedded by other addons), confirmed by its use in MinimapButtonButton Logic/Main.lua.
 	GetButtonList = "LibDBIcon-1.0",
 	GetMinimapButton = "LibDBIcon-1.0",

@@ -13,20 +13,18 @@ ns.Map = Map
 
 local SQUARE_MASK = "Interface\\Buttons\\WHITE8X8"
 
--- Blizzard pieces we hide. Each entry: possible names, first found wins. Some load later (the clock
--- comes with Blizzard_TimeManager), so missing ones are looked for again when a Blizzard addon loads.
+-- Blizzard pieces we hide, by their names on Forever (checked against the API dump in api/forever/).
+-- Each entry: possible names, first found wins. Some load later (the clock comes with
+-- Blizzard_TimeManager), so missing ones are looked for again when a Blizzard addon loads.
 local HIDDEN_PIECES = {
 	-- Round decorations that make no sense on a square map.
-	{ "MinimapBorder" },
 	{ "MinimapCompassTexture" },
 	{ "MinimapCompassTextureUnderlay" },
-	{ "MinimapNorthTag" },
-	{ "Minimap.ZoomIn", "MinimapZoomIn" },
-	{ "Minimap.ZoomOut", "MinimapZoomOut" },
-	-- Replaced by Info.lua: zone text bar on top, clock, calendar (opened from our clock), day/night.
-	{ "MinimapCluster.BorderTop", "MinimapBorderTop" },
-	{ "MinimapCluster.ZoneTextButton", "MinimapZoneTextButton" },
-	{ "MinimapToggleButton" },
+	{ "Minimap.ZoomIn" },
+	{ "Minimap.ZoomOut" },
+	-- Replaced by Info.lua: zone text, clock, calendar button (our clock opens it), day/night icon, and
+	-- Blizzard's own coordinates (MinimapPlayerCoordsMixin exists; the frame is deeper than the dump goes).
+	{ "MinimapCluster.ZoneTextButton" },
 	{ "TimeManagerClockButton" },
 	{ "GameTimeFrame" },
 	{ "MinimapCluster.DielFrame" },

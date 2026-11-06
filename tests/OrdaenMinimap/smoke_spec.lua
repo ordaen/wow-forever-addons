@@ -170,9 +170,11 @@ describe("OrdaenMinimap smoke", function()
 			GetMinimapZoneText = function()
 				return "Elwynn Forest"
 			end,
-			GetZonePVPInfo = function()
-				return "friendly"
-			end,
+			C_PvP = {
+				GetZonePVPInfo = function()
+					return "friendly"
+				end,
+			},
 			GetGameTime = function()
 				return 14, 5
 			end,

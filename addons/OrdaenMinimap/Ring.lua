@@ -5,19 +5,14 @@
 -- The top (90) and bottom (270) hold the zone name and the coordinates/clock, so defaults stay on the sides.
 local _, ns = ...
 
--- Default angle per button id. Blizzard buttons that are hidden most of the time (mail, queue, difficulty)
--- share the right side; ours and tracking sit on the left, apart from the dev gear button (200).
+-- Default angle per button id. Blizzard indicators that are hidden most of the time (mail, crafting
+-- orders) share the right side; ours and tracking sit on the left, apart from the dev gear button (200).
 ns.RING_DEFAULT_ANGLES = {
 	tracking = 160,
-	worldMap = 140,
 	drawer = 225,
 	mail = 25,
-	craftingOrder = 45,
-	battlefield = 5,
-	lfg = 345,
-	difficulty = 325,
-	challenge = 315,
-	landing = 300,
+	craftingOrder = 5,
+	landing = 330,
 }
 
 ns.RING_GAP = 2 -- px between the border and a button

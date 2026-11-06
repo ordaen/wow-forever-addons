@@ -52,28 +52,11 @@ local UNCONFIRMED_APIS = {
 	"Minimap.SetTaskBlobRingScalar",
 	"StaticPopupDialogs",
 	"AddonCompartmentFrame.registeredAddons",
-	-- Buttons.lua / Info.lua
-	"GetTrackingTexture",
-	"GetMinimapZoneText",
-	"GetZonePVPInfo",
-	"GetRealZoneText",
-	"UnitPosition",
-	"C_Map.GetBestMapForUnit",
-	"C_Map.GetWorldPosFromMapPos",
-	"C_Map.GetPlayerMapPosition",
-	"CreateVector2D",
-	"GetGameTime",
-	"C_CVar.GetCVarBool",
-	"GetCVarBool",
-	"C_Calendar.GetNumPendingInvites",
-	"ToggleCalendar",
-	"TimeManager_Toggle",
-	"ToggleWorldMap",
-	"MinimapCluster.DielFrame",
-	"MinimapCluster.Tracking",
-	"MiniMapTracking",
-	"GameTimeFrame",
-	"TimeManagerClockButton",
+	-- Frames deeper than the API dump goes (Buttons.lua / Info.lua / Map.lua look them up).
+	"MinimapCluster.Tracking.Button",
+	"MinimapCluster.IndicatorFrame.MailFrame",
+	"MinimapCluster.IndicatorFrame.CraftingOrderFrame",
+	"MinimapCluster.MinimapContainer.PlayerCoords",
 }
 
 local function logApiAvailability()

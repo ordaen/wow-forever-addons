@@ -139,7 +139,7 @@ decided with the user.
   right-click the clock settings; the clock turns orange with pending calendar invites.
   - Our buttons share one style (`Buttons.Style`: the gear button's 28 px dark tooltip backdrop + icon). Blizzard's
     tracking button is dressed in it: its own art is set to alpha 0 and it stays on top, so its menu works unchanged.
-    Other Blizzard buttons (mail, queue, difficulty, ...) are moved as they are. `hooksecurefunc` on their
+    Other Blizzard buttons (mail, crafting orders, expansion page) are moved as they are. `hooksecurefunc` on their
     `SetPoint`/`SetParent` puts them back when Blizzard's layout code moves them (no method replacement on Blizzard
     frames, to keep taint away).
   - Cost: coordinates from `UnitPosition` + the map's world rectangle (read once per zone, HereBeDragons' method), so
