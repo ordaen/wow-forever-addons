@@ -3,7 +3,8 @@
 -- under each frame, UI.DressFont puts the theme's font and the global text size on Blizzard's text. Sizes and
 -- positions stay Blizzard's and Edit Mode's.
 -- Cost: no events and nothing per frame. Hooks on Blizzard's tab colour and alert flash functions (they run when a
--- tab is selected or a message arrives in a hidden tab) and on opening a temporary (whisper) window.
+-- tab is selected or a message arrives in a hidden tab), on opening a temporary (whisper) window, and on each
+-- window's RefreshLayout (a resize or font change: one loop over its visible messages, no garbage).
 local _, ns = ...
 
 local Look = {}
@@ -21,10 +22,13 @@ local WINDOW_ART = {
 }
 local TAB_STATES = { selected = "tabSelected", flash = "tabFlash" }
 -- Room around the messages (the user's request, 2026-11-06): our background reaches past Blizzard's by these spacing
--- tokens (left, right, top, bottom); less at the top, where the tabs sit. And a gap between messages (also between
--- the lines of a wrapped one: Blizzard's chat has one spacing for both).
+-- tokens (left, right, top, bottom); less at the top, where the tabs sit.
 local PADDING = { "md", "md", "sm", "md" }
+-- Blizzard's chat has one spacing for the lines of a wrapped message and between messages (each message is one font
+-- string, stacked by RefreshLayout with the font's spacing as the offset). We keep the font's spacing small for the
+-- lines and re-anchor the messages with a bigger gap after each of Blizzard's layouts (the user's choice, 2026-11-06).
 local LINE_GAP = "xs"
+local MESSAGE_GAP = "sm"
 
 local on = false
 local centering = false
@@ -38,13 +42,40 @@ local flashing = {} -- chat window -> true while its tab flashes
 local unread = {} -- whisper window -> messages arrived while it wasn't the tab shown
 local badges = {} -- tab -> its badge text element (in the tab's look)
 local blizzardSpacing = {} -- chat window -> its line spacing before ours (given back when the look goes off)
+local messageGap = 0 -- UI units: MESSAGE_GAP at the current text size
+local layoutHooked = {} -- chat window -> true once its RefreshLayout is hooked
 
--- The theme's gap between messages on a chat window (Blizzard's own spacing is kept to give back).
+-- Blizzard stacked a window's messages (RefreshLayout: on a resize or a font change, not per message): the gap between
+-- messages, ours. Only anchors: Blizzard's own fields and text stay untouched.
+local function spaceMessages(frame)
+	local lines = on and rawget(frame, "visibleLines")
+	if not lines then
+		return
+	end
+	if frame:GetInsertMode() == SCROLLING_MESSAGE_FRAME_INSERT_MODE_TOP then
+		for i = 2, #lines do
+			lines[i]:SetPoint("TOPLEFT", lines[i - 1], "BOTTOMLEFT", 0, -messageGap)
+		end
+	else
+		for i = 2, #lines do
+			lines[i]:SetPoint("BOTTOMLEFT", lines[i - 1], "TOPLEFT", 0, messageGap)
+		end
+	end
+end
+
+-- The theme's gaps on a chat window: between the lines of a message (the font's spacing; Blizzard's is kept to give
+-- back) and between messages (after each of Blizzard's layouts).
 local function spaceLines(frame)
 	if blizzardSpacing[frame] == nil then
 		blizzardSpacing[frame] = frame:GetSpacing() or 0
 	end
+	messageGap = UI.Space(MESSAGE_GAP)
 	frame:SetSpacing(UI.Space(LINE_GAP))
+	if not layoutHooked[frame] then
+		layoutHooked[frame] = true
+		hooksecurefunc(frame, "RefreshLayout", spaceMessages)
+	end
+	frame:MarkLayoutDirty() -- laid out again on its next refresh, with our gap
 end
 
 local function selected(frame)
@@ -246,7 +277,7 @@ end
 
 local hooked = false
 
--- The text size changed: the gap between messages follows it (the padding follows by itself: UI.Dress).
+-- The text size changed: the gaps follow it (the padding follows by itself: UI.Dress).
 local function onThemeChanged()
 	if on then
 		for frame in pairs(windows) do
@@ -288,6 +319,7 @@ function Look.Disable()
 		if blizzardSpacing[frame] then
 			frame:SetSpacing(blizzardSpacing[frame])
 		end
+		frame:MarkLayoutDirty() -- Blizzard's own stacking again
 	end
 	for _, dress in pairs(tabs) do
 		dress:Undress()

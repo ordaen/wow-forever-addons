@@ -106,6 +106,29 @@ local function chatWindow(i, title, shown)
 	function w:SetSpacing(spacing)
 		self.spacing = spacing
 	end
+	-- Like Blizzard's ScrollingMessageFrame: one font string per message, stacked from the bottom, each offset from the
+	-- one below by the font's spacing (RefreshLayout, run when the layout is marked dirty).
+	local function line()
+		return { SetPoint = function(self, ...)
+			self.point = { ... }
+		end }
+	end
+	w.visibleLines = { line(), line(), line() }
+	function w:GetInsertMode()
+		return SCROLLING_MESSAGE_FRAME_INSERT_MODE_BOTTOM
+	end
+	function w:RefreshLayout()
+		for k, l in ipairs(self.visibleLines) do
+			if k == 1 then
+				l:SetPoint("BOTTOMLEFT", self, "BOTTOMLEFT")
+			else
+				l:SetPoint("BOTTOMLEFT", self.visibleLines[k - 1], "TOPLEFT", 0, self.spacing)
+			end
+		end
+	end
+	function w:MarkLayoutDirty()
+		self:RefreshLayout() -- the game lays out on the next refresh; at once is enough here
+	end
 	function w:RemoveAllMessageGroups()
 		self.messageTypeList = {}
 	end
@@ -273,6 +296,9 @@ describe("Ordaen Chat", function()
 			TRADESKILL_LOG_THIRDPERSON = "%1$s creates %2$s.",
 			OPEN_LOCK_SELF = "You perform %s on %s.",
 			OPEN_LOCK_OTHER = "%s performs %s on %s.",
+			-- Blizzard's ScrollingMessageFrame insert modes (chat windows add at the bottom).
+			SCROLLING_MESSAGE_FRAME_INSERT_MODE_BOTTOM = 1,
+			SCROLLING_MESSAGE_FRAME_INSERT_MODE_TOP = 2,
 			issecretvalue = function(v)
 				return secrets[v] == true
 			end,
@@ -761,13 +787,21 @@ describe("Ordaen Chat", function()
 			ns.Addon:_SettingChanged("chatLook", false)
 			assert.equals(1, windowArt[1].alpha)
 			assert.equals(0, windows[1].spacing, "Blizzard's line spacing back")
+			local lines = windows[1].visibleLines
+			assert.same({ "BOTTOMLEFT", lines[1], "TOPLEFT", 0, 0 }, lines[2].point, "Blizzard's stacking back")
 			assert.is_nil(ns.Look.Cover(windows[1]))
 		end)
 
 		it("pads the messages and spaces them by the theme's tokens", function()
 			login()
-			assert.equals(OrdaenCore.UI.Space("xs"), windows[1].spacing)
+			assert.equals(OrdaenCore.UI.Space("xs"), windows[1].spacing, "the lines of one message")
 			assert.is_true(windows[1].spacing > 0)
+			local lines, gap = windows[1].visibleLines, OrdaenCore.UI.Space("sm")
+			assert.is_true(gap > windows[1].spacing)
+			assert.same({ "BOTTOMLEFT", lines[1], "TOPLEFT", 0, gap }, lines[2].point, "a bigger gap between messages")
+			assert.same({ "BOTTOMLEFT", lines[2], "TOPLEFT", 0, gap }, lines[3].point)
+			windows[1]:RefreshLayout() -- Blizzard lays the messages out again (a resize): our gap again
+			assert.same({ "BOTTOMLEFT", lines[1], "TOPLEFT", 0, gap }, lines[2].point)
 			assert.truthy(ns.Look.Cover(windows[1]), "our background, reaching past Blizzard's")
 		end)
 	end)
