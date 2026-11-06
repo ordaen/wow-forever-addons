@@ -83,6 +83,21 @@ finds them all. One CurseForge project per addon (no pack). Every TOC sets `## C
 `## Category-xxXX:` lines, copied from an installed addon that uses the same category so they share a group in the
 addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
 
+## Localization
+
+- English and Russian for now; the user's client is ruRU. Every user-facing string goes through `ns.L`.
+- Per addon: `Locale.lua` holds the English base (and the fallback; an unknown key shows as itself) and defines
+  `ns.ApplyTranslation`. Each other language is `Locale_<code>.lua` (e.g. `Locale_ruRU.lua`), listed after
+  `Locale.lua` in the TOC. It returns at once unless `ns.LOCALE` is its language, so other clients never build its
+  table. Only the client's language stays in memory (see Performance).
+- `tests/repo/locales_spec.lua` checks every addon automatically: no missing or unknown keys, and identical format
+  placeholders (`%s`, `%d`) in every language. Add a key to `Locale.lua` and every `Locale_<code>.lua` together.
+- Use Blizzard's own translated globals for common words where they fit (`CLOSE`, `OKAY`, `CANCEL`, `RESET`, `NONE`,
+  `SETTINGS`), after confirming they exist on Forever.
+- TOC: localized `## Notes-ruRU` and `## Category-ruRU` lines. Whether titles get a `## Title-ruRU` (e.g. "Ordaen
+  Миникарта") is still for the user to decide; until then titles stay English.
+- The Ordaen Dev window (dev mode) is English only.
+
 ## First addon: OrdaenMinimap
 
 Our own specialized take on **SexyMap** (installed reference: `_forever_\Interface\AddOns\SexyMap\`), deliberately with
