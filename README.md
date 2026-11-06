@@ -35,8 +35,8 @@ busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
    A junction is Windows' directory link (like a symlink; no admin needed). `pwsh ./scripts/link.ps1 -Unlink` removes
    the junctions and leaves the repo files alone. The junctions point at this checkout, so keep it on `develop`
    (`git switch develop`): what's on `develop` is what the game runs.
-5. **In game:** install [BugSack](https://www.curseforge.com/wow/addons/bugsack) and
-   [BugGrabber](https://www.curseforge.com/wow/addons/bug-grabber) to see and keep Lua errors.
+5. **In game:** enable **Ordaen Core - Debug** in the AddOns list (dev mode, see below). BugSack/BugGrabber are
+   not needed; dev mode has its own error catcher.
 
 ### Everyday loop
 
@@ -67,25 +67,26 @@ or remove anything that has been released; add a new name instead. An addon that
 
 Debugging is an optional **development mode**, so players never have errors collected. To turn it on, enable
 **Ordaen Core - Debug** in the in-game AddOns list (it ships with Ordaen Core, disabled by default) and restart
-the game. While it is enabled, every Ordaen addon records its errors (stack trace, locals, versions) and a
-timestamped log. When it is disabled, nothing is recorded and errors go to BugSack or Blizzard's default handler.
+the game. When it is disabled, nothing is recorded and errors go to BugSack or Blizzard's default handler.
 
-Commands in dev mode, with `/om` as the example slash command:
+In dev mode a **gear button** sits on screen; a red number on it counts new errors. Click it (or use the addon
+compartment, `/ordaen`, or `/om debug`) to open the **Ordaen Dev** window:
 
-| Command | Effect |
-|---|---|
-| `/om debug` | Toggle the debug log, on by default (`on`, `off`, `echo` to also print it in chat, `clear`). |
-| `/om dump` | Save a snapshot of the addon's state: settings, frame sizes, positions, parents. |
-| `/om errors` | Copyable report of recorded errors (`clear` to reset). |
-| `/om debug error` | Raise a test error to check the error pipeline. |
+- **Errors**: every Lua error in the game (ours, other addons, Blizzard) and every blocked action (taint), with
+  stack trace, local variables and versions. Filters for Ordaen / other addons / blocked actions,
+  **Test error**, **Clear all**, and **Select for copy** for bug reports. Repeats are counted, not stored again.
+  If BugSack is installed too, both get every error.
+- **Performance**, **Log** and **Inspect** are coming next.
+- **Note for Claude** + **Save for Claude & reload**: saves every Ordaen addon's state and your note, then
+  reloads so everything is written to disk. This is the usual way to hand a test result to Claude.
 
-The log, dump and errors are stored in the addon's SavedVariables, which WoW writes to disk only on `/reload` or
-logout:
-`C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\<Addon>.lua`.
+Everything lives in one file, which WoW writes on `/reload` or logout:
+`C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\OrdaenCore_Debug.lua`.
 Screenshots (Print Screen) go to `_forever_\Screenshots\`.
 
 Addons cannot reach the network, so there is no telemetry. To report a bug, a player enables Ordaen Core - Debug,
-reproduces the problem and sends `/<cmd> errors` through the [bug report form](.github/ISSUE_TEMPLATE/bug_report.yml).
+reproduces the problem, selects the error in the Ordaen Dev window and pastes it into the
+[bug report form](.github/ISSUE_TEMPLATE/bug_report.yml).
 
 ### Commits
 

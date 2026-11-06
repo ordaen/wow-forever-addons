@@ -1,6 +1,6 @@
 ---
 name: debug-in-game
-description: Debug an Ordaen addon's in-game behavior in WoW Forever. Use when the user reports a bug, error, odd layout or "it doesn't work" from the game, says "check" after a /reload, or when a feature needs testing in game. Covers the repro script for the user, which files to read (SavedVariables debug log/dump/errors, BugGrabber, screenshots) and how to make code observable with the OrdaenDebug kit.
+description: Debug an Ordaen addon's in-game behavior in WoW Forever. Use when the user reports a bug, error, odd layout or "it doesn't work" from the game, says "check" or "saved" after testing, or when a feature needs testing in game. Covers the Ordaen Dev window workflow for the user, which file to read (OrdaenCore_Debug.lua SavedVariables: errors, logs, dumps, notes), and how to make code observable with the debug kit.
 ---
 
 # Debugging Ordaen addons in game
@@ -16,35 +16,39 @@ You cannot see the game; the user can. Work from files the game writes to disk, 
 
 ## 0. Dev mode must be on
 
-Recording only happens while the optional addon **Ordaen Core - Debug** (`OrdaenCore_Debug`) is enabled in the in-game AddOns list. It is disabled by default, and players run without it. If `<Addon>DB.debug` is missing or stale, ask the user to enable it and restart the client. Without it, errors only reach BugSack (`!BugGrabber.lua`).
+Everything below needs the optional addon **Ordaen Core - Debug** (`OrdaenCore_Debug`) enabled in the in-game AddOns list. It is disabled by default, and players run without it. When it's on, a gear button with a red error badge is on screen and the **Ordaen Dev** window is available. If `OrdaenCore_Debug.lua` is missing or its `session` doesn't advance, ask the user to enable the addon and restart the client.
 
 ## 1. Make the code observable before testing
 
-- New code logs its decisions with `Debug.Log(...)` / `Debug.Logf(fmt, ...)`: what was collected or skipped and why, sizes, positions, events. `Debug.Log` returns early when debug is off, but guard expensive string building with `if Debug.IsEnabled() then ... end`.
+- New code logs its decisions with `Debug.Log(...)` / `Debug.Logf(fmt, ...)`: what was collected or skipped and why, sizes, positions, events. Logging is cheap when off, but guard expensive string building with `if Debug.IsEnabled() then ... end`.
 - The `dump` callback passed to `Debug.Init` returns the state the feature owns. Frames can go in as they are: `Debug.Snapshot` stores name, parent, shown/visible, size, points, strata, level, alpha and scale.
-- Event, script and slash handlers are wrapped in `Debug.Wrap(fn)`, so in dev mode errors are recorded with stack and locals and still reach BugSack. Without dev mode, `Wrap` returns the function unchanged.
+- Wrap event, script and slash handlers in `Debug.Wrap(fn)`. Dev mode also catches errors globally (any addon, file-load errors, unwrapped code) and blocked actions (taint), so wrapping is about clean stacks, not coverage.
 - Run `bash scripts/test.sh` (Git Bash; runs luacheck and busted in WSL) and get it green.
 
 ## 2. Hand over with a repro script
 
-Tell the user exactly what to do, with the addon's own slash command (`/om` for OrdaenMinimap):
+The game runs whatever is on `develop` in the main checkout `C:\Users\f3oal\code\forever-addons`, through the AddOns junctions. Before handing over, get the change there: commit it on the feature branch, rebase onto `develop`, then run `git merge --ff-only <branch>` from the main checkout. Never switch the main checkout to another branch or re-point the junctions. If the change adds an addon folder, run `pwsh ./scripts/link.ps1` in the main checkout.
+
+Tell the user exactly what to do:
 
 1. Restart the client or `/reload`: say which. **A new file or any `.toc` change needs a full client restart.**
-2. `/om debug clear` (the log is on by default in dev mode)
-3. Reproduce the problem
-4. `/om dump` if layout or state matters; Print Screen if it's visual
-5. `/reload` (SavedVariables are written to disk only on reload or logout), then tell Claude "check"
+2. Reproduce the problem. Take a screenshot (Print Screen) if it's visual.
+3. Open the Ordaen Dev window (gear button), type what they saw in **Note for Claude**, and click **Save for Claude & reload**. That dumps every Ordaen addon's state, stores the note and writes everything to disk.
+4. Tell Claude "check".
 
-The game runs whatever is on `develop` in the main checkout `C:\Users\f3oal\code\forever-addons`, through the AddOns junctions. Before handing over, get the fix there: commit it on the feature branch, rebase onto `develop`, then run `git merge --ff-only <branch>` from the main checkout. Never switch the main checkout to another branch or re-point the junctions. If the change adds a new addon folder, run `pwsh ./scripts/link.ps1` in the main checkout and have the user restart the client.
+## 3. Read the results
 
-## 3. Read the results in this order
-
-1. `SavedVariables\<Addon>.lua`: `<Addon>DB.debug.errors` (message, count, stack, locals, versions), then `debug.log` (timestamped, newest last), then `debug.dump`.
-2. `SavedVariables\!BugGrabber.lua`: errors from every addon, including ones raised outside our wrapped handlers. Needs BugSack and BugGrabber installed.
-3. The newest file in `Screenshots\`: open the image and compare it with the dump's sizes and points.
+1. `SavedVariables\OrdaenCore_Debug.lua` (`OrdaenCoreDebugDB`):
+   - `saves`: the newest entry has the user's `note`, `time`, `session` and `combat`. Start there.
+   - `errors`: newest last. `kind` is `"error"` or `"taint"`. `source` is the Ordaen addon folder, or `"other"` for other addons and Blizzard. Each has `message`, `count`, `stack`, `locals`, `time`/`lastTime` and `session`/`lastSession`. Look at entries whose `session`/`lastSession` matches the save.
+   - `addons[<Addon>].log`: timestamped lines, newest last. A `---- session N start` line marks each load.
+   - `addons[<Addon>].dump`: the state saved with the click.
+   - `sessions[N]`: client build, locale and Core version.
+2. The newest file in `Screenshots\`: open the image and compare it with the dump's sizes and points.
+3. `SavedVariables\!BugGrabber.lua`, if BugSack is installed. Usually not needed: our catcher records the same errors.
 4. `Logs\`: only for addon-loading or TOC problems.
 
-Read only our own addons' files and BugGrabber's, not other addons' saved data.
+Read only our own addons' files (and BugGrabber's), not other addons' saved data.
 
 ## 4. Decide
 
@@ -52,13 +56,8 @@ Read only our own addons' files and BugGrabber's, not other addons' saved data.
 - It doesn't: add logging or dump fields where the gap is and do another round. Don't ship speculative fixes, and say plainly what is still unknown.
 - Once a bug is fixed, keep the useful log lines and remove the noisy ones.
 
-## Kit reference (`OrdaenCore.NewDebug(addonName)`, in `addons/OrdaenCore/OrdaenCore_Debug/Debug.lua`)
+## Reference
 
-| In game | Effect |
-|---|---|
-| `/<cmd> debug [on\|off\|echo\|clear]` | Toggle the log; `echo` also prints it to chat; `clear` empties the log and the dump |
-| `/<cmd> dump` | Save `Debug.Meta()` and the addon's dump to `debug.dump` |
-| `/<cmd> errors [clear]` | Copyable report window that links to `.github/ISSUE_TEMPLATE/bug_report.yml` |
-| `/<cmd> debug error` | Raise a test error through the whole pipeline |
-
-Limits: 1000 log lines, 50 distinct errors (repeats are counted), snapshots 5 levels deep and 200 keys per table.
+- Code: `addons/OrdaenCore/OrdaenCore_Debug/` (`Store.lua` data, `Capture.lua` error catcher, `Debug.lua` per-addon kit, `UI.lua` window). The no-op stand-in for players is in `addons/OrdaenCore/Core.lua`.
+- The window opens from the gear button, the addon compartment, `/ordaen`, or `/<addon cmd> debug`. The Errors tab has filters (All, Ordaen, Other addons, Blocked actions), **Test error**, **Clear all**, and **Select for copy** for bug reports.
+- Limits: 100 distinct errors (repeats are counted), 1000 log lines per addon, 20 saves, snapshots 5 levels deep and 200 keys per table.
