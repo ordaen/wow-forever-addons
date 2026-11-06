@@ -5,3 +5,6 @@ node_modules/
 # created locally by leafo/gh-actions-lua when testing workflows with act
 .lua/
 .luarocks/
+art/out/
+art/.venv/
+__pycache__/
