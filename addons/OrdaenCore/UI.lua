@@ -102,9 +102,9 @@ local unavailable = false
 ---@field rowAlign string|nil "top" (default), "center" or "bottom": children in their rows, rows in a fixed height
 ---@field edges table|nil per side (top, right, bottom, left): false = none, true = the style's, { width, colour }
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
+---@field hotkey string|nil on a top-level block: the key binding ("C", "Shift-M"), drawn as a key cap at the bottom
 
 ---@class OrdaenUITooltipOpts
----@field hotkey string|nil on a top-level block: the key binding ("C", "Shift-M"), drawn as a key cap at the bottom
 ---@field side string|nil "right" (default), "left", "below", "above", or "default" (Edit Mode's HUD Tooltip spot)
 ---@field x number|nil
 ---@field y number|nil
