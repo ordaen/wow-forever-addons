@@ -11,6 +11,18 @@
   // Each category's name per client language (the `## Category-xxXX` lines), copied from Blizzard-installed
   // addons with the same category so ours share their group in the addon list.
   "categories": {
+    "Chat": {
+      "deDE": "Chat",
+      "esES": "Chat",
+      "esMX": "Chat",
+      "frFR": "Discussion",
+      "itIT": "Chat",
+      "koKR": "대화",
+      "ptBR": "Bate-papo",
+      "ruRU": "Чат",
+      "zhCN": "聊天",
+      "zhTW": "對話"
+    },
     "Libraries": {
       "deDE": "Bibliotheken",
       "esES": "Bibliotecas",

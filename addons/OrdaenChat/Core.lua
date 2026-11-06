@@ -45,18 +45,18 @@ end)
 
 -- What the input group changes on Blizzard's frames, found by name (the build can't name them yet: claims.rs
 -- follows only direct `Global:Method` calls; remove these once it covers them). Another addon calling these is a
--- conflict (Conflict.lua). Only the input's base art: its focus art is Blizzard's to toggle on every focus.
+-- conflict (Conflict.lua). Only the first window's input art: an addon that restyles inputs restyles that one too,
+-- and claiming all ten windows' art reported one conflict per texture (30 records for Prat, 2026-11-06). Its focus
+-- art is Blizzard's to toggle on every focus.
 local menuButton = _G.ChatFrameMenuButton
 if menuButton then
 	A:Claim(menuButton, { "SetPoint", "SetParent", "Hide", "SetAlpha" }, "ChatFrameMenuButton")
 end
-for i = 1, NUM_CHAT_WINDOWS do
-	for _, part in ipairs({ "Left", "Mid", "Right" }) do
-		local name = "ChatFrame" .. i .. "EditBox" .. part
-		local texture = _G[name]
-		if texture then
-			A:Claim(texture, { "Hide", "SetAlpha" }, name)
-		end
+for _, part in ipairs({ "Left", "Mid", "Right" }) do
+	local name = "ChatFrame1EditBox" .. part
+	local texture = _G[name]
+	if texture then
+		A:Claim(texture, { "Hide", "SetAlpha" }, name)
 	end
 end
 
