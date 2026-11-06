@@ -179,6 +179,37 @@ Whether it is faded or fading below full alpha.
 
 Places it again after its options changed. A resolution or UI scale change re-places it by itself.
 
+## UI.Dress
+
+```lua
+local dress = UI.Dress(CharacterMicroButton, { atlas = "UI-HUD-MicroMenu-CharacterInfo-Up" })
+```
+
+Puts one of Blizzard's buttons in our look without taking it over. Its art goes to alpha 0 and our block is drawn
+under it (style `iconButton` unless `style` says otherwise). Blizzard's frame stays on top and keeps its clicks,
+menus and scripts. While the mouse is over Blizzard's button, ours shows its highlight. The frame takes our block's
+size. Dressing the same frame again returns the same object.
+
+| Option | Default | |
+|---|---|---|
+| `icon` | | texture path or file ID |
+| `atlas` | | atlas, instead of `icon` |
+| `iconSize` | 20 | |
+| `style` | `"iconButton"` | |
+| `clickable` | `frame.Button`, else the frame | the frame that gets the mouse |
+
+### d:SetIcon(icon, atlas)
+
+Changes the icon.
+
+### d:Refresh()
+
+Hides art Blizzard added after dressing (a badge, a re-created child) and redraws our block.
+
+### d:Undress() and d:Apply()
+
+`:Undress()` gives the art back its alpha and the frame its size, and hides our block. `:Apply()` dresses it again.
+
 ## Internal
 
 Not for addon code.

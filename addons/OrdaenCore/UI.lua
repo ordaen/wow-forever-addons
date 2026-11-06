@@ -300,6 +300,20 @@ function UI.Panel(spec, opts)
 	return f and f.Panel(spec, opts)
 end
 
+--- Dress one of Blizzard's buttons in our look (style "iconButton" unless given): its art goes to alpha 0 and our
+--- block sits under it; Blizzard's frame stays on top and keeps its clicks, menus and scripts. Returns an object
+--- with `:SetIcon(icon, atlas)`, `:Refresh()` (hides art Blizzard added later), `:Undress()` and `:Apply()`.
+--- Loads the framework.
+---
+---   local dress = UI.Dress(CharacterMicroButton, { atlas = "UI-HUD-MicroMenu-CharacterInfo-Up" })
+---@param frame Frame
+---@param opts OrdaenUIDressOpts|nil icon or atlas, iconSize (20), style, clickable (default frame.Button or frame)
+---@return OrdaenUIDress|nil nil when the framework can't load (the player was told)
+function UI.Dress(frame, opts)
+	local f = framework()
+	return f and f.Dress(frame, opts)
+end
+
 --- The last tooltip as measured and drawn, for dev-mode dumps (false if the framework isn't loaded). Not for
 --- regular addon code: it builds tables.
 function UI._Describe()

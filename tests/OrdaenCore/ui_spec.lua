@@ -24,6 +24,12 @@ end }
 -- wrapping at its width like WoW does.
 local function fakeFontString(log, frame)
 	local fs = { shown = true, width = 0, text = "", frame = frame }
+	function fs:SetAlpha(a)
+		self.alpha = a
+	end
+	function fs:GetAlpha()
+		return self.alpha or 1
+	end
 	local function natural(self)
 		return #self.text * charWidth(self.frame:GetEffectiveScale())
 	end
@@ -120,6 +126,9 @@ local function fakeTexture(layer)
 	function t:SetAlpha(a)
 		self.alpha = a
 	end
+	function t:GetAlpha()
+		return self.alpha or 1
+	end
 	-- An animation group that remembers whether it played (the bar's gain flash).
 	function t:CreateAnimationGroup()
 		local group = { played = 0 }
@@ -139,8 +148,60 @@ end
 local function fakeFrame(name, log, parent)
 	local f = {
 		name = name, shown = true, fonts = {}, textures = {}, scripts = {}, parent = parent or false,
-		events = {}, mouse = nil, clicks = nil, drag = nil,
+		events = {}, mouse = nil, clicks = nil, drag = nil, children = {}, strata = "MEDIUM",
 	}
+	if parent and parent.children then
+		parent.children[#parent.children + 1] = f
+	end
+	-- Parent, children and art (regions: textures, then font strings), as dressing walks them.
+	function f:SetParent(p)
+		if self.parent and self.parent.children then
+			for i, child in ipairs(self.parent.children) do
+				if child == self then
+					table.remove(self.parent.children, i)
+					break
+				end
+			end
+		end
+		self.parent = p or false
+		if p and p.children then
+			p.children[#p.children + 1] = self
+		end
+	end
+	function f:GetParent()
+		return self.parent or nil
+	end
+	function f:GetChildren()
+		return unpack(self.children)
+	end
+	function f:GetRegions()
+		local out = {}
+		for _, t in ipairs(self.textures) do
+			out[#out + 1] = t
+		end
+		for _, fs in ipairs(self.fonts) do
+			out[#out + 1] = fs
+		end
+		return unpack(out)
+	end
+	function f:ClearAllPoints()
+		self.point = nil
+	end
+	function f:SetAllPoints(target)
+		self.point = { "ALL", target }
+	end
+	function f:SetFrameStrata(strata)
+		self.strata = strata
+	end
+	function f:GetFrameStrata()
+		return self.strata
+	end
+	function f:LockHighlight()
+		self.highlightLocked = true
+	end
+	function f:UnlockHighlight()
+		self.highlightLocked = false
+	end
 	--- Frames without a parent have scale 1; UIParent's scale is the UI scale; others inherit their parent's.
 	function f:GetEffectiveScale()
 		if not self.parent then
@@ -695,6 +756,70 @@ describe("OrdaenCore.UI", function()
 			assert.equals(1, panel.frame.alpha)
 			assert.is_true(panel.frame.clicksEnabled)
 			assert.is_false(panel:IsFaded())
+		end)
+	end)
+
+	describe("dressing Blizzard's buttons", function()
+		-- A Blizzard button the way modern clients build it: art on the frame, the clicks on a `.Button` child.
+		local function blizzardButton()
+			local holder = fakeFrame("HolderFrame", log, _G.UIParent)
+			local frame = fakeFrame("BlizzardButton", log, holder)
+			frame:SetSize(32, 40)
+			frame:SetFrameLevel(5)
+			local art = frame:CreateTexture(nil, "ARTWORK")
+			art:SetAlpha(0.8)
+			frame.Button = fakeFrame(nil, log, frame)
+			local glow = frame.Button:CreateTexture(nil, "OVERLAY")
+			return frame, art, glow, holder
+		end
+
+		it("hides Blizzard's art and puts our look under its frame, which keeps the clicks", function()
+			local frame, art, glow, holder = blizzardButton()
+			local dress = UI.Dress(frame, { atlas = "UI-HUD-MicroMenu-Guild-Up" })
+			local look = dress.look.frame
+			assert.same({ 0, 0 }, { art.alpha, glow.alpha })
+			assert.equals(holder, look.parent, "a sibling of Blizzard's frame, so it never covers it")
+			assert.same({ "CENTER", frame, "CENTER" }, look.point)
+			assert.is_true(look:GetFrameLevel() < frame:GetFrameLevel())
+			assert.same({ look:GetWidth(), look:GetHeight() }, frame.size)
+			assert.same({ "ALL", frame }, frame.Button.point, "the clickable child covers the dressed frame")
+			assert.is_false(look.mouse, "ours takes no mouse")
+		end)
+
+		it("highlights our look while Blizzard's button is hovered", function()
+			local frame = blizzardButton()
+			local dress = UI.Dress(frame, { icon = 136243 })
+			frame.Button.scripts.OnEnter(frame.Button)
+			assert.is_true(dress.look.frame.highlightLocked)
+			frame.Button.scripts.OnLeave(frame.Button)
+			assert.is_false(dress.look.frame.highlightLocked)
+		end)
+
+		it("gives the art and size back on :Undress, and dresses the same frame only once", function()
+			local frame, art, glow = blizzardButton()
+			local dress = UI.Dress(frame, { icon = 136243 })
+			dress:Undress()
+			assert.same({ 0.8, 1 }, { art.alpha, glow.alpha })
+			assert.same({ 32, 40 }, frame.size)
+			assert.is_false(dress.look.frame.shown)
+			frame.Button.scripts.OnEnter(frame.Button)
+			assert.is_falsy(dress.look.frame.highlightLocked, "an undressed button doesn't light ours")
+			assert.equals(dress, UI.Dress(frame), "dressed again: the same object")
+			assert.same({ 0, 0 }, { art.alpha, glow.alpha })
+		end)
+
+		it("hides art Blizzard adds later on :Refresh, and changes the icon", function()
+			local frame = blizzardButton()
+			local dress = UI.Dress(frame, { icon = 136243 })
+			local badge = frame:CreateTexture(nil, "OVERLAY")
+			dress:Refresh()
+			assert.equals(0, badge.alpha)
+			dress:SetIcon(nil, "UI-HUD-MicroMenu-Guild-Up")
+			local atlas
+			for _, t in ipairs(dress.look.frame.textures) do
+				atlas = atlas or t.atlas
+			end
+			assert.equals("UI-HUD-MicroMenu-Guild-Up", atlas)
 		end)
 	end)
 

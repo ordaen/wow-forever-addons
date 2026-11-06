@@ -131,4 +131,5 @@ OrdaenCore.UI._Provide({
 	Block = Component.Block,
 	Button = Component.Button,
 	Panel = Component.Panel,
+	Dress = ns.Dress.New,
 })
