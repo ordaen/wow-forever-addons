@@ -92,6 +92,15 @@ function Tabs.CombatLogLast()
 		noteDock("not docked (isDocked " .. tostring(combat and combat.isDocked) .. ")")
 		return
 	end
+	local relayout = false
+	if combat.isStaticDocked then
+		-- Blizzard draws a "static docked" window's tab (General's, Combat Log's) on the dock itself, right after
+		-- General, whatever its place in the dock: Journal stayed second although the dock had it last (2026-11-06).
+		-- Clearing the flag lets its tab follow the dock order. The user's choice, knowing the cost: a field an addon
+		-- writes is tainted, so Blizzard's tab code runs tainted after reading it (watch for "tainted by OrdaenChat").
+		combat.isStaticDocked = false
+		relayout = true
+	end
 	local docked = FCFDock_GetChatFrames(GeneralDockManager)
 	if not docked or docked[#docked] == combat then
 		noteDock("already last")
@@ -107,6 +116,12 @@ function Tabs.CombatLogLast()
 		end
 		moving = false
 		noteDock("moved to the end")
+	end
+	if relayout then
+		moving = true
+		FCFDock_UpdateTabs(GeneralDockManager, true)
+		moving = false
+		noteDock("no longer static docked")
 	end
 end
 

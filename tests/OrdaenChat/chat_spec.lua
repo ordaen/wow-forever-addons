@@ -138,6 +138,7 @@ local function chatWindow(i, title, shown)
 	end
 	w.editBox.chatFrame = w
 	w.isDocked = true
+	w.isStaticDocked = i <= 2 or nil -- General and Combat Log: their tabs sit on the dock itself
 	function w:GetFont()
 		return "Fonts\\FRIZQT__.TTF", 14, ""
 	end
@@ -460,6 +461,12 @@ describe("Ordaen Chat", function()
 			end
 			fire("UPDATE_CHAT_WINDOWS")
 			assert.equals(windows[2], dock[#dock])
+		end)
+
+		it("let Journal's tab follow the dock order (Blizzard draws static docked tabs right after General)", function()
+			login()
+			assert.is_false(windows[2].isStaticDocked)
+			assert.is_true(windows[1].isStaticDocked, "General stays first, static")
 		end)
 
 		it("open whispers in their own tabs", function()
