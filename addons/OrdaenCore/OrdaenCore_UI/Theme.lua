@@ -38,7 +38,7 @@ local Theme = {
 	blocks = {}, ---@type table<string, table> style role -> resolved look (numbers, no tokens)
 	text = {}, ---@type table<string, OrdaenUIResolvedText> text style -> resolved look
 	separators = {}, ---@type table<string, OrdaenUISeparatorLook> rule, divider, caption
-	bar = {}, -- { height, track, fill }
+	bar = {}, -- { height, track, trackBottom, edge, fill }
 	accent = nil, ---@type number[]|nil the theme's accent, for blocks without their own
 }
 ns.Theme = Theme
@@ -197,7 +197,10 @@ THEMES.ordaen = {
 		divider = { space = "md", gap = "lg", width = 1, color = { 0, 0, 0, 0.8, accent = 0.55 } },
 		caption = { space = "xs", gap = "sm", width = 1, color = { 0, 0, 0, 0.5, accent = 0.5 } },
 	},
-	bar = { height = "sm", track = { 0, 0, 0, 0.55 }, fill = { 0, 0, 0, 1, accent = 1 } },
+	bar = {
+		height = "md", track = { 0.08, 0.08, 0.09, 0.9 }, trackBottom = { 0.02, 0.02, 0.02, 0.9 },
+		edge = { 0, 0, 0, 0.95 }, fill = { 0, 0, 0, 1, accent = 1 },
+	},
 }
 
 THEMES.blizzard = {
@@ -245,7 +248,9 @@ THEMES.blizzard = {
 		divider = { space = "sm", gap = 0, width = 1, color = { 0.5, 0.5, 0.5, 0.5 } },
 		caption = { space = "xs", gap = 0, width = 0, color = { 0, 0, 0, 0 } },
 	},
-	bar = { height = "sm", track = { 0, 0, 0, 0.6 }, fill = { 0, 0.69, 0, 1 } },
+	bar = {
+		height = "md", track = { 0, 0, 0, 0.75 }, edge = { 0.34, 0.28, 0.18, 1 }, fill = { 0, 0.69, 0, 1 },
+	},
 }
 
 local GREY_EDGE = { 0.26, 0.26, 0.29, 1 }
@@ -402,7 +407,10 @@ function Theme.Apply(name, textSize)
 	end
 	Theme.name = THEMES[name] and name or Theme.DEFAULT_THEME
 	Theme.blocks, Theme.text, Theme.separators = blocks, text, separators
-	Theme.bar = { height = space(source.bar.height), track = source.bar.track, fill = source.bar.fill }
+	local bar = source.bar
+	Theme.bar = {
+		height = space(bar.height), track = bar.track, trackBottom = bar.trackBottom, edge = bar.edge, fill = bar.fill,
+	}
 	Theme.accent = source.accent
 	Theme.version = Theme.version + 1
 end

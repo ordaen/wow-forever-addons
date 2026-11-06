@@ -8,6 +8,9 @@ local LAYOUT = { edge = true, fit = true, buttonSize = true }
 
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	slash = { "/op", "/ordaenpanel" },
+	dump = function()
+		return ns.View and ns.View.Dump()
+	end,
 	onChange = function(key)
 		if LAYOUT[key] then
 			ns.Changed("layout")
@@ -56,11 +59,41 @@ end
 local microButtons = {}
 ns.MicroButtons = microButtons
 local Micro = A:Feature("micromenu", { setting = "micromenu" })
-Micro:OnEnable(function(db)
+-- Blizzard's micro buttons by name: on Forever they aren't all children of MicroMenu (the first test found none
+-- there), and the API dump doesn't list most of them, so both are looked at; Micro.Order keeps the shown ones.
+local MICRO_NAMES = {
+	"CharacterMicroButton", "ProfessionMicroButton", "PlayerSpellsMicroButton", "SpellbookMicroButton",
+	"TalentMicroButton", "AchievementMicroButton", "QuestLogMicroButton", "HousingMicroButton", "GuildMicroButton",
+	"LFDMicroButton", "CollectionsMicroButton", "EJMicroButton", "StoreMicroButton", "MainMenuMicroButton",
+	"HelpMicroButton",
+}
+
+local function microCandidates()
+	local list, seen = {}, {}
 	if MicroMenu then
-		ns.Micro.Order({ MicroMenu:GetChildren() }, db and db.hiddenMicro or {}, microButtons)
+		for _, child in ipairs({ MicroMenu:GetChildren() }) do
+			list[#list + 1], seen[child] = child, true
+		end
 	end
-	A.Debug:Logf("micromenu: %d buttons", #microButtons)
+	for _, name in ipairs(MICRO_NAMES) do
+		local button = _G[name]
+		if type(button) == "table" and button.GetObjectType and not seen[button] then
+			list[#list + 1], seen[button] = button, true
+		end
+	end
+	return list
+end
+
+Micro:OnEnable(function(db)
+	local candidates = microCandidates()
+	ns.Micro.Order(candidates, db and db.hiddenMicro or {}, microButtons)
+	if A.Debug:IsEnabled() then
+		local names = {}
+		for i, child in ipairs(candidates) do
+			names[i] = (child:GetName() or "?") .. (child:IsShown() and "" or " (hidden)")
+		end
+		A.Debug:Logf("micromenu: %d of %d candidates: %s", #microButtons, #candidates, table.concat(names, ", "))
+	end
 	ns.Changed("micromenu")
 end)
 Micro:OnDisable(function()

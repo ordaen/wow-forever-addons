@@ -1053,12 +1053,14 @@ describe("OrdaenCore.UI", function()
 			assert.equals(inner, layout[2].w)
 			assert.equals(inner, layout[3].w)
 			local lines = solids(s, "ARTWORK")
-			assert.equals(3, #lines) -- two caption lines and the bar's track; the fill is a status bar
-			assert.equals(inner, lines[3].size[1])
+			-- two caption lines, the bar's edge (four sides, corners left out) and its track; the fill is a status bar
+			assert.equals(7, #lines)
+			local track = lines[7].size[1]
+			assert.is_true(track < inner and track > inner - 4, "the track sits inside the one-pixel edge")
 			local value = barsOf(s)[3]
 			assert.same({ 0, 1 }, value.range)
 			assert.equals(0.25, value.value)
-			assert.equals(inner, value.size[1])
+			assert.equals(track, value.size[1], "the parts fill the track")
 		end)
 
 		it("draw a bar's quest and dimmed overlay parts behind its value, colours from theme tokens", function()
@@ -1069,10 +1071,10 @@ describe("OrdaenCore.UI", function()
 			local bars = barsOf(surface())
 			local overlay, quest, value = bars[1], bars[2], bars[3]
 			assert.same({ 3000, 4500, 6500 }, { value.value, quest.value, overlay.value })
-			assert.same({ 0.62, 0.45, 0.85, 1 }, value.barColor) -- color.xp of the ordaen theme
-			assert.same({ 0.62, 0.45, 0.85, 0.75 }, quest.barColor) -- the value's colour, lighter
-			assert.same({ 0.3, 0.5, 0.85, 0.4 }, overlay.barColor) -- color.rested, dimmed
-			assert.equals("Interface\\Buttons\\WHITE8X8", value.barTexture) -- bar.texture "flat"
+			assert.same({ 0.58, 0.12, 0.66, 1 }, value.barColor) -- color.xp of the ordaen theme
+			assert.same({ 0.58, 0.12, 0.66, 0.7 }, quest.barColor) -- the value's colour, lighter
+			assert.same({ 0.1, 0.42, 0.9, 0.45 }, overlay.barColor) -- color.rested, dimmed
+			assert.equals("Interface\\TargetingFrame\\UI-StatusBar", value.barTexture) -- bar.texture "blizzard"
 			assert.same({ "42%" }, shownTexts(value))
 		end)
 

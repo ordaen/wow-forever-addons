@@ -397,8 +397,9 @@ end
 -- (a new level) fills to the end first, then starts again. Pooled per surface like font strings.
 
 local INTERPOLATE = Enum and Enum.StatusBarInterpolation and Enum.StatusBarInterpolation.ExponentialEaseOut
-local QUEST_ALPHA, OVERLAY_ALPHA = 0.75, 0.4 -- how strong the parts behind the value are drawn
-local WRAP_TIME = 0.35 -- seconds the bar takes to run to the end on a wrap before starting again
+local QUEST_ALPHA, OVERLAY_ALPHA = 0.7, 0.45 -- how strong the parts behind the value are drawn
+local WRAP_TIME = 0.5 -- seconds the bar takes to run to the end on a wrap before starting again
+local FLASH_ALPHA, FLASH_FADES = 0.35, 6 -- the gain flash: how bright it starts, how many theme fades it lasts
 
 local function statusBar(parent, level)
 	local bar = CreateFrame("StatusBar", nil, parent)
@@ -429,8 +430,9 @@ local function newBar(surface)
 	flash:SetAlpha(0)
 	local fade = flash:CreateAnimationGroup()
 	local alpha = fade:CreateAnimation("Alpha") --[[@as Alpha]]
-	alpha:SetFromAlpha(0.6)
+	alpha:SetFromAlpha(FLASH_ALPHA)
 	alpha:SetToAlpha(0)
+	alpha:SetSmoothing("OUT")
 	b.flash, b.fade, b.fadeAlpha = flash, fade, alpha
 	b.label = b.value:CreateFontString(nil, "OVERLAY")
 	b.label:SetWordWrap(false)
@@ -461,7 +463,18 @@ end
 
 local function drawBar(surface, p, el, x, y, w, h, accent)
 	local look = Theme.bar
-	solid(surface, p, "ARTWORK", 0, x, y, w, h, look.track, look.track, accent)
+	-- The theme's edge: one pixel around the bar, its corners left out (a one-pixel radius, Blizzard's bars without
+	-- their curves); the track and the parts sit inside it.
+	local edge = look.edge
+	if edge then
+		local px = pixel()
+		solid(surface, p, "ARTWORK", 1, x + px, y, w - 2 * px, px, edge, edge, accent)
+		solid(surface, p, "ARTWORK", 1, x + px, y + h - px, w - 2 * px, px, edge, edge, accent)
+		solid(surface, p, "ARTWORK", 1, x, y + px, px, h - 2 * px, edge, edge, accent)
+		solid(surface, p, "ARTWORK", 1, x + w - px, y + px, px, h - 2 * px, edge, edge, accent)
+		x, y, w, h = x + px, y + px, w - 2 * px, h - 2 * px
+	end
+	solid(surface, p, "ARTWORK", 0, x, y, w, h, look.track, look.trackBottom or look.track, accent)
 	p.usedBars = p.usedBars + 1
 	local b = p.bars[p.usedBars]
 	if not b then
@@ -505,7 +518,7 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 		b.flash:SetPoint("TOPLEFT", b.value, "TOPLEFT", from, 0)
 		b.flash:SetSize(max((value - b.last) / (hi - lo) * w, 0.01), h)
 		b.fade:Stop()
-		b.fadeAlpha:SetDuration(Theme.Fade() * 4)
+		b.fadeAlpha:SetDuration(Theme.Fade() * FLASH_FADES)
 		b.fade:Play()
 	end
 	b.element, b.lo, b.hi, b.last = el, lo, hi, value

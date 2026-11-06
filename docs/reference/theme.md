@@ -47,7 +47,10 @@ Text without a surface behind it (`normal`, `small`) keeps a shadow in every the
 | `separator = "rule"` | 1 px accent hairline | 1 px grey | faint 1 px |
 | `separator = "divider"` | two hairlines with a gap | one line | one line |
 | `separator = "caption"` | caption text between two lines | gold caption, no lines | caption between faint lines |
-| `bar` | accent fill on a dark track, flat texture | Blizzard green, Blizzard's bar texture | thin accent fill, flat |
+| `bar` | accent fill on a dark gradient track, Blizzard's bar texture, a black 1 px edge | Blizzard green, Blizzard's bar texture, a bronze 1 px edge | thin accent fill, flat |
 
 Bar colours by meaning are theme tokens (`themes.jsonc`): `color.xp`, `color.quest`, `color.rested`, and
-`color.reputation.hated` .. `color.reputation.exalted`; the texture is `bar.texture`.
+`color.reputation.hated` .. `color.reputation.exalted` (Blizzard's own colours, slightly tuned in `ordaen`); the
+texture is `bar.texture`. A theme's bar may have an `edge` colour: one physical pixel around the bar with its corners
+left out, a small radius instead of Blizzard's curved ends. Changes glide (exponential ease-out), a gain flashes
+softly over the new part, a new level runs the bar to the end and starts again.

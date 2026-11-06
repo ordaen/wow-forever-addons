@@ -209,19 +209,38 @@ end
 -- The buttons of each group ----------------------------------------------------------------------------------------
 
 local bagButtons = {}
+local BAG_NAMES = {
+	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
+	"CharacterReagentBag0Slot",
+}
 
 -- Blizzard's bag bar: its buttons (backpack, bag slots, reagent bag) in its order; not the expand toggle.
 local function readBags()
 	for i = #bagButtons, 1, -1 do
 		bagButtons[i] = nil
 	end
-	if not BagsBar then
-		return
-	end
-	for _, child in ipairs({ BagsBar:GetChildren() }) do
-		if child:IsObjectType("Button") and child:IsShown() and child ~= BagBarExpandToggle then
-			bagButtons[#bagButtons + 1] = child
+	local seen = {}
+	if BagsBar then
+		for _, child in ipairs({ BagsBar:GetChildren() }) do
+			if child:IsObjectType("Button") and child ~= BagBarExpandToggle then
+				bagButtons[#bagButtons + 1], seen[child] = child, true
+			end
 		end
+	end
+	for _, name in ipairs(BAG_NAMES) do -- not all in the API dump: looked up by name, logged below
+		local button = _G[name]
+		if type(button) == "table" and button.GetObjectType and not seen[button] then
+			bagButtons[#bagButtons + 1], seen[button] = button, true
+		end
+	end
+	local Debug = ns.Addon.Debug
+	if Debug:IsEnabled() then
+		local names = {}
+		for i, b in ipairs(bagButtons) do
+			names[i] = (b:GetName() or "?") .. (b:IsShown() and "" or " (hidden)")
+		end
+		Debug:Logf("bags: %d buttons (BagsBar %s): %s", #bagButtons, BagsBar and "found" or "missing",
+			table.concat(names, ", "))
 	end
 	table.sort(bagButtons, ns.Micro.Before)
 	for i = 1, math.floor(#bagButtons / 2) do -- Blizzard lays the bag bar out right to left: backpack first
@@ -335,8 +354,12 @@ local function build()
 		end
 	end
 	middle = middle or { embed = barHolder }
+	xp.height = math.max(10, math.floor(size * 0.5))
 	if across then
-		spec = { columns = { "auto", "1fr", "auto" }, gap = "lg", padding = { "xs", "sm", "xs", "sm" }, left, middle, right }
+		spec = {
+			columns = { "auto", "1fr", "auto" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size + 8,
+			left, middle, right,
+		}
 	else
 		spec = { columns = { "auto" }, gap = "md", padding = { "sm", "xs", "sm", "xs" }, left, middle, right }
 	end
@@ -358,8 +381,52 @@ end
 
 -- Updates (from ns.Changed) ---------------------------------------------------------------------------------------
 
+-- Blizzard's experience and reputation bars (StatusTrackingBarManager's containers): parked on a hidden frame
+-- while ours shows, given back when it goes. Not in the API dump on Forever, so looked up by name and logged.
+local STATUS_BARS = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
+local parking ---@type Frame|nil
+local parked = {} ---@type table<table, table|false> bar -> its parent before (false: not parked)
+
+local function park(bar)
+	if parked[bar] and bar:GetParent() ~= parking then
+		bar:SetParent(parking)
+	end
+end
+
+local function parkBlizzardBars(on)
+	for _, name in ipairs(STATUS_BARS) do
+		local bar = _G[name]
+		if type(bar) == "table" and bar.GetObjectType then
+			if on and not parked[bar] then
+				if not parking then
+					parking = CreateFrame("Frame")
+					parking:Hide()
+				end
+				parked[bar] = bar:GetParent()
+				if parked[bar] == nil then
+					parked[bar] = UIParent
+				end
+				bar:SetParent(parking)
+				if not hooked[bar] then
+					hooked[bar] = true
+					hooksecurefunc(bar, "SetParent", park)
+					ns.Addon:Claim(bar, { "SetParent" }, name)
+				end
+				ns.Addon.Debug:Logf("experience: Blizzard's %s hidden", name)
+			elseif not on and parked[bar] then
+				local home = parked[bar]
+				parked[bar] = false
+				bar:SetParent(home)
+			end
+		elseif on then
+			ns.Addon.Debug:Logf("experience: no %s on this client", name)
+		end
+	end
+end
+
 local function updateExperience()
 	local s = db()
+	parkBlizzardBars(s.experience)
 	local model = ns.Segments.experience.model
 	local shown = s.experience and model.kind ~= nil
 	middle.hidden = not shown
@@ -427,6 +494,29 @@ local function updateVisibility()
 	if panel.targetAlpha ~= target then
 		panel:FadeTo(target)
 	end
+end
+
+--- What the dev window's "Send state" records: the buttons we hold and where, Blizzard's bars, the panel.
+function View.Dump()
+	local Debug = ns.Addon.Debug
+	local held = {}
+	for button, slot in pairs(slotOf) do
+		held[#held + 1] = { name = button:GetName(), shown = button:IsShown(), w = button:GetWidth(),
+			h = button:GetHeight(), slotShown = slot.frame:IsShown() }
+	end
+	local bars = {}
+	for _, name in ipairs(STATUS_BARS) do
+		local bar = _G[name]
+		bars[name] = type(bar) == "table" and bar.GetObjectType and Debug:Snapshot(bar) or "missing"
+	end
+	return {
+		size = size,
+		held = held,
+		micro = #ns.MicroButtons,
+		bags = #bagButtons,
+		blizzardBars = bars,
+		panel = panel and Debug:Snapshot(panel.frame) or "not built",
+	}
 end
 
 --- A segment changed (ns.Changed): update its fields and redraw. "layout": the edge, fit or button size changed;
