@@ -795,11 +795,16 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 					heard[#heard + 1] = key
 				end,
 			}, { SETTINGS_SCHEMA = schema() })
+			-- two themes of its own: only Ordaen is built now (2026-11-07), but the store keeps switching themes
+			Store.SetTokens({
+				assets = { frame = { rim = {}, thin = {} } },
+				tokens = { ["frame.border"] = "frame" },
+				themes = { ordaen = { ["frame.border"] = "rim" }, minimal = { ["frame.border"] = "thin" } },
+			})
 			login()
-			local ordaen, minimal = Store.TokenIn("ordaen", "frame.border"), Store.TokenIn("minimal", "frame.border")
-			assert.are_not.equal(ordaen, minimal, "the themes.jsonc this spec relies on has different frames")
+			assert.equals("rim", A.db.style)
 			Store.SetTheme("minimal")
-			assert.equals(minimal, A.db.style)
+			assert.equals("thin", A.db.style)
 			assert.same({ "style" }, heard)
 			assert.same({}, saved(_G.TestAddonDB))
 		end)

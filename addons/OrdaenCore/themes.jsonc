@@ -71,39 +71,8 @@
       "icon.crop": 0.08,
       "motion.fade": 0.15, "tooltip.delay": 0,
       "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON"
-    },
-    "blizzard": {
-      "frame.border": "gold",
-      "font.body": "body", "font.header": "header", "font.numbers": "numbers", "font.world": "ui",
-      "color.accent": [1, 0.82, 0],
-      "color.positive": [0.1, 1, 0.1], "color.negative": [1, 0.1, 0.1], "color.warning": [1, 0.5, 0.1],
-      "color.disabled": [0.5, 0.5, 0.5], "color.icon": [1, 0.82, 0], "color.muted": [0.6, 0.6, 0.6],
-      "bar.texture": "blizzard",
-      "color.xp": [0.58, 0, 0.55], "color.quest": [0.78, 0.42, 0.76], "color.rested": [0, 0.39, 0.88],
-      "color.reputation.hated": [0.8, 0.3, 0.22], "color.reputation.hostile": [0.8, 0.3, 0.22],
-      "color.reputation.unfriendly": [0.75, 0.27, 0], "color.reputation.neutral": [0.9, 0.7, 0],
-      "color.reputation.friendly": [0, 0.6, 0.1], "color.reputation.honored": [0, 0.6, 0.1],
-      "color.reputation.revered": [0, 0.6, 0.1], "color.reputation.exalted": [0, 0.6, 0.1],
-      "icon.crop": 0,
-      "motion.fade": 0.2, "tooltip.delay": 0,
-      "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE",
-      "sound.click": "IG_MAINMENU_OPTION_CHECKBOX_ON"
-    },
-    "minimal": {
-      "frame.border": "thin",
-      "font.body": "body", "font.header": "body", "font.numbers": "numbers", "font.world": "ui",
-      "color.accent": [0.56, 0.62, 0.72],
-      "color.positive": [0.5, 0.8, 0.55], "color.negative": [0.9, 0.42, 0.4], "color.warning": [0.9, 0.72, 0.35],
-      "color.disabled": [0.45, 0.45, 0.47], "color.icon": [0.85, 0.87, 0.9], "color.muted": [0.55, 0.57, 0.6],
-      "bar.texture": "flat",
-      "color.xp": [0.62, 0.66, 0.78], "color.quest": [0.8, 0.72, 0.5], "color.rested": [0.4, 0.5, 0.7],
-      "color.reputation.hated": [0.72, 0.4, 0.36], "color.reputation.hostile": [0.72, 0.4, 0.36],
-      "color.reputation.unfriendly": [0.72, 0.5, 0.36], "color.reputation.neutral": [0.78, 0.7, 0.45],
-      "color.reputation.friendly": [0.45, 0.66, 0.5], "color.reputation.honored": [0.45, 0.66, 0.5],
-      "color.reputation.revered": [0.45, 0.66, 0.5], "color.reputation.exalted": [0.45, 0.66, 0.5],
-      "icon.crop": 0.08,
-      "motion.fade": 0, "tooltip.delay": 0,
-      "sound.open": "", "sound.close": "", "sound.click": ""
     }
+    // Planned, not built (user's decision, 2026-11-07): "blizzard" (mostly Blizzard's default look) and "minimal"
+    // (little to no textures). Only Ordaen is worked on now; add them back here, with every token, when they are.
   }
 }

@@ -498,6 +498,8 @@ local function fillRow(row, buttons, texts)
 	end
 	for i, button in ipairs(buttons) do
 		local cell = cellFor(button)
+		-- the row's first cell: no line on its left (nothing to separate it from there)
+		cell.edges.left = i > 1 and nil or false
 		row[i] = cell
 		take(button, cell, texts)
 	end

@@ -8,14 +8,12 @@
       "settings": {
         "ui.theme": {
           "type": "choice",
+          // Only Ordaen for now (Blizzard and Minimal are planned, not built): kept as a setting, not on the page.
           "choices": [
-            { "id": "ordaen", "label": "THEME_ORDAEN" },
-            { "id": "blizzard", "label": "THEME_BLIZZARD" },
-            { "id": "minimal", "label": "THEME_MINIMAL" }
+            { "id": "ordaen", "label": "THEME_ORDAEN" }
           ],
           "default": "ordaen",
-          "label": "THEME",
-          "tooltip": "THEME_TOOLTIP"
+          "page": false
         },
         "ui.textSize": {
           "type": "number", "min": 10, "max": 16, "step": 1, "format": "px", "default": 12,

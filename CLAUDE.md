@@ -216,7 +216,10 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   from theme data (`Theme.lua`: per style role the surface, colours and layout defaults; per text style font, size
   tier, colour, shadow, caps). No second renderer, no fallback branches. `color` on an element is for meaning (a
   pending invite), not decoration; `accent = { r, g, b }` on a block tints it for meaning (quality, PvP).
-- **Three themes, always** (user's rule for every theme set): our own `ordaen` look is the default (flat surfaces
+- **Themes** (user's decision, 2026-11-07): three are planned: `ordaen` (Blizzard's classic look with a nicer style,
+  the default), `blizzard` (mostly Blizzard's default) and `minimal` (little to no textures). **Only Ordaen is built
+  now**; the other two are unimplemented: not in themes.jsonc, not offered in settings, no work spent on their looks.
+  The earlier rule, kept for when they come back: our own `ordaen` look is the default (flat surfaces
   drawn without art, tinted by an accent; approach credited to PrettyTooltip, values our own), `blizzard` (Blizzard's
   art and shadowed text) is an option, and `minimal` (flat, hairlines, no effects) is the third. Every theme defines
   every role. A theme addon later adds a set of three, never one.
