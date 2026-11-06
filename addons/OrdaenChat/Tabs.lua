@@ -60,14 +60,42 @@ end
 
 local moving = false
 
+-- The docked windows' IDs in dock order (dev mode: the state dump and the log).
+local function dockIds()
+	local ids = {}
+	for i, frame in ipairs(FCFDock_GetChatFrames(GeneralDockManager) or {}) do
+		ids[i] = frame:GetID()
+	end
+	return ids
+end
+Tabs.DockIds = dockIds
+
+local lastSeen
+-- Dev mode: log what CombatLogLast found, once per different state (Journal stayed second, 2026-11-06).
+local function noteDock(what)
+	if ns.Debug:IsEnabled() then
+		local seen = what .. ", dock " .. table.concat(dockIds(), ",")
+		if seen ~= lastSeen then
+			lastSeen = seen
+			ns.Debug:Logf("tabs: Journal %s", seen)
+		end
+	end
+end
+
 --- Keep Journal (Blizzard's Combat Log window) the last docked tab (new tabs and whisper tabs are added after it).
 function Tabs.CombatLogLast()
 	local combat = ChatFrame2
-	if moving or not (combat and combat.isDocked) then
+	if moving then
+		return
+	end
+	if not (combat and combat.isDocked) then
+		noteDock("not docked (isDocked " .. tostring(combat and combat.isDocked) .. ")")
 		return
 	end
 	local docked = FCFDock_GetChatFrames(GeneralDockManager)
-	if docked and docked[#docked] ~= combat then
+	if not docked or docked[#docked] == combat then
+		noteDock("already last")
+	else
 		moving = true
 		-- Docking a window that's already docked doesn't move it (Combat Log stayed second, 2026-11-06): take it
 		-- out of the dock, then dock it at the end.
@@ -78,7 +106,7 @@ function Tabs.CombatLogLast()
 			SetChatWindowDocked(frame:GetID(), i)
 		end
 		moving = false
-		debug():Log("tabs: Journal moved to the end of the dock")
+		noteDock("moved to the end")
 	end
 end
 

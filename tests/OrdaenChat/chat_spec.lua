@@ -448,6 +448,20 @@ describe("Ordaen Chat", function()
 			assert.equals(3, _G.OrdaenChatCharDB.tabLayout)
 		end)
 
+		it("keep Journal last when Blizzard docks the windows again from their saved places", function()
+			login()
+			local guild, channels = windowTitled("Guild"), windowTitled("Channels")
+			-- Blizzard reads the chat settings and docks each window at its old place, calling none of our hooks.
+			for k = #dock, 1, -1 do
+				table.remove(dock, k)
+			end
+			for _, w in ipairs({ windows[1], windows[2], guild, channels }) do
+				table.insert(dock, w)
+			end
+			fire("UPDATE_CHAT_WINDOWS")
+			assert.equals(windows[2], dock[#dock])
+		end)
+
 		it("open whispers in their own tabs", function()
 			login()
 			assert.equals("popout", cvars.whisperMode)

@@ -18,8 +18,8 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 	slash = { "/ochat", "/ordaenchat" },
 	conflicts = { "Prat-3.0" },
 	dump = function()
-		return { tabs = ns.Tabs.Describe(), whispers = ns.Whispers.Describe(), input = ns.Input.Describe(),
-			look = ns.Look.Describe(), position = ns.Position.Describe() }
+		return { tabs = ns.Tabs.Describe(), dock = ns.Tabs.DockIds(), whispers = ns.Whispers.Describe(),
+			input = ns.Input.Describe(), look = ns.Look.Describe(), position = ns.Position.Describe() }
 	end,
 	settings = {
 		title = "SETTINGS_TITLE",
@@ -45,6 +45,10 @@ local layout = A:Feature("layout")
 layout:OnEnable(function()
 	ns.Tabs.ApplyOnce(A.charDb)
 	ns.Route.Enable()
+end)
+-- Blizzard docks the windows again from their saved places when it reads the chat settings: Journal last again.
+layout:On("UPDATE_CHAT_WINDOWS", function()
+	ns.Tabs.CombatLogLast()
 end)
 
 local yielded = false -- another addon owns the chat's look (a conflict): input group and look stay off
