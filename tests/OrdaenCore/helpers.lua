@@ -64,6 +64,25 @@ function M.stubObject(name)
 		GetEffectiveScale = function() -- a real frame always has one; the UI renderer sizes pixels with it
 			return 1
 		end,
+		-- A real frame always has a size (0 until set); layout code does arithmetic with it.
+		SetWidth = function(self, w)
+			self.width = w
+		end,
+		SetHeight = function(self, h)
+			self.height = h
+		end,
+		SetSize = function(self, w, h)
+			self.width, self.height = w, h
+		end,
+		GetWidth = function(self)
+			return self.width or 0
+		end,
+		GetHeight = function(self)
+			return self.height or 0
+		end,
+		GetSize = function(self)
+			return self.width or 0, self.height or 0
+		end,
 		GetPoint = function()
 			return "CENTER", nil, "CENTER", 10, 20
 		end,

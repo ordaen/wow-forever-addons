@@ -548,6 +548,7 @@ function Core.NewAddon(addonName, addonNs, spec)
 		_conflictSeen = {},
 		_onConflict = {},
 		_watching = {},
+		_asked = {},
 	}, Addon)
 	byName[addonName] = addon
 	Core._addons[#Core._addons + 1] = addon

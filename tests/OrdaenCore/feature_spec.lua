@@ -433,9 +433,70 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			return f
 		end
 
+		local dialogs
+		before_each(function()
+			-- the shared confirm dialog (OrdaenCore.UI.Confirm), captured instead of drawn
+			dialogs = {}
+			Core.UI = {
+				Confirm = function(spec)
+					function spec.Show(self)
+						dialogs[#dialogs + 1] = self
+					end
+					return spec
+				end,
+			}
+		end)
+
 		after_each(function()
 			rawset(_G, "TestFrame", nil)
 			rawset(_G, "GetTestShape", nil)
+		end)
+
+		it("ask the player once which addon to keep, and turn the other off", function()
+			rawset(_G, "TestFrame", frame())
+			local disabled
+			_G.C_AddOns.DisableAddOn = function(name)
+				disabled = name
+			end
+			helpers.metadata.PrettyTooltip = { Title = "|cff00ff00PrettyTooltip|r" }
+			local A = start()
+			login()
+			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+			A:Claim(_G.TestFrame, { "SetAlpha" }, "GameTooltip")
+			_G.TestFrame:SetAlpha(0)
+			assert.equals(0, #dialogs, "a second later")
+			advance(1)
+			assert.equals(1, #dialogs)
+			local d = dialogs[1]
+			assert.equals(
+				"Test Addon and PrettyTooltip both change the game's tooltips. Keep one of them: the other is turned off "
+					.. "and the interface reloads.",
+				d.text
+			)
+			assert.same(
+				{ "Keep Test Addon", "Keep PrettyTooltip", "Decide later" },
+				{ d.buttons[1].text, d.buttons[2].text, d.buttons[3].text }
+			)
+			advance(2)
+			_G.TestFrame:SetAlpha(0) -- the same addon again: no second dialog this session
+			assert.equals(1, #dialogs)
+			d.buttons[1].onClick()
+			assert.equals("PrettyTooltip", disabled)
+			assert.is_true(helpers.reloaded)
+			helpers.metadata.PrettyTooltip = nil
+		end)
+
+		it("don't ask when an OnConflict function handled it", function()
+			rawset(_G, "TestFrame", frame())
+			local A = start(nil, { CLAIMS = { globals = {}, methods = { { "TestFrame", "SetAlpha" } } } })
+			A:OnConflict(function(other)
+				A:Conflict(other, "left the tooltips alone", true)
+			end)
+			login()
+			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+			_G.TestFrame:SetAlpha(0)
+			advance(2)
+			assert.equals(0, #dialogs)
 		end)
 
 		it("report a claimed global another addon defined, before our OnLogin redefines it", function()

@@ -17,6 +17,7 @@ local Core = ns.Core
 ---@field _conflictSeen table<string, boolean> other .. "\n" .. what
 ---@field _onConflict function[]
 ---@field _watching table<string, boolean> claimed methods hooked ("Minimap:SetMaskTexture")
+---@field _asked table<string, boolean> other addons the player was asked about this session
 local Addon = ns.AddonClass
 
 local MAX = 20
@@ -75,9 +76,82 @@ local function records(addon, other)
 	return n
 end
 
+-- The dialog ---------------------------------------------------------------------------------------------------------
+
+-- What a claim touches, in the player's words: the first pattern that matches `what` names it (locale key).
+local AREAS = {
+	{ "Tooltip", "CONFLICT_AREA_TOOLTIPS" },
+	{ "Minimap", "CONFLICT_AREA_MINIMAP" },
+}
+
+-- An addon's title from its TOC, without colour codes (the dialog styles its own text).
+local function title(name)
+	local text = C_AddOns.GetAddOnMetadata(name, "Title") or name
+	return (text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
+end
+
+-- Turn `name` off and reload (after combat). Without the API, tell the player how.
+local function turnOff(addon, name)
+	local disable = C_AddOns.DisableAddOn
+	if type(disable) ~= "function" then
+		addon:Print(ns.L.CONFLICT_TURN_OFF_MANUALLY:format(title(name)))
+		return
+	end
+	addon.Debug:Logf("conflict: turning off %s and reloading", name)
+	disable(name)
+	addon:AfterCombat(ReloadUI)
+end
+
+local ASK_DELAY = 1 -- seconds
+
+-- Ask the player which of the two to keep: Ordaen Core's one dialog for every addon (OrdaenCore.UI.Confirm), once
+-- per other addon and session. "Decide later" (or Escape) keeps both until the next login, where it asks again.
+local function ask(addon, other, what)
+	local UI = Core.UI
+	if addon._asked[other] or not (UI and UI.Confirm) then
+		return
+	end
+	addon._asked[other] = true
+	local L = ns.L
+	local area = L.CONFLICT_AREA_OTHER
+	for _, rule in ipairs(AREAS) do
+		if what:find(rule[1]) then
+			area = L[rule[2]]
+			break
+		end
+	end
+	local ours, theirs = title(addon.name), title(other)
+	local function later()
+		addon.Debug:Logf("conflict: decide later (%s)", other)
+	end
+	local dialog = UI.Confirm({
+		text = L.CONFLICT_TEXT:format(ours, theirs, area),
+		buttons = {
+			{
+				text = L.CONFLICT_KEEP:format(ours),
+				onClick = function()
+					turnOff(addon, other)
+				end,
+			},
+			{
+				text = L.CONFLICT_KEEP:format(theirs),
+				onClick = function()
+					turnOff(addon, addon.name)
+				end,
+			},
+			{ text = L.CONFLICT_LATER, onClick = later },
+		},
+		onCancel = later,
+	})
+	-- A second later: not from inside the other addon's hook, and after login has settled.
+	C_Timer.After(ASK_DELAY, function()
+		dialog:Show()
+	end)
+end
+
 -- A conflict found at login or at runtime, once per (other, what): the addon's OnConflict functions decide what to
 -- do and record it (A:Conflict(other, "...", true)). If none recorded anything new about `other`, it is recorded as
--- not handled (the shared dialog will ask the player; until then, dev log only).
+-- not handled and the player is asked which addon to keep.
 local function found(addon, other, what)
 	local key = "found\n" .. other .. "\n" .. what
 	if addon._conflictSeen[key] then
@@ -90,6 +164,7 @@ local function found(addon, other, what)
 	end
 	if records(addon, other) == before then
 		addon:Conflict(other, what, false)
+		ask(addon, other, what)
 	end
 end
 

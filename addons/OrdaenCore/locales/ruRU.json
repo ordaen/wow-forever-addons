@@ -23,5 +23,12 @@
   "FONT_UI": "Интерфейс",
   "FONT_NUMBERS": "Цифры",
   "BAR_FLAT": "Плоская",
-  "BAR_BLIZZARD": "Blizzard"
+  "BAR_BLIZZARD": "Blizzard",
+  "CONFLICT_TEXT": "%s и %s меняют %s. Оставьте одну из модификаций: другая будет выключена, интерфейс перезагрузится.",
+  "CONFLICT_KEEP": "Оставить %s",
+  "CONFLICT_LATER": "Решить позже",
+  "CONFLICT_AREA_TOOLTIPS": "подсказки игры",
+  "CONFLICT_AREA_MINIMAP": "миникарту",
+  "CONFLICT_AREA_OTHER": "одну и ту же часть интерфейса",
+  "CONFLICT_TURN_OFF_MANUALLY": "Выключите %s в списке модификаций и введите /reload."
 }
