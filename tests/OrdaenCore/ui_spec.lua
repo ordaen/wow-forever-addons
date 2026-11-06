@@ -534,6 +534,22 @@ describe("OrdaenCore.UI", function()
 			assert.same({ "Elwynn Forest" }, shownTexts(s)) -- titles keep their case
 		end)
 
+		it("show a block's hotkey last, as a key cap, the same way in every tooltip", function()
+			local tip = { { text = "Character Info", style = "title" }, { text = "Left-click: open", style = "hint" } }
+			UI.Tooltip(tip)
+			tip.hotkey = "C"
+			tip:Show(owner)
+			local s = surface()
+			assert.same({ "Character Info", "Left-click: open", "C" }, shownTexts(s), "the key last")
+			tip.hotkey = nil -- unbound
+			tip:Refresh()
+			assert.same({ "Character Info", "Left-click: open" }, shownTexts(s))
+			tip.hotkey = "Shift-M"
+			tip:Refresh()
+			assert.same({ "Character Info", "Left-click: open", "Shift-M" }, shownTexts(s))
+			assert.equals(3, #tip, "one row added, once")
+		end)
+
 		it("redraw after their fields changed, hiding what is no longer drawn", function()
 			local invites = { text = "You have invitations", hidden = true }
 			local tip = UI.Tooltip({ invites, { text = "Click: calendar", style = "hint" } })

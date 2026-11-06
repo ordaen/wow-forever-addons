@@ -853,8 +853,31 @@ end
 
 --- Lay out `root` and draw it onto `surface` (a frame; BackdropTemplate for themes with art).
 --- `width` nil = shrink to fit. Sizes the surface; returns the root's layout result.
+-- A top-level block's `hotkey`, drawn the same way in every tooltip: its last row, a key cap. The row is added to the
+-- block once (when it first has a hotkey) and only its fields change after; it spans the block's columns.
+local FOOTER = "_hotkeyRow"
+local function hotkeyRow(root)
+	local key = root.hotkey
+	local row = rawget(root, FOOTER)
+	if not row then
+		if key == nil or key == "" then
+			return
+		end
+		row = { padding = { "sm", 0, 0, 0 }, { style = "keycap", align = "left", { text = "", style = "keycap" } } }
+		root[#root + 1] = row
+		rawset(root, FOOTER, row)
+	end
+	local shown = key ~= nil and key ~= ""
+	row.hidden = not shown
+	row.colSpan = root.columns and #root.columns or 1
+	if shown then
+		row[1][1].text = key
+	end
+end
+
 function Render.Draw(surface, root, width)
 	Theme.Ensure()
+	hotkeyRow(root)
 	measuring, measuringScale = surface, surface:GetEffectiveScale()
 	local ctx = Render.context
 	ctx.shift = IsShiftKeyDown() and true or false

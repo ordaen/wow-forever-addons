@@ -13,6 +13,7 @@ How themes work: [Themes](/guide/themes).
 | `button` | clickable text without a surface | |
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only |
+| `keycap` | a tooltip's hotkey (`hotkey` on the block) | small dark key with accent edges |
 | `panel` | a box holding other things (the minimap drawer) | tooltip surface |
 | `input` | a text input over other text (the chat input) | opaque tooltip surface |
 | `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge |
@@ -33,6 +34,7 @@ Tooltips are 12 to 25 ems wide.
 | `label` | `small` | the left side of a label/value row |
 | `value` | `body` | the right side |
 | `hint` | `small` | what a click does |
+| `keycap` | `small` | the key in a tooltip's key cap |
 | `caption` | `tiny` | a section name; capitals |
 | `normal` | `body` | names on the world (the minimap's zone), with a shadow |
 | `small` | `small` | small readouts on the world (coordinates, clock), with a shadow |

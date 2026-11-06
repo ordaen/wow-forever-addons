@@ -104,6 +104,7 @@ local unavailable = false
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUITooltipOpts
+---@field hotkey string|nil on a top-level block: the key binding ("C", "Shift-M"), drawn as a key cap at the bottom
 ---@field side string|nil "right" (default), "left", "below", "above", or "default" (Edit Mode's HUD Tooltip spot)
 ---@field x number|nil
 ---@field y number|nil
