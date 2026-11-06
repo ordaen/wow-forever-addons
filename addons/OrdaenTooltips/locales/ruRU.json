@@ -1,3 +1,5 @@
 {
-  "SETTINGS_TITLE": "Ordaen Tooltips"
+  "SETTINGS_TITLE": "Ordaen Tooltips",
+  "BESIDE_BUTTONS": "Подсказки у кнопок",
+  "BESIDE_BUTTONS_TOOLTIP": "Подсказки микроменю и панелей команд появляются у кнопки. Выключено: там, где их показывает Blizzard."
 }

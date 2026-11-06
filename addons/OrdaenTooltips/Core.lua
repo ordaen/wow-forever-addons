@@ -3,6 +3,13 @@
 local addonName, ns = ...
 
 local A = OrdaenCore.NewAddon(addonName, ns, {
+	db = "OrdaenTooltipsDB",
+	defaults = { anchorToButtons = true },
+	slash = { "/otips", "/ordaentooltips" },
+	settings = {
+		title = "SETTINGS_TITLE",
+		{ key = "anchorToButtons", label = "BESIDE_BUTTONS", tooltip = "BESIDE_BUTTONS_TOOLTIP" },
+	},
 	dump = function()
 		return { takeover = ns.Takeover.Describe() }
 	end,

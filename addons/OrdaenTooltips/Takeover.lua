@@ -12,7 +12,7 @@ local _, ns = ...
 local Takeover = {}
 ns.Takeover = Takeover
 
-local Reader, View = ns.Reader, ns.View
+local Reader, View, Owner = ns.Reader, ns.View, ns.Owner
 
 -- The comparison tooltips ("currently equipped") anchor to GameTooltip; their views anchor to its view.
 local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }
@@ -74,8 +74,11 @@ local function draw(native)
 		restore(native, state)
 		return
 	end
-	state.view:Fill(state.model)
-	state.view:Follow(native, viewOf)
+	-- The button hovered: its key binding goes in the hotkey; with "beside buttons" on, the view goes beside it.
+	local owner = Owner.Of(native)
+	state.view:Fill(state.model, owner)
+	local beside = owner and ns.Addon.db.anchorToButtons and Owner.IsButton(owner) and owner or nil
+	state.view:Follow(native, viewOf, beside)
 	state.view:SetAlpha(state.alpha or 1)
 	showView(state)
 	setNativeAlpha(native, state, 0)
@@ -181,6 +184,7 @@ function Takeover.Describe()
 			title = header.titleText.text, subtitle = not header.subtitleText.hidden and header.subtitleText.text or false,
 			icon = not header[1].hidden and header.iconImage.image or false, dividerAt = divider,
 			price = model.priceRow and model.rows[model.priceRow].right or false,
+			hotkey = view.component.block.hotkey or false,
 		}
 	end
 	return out

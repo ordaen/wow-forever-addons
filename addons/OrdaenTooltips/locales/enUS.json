@@ -1,3 +1,5 @@
 {
-  "SETTINGS_TITLE": "Ordaen Tooltips"
+  "SETTINGS_TITLE": "Ordaen Tooltips",
+  "BESIDE_BUTTONS": "Tooltips beside their buttons",
+  "BESIDE_BUTTONS_TOOLTIP": "Micro menu and action bar tooltips show next to the button. Off: where Blizzard puts them."
 }

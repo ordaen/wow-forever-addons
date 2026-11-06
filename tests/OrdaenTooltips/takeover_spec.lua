@@ -80,7 +80,7 @@ local function line(text, r, g, b)
 end
 
 describe("Ordaen Tooltips", function()
-	local ns, frames, secrets, tooltip, left, right, data
+	local ns, frames, secrets, tooltip, left, right, data, bindings
 
 	local function frameNamed(name)
 		for _, f in ipairs(frames) do
@@ -95,7 +95,7 @@ describe("Ordaen Tooltips", function()
 	end
 
 	before_each(function()
-		frames, secrets, data = {}, {}, nil
+		frames, secrets, data, bindings = {}, {}, nil, {}
 		left, right = {}, {}
 		tooltip = stub("GameTooltip", {
 			NumLines = function()
@@ -149,6 +149,13 @@ describe("Ordaen Tooltips", function()
 			end,
 			issecretvalue = function(v)
 				return secrets[v] == true
+			end,
+			-- The player's key bindings: command -> key.
+			GetBindingKey = function(command)
+				return bindings[command]
+			end,
+			GetBindingText = function(key)
+				return (key:gsub("SHIFT%-", "Shift-"))
 			end,
 		})
 		rawget(_G, "C_AddOns").LoadAddOn = function(name)
@@ -228,5 +235,81 @@ describe("Ordaen Tooltips", function()
 		assert.equals("Level 11 Elite Gnoll", d.subtitle)
 		assert.is_false(d.icon)
 		assert.is_false(d.dividerAt) -- every line is the game's: no divider
+	end)
+
+	describe("on buttons", function()
+		-- A button the tooltip belongs to: a micro button (its binding command) or an action button (a CheckButton
+		-- with an action), at height `y`.
+		local function button(kind, fields, y)
+			local b = stub(fields.name or "Button", fields)
+			b.IsObjectType = function(_, t)
+				return t == "Button" or (kind == "CheckButton" and t == "CheckButton")
+			end
+			b.GetCenter = function()
+				return 500, y
+			end
+			return b
+		end
+
+		local function hoverOver(owner)
+			tooltip.GetOwner = function()
+				return owner
+			end
+		end
+
+		before_each(function()
+			rawget(_G, "UIParent").GetHeight = function()
+				return 1000
+			end
+		end)
+
+		it("move a micro button's key out of its title into the hotkey", function()
+			hoverOver(button("Button", { name = "CharacterMicroButton", commandName = "TOGGLECHARACTER0" }, 20))
+			bindings.TOGGLECHARACTER0 = "C"
+			show({ { "Character Info |cffffd200(C)|r" }, { "Your equipment and stats." } })
+			local d = ns.Takeover.Describe().GameTooltip
+			assert.equals("Character Info", d.title)
+			assert.equals("C", d.hotkey)
+		end)
+
+		it("show an action button's key binding as the hotkey, a bar addon's click binding too", function()
+			hoverOver(button("CheckButton", { name = "BT4Button1", action = 1 }, 20))
+			bindings["CLICK BT4Button1:Keybind"] = "SHIFT-1"
+			show({ { "Fireball" }, { "Hurls a fiery ball." } })
+			assert.equals("Shift-1", ns.Takeover.Describe().GameTooltip.hotkey)
+			bindings["CLICK BT4Button1:Keybind"] = nil -- unbound
+			show({ { "Fireball" }, { "Hurls a fiery ball." } })
+			assert.is_false(ns.Takeover.Describe().GameTooltip.hotkey)
+		end)
+
+		it("go beside the button: above it low on the screen, below it high up; off goes back to Blizzard's place", function()
+			local low = button("CheckButton", { name = "ActionButton1", commandName = "ACTIONBUTTON1", action = 1 }, 20)
+			hoverOver(low)
+			show({ { "Fireball" } })
+			local view = frameNamed("OrdaenTooltipsGameTooltip")
+			local calls = view.calls.SetPoint
+			local gap = OrdaenCore.UI.Space("sm")
+			assert.same({ "BOTTOM", low, "TOP", 0, gap }, calls[#calls])
+			local high = button("Button", { name = "QuestLogMicroButton", commandName = "TOGGLEQUESTLOG" }, 900)
+			hoverOver(high)
+			tooltip:Hide()
+			show({ { "Quest Log" } })
+			assert.same({ "TOP", high, "BOTTOM", 0, -gap }, calls[#calls])
+			ns.Addon.db.anchorToButtons = false
+			tooltip:Hide()
+			show({ { "Quest Log" } })
+			assert.same({ "BOTTOMRIGHT", tooltip, "BOTTOMRIGHT" }, calls[#calls], "Blizzard's place")
+		end)
+
+		it("leave tooltips of things that aren't buttons where Blizzard puts them (units in the world)", function()
+			local world = stub("UIParent")
+			world.IsObjectType = function(_, t)
+				return t == "Frame"
+			end
+			hoverOver(world)
+			show({ { "Hogger" } })
+			local calls = frameNamed("OrdaenTooltipsGameTooltip").calls.SetPoint
+			assert.same({ "BOTTOMRIGHT", tooltip, "BOTTOMRIGHT" }, calls[#calls])
+		end)
 	end)
 end)

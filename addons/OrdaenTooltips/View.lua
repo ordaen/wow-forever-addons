@@ -11,7 +11,7 @@ local View = {}
 ns.View = View
 
 local UI = OrdaenCore.UI
-local Reader, Layouts = ns.Reader, ns.Layouts
+local Reader, Layouts, Owner = ns.Reader, ns.Layouts, ns.Owner
 
 local isSecret = issecretvalue or function()
 	return false
@@ -64,10 +64,14 @@ end
 -- Spacing before a row that follows a blank line (other addons separate their sections with one).
 local GAP_BEFORE = { "sm", 0, 0, 0 }
 
-local function fillHeader(self, model, layout)
+local function fillHeader(self, model, layout, owner)
 	local first = model.rows[1]
 	local header = self.header
-	header.titleText.text = first and first.left or ""
+	local title = first and first.left or ""
+	-- A micro button's title carries its binding ("Character Info (C)"): the key goes to the hotkey, at the bottom.
+	local text, titleKey = Owner.SplitTitle(title)
+	header.titleText.text = text or title
+	self.component.block.hotkey = owner and Owner.Hotkey(owner) or titleKey
 	header.titleText.color = first and first.leftColor or nil
 	local accent = first and first.leftColor or nil
 	header.accent = accent
@@ -85,9 +89,10 @@ end
 
 --- Fill the blocks from `model` and redraw.
 ---@param model OrdaenTooltipsModel
-function ViewMethods:Fill(model)
+---@param owner table|nil the frame hovered (Owner.Of): its key binding is shown as the hotkey
+function ViewMethods:Fill(model, owner)
 	local layout = Layouts.Decide(model)
-	fillHeader(self, model, layout)
+	fillHeader(self, model, layout, owner)
 	local gap = false
 	for i = 2, Reader.MAX_ROWS do
 		local view = self.rows[i]
@@ -129,12 +134,27 @@ end
 --- Put the view where the native tooltip is. A native anchored to another native we draw (the comparison tooltips
 --- next to GameTooltip) is anchored to that one's view, so the pair lines up with our sizes; otherwise the view
 --- takes the native's own corner, so it grows the same way.
+--- With `beside` (a micro or action button, setting "beside buttons"), it goes next to that button instead: above it
+--- in the lower half of the screen, below it in the upper half.
 ---@param native GameTooltip
 ---@param viewOf fun(native: table): OrdaenTooltipsView|nil
-function ViewMethods:Follow(native, viewOf)
+---@param beside table|nil
+function ViewMethods:Follow(native, viewOf, beside)
 	local point, relativeTo, relativePoint, x, y = native:GetPoint(1)
 	local c = self.component
 	c:ClearAllPoints()
+	if beside then
+		local _, centerY = beside:GetCenter()
+		if centerY and not isSecret(centerY) then
+			local gap = UI.Space("sm")
+			if centerY < UIParent:GetHeight() / 2 then
+				c:SetPoint("BOTTOM", beside, "TOP", 0, gap)
+			else
+				c:SetPoint("TOP", beside, "BOTTOM", 0, -gap)
+			end
+			return
+		end
+	end
 	if isSecret(point) or isSecret(relativeTo) or isSecret(x) or isSecret(y) then
 		point, relativeTo = nil, nil -- in combat the anchor can be hidden: centre on the native tooltip
 	end
