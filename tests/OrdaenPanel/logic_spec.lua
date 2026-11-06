@@ -97,6 +97,33 @@ describe("Ordaen Panel", function()
 			assert.is_nil(bar.kind)
 		end)
 
+		it("draws completed quests' XP before the rested part", function()
+			local bar = {}
+			ns.Data.Experience(bar, 42, 60, 3000, 10000, 2000, false, 1500)
+			assert.same({ 3000, 4500, 6500 }, { bar.value, bar.quest, bar.overlay })
+			local quests = { [1] = 11, [2] = nil, [3] = 12, [4] = 13 }
+			local total = ns.Data.QuestXP(4, function(i)
+				return quests[i]
+			end, function(id)
+				return id ~= 12
+			end, function(id)
+				return id * 100
+			end)
+			assert.equals(1100 + 1300, total)
+		end)
+
+		it("works out the session rate, time to level and gains to level", function()
+			local session = { start = 100, gained = 0, last = 0 }
+			assert.is_nil(ns.Data.Rate(session, 3700, 5000))
+			ns.Data.Gain(session, 300)
+			ns.Data.Gain(session, 0)
+			ns.Data.Gain(session, 300)
+			local perHour, seconds, gains = ns.Data.Rate(session, 3700, 6000)
+			assert.equals(600, perHour)
+			assert.equals(36000, seconds)
+			assert.equals(20, gains)
+		end)
+
 		it("splits money", function()
 			assert.same({ 123, 45, 67 }, { ns.Data.Money(1234567) })
 		end)

@@ -11,7 +11,8 @@ local floor, min = math.floor, math.min
 ---@field kind "xp"|"reputation"|nil nil: nothing to show
 ---@field value number
 ---@field max number
----@field overlay number rested XP drawn up to here (= value without rest)
+---@field quest number XP from completed quests not yet turned in, drawn from value up to here (= value without)
+---@field overlay number rested XP, dimmed, drawn from quest up to here (= quest without rest)
 ---@field percent integer
 ---@field restedPercent integer
 ---@field level integer
@@ -26,8 +27,9 @@ local floor, min = math.floor, math.min
 ---@param xpMax number UnitXPMax("player")
 ---@param rested number|nil GetXPExhaustion()
 ---@param disabled boolean|nil IsXPUserDisabled()
+---@param questXP number|nil XP of completed quests in the log (Data.QuestXP)
 ---@return OrdaenPanelBar out
-function Data.Experience(out, level, maxLevel, xp, xpMax, rested, disabled)
+function Data.Experience(out, level, maxLevel, xp, xpMax, rested, disabled, questXP)
 	if disabled or level >= maxLevel or not xpMax or xpMax <= 0 then
 		out.kind = nil
 		return out
@@ -35,7 +37,8 @@ function Data.Experience(out, level, maxLevel, xp, xpMax, rested, disabled)
 	rested = rested or 0
 	out.kind = "xp"
 	out.value, out.max, out.level = xp, xpMax, level
-	out.overlay = min(xp + rested, xpMax)
+	out.quest = min(xp + (questXP or 0), xpMax)
+	out.overlay = min(out.quest + rested, xpMax)
 	out.percent = floor(xp / xpMax * 100)
 	out.restedPercent = floor(rested / xpMax * 100)
 	out.name, out.standing = nil, nil
@@ -65,10 +68,57 @@ function Data.Reputation(out, data)
 	else
 		out.value, out.max = (data.currentStanding or low) - low, span
 	end
-	out.overlay = out.value
+	out.quest, out.overlay = out.value, out.value
 	out.percent = floor(out.value / out.max * 100)
 	out.restedPercent, out.level = 0, nil
 	return out
+end
+
+--- XP of the quests in the log that are complete (ready to turn in).
+---@param count integer C_QuestLog.GetNumQuestLogEntries()
+---@param questAt fun(i: integer): (integer|nil) the quest ID of entry i, nil for headers (C_QuestLog.GetInfo)
+---@param ready fun(questID: integer): boolean C_QuestLog.ReadyForTurnIn
+---@param rewardXP fun(questID: integer): number GetQuestLogRewardXP
+---@return number
+function Data.QuestXP(count, questAt, ready, rewardXP)
+	local total = 0
+	for i = 1, count do
+		local id = questAt(i)
+		if id and ready(id) then
+			total = total + (rewardXP(id) or 0)
+		end
+	end
+	return total
+end
+
+---@class OrdaenPanelSession
+---@field start number GetTime() when the session started (login or level up)
+---@field gained number XP (or reputation) gained since then
+---@field last number the size of the last gain (for "gains to level")
+
+--- Record a gain (the difference between two readings; a level up counts what was left of the old level).
+---@param session OrdaenPanelSession
+---@param amount number
+function Data.Gain(session, amount)
+	if amount > 0 then
+		session.gained = session.gained + amount
+		session.last = amount
+	end
+end
+
+--- Per hour, seconds to fill the rest, and gains like the last one to fill it; nil until there is a rate.
+---@param session OrdaenPanelSession
+---@param now number GetTime()
+---@param remaining number XP (or reputation) to the next level (standing)
+---@return number|nil perHour, number|nil seconds, integer|nil gains
+function Data.Rate(session, now, remaining)
+	local elapsed = now - session.start
+	if session.gained <= 0 or elapsed < 60 then
+		return nil
+	end
+	local perSecond = session.gained / elapsed
+	local gains = session.last > 0 and math.ceil(remaining / session.last) or nil
+	return perSecond * 3600, remaining / perSecond, gains
 end
 
 --- Copper -> gold, silver, copper.
