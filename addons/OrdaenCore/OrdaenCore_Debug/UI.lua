@@ -1,8 +1,9 @@
--- UI: the "Ordaen Dev" window and its floating button. Dev mode only.
+-- UI: the "Ordaen Dev" window and its minimap button. Dev mode only.
 --
--- Open it with the gear button (drag to move; a red number = new errors), the addon compartment
--- entry, /ordaen, or /<addon command> debug. "Save for Claude & reload" dumps every Ordaen addon's
--- state, stores an optional note and reloads, so everything is on disk for Claude.
+-- Open it with the gear button on the minimap edge (drag it around the minimap; a red number =
+-- new errors), /ordaen, or /<addon command> debug. No addon compartment entry on purpose.
+-- "Save for Claude & reload" dumps every Ordaen addon's state, stores an optional note and
+-- reloads, so everything is on disk for Claude.
 local addonName, ns = ...
 local Store, Capture = ns.Store, ns.Capture
 
@@ -411,17 +412,80 @@ function UI.UpdateButton()
 	end
 end
 
+-- The button sits on the minimap's edge at an angle (degrees, 0 = right, counter-clockwise) and is
+-- dragged around it, like LibDBIcon buttons (same APIs, confirmed on Forever by LibDBIcon). It is
+-- deliberately not a compartment entry and its name doesn't look like a minimap button, so the
+-- Ordaen Minimap drawer leaves it on the minimap.
+local DEFAULT_ANGLE = 200
+local EDGE_OFFSET = 4
+
+--- Offset from the minimap center for an angle: on the circle for round minimaps, on the edge of
+--- the square for square ones. Pure math, unit-tested.
+function UI.EdgeOffset(angle, halfWidth, halfHeight, shape)
+	local rad = math.rad(angle)
+	local x, y = math.cos(rad), math.sin(rad)
+	if shape == "SQUARE" then
+		local m = math.max(math.abs(x), math.abs(y))
+		x, y = x / m, y / m
+	end
+	return x * halfWidth, y * halfHeight
+end
+
+local function placeOnMinimap(b)
+	if not Minimap then
+		return
+	end
+	local shape = GetMinimapShape and GetMinimapShape() or "ROUND"
+	local halfWidth = (Minimap:GetWidth() or 140) / 2 + EDGE_OFFSET
+	local halfHeight = (Minimap:GetHeight() or 140) / 2 + EDGE_OFFSET
+	local x, y = UI.EdgeOffset(Store.Get().ui.buttonAngle or DEFAULT_ANGLE, halfWidth, halfHeight, shape)
+	b:ClearAllPoints()
+	b:SetPoint("CENTER", Minimap, "CENTER", x, y)
+end
+UI.PlaceButton = function()
+	if button then
+		placeOnMinimap(button)
+	end
+end
+
+local function dragAroundMinimap(self)
+	local mx, my = Minimap:GetCenter()
+	local px, py = GetCursorPosition()
+	local scale = Minimap:GetEffectiveScale()
+	px, py = px / scale, py / scale
+	Store.Get().ui.buttonAngle = math.deg(math.atan2(py - my, px - mx)) % 360
+	placeOnMinimap(self)
+end
+
 local function buildButton()
-	local b = CreateFrame("Button", "OrdaenDevButton", UIParent, backdropTemplate())
-	b:SetSize(36, 36)
+	local parent = Minimap or UIParent
+	local b = CreateFrame("Button", "OrdaenDevButton", parent, backdropTemplate())
+	b:SetSize(28, 28)
 	b:SetFrameStrata("MEDIUM")
+	b:SetFrameLevel((parent:GetFrameLevel() or 1) + 10)
 	applyBackdrop(b, 0.8)
-	restorePosition(b, "button", "RIGHT", UIParent, "RIGHT", -40, 160)
-	makeMovable(b, "button")
+	b:RegisterForClicks("LeftButtonUp")
+	b:RegisterForDrag("LeftButton")
+	if Minimap then
+		placeOnMinimap(b)
+		b:SetScript("OnDragStart", function(self)
+			self:SetScript("OnUpdate", dragAroundMinimap)
+		end)
+		b:SetScript("OnDragStop", function(self)
+			self:SetScript("OnUpdate", nil)
+		end)
+		-- Keep it on the edge when the minimap changes size (Ordaen Minimap's size slider).
+		Minimap:HookScript("OnSizeChanged", function()
+			placeOnMinimap(b)
+		end)
+	else
+		restorePosition(b, "button", "RIGHT", UIParent, "RIGHT", -40, 160)
+		makeMovable(b, "button")
+	end
 
 	local icon = b:CreateTexture(nil, "ARTWORK")
-	icon:SetPoint("TOPLEFT", 5, -5)
-	icon:SetPoint("BOTTOMRIGHT", -5, 5)
+	icon:SetPoint("TOPLEFT", 4, -4)
+	icon:SetPoint("BOTTOMRIGHT", -4, 4)
 	icon:SetTexture("Interface\\Icons\\INV_Misc_Gear_01")
 
 	b.badge = b:CreateFontString(nil, "OVERLAY", "NumberFontNormal")
@@ -436,7 +500,7 @@ local function buildButton()
 		if n > 0 then
 			GameTooltip:AddLine(n .. " new error(s)", 1, 0.3, 0.3)
 		end
-		GameTooltip:AddLine("Click: open. Drag: move.", 0.8, 0.8, 0.8)
+		GameTooltip:AddLine("Click: open. Drag: move around the minimap.", 0.8, 0.8, 0.8)
 		GameTooltip:Show()
 	end)
 	b:SetScript("OnLeave", function()
@@ -484,11 +548,6 @@ Store.OnChange(function(entry, isNew)
 			entry.kind == "taint" and "blocked action" or "error", entry.source))
 	end
 end)
-
--- Addon compartment entry (## AddonCompartmentFunc in the TOC) and /ordaen.
-function OrdaenCoreDebug_OnAddonCompartmentClick()
-	UI.Toggle()
-end
 
 SLASH_ORDAENDEV1 = "/ordaen"
 SlashCmdList.ORDAENDEV = UI.Toggle

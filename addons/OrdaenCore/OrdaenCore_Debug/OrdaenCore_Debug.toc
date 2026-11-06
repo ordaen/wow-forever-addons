@@ -19,7 +19,6 @@
 ## Dependencies: OrdaenCore
 ## DefaultState: Disabled
 ## SavedVariables: OrdaenCoreDebugDB
-## AddonCompartmentFunc: OrdaenCoreDebug_OnAddonCompartmentClick
 ## IconTexture: Interface\Icons\INV_Misc_Gear_01
 
 Store.lua

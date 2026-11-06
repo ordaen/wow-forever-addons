@@ -40,6 +40,7 @@ read_globals = {
 	"seterrorhandler",
 	"BugGrabber",
 	"C_UI",
+	"GetCursorPosition",
 	"GameTooltip",
 	"ReloadUI",
 }
@@ -50,7 +51,6 @@ globals = {
 	"OrdaenCore",
 	"StaticPopupDialogs", -- we add our popup to it
 	"OrdaenCoreDebugDB",
-	"OrdaenCoreDebug_OnAddonCompartmentClick",
 	"SLASH_ORDAENDEV1",
 	"OrdaenMinimapDB",
 	"SLASH_ORDAENMINIMAP1",

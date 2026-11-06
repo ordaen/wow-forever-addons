@@ -42,7 +42,7 @@ describe("OrdaenCore_Debug UI", function()
 	it("opens on the Errors tab, shows the newest error and marks errors seen", function()
 		Store.AddError({ message = "Interface/AddOns/OrdaenMinimap/Map.lua:1: first" })
 		Store.AddError({ message = "Interface/AddOns/OrdaenMinimap/Map.lua:2: second" })
-		OrdaenCoreDebug_OnAddonCompartmentClick()
+		SlashCmdList.ORDAENDEV()
 		assert.is_true(window():IsShown())
 		local panel = window().panels.errors
 		assert.is_true(panel:IsShown())
@@ -109,5 +109,59 @@ describe("OrdaenCore_Debug UI", function()
 		assert.are.equal("drawer overlaps the clock", db.saves[1].note)
 		assert.are.same({ scale = 1.2 }, db.addons.TestAddon.dump.state)
 		assert.is_true(helpers.reloaded)
+	end)
+end)
+
+describe("OrdaenCore_Debug minimap button", function()
+	local function near(expected, actual)
+		assert.is_true(math.abs(expected - actual) < 1e-6, ("expected %s, got %s"):format(expected, actual))
+	end
+
+	it("sits on the circle of a round minimap and on the edge of a square one", function()
+		helpers.stubGlobals()
+		helpers.loadCore(true)
+		local UI = helpers.debugNs.UI
+		local x, y = UI.EdgeOffset(0, 70, 70, "ROUND")
+		near(70, x)
+		near(0, y)
+		x, y = UI.EdgeOffset(45, 70, 70, "ROUND")
+		near(70 * math.sqrt(0.5), x)
+		near(70 * math.sqrt(0.5), y)
+		x, y = UI.EdgeOffset(45, 70, 70, "SQUARE")
+		near(70, x)
+		near(70, y)
+		x, y = UI.EdgeOffset(180, 70, 50, "SQUARE")
+		near(-70, x)
+		near(0, y)
+	end)
+
+	it("is dragged around the minimap and remembers the angle", function()
+		local cursor = { 200, 100 }
+		local minimap = helpers.stubObject("Minimap")
+		minimap.GetCenter = function()
+			return 100, 100
+		end
+		minimap.GetEffectiveScale = function()
+			return 1
+		end
+		helpers.stubGlobals({
+			Minimap = minimap,
+			GetCursorPosition = function()
+				return cursor[1], cursor[2]
+			end,
+		})
+		helpers.loadCore(true)
+		local UI, Store = helpers.debugNs.UI, helpers.debugNs.Store
+		UI.OnEvent(nil, "ADDON_LOADED", "OrdaenCore_Debug")
+		UI.OnEvent(nil, "PLAYER_LOGIN")
+		local b = rawget(_G, "OrdaenDevButton")
+		b.scripts.OnDragStart(b)
+		b.scripts.OnUpdate(b)
+		near(0, Store.Get().ui.buttonAngle)
+		cursor[1], cursor[2] = 100, 200
+		b.scripts.OnUpdate(b)
+		near(90, Store.Get().ui.buttonAngle)
+		b.scripts.OnDragStop(b)
+		assert.is_nil(b.scripts.OnUpdate)
 	end)
 end)
