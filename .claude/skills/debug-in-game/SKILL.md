@@ -20,9 +20,9 @@ Everything below needs the dev-only addon **Ordaen Core - Debug** (`OrdaenCore_D
 
 ## 1. Make the code observable before testing
 
-- New code logs its decisions with `Debug.Log(...)` / `Debug.Logf(fmt, ...)`: what was collected or skipped and why, sizes, positions, events. Logging is cheap when off, but guard expensive string building with `if Debug.IsEnabled() then ... end`.
-- The `dump` callback passed to `Debug.Init` returns the state the feature owns. Frames can go in as they are: `Debug.Snapshot` stores name, parent, shown/visible, size, points, strata, level, alpha and scale.
-- Wrap event, script and slash handlers in `Debug.Wrap(fn)`. Dev mode also catches errors globally (any addon, file-load errors, unwrapped code) and blocked actions (taint), so wrapping is about clean stacks, not coverage.
+- New code logs its decisions with `Debug:Log(...)` / `Debug:Logf(fmt, ...)`: what was collected or skipped and why, sizes, positions, events. Logging is cheap when off, but guard expensive string building with `if Debug:IsEnabled() then ... end`.
+- The `dump` callback passed to `Debug:Init` returns the state the feature owns. Frames can go in as they are: `Debug:Snapshot` stores name, parent, shown/visible, size, points, strata, level, alpha and scale.
+- Wrap event, script and slash handlers in `Debug:Wrap(fn)`. Dev mode also catches errors globally (any addon, file-load errors, unwrapped code) and blocked actions (taint), so wrapping is about clean stacks, not coverage.
 - Run `bash scripts/test.sh` (Git Bash; runs luacheck and busted in WSL) and get it green.
 
 ## 2. Hand over with a repro script

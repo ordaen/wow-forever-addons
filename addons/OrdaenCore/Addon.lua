@@ -60,7 +60,12 @@ local function eventFrame()
 			local list = handlers[event]
 			if list then
 				for i = 1, #list do
-					call(list[i].fn, event, ...)
+					local entry = list[i]
+					-- Dev builds: the companion shows which addon handled what. Release builds strip this block.
+					if entry.Debug:TraceEnabled() then
+						entry.Debug:Trace("event", event)
+					end
+					call(entry.fn, event, ...)
 				end
 			end
 		end)
@@ -80,7 +85,8 @@ local function addHandler(event, fn, addon)
 	else
 		eventFrame():RegisterEvent(event)
 	end
-	list[#list + 1] = { fn = fn, addon = addon }
+	-- Debug: the owning addon's kit (the Core's for the framework's own handlers), for tracing in dev builds.
+	list[#list + 1] = { fn = fn, addon = addon, Debug = addon and addon.Debug or Core.NewDebug("OrdaenCore") }
 	handlers[event] = list
 end
 
@@ -141,7 +147,7 @@ end
 
 --- Run `fn(event, ...)` on `event` until Off. Register only while a feature needs it.
 function Addon:On(event, fn)
-	local wrapped = self._wrapped[fn] or self.Debug.Wrap(fn)
+	local wrapped = self._wrapped[fn] or self.Debug:Wrap(fn)
 	self._wrapped[fn] = wrapped
 	addHandler(event, wrapped, self)
 end
@@ -200,13 +206,13 @@ function Addon:Compartment(entry)
 		icon = entry.icon or C_AddOns.GetAddOnMetadata(self.name, "IconTexture"),
 		notCheckable = true,
 		registerForAnyClick = true,
-		func = entry.onClick and Debug.Wrap(function(_, inputData)
+		func = entry.onClick and Debug:Wrap(function(_, inputData)
 			entry.onClick(inputData and inputData.buttonName)
 		end),
-		funcOnEnter = entry.onEnter and Debug.Wrap(function(button)
+		funcOnEnter = entry.onEnter and Debug:Wrap(function(button)
 			entry.onEnter(button)
 		end),
-		funcOnLeave = entry.onLeave and Debug.Wrap(function(button)
+		funcOnLeave = entry.onLeave and Debug:Wrap(function(button)
 			entry.onLeave(button)
 		end),
 	})
@@ -231,7 +237,7 @@ local function printHelp(addon)
 	for _, key in ipairs(addon._help) do
 		addon:Print("  " .. addon.L[key]:format(slash))
 	end
-	for _, line in ipairs(addon.Debug.HelpLines()) do
+	for _, line in ipairs(addon.Debug:HelpLines()) do
 		addon:Print("  " .. line)
 	end
 end
@@ -259,8 +265,12 @@ local function registerSlash(addon)
 		rawset(_G, "SLASH_" .. key .. i, command)
 	end
 	addon.slash = commands[1]
-	SlashCmdList[key] = addon.Debug.Wrap(function(msg)
-		if addon.Debug.HandleSlash(msg) then
+	local Debug = addon.Debug
+	SlashCmdList[key] = Debug:Wrap(function(msg)
+		if Debug:TraceEnabled() then
+			Debug:Trace("slash", msg)
+		end
+		if Debug:HandleSlash(msg) then
 			return
 		end
 		local cmd, rest = (msg or ""):match("^%s*(%S*)%s*(.-)%s*$")
@@ -295,7 +305,7 @@ local function onAddonLoaded(addon)
 	if spec.charDb then
 		addon.charDb = savedVariables(spec.charDb, spec.charDefaults)
 	end
-	addon.Debug.Init(addon.db or {}, {
+	addon.Debug:Init(addon.db or {}, {
 		slash = addon.spec.slash and addon.spec.slash[1],
 		print = function(...)
 			addon:Print(...)

@@ -31,6 +31,26 @@ return {
 	-- lists Vector2DMixin.GetXY in namespaces.txt.
 	GetXY = "Vector2DMixin (namespaces.txt: Vector2DMixin.GetXY)",
 
+	-- Our own objects: the Ordaen debug kit (Core.NewDebug: the stand-in in addons/OrdaenCore/Core.lua, the real
+	-- kit in OrdaenCore_Debug).
+	Init = "Ordaen debug kit",
+	Log = "Ordaen debug kit",
+	Logf = "Ordaen debug kit",
+	Warn = "Ordaen debug kit",
+	Warnf = "Ordaen debug kit",
+	Verbose = "Ordaen debug kit",
+	Verbosef = "Ordaen debug kit",
+	Dump = "Ordaen debug kit",
+	Trace = "Ordaen debug kit",
+	TraceFrame = "Ordaen debug kit",
+	TraceEnabled = "Ordaen debug kit",
+	IsEnabled = "Ordaen debug kit",
+	Wrap = "Ordaen debug kit",
+	Snapshot = "Ordaen debug kit",
+	Call = "Ordaen debug kit",
+	HelpLines = "Ordaen debug kit",
+	HandleSlash = "Ordaen debug kit",
+
 	-- LibDBIcon-1.0 (embedded by other addons), confirmed by its use in MinimapButtonButton Logic/Main.lua.
 	GetButtonList = "LibDBIcon-1.0",
 	GetMinimapButton = "LibDBIcon-1.0",

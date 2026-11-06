@@ -74,7 +74,8 @@ function SettingsPage.Register(addon)
 	local title = spec.title and L[spec.title] or C_AddOns.GetAddOnMetadata(addon.name, "Title") or addon.name
 	local category, layout = Settings.RegisterVerticalLayoutCategory(title)
 	local defaults = addon.spec.defaults or {}
-	local onChange = spec.onChange and addon.Debug.Wrap(spec.onChange)
+	local Debug = addon.Debug
+	local onChange = spec.onChange and Debug:Wrap(spec.onChange)
 
 	for _, entry in ipairs(spec) do
 		if entry.header then
@@ -87,6 +88,9 @@ function SettingsPage.Register(addon)
 				L[entry.label], default)
 			if onChange then
 				setting:SetValueChangedCallback(function(_, value)
+					if Debug:TraceEnabled() then
+						Debug:Trace("setting", key .. "=" .. tostring(value))
+					end
 					onChange(key, value)
 				end)
 			end

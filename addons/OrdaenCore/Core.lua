@@ -64,45 +64,64 @@ function Core.IsCompatible(addon)
 	return false
 end
 
--- Debug API for players: one shared, do-nothing table for every addon. No per-addon tables or
--- closures, nothing recorded, Wrap returns the function itself (so errors take WoW's normal
--- path), and no help text or slash handling: players don't need to know dev tools exist.
--- Development mode is the dev-only addon "Ordaen Core - Debug" (OrdaenCore_Debug, private repo,
--- never shipped). When installed it loads before the Ordaen addons (they list it in ## OptionalDeps)
--- and replaces Core.NewDebug with the real kit; keep this table's API in step with that kit.
+-- Debug kit for players: one shared, do-nothing object for every addon (methods on a shared metatable,
+-- called with `:`). No per-addon tables or closures, nothing recorded, Wrap returns the function itself (so
+-- errors take WoW's normal path), and no help text or slash handling: players don't need to know dev tools
+-- exist. Development mode is the dev-only addon "Ordaen Core - Debug" (OrdaenCore_Debug, private repo, never
+-- shipped). When installed it loads before the Ordaen addons (the build gives them ## OptionalDeps on it) and
+-- replaces Core.NewDebug with the real kit; keep these methods in step with that kit.
+-- Release builds strip the logging and tracing statements and the `if Debug:IsEnabled() then` /
+-- `if Debug:TraceEnabled() then` blocks altogether (ordaen build --release); in git checkouts without the dev
+-- addon these no-ops run.
 Core.debugMode = false
 
 local function noop() end
 
-local function identity(value)
-	return value
+local function no()
+	return false
 end
 
 local NO_LINES = {} -- shared and never filled; callers only iterate it
 
-local stub = {
-	Init = noop,
-	Log = noop,
+---@class OrdaenDebug
+local StandIn = {
+	Init = noop, -- Init(db, { slash, print, dump })
+	Log = noop, -- info level
 	Logf = noop,
+	Warn = noop, -- warn level
+	Warnf = noop,
+	Verbose = noop, -- debug level
+	Verbosef = noop,
 	Dump = noop,
-	IsEnabled = function()
-		return false
-	end,
-	Wrap = identity,
-	Snapshot = identity,
-	Call = function(fn, ...)
-		return fn(...)
-	end,
-	HelpLines = function()
-		return NO_LINES
-	end,
-	HandleSlash = function()
-		return false
-	end,
+	Trace = noop, -- Trace(what, detail): "event", "enter", "click", "slash", "setting"...
+	TraceFrame = noop, -- a frame whose OnEnter/OnLeave/OnClick/OnShow/OnHide the dev addon may trace
+	IsEnabled = no,
+	TraceEnabled = no,
 }
 
+-- Methods (called with `:`); the stand-in has no state, so they ignore self.
+function StandIn.Wrap(_, fn)
+	return fn
+end
+
+function StandIn.Snapshot(_, value)
+	return value
+end
+
+function StandIn.Call(_, fn, ...)
+	return fn(...)
+end
+
+function StandIn.HelpLines()
+	return NO_LINES
+end
+
+StandIn.HandleSlash = no
+
+local standIn = setmetatable({}, { __index = StandIn })
+
 --- The debug kit for one addon: the shared no-op stand-in unless the dev addon replaced this.
----@return table Debug
+---@return OrdaenDebug
 function Core.NewDebug()
-	return stub
+	return standIn
 end
