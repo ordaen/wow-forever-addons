@@ -217,26 +217,15 @@ local function onEvent(_, event)
 	end
 end
 
-local ZONE_EVENTS = { "ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD" }
-local OPTIONAL_EVENTS = { "PLAYER_STARTED_MOVING", "PLAYER_STOPPED_MOVING", "CALENDAR_UPDATE_PENDING_INVITES" }
-
+-- All confirmed in api/forever/<CURRENT>/api.json. Written out literally so forever-lint checks them.
 local function registerEvents()
-	for _, event in ipairs(ZONE_EVENTS) do
-		events:RegisterEvent(event)
-	end
-	local movingEvents = true
-	for _, event in ipairs(OPTIONAL_EVENTS) do
-		-- RegisterEvent errors on events a client doesn't have.
-		local ok = pcall(events.RegisterEvent, events, event)
-		if not ok and event ~= "CALENDAR_UPDATE_PENDING_INVITES" then
-			movingEvents = false
-		end
-	end
-	if not movingEvents then
-		-- No movement events: refresh coordinates fast all the time (still a timer, not per frame).
-		ns.Debug.Log("info: no movement events, coordinates tick every 0.1 s")
-		startFast()
-	end
+	events:RegisterEvent("ZONE_CHANGED")
+	events:RegisterEvent("ZONE_CHANGED_INDOORS")
+	events:RegisterEvent("ZONE_CHANGED_NEW_AREA")
+	events:RegisterEvent("PLAYER_ENTERING_WORLD")
+	events:RegisterEvent("PLAYER_STARTED_MOVING")
+	events:RegisterEvent("PLAYER_STOPPED_MOVING")
+	events:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
 end
 
 local function unregisterEvents()
