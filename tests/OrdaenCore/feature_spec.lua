@@ -3,7 +3,7 @@
 local helpers = require("tests.OrdaenCore.helpers")
 
 describe("OrdaenCore features, ticker, unit events, migrations", function()
-	local Core, now, timers, reported, loadedAddons
+	local Core, now, timers, reported, loadedAddons, stack, definers
 
 	-- The game's clock and C_Timer.After: timers fire in time order as the clock moves.
 	local function advance(seconds)
@@ -43,8 +43,8 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 		end
 	end
 
-	local function start(spec)
-		local A = Core.NewAddon("TestAddon", {}, spec or { db = "TestAddonDB", defaults = { on = true } })
+	local function start(spec, ns)
+		local A = Core.NewAddon("TestAddon", ns or {}, spec or { db = "TestAddonDB", defaults = { on = true } })
 		return A
 	end
 
@@ -89,7 +89,18 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 					reported[#reported + 1] = err
 				end
 			end,
+			-- the stack below the claims watcher, and who defined each global (like the game's taint tracking)
+			debugstack = function()
+				return stack
+			end,
+			issecurevariable = function(name)
+				if definers[name] then
+					return false, definers[name]
+				end
+				return true, nil
+			end,
 		})
+		stack, definers = "", {}
 		-- record what each frame registers (the shared fakes ignore it)
 		local createFrame = _G.CreateFrame
 		rawset(_G, "CreateFrame", function(...)
@@ -408,6 +419,102 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 				A:Conflict("Other", "thing " .. i, false)
 			end
 			assert.equals(20, #A:Conflicts())
+		end)
+	end)
+
+	describe("claims", function()
+		local WATCHER = "Interface/AddOns/OrdaenCore/Conflict.lua:120: in function <x>\n"
+
+		local function frame()
+			local f = { alphas = {} }
+			function f:SetAlpha(a)
+				self.alphas[#self.alphas + 1] = a
+			end
+			return f
+		end
+
+		after_each(function()
+			rawset(_G, "TestFrame", nil)
+			rawset(_G, "GetTestShape", nil)
+		end)
+
+		it("report a claimed global another addon defined, before our OnLogin redefines it", function()
+			rawset(_G, "GetTestShape", function() end)
+			definers.GetTestShape = "SexyMap"
+			local A = start(nil, { CLAIMS = { globals = { "GetTestShape" }, methods = {} } })
+			local heard
+			A:OnConflict(function(other, what)
+				heard = other .. " " .. what
+			end)
+			login()
+			assert.equals("SexyMap GetTestShape", heard)
+			assert.same({ { other = "SexyMap", what = "GetTestShape", handled = false } }, A:Conflicts())
+		end)
+
+		it("report another addon calling a claimed method, once, and never our own calls", function()
+			rawset(_G, "TestFrame", frame())
+			local A = start(nil, { CLAIMS = { globals = {}, methods = { { "TestFrame", "SetAlpha" } } } })
+			A:On("PLAYER_ENTERING_WORLD", function()
+				stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+				_G.TestFrame:SetAlpha(0) -- runs as ours (Core._running): no stack check at all
+			end)
+			login()
+			fire("PLAYER_ENTERING_WORLD")
+			assert.same({}, A:Conflicts())
+			-- from our own raw hook body (not marked as running): the first addon below the watcher is ours
+			stack = WATCHER .. "Interface/AddOns/OrdaenTooltips/Takeover.lua:30: in function <x>\n"
+				.. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+			_G.TestFrame:SetAlpha(0)
+			assert.same({}, A:Conflicts())
+			-- Blizzard's code
+			advance(2)
+			stack = WATCHER .. "Interface/AddOns/Blizzard_SharedXML/Tooltip.lua:9: in function <x>\n"
+			_G.TestFrame:SetAlpha(1)
+			assert.same({}, A:Conflicts())
+			-- another addon, again and again (it re-zeroes in its own hook): one record
+			advance(2)
+			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+			for _ = 1, 5 do
+				_G.TestFrame:SetAlpha(0)
+				advance(2)
+			end
+			assert.same({ { other = "PrettyTooltip", what = "TestFrame:SetAlpha", handled = false } }, A:Conflicts())
+			assert.equals(8, #_G.TestFrame.alphas, "the original method still runs every time")
+		end)
+
+		it("check the stack at most once per second per method", function()
+			rawset(_G, "TestFrame", frame())
+			local checks = 0
+			rawset(_G, "debugstack", function()
+				checks = checks + 1
+				return ""
+			end)
+			start(nil, { CLAIMS = { globals = {}, methods = { { "TestFrame", "SetAlpha" } } } })
+			login()
+			for _ = 1, 50 do
+				_G.TestFrame:SetAlpha(0)
+			end
+			assert.equals(1, checks)
+		end)
+
+		it("watch frames claimed at runtime with A:Claim", function()
+			local f = frame()
+			local A = start()
+			login()
+			A:Claim(f, { "SetAlpha" }, "GameTooltip")
+			stack = WATCHER .. "Interface/AddOns/TipTac/Core.lua:1: in function <x>\n"
+			f:SetAlpha(0)
+			assert.same({ { other = "TipTac", what = "GameTooltip:SetAlpha", handled = false } }, A:Conflicts())
+		end)
+
+		it("watch claimed frames that appear when a later addon loads", function()
+			local A = start(nil, { CLAIMS = { globals = {}, methods = { { "TestFrame", "SetAlpha" } } } })
+			login()
+			rawset(_G, "TestFrame", frame())
+			fire("ADDON_LOADED", "Blizzard_SomeUI")
+			stack = WATCHER .. "Interface/AddOns/Other/x.lua:1: in function <x>\n"
+			_G.TestFrame:SetAlpha(0)
+			assert.equals("Other", A:Conflicts()[1].other)
 		end)
 	end)
 

@@ -27,6 +27,7 @@
 local _, ns = ...
 
 ---@class OrdaenCoreAPI
+---@field _running OrdaenAddon|nil the Ordaen addon whose code runs now (set by the framework's dispatch)
 local Core = ns.Core
 local L = ns.L
 
@@ -82,7 +83,11 @@ local function dispatch(self, event, ...)
 			if entry.Debug:TraceEnabled() then
 				entry.Debug:Trace("event", event)
 			end
+			-- Core._running: which Ordaen addon's code runs (Conflict.lua tells our own calls from others' by it)
+			local previous = Core._running
+			Core._running = entry.addon
 			call(entry.fn, event, ...)
+			Core._running = previous
 		end
 	end
 end
@@ -141,6 +146,13 @@ local function removeHandler(event, fn, events)
 	end
 end
 
+--- The framework's own handler on the shared event frame (not tied to an addon).
+---@param event WowEvent
+---@param fn fun(event: string, ...)
+function Core._On(event, fn)
+	addHandler(event, fn, nil)
+end
+
 local function unitEvents(unit)
 	local events = unitFrames[unit]
 	if not events then
@@ -172,6 +184,25 @@ local function runAll(list, ...)
 			call(list[i], ...)
 		end
 	end
+end
+
+-- runAll with `addon` marked as running (Core._running).
+local function runAs(addon, list, ...)
+	local previous = Core._running
+	Core._running = addon
+	runAll(list, ...)
+	Core._running = previous
+end
+
+--- Run `fn(...)` (protected) as `addon`'s code: the framework's own callers of addon code use this, so a hook on a
+--- claimed Blizzard method can tell our calls from other addons' (Conflict.lua) with one field read.
+---@param addon OrdaenAddon
+---@param fn function
+function Core._RunAs(addon, fn, ...)
+	local previous = Core._running
+	Core._running = addon
+	call(fn, ...)
+	Core._running = previous
 end
 
 --- Print a line in chat, prefixed with the addon's name.
@@ -354,7 +385,7 @@ local function reset(addon)
 		Core.Settings.Sanitize(addon)
 	end
 	addon:_SyncFeatures()
-	runAll(addon._onReset)
+	runAs(addon, addon._onReset)
 	addon:Print(L.RESET_DONE)
 end
 
@@ -441,11 +472,11 @@ local function onAddonLoaded(addon)
 	end
 	registerSlash(addon)
 	addon.loaded = true
-	runAll(addon._onLoad, addon.db, addon.charDb)
+	runAs(addon, addon._onLoad, addon.db, addon.charDb)
 	addon._onLoad = nil
 	if loggedIn then
 		addon:_CheckConflicts()
-		runAll(addon._onLogin)
+		runAs(addon, addon._onLogin)
 		addon._onLogin = nil
 		addon:_SyncFeatures()
 	end
@@ -471,7 +502,7 @@ local function onLifecycle(event, arg1)
 		for _, addon in ipairs(Core._addons) do
 			if addon.loaded then
 				addon:_CheckConflicts() -- Conflict.lua: the declared ones, before OnLogin
-				runAll(addon._onLogin)
+				runAs(addon, addon._onLogin)
 				addon._onLogin = nil
 				addon:_SyncFeatures() -- features start after the addon's own OnLogin (it may decide what may run)
 			end
@@ -516,6 +547,7 @@ function Core.NewAddon(addonName, addonNs, spec)
 		_conflicts = {},
 		_conflictSeen = {},
 		_onConflict = {},
+		_watching = {},
 	}, Addon)
 	byName[addonName] = addon
 	Core._addons[#Core._addons + 1] = addon

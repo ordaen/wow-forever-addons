@@ -15,7 +15,6 @@ local Core = ns.Core
 ---@class OrdaenAddon
 local Addon = ns.AddonClass
 
-local call = Core._call
 local huge = math.huge
 local EARLY = 0.001 -- C_Timer may fire this much before the time asked for
 
@@ -28,6 +27,7 @@ local EARLY = 0.001 -- C_Timer may fire this much before the time asked for
 ---@field running boolean in the clock's list and running
 ---@field listed boolean in the clock's list (stopped ones leave it at the next tick)
 ---@field feature OrdaenFeature|nil runs only while this feature is on
+---@field owner OrdaenAddon
 local Ticker = {}
 Ticker.__index = Ticker
 
@@ -57,7 +57,7 @@ function tick()
 		if t.running and t.due <= now + EARLY then
 			local due = t.due + t.interval
 			t.due = due > now and due or now + t.interval
-			call(t.fn)
+			Core._RunAs(t.owner, t.fn)
 		end
 	end
 	-- drop stopped tickers (in place: no new table) and find the next one due
@@ -131,6 +131,7 @@ function Core._NewTicker(owner, interval, fn, feature)
 		running = false,
 		listed = false,
 		feature = feature,
+		owner = owner,
 	}, Ticker)
 	sync(t)
 	return t

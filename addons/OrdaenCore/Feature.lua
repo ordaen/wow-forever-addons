@@ -92,10 +92,14 @@ local function unregister(feature, entry)
 	end
 end
 
-local function runAll(list, ...)
+-- A feature's functions, run as its addon's code (Core._running, see Conflict.lua).
+local function runAll(feature, list, ...)
+	local previous = Core._running
+	Core._running = feature.addon
 	for i = 1, #list do
 		call(list[i], ...)
 	end
+	Core._running = previous
 end
 
 local function setEnabled(feature, on)
@@ -116,9 +120,9 @@ local function setEnabled(feature, on)
 		Core._SyncTicker(ticker)
 	end
 	if on then
-		runAll(feature._onEnable, feature.addon.db)
+		runAll(feature, feature._onEnable, feature.addon.db)
 	else
-		runAll(feature._onDisable)
+		runAll(feature, feature._onDisable)
 	end
 end
 
@@ -170,7 +174,7 @@ function Addon:_SettingChanged(key, value)
 	for _, feature in ipairs(self._features) do
 		sync(feature)
 		if feature.enabled and feature.setting ~= key then
-			runAll(feature._onChange, key, value)
+			runAll(feature, feature._onChange, key, value)
 		end
 	end
 end
@@ -296,14 +300,17 @@ local function hook(addon, target, method, fn, feature)
 	fns[fn] = true
 	local wrapped = addon.Debug:Wrap(fn)
 	local body
+	-- Protected (an error in our hook must not break Blizzard's caller), and run as the addon's code.
 	if feature then
 		body = function(...)
 			if feature.enabled then
-				wrapped(...)
+				Core._RunAs(addon, wrapped, ...)
 			end
 		end
 	else
-		body = wrapped
+		body = function(...)
+			Core._RunAs(addon, wrapped, ...)
+		end
 	end
 	if target then
 		hooksecurefunc(target, method, body)
