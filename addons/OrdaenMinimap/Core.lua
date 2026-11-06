@@ -23,6 +23,8 @@ local function dumpState()
 		db = OrdaenMinimapDB,
 		map = ns.Map.Describe(),
 		drawer = ns.Drawer.Describe(),
+		buttons = ns.Buttons.Describe(),
+		info = ns.Info.Describe(),
 	}
 end
 
@@ -31,6 +33,11 @@ local function applyAll()
 		return
 	end
 	ns.Map.Apply(OrdaenMinimapDB)
+	if not ns.Map.active then
+		return
+	end
+	ns.Buttons.Apply(OrdaenMinimapDB)
+	ns.Info.Apply(OrdaenMinimapDB)
 	ns.Drawer.Apply(OrdaenMinimapDB)
 end
 
@@ -45,6 +52,28 @@ local UNCONFIRMED_APIS = {
 	"Minimap.SetTaskBlobRingScalar",
 	"StaticPopupDialogs",
 	"AddonCompartmentFrame.registeredAddons",
+	-- Buttons.lua / Info.lua
+	"GetTrackingTexture",
+	"GetMinimapZoneText",
+	"GetZonePVPInfo",
+	"GetRealZoneText",
+	"UnitPosition",
+	"C_Map.GetBestMapForUnit",
+	"C_Map.GetWorldPosFromMapPos",
+	"C_Map.GetPlayerMapPosition",
+	"CreateVector2D",
+	"GetGameTime",
+	"C_CVar.GetCVarBool",
+	"GetCVarBool",
+	"C_Calendar.GetNumPendingInvites",
+	"ToggleCalendar",
+	"TimeManager_Toggle",
+	"ToggleWorldMap",
+	"MinimapCluster.DielFrame",
+	"MinimapCluster.Tracking",
+	"MiniMapTracking",
+	"GameTimeFrame",
+	"TimeManagerClockButton",
 }
 
 local function logApiAvailability()
@@ -68,8 +97,13 @@ frame:RegisterEvent("PLAYER_LOGIN")
 frame:SetScript("OnEvent", Debug.Wrap(function(_, event, arg1)
 	if event == "ADDON_LOADED" and arg1 == addonName then
 		OrdaenMinimapDB = ns.ApplyDefaults(OrdaenMinimapDB or {})
+		OrdaenMinimapDB.buttonAngles = ns.SanitizeAngles(OrdaenMinimapDB.buttonAngles)
+		OrdaenMinimapDB.drawerButton = nil -- old free position of the drawer button (before the ring)
 		Debug.Init(OrdaenMinimapDB, { slash = SLASH, print = Print, dump = dumpState })
 		ns.Options.Register(OrdaenMinimapDB, applyAll)
+	elseif event == "ADDON_LOADED" and arg1:find("^Blizzard_") then
+		-- Some pieces we hide come with load-on-demand Blizzard addons (the clock with Blizzard_TimeManager).
+		ns.Map.RetryHidden()
 	elseif event == "PLAYER_LOGIN" then
 		local version = C_AddOns.GetAddOnMetadata(addonName, "Version") or "?"
 		Debug.Log("PLAYER_LOGIN")
@@ -104,8 +138,7 @@ SlashCmdList.ORDAENMINIMAP = Debug.Wrap(function(msg)
 			OrdaenMinimapDB[key] = value
 		end
 		OrdaenMinimapDB.conflictChoice = nil
-		OrdaenMinimapDB.drawerButton = nil
-		ns.Drawer.PlaceMainButton()
+		OrdaenMinimapDB.buttonAngles = {}
 		applyAll()
 		Print(L.RESET_DONE)
 	else

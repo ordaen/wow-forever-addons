@@ -54,10 +54,14 @@ ns.ApplyTranslation({
 	DRAWER_COLUMNS_TOOLTIP = "Сколько кнопок в одном ряду панели.",
 	DRAWER_TOOLTIP_CLICK = "Щелчок: открыть или закрыть панель",
 	DRAWER_TOOLTIP_RIGHT = "Правый щелчок: настройки",
-	DRAWER_TOOLTIP_MOVE = "Shift + перетаскивание: переместить кнопку",
+	DRAWER_TOOLTIP_MOVE = "Перетаскивание: переместить вокруг миникарты",
 	DRAWER_MBB_WARNING = "Загружен MinimapButtonButton, поэтому панель кнопок выключена (обе собирают одни и те же "
 		.. "кнопки). Выключите одну из них.",
 	DRAWER_RELOAD_HINT = "панель кнопок выключена. Введите /reload, чтобы вернуть кнопки на миникарту.",
 	STYLE_BRONZE_RIM = "Бронзовый обод",
 	CONFLICT_DISABLE_MANUALLY = "выключите %s в списке модификаций (на экране выбора персонажа) и перезапустите игру.",
+	ZONE_TOOLTIP_MAP = "Щелчок: карта мира",
+	TIME_TOOLTIP_CALENDAR = "Щелчок: календарь",
+	TIME_TOOLTIP_CLOCK = "Правый щелчок: настройки часов",
+	CALENDAR_PENDING = "У вас новые приглашения в календаре",
 })

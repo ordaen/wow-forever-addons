@@ -116,7 +116,8 @@ decided with the user.
   type, name, default)`, `Settings.CreateDropdown/CreateSlider/CreateCheckbox`), registered on `ADDON_LOADED` because it
   binds to the SavedVariables table. Reference: `MinimapButtonButton\Settings\SettingsMenu.lua`, `ForeverLootSparkles`.
 - Files: `Locale.lua` (enUS + ruRU; the user's client is ruRU), `Borders.lua` (border styles as data, defaults, pure
-  helpers), `Map.lua` (square mask, hide round pieces, wheel zoom, border frame, scale, `GetMinimapShape`),
+  helpers), `Ring.lua`/`Buttons.lua` (buttons around the map), `Info.lua` (zone, coordinates, clock), `Map.lua`
+  (square mask, hide Blizzard pieces, wheel zoom, border frame, scale, `GetMinimapShape`),
   `Options.lua` (settings page), `Core.lua` (events, slash). Specs: `borders_spec.lua` (logic) and `smoke_spec.lua`
   (loads the whole addon against stubbed WoW objects).
 - Conflicts (`Conflicts.lua` pure logic, `Guard.lua` WoW side): at login, a known list of dedicated minimap addons
@@ -130,6 +131,21 @@ decided with the user.
   has no `incompatible` relation; set that on the CurseForge project page by hand.
 - Feature: square map with a configurable border. Styles in `ns.BORDER_STYLES` are backdrops drawn by a frame around the
   map; built-in ones use game textures (gold dialog, tooltip, thin line). Custom art goes in `media/` as a new style.
+- Layout rule (user's decision): nothing sits on or inside the map frame. Zone name above the border, coordinates
+  (left) and clock (right) below it (`Info.lua`); every button outside the border on a ring (`Ring.lua` pure math,
+  `Buttons.lua` WoW side), placed by angle (`db.buttonAngles[id]`, 0 = right, CCW) and dragged around the map like
+  the Ordaen Dev gear button. Hidden for good (`Map.lua` `HIDDEN_PIECES`): Blizzard's zone bar, clock, calendar button
+  (`GameTimeFrame`) and day/night icon (`MinimapCluster.DielFrame`). A click on our clock opens the calendar,
+  right-click the clock settings; the clock turns orange with pending calendar invites.
+  - Our buttons share one style (`Buttons.Style`: the gear button's 28 px dark tooltip backdrop + icon). Blizzard's
+    tracking button is dressed in it: its own art is set to alpha 0 and it stays on top, so its menu works unchanged.
+    Other Blizzard buttons (mail, queue, difficulty, ...) are moved as they are. `hooksecurefunc` on their
+    `SetPoint`/`SetParent` puts them back when Blizzard's layout code moves them (no method replacement on Blizzard
+    frames, to keep taint away).
+  - Cost: coordinates from `UnitPosition` + the map's world rectangle (read once per zone, HereBeDragons' method), so
+    ticks create no tables; a 1 s `C_Timer.After` chain for clock and coordinates, plus 0.1 s only between
+    `PLAYER_STARTED_MOVING` and `PLAYER_STOPPED_MOVING`. Dev mode logs our coordinates next to
+    `C_Map.GetPlayerMapPosition` once per zone to verify the math.
 - Feature: button drawer (replaces MinimapButtonButton, MBB) that also collects **addon compartment** entries.
   Implemented in `DrawerData.lua` (pure: grid, entry merging) and `Drawer.lua`; settings `drawerEnabled` (default
   on), `hideBlizzardCompartment` (default on), `drawerColumns`; main button position `drawerButton` is an offset from

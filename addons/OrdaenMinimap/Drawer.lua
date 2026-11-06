@@ -76,10 +76,12 @@ function Drawer.Layout()
 		return
 	end
 	local items = shownItems()
-	-- Grow away from the screen edge the main button is closest to.
+	-- Grow away from the screen edge the main button is closest to. The button is on the minimap,
+	-- which has its own scale: compare in UIParent units.
 	local bx, by = mainButton:GetCenter()
-	local growLeft = bx and bx > UIParent:GetWidth() / 2
-	local growUp = by and by < UIParent:GetHeight() / 2
+	local k = (mainButton:GetEffectiveScale() or 1) / (UIParent:GetEffectiveScale() or 1)
+	local growLeft = bx and bx * k > UIParent:GetWidth() / 2
+	local growUp = by and by * k < UIParent:GetHeight() / 2
 	local offsets, width, height = ns.DrawerGrid(#items, db.drawerColumns, SLOT, GAP, growLeft, growUp)
 
 	local vertical = growUp and "BOTTOM" or "TOP"
@@ -349,29 +351,6 @@ end
 
 -- Main button and drawer frame ------------------------------------------------------------------
 
-local function savePosition()
-	local bx, by = mainButton:GetCenter()
-	local mx, my = Minimap:GetCenter()
-	if not (bx and mx) then
-		return
-	end
-	local bs, ms = mainButton:GetEffectiveScale(), Minimap:GetEffectiveScale()
-	db.drawerButton = { x = (bx * bs - mx * ms) / bs, y = (by * bs - my * ms) / bs }
-end
-
-function Drawer.PlaceMainButton()
-	if not mainButton then
-		return
-	end
-	mainButton:ClearAllPoints()
-	local pos = db.drawerButton
-	if pos then
-		mainButton:SetPoint("CENTER", Minimap, "CENTER", pos.x, pos.y)
-	else
-		mainButton:SetPoint("CENTER", Minimap, "BOTTOMLEFT", 12, 12)
-	end
-end
-
 function Drawer.Toggle()
 	if not container then
 		return
@@ -425,19 +404,9 @@ local function createFrames()
 		sinceCheck = 0
 	end)
 
-	mainButton = CreateFrame("Button", "OrdaenMinimapDrawerButton", UIParent)
-	mainButton:SetSize(20, 20)
-	mainButton:SetFrameStrata("MEDIUM")
-	mainButton:SetFrameLevel(25)
-	mainButton:SetClampedToScreen(true)
-	mainButton:SetMovable(true)
-	mainButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	mainButton:RegisterForDrag("LeftButton")
-	local icon = mainButton:CreateTexture(nil, "ARTWORK")
-	icon:SetAllPoints()
-	icon:SetTexture("Interface\\Icons\\INV_Misc_Bag_10")
-	icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-	mainButton:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
+	-- On the ring around the minimap, in the same style as the tracking and Ordaen Dev buttons;
+	-- dragging moves it around the map (Buttons.lua).
+	mainButton = ns.Buttons.Create("drawer", "OrdaenMinimapDrawerButton", "Interface\\Icons\\INV_Misc_Bag_10")
 
 	mainButton:SetScript("OnClick", ns.Debug.Wrap(function(_, mouseButton)
 		if mouseButton == "RightButton" then
@@ -445,17 +414,6 @@ local function createFrames()
 		else
 			Drawer.Toggle()
 		end
-	end))
-	mainButton:SetScript("OnDragStart", function(self)
-		if IsShiftKeyDown() then
-			self:StartMoving()
-		end
-	end)
-	mainButton:SetScript("OnDragStop", ns.Debug.Wrap(function(self)
-		self:StopMovingOrSizing()
-		savePosition()
-		Drawer.PlaceMainButton()
-		Drawer.Layout()
 	end))
 	mainButton:SetScript("OnEnter", function(self)
 		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
@@ -468,7 +426,6 @@ local function createFrames()
 	mainButton:SetScript("OnLeave", function()
 		GameTooltip:Hide()
 	end)
-	Drawer.PlaceMainButton()
 end
 
 -- Start / settings ------------------------------------------------------------------------------
@@ -527,7 +484,6 @@ function Drawer.Apply(savedDb)
 		ns.Print(L.DRAWER_RELOAD_HINT)
 	elseif started then
 		mainButton:Show()
-		Drawer.PlaceMainButton()
 		Drawer.Layout()
 	end
 	Drawer.ApplyBlizzardCompartment()

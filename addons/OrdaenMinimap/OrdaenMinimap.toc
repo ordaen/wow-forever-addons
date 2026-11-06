@@ -26,9 +26,12 @@
 Locale.lua
 Locale_ruRU.lua
 Names.lua
+Ring.lua
 Borders.lua
 Conflicts.lua
 Map.lua
+Buttons.lua
+Info.lua
 Guard.lua
 DrawerData.lua
 Drawer.lua

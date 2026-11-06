@@ -43,6 +43,10 @@ else
 		"ChatFontNormal", "GetBuildInfo", "GetLocale", "GetTime", "UISpecialFrames", "date", "time",
 		"debuglocals", "debugstack", "geterrorhandler", "seterrorhandler", "C_UI", "GetCursorPosition",
 		"LoggingChat", "Screenshot",
+		-- OrdaenMinimap Buttons.lua / Info.lua (unconfirmed until the first dump: guarded, logged in dev mode)
+		"GetTrackingTexture", "GetMinimapZoneText", "GetZoneText", "GetZonePVPInfo", "GetRealZoneText",
+		"UnitPosition", "C_Map", "CreateVector2D", "GetGameTime", "C_CVar", "GetCVarBool", "C_Calendar",
+		"ToggleCalendar", "GameTimeFrame", "TimeManager_Toggle", "ToggleWorldMap", "TIMEMANAGER_AM", "TIMEMANAGER_PM",
 	}
 	for _, name in ipairs(fromOtherAddons) do
 		read_globals[#read_globals + 1] = name

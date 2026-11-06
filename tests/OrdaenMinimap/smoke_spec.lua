@@ -36,12 +36,26 @@ local function stubObject(name, extra)
 	obj.GetScript = function(self, script)
 		return self.scripts[script]
 	end
+	obj.HookScript = function(self, script, fn)
+		local before = self.scripts[script]
+		self.scripts[script] = before and function(...)
+			before(...)
+			fn(...)
+		end or fn
+	end
+	obj.SetText = function(self, text)
+		self.text = text
+	end
 	obj.IsShown = function(self)
 		return self.shown
 	end
 	obj.CreateTexture = function(self)
 		self.texture = stubObject(name .. ".texture") -- the last one created, for assertions
 		return self.texture
+	end
+	obj.CreateFontString = function(self, fontName)
+		self.font = stubObject(fontName or (name .. ".font"))
+		return self.font
 	end
 	for k, v in pairs(extra or {}) do
 		rawset(obj, k, v)
@@ -79,6 +93,10 @@ describe("OrdaenMinimap smoke", function()
 			icons = {}, -- LibDBIcon buttons by name
 			iconOrder = {},
 			runtimeEntries = {}, -- AddonCompartmentFrame.registeredAddons
+			-- UnitPosition: world X (north), Y (west). The stub map spans X 1000..600, Y 2000..1200,
+			-- so (800, 1800) is map (0.25, 0.5).
+			position = { 800, 1800 },
+			cursor = { 0, 0 },
 		}
 		helpers.stubGlobals({
 			GetLocale = function()
@@ -138,7 +156,50 @@ describe("OrdaenMinimap smoke", function()
 				}
 			end,
 			MinimapCompassTexture = stubObject("MinimapCompassTexture"),
-			MinimapCluster = stubObject("MinimapCluster", { UpdateMinimapConfig = function() end }),
+			MinimapCluster = stubObject("MinimapCluster", {
+				UpdateMinimapConfig = function() end,
+				DielFrame = stubObject("DielFrame"),
+				Tracking = stubObject("Tracking", { Button = stubObject("Tracking.Button") }),
+				IndicatorFrame = stubObject("IndicatorFrame", { MailFrame = stubObject("MailFrame") }),
+			}),
+			GameTimeFrame = stubObject("GameTimeFrame"),
+			TimeManagerClockButton = stubObject("TimeManagerClockButton"),
+			ToggleCalendar = function()
+				world.calendar = (world.calendar or 0) + 1
+			end,
+			GetMinimapZoneText = function()
+				return "Elwynn Forest"
+			end,
+			GetZonePVPInfo = function()
+				return "friendly"
+			end,
+			GetGameTime = function()
+				return 14, 5
+			end,
+			time = os.time,
+			GetCursorPosition = function()
+				return world.cursor[1], world.cursor[2]
+			end,
+			UnitPosition = function()
+				return world.position[1], world.position[2]
+			end,
+			CreateVector2D = function(x, y)
+				return { x = x, y = y, GetXY = function(self)
+					return self.x, self.y
+				end }
+			end,
+			C_Map = {
+				GetBestMapForUnit = function()
+					return 1429
+				end,
+				GetWorldPosFromMapPos = function(_, pos)
+					-- World X grows north, Y grows west: map (0,0) = NW corner = (top, left).
+					local top, left, height, width = 1000, 2000, 400, 800
+					return 0, { GetXY = function()
+						return top - pos.y * height, left - pos.x * width
+					end }
+				end,
+			},
 			CreateFrame = function(_, name)
 				local f = stubObject(name or "anon")
 				table.insert(frames, f)
@@ -292,6 +353,123 @@ describe("OrdaenMinimap smoke", function()
 		fire("PLAYER_LOGIN")
 		Minimap.scripts.OnMouseWheel(Minimap, 1)
 		assert.same({ 3 }, Minimap.calls.SetZoom[1])
+	end)
+
+	describe("around the map", function()
+		local function login()
+			fire("ADDON_LOADED", "OrdaenMinimap")
+			fire("PLAYER_LOGIN")
+		end
+
+		local function lastPoint(f)
+			return f.calls.SetPoint[#f.calls.SetPoint]
+		end
+
+		it("hides Blizzard's day/night, calendar, clock and keeps them hidden", function()
+			login()
+			assert.is_false(MinimapCluster.DielFrame.shown)
+			assert.is_false(_G.GameTimeFrame.shown)
+			assert.is_false(_G.TimeManagerClockButton.shown)
+			_G.GameTimeFrame:Show()
+			assert.is_false(_G.GameTimeFrame.shown)
+		end)
+
+		it("shows the zone above, coordinates and the clock below, outside the border", function()
+			login()
+			local zone = frameNamed("OrdaenMinimapZone")
+			assert.equals("Elwynn Forest", zone.font.text)
+			assert.same({ 0.1, 1, 0.1 }, zone.font.calls.SetTextColor[1])
+			-- gold border: outset 7, + 2 px gap
+			assert.same({ "BOTTOMRIGHT", Minimap, "TOPRIGHT", 0, 9 }, lastPoint(zone))
+			local coords = Minimap.font
+			assert.equals("OrdaenMinimapCoords", coords.name)
+			assert.same({ "%.1f, %.1f", 25, 50 }, coords.calls.SetFormattedText[#coords.calls.SetFormattedText])
+			local clock = frameNamed("OrdaenMinimapClock")
+			assert.same({ "%02d:%02d", 14, 5 }, clock.font.calls.SetFormattedText[1])
+		end)
+
+		it("opens the calendar from the clock", function()
+			login()
+			local clock = frameNamed("OrdaenMinimapClock")
+			clock.scripts.OnClick(clock, "LeftButton")
+			assert.equals(1, world.calendar)
+		end)
+
+		it("clears the coordinates where there are none (instances)", function()
+			login()
+			world.position = {}
+			-- Info.lua's event frame is created right after the clock.
+			local infoEvents
+			for i, f in ipairs(frames) do
+				if f.name == "OrdaenMinimapClock" then
+					infoEvents = frames[i + 1]
+				end
+			end
+			infoEvents.scripts.OnEvent(infoEvents, "ZONE_CHANGED_NEW_AREA")
+			local coords = Minimap.font
+			assert.equals("", coords.text)
+		end)
+
+		it("puts the tracking button in our style outside the border and drags it around", function()
+			login()
+			local tracking = MinimapCluster.Tracking
+			assert.same({ Minimap }, tracking.calls.SetParent[1])
+			local look = frameNamed("OrdaenMinimapTrackingButton")
+			assert.truthy(look)
+			assert.same({ "CENTER", tracking, "CENTER" }, look.calls.SetPoint[#look.calls.SetPoint])
+			-- Default angle 160, map 140 (stub default), gold outset 7, button 28: outside the left side.
+			local point = lastPoint(tracking)
+			assert.equals("CENTER", point[1])
+			assert.is_true(point[4] < -(70 + 7))
+
+			-- Blizzard's layout moves it back: we put it back.
+			tracking:SetPoint("TOPLEFT", MinimapCluster, "TOPLEFT", 0, 0)
+			assert.same(point, lastPoint(tracking))
+
+			-- Drag to the right side.
+			world.cursor = { 500, 0 }
+			rawset(Minimap, "GetCenter", function()
+				return 0, 0
+			end)
+			tracking.Button.scripts.OnDragStart(tracking.Button)
+			local driver
+			for _, f in ipairs(frames) do
+				if f.scripts.OnUpdate and f.name == "anon" and not f.scripts.OnShow then
+					driver = f
+				end
+			end
+			driver.scripts.OnUpdate(driver, 0.01)
+			tracking.Button.scripts.OnDragStop(tracking.Button)
+			assert.equals(0, _G.OrdaenMinimapDB.buttonAngles.tracking)
+			assert.is_true(lastPoint(tracking)[4] > 70 + 7)
+			assert.is_nil(driver.scripts.OnUpdate) -- nothing runs once the drag ends
+		end)
+
+		it("moves Blizzard's mail indicator off the map too", function()
+			login()
+			local mail = MinimapCluster.IndicatorFrame.MailFrame
+			assert.same({ Minimap }, mail.calls.SetParent[1])
+			assert.is_true(lastPoint(mail)[4] > 70) -- right side by default
+		end)
+
+		it("places the drawer button on the ring and forgets angles on /om reset", function()
+			login()
+			local button = frameNamed("OrdaenMinimapDrawerButton")
+			local before = lastPoint(button)
+			assert.is_true(before[4] < -70 and before[5] < -70) -- bottom-left corner
+			_G.OrdaenMinimapDB.buttonAngles.drawer = 0
+			SlashCmdList.ORDAENMINIMAP("reset")
+			assert.same({}, _G.OrdaenMinimapDB.buttonAngles)
+			assert.same(before, lastPoint(button))
+		end)
+
+		it("removes the texts when another minimap addon takes over", function()
+			login()
+			world.stack = [[[string "@Interface/AddOns/SexyMap/Shapes.lua"]:348: in function 'ApplyShape']]
+			Minimap:SetMaskTexture("round")
+			assert.is_false(frameNamed("OrdaenMinimapZone").shown)
+			assert.is_false(frameNamed("OrdaenMinimapClock").shown)
+		end)
 	end)
 
 	it("re-applies the look when a setting changes", function()

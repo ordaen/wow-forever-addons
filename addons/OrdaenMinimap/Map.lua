@@ -1,4 +1,5 @@
--- The square minimap: mask, hiding the round Blizzard pieces, mouse-wheel zoom, border and size.
+-- The square minimap: mask, hiding Blizzard's round pieces (and the ones Info.lua replaces),
+-- mouse-wheel zoom, border and size.
 -- Forever uses the modern minimap code, so frame names differ from classic; every Blizzard piece is
 -- looked up by several possible names and skipped when missing (the debug log records what was found).
 --
@@ -12,14 +13,24 @@ ns.Map = Map
 
 local SQUARE_MASK = "Interface\\Buttons\\WHITE8X8"
 
--- Round decorations that make no sense on a square map. Each entry: possible names, first found wins.
-local ROUND_PIECES = {
+-- Blizzard pieces we hide. Each entry: possible names, first found wins. Some load later (the clock
+-- comes with Blizzard_TimeManager), so missing ones are looked for again when a Blizzard addon loads.
+local HIDDEN_PIECES = {
+	-- Round decorations that make no sense on a square map.
 	{ "MinimapBorder" },
 	{ "MinimapCompassTexture" },
 	{ "MinimapCompassTextureUnderlay" },
 	{ "MinimapNorthTag" },
 	{ "Minimap.ZoomIn", "MinimapZoomIn" },
 	{ "Minimap.ZoomOut", "MinimapZoomOut" },
+	-- Replaced by Info.lua: zone text bar on top, clock, calendar (opened from our clock), day/night.
+	{ "MinimapCluster.BorderTop", "MinimapBorderTop" },
+	{ "MinimapCluster.ZoneTextButton", "MinimapZoneTextButton" },
+	{ "MinimapToggleButton" },
+	{ "TimeManagerClockButton" },
+	{ "GameTimeFrame" },
+	{ "MinimapCluster.DielFrame" },
+	{ "MinimapCluster.MinimapContainer.PlayerCoords" },
 }
 
 --- Resolve "A.B.C" through _G; nil when any part is missing.
@@ -37,12 +48,13 @@ end
 local function findFirst(names)
 	for _, name in ipairs(names) do
 		local object = resolve(name)
-		if object then
+		if type(object) == "table" then -- frames are tables; anything else is not what we look for
 			return object, name
 		end
 	end
 	return nil, nil
 end
+ns.FindFirst = findFirst
 
 Map.found = {} -- name -> found name or false, for the dev-mode dump
 Map.active = false -- true while we own the minimap's look (false = stepped aside for a conflict)
@@ -110,11 +122,17 @@ local function rehide(self)
 	applying = false
 end
 
-local function hideRoundPieces()
-	for _, names in ipairs(ROUND_PIECES) do
-		local object, name = findFirst(names)
-		Map.found[names[1]] = name or false
+local hiddenDone = {} -- entry -> true once found and hidden
+
+local function hidePieces()
+	for _, names in ipairs(HIDDEN_PIECES) do
+		local object, name
+		if not hiddenDone[names] then
+			object, name = findFirst(names)
+			Map.found[names[1]] = name or false
+		end
 		if object then
+			hiddenDone[names] = true
 			hiddenPieces[#hiddenPieces + 1] = object
 			object:Hide()
 			-- Blizzard re-shows some of these (hover, config updates); keep them hidden.
@@ -246,7 +264,7 @@ local function setUpOnce()
 	end
 	setUp = true
 	enableWheelZoom()
-	hideRoundPieces()
+	hidePieces()
 	-- Blizzard's minimap config code (rotation on/off, layout) resets the mask and sizes.
 	if MinimapCluster and MinimapCluster.UpdateMinimapConfig then
 		hooksecurefunc(MinimapCluster, "UpdateMinimapConfig", reapplyShape)
@@ -277,6 +295,13 @@ function Map.Apply(db)
 	end)
 end
 
+--- Look again for Blizzard pieces that weren't there yet (call when a Blizzard addon loads).
+function Map.RetryHidden()
+	if setUp and Map.active then
+		withApplying(hidePieces)
+	end
+end
+
 --- Stop owning the minimap (a conflict the user hasn't resolved). Our border goes away; the rest
 --- (mask, hidden pieces) is left to the other addon, and a /reload restores Blizzard's look.
 function Map.StepAside()
@@ -284,6 +309,7 @@ function Map.StepAside()
 	if border then
 		border:Hide()
 	end
+	ns.Info.Hide()
 	if GetMinimapShape == ourShape then
 		GetMinimapShape = nil
 	end

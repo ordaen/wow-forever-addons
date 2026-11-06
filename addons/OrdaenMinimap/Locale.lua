@@ -53,12 +53,16 @@ local L = {
 	DRAWER_COLUMNS_TOOLTIP = "How many buttons per row in the drawer.",
 	DRAWER_TOOLTIP_CLICK = "Click: open or close the drawer",
 	DRAWER_TOOLTIP_RIGHT = "Right-click: settings",
-	DRAWER_TOOLTIP_MOVE = "Shift-drag: move this button",
+	DRAWER_TOOLTIP_MOVE = "Drag: move it around the minimap",
 	DRAWER_MBB_WARNING = "MinimapButtonButton is loaded, so the button drawer stays off (both would grab the same "
 		.. "buttons). Disable one of them.",
 	DRAWER_RELOAD_HINT = "button drawer off. Type /reload to put the buttons back on the minimap.",
 	STYLE_BRONZE_RIM = "Bronze rim",
 	CONFLICT_DISABLE_MANUALLY = "please disable %s in the AddOns list (character screen) and restart the game.",
+	ZONE_TOOLTIP_MAP = "Click: world map",
+	TIME_TOOLTIP_CALENDAR = "Click: calendar",
+	TIME_TOOLTIP_CLOCK = "Right-click: clock settings",
+	CALENDAR_PENDING = "You have new calendar invitations",
 }
 
 ns.LOCALE = GetLocale and GetLocale() or "enUS"
