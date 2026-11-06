@@ -226,5 +226,43 @@ describe("api_import", function()
 			local api = Import.Structured(Import.Render(fakeDump(70790)))
 			assert.is_false(api.meta.docsDefaults)
 		end)
+
+		it("doesn't repeat a node's methods that its widget type has, and luacheck still knows them", function()
+			local dump = fakeDump(71000)
+			dump.globals.ChatFrame1 = "widget"
+			dump.widgets.Button = { "Click", "SetPoint", "Show" }
+			dump.objects = {
+				ChatFrame1 = {
+					["<objectType>"] = "Button",
+					Click = "function", -- from the Button type: left out
+					Show = "function", -- from the Button type: left out
+					AddMessage = "function", -- its own (a mixin method): kept
+					editBox = "widget",
+				},
+				["ChatFrame1.#2"] = { ["<objectType>"] = "Button", SetPoint = "function", OnSpecial = "function" },
+			}
+			local files = Import.Render(dump)
+			assert.is_nil(files["objects.txt"]:find("ChatFrame1.Click\t", 1, true))
+			assert.is_nil(files["objects.txt"]:find("ChatFrame1.Show\t", 1, true))
+			assert.is_nil(files["objects.txt"]:find("ChatFrame1.#2.SetPoint\t", 1, true))
+			assert.truthy(files["objects.txt"]:find("ChatFrame1.AddMessage\tfunction\n", 1, true))
+			assert.truthy(files["objects.txt"]:find("ChatFrame1.#2.OnSpecial\tfunction\n", 1, true))
+			assert.truthy(files["objects.txt"]:find("ChatFrame1.<objectType>\tButton\n", 1, true))
+
+			local globals = assert(loadstring(Import.Luacheck(files, "1.60.2-71000")))()
+			for _, key in ipairs({ "Click", "Show", "SetPoint", "AddMessage", "editBox" }) do
+				assert.truthy(globals.ChatFrame1.fields[key], key)
+			end
+			assert.is_nil(globals.ChatFrame1.fields.NoSuchMethod)
+
+			-- forever-lint still sees the inherited methods through <objectType>.
+			local Lint = dofile("scripts/forever_lint.lua")
+			local api = Lint.Prepare(Import.Structured(files))
+			local found = {}
+			for _, f in ipairs(Lint.LintSource(api, "ChatFrame1:Click()\nChatFrame1:AddMessage('x')\nChatFrame1:Nope()\n")) do
+				found[#found + 1] = f.code .. "@" .. f.line
+			end
+			assert.same({ "FL2@3" }, found)
+		end)
 	end)
 end)

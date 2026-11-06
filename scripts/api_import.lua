@@ -85,10 +85,25 @@ function M.Render(dump)
 	end
 	out["widgets.txt"] = lines(widgets)
 
+	-- A widget node's methods that its widget type already has (widgets.txt) aren't repeated: with every
+	-- named UIParent child as a root that would be ~250 lines per frame. Each node keeps its own keys,
+	-- methods its type doesn't have (mixins) and "<objectType>", which points at the rest.
+	local typeMethods = {}
+	for widgetType, methods in pairs(dump.widgets or {}) do
+		if methods then
+			typeMethods[widgetType] = {}
+			for _, method in ipairs(methods) do
+				typeMethods[widgetType][method] = true
+			end
+		end
+	end
 	local objects = {}
 	for path, members in pairs(dump.objects or {}) do
+		local inherited = typeMethods[members["<objectType>"] or ""]
 		for key, kind in pairs(members) do
-			objects[#objects + 1] = path .. "." .. key .. "\t" .. kind
+			if not (inherited and kind == "function" and inherited[key]) then
+				objects[#objects + 1] = path .. "." .. key .. "\t" .. kind
+			end
 		end
 	end
 	out["objects.txt"] = lines(objects)
@@ -197,14 +212,27 @@ function M.Luacheck(files, folder)
 			namespaces[name][key] = kind
 		end
 	end
+	local widgetMethods = {}
+	for widgetType, method in (files["widgets.txt"] or ""):gmatch("([^:\t\n]+):([^\n]+)") do
+		widgetMethods[widgetType] = widgetMethods[widgetType] or {}
+		widgetMethods[widgetType][method] = true
+	end
 	local objects = {}
 	for line in (files["objects.txt"] or ""):gmatch("[^\n]+") do
-		local path, key = line:match("^(.+)%.([^.\t]+)\t")
+		local path, key, kind = line:match("^(.+)%.([^.\t]+)\t(.+)$")
 		-- Only top-level objects with identifier-safe keys become luacheck fields. Deep paths, unnamed
 		-- children ("#3") and markers ("<ref>", "<objectType>", "<truncated>") stay in the text/JSON only.
-		if path and path:match("^[%a_][%w_]*$") and key:match("^[%a_][%w_]*$") then
-			objects[path] = objects[path] or {}
-			objects[path][key] = true
+		if path and path:match("^[%a_][%w_]*$") then
+			if key:match("^[%a_][%w_]*$") then
+				objects[path] = objects[path] or {}
+				objects[path][key] = true
+			elseif key == "<objectType>" and widgetMethods[kind] then
+				-- objects.txt leaves out methods that come from the widget type (see Render); add them back.
+				objects[path] = objects[path] or {}
+				for method in pairs(widgetMethods[kind]) do
+					objects[path][method] = true
+				end
+			end
 		end
 	end
 
