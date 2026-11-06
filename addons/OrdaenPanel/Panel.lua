@@ -146,6 +146,11 @@ local function followEnabled(button)
 		return
 	end
 	local color = (not button:IsEnabled()) and "color.disabled" or nil
+	local Debug = ns.Addon.Debug
+	if Debug:IsEnabled() then
+		Debug:Verbosef("enabled %s: %s (%s)", button:GetName() or "?", tostring(button:IsEnabled()),
+			tostring(rawget(button, "tooltipText")))
+	end
 	if icon.color ~= color then
 		icon.color = color
 		if panel then
@@ -157,6 +162,9 @@ end
 -- Its cell lights while Blizzard's (invisible) button is hovered.
 local function lightCell(button, lit)
 	local cell = cellOf[button]
+	if lit and not button:IsEnabled() then
+		return -- Blizzard disabled it (the game menu is open, not yet available): no hover look
+	end
 	if cell and panel and cell.highlight ~= lit then
 		cell.highlight = lit
 		panel:Refresh()
@@ -453,7 +461,8 @@ local function take(button, cell, texts)
 	end
 	followEnabled(button)
 	local el = cell[1]
-	ns.Addon.Debug:Logf("held %s: %s", button:GetName() or "?",
+	ns.Addon.Debug:Logf("held %s \"%s\"%s: %s", button:GetName() or "?", tostring(rawget(button, "tooltipText")),
+		button:IsEnabled() and "" or " (disabled)",
 		el and tostring(el.atlas or el.image) or "its portrait")
 end
 
@@ -652,15 +661,17 @@ local function build()
 	end
 	middle = middle or { embed = barHolder, align = "center" }
 	xp.height = math.floor(size * 0.6 + 0.5)
+	-- One top block for the panel's life, changed in place (a new table lost the panel's look: a transparent
+	-- background after moving the height slider, 2026-11-06).
+	spec = spec or { style = "panel" }
+	spec[1], spec[2], spec[3] = left, middle, right
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
-		spec = {
-			columns = { "1fr", "auto", "1fr" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size,
-			rowAlign = "center",
-			left, middle, right,
-		}
+		spec.columns, spec.gap, spec.padding = { "1fr", "auto", "1fr" }, "lg", { 0, "sm", 0, "sm" }
+		spec.height, spec.rowAlign = size, "center"
 	else
-		spec = { columns = { "auto" }, gap = "md", padding = { "sm", "xs", "sm", "xs" }, left, middle, right }
+		spec.columns, spec.gap, spec.padding = { "auto" }, "md", { "sm", "xs", "sm", "xs" }
+		spec.height, spec.rowAlign = nil, nil
 	end
 	tipFriends.format, tipBnet.format, tipGuild.format = L.TIP_FRIENDS, L.TIP_BNET, L.TIP_GUILD
 	tipRested.format, tipQuest.format = L.TIP_RESTED, L.TIP_QUESTS

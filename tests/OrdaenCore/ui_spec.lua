@@ -775,6 +775,14 @@ describe("OrdaenCore.UI", function()
 			_G.UIParent:SetSize(w, h)
 		end
 
+		it("keep the panel's look when the owner puts in a new block", function()
+			screen(1920, 1080)
+			local panel = UI.Panel({ { text = "Gold" } })
+			panel.block = { { text = "Gold" } } -- a layout change built a new table without a style
+			panel:Place()
+			assert.equals("panel", panel.block.style)
+		end)
+
 		it("tell others how much of their edge they cover, and announce a change", function()
 			screen(1920, 1080)
 			local heard = 0

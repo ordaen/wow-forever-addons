@@ -466,6 +466,10 @@ end
 -- Size and place the panel for the screen as it is now (again after a resolution or UI scale change).
 local function placePanel(self)
 	local opts, block, frame = self.panel, self.block, self.frame
+	-- an owner that put in a new block (a layout change) keeps the panel's look: no style means "panel" here too
+	if block.style == nil then
+		block.style = "panel"
+	end
 	local edge = EDGE_POINT[opts.edge] and opts.edge or "bottom"
 	local horizontal = edge == "bottom" or edge == "top"
 	if opts.fit ~= "center" then
