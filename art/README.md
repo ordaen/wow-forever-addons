@@ -22,6 +22,8 @@ for a copy of Blizzard or other existing art.
 - ComfyUI portable (NVIDIA build) in `C:\Users\f3oal\ComfyUI\ComfyUI_windows_portable\`, with
   `flux1-schnell-fp8.safetensors` (from `Comfy-Org/flux1-schnell` on Hugging Face) in `ComfyUI\models\checkpoints\`.
   Start it with `run_nvidia_gpu.bat`; it serves http://127.0.0.1:8188.
+- Border frames: `art/frame.py <style>` draws a backdrop edge file procedurally (styles are profiles in
+  `STYLES`), writes `addons/OrdaenMinimap/media/<style>.tga` and an accurate preview in `out/frames/`.
 - Python tools: `py -3 -m venv art/.venv` then `art/.venv/Scripts/python -m pip install -r art/requirements.txt`.
 
 ```sh
