@@ -302,13 +302,22 @@ describe("Ordaen Chat", function()
 			issecretvalue = function(v)
 				return secrets[v] == true
 			end,
+			-- Like the game's: every owner's callback for an event runs (one per owner; registering again replaces it).
+			-- It kept only the last one, so Position's theme listener hid Look's and Dim's (2026-11-07).
 			EventRegistry = {
 				RegisterCallback = function(self, event, fn, owner)
-					self[event] = { fn, owner }
+					local list = rawget(self, event) or {}
+					rawset(self, event, list)
+					for _, c in ipairs(list) do
+						if c[2] == owner then
+							c[1] = fn
+							return
+						end
+					end
+					table.insert(list, { fn, owner })
 				end,
 				TriggerEvent = function(self, event, ...)
-					local c = rawget(self, event)
-					if c then
+					for _, c in ipairs(rawget(self, event) or {}) do
 						c[1](c[2], ...)
 					end
 				end,
@@ -326,6 +335,7 @@ describe("Ordaen Chat", function()
 			-- Blizzard's tab colours (the selection changed) and alert flashes (a message in a hidden tab).
 			FCFTab_UpdateColors = function() end,
 			FCF_StartAlertFlash = function() end,
+			FCFDock_SetPrimary = function() end,
 			FCF_StopAlertFlash = function() end,
 			-- The dock's scroll frame holds the tabs that aren't static docked; Blizzard anchors it after the last
 			-- static tab (Combat Log's, until we clear its flag).
@@ -792,6 +802,22 @@ describe("Ordaen Chat", function()
 			assert.is_nil(ns.Look.Cover(windows[1]))
 		end)
 
+		it("lines the first tab up with our background's left edge, not the chat window's", function()
+			login()
+			windows[1].GetLeft = function()
+				return 20
+			end
+			local cover = ns.Look.Cover(windows[1])
+			cover.GetLeft = function()
+				return 7 -- 13 left of the chat window
+			end
+			EventRegistry:TriggerEvent("OrdaenUI.ThemeChanged") -- the padding changed with the text size
+			assert.same({ "BOTTOMLEFT", windows[1], "TOPLEFT", -13, 3 }, GeneralDockManager.point, "only its left edge moves")
+			ns.Addon.db.chatLook = false
+			ns.Addon:_SettingChanged("chatLook", false)
+			assert.same({ "BOTTOMLEFT", windows[1], "TOPLEFT", 0, 3 }, GeneralDockManager.point, "Blizzard's anchor back")
+		end)
+
 		it("pads the messages and spaces them by the theme's tokens", function()
 			login()
 			assert.equals(OrdaenCore.UI.Space("xs"), windows[1].spacing, "the lines of one message")
@@ -819,13 +845,13 @@ describe("Ordaen Chat", function()
 				return 50 -- 50 below it (the input: 40)
 			end
 			EventRegistry:TriggerEvent("OrdaenUI.ThemeChanged") -- the text size changed, and with it the padding
-			assert.same({ "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 17, 54 }, windows[1].points[#windows[1].points])
+			assert.same({ "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 13, 54 }, windows[1].points[#windows[1].points])
 		end)
 
 		it("puts the chat bottom left, its background and input clear of the screen edge", function()
 			login()
-			-- reach: background 5 left of the frame, input 40 below it; margin 4
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
+			-- reach: background 5 left of the frame, input 40 below it; flush left, 4 above the panel
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 44 } }, windows[1].points)
 			assert.same({ -5, 35, 26, -50 }, windows[1].clamp, "no room left for Blizzard's empty button column")
 		end)
 
@@ -834,19 +860,19 @@ describe("Ordaen Chat", function()
 			OrdaenCore.UI.Panel({ { text = "Gold" } })
 			local inset = OrdaenCore.UI.ScreenInset("bottom")
 			assert.is_true(inset > 0)
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, inset + 44 } }, windows[1].points)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, inset + 44 } }, windows[1].points)
 		end)
 
 		it("goes back above the panels after Blizzard's chat code places it", function()
 			login()
 			windows[1]:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 30, 40) -- the saved chat positions
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 44 } }, windows[1].points)
 		end)
 
 		it("goes back above the panels after Edit Mode places it", function()
 			login()
 			windows[1]:ApplySystemAnchor()
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 44 } }, windows[1].points)
 		end)
 
 		it("gives the place back to Edit Mode when turned off", function()

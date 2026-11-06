@@ -278,12 +278,27 @@ end
 
 local hooked = false
 
--- The text size changed: the gaps follow it (the padding follows by itself: UI.Dress).
+-- Blizzard hangs the tab dock on the chat window (FCFDock_SetPrimary: BOTTOMLEFT to its TOPLEFT, 3 up), but our
+-- background reaches further left by Blizzard's background and our padding: the first tab sat inside it (2026-11-07).
+-- Its left edge goes to our background's; the right one and the height stay Blizzard's.
+local DOCK_UP = 3 -- Blizzard's own offset
+local function alignTabs()
+	local chat = ChatFrame1
+	local cover = on and Look.Cover(chat)
+	local left, coverLeft = chat:GetLeft(), cover and cover:GetLeft()
+	if not (left and coverLeft) then
+		return
+	end
+	GeneralDockManager:SetPoint("BOTTOMLEFT", chat, "TOPLEFT", coverLeft - left, DOCK_UP)
+end
+
+-- The text size changed: the gaps follow it (the padding follows by itself: UI.Dress), and the tabs the padding.
 local function onThemeChanged()
 	if on then
 		for frame in pairs(windows) do
 			spaceLines(frame)
 		end
+		alignTabs()
 	end
 end
 
@@ -307,8 +322,11 @@ function Look.Enable()
 		hooksecurefunc("FCF_StopAlertFlash", onFlashStop)
 		hooksecurefunc("FCF_OpenTemporaryWindow", onTemporaryWindow)
 		EventRegistry:RegisterCallback("OrdaenUI.ThemeChanged", onThemeChanged, Look)
+		-- Blizzard anchors the dock again (a new primary window, a reset): our edge again.
+		hooksecurefunc("FCFDock_SetPrimary", alignTabs)
 	end
 	onTabColors()
+	alignTabs()
 end
 
 --- Give the chat Blizzard's look back (the fonts stay the theme's until a /reload).
@@ -325,6 +343,7 @@ function Look.Disable()
 	for _, dress in pairs(tabs) do
 		dress:Undress()
 	end
+	GeneralDockManager:SetPoint("BOTTOMLEFT", ChatFrame1, "TOPLEFT", 0, DOCK_UP) -- Blizzard's anchor
 end
 
 --- Our background of a chat window (it reaches past Blizzard's by the padding), or nil when it has none.

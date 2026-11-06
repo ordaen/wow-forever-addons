@@ -14,7 +14,8 @@ ns.Position = Position
 
 local UI = OrdaenCore.UI
 
-local MARGIN = 4 -- between the chat's background and the screen edge or panel
+-- Between the chat's background and the screen edge (none: flush, the user's choice, 2026-11-07) and the panel.
+local MARGIN_LEFT, MARGIN_BOTTOM = 0, 4
 
 local on = false
 local placing = false
@@ -64,8 +65,8 @@ local function place()
 		blizzardClamp = { left, right, top, bottom }
 	end
 	chat:SetClampRectInsets(-outLeft, right, top, bottom)
-	local x = UI.ScreenInset("left") + MARGIN + outLeft
-	local y = UI.ScreenInset("bottom") + MARGIN + outBottom
+	local x = UI.ScreenInset("left") + MARGIN_LEFT + outLeft
+	local y = UI.ScreenInset("bottom") + MARGIN_BOTTOM + outBottom
 	chat:ClearAllPoints()
 	chat:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", x, y)
 	placing = false
