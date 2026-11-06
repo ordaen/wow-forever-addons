@@ -1,79 +1,338 @@
--- OrdaenCore.UI default theme: what each style role looks like. Data only: the renderer reads it, nothing here
--- draws. It uses Blizzard's own art and fonts, so Ordaen UI looks native out of the box; a theme addon will
--- replace these tables (same shape) to give everything a different look.
+-- OrdaenCore.UI themes: how everything looks, as data. The renderer (Render.lua) is the only code that draws;
+-- a theme only says which sizes, fonts, colours and surface effects each style role gets.
 --
--- blocks[style]: surface art (backdrop), colors, a hover highlight, and layout defaults (padding, gap, minWidth,
---                maxWidth). A style without a backdrop draws no surface (plain text, a bare icon).
--- text[style]:   a font object name (a Blizzard global) and a color. Elements without a style are "body".
+-- One design scale for every Ordaen addon. Its root is the player's global setting in Ordaen Core
+-- (OrdaenCoreDB.ui.textSize: body text height in px). Every text size tier and every spacing step is derived
+-- from it, so one slider resizes all Ordaen UI and the proportions stay the same. Addons name roles
+-- (style = "title", gap = "sm"), never numbers, and pick a change up by themselves.
+--
+-- The rule for themes (CLAUDE.md, "UI framework"): there are always these three, chosen globally in Ordaen Core
+-- (OrdaenCoreDB.ui.theme):
+--   ordaen   our own look, the default: flat surfaces drawn without art, tinted by an accent colour;
+--   blizzard Blizzard's tooltip art, colours and shadowed text;
+--   minimal  flat and quiet: solid fills, hairline borders, no effects.
+-- Every theme defines every role, so an addon never needs to know which one is on.
+--
+-- Colours are { r, g, b, a?, accent = k? }: the colour plus k times the block's accent (its `accent` field,
+-- else the theme's), so one formula tints a surface for any accent without a table per accent.
 local _, ns = ...
 
-local WHITE = { 1, 1, 1 }
-local GOLD = { 1, 0.82, 0 }
-local GREY = { 0.5, 0.5, 0.5 }
+---@class OrdaenUIResolvedText
+---@field file string font file
+---@field size number px
+---@field color number[]
+---@field shadow boolean
+---@field caps boolean
 
+---@class OrdaenUISeparatorLook
+---@field space number room above and below
+---@field gap number empty room in the middle (divider) or around the caption text
+---@field width number line width in physical px
+---@field color number[]
+
+local Theme = {
+	version = 0, -- bumped by every Apply; measurement caches compare it
+	name = nil, ---@type string|nil the theme in use
+	space = {}, ---@type table<string, number> spacing tokens (xs, sm, md, lg, xl) -> UI units
+	size = {}, ---@type table<string, number> text size tiers (tiny, small, body, large, title) -> px
+	blocks = {}, ---@type table<string, table> style role -> resolved look (numbers, no tokens)
+	text = {}, ---@type table<string, OrdaenUIResolvedText> text style -> resolved look
+	separators = {}, ---@type table<string, OrdaenUISeparatorLook> rule, divider, caption
+	bar = {}, -- { height, track, fill }
+	accent = nil, ---@type number[]|nil the theme's accent, for blocks without their own
+}
+ns.Theme = Theme
+
+Theme.DEFAULT_THEME = "ordaen"
+Theme.DEFAULT_TEXT_SIZE = 12
+Theme.MIN_TEXT_SIZE, Theme.MAX_TEXT_SIZE = 10, 16
+
+local floor, max, min = math.floor, math.max, math.min
+
+-- The scale at text size 12; every step is multiplied by textSize / 12 and rounded.
+local SPACE = { xs = 2, sm = 4, md = 8, lg = 12, xl = 16 }
+local SIZE = { tiny = 0.75, small = 0.9, body = 1, large = 1.17, title = 1.42 }
+
+-- Blizzard's art, for the blizzard theme.
 local TOOLTIP_ART = {
 	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
 	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
 	edgeSize = 16,
 	insets = { left = 4, right = 4, top = 4, bottom = 4 },
 }
-local HIGHLIGHT = "Interface\\Buttons\\ButtonHilight-Square" -- drawn additively over the content on hover
+local BUTTON_HIGHLIGHT = { texture = "Interface\\Buttons\\ButtonHilight-Square" }
 
----@class OrdaenUIBlockLook
----@field backdrop table|nil BackdropTemplate backdrop info; nil = no surface art
----@field background number[]|nil { r, g, b, a } of the backdrop
----@field border number[]|nil { r, g, b, a } of the backdrop's edge
----@field highlight string|nil texture shown over the content while the mouse is over it
----@field padding number|number[]|nil
----@field gap number|number[]|nil
----@field minWidth number|nil
----@field maxWidth number|nil
+-- Fonts: the client's own files, so every language's glyphs are there (the user's client is ruRU). `body` is
+-- the tooltip font, `header` the tooltip header font, `ui` the general interface font.
+local FONT_SOURCES = { body = "GameTooltipText", header = "GameTooltipHeaderText", ui = "GameFontNormal" }
 
----@class OrdaenUITextLook
----@field font string name of a Blizzard font object
----@field color number[] { r, g, b }
+local function fontFile(kind)
+	local object = rawget(_G, FONT_SOURCES[kind] or "GameTooltipText")
+	local file = object and object.GetFont and object:GetFont()
+	return file or STANDARD_TEXT_FONT
+end
 
----@class OrdaenUITheme
----@field blocks table<string, OrdaenUIBlockLook>
----@field text table<string, OrdaenUITextLook>
-ns.Theme = {
+-- Themes ---------------------------------------------------------------------------------------------
+-- Block looks: padding and gap (tokens or numbers), minWidth/maxWidth in ems (times the text size), and the
+-- surface: backdrop (Blizzard art: background, border colours) or fill = { top, bottom } (a vertical gradient),
+-- edges = { top, right, bottom, left }, each { width in physical px, colour }, vignette = { size, alpha } (the
+-- rim darkened inwards), highlight (hover: { texture } or { color }), bleed (a nested block's surface reaches
+-- over its parent's padding to the parent's edges).
+-- Text looks: font (body, header, ui), size tier, color, shadow, caps.
+
+local THEMES = {}
+
+THEMES.ordaen = {
+	accent = { 0.72, 0.56, 0.34 }, -- bronze, as the minimap's rim
 	blocks = {
-		-- A floating panel next to its owner.
 		tooltip = {
-			backdrop = TOOLTIP_ART,
-			background = { 0.09, 0.09, 0.19, 0.95 }, -- Blizzard's tooltip colors
-			border = { 1, 1, 1, 1 },
-			padding = 10,
-			gap = 2,
-			maxWidth = 300,
+			padding = "lg", gap = "xs", minWidth = 12, maxWidth = 25,
+			fill = {
+				top = { 0.05, 0.04, 0.05, 0.93, accent = 0.07 },
+				bottom = { 0.015, 0.012, 0.015, 0.93, accent = 0.025 },
+			},
+			edges = {
+				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
+				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+			},
+			vignette = { size = "md", alpha = 0.35 },
 		},
-		-- Clickable text without a surface (a zone name, a clock).
-		button = {
-			padding = 0,
-			gap = 0,
+		header = {
+			padding = { "md", "lg", "md", "lg" }, gap = { "md", "xs" }, bleed = true,
+			fill = { top = { 0, 0, 0, 0.9, accent = 0.3 }, bottom = { 0, 0, 0, 0.9, accent = 0.06 } },
 		},
-		-- A small square icon button with a dark surface (the Ordaen Dev gear button's look).
+		button = { padding = 0, gap = 0 },
 		iconButton = {
-			backdrop = TOOLTIP_ART,
-			background = { 0, 0, 0, 0.8 },
-			border = { 1, 1, 1, 1 },
-			highlight = HIGHLIGHT,
 			padding = 4,
+			fill = { top = { 0.07, 0.06, 0.07, 0.88 }, bottom = { 0.02, 0.02, 0.02, 0.88 } },
+			edges = {
+				top = { 1, { 0, 0, 0, 1, accent = 0.7 } },
+				right = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+				bottom = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+				left = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+			},
+			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
-		-- A cell in a grid of icons (the drawer's entries): no surface, a highlight on hover.
-		slot = {
-			highlight = HIGHLIGHT,
-			padding = 3,
-		},
+		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
 	},
 	text = {
-		title = { font = "GameTooltipHeaderText", color = WHITE },
-		subtitle = { font = "GameTooltipText", color = GOLD },
-		body = { font = "GameTooltipText", color = WHITE },
-		label = { font = "GameTooltipText", color = GOLD },
-		value = { font = "GameTooltipText", color = WHITE },
-		hint = { font = "GameTooltipTextSmall", color = GREY },
-		normal = { font = "GameFontNormal", color = GOLD }, -- names on the screen (the zone above the map)
-		small = { font = "GameFontHighlightSmall", color = WHITE }, -- small readouts (coordinates, clock)
+		title = { font = "header", size = "title", color = { 0.96, 0.91, 0.82 }, caps = true },
+		subtitle = { font = "body", size = "small", color = { 0.5, 0.5, 0.5, accent = 0.6 } },
+		body = { font = "body", size = "body", color = { 0.89, 0.85, 0.77 } },
+		label = { font = "body", size = "small", color = { 0.70, 0.65, 0.56 } },
+		value = { font = "body", size = "body", color = { 0.96, 0.93, 0.86 } },
+		hint = { font = "body", size = "small", color = { 0.56, 0.54, 0.50 } },
+		caption = { font = "body", size = "tiny", color = { 0.62, 0.58, 0.51 }, caps = true },
+		-- On the world (labels on the minimap): no surface behind them, so they keep a shadow.
+		normal = { font = "ui", size = "body", color = { 0.96, 0.86, 0.64 }, shadow = true },
+		small = { font = "ui", size = "small", color = { 0.93, 0.91, 0.87 }, shadow = true },
 	},
+	separators = {
+		rule = { space = "sm", width = 1, color = { 0, 0, 0, 0.45, accent = 0.7 } },
+		divider = { space = "md", gap = "lg", width = 1, color = { 0, 0, 0, 0.8, accent = 0.55 } },
+		caption = { space = "xs", gap = "sm", width = 1, color = { 0, 0, 0, 0.5, accent = 0.5 } },
+	},
+	bar = { height = "sm", track = { 0, 0, 0, 0.55 }, fill = { 0, 0, 0, 1, accent = 1 } },
 }
+
+THEMES.blizzard = {
+	accent = { 1, 0.82, 0 },
+	blocks = {
+		tooltip = {
+			padding = "md", gap = "xs", maxWidth = 25,
+			backdrop = TOOLTIP_ART, background = { 0.09, 0.09, 0.19, 0.95 }, border = { 1, 1, 1, 1 },
+		},
+		header = { padding = { 0, 0, "xs", 0 }, gap = { "md", "xs" } },
+		button = { padding = 0, gap = 0 },
+		iconButton = {
+			padding = 4, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.8 }, border = { 1, 1, 1, 1 },
+			highlight = BUTTON_HIGHLIGHT,
+		},
+		slot = { padding = 3, highlight = BUTTON_HIGHLIGHT },
+	},
+	text = {
+		title = { font = "header", size = "large", color = { 1, 1, 1 }, shadow = true },
+		subtitle = { font = "body", size = "body", color = { 1, 0.82, 0 }, shadow = true },
+		body = { font = "body", size = "body", color = { 1, 1, 1 }, shadow = true },
+		label = { font = "body", size = "body", color = { 1, 0.82, 0 }, shadow = true },
+		value = { font = "body", size = "body", color = { 1, 1, 1 }, shadow = true },
+		hint = { font = "body", size = "small", color = { 0.5, 0.5, 0.5 }, shadow = true },
+		caption = { font = "body", size = "small", color = { 1, 0.82, 0 }, shadow = true },
+		normal = { font = "ui", size = "body", color = { 1, 0.82, 0 }, shadow = true },
+		small = { font = "ui", size = "small", color = { 1, 1, 1 }, shadow = true },
+	},
+	separators = {
+		rule = { space = "xs", width = 1, color = { 0.5, 0.5, 0.5, 0.5 } },
+		divider = { space = "sm", gap = 0, width = 1, color = { 0.5, 0.5, 0.5, 0.5 } },
+		caption = { space = "xs", gap = 0, width = 0, color = { 0, 0, 0, 0 } },
+	},
+	bar = { height = "sm", track = { 0, 0, 0, 0.6 }, fill = { 0, 0.69, 0, 1 } },
+}
+
+local GREY_EDGE = { 0.26, 0.26, 0.29, 1 }
+local GREY_EDGES = {
+	top = { 1, GREY_EDGE }, right = { 1, GREY_EDGE }, bottom = { 1, GREY_EDGE }, left = { 1, GREY_EDGE },
+}
+local GREY_FILL = { top = { 0.08, 0.08, 0.09, 0.94 }, bottom = { 0.08, 0.08, 0.09, 0.94 } }
+
+THEMES.minimal = {
+	accent = { 0.56, 0.62, 0.72 },
+	blocks = {
+		tooltip = { padding = "md", gap = "xs", maxWidth = 25, fill = GREY_FILL, edges = GREY_EDGES },
+		header = { padding = { 0, 0, "xs", 0 }, gap = { "md", "xs" } },
+		button = { padding = 0, gap = 0 },
+		iconButton = { padding = 4, fill = GREY_FILL, edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } } },
+		slot = { padding = 3, highlight = { color = { 1, 1, 1, 0.12 } } },
+	},
+	text = {
+		title = { font = "body", size = "large", color = { 0.95, 0.95, 0.95 } },
+		subtitle = { font = "body", size = "small", color = { 0.5, 0.5, 0.5, accent = 0.5 } },
+		body = { font = "body", size = "body", color = { 0.85, 0.85, 0.85 } },
+		label = { font = "body", size = "small", color = { 0.62, 0.62, 0.64 } },
+		value = { font = "body", size = "body", color = { 0.95, 0.95, 0.95 } },
+		hint = { font = "body", size = "small", color = { 0.5, 0.5, 0.52 } },
+		caption = { font = "body", size = "tiny", color = { 0.55, 0.55, 0.58 }, caps = true },
+		normal = { font = "ui", size = "body", color = { 0.95, 0.95, 0.95 }, shadow = true },
+		small = { font = "ui", size = "small", color = { 0.85, 0.85, 0.85 }, shadow = true },
+	},
+	separators = {
+		rule = { space = "sm", width = 1, color = { 1, 1, 1, 0.1 } },
+		divider = { space = "md", gap = 0, width = 1, color = { 1, 1, 1, 0.14 } },
+		caption = { space = "xs", gap = "sm", width = 1, color = { 1, 1, 1, 0.1 } },
+	},
+	bar = { height = "xs", track = { 1, 1, 1, 0.08 }, fill = { 0, 0, 0, 1, accent = 1 } },
+}
+
+Theme.THEMES = THEMES
+Theme.ORDER = { "ordaen", "blizzard", "minimal" }
+
+-- Resolving ------------------------------------------------------------------------------------------
+
+--- A spacing token ("xs".."xl") or number -> UI units. Pure; used by the layout engine for blocks' own values.
+local function space(value)
+	if type(value) == "string" then
+		return Theme.space[value] or 0
+	end
+	return value
+end
+Theme.Space = space
+
+local function spaceList(value)
+	if type(value) ~= "table" then
+		return space(value)
+	end
+	local out = {}
+	for i = 1, #value do
+		out[i] = space(value[i])
+	end
+	return out
+end
+
+local function resolveBlock(look, textSize)
+	local out = {}
+	for key, value in pairs(look) do
+		out[key] = value
+	end
+	out.padding = spaceList(look.padding)
+	out.gap = spaceList(look.gap)
+	out.minWidth = look.minWidth and look.minWidth * textSize
+	out.maxWidth = look.maxWidth and look.maxWidth * textSize
+	if look.vignette then
+		out.vignette = { size = space(look.vignette.size), alpha = look.vignette.alpha }
+	end
+	return out
+end
+
+-- Upper case for `caps` text: ASCII, and Cyrillic (Russian), which string.upper leaves alone.
+local CYRILLIC_UPPER = {}
+for byte = 176, 191 do -- а..п
+	CYRILLIC_UPPER["\208" .. string.char(byte)] = "\208" .. string.char(byte - 32)
+end
+for byte = 128, 143 do -- р..я
+	CYRILLIC_UPPER["\209" .. string.char(byte)] = "\208" .. string.char(byte + 32)
+end
+CYRILLIC_UPPER["\209\145"] = "\208\129" -- ё
+
+--- `text` in capitals (UTF-8: ASCII and Cyrillic). Pure; the renderer caches its result per element.
+---@param text string
+---@return string
+function Theme.Upper(text)
+	return (text:upper():gsub("[\208\209][\128-\191]", CYRILLIC_UPPER))
+end
+
+--- The global UI settings: OrdaenCoreDB.ui from Ordaen Core, or the defaults while there are none.
+---@return string theme, number textSize
+function Theme.Settings()
+	local db = rawget(_G, "OrdaenCoreDB")
+	local ui = type(db) == "table" and db.ui or nil
+	local name = ui and THEMES[ui.theme] and ui.theme or Theme.DEFAULT_THEME
+	local size = ui and tonumber(ui.textSize) or Theme.DEFAULT_TEXT_SIZE
+	return name, max(Theme.MIN_TEXT_SIZE, min(Theme.MAX_TEXT_SIZE, floor(size + 0.5)))
+end
+
+--- Build the resolved theme (numbers and font files, no tokens) from the global settings, or from the
+--- arguments (specs). Draws after this use it; caches measured with an older version measure again.
+--- Runs once on first use and on each settings change: it creates tables, never call it per draw.
+---@param name string|nil theme id
+---@param textSize number|nil body text px
+function Theme.Apply(name, textSize)
+	if name == nil then
+		name, textSize = Theme.Settings()
+	end
+	textSize = textSize or Theme.DEFAULT_TEXT_SIZE
+	local source = THEMES[name] or THEMES[Theme.DEFAULT_THEME]
+	local scale = textSize / Theme.DEFAULT_TEXT_SIZE
+	for key, base in pairs(SPACE) do
+		Theme.space[key] = max(1, floor(base * scale + 0.5))
+	end
+	for key, factor in pairs(SIZE) do
+		Theme.size[key] = floor(textSize * factor + 0.5)
+	end
+	local blocks = {}
+	for role, look in pairs(source.blocks) do
+		blocks[role] = resolveBlock(look, textSize)
+	end
+	local text = {}
+	for role, look in pairs(source.text) do
+		text[role] = {
+			file = fontFile(look.font),
+			size = Theme.size[look.size] or textSize,
+			color = look.color,
+			shadow = look.shadow or false,
+			caps = look.caps or false,
+		}
+	end
+	local separators = {}
+	for kind, look in pairs(source.separators) do
+		separators[kind] = {
+			space = space(look.space), gap = space(look.gap or 0), width = look.width, color = look.color,
+		}
+	end
+	Theme.name = THEMES[name] and name or Theme.DEFAULT_THEME
+	Theme.blocks, Theme.text, Theme.separators = blocks, text, separators
+	Theme.bar = { height = space(source.bar.height), track = source.bar.track, fill = source.bar.fill }
+	Theme.accent = source.accent
+	Theme.version = Theme.version + 1
+end
+
+local function ensure()
+	if Theme.version == 0 then
+		Theme.Apply()
+	end
+end
+Theme.Ensure = ensure
+
+--- The text look for a style name (body when unknown).
+---@return OrdaenUIResolvedText
+function Theme.TextStyle(style)
+	ensure()
+	return Theme.text[style or "body"] or Theme.text.body
+end
+
+--- The block look for a style role, or nil.
+function Theme.BlockStyle(role)
+	ensure()
+	return role and Theme.blocks[role] or nil
+end

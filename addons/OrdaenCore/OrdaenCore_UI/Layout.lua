@@ -11,10 +11,15 @@
 --     child, child, ...             -- blocks or elements
 --   }
 -- Every child may have: colSpan = n, hidden = true (skipped), align = "left" | "center" | "right" (default:
--- text left, blocks and images stretch/left).
+-- text left, blocks and images stretch/left), shift = true (only while Shift is held) or false (only while it
+-- isn't): secondary rows a player asks for.
+-- padding and gap take spacing tokens ("xs", "sm", "md", "lg", "xl") or numbers; tokens come from the theme's
+-- design scale (ctx.space), so they grow with the player's text size.
 -- Elements: { text = "...", style = "body" } or { format = "%d:%02d", args = { h, m } } (text drawn with WoW's
 -- SetFormattedText, so values that change often create no Lua strings); { image = file } or { atlas = name },
 -- with width = n, height = n (or size = n) and optional texCoord = { left, right, top, bottom }.
+-- Stretch elements fill their cell's width; their height comes from ctx.element: separators
+-- { separator = "rule" | "divider" } or { separator = "caption", text = "Stats" }, and bars { bar = 0..1 }.
 --
 -- Text sizes come from `measure(element, width)`, supplied by the renderer: with width nil, the width of the text
 -- on one line (its natural width) and that line's height; with a width, the height of the text wrapped to it.
@@ -33,20 +38,26 @@ local DEFAULT_COLUMNS = { "1fr" }
 
 local floor, max, min = math.floor, math.max, math.min
 
-local function sides(value, default)
-	value = value or default or 0
-	if type(value) == "number" then
-		return value, value, value, value
-	end
-	return value[1] or 0, value[2] or 0, value[3] or 0, value[4] or 0
+local function identity(value)
+	return value
 end
 
-local function gaps(value, default)
+local function sides(value, default, sp)
 	value = value or default or 0
-	if type(value) == "number" then
+	if type(value) ~= "table" then
+		value = sp(value)
+		return value, value, value, value
+	end
+	return sp(value[1] or 0), sp(value[2] or 0), sp(value[3] or 0), sp(value[4] or 0)
+end
+
+local function gaps(value, default, sp)
+	value = value or default or 0
+	if type(value) ~= "table" then
+		value = sp(value)
 		return value, value
 	end
-	return value[1] or 0, value[2] or 0
+	return sp(value[1] or 0), sp(value[2] or 0)
 end
 
 -- "auto", 12, "2fr" -> kind, amount
@@ -63,8 +74,13 @@ local function track(spec)
 	return "auto", 0
 end
 
+-- Separators and bars: they take their cell's whole width (a caption separator also has text).
+local function isStretch(node)
+	return node.separator ~= nil or node.bar ~= nil
+end
+
 local function isText(node)
-	return node.text ~= nil or node.format ~= nil
+	return (node.text ~= nil or node.format ~= nil) and not isStretch(node)
 end
 
 local function isImage(node)
@@ -72,7 +88,7 @@ local function isImage(node)
 end
 
 local function isBlock(node)
-	return not isText(node) and not isImage(node)
+	return not isText(node) and not isImage(node) and not isStretch(node)
 end
 
 local function imageSize(node)
@@ -97,7 +113,9 @@ local layoutBlock -- forward
 
 -- Natural (max-content) width of a child.
 local function naturalWidth(child, ctx)
-	if isText(child) then
+	if isStretch(child) then
+		return (ctx.element(child))
+	elseif isText(child) then
 		return (ctx.measure(child, nil))
 	elseif isImage(child) then
 		return (imageSize(child))
@@ -108,7 +126,10 @@ end
 -- Height of a child given its cell width; also the width it actually takes (text: its natural width, or the
 -- whole cell when it has to wrap; `align` then places it inside the cell).
 local function sizeIn(child, cellWidth, natural, ctx)
-	if isText(child) then
+	if isStretch(child) then
+		local _, h = ctx.element(child)
+		return cellWidth, h
+	elseif isText(child) then
 		local _, h = ctx.measure(child, cellWidth)
 		return min(natural, cellWidth), h
 	elseif isImage(child) then
@@ -166,8 +187,10 @@ end
 function layoutBlock(node, width, ctx)
 	local r = resultFor(node)
 	local defaults = ctx.defaults(node.style)
-	local padTop, padRight, padBottom, padLeft = sides(node.padding, defaults.padding)
-	local gapColumn, gapRow = gaps(node.gap, defaults.gap)
+	local sp = ctx.space or identity
+	local padTop, padRight, padBottom, padLeft = sides(node.padding, defaults.padding, sp)
+	local gapColumn, gapRow = gaps(node.gap, defaults.gap, sp)
+	r.padTop, r.padRight, r.padBottom, r.padLeft = padTop, padRight, padBottom, padLeft
 	local columns = node.columns or DEFAULT_COLUMNS
 	local n = #columns
 
@@ -176,7 +199,7 @@ function layoutBlock(node, width, ctx)
 	local count, col, row = 0, 1, 1
 	for i = 1, #node do
 		local child = node[i]
-		if not child.hidden then
+		if not child.hidden and (child.shift == nil or child.shift == (ctx.shift or false)) then
 			local span = min(max(1, child.colSpan or 1), n)
 			if col + span - 1 > n then
 				col, row = 1, row + 1
@@ -307,7 +330,9 @@ function layoutBlock(node, width, ctx)
 	return r
 end
 
---- Lay out a block tree. ctx = { measure = fn(element, width) -> w, h, defaults = fn(style) -> { padding, gap } }.
+--- Lay out a block tree. ctx = { measure = fn(element, width) -> w, h, defaults = fn(style) -> { padding, gap },
+--- element = fn(stretch element) -> natural width, height, space = fn(token or number) -> number (optional),
+--- shift = whether Shift is held }.
 ---@return table the root's result
 function Layout.Run(root, width, ctx)
 	return layoutBlock(root, width, ctx)
@@ -321,3 +346,4 @@ end
 Layout.IsBlock = isBlock
 Layout.IsText = isText
 Layout.IsImage = isImage
+Layout.IsStretch = isStretch

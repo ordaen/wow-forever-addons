@@ -240,7 +240,7 @@ local LEFT = { side = "left" }
 local entryTitle = { text = "", style = "title" }
 local entryTooltip = UI.Tooltip({ entryTitle }, LEFT)
 local mainTooltip = UI.Tooltip({
-	{ text = L.SETTINGS_TITLE, style = "title" },
+	UI.Header({ title = L.SETTINGS_TITLE }),
 	{ text = L.DRAWER_TOOLTIP_CLICK, style = "hint" },
 	{ text = L.DRAWER_TOOLTIP_RIGHT, style = "hint" },
 	{ text = L.DRAWER_TOOLTIP_MOVE, style = "hint" },

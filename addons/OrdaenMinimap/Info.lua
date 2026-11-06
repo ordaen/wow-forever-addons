@@ -35,11 +35,10 @@ local active = false
 -- Blocks and tooltips: built once; only fields change. ------------------------------------------
 
 local zoneLabel = { text = "", style = "normal" }
-local zoneName = { text = "", style = "title" }
-local subzoneName = { text = "", style = "subtitle" }
+-- The zone tooltip's header: zone and subzone, tinted with the zone's PvP colour.
+local zoneHeader = UI.Header({ title = "" })
 local zoneTooltip = UI.Tooltip({
-	zoneName,
-	subzoneName,
+	zoneHeader,
 	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
 }, { side = "below" })
 
@@ -47,9 +46,22 @@ local coordValue = { format = "%.1f, %.1f", args = { 0, 0 }, style = "small", hi
 
 local CLOCK_24, CLOCK_12 = "%02d:%02d", "%d:%02d %s"
 local clockValue = { format = CLOCK_24, args = { 0, 0, "" }, style = "small" }
-local invitesLine = { text = L.CALENDAR_PENDING, color = INVITES_COLOR, hidden = true }
+-- The clock tooltip: local and realm time side by side (Blizzard's own translated labels), invites, hints.
+local localTime = { format = CLOCK_24, args = { 0, 0, "" }, style = "value", align = "right" }
+local realmTime = { format = CLOCK_24, args = { 0, 0, "" }, style = "value", align = "right" }
+local invitesLine = { text = L.CALENDAR_PENDING, color = INVITES_COLOR, colSpan = 2, hidden = true }
 local clockTooltip = UI.Tooltip({
-	invitesLine,
+	UI.Header({ title = TIMEMANAGER_TOOLTIP_TITLE }),
+	{
+		columns = { "auto", "1fr" },
+		gap = { "lg", "xs" },
+		{ text = TIMEMANAGER_TOOLTIP_LOCALTIME, style = "label" },
+		localTime,
+		{ text = TIMEMANAGER_TOOLTIP_REALMTIME, style = "label" },
+		realmTime,
+		invitesLine,
+	},
+	{ separator = "rule" },
 	{ text = L.TIME_TOOLTIP_CALENDAR, style = "hint" },
 	{ text = L.TIME_TOOLTIP_CLOCK, style = "hint" },
 }, { side = "below" })
@@ -59,12 +71,15 @@ local clockTooltip = UI.Tooltip({
 local function updateZone()
 	zoneLabel.text = GetMinimapZoneText() or ""
 	local pvp = C_PvP.GetZonePVPInfo()
-	zoneLabel.color = pvp and PVP_COLORS[pvp] or nil -- nil: the "normal" style's gold
+	local color = pvp and PVP_COLORS[pvp] or nil
+	zoneLabel.color = color -- nil: the "normal" style's colour
 	zone:Refresh()
 	-- The tooltip's lines change with the zone, not on hover.
-	zoneName.text = GetRealZoneText() or ""
-	subzoneName.text = GetSubZoneText() or ""
-	subzoneName.hidden = subzoneName.text == "" or subzoneName.text == zoneName.text
+	local title, subtitle = zoneHeader.titleText, zoneHeader.subtitleText
+	title.text = GetRealZoneText() or ""
+	subtitle.text = GetSubZoneText() or ""
+	subtitle.hidden = subtitle.text == "" or subtitle.text == title.text
+	zoneHeader.accent = color -- nil: the theme's accent
 	zoneTooltip:Refresh()
 end
 
@@ -137,38 +152,42 @@ end
 
 -- Clock ----------------------------------------------------------------------------------------
 
-local shownMinute
+local shownLocal, shownRealm -- minutes shown, to redraw only when one changes
 local cvarBool = C_CVar.GetCVarBool
 
-local function updateClock()
-	-- Blizzard's clock settings: local or realm time, 24-hour or AM/PM.
-	local hour, minute
-	if cvarBool("timeMgrUseLocalTime") then
-		local now = time()
-		local key = math.floor(now / 60)
-		if key == shownMinute then
-			return
-		end
-		shownMinute = key
-		hour, minute = tonumber(date("%H", now)), tonumber(date("%M", now))
-	else
-		hour, minute = GetGameTime()
-		local key = hour * 60 + minute
-		if key == shownMinute then
-			return
-		end
-		shownMinute = key
-	end
-	local args = clockValue.args
-	if cvarBool("timeMgrUseMilitaryTime") == false then
-		local h12 = hour % 12
-		clockValue.format = CLOCK_12
-		args[1], args[2], args[3] = h12 == 0 and 12 or h12, minute, hour >= 12 and TIMEMANAGER_PM or TIMEMANAGER_AM
-	else
-		clockValue.format = CLOCK_24
+-- Put hour:minute into a time element, 24-hour or AM/PM as Blizzard's clock settings say.
+local function setTime(value, hour, minute, military)
+	local args = value.args
+	if military then
+		value.format = CLOCK_24
 		args[1], args[2], args[3] = hour, minute, ""
+	else
+		local h12 = hour % 12
+		value.format = CLOCK_12
+		args[1], args[2], args[3] = h12 == 0 and 12 or h12, minute, hour >= 12 and TIMEMANAGER_PM or TIMEMANAGER_AM
 	end
-	clock:Refresh()
+end
+
+local function updateClock()
+	local now = time()
+	local localKey = math.floor(now / 60)
+	local realmHour, realmMinute = GetGameTime()
+	local realmKey = realmHour * 60 + realmMinute
+	if localKey == shownLocal and realmKey == shownRealm then
+		return
+	end
+	shownLocal, shownRealm = localKey, realmKey
+	local localHour, localMinute = tonumber(date("%H", now)), tonumber(date("%M", now))
+	local military = cvarBool("timeMgrUseMilitaryTime") ~= false
+	setTime(localTime, localHour, localMinute, military)
+	setTime(realmTime, realmHour, realmMinute, military)
+	-- The clock on the map shows the time Blizzard's clock settings pick: local or realm.
+	if cvarBool("timeMgrUseLocalTime") then
+		setTime(clockValue, localHour, localMinute, military)
+	else
+		setTime(clockValue, realmHour, realmMinute, military)
+	end
+	clock:Refresh() -- also redraws its tooltip, if shown
 end
 
 local function updateInvites()
@@ -301,7 +320,7 @@ function Info.Apply(savedDb)
 	if not active then
 		active = true
 		registerEvents()
-		shownMinute = nil
+		shownLocal, shownRealm = nil, nil
 		updateZone()
 		updateMapRect()
 		updateInvites()

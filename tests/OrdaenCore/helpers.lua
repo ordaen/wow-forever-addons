@@ -61,6 +61,9 @@ function M.stubObject(name)
 		GetName = function(self)
 			return self.name
 		end,
+		GetEffectiveScale = function() -- a real frame always has one; the UI renderer sizes pixels with it
+			return 1
+		end,
 		GetPoint = function()
 			return "CENTER", nil, "CENTER", 10, 20
 		end,
@@ -131,6 +134,24 @@ function M.stubGlobals(overrides)
 		GameTooltip = M.stubObject("GameTooltip"),
 		ChatFontNormal = {},
 		BackdropTemplateMixin = {},
+		-- what the UI renderer draws with (OrdaenCore_UI/Render.lua)
+		CreateColor = function(r, g, b, a)
+			local c = { r = r, g = g, b = b, a = a }
+			function c:SetRGBA(nr, ng, nb, na)
+				self.r, self.g, self.b, self.a = nr, ng, nb, na
+			end
+			function c:GetRGBA()
+				return self.r, self.g, self.b, self.a
+			end
+			return c
+		end,
+		PixelUtil = { GetPixelToUIUnitFactor = function()
+			return 1
+		end },
+		IsShiftKeyDown = function()
+			return M.shiftDown == true
+		end,
+		STANDARD_TEXT_FONT = "Fonts\\FRIZQT__.TTF",
 		IsLoggedIn = function()
 			return M.loggedIn == true
 		end,
@@ -145,6 +166,7 @@ function M.stubGlobals(overrides)
 		end,
 	}
 	M.reloaded = false
+	M.shiftDown = false
 	M.created = {} -- every frame CreateFrame made, in order
 	M.forwarded = {}
 	M.errorHandler = function(err) -- stands in for BugGrabber/Blizzard: remembers what reached it

@@ -46,7 +46,7 @@ export default defineConfig({
         items: [
           { text: 'API', link: '/reference/api' },
           { text: 'Block format', link: '/reference/format' },
-          { text: 'Default theme', link: '/reference/theme' },
+          { text: 'Themes and roles', link: '/reference/theme' },
         ],
       },
       { text: 'Roadmap', link: '/roadmap' },

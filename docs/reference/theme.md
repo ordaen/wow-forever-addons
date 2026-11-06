@@ -1,49 +1,44 @@
-# Default theme
+# Themes and roles
 
-The values in `OrdaenCore_UI/Theme.lua`. All of it is Blizzard's own art and fonts.
+Every role below exists in all three themes (`ordaen`, `blizzard`, `minimal`). The exact values live in
+`OrdaenCore_UI/Theme.lua`, the single source; this page says what each role is for and how the themes differ.
+How themes work: [Themes](/guide/themes).
 
 ## Block styles
 
-### `tooltip`
+| Style | For | `ordaen` | `blizzard` | `minimal` |
+|---|---|---|---|---|
+| `tooltip` | tooltips (`UI.Tooltip` sets it) | gradient fill, 2 px accent top edge, 1 px sides, vignette, padding `lg` | tooltip backdrop, padding `md` | flat fill, 1 px grey border, padding `md` |
+| `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges | no surface | no surface |
+| `button` | clickable text without a surface | | | |
+| `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight | tooltip backdrop, Blizzard highlight | flat fill, grey border |
+| `slot` | a cell in a grid of icons (the drawer) | highlight only | Blizzard highlight | highlight only |
 
-| Field | Value |
-|---|---|
-| `backdrop.bgFile` | `Interface\Tooltips\UI-Tooltip-Background` |
-| `backdrop.edgeFile` | `Interface\Tooltips\UI-Tooltip-Border` |
-| `backdrop.edgeSize` | 16 |
-| `backdrop.insets` | 4 on each side |
-| `background` | `{ 0.09, 0.09, 0.19, 0.95 }` (Blizzard's tooltip colour) |
-| `border` | `{ 1, 1, 1, 1 }` |
-| `padding` | 10 |
-| `gap` | 2 |
-| `maxWidth` | 300 |
-
-### `button`
-
-Clickable text without a surface (Ordaen Minimap's zone name and clock): padding 0, gap 0. The default style of
-`UI.Button`.
-
-### `iconButton`
-
-A small square icon button with a dark surface, the Ordaen Dev gear button's look: the tooltip backdrop with
-background `{ 0, 0, 0, 0.8 }` and border `{ 1, 1, 1, 1 }`, padding 4 (a 20 px icon makes a 28 px button), and
-`Interface\Buttons\ButtonHilight-Square` as hover highlight.
-
-### `slot`
-
-A cell in a grid of icons (the drawer's entries): no surface, padding 3, the same hover highlight.
+Tooltips are 12 to 25 ems wide in `ordaen`, at most 25 ems in the others.
 
 ## Text styles
 
-| Style | Font object | Colour | Use |
-|---|---|---|---|
-| `title` | `GameTooltipHeaderText` | `{ 1, 1, 1 }` | |
-| `subtitle` | `GameTooltipText` | `{ 1, 0.82, 0 }` | |
-| `body` | `GameTooltipText` | `{ 1, 1, 1 }` | |
-| `label` | `GameTooltipText` | `{ 1, 0.82, 0 }` | |
-| `value` | `GameTooltipText` | `{ 1, 1, 1 }` | |
-| `hint` | `GameTooltipTextSmall` | `{ 0.5, 0.5, 0.5 }` | |
-| `normal` | `GameFontNormal` | `{ 1, 0.82, 0 }` | names on the screen |
-| `small` | `GameFontHighlightSmall` | `{ 1, 1, 1 }` | small readouts |
+| Style | Tier | Use |
+|---|---|---|
+| `title` | `title` (`large` in `blizzard`, `minimal`) | the name of the thing; capitals in `ordaen` |
+| `subtitle` | `small` (`body` in `blizzard`) | under the title; tinted by the accent |
+| `body` | `body` | running text (default) |
+| `label` | `small` | the left side of a label/value row |
+| `value` | `body` | the right side |
+| `hint` | `small` | what a click does |
+| `caption` | `tiny` | a section name; capitals |
+| `normal` | `body` | names on the world (the minimap's zone), with a shadow |
+| `small` | `small` | small readouts on the world (coordinates, clock), with a shadow |
 
-A font object name that doesn't exist falls back to `GameFontNormal`; an unknown text style falls back to `body`.
+Text without a surface behind it (`normal`, `small`) keeps a shadow in every theme; text on a surface has none in
+`ordaen` and `minimal`. Fonts are the client's own files (`GameTooltipText`, `GameTooltipHeaderText`,
+`GameFontNormal`), so every language's glyphs are there. An unknown style falls back to `body`.
+
+## Separators and bars
+
+| Element | `ordaen` | `blizzard` | `minimal` |
+|---|---|---|---|
+| `separator = "rule"` | 1 px accent hairline | 1 px grey | faint 1 px |
+| `separator = "divider"` | two hairlines with a gap | one line | one line |
+| `separator = "caption"` | caption text between two lines | gold caption, no lines | caption between faint lines |
+| `bar` | accent fill on a dark track | Blizzard green | thin accent fill |

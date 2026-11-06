@@ -1,11 +1,13 @@
 -- OrdaenCore.UI tooltips: a top-level block with the "tooltip" role, shown on hover next to its owner.
 -- One shared surface for all of them (like Blizzard's GameTooltip): only one is shown at a time, hovering
 -- creates nothing new. Passive: the mouse goes through it. On the tooltip layer and clamped to the screen.
+-- Rows marked `shift = true` show while Shift is held: a tooltip that has them listens to
+-- MODIFIER_STATE_CHANGED only while it is shown.
 -- Addons don't call this file: they make tooltip objects with OrdaenCore.UI.Tooltip (UI.lua), whose methods
 -- land here once the framework is loaded.
 local _, ns = ...
 
-local Render, Component = ns.Render, ns.Component
+local Render, Component, Theme = ns.Render, ns.Component, ns.Theme
 local Tooltip = {}
 ns.Tooltip = Tooltip
 
@@ -21,6 +23,24 @@ local SIDES = {
 
 local surface
 local current = { block = nil, owner = nil }
+local listening = false -- MODIFIER_STATE_CHANGED registered (the shown tooltip has Shift rows)
+
+local function onModifier(_, _, key)
+	if (key == "LSHIFT" or key == "RSHIFT") and current.block and surface:IsShown() then
+		Render.Draw(surface, current.block, nil)
+	end
+end
+
+local function listen(on)
+	if on ~= listening then
+		listening = on
+		if on then
+			surface:RegisterEvent("MODIFIER_STATE_CHANGED")
+		else
+			surface:UnregisterEvent("MODIFIER_STATE_CHANGED")
+		end
+	end
+end
 
 local function surfaceFrame()
 	if not surface then
@@ -28,6 +48,7 @@ local function surfaceFrame()
 		surface:SetFrameStrata("TOOLTIP")
 		surface:SetClampedToScreen(true)
 		surface:EnableMouse(false)
+		surface:SetScript("OnEvent", onModifier)
 		surface:Hide()
 	end
 	return surface
@@ -55,6 +76,7 @@ function Tooltip.Show(block, owner, opts)
 	Render.Draw(frame, block, nil)
 	anchor(frame, owner, opts)
 	frame:Show()
+	listen(Render.UsesShift(block))
 end
 
 --- Hide `block` if it is the tooltip shown (and, when `owner` is given, shown for that owner).
@@ -62,6 +84,7 @@ function Tooltip.Hide(block, owner)
 	if surface and current.block == block and (owner == nil or current.owner == owner) then
 		surface:Hide()
 		current.block, current.owner = nil, nil
+		listen(false)
 	end
 end
 
@@ -85,6 +108,15 @@ function Tooltip.Describe()
 	return Render.Describe(surface, current.block or nil)
 end
 
+--- The global UI settings changed (Ordaen Core's settings page): rebuild the theme, redraw what is on screen.
+function Tooltip.Restyle()
+	Theme.Apply()
+	Component.RefreshAll()
+	if current.block then
+		Tooltip.Refresh(current.block)
+	end
+end
+
 -- Hand the implementation to Ordaen Core's always-loaded entry point (addons/OrdaenCore/UI.lua).
 OrdaenCore.UI._Provide({
 	Describe = Tooltip.Describe,
@@ -92,6 +124,7 @@ OrdaenCore.UI._Provide({
 	HideTooltip = Tooltip.Hide,
 	RefreshTooltip = Tooltip.Refresh,
 	TooltipShown = Tooltip.IsShown,
+	Restyle = Tooltip.Restyle,
 	Block = Component.Block,
 	Button = Component.Button,
 })

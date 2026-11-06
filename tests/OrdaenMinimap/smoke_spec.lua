@@ -15,6 +15,8 @@ local function stubObject(name, extra)
 		-- What OrdaenCore.UI's renderer measures text with.
 		GetUnboundedStringWidth = 40,
 		GetStringHeight = 12,
+		GetEffectiveScale = 1, -- a real frame always has one; the renderer sizes pixels with it
+		SetFont = true, -- the font file loaded
 	}
 	setmetatable(obj, {
 		__index = function(self, method)

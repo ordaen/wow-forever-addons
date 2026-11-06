@@ -9,6 +9,9 @@ Decisions are recorded in `CLAUDE.md` ("UI framework `OrdaenCore.UI`"). Nothing 
 - **Shortcut** `tooltip = tip` on a component.
 - **Hover highlight** for styles that have one (`iconButton`, `slot`), and `LockHighlight` for a highlight shown on
   request.
+- **Three themes** (`ordaen`, `blizzard`, `minimal`) and one **design scale** (spacing tokens, text tiers) from the
+  player's global text size, both chosen in Ordaen Core's settings; **accent** colours; surfaces drawn without art.
+- **Separators** (rule, divider, caption), **bars**, **Shift rows**, **headers** (`UI.Header`).
 
 See [Blocks and elements](/guide/blocks#components) and the [API](/reference/api).
 
@@ -18,7 +21,11 @@ See [Blocks and elements](/guide/blocks#components) and the [API](/reference/api
 
 - New elements, because they need WoW's own widgets: **text entry** (EditBox), **checkbox** (CheckButton),
   **slider**.
-- **Bars, dropdowns** are components made of blocks, not elements.
+- **Dropdowns** are components made of blocks, not elements.
+- **Settings pages** built from UI components, from the `settings = { ... }` spec in `NewAddon` (replacing the
+  Blizzard Settings builder in Ordaen Core): dropdowns, sliders, checkboxes, colour pickers, text input, key
+  bindings, action buttons, settings that grey out when their parent is off.
+- **Confirmation popups**: `UI.Confirm{ text, buttons = { ... } }`, instead of hand-made StaticPopupDialogs.
 - **Windows** are top-level components with a fixed, saved position and size. The framework remembers them.
 - **Your own components** later: `UI.Component(name, { build = ..., methods = ... })`, so an addon can define a kind
   of thing once and reuse it.
@@ -35,6 +42,6 @@ addon code causes blocked-action errors. An addon that needs one uses Blizzard's
 - **Interaction states** beyond hover: pressed, disabled, selected.
 - **Resizing** windows.
 - **Scrolling** and long repeated lists.
-- **Theme addon API**: how a theme addon replaces the default theme.
+- **Theme addon API**: how a theme addon adds its own set of three themes.
 - **Library**: packaging the framework for addons outside Ordaen.
 - **Blizzard's tooltips**: restyled in place by a future tooltip addon, with the theme.

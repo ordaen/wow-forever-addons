@@ -224,4 +224,56 @@ describe("OrdaenCore.UI layout", function()
 		assert.equals(first, second)
 		assert.equals(first.items[1], second.items[1])
 	end)
+
+	describe("design scale and stretch elements", function()
+		local TOKENS = { xs = 2, sm = 4, md = 8, lg = 12, xl = 16 }
+		local function scaled(extra)
+			local c = ctx()
+			c.space = function(value)
+				if type(value) == "string" then
+					return TOKENS[value] or 0
+				end
+				return value
+			end
+			c.element = function(el)
+				return el.width or 0, el.bar ~= nil and 6 or 9
+			end
+			for k, v in pairs(extra or {}) do
+				c[k] = v
+			end
+			return c
+		end
+
+		it("reads spacing tokens in padding and gap, numbers still work", function()
+			local r = Layout.Run({ padding = { "md", "lg", 3, "xs" }, gap = "sm", { text = "ab" }, { text = "cd" } }, nil,
+				scaled())
+			assert.equals(2 + 12 + 12, r.width) -- left xs + text + right lg
+			assert.equals(8 + LINE + 4 + LINE + 3, r.height)
+			assert.same({ 8, 12, 3, 2 }, { r.padTop, r.padRight, r.padBottom, r.padLeft })
+		end)
+
+		it("stretches separators and bars over the whole cell", function()
+			local r = Layout.Run({
+				columns = { "auto", "1fr" },
+				{ text = "Label" },
+				{ text = "Value" },
+				{ separator = "rule", colSpan = 2 },
+				{ bar = 0.5, colSpan = 2 },
+			}, 200, scaled())
+			assert.equals(200, r.items[3].w)
+			assert.equals(9, r.items[3].h)
+			assert.equals(200, r.items[4].w)
+			assert.equals(6, r.items[4].h)
+		end)
+
+		it("shows shift rows only while Shift is held, and their opposites only while it isn't", function()
+			local block = { { text = "always" }, { text = "more", shift = true }, { text = "hint", shift = false } }
+			local up = Layout.Run(block, nil, scaled({ shift = false }))
+			assert.equals(2, up.count)
+			assert.equals("hint", up.items[2].node.text)
+			local down = Layout.Run(block, nil, scaled({ shift = true }))
+			assert.equals(2, down.count)
+			assert.equals("more", down.items[2].node.text)
+		end)
+	end)
 end)

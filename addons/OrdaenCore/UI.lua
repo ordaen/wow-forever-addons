@@ -24,8 +24,21 @@ local unavailable = false
 ---@field text string|nil the text, or:
 ---@field format string|nil a format for args (drawn with SetFormattedText: no Lua string per change)
 ---@field args any[]|nil values for format
----@field style string|nil text style in the theme: title, subtitle, body (default), label, value, hint, normal, small
+---@field style string|nil text style in the theme: title, subtitle, body (default), label, value, hint, caption,
+--- normal, small (the last two for labels on the world, e.g. the minimap)
 ---@field color number[]|nil { r, g, b [, a] }, for meaning only (a pending invite), not decoration
+---@field caps boolean|nil capitals (plain text only); default from the style
+---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
+
+---@class OrdaenUISeparator
+---@field separator string "rule" (a hairline), "divider" (a stronger break), "caption" (text between lines)
+---@field text string|nil the caption
+---@field colSpan number|nil
+
+---@class OrdaenUIBar
+---@field bar number filled part, 0..1
+---@field color number[]|nil fill colour, for meaning (health, progress); default from the theme and accent
+---@field height number|nil
 
 ---@class OrdaenUIImage
 ---@field image string|number|nil texture path or file ID, or:
@@ -36,10 +49,12 @@ local unavailable = false
 ---@field texCoord number[]|nil { left, right, top, bottom }
 
 ---@class OrdaenUIBlock
----@field style string|nil style role in the theme (tooltip, button, iconButton, slot)
+---@field style string|nil style role in the theme (tooltip, header, button, iconButton, slot)
+---@field accent number[]|nil { r, g, b }: tints this block's surface, lines and accented text (an item's quality,
+--- a zone's PvP colour); children inherit it
 ---@field columns (number|string)[]|nil tracks: number = fixed, "auto", "Nfr"; default { "1fr" }
----@field gap number|number[]|nil n, or { column, row }
----@field padding number|number[]|nil n, or { top, right, bottom, left }
+---@field gap number|string|(number|string)[]|nil n or a spacing token ("xs".."xl"), or { column, row }
+---@field padding number|string|(number|string)[]|nil n or a token, or { top, right, bottom, left }
 ---@field width number|nil exact width; nil = shrink to fit
 ---@field minWidth number|nil
 ---@field maxWidth number|nil
@@ -47,6 +62,7 @@ local unavailable = false
 ---@field hidden boolean|nil as a child: skipped, no cell
 ---@field colSpan number|nil as a child: columns it spans
 ---@field align string|nil as a child: "left", "center" or "right" in its cell
+---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUITooltipOpts
 ---@field side string|nil "right" (default), "left", "below", "above", or "default" (Edit Mode's HUD Tooltip spot)
@@ -56,6 +72,15 @@ local unavailable = false
 --- Called by OrdaenCore_UI when it loads. Not for addons.
 function UI._Provide(functions)
 	impl = functions
+end
+
+--- Called by Ordaen Core when the global UI settings (theme, text size) change: every Ordaen addon's UI on
+--- screen takes the new look. Not for addons. Does nothing until the framework is loaded (it reads the
+--- settings when it loads).
+function UI._SettingsChanged()
+	if impl then
+		impl.Restyle()
+	end
 end
 
 local function framework()
@@ -120,6 +145,46 @@ function UI.Tooltip(block, opts)
 	end
 	tooltipOpts[block] = opts
 	return setmetatable(block, TooltipMeta) --[[@as OrdaenUITooltip]]
+end
+
+-- Presets: block data made the same way in every addon --------------------------------------------
+
+---@class OrdaenUIHeaderSpec
+---@field title string
+---@field subtitle string|nil
+---@field icon string|number|nil texture path or file ID, on the left
+---@field iconSize number|nil default 32
+---@field texCoord number[]|nil icon crop
+---@field plate string|nil a short text under the icon (a level, a count)
+---@field accent number[]|nil tints the header band
+
+---@class OrdaenUIHeader : OrdaenUIBlock
+---@field titleText OrdaenUIText change .text, then refresh
+---@field subtitleText OrdaenUIText hidden while it has no text
+---@field iconImage OrdaenUIImage|nil
+---@field plateText OrdaenUIText|nil
+
+--- A header block: the icon on the left with an optional plate under it, the title and subtitle beside it,
+--- on the theme's header band. Data, like any block: put it first in a tooltip; change `titleText.text` &c.
+--- Creates its tables once; loads nothing.
+---@param spec OrdaenUIHeaderSpec
+---@return OrdaenUIHeader
+function UI.Header(spec)
+	local title = { text = spec.title or "", style = "title" }
+	local subtitle = { text = spec.subtitle or "", style = "subtitle", hidden = not spec.subtitle }
+	local column = { gap = { 0, "xs" }, title, subtitle }
+	local header = { style = "header", accent = spec.accent, titleText = title, subtitleText = subtitle }
+	if spec.icon then
+		local icon = { image = spec.icon, size = spec.iconSize or 32, texCoord = spec.texCoord }
+		local plate = { text = spec.plate or "", style = "caption", align = "center", hidden = not spec.plate }
+		header.columns = { "auto", "1fr" }
+		header[1] = { gap = { 0, "xs" }, icon, plate }
+		header[2] = column
+		header.iconImage, header.plateText = icon, plate
+	else
+		header[1] = column
+	end
+	return header --[[@as OrdaenUIHeader]]
 end
 
 -- Components ---------------------------------------------------------------------------------------

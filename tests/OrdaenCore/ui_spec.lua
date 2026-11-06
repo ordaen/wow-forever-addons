@@ -14,6 +14,12 @@ end
 
 local uiScale = 1 -- UIParent's effective scale in the current test
 
+-- Like the shared fakes (helpers.stubObject): a method a real Forever widget has is a no-op, anything else nil.
+local function noop() end
+local STRICT = { __index = function(_, key)
+	return helpers.isStubMethod(key) and noop or nil
+end }
+
 -- A fake font string: knows its text, font, width, color, points; measures per char and 12 px per line,
 -- wrapping at its width like WoW does.
 local function fakeFontString(log, frame)
@@ -30,6 +36,13 @@ local function fakeFontString(log, frame)
 	end
 	function fs:SetFontObject(font)
 		self.font = font
+	end
+	function fs:SetFont(file, size, flags)
+		self.fontFile, self.fontSize, self.fontFlags = file, size, flags
+		return true
+	end
+	function fs:SetShadowOffset(x, y)
+		self.shadow = { x, y }
 	end
 	function fs:SetWidth(w)
 		self.width = w
@@ -69,9 +82,7 @@ local function fakeFontString(log, frame)
 	function fs:Hide()
 		self.shown = false
 	end
-	return setmetatable(fs, { __index = function()
-		return function() end
-	end })
+	return setmetatable(fs, STRICT)
 end
 
 local function fakeTexture(layer)
@@ -85,6 +96,18 @@ local function fakeTexture(layer)
 	function t:SetTexCoord(...)
 		self.texCoord = { ... }
 	end
+	function t:SetGradient(orientation, from, to)
+		self.gradient = { orientation, { from:GetRGBA() }, { to:GetRGBA() } }
+	end
+	function t:SetDrawLayer(drawLayer, sublevel)
+		self.layer, self.sublevel = drawLayer, sublevel
+	end
+	function t:SetVertexColor(...)
+		self.vertexColor = { ... }
+	end
+	function t:SetPoint(...)
+		self.point = { ... }
+	end
 	function t:SetSize(w, h)
 		self.size = { w, h }
 	end
@@ -94,9 +117,7 @@ local function fakeTexture(layer)
 	function t:Hide()
 		self.shown = false
 	end
-	return setmetatable(t, { __index = function()
-		return function() end
-	end })
+	return setmetatable(t, STRICT)
 end
 
 local function fakeFrame(name, log, parent)
@@ -141,6 +162,9 @@ local function fakeFrame(name, log, parent)
 	function f:SetBackdrop(b)
 		self.backdrop = b
 	end
+	function f:ClearBackdrop()
+		self.backdrop = nil
+	end
 	function f:EnableMouse(on)
 		self.mouse = on
 	end
@@ -159,9 +183,7 @@ local function fakeFrame(name, log, parent)
 	function f:UnregisterEvent(event)
 		self.events[event] = nil
 	end
-	return setmetatable(f, { __index = function()
-		return function() end
-	end })
+	return setmetatable(f, STRICT)
 end
 
 describe("OrdaenCore.UI", function()
@@ -204,8 +226,12 @@ describe("OrdaenCore.UI", function()
 		})
 		for _, font in ipairs({ "GameTooltipHeaderText", "GameTooltipText", "GameTooltipTextSmall", "GameFontNormal",
 			"GameFontHighlightSmall" }) do
-			rawset(_G, font, { fontName = font })
+			rawset(_G, font, { fontName = font, GetFont = function()
+				return "Fonts\\" .. font .. ".ttf", 12, ""
+			end })
 		end
+		rawset(_G, "OrdaenCoreDB", nil) -- Ordaen Core's global settings: defaults (theme ordaen, text size 12)
+		helpers.shiftDown = false
 		local core = helpers.loadCore()
 		rawget(_G, "C_AddOns").LoadAddOn = function(name)
 			loads = loads + 1
@@ -245,19 +271,32 @@ describe("OrdaenCore.UI", function()
 			local s = surface()
 			assert.is_true(s.shown)
 			assert.is_true(tip:IsShown())
-			assert.same({ "Elwynn Forest", "Click: world map" }, shownTexts(s))
+			-- The ordaen theme: titles in capitals, in the header font at the title size (12 x 1.42), no shadow.
+			assert.same({ "ELWYNN FOREST", "Click: world map" }, shownTexts(s))
 			local visible = {}
 			for _, fs in ipairs(s.fonts) do
 				if fs.shown then
 					visible[#visible + 1] = fs -- the surface also holds its hidden measuring font string
 				end
 			end
-			assert.equals("GameTooltipHeaderText", visible[1].font.fontName)
-			assert.same({ 0.5, 0.5, 0.5 }, visible[2].color)
-			-- widest line (16 chars, +1 px rounding margin) + 2 x padding 10; two lines + gap 2 + padding.
-			assert.same({ 16 * CHAR + 1 + 20, LINE + 2 + LINE + 20 }, s.size)
+			assert.equals("Fonts\\GameTooltipHeaderText.ttf", visible[1].fontFile)
+			assert.equals(17, visible[1].fontSize)
+			assert.same({ 0, 0 }, visible[1].shadow)
+			assert.same({ 0.56, 0.54, 0.50 }, visible[2].color)
+			-- min width 12 ems (144) beats the widest line; two lines + gap xs (2) + padding lg (12) twice.
+			assert.same({ 144, LINE + 2 + LINE + 24 }, s.size)
 			assert.same({ "TOP", owner, "BOTTOM", 0, -4 }, s.point)
+			assert.is_nil(s.backdrop) -- drawn without art
+		end)
+
+		it("draw Blizzard's art and shadowed text in the blizzard theme", function()
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "blizzard", textSize = 12 } })
+			local tip = UI.Tooltip({ { text = "Elwynn Forest", style = "title" } })
+			tip:Show(owner)
+			local s = surface()
 			assert.equals("Interface\\Tooltips\\UI-Tooltip-Border", s.backdrop.edgeFile)
+			assert.same({ "Elwynn Forest" }, shownTexts(s)) -- no capitals
+			assert.same({ 13 * CHAR + 1 + 16, LINE + 16 }, s.size) -- padding md (8)
 		end)
 
 		it("redraw after their fields changed, hiding what is no longer drawn", function()
@@ -311,13 +350,18 @@ describe("OrdaenCore.UI", function()
 	describe("at a UI scale other than 1", function()
 		-- Every line the player sees must fit the height the layout gave it, inside the tooltip.
 		local function assertNothingOverflows(s)
-			local layout = UI._Describe().layout
+			local layout = {} -- the laid-out text elements, in drawing order (nested blocks' too)
+			for _, item in ipairs(UI._Describe().layout) do
+				if item.text then
+					layout[#layout + 1] = item
+				end
+			end
 			local drawn = 0
 			for _, fs in ipairs(s.fonts) do
 				if fs.shown then
 					drawn = drawn + 1
 					local item = layout[drawn]
-					assert.equals(item.text, fs.text)
+					assert.equals(item.text:upper(), fs.text:upper()) -- titles may be drawn in capitals
 					assert.is_true(fs:Lines() * LINE <= item.h,
 						("%q needs %d lines, the layout made room for %d"):format(fs.text, fs:Lines(), item.h / LINE))
 					assert.is_true(item.y + item.h <= s.size[2], fs.text .. " sticks out at the bottom")
@@ -352,7 +396,9 @@ describe("OrdaenCore.UI", function()
 			local f = frameNamed("MyLabel")
 			assert.equals(f, label.frame)
 			assert.same({ "Goldshire" }, shownTexts(f))
-			assert.equals("GameFontHighlightSmall", f.fonts[#f.fonts].font.fontName)
+			assert.equals("Fonts\\GameFontNormal.ttf", f.fonts[#f.fonts].fontFile) -- labels on the world: ui font
+			assert.equals(11, f.fonts[#f.fonts].fontSize) -- small tier: 12 x 0.9
+			assert.same({ 1, -1 }, f.fonts[#f.fonts].shadow) -- no surface behind it: keeps a shadow
 			assert.is_false(f.mouse)
 			assert.is_nil(f.scripts.OnClick)
 			assert.same({ 9 * CHAR + 1, LINE }, f.size) -- shrink to fit, no padding without a style
@@ -459,6 +505,7 @@ describe("OrdaenCore.UI", function()
 		end)
 
 		it("draws an icon button's surface, image and hover highlight from the theme", function()
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "blizzard" } })
 			local icon = { image = "Interface\\Icons\\INV_Misc_Bag_10", size = 20 }
 			local button = UI.Button({ name = "Bag", style = "iconButton", icon })
 			local f = button.frame
@@ -493,6 +540,141 @@ describe("OrdaenCore.UI", function()
 			coords:Refresh()
 			assert.same({ "42.6, 61.0" }, shownTexts(coords.frame))
 			assert.is_true(log.setFormatted > before + 2) -- measured again, then drawn
+		end)
+	end)
+
+	describe("themes", function()
+		local WHITE = "Interface\\Buttons\\WHITE8X8"
+
+		-- Shown solid (white, tinted) textures on `frame`, optionally on one draw layer.
+		local function solids(frame, layer)
+			local out = {}
+			for _, t in ipairs(frame.textures) do
+				if t.shown and t.file == WHITE and t.layer ~= "HIGHLIGHT" and (layer == nil or t.layer == layer) then
+					out[#out + 1] = t
+				end
+			end
+			return out
+		end
+
+		local function fontOf(frame, text)
+			for _, fs in ipairs(frame.fonts) do
+				if fs.shown and fs.text == text then
+					return fs
+				end
+			end
+		end
+
+		it("scale every text size and spacing step with the global text size", function()
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "ordaen", textSize = 16 } })
+			UI.Tooltip({ { text = "Goldshire" }, { text = "Stormwind", style = "title" } }):Show(owner)
+			local s = surface()
+			assert.equals(16, fontOf(s, "Goldshire").fontSize)
+			assert.equals(23, fontOf(s, "STORMWIND").fontSize) -- title tier: 16 x 1.42
+			-- padding lg (12 at size 12) is 16 here, gap xs 3; min width 12 ems = 192.
+			assert.same({ 192, LINE + 3 + LINE + 32 }, s.size)
+		end)
+
+		it("fall back to the defaults for settings they don't know", function()
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "neon", textSize = 99 } })
+			UI.Tooltip({ { text = "Goldshire" } }):Show(owner)
+			local s = surface()
+			assert.is_nil(s.backdrop) -- ordaen
+			assert.equals(16, fontOf(s, "Goldshire").fontSize) -- clamped to the largest size
+		end)
+
+		it("restyle everything on screen when the global settings change", function()
+			local tip = UI.Tooltip({ { text = "Stormwind", style = "title" } })
+			tip:Show(owner)
+			local label = UI.Block({ name = "Label", { text = "Goldshire", style = "small" } })
+			local s = surface()
+			assert.same({ "STORMWIND" }, shownTexts(s))
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "blizzard", textSize = 14 } })
+			UI._SettingsChanged()
+			assert.same({ "Stormwind" }, shownTexts(s))
+			assert.equals("Interface\\Tooltips\\UI-Tooltip-Border", s.backdrop.edgeFile)
+			assert.equals(13, fontOf(label.frame, "Goldshire").fontSize) -- small tier of 14
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "minimal", textSize = 12 } })
+			UI._SettingsChanged()
+			assert.is_nil(s.backdrop) -- art taken off again
+			assert.same({ "Stormwind" }, shownTexts(s))
+		end)
+
+		it("tint a surface with the block's accent, else the theme's", function()
+			UI.Tooltip({ accent = { 1, 0, 0 }, { text = "Hogger" } }):Show(owner)
+			local top = solids(surface(), "BORDER")[1] -- the top edge: 0 + accent x 0.8
+			assert.same({ 0.8, 0, 0, 0.95 }, top.gradient[2])
+		end)
+
+		it("draw edges and lines in whole physical pixels at any UI scale", function()
+			uiScale = 0.5 -- one physical pixel is 2 UI units here (the fake pixel factor is 1)
+			UI.Tooltip({ { text = "Goldshire" }, { separator = "rule" } }):Show(owner)
+			local s = surface()
+			local top = solids(s, "BORDER")[1]
+			assert.equals(4, top.size[2]) -- 2 px
+			local rule = solids(s, "ARTWORK")[1]
+			assert.equals(2, rule.size[2]) -- 1 px
+		end)
+
+		it("write capitals in Russian too", function()
+			UI.Tooltip({ { text = "Элвиннский лес, ёлка", style = "title" } }):Show(owner)
+			assert.same({ "ЭЛВИННСКИЙ ЛЕС, ЁЛКА" }, shownTexts(surface()))
+		end)
+
+		it("stretch separators and bars over their cell, a caption between two lines", function()
+			UI.Tooltip({
+				{ text = "A line of some length" },
+				{ separator = "caption", text = "Stats" },
+				{ bar = 0.25 },
+			}):Show(owner)
+			local s = surface()
+			assert.same({ "A line of some length", "STATS" }, shownTexts(s))
+			local layout = UI._Describe().layout
+			local inner = s.size[1] - 24
+			assert.equals(inner, layout[2].w)
+			assert.equals(inner, layout[3].w)
+			local lines = solids(s, "ARTWORK")
+			assert.equals(4, #lines) -- two caption lines, the bar's track and fill
+			assert.equals(inner, lines[3].size[1])
+			assert.equals(inner * 0.25, lines[4].size[1])
+		end)
+
+		it("show Shift rows only while Shift is held, and listen for it only while shown", function()
+			local tip = UI.Tooltip({
+				{ text = "Hogger" },
+				{ text = "Level 11 elite", shift = true },
+				{ text = "Hold Shift for more", style = "hint", shift = false },
+			})
+			tip:Show(owner)
+			local s = surface()
+			assert.same({ "Hogger", "Hold Shift for more" }, shownTexts(s))
+			assert.is_true(s.events.MODIFIER_STATE_CHANGED)
+			helpers.shiftDown = true
+			s.scripts.OnEvent(s, "MODIFIER_STATE_CHANGED", "LSHIFT", 1)
+			assert.same({ "Hogger", "Level 11 elite" }, shownTexts(s))
+			tip:Hide()
+			assert.is_nil(s.events.MODIFIER_STATE_CHANGED)
+			UI.Tooltip({ { text = "No Shift rows" } }):Show(owner)
+			assert.is_nil(s.events.MODIFIER_STATE_CHANGED)
+		end)
+
+		it("make headers: icon left, title and subtitle beside it, on a band to the tooltip's edges", function()
+			local header = UI.Header({ title = "Stormwind", subtitle = "Trade District", icon = 134400 })
+			local tip = UI.Tooltip({ header, { text = "Goldshire" } })
+			tip:Show(owner)
+			local s = surface()
+			assert.same({ "STORMWIND", "Trade District", "Goldshire" }, shownTexts(s))
+			local band
+			for _, t in ipairs(solids(s, "BACKGROUND")) do
+				if t.sublevel == 2 then
+					band = t
+				end
+			end
+			assert.same({ "TOPLEFT", s, "TOPLEFT", 0, 0 }, band.point) -- bleeds over the tooltip's padding
+			assert.equals(s.size[1], band.size[1])
+			header.titleText.text = "Elwynn"
+			tip:Refresh()
+			assert.same({ "ELWYNN", "Trade District", "Goldshire" }, shownTexts(s))
 		end)
 	end)
 

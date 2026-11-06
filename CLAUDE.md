@@ -194,9 +194,18 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   a hover trigger, anchored to its owner, passive, on the tooltip layer, one at a time. Later: buttons (composite
   blocks with click), windows (fixed, saved position/size: the framework remembers them), more roles.
 - **One renderer, themes are data.** The only drawing code is the framework's (`OrdaenCore_UI/Render.lua`). Looks come
-  from a theme table (`Theme.lua`: per style role the art, colors and layout defaults; per text style a font object
-  and color). The default theme uses Blizzard's art and fonts; a theme addon will only replace that data. No second
-  renderer, no fallback branches. `color` on an element is for meaning (a pending invite), not decoration.
+  from theme data (`Theme.lua`: per style role the surface, colours and layout defaults; per text style font, size
+  tier, colour, shadow, caps). No second renderer, no fallback branches. `color` on an element is for meaning (a
+  pending invite), not decoration; `accent = { r, g, b }` on a block tints it for meaning (quality, PvP).
+- **Three themes, always** (user's rule for every theme set): our own `ordaen` look is the default (flat surfaces
+  drawn without art, tinted by an accent; approach credited to PrettyTooltip, values our own), `blizzard` (Blizzard's
+  art and shadowed text) is an option, and `minimal` (flat, hairlines, no effects) is the third. Every theme defines
+  every role. A theme addon later adds a set of three, never one.
+- **One design scale, global settings** (user's decision): sizes, fonts and spacing are global for every Ordaen addon,
+  chosen in Ordaen Core's settings (`OrdaenCoreDB.ui.theme`, `.textSize` = body px 10-16; c4 owns the page,
+  `CoreSettings.lua`, which calls `OrdaenCore.UI._SettingsChanged()`). Spacing tokens `xs sm md lg xl` and text
+  tiers `tiny small body large title` are derived from the text size; addons name tokens and roles, never numbers
+  for text-related sizes. Edges and lines are whole physical pixels (`PixelUtil`).
 - **Layout** (`OrdaenCore_UI/Layout.lua`, pure Lua, `layout_spec.lua`): two passes like CSS grid: column widths
   (fixed, auto, then fr shares; too little room shrinks fr then auto columns, never below 8 px), then row heights from
   text wrapped to those widths. Text is measured by the renderer with the theme's fonts, cached per element.
@@ -217,8 +226,10 @@ those. Core API names become permanent at the first release of OrdaenCore; until
     `level`, `tooltip`, `on`. Methods `:On(event, fn)`, `:Off`, `:Tooltip(tip)`, `:Refresh()`, `:SetText()`, and
     placement passed to the frame (`SetPoint`, `Show`, `GetCenter`, `LockHighlight`, ...). They load the framework
     and return nil if it can't load.
-  - Block styles in the default theme: `tooltip`, `button`, `iconButton` (the gear-button look), `slot`; text styles
-    `title`, `subtitle`, `body` (default), `label`, `value`, `hint`, `normal`, `small`.
+  - Block styles in every theme: `tooltip`, `header` (`UI.Header` preset: icon, title, subtitle, band), `button`,
+    `iconButton` (the gear-button look), `slot`; text styles `title`, `subtitle`, `body` (default), `label`, `value`,
+    `hint`, `caption`, `normal`, `small` (the last two for text on the world, with a shadow). Elements also include
+    separators (`rule`, `divider`, `caption`) and bars; `shift = true/false` rows show only with/without Shift.
 - **Scale and position** (user's decision): our blocks live on the global UI scale only (children of `UIParent`, sizes
   in UI units, no scale property). A block attached to a scaled Blizzard frame inherits that frame's scale; the
   renderer measures text on the surface it draws on, so either way it fits. An anchored tooltip takes only its

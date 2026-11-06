@@ -36,6 +36,27 @@ Redraws the tooltip from its current fields, if it is shown. Does nothing otherw
 
 Whether this tooltip is the one on screen.
 
+## UI.Header
+
+```lua
+local header = OrdaenCore.UI.Header({ title = "Stormwind", subtitle = "Trade District", icon = 134400 })
+local tip = OrdaenCore.UI.Tooltip({ header, { text = "..." } })
+header.titleText.text = "Elwynn Forest"; tip:Refresh()
+```
+
+Returns a header block (data, style `header`): the icon on the left with an optional plate under it, the title and
+subtitle beside it, on the theme's header band. Put it first in a tooltip. Loads nothing.
+
+| Spec field | Type | |
+|---|---|---|
+| `title` | string | drawn in the `title` style |
+| `subtitle` | string, optional | hidden without one |
+| `icon` | texture path or file ID, optional | `iconSize` (default 32), `texCoord` |
+| `plate` | string, optional | a short text under the icon (a level, a count) |
+| `accent` | `{ r, g, b }`, optional | tints the band |
+
+Fields to change afterwards: `titleText`, `subtitleText`, `iconImage`, `plateText` (elements), `accent`.
+
 ## UI.Block and UI.Button
 
 ```lua
@@ -106,3 +127,9 @@ Not for addon code.
 |---|---|
 | `UI._Provide(functions)` | called by `OrdaenCore_UI` when it loads, to hand over its implementation |
 | `UI._Describe()` | the last tooltip as measured and drawn, for dev-mode dumps; builds tables |
+
+## Global settings
+
+The player picks the theme and the text size for every Ordaen addon in Ordaen Core's settings
+(`OrdaenCoreDB.ui`); see [Themes](/guide/themes). Ordaen Core calls `OrdaenCore.UI._SettingsChanged()` after a
+change, which redraws everything on screen. Addons don't call it and don't read the settings.

@@ -299,6 +299,13 @@ function Component.Button(spec)
 	return create(spec, "button")
 end
 
+--- Redraw every instance (after a theme or text-size change). Rare: only on a settings change.
+function Component.RefreshAll()
+	for _, instance in pairs(byFrame) do
+		Render.Draw(instance.frame, instance.block, instance.block.width)
+	end
+end
+
 --- The instance that owns a WoW frame, if any (for specs and dumps).
 function Component.Of(frame)
 	return byFrame[frame]

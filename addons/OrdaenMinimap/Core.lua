@@ -30,7 +30,7 @@ local function applyAll()
 	isolated(ns.Drawer.Apply, db)
 end
 
--- The dev-mode dump ("Save for Claude & reload" in the Ordaen Dev window).
+-- The dev-mode dump ("Send state" in the Ordaen Dev window; Claude reads it with wow_dump).
 local function dumpState()
 	return {
 		db = OrdaenMinimapDB,
