@@ -90,9 +90,9 @@ local function title(name)
 	return (text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
 end
 
--- Turn `name` off and reload. Called straight from the button's click: a reload is a player action, and the game
--- allows it only in the click's own call (not through securecallfunction, a timer or an event later). In combat it
--- can't reload at all, so the player is told to type /reload. Without the API, tell the player how.
+-- Turn `name` off; the button's own secure macro (`macro = "/reload"`, UI.Confirm) reloads in the same click. This
+-- client blocks a reload from addon code even inside a click (2026-11-06), so we never call ReloadUI here. In combat
+-- the dialog has no secure button, so the player is told to type /reload. Without the API, tell the player how.
 local function turnOff(addon, name)
 	local disable = C_AddOns.DisableAddOn
 	if type(disable) ~= "function" then
@@ -105,14 +105,45 @@ local function turnOff(addon, name)
 		addon:Print(ns.L.CONFLICT_RELOAD_AFTER_COMBAT:format(title(name)))
 		return
 	end
-	addon.Debug:Logf("conflict: turned off %s, reloading", name)
-	ReloadUI()
+	addon.Debug:Logf("conflict: turned off %s; the button's macro reloads", name)
 end
 
 local ASK_DELAY = 1 -- seconds
+local MAX_KEPT = 50 -- remembered "keep both" pairs (OrdaenCoreDB.keptConflicts), a hard cap
+
+-- The pairs the player chose to keep both of ("OrdaenTooltips:PrettyTooltip" = true), in Ordaen Core's settings.
+local function kept()
+	local db = rawget(_G, "OrdaenCoreDB")
+	if type(db) ~= "table" then
+		return nil
+	end
+	db.keptConflicts = db.keptConflicts or {}
+	return db.keptConflicts
+end
+
+local function keptBoth(addon, other)
+	local pairs_ = kept()
+	return pairs_ ~= nil and pairs_[addon.name .. ":" .. other] == true
+end
+
+local function keepBoth(addon, other)
+	local pairs_ = kept()
+	if not pairs_ then
+		return
+	end
+	local n = 0
+	for _ in pairs(pairs_) do
+		n = n + 1
+	end
+	if n < MAX_KEPT then
+		pairs_[addon.name .. ":" .. other] = true
+	end
+	addon.Debug:Logf("conflict: the player keeps both (%s)", other)
+end
 
 -- Ask the player which of the two to keep: Ordaen Core's one dialog for every addon (OrdaenCore.UI.Confirm), once
--- per other addon and session. "Decide later" (or Escape) keeps both until the next login, where it asks again.
+-- per other addon and session. "Keep both" is remembered (no more asking for that pair); Escape asks again at the
+-- next login.
 local function ask(addon, other, what)
 	local UI = Core.UI
 	if addon._asked[other] or not (UI and UI.Confirm) then
@@ -128,27 +159,30 @@ local function ask(addon, other, what)
 		end
 	end
 	local ours, theirs = title(addon.name), title(other)
-	local function later()
-		addon.Debug:Logf("conflict: decide later (%s)", other)
-	end
 	local dialog = UI.Confirm({
 		text = L.CONFLICT_TEXT:format(ours, theirs, area),
 		buttons = {
 			{
 				text = L.CONFLICT_KEEP:format(ours),
+				macro = "/reload",
 				onClick = function()
 					turnOff(addon, other)
 				end,
 			},
 			{
 				text = L.CONFLICT_KEEP:format(theirs),
+				macro = "/reload",
 				onClick = function()
 					turnOff(addon, addon.name)
 				end,
 			},
-			{ text = L.CONFLICT_LATER, onClick = later },
+			{
+				text = L.CONFLICT_KEEP_BOTH,
+				onClick = function()
+					keepBoth(addon, other)
+				end,
+			},
 		},
-		onCancel = later,
 	})
 	-- A second later: not from inside the other addon's hook, and after login has settled.
 	C_Timer.After(ASK_DELAY, function()
@@ -169,10 +203,15 @@ local function found(addon, other, what)
 	for _, fn in ipairs(addon._onConflict) do
 		Core._RunAs(addon, fn, other, what)
 	end
-	if records(addon, other) == before then
-		addon:Conflict(other, what, false)
-		ask(addon, other, what)
+	if records(addon, other) ~= before then
+		return
 	end
+	if keptBoth(addon, other) then
+		addon:Conflict(other, what, true) -- the player chose to keep both: accepted, not broken
+		return
+	end
+	addon:Conflict(other, what, false)
+	ask(addon, other, what)
 end
 
 --- The spec's conflicts that are loaded, and claimed globals someone else defined (Addon.lua, at login, before

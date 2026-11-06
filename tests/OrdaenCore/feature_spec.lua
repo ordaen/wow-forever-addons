@@ -469,28 +469,59 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			assert.equals(1, #dialogs)
 			local d = dialogs[1]
 			assert.equals(
-				"Test Addon and PrettyTooltip both change the game's tooltips. Keep one of them: the other is turned off "
-					.. "and the interface reloads.",
+				"Test Addon and PrettyTooltip both change the game's tooltips. Keeping one turns the other off and "
+					.. "reloads the interface.",
 				d.text
 			)
 			assert.same(
-				{ "Keep Test Addon", "Keep PrettyTooltip", "Decide later" },
+				{ "Keep Test Addon", "Keep PrettyTooltip", "Keep both" },
 				{ d.buttons[1].text, d.buttons[2].text, d.buttons[3].text }
 			)
 			advance(2)
 			_G.TestFrame:SetAlpha(0) -- the same addon again: no second dialog this session
 			assert.equals(1, #dialogs)
-			-- in combat: turned off, no reload (the game can't), the player is told to /reload
+			-- the "keep" buttons reload through their own secure macro; our part only turns the other one off
+			assert.same({ "/reload", "/reload" }, { d.buttons[1].macro, d.buttons[2].macro })
+			assert.is_nil(d.buttons[3].macro)
 			helpers.inCombat = true
 			d.buttons[2].onClick()
 			assert.equals("TestAddon", disabled)
-			assert.is_false(helpers.reloaded)
-			-- out of combat: reloads right in the click
 			helpers.inCombat = false
 			d.buttons[1].onClick()
 			assert.equals("PrettyTooltip", disabled)
-			assert.is_true(helpers.reloaded)
+			assert.is_false(helpers.reloaded, "never ReloadUI from addon code: this client blocks it")
 			helpers.metadata.PrettyTooltip = nil
+		end)
+
+		it("remember Keep both, and then record the pair as handled without asking", function()
+			rawset(_G, "TestFrame", frame())
+			rawset(_G, "OrdaenCoreDB", {})
+			local A = start()
+			login()
+			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+			A:Claim(_G.TestFrame, { "SetAlpha" }, "GameTooltip")
+			_G.TestFrame:SetAlpha(0)
+			advance(1)
+			dialogs[1].buttons[3].onClick()
+			assert.same({ ["TestAddon:PrettyTooltip"] = true }, _G.OrdaenCoreDB.keptConflicts)
+			-- next session (a new Core): no dialog, the conflict is recorded as accepted
+			dialogs = {}
+			Core = helpers.loadCore()
+			Core.UI = { Confirm = function(spec)
+				function spec.Show(self)
+					dialogs[#dialogs + 1] = self
+				end
+				return spec
+			end }
+			local B = start()
+			login()
+			B:Claim(_G.TestFrame, { "SetAlpha" }, "GameTooltip")
+			advance(2)
+			_G.TestFrame:SetAlpha(0)
+			advance(2)
+			assert.equals(0, #dialogs)
+			assert.same({ { other = "PrettyTooltip", what = "GameTooltip:SetAlpha", handled = true } }, B:Conflicts())
+			rawset(_G, "OrdaenCoreDB", nil)
 		end)
 
 		it("don't ask when an OnConflict function handled it", function()
