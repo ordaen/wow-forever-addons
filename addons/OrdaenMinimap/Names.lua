@@ -59,3 +59,35 @@ end
 function ns.LibDBIconObjectName(name)
 	return type(name) == "string" and name:match("^LibDBIcon10_(.+)$") or nil
 end
+
+-- Suffixes addons put after their name on a minimap button, longest first.
+local BUTTON_SUFFIXES = {
+	"[-_]?[Mm]inimap[-_]?[Bb]utton$",
+	"[-_]?[Mm]inimap[-_]?[Ii]con$",
+	"[-_]?[Mm]inimap[-_]?[Ff]rame$",
+	"[-_][Mm]inimap[-_].*$",
+	"[-_]?[Mm]inimap$",
+}
+
+--- The addon a minimap button belongs to, as written in its name: the LibDBIcon object, else the name without
+--- its minimap suffix ("AltoholicMinimapButton" -> "Altoholic", "AutoBiographer_MinimapButton" ->
+--- "AutoBiographer"). nil when nothing is left. The drawer matches it against compartment entries, so one
+--- addon gets one square.
+---@param name string|nil
+---@return string|nil
+function ns.ButtonAddonName(name)
+	local object = ns.LibDBIconObjectName(name)
+	if object then
+		return object
+	end
+	if type(name) ~= "string" then
+		return nil
+	end
+	for _, suffix in ipairs(BUTTON_SUFFIXES) do
+		local stem, n = name:gsub(suffix, "")
+		if n > 0 then
+			return stem ~= "" and stem or nil
+		end
+	end
+	return nil
+end

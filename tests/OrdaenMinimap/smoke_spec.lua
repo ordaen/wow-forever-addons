@@ -905,6 +905,9 @@ describe("OrdaenMinimap smoke", function()
 			addTocEntry("Pawn", { Title = "Pawn", AddonCompartmentFunc = "Pawn_OnCompartmentClick" })
 			addTocEntry("Details", { Title = "Details!", AddonCompartmentFunc = "Details_Click" })
 			addButton("LibDBIcon10_Details", { libdbicon = "Details" })
+			-- A plain minimap button twins its addon's compartment entry too (Altoholic, 2026-11-06).
+			addTocEntry("Altoholic", { Title = "Altoholic", AddonCompartmentFunc = "Altoholic_Click" })
+			addButton("AltoholicMinimapButton")
 			table.insert(world.runtimeEntries, {
 				text = "Baganator",
 				func = function(_, input)
@@ -929,6 +932,30 @@ describe("OrdaenMinimap smoke", function()
 			entryButtons[2].scripts.OnClick(entryButtons[2], "LeftButton")
 			assert.same({ { "Pawn", "RightButton" }, { "Baganator", "LeftButton" } }, clicked)
 			rawset(_G, "Pawn_OnCompartmentClick", nil)
+		end)
+
+		it("dresses collected buttons as squares: only their icon, cropped, in our slot look", function()
+			local border = stubObject("border")
+			local icon = stubObject("icon", {
+				IsObjectType = function(_, kind)
+					return kind == "Texture"
+				end,
+				GetNumMaskTextures = function()
+					return 0
+				end,
+			})
+			local button = addButton("LibDBIcon10_Bartender4", { libdbicon = "Bartender4" })
+			rawset(button, "icon", icon)
+			rawset(button, "GetRegions", function()
+				return border, icon
+			end)
+			login()
+			assert.same({ 0 }, border.calls.SetAlpha[1]) -- its round border is gone
+			assert.is_nil(icon.calls.SetAlpha) -- the icon stays
+			assert.same({ 22, 22 }, icon.calls.SetSize[1])
+			assert.same({ 0.08, 0.92, 0.08, 0.92 }, icon.calls.SetTexCoord[1])
+			assert.same({ 28, 28 }, button.calls.SetSize[1])
+			assert.is_function(button.scripts.OnEnter) -- our hover highlight
 		end)
 
 		it("hides Blizzard's compartment button by default and shows it when the option is off", function()

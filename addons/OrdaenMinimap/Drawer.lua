@@ -8,6 +8,7 @@ local Drawer = {}
 ns.Drawer = Drawer
 
 local L = ns.L
+local UI = OrdaenCore.UI
 local SLOT, GAP, PAD = 32, 4, 6
 local ENTRY_ICON = 22
 local AUTO_CLOSE_DELAY = 1
@@ -107,6 +108,73 @@ local function queueLayout()
 	C_Timer.After(0, Drawer.Layout)
 end
 
+-- Squares ----------------------------------------------------------------------------------------
+-- Every entry in the drawer looks the same (the user's decision): the addon's icon in our "slot" look, like the
+-- compartment entries. A collected button keeps working as it is (its clicks, menus and tooltips are its
+-- own); only its art changes: everything but the icon is made invisible, the icon is cropped and centred, and a
+-- UI block under it gives the slot look and the hover highlight.
+
+local ICON_CROP = { 0.08, 0.92, 0.08, 0.92 } -- trims the border most icons have
+local slotOf = {} -- collected button -> its UI slot block
+
+-- The button's icon: LibDBIcon keeps it in .icon, others in .Icon; else the first ARTWORK texture with a file.
+local function iconOf(button)
+	for _, field in ipairs({ "icon", "Icon" }) do
+		local region = rawget(button, field)
+		if type(region) == "table" and region.IsObjectType and region:IsObjectType("Texture") then
+			return region
+		end
+	end
+	for _, region in ipairs({ button:GetRegions() }) do
+		if region:IsObjectType("Texture") and region:GetDrawLayer() == "ARTWORK" and region:GetTexture() then
+			return region
+		end
+	end
+	return nil
+end
+
+local function slotHighlightOn(button)
+	local slot = slotOf[button]
+	if slot then
+		slot:LockHighlight()
+	end
+end
+
+local function slotHighlightOff(button)
+	local slot = slotOf[button]
+	if slot then
+		slot:UnlockHighlight()
+	end
+end
+
+local function square(button)
+	local icon = iconOf(button)
+	if not icon then
+		return -- nothing we can recognise as its icon: it keeps its own look
+	end
+	for _, region in ipairs({ button:GetRegions() }) do
+		if region ~= icon then
+			region:SetAlpha(0)
+		end
+	end
+	for i = icon:GetNumMaskTextures(), 1, -1 do
+		icon:RemoveMaskTexture(icon:GetMaskTexture(i)) -- round masks
+	end
+	button:SetSize(SLOT - 4, SLOT - 4)
+	icon:ClearAllPoints()
+	icon:SetPoint("CENTER", button, "CENTER")
+	icon:SetSize(ENTRY_ICON, ENTRY_ICON)
+	icon:SetTexCoord(ICON_CROP[1], ICON_CROP[2], ICON_CROP[3], ICON_CROP[4])
+	local slot = UI.Block({ parent = button, style = "slot", width = SLOT - 4, height = SLOT - 4 })
+	if slot then
+		slot:SetPoint("CENTER", button, "CENTER")
+		slot:SetFrameLevel(math.max(0, button:GetFrameLevel() - 1))
+		slotOf[button] = slot
+		button:HookScript("OnEnter", slotHighlightOn)
+		button:HookScript("OnLeave", slotHighlightOff)
+	end
+end
+
 -- Collecting minimap buttons --------------------------------------------------------------------
 
 local function collect(button, source)
@@ -142,6 +210,7 @@ local function collect(button, source)
 	button.SetScale = noop
 	hooksecurefunc(button, "Show", queueLayout)
 	hooksecurefunc(button, "Hide", queueLayout)
+	square(button)
 
 	local name = button.GetName and button:GetName() or "?"
 	collected[#collected + 1] = { frame = button, name = name, source = source }
@@ -223,19 +292,20 @@ local function runtimeEntries()
 	return frame and frame.registeredAddons or {}
 end
 
+-- Addons whose minimap button is in the drawer and shown, by CompartmentKey: their compartment entry is a twin.
+-- LibDBIcon buttons and plain ones alike (Altoholic's own button twinned its compartment entry, 2026-11-06).
 local function shownIconKeys()
 	local keys = {}
 	for _, c in ipairs(collected) do
-		local object = ns.LibDBIconObjectName(c.name)
-		if object and c.frame:IsShown() then
-			keys[ns.CompartmentKey(object)] = true
+		local addon = ns.ButtonAddonName(c.name)
+		if addon and c.frame:IsShown() then
+			keys[ns.CompartmentKey(addon)] = true
 		end
 	end
 	return keys
 end
 
 -- Our tooltips are OrdaenCore.UI tooltip objects, built once; only the entry's title changes on hover.
-local UI = OrdaenCore.UI
 local LEFT = { side = "left" }
 local entryTitle = { text = "", style = "title" }
 local entryTooltip = UI.Tooltip({ entryTitle }, LEFT)
@@ -304,8 +374,6 @@ local function entryOnLeave(button)
 	GameTooltip:Hide() -- the other addon's own hover code usually draws on GameTooltip
 end
 
-local ICON_CROP = { 0.08, 0.92, 0.08, 0.92 } -- trims the border most icons have
-
 local function entryButton(index)
 	local button = entryButtons[index]
 	if not button then
@@ -349,6 +417,7 @@ end
 local hiddenParent
 local compartmentParent -- its own parent, to give it back
 local placingCompartment = false
+local loggedCompartment -- the state last logged
 
 local function compartmentHidden()
 	return db and db.hideBlizzardCompartment and started
@@ -384,7 +453,11 @@ function Drawer.ApplyBlizzardCompartment()
 		frame:SetParent(compartmentParent or MinimapCluster)
 		placingCompartment = false
 	end
-	debug():Logf("drawer: Blizzard compartment %s", compartmentHidden() and "hidden" or "shown")
+	local state = compartmentHidden() and "hidden" or "shown"
+	if state ~= loggedCompartment then -- Start and Apply both call this: log the change, not every call
+		loggedCompartment = state
+		debug():Logf("drawer: Blizzard compartment %s", state)
+	end
 end
 
 -- Main button and drawer frame ------------------------------------------------------------------
