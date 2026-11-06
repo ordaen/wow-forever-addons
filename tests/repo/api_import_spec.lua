@@ -125,9 +125,8 @@ describe("api_import", function()
 	end)
 
 	it("imports a SavedVariables file end to end", function()
-		local tmp = os.tmpname()
-		os.remove(tmp)
-		os.execute('mkdir -p "' .. tmp .. '"')
+		local fs = require("scripts.fs")
+		local tmp = fs.TempDir("api-import")
 		local saved = tmp .. "/OrdaenCore_Debug.lua"
 		local serialize
 		serialize = function(v)
@@ -159,7 +158,7 @@ describe("api_import", function()
 		assert.truthy(read("1.60.1-70790/globals.txt"):find("CreateFrame", 1, true))
 		assert.truthy(read("CHANGES.md"):find("First dump.", 1, true))
 		assert.is_table(assert(loadstring(read("luacheck.lua")))())
-		os.execute('rm -rf "' .. tmp .. '"')
+		fs.Remove(tmp)
 	end)
 
 	-- The planned dump format from wow-dev-tools: full-depth frame trees and argument defaults.

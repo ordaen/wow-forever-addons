@@ -280,6 +280,7 @@ end
 local scriptDir = (debug.getinfo(1, "S").source:match("^@(.*[/\\])") or "./")
 local json = dofile(scriptDir .. "json.lua")
 local lualsDefs = dofile(scriptDir .. "luals_defs.lua")
+local fs = dofile(scriptDir .. "fs.lua")
 
 --- "name:type?, other:type=" -> list of {name, type, nilable[, default]}. A trailing "?" means Nilable, a
 --- trailing "=" means the argument has a documented Default (both: "type?="). `default` is only set when
@@ -378,13 +379,11 @@ end
 
 local function listDirs(path)
 	local dirs = {}
-	local p = io.popen('ls -1 "' .. path .. '" 2>/dev/null')
-	for name in p:lines() do
+	for _, name in ipairs(fs.List(path)) do
 		if name:match("%-%d+$") then
 			dirs[#dirs + 1] = name
 		end
 	end
-	p:close()
 	return dirs
 end
 
@@ -412,8 +411,12 @@ function M.Rebuild(root)
 	writeFile(base .. "/CHANGES.md", M.Changes(folders, contents))
 	writeFile(base .. "/luacheck.lua", M.Luacheck(contents[current], current))
 	-- LuaLS definitions of the current version (.luarc.json points lua-language-server at them).
-	os.execute('mkdir -p "' .. base .. '/luals"')
-	os.execute('rm -f "' .. base .. '/luals/"*.lua') -- files are split into parts; drop parts that are gone
+	fs.MakeDirs(base .. "/luals")
+	for _, name in ipairs(fs.List(base .. "/luals")) do -- files are split into parts; drop parts that are gone
+		if name:match("%.lua$") then
+			os.remove(base .. "/luals/" .. name)
+		end
+	end
 	for name, content in pairs(lualsDefs.Generate(structured[current], current)) do
 		writeFile(base .. "/luals/" .. name, content)
 	end
@@ -433,7 +436,7 @@ function M.Main(savedVariablesPath, root)
 
 	local base = root .. "/api/forever"
 	local folder = M.FolderName(dump.meta)
-	os.execute('mkdir -p "' .. base .. "/" .. folder .. '"')
+	fs.MakeDirs(base .. "/" .. folder)
 	for name, content in pairs(M.Render(dump)) do
 		writeFile(base .. "/" .. folder .. "/" .. name, content)
 	end

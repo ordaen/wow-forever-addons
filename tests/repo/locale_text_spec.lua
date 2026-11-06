@@ -2,11 +2,9 @@
 -- forbid fails here, so it can't come back. Add a pattern when a rule gets a mechanical form.
 local function localeFiles(code)
 	local files = {}
-	local p = io.popen("find addons -path '*/locales/" .. code .. ".json' | sort")
-	for path in p:lines() do
+	for _, path in ipairs(require("scripts.fs").Files("addons", "/locales/" .. code .. "%.json$")) do
 		files[#files + 1] = path
 	end
-	p:close()
 	return files
 end
 

@@ -6,11 +6,9 @@ local allowlist = dofile("tests/repo/method_allowlist.lua")
 
 local function addonFiles()
 	local files = {}
-	local p = io.popen("find addons -name '*.lua' | sort")
-	for path in p:lines() do
+	for _, path in ipairs(require("scripts.fs").Files("addons", "%.lua$")) do
 		files[#files + 1] = path
 	end
-	p:close()
 	return files
 end
 

@@ -470,13 +470,7 @@ end
 -- Command line ----------------------------------------------------------------------------------
 
 local function luaFiles(target)
-	local files = {}
-	local p = io.popen('find "' .. target .. '" -name "*.lua" -type f 2>/dev/null | sort')
-	for file in p:lines() do
-		files[#files + 1] = file
-	end
-	p:close()
-	return files
+	return dofile(scriptDir .. "fs.lua").Files(target, "%.lua$")
 end
 
 function M.Main(args)

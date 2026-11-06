@@ -197,16 +197,14 @@ f:RegisterEvent("PLAYER_LOGN") -- forever-lint: ignore
 	end)
 
 	it("finds nothing in our addons", function()
-		local p = io.popen("find addons -name '*.lua' | sort")
 		local problems = {}
-		for file in p:lines() do
+		for _, file in ipairs(require("scripts.fs").Files("addons", "%.lua$")) do
 			local h = assert(io.open(file, "rb"))
 			for _, f in ipairs(Lint.LintSource(api, h:read("*a"))) do
 				problems[#problems + 1] = string.format("%s:%d %s %s", file, f.line, f.code, f.message)
 			end
 			h:close()
 		end
-		p:close()
 		assert.same({}, problems)
 	end)
 end)

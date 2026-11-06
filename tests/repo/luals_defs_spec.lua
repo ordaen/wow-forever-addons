@@ -122,15 +122,13 @@ describe("LuaLS definitions", function()
 
 	it("keeps every generated file of the current dump small enough and parseable", function()
 		local current = io.open("api/forever/CURRENT"):read("*l")
-		local p = io.popen('ls api/forever/luals/*.lua')
 		local count = 0
-		for file in p:lines() do
+		for _, file in ipairs(require("scripts.fs").Files("api/forever/luals", "%.lua$")) do
 			local text = io.open(file):read("*a")
 			assert.is_true(#text <= 500 * 1024, file .. " is over lua-language-server's 500 KB")
 			assert(loadstring(text), file .. " doesn't parse (more than 200 locals?)")
 			count = count + 1
 		end
-		p:close()
 		assert.is_true(count > 0 and current ~= nil)
 	end)
 end)
