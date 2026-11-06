@@ -77,6 +77,18 @@ end
 -- WindowLook -------------------------------------------------------------------------------------------------------
 
 ---@class OrdaenMeterWindowLook
+---@field window table the DamageMeterSessionWindow
+---@field size number the header strip's height: every cell's
+---@field buttons table[] Blizzard's controls, left to right: type dropdown, session, settings, minimize
+---@field cells table[] their cells in the header row, in the same order
+---@field title table the title area (Blizzard's type name and session timer go over it)
+---@field row table the header row (our block)
+---@field head OrdaenUIDress the header's look over Blizzard's strip
+---@field body OrdaenUIDress|nil the panel under the bars
+---@field dresses table<table, OrdaenUIDress> each control's dress (its art hidden)
+---@field homes table<table, table> each moved control or text -> where Blizzard put it
+---@field typeName FontString
+---@field timer FontString
 local WindowLook = {}
 local WindowLookMeta = { __index = WindowLook }
 

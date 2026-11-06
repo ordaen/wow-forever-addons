@@ -1041,9 +1041,9 @@ describe("OrdaenCore.UI", function()
 		it("puts the theme's bar texture on Blizzard's bars with UI.DressBar and keeps it there", function()
 			local bar = blizzardBar()
 			local dress = UI.DressBar(bar)
-			assert.equals("Interface\\TargetingFrame\\UI-StatusBar", bar.barTexture) -- bar.texture "blizzard"
+			assert.equals("Interface\\AddOns\\OrdaenCore\\media\\bar-ordaen", bar.barTexture) -- bar.texture "ordaen"
 			bar:SetStatusBarTexture("Interface\\Blizzard\\Thin") -- Blizzard's style change
-			assert.equals("Interface\\TargetingFrame\\UI-StatusBar", bar.barTexture)
+			assert.equals("Interface\\AddOns\\OrdaenCore\\media\\bar-ordaen", bar.barTexture)
 			dress:SetAsset("flat") -- the addon's setting
 			assert.equals("Interface\\Buttons\\WHITE8X8", bar.barTexture)
 			assert.equals(dress, UI.DressBar(bar, "flat"), "once per bar")
@@ -1268,7 +1268,7 @@ describe("OrdaenCore.UI", function()
 			assert.same({ 0.58, 0.12, 0.66, 1 }, value.barColor) -- color.xp of the ordaen theme
 			assert.same({ 0.58, 0.12, 0.66, 0.7 }, quest.barColor) -- the value's colour, lighter
 			assert.same({ 0.1, 0.42, 0.9, 0.45 }, overlay.barColor) -- color.rested, dimmed
-			assert.equals("Interface\\TargetingFrame\\UI-StatusBar", value.barTexture) -- bar.texture "blizzard"
+			assert.equals("Interface\\AddOns\\OrdaenCore\\media\\bar-ordaen", value.barTexture) -- bar.texture "ordaen"
 			assert.same({ "42%" }, shownTexts(value))
 		end)
 
