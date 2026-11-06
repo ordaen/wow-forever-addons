@@ -1,8 +1,9 @@
--- User-facing strings. English is the default; other locales override what they translate.
+-- User-facing strings. English is the base and the fallback; Locale_<code>.lua files overwrite what
+-- they translate, and only on a client in that language (no other language is kept in memory).
 -- Pure Lua (only GetLocale, when it exists), so specs can load it.
 local _, ns = ...
 
-local enUS = {
+local L = {
 	SETTINGS_TITLE = "Ordaen Minimap",
 	HEADER_BORDER = "Border",
 	HEADER_MAP = "Map",
@@ -60,76 +61,19 @@ local enUS = {
 	CONFLICT_DISABLE_MANUALLY = "please disable %s in the AddOns list (character screen) and restart the game.",
 }
 
-local ruRU = {
-	SETTINGS_TITLE = "Ordaen Minimap",
-	HEADER_BORDER = "Рамка",
-	HEADER_MAP = "Карта",
-	BORDER_STYLE = "Стиль рамки",
-	BORDER_STYLE_TOOLTIP = "Рамка вокруг квадратной миникарты.",
-	BORDER_COLOR = "Цвет рамки",
-	BORDER_COLOR_TOOLTIP = "Окрашивает рамку. «Естественный» оставляет исходные цвета текстуры.",
-	MAP_SCALE = "Размер карты",
-	MAP_SCALE_TOOLTIP = "Масштаб миникарты и всего, что к ней прикреплено.",
+ns.LOCALE = GetLocale and GetLocale() or "enUS"
 
-	STYLE_GOLD = "Золотая (как в диалогах)",
-	STYLE_TOOLTIP = "Как у подсказок",
-	STYLE_THIN = "Тонкая линия",
-	STYLE_NONE = "Без рамки",
+-- A key nobody defined shows as itself, which is easy to spot in game.
+ns.L = setmetatable(L, {
+	__index = function(_, key)
+		return key
+	end,
+})
 
-	COLOR_NATURAL = "Естественный",
-	COLOR_BLACK = "Чёрный",
-	COLOR_GREY = "Серый",
-	COLOR_GOLD = "Золотой",
-	COLOR_CLASS = "Цвет класса",
-
-	LOADED = "v%s загружен. Введите %s, чтобы открыть настройки.",
-	HELP_HEADER = "команды:",
-	HELP_OPEN = "%s - открыть настройки",
-	HELP_RESET = "%s reset - вернуть настройки по умолчанию",
-	RESET_DONE = "настройки сброшены (включая выбор при конфликтах).",
-
-	UNKNOWN_ADDON = "другая модификация",
-	CONFLICT_TEXT = "%s тоже меняет миникарту. Вместе они будут мешать друг другу.\n\nКакую модификацию оставить?",
-	CONFLICT_TEXT_UNKNOWN = "Другая модификация тоже меняет миникарту. Вместе они будут мешать друг другу.\n\n"
-		.. "Оставить Ordaen Minimap или выключить её?",
-	CONFLICT_KEEP_OURS = "Оставить Ordaen Minimap",
-	CONFLICT_KEEP_OTHER = "Оставить %s",
-	CONFLICT_DISABLE_OURS = "Выключить Ordaen Minimap",
-	CONFLICT_LATER = "Решить позже",
-	CONFLICT_OVERRIDE_HINT = "Ordaen Minimap остаётся. Если у %s есть свои настройки миникарты (форма, рамка), "
-		.. "выключите их там.",
-	CONFLICT_LATER_HINT = "Ordaen Minimap выключен до следующего входа в игру, тогда вопрос появится снова.",
-
-	HEADER_DRAWER = "Панель кнопок",
-	DRAWER_ENABLED = "Панель кнопок",
-	DRAWER_ENABLED_TOOLTIP = "Собирает кнопки модификаций с миникарты и пункты меню модификаций за одной маленькой "
-		.. "кнопкой. Чтобы вернуть кнопки на карту после выключения, нужен /reload.",
-	HIDE_BLIZZARD_COMPARTMENT = "Скрыть кнопку модификаций Blizzard",
-	HIDE_BLIZZARD_COMPARTMENT_TOOLTIP = "Скрывает кнопку меню модификаций Blizzard; её пункты есть в панели.",
-	DRAWER_COLUMNS = "Столбцы",
-	DRAWER_COLUMNS_TOOLTIP = "Сколько кнопок в одном ряду панели.",
-	DRAWER_TOOLTIP_CLICK = "Щелчок: открыть или закрыть панель",
-	DRAWER_TOOLTIP_RIGHT = "Правый щелчок: настройки",
-	DRAWER_TOOLTIP_MOVE = "Shift + перетаскивание: переместить кнопку",
-	DRAWER_MBB_WARNING = "Загружен MinimapButtonButton, поэтому панель кнопок выключена (обе собирают одни и те же "
-		.. "кнопки). Выключите одну из них.",
-	DRAWER_RELOAD_HINT = "панель кнопок выключена. Введите /reload, чтобы вернуть кнопки на миникарту.",
-	STYLE_BRONZE_RIM = "Бронзовый обод",
-	CONFLICT_DISABLE_MANUALLY = "выключите %s в списке модификаций (на экране выбора персонажа) и перезапустите игру.",
-}
-
-local translations = { ruRU = ruRU }
-
---- Build the string table for a locale; missing keys fall back to English, then to the key itself.
----@param locale string|nil
----@return table
-function ns.BuildLocale(locale)
-	local own = translations[locale] or {}
-	return setmetatable({}, {
-		__index = function(_, key)
-			return own[key] or enUS[key] or key
-		end,
-	})
+--- Overwrite English strings with a translation (called by Locale_<code>.lua for the client's language).
+---@param strings table key -> translated text
+function ns.ApplyTranslation(strings)
+	for key, text in pairs(strings) do
+		L[key] = text
+	end
 end
-
-ns.L = ns.BuildLocale(GetLocale and GetLocale() or "enUS")

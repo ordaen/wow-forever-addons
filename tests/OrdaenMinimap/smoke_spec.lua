@@ -39,8 +39,9 @@ local function stubObject(name, extra)
 	obj.IsShown = function(self)
 		return self.shown
 	end
-	obj.CreateTexture = function()
-		return stubObject(name .. ".texture")
+	obj.CreateTexture = function(self)
+		self.texture = stubObject(name .. ".texture") -- the last one created, for assertions
+		return self.texture
 	end
 	for k, v in pairs(extra or {}) do
 		rawset(obj, k, v)
@@ -303,6 +304,31 @@ describe("OrdaenMinimap smoke", function()
 		assert.is_false(border.shown)
 		settings.scale:Set(1.3)
 		assert.same({ 1.3 }, Minimap.calls.SetScale[#Minimap.calls.SetScale])
+	end)
+
+	it("draws a frame style as one tinted texture and switches back to a backdrop", function()
+		table.insert(ns.BORDER_STYLES, {
+			id = "test-frame",
+			label = "STYLE_GOLD",
+			frame = { file = "Interface\\AddOns\\OrdaenMinimap\\media\\test-frame" },
+			outset = 11,
+		})
+		fire("ADDON_LOADED", "OrdaenMinimap")
+		fire("PLAYER_LOGIN")
+		settings.borderColor:Set("gold")
+		settings.borderStyle:Set("test-frame")
+		local border = frameNamed("OrdaenMinimapBorder")
+		assert.same({ nil }, border.calls.SetBackdrop[#border.calls.SetBackdrop])
+		local texture = border.texture
+		assert.same({ "Interface\\AddOns\\OrdaenMinimap\\media\\test-frame" },
+			texture.calls.SetTexture[#texture.calls.SetTexture])
+		assert.same({ 1, 0.82, 0, 1 }, texture.calls.SetVertexColor[#texture.calls.SetVertexColor])
+		assert.same({ "TOPLEFT", Minimap, "TOPLEFT", -11, 11 }, border.calls.SetPoint[#border.calls.SetPoint - 1])
+
+		settings.borderStyle:Set("gold")
+		assert.is_false(texture.shown)
+		assert.equals("Interface\\DialogFrame\\UI-DialogBox-Border",
+			border.calls.SetBackdrop[#border.calls.SetBackdrop][1].edgeFile)
 	end)
 
 	it("opens the settings with /om and resets with /om reset", function()

@@ -60,14 +60,24 @@ local function withApplying(fn)
 	end
 end
 
+-- debugstack() is expensive, and some foreign calls repeat (Blizzard re-shows the zoom buttons on every
+-- hover; an addon we override may re-set the mask every frame). Attribute each kind of change at most
+-- once per second; the re-apply after the hook still runs every time.
+local ATTRIBUTION_INTERVAL = 1
+local lastAttribution = {}
+
 --- Called from our hooks: someone changed `what` outside our own code.
 local function foreignChange(what)
-	if applying or not Map.active then
+	if applying or not Map.active or not Map.onForeignChange then
 		return
 	end
-	if Map.onForeignChange then
-		Map.onForeignChange(what, debugstack(3))
+	local now = GetTime()
+	local last = lastAttribution[what]
+	if last and now - last < ATTRIBUTION_INTERVAL then
+		return
 	end
+	lastAttribution[what] = now
+	Map.onForeignChange(what, debugstack(3))
 end
 
 local hooked = {}
@@ -92,6 +102,14 @@ end
 
 local hiddenPieces = {}
 
+-- Hook bodies run on every foreign call (some on every hover), so they are plain functions that
+-- create no closures or tables.
+local function rehide(self)
+	applying = true
+	self:Hide()
+	applying = false
+end
+
 local function hideRoundPieces()
 	for _, names in ipairs(ROUND_PIECES) do
 		local object, name = findFirst(names)
@@ -100,20 +118,18 @@ local function hideRoundPieces()
 			hiddenPieces[#hiddenPieces + 1] = object
 			object:Hide()
 			-- Blizzard re-shows some of these (hover, config updates); keep them hidden.
-			guard(object, "Show", "show " .. name, function(self)
-				withApplying(function()
-					self:Hide()
-				end)
-			end)
+			guard(object, "Show", "show " .. name, rehide)
 		end
 	end
 end
 
+-- Quest/archaeology/task areas are drawn with a round ring by default; on a square map the ring
+-- shows as a circle cut by the corners.
+local BLOB_RING_METHODS = { "SetArchBlobRingScalar", "SetQuestBlobRingScalar", "SetTaskBlobRingScalar" }
+
 local function applyMask()
 	Minimap:SetMaskTexture(SQUARE_MASK)
-	-- Quest/archaeology/task areas are drawn with a round ring by default; on a square map the
-	-- ring shows as a circle cut by the corners.
-	for _, method in ipairs({ "SetArchBlobRingScalar", "SetQuestBlobRingScalar", "SetTaskBlobRingScalar" }) do
+	for _, method in ipairs(BLOB_RING_METHODS) do
 		if Minimap[method] then
 			Minimap[method](Minimap, 0)
 		end
@@ -143,6 +159,7 @@ local function enableWheelZoom()
 end
 
 local border
+local frameTexture -- for styles drawn as one texture over the whole border frame
 
 local function classRGB()
 	local _, class = UnitClass("player")
@@ -155,7 +172,7 @@ end
 
 local function applyBorder(db)
 	local style = ns.GetBorderStyle(db.borderStyle)
-	if not style.backdrop then
+	if not style.backdrop and not style.frame then
 		if border then
 			border:Hide()
 		end
@@ -170,12 +187,27 @@ local function applyBorder(db)
 	border:ClearAllPoints()
 	border:SetPoint("TOPLEFT", Minimap, "TOPLEFT", -outset, outset)
 	border:SetPoint("BOTTOMRIGHT", Minimap, "BOTTOMRIGHT", outset, -outset)
-	border:SetBackdrop(style.backdrop)
 	local rgb = ns.ResolveBorderColor(style, db.borderColor, classRGB())
+	local r, g, b = 1, 1, 1
 	if rgb then
-		border:SetBackdropBorderColor(rgb[1], rgb[2], rgb[3], 1)
+		r, g, b = rgb[1], rgb[2], rgb[3]
+	end
+	if style.frame then
+		-- One texture stretched over the whole frame: details (chips, scratches) don't repeat.
+		border:SetBackdrop(nil)
+		if not frameTexture then
+			frameTexture = border:CreateTexture(nil, "OVERLAY")
+			frameTexture:SetAllPoints(border)
+		end
+		frameTexture:SetTexture(style.frame.file)
+		frameTexture:SetVertexColor(r, g, b, 1)
+		frameTexture:Show()
 	else
-		border:SetBackdropBorderColor(1, 1, 1, 1)
+		if frameTexture then
+			frameTexture:Hide()
+		end
+		border:SetBackdrop(style.backdrop)
+		border:SetBackdropBorderColor(r, g, b, 1)
 	end
 	border:Show()
 end
@@ -188,16 +220,24 @@ Map.ShapeFunction = ourShape
 local currentDb
 local setUp = false
 
+local function applyShapeNow()
+	applyMask()
+	for _, piece in ipairs(hiddenPieces) do
+		piece:Hide()
+	end
+end
+
 local function reapplyShape()
 	if not Map.active then
 		return
 	end
-	withApplying(function()
-		applyMask()
-		for _, piece in ipairs(hiddenPieces) do
-			piece:Hide()
-		end
-	end)
+	withApplying(applyShapeNow)
+end
+
+local function rescale()
+	applying = true
+	Minimap:SetScale(currentDb.scale)
+	applying = false
 end
 
 local function setUpOnce()
@@ -212,14 +252,8 @@ local function setUpOnce()
 		hooksecurefunc(MinimapCluster, "UpdateMinimapConfig", reapplyShape)
 	end
 	-- Anyone else setting these is either Blizzard (re-apply) or a conflicting addon (Guard decides).
-	guard(Minimap, "SetMaskTexture", "mask", function()
-		reapplyShape()
-	end)
-	guard(Minimap, "SetScale", "scale", function()
-		withApplying(function()
-			Minimap:SetScale(currentDb.scale)
-		end)
-	end)
+	guard(Minimap, "SetMaskTexture", "mask", reapplyShape)
+	guard(Minimap, "SetScale", "scale", rescale)
 end
 
 --- Make the minimap square and apply the saved look. Safe to call again after a setting changes.

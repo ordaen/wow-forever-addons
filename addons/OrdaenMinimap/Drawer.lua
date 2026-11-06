@@ -11,6 +11,7 @@ local L = ns.L
 local SLOT, GAP, PAD = 32, 4, 6
 local ENTRY_ICON = 22
 local AUTO_CLOSE_DELAY = 1
+local AUTO_CLOSE_CHECK = 0.1
 local RESCAN_DELAYS = { 2, 10 }
 local FALLBACK_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 
@@ -401,20 +402,27 @@ local function createFrames()
 	table.insert(UISpecialFrames, "OrdaenMinimapDrawer") -- Escape closes it
 
 	-- Close after the mouse has been away from the drawer and its button for a moment.
-	local away = 0
+	-- OnUpdate only runs while the drawer is shown (WoW skips it for hidden frames), and the mouse is
+	-- checked every AUTO_CLOSE_CHECK seconds, not every frame.
+	local away, sinceCheck = 0, 0
 	container:SetScript("OnShow", function()
-		away = 0
+		away, sinceCheck = 0, 0
 	end)
 	container:SetScript("OnUpdate", function(self, elapsed)
+		sinceCheck = sinceCheck + elapsed
+		if sinceCheck < AUTO_CLOSE_CHECK then
+			return
+		end
 		-- frame:IsMouseOver(), not the global MouseIsOver(): Forever has no MouseIsOver.
 		if self:IsMouseOver() or mainButton:IsMouseOver() then
 			away = 0
 		else
-			away = away + elapsed
+			away = away + sinceCheck
 			if away > AUTO_CLOSE_DELAY then
 				self:Hide()
 			end
 		end
+		sinceCheck = 0
 	end)
 
 	mainButton = CreateFrame("Button", "OrdaenMinimapDrawerButton", UIParent)

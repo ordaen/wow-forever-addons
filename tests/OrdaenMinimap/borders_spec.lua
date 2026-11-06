@@ -18,11 +18,15 @@ describe("OrdaenMinimap borders", function()
 				assert.is_nil(seen[style.id], "duplicate id " .. tostring(style.id))
 				seen[style.id] = true
 				assert.is_string(style.label)
+				assert.is_false(style.backdrop ~= nil and style.frame ~= nil, style.id .. " has both kinds")
 				if style.backdrop then
 					assert.is_string(style.backdrop.edgeFile)
 					assert.is_number(style.backdrop.edgeSize)
-					assert.is_true((style.outset or 0) >= 0)
 				end
+				if style.frame then
+					assert.is_string(style.frame.file)
+				end
+				assert.is_true((style.outset or 0) >= 0)
 			end
 		end)
 
@@ -89,23 +93,61 @@ describe("OrdaenMinimap borders", function()
 end)
 
 describe("OrdaenMinimap locale", function()
-	local ns = loadInto({}, "addons/OrdaenMinimap/Locale.lua")
+	-- Load the locale files the way WoW does on a client in `locale`.
+	local function loadLocale(locale)
+		rawset(_G, "GetLocale", function()
+			return locale
+		end)
+		local ns = loadInto({}, "addons/OrdaenMinimap/Locale.lua")
+		loadInto(ns, "addons/OrdaenMinimap/Locale_ruRU.lua")
+		rawset(_G, "GetLocale", nil)
+		return ns
+	end
+
+	-- English keys: everything Locale.lua defines (rawget skips the key-as-text fallback).
+	local function englishKeys()
+		local ns = loadLocale("enUS")
+		local keys = {}
+		for key in pairs(ns.L) do
+			keys[#keys + 1] = key
+		end
+		return keys
+	end
+
+	it("translates every English string for ruRU", function()
+		local captured
+		local fake = {
+			LOCALE = "ruRU",
+			ApplyTranslation = function(strings)
+				captured = strings
+			end,
+		}
+		loadInto(fake, "addons/OrdaenMinimap/Locale_ruRU.lua")
+		for _, key in ipairs(englishKeys()) do
+			assert.is_string(captured[key], "ruRU misses " .. key)
+		end
+	end)
 
 	it("has a label for every border style and color", function()
+		local ns = loadLocale("enUS")
 		loadInto(ns, "addons/OrdaenMinimap/Borders.lua")
-		for _, locale in ipairs({ "enUS", "ruRU" }) do
-			local L = ns.BuildLocale(locale)
-			for _, list in ipairs({ ns.BORDER_STYLES, ns.BORDER_COLORS }) do
-				for _, entry in ipairs(list) do
-					assert.are_not.equal(entry.label, L[entry.label], locale .. " misses " .. entry.label)
-				end
+		for _, list in ipairs({ ns.BORDER_STYLES, ns.BORDER_COLORS }) do
+			for _, entry in ipairs(list) do
+				assert.is_string(rawget(ns.L, entry.label), "missing label " .. entry.label)
 			end
 		end
 	end)
 
-	it("translates for ruRU and falls back to English elsewhere", function()
-		assert.equals("Стиль рамки", ns.BuildLocale("ruRU").BORDER_STYLE)
-		assert.equals("Border style", ns.BuildLocale("deDE").BORDER_STYLE)
-		assert.equals("NO_SUCH_KEY", ns.BuildLocale("enUS").NO_SUCH_KEY)
+	it("uses Russian on a ruRU client and English elsewhere", function()
+		assert.equals("Стиль рамки", loadLocale("ruRU").L.BORDER_STYLE)
+		assert.equals("Border style", loadLocale("deDE").L.BORDER_STYLE)
+		assert.equals("NO_SUCH_KEY", loadLocale("enUS").L.NO_SUCH_KEY)
+	end)
+
+	it("keeps no Russian strings in memory on other clients", function()
+		local ns = loadLocale("enUS")
+		for _, text in pairs(ns.L) do
+			assert.is_nil(text:find("[\208\209]"), "Cyrillic text on an English client: " .. text)
+		end
 	end)
 end)

@@ -1,16 +1,20 @@
 -- Border styles for the square minimap, and the saved-settings defaults.
 -- Data plus pure functions only (no WoW API at load time), so specs can load it.
 --
--- A style is drawn with a BackdropTemplate frame around the map:
+-- A style is drawn on a frame around the map (map size + 2 * outset on each axis), in one of two ways:
 --   id        saved in OrdaenMinimapDB.borderStyle
 --   label     key in ns.L
---   backdrop  table passed to frame:SetBackdrop (nil = no border)
+--   backdrop  table passed to frame:SetBackdrop: an edge file tiled along the sides (repeats every
+--             edgeSize px, so no one-off details); 8 slices side by side: left, right, top, bottom,
+--             then the four corners
+--   frame     { file = "<texture path>" }: ONE texture stretched over the whole frame (SetAllPoints),
+--             for art with unique details (chips, scratches); square, transparent in the middle
+--   (neither = no border)
 --   outset    how far (px) the frame extends past the map edge, so the visible line hugs the map
---   natural   border color used for the "natural" color choice ({r, g, b}; nil = untinted)
+--   natural   border color used for the "natural" color choice ({r, g, b}; nil = untinted); the color
+--             choice tints the backdrop border or the frame texture (SetVertexColor)
 --
--- To add art of our own, add a style whose edgeFile points at a texture in this addon's media/
--- folder, e.g. "Interface\\AddOns\\OrdaenMinimap\\media\\gold-filigree" (backdrop edge files are
--- 8 slices side by side: left, right, top, bottom, then the four corners).
+-- Our own art lives in this addon's media/ folder, e.g. "Interface\\AddOns\\OrdaenMinimap\\media\\x".
 local _, ns = ...
 
 ns.BORDER_STYLES = {

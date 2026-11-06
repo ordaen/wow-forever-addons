@@ -24,6 +24,7 @@
 ## IconTexture: Interface\Icons\INV_Misc_Bag_10
 
 Locale.lua
+Locale_ruRU.lua
 Names.lua
 Borders.lua
 Conflicts.lua
