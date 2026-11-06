@@ -149,6 +149,10 @@ loadOnDemand, CurseForge slug/ids). `ordaen build` writes per addon:
   that runs at load counts: the top level and functions it calls; reads inside other functions don't.
   `ordaen build --explain` prints why each file has its place.
 - **locales**: `locales/<code>.json` -> `Locale.lua` + `Locale_<code>.lua` (see Localization);
+- **settings and themes**: `settings.jsonc` -> `SettingsSchema.lua` (`ns.SETTINGS_SCHEMA`) + `settings.schema.json`, and
+  `## SavedVariables` from its `db`/`charDb`; Ordaen Core's `themes.jsonc` -> `ThemeTokens.lua` (`ns.THEME_TOKENS`) +
+  `themes.json`; dev builds write LuaLS classes (`<Addon>Settings`, `<Addon>Addon`) to `.ordaen/types/` (gitignored);
+- **conflicts**: `conflicts = { ... }` in the NewAddon spec or an `A:Feature` -> `## X-Ordaen-Conflicts`;
 - the **.pkgmeta**: package-as, changelog, `move-folders` for nested addons, required-dependencies (slugs);
 - release builds (`--release`, used by `scripts/package.sh`): the debug kit's statements
   (`Debug:Log/Logf/Warn/Warnf/Verbose/Verbosef/Dump/Trace/TraceFrame(…)`, dot or colon form) and
@@ -158,7 +162,7 @@ loadOnDemand, CurseForge slug/ids). `ordaen build` writes per addon:
 The build refuses, with file:line (also in `ordaen check` and CI): B1 `ns.X` read at load that no file defines, B2 the
 same `ns.X`/global defined in two files, B3 files reading each other at load (a cycle), B4 a call at load into
 another file's `ns` function (do it in `OnLoad`/`OnLogin`), B5 locale problems, B6 manifest problems (also a
-hand-written .toc/.pkgmeta/Locale*.lua in addons/). Commands: `ordaen build|watch|link|lint|test|check`
+hand-written .toc/.pkgmeta/Locale*.lua in addons/), B7 settings and theme manifests (`settings.jsonc`, `themes.jsonc`: types, ranges, choices, assets, tokens, locale keys, db named in one place, the `--[[@as <Addon>Addon]]` cast on NewAddon; docs/reference/settings.md). Commands: `ordaen build|watch|link|lint|test|check`
 (`--json` for tools; `cli/README.md` in wow-dev-tools).
 
 ## Localization
