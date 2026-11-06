@@ -35,8 +35,8 @@ busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
    A junction is Windows' directory link (like a symlink; no admin needed). `pwsh ./scripts/link.ps1 -Unlink` removes
    the junctions and leaves the repo files alone. The junctions point at this checkout, so keep it on `develop`
    (`git switch develop`): what's on `develop` is what the game runs.
-5. **In game:** enable **Ordaen Core - Debug** in the AddOns list (dev mode, see below). BugSack/BugGrabber are
-   not needed; dev mode has its own error catcher.
+5. **Dev mode** (maintainers): clone the private `ordaen-companion` repo next to this one and run its
+   `pwsh ./scripts/link.ps1`, then enable **Ordaen Core - Debug** in the AddOns list (see "Debugging in game").
 
 ### Everyday loop
 
@@ -66,36 +66,25 @@ or remove anything that has been released; add a new name instead. An addon that
 ### The real Forever API
 
 `api/forever/<version>-<build>/` lists what the game's Lua API actually has, per client version, dumped in game:
-in dev mode, open the Ordaen Dev window and click **Dump game API** (it reloads), then run `bash scripts/api-import.sh`
+in dev mode (the private dev addon), open the Ordaen Dev window and click **Dump game API** (it reloads), then run `bash scripts/api-import.sh`
 and commit the result. `api/forever/CHANGES.md` shows what each Forever patch added or removed. luacheck and the
 specs use the newest dump, so code that calls something Forever doesn't have fails before it reaches the game.
 Dump again after every Forever patch, and click **Clear API dump** once it's imported.
 
 ### Debugging in game
 
-Debugging is an optional **development mode**, so players never have errors collected. To turn it on, enable
-**Ordaen Core - Debug** in the in-game AddOns list (it ships with Ordaen Core, disabled by default) and restart
-the game. When it is disabled, nothing is recorded and errors go to BugSack or Blizzard's default handler.
+Players never have errors collected: Ordaen Core only carries a do-nothing debug stand-in, and Lua errors go to
+BugSack (if installed) or Blizzard's default handler.
 
-In dev mode a **gear button** sits on the minimap edge (drag it around the minimap); a red number on it counts
-new errors. It is not an addon compartment entry, so the Ordaen Minimap drawer leaves it alone. Click it (or use
-`/ordaen` or `/om debug`) to open the **Ordaen Dev** window:
-
-- **Errors**: every Lua error in the game (ours, other addons, Blizzard) and every blocked action (taint), with
-  stack trace, local variables and versions. Filters for Ordaen / other addons / blocked actions,
-  **Test error**, **Clear all**, and **Select for copy** for bug reports. Repeats are counted, not stored again.
-  In dev mode the window replaces Blizzard's error popup (no sounds, no popup that keeps reopening on a
-  repeating error). If BugSack is installed too, it still gets every error.
-- **Performance**, **Log** and **Inspect** are coming next.
-- **Note for Claude** + **Save for Claude & reload**: saves every Ordaen addon's state and your note, then
-  reloads so everything is written to disk. This is the usual way to hand a test result to Claude.
-
-Everything lives in one file, which WoW writes on `/reload` or logout:
+Maintainers have a **development mode**: the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug", with the
+Ordaen Dev window, its own error catcher, logs, state dumps, the game API dump and the live channel to the
+companion app). It lives in the private `ordaen-companion` repo, next to the companion app, and is never shipped.
+Every Ordaen addon lists it in `## OptionalDeps`, so when it is installed it loads first and replaces the
+stand-in. Its data goes to one file, which WoW writes on `/reload` or logout:
 `C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\OrdaenCore_Debug.lua`.
-Screenshots (Print Screen) go to `_forever_\Screenshots\`.
 
-Addons cannot reach the network, so there is no telemetry. To report a bug, a player enables Ordaen Core - Debug,
-reproduces the problem, selects the error in the Ordaen Dev window and pastes it into the
+Addons cannot reach the network, so there is no telemetry. To report a bug, a player installs
+[BugSack](https://www.curseforge.com/wow/addons/bugsack), reproduces the problem, and pastes the error into the
 [bug report form](.github/ISSUE_TEMPLATE/bug_report.yml).
 
 ### Commits

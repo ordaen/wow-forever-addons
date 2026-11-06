@@ -18,10 +18,9 @@ body:
     attributes:
       label: Error report
       description: >
-        Enable "Ordaen Core - Debug" in the in-game AddOns list (it ships with Ordaen Core) and restart
-        the game, reproduce the problem, then click the gear button to open the Ordaen Dev window.
-        Select the error, click "Select for copy", press Ctrl+C and paste it here.
-        It contains the error, addon version and client version, nothing personal.
+        If you saw a Lua error: install BugSack (with BugGrabber), reproduce the problem, open BugSack
+        and copy the error here. It contains the error and where it happened, nothing personal.
+        Please mention your Ordaen addon versions (shown in the AddOns list).
       render: text
   - type: textarea
     id: what
