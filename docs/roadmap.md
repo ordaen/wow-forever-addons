@@ -2,34 +2,26 @@
 
 Decisions are recorded in `CLAUDE.md` ("UI framework `OrdaenCore.UI`"). Nothing on this page is built yet.
 
+## Built since the first version
+
+- **Events:** `:On(event, fn)` / `:Off` on components, for the player's input and Blizzard's game events.
+- **Components:** `UI.Block`, `UI.Button`, tooltip objects (`UI.Tooltip`).
+- **Shortcut** `tooltip = tip` on a component.
+- **Hover highlight** for styles that have one (`iconButton`, `slot`), and `LockHighlight` for a highlight shown on
+  request.
+
+See [Blocks and elements](/guide/blocks#components) and the [API](/reference/api).
+
 ## Decided
 
-### Events
-
-One `on` table per block, for both kinds of event. Lower-case names are the player's input; Blizzard's upper-case
-event names are game events, with Blizzard's arguments unchanged.
-
-```lua
-local clock = {
-  { text = "14:05" },
-  on = {
-    click = function(block, mouseButton) ToggleCalendar() end,
-    CALENDAR_UPDATE_PENDING_INVITES = function(block) --[[ update fields ]] end,
-  },
-}
-```
-
-- User events: `click`, `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`; keyboard later.
-- No bubbling: only the block with the listener gets the event, as in native WoW.
-- One shared event frame registers a game event only while some block listens, and unregisters it after the last.
-- A block becomes a mouse-enabled frame only if it has user listeners.
-
-### Elements and composites
+### Elements and components
 
 - New elements, because they need WoW's own widgets: **text entry** (EditBox), **checkbox** (CheckButton),
   **slider**.
-- **Buttons, bars, dropdowns** are composite blocks, not elements.
-- **Windows** are top-level blocks with a fixed, saved position and size. The framework remembers them.
+- **Bars, dropdowns** are components made of blocks, not elements.
+- **Windows** are top-level components with a fixed, saved position and size. The framework remembers them.
+- **Your own components** later: `UI.Component(name, { build = ..., methods = ... })`, so an addon can define a kind
+  of thing once and reuse it.
 
 ### Out of scope for v1
 
@@ -38,9 +30,9 @@ addon code causes blocked-action errors. An addon that needs one uses Blizzard's
 
 ## Open
 
-- **Shortcuts**, e.g. `tooltip = block` on a block instead of `enter`/`leave` listeners.
+- **More shortcuts** beyond `tooltip = tip`.
 - **Positions of top-level blocks**: anchored, at the cursor, fixed and remembered.
-- **Interaction states**: hover, pressed, disabled, selected.
+- **Interaction states** beyond hover: pressed, disabled, selected.
 - **Resizing** windows.
 - **Scrolling** and long repeated lists.
 - **Theme addon API**: how a theme addon replaces the default theme.

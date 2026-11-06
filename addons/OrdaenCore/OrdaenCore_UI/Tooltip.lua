@@ -1,9 +1,11 @@
 -- OrdaenCore.UI tooltips: a top-level block with the "tooltip" role, shown on hover next to its owner.
 -- One shared surface for all of them (like Blizzard's GameTooltip): only one is shown at a time, hovering
 -- creates nothing new. Passive: the mouse goes through it. On the tooltip layer and clamped to the screen.
+-- Addons don't call this file: they make tooltip objects with OrdaenCore.UI.Tooltip (UI.lua), whose methods
+-- land here once the framework is loaded.
 local _, ns = ...
 
-local Render = ns.Render
+local Render, Component = ns.Render, ns.Component
 local Tooltip = {}
 ns.Tooltip = Tooltip
 
@@ -18,7 +20,7 @@ local SIDES = {
 }
 
 local surface
-local current = { owner = nil, block = nil, opts = nil }
+local current = { block = nil, owner = nil }
 
 local function surfaceFrame()
 	if not surface then
@@ -46,34 +48,33 @@ local function anchor(frame, owner, opts)
 	frame:SetPoint(side[1], owner, side[2], x, y)
 end
 
---- Show `block` (a "tooltip" block) for `owner`.
---- opts = { side = "right" | "left" | "below" | "above" | "default", x, y }; "default" = Edit Mode's HUD Tooltip spot.
-function Tooltip.Show(owner, block, opts)
+--- Show tooltip `block` next to `owner`, replacing any tooltip that is shown.
+function Tooltip.Show(block, owner, opts)
 	local frame = surfaceFrame()
-	current.owner, current.block, current.opts = owner, block, opts
+	current.block, current.owner = block, owner
 	Render.Draw(frame, block, nil)
 	anchor(frame, owner, opts)
 	frame:Show()
 end
 
---- Hide `owner`'s tooltip, if it is the one shown.
-function Tooltip.Hide(owner)
-	if surface and current.owner == owner then
+--- Hide `block` if it is the tooltip shown (and, when `owner` is given, shown for that owner).
+function Tooltip.Hide(block, owner)
+	if surface and current.block == block and (owner == nil or current.owner == owner) then
 		surface:Hide()
-		current.owner, current.block, current.opts = nil, nil, nil
+		current.block, current.owner = nil, nil
 	end
 end
 
---- Redraw `owner`'s tooltip from its (changed) block, if it is the one shown.
-function Tooltip.Refresh(owner)
-	if surface and current.owner == owner and surface:IsShown() then
-		Render.Draw(surface, current.block, nil)
+--- Redraw `block` from its (changed) fields, if it is the tooltip shown.
+function Tooltip.Refresh(block)
+	if surface and current.block == block and surface:IsShown() then
+		Render.Draw(surface, block, nil)
 	end
 end
 
---- Who the shown tooltip belongs to, if any (for specs and the dev dump).
-function Tooltip.Owner()
-	return surface and surface:IsShown() and current.owner or nil
+--- Whether `block` is the tooltip shown.
+function Tooltip.IsShown(block)
+	return surface ~= nil and current.block == block and surface:IsShown()
 end
 
 --- The last tooltip as measured and drawn (dev-mode dumps).
@@ -90,4 +91,7 @@ OrdaenCore.UI._Provide({
 	ShowTooltip = Tooltip.Show,
 	HideTooltip = Tooltip.Hide,
 	RefreshTooltip = Tooltip.Refresh,
+	TooltipShown = Tooltip.IsShown,
+	Block = Component.Block,
+	Button = Component.Button,
 })

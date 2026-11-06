@@ -12,7 +12,9 @@
 --   }
 -- Every child may have: colSpan = n, hidden = true (skipped), align = "left" | "center" | "right" (default:
 -- text left, blocks and images stretch/left).
--- Elements: { text = "...", style = "body" }, { image = file, width = n, height = n } (or size = n).
+-- Elements: { text = "...", style = "body" } or { format = "%d:%02d", args = { h, m } } (text drawn with WoW's
+-- SetFormattedText, so values that change often create no Lua strings); { image = file } or { atlas = name },
+-- with width = n, height = n (or size = n) and optional texCoord = { left, right, top, bottom }.
 --
 -- Text sizes come from `measure(element, width)`, supplied by the renderer: with width nil, the width of the text
 -- on one line (its natural width) and that line's height; with a width, the height of the text wrapped to it.
@@ -61,8 +63,16 @@ local function track(spec)
 	return "auto", 0
 end
 
+local function isText(node)
+	return node.text ~= nil or node.format ~= nil
+end
+
+local function isImage(node)
+	return node.image ~= nil or node.atlas ~= nil
+end
+
 local function isBlock(node)
-	return node.text == nil and node.image == nil
+	return not isText(node) and not isImage(node)
 end
 
 local function imageSize(node)
@@ -87,9 +97,9 @@ local layoutBlock -- forward
 
 -- Natural (max-content) width of a child.
 local function naturalWidth(child, ctx)
-	if child.text ~= nil then
+	if isText(child) then
 		return (ctx.measure(child, nil))
-	elseif child.image ~= nil then
+	elseif isImage(child) then
 		return (imageSize(child))
 	end
 	return layoutBlock(child, nil, ctx).width
@@ -98,10 +108,10 @@ end
 -- Height of a child given its cell width; also the width it actually takes (text: its natural width, or the
 -- whole cell when it has to wrap; `align` then places it inside the cell).
 local function sizeIn(child, cellWidth, natural, ctx)
-	if child.text ~= nil then
+	if isText(child) then
 		local _, h = ctx.measure(child, cellWidth)
 		return min(natural, cellWidth), h
-	elseif child.image ~= nil then
+	elseif isImage(child) then
 		local w, h = imageSize(child)
 		return min(w, cellWidth), h
 	end
@@ -309,3 +319,5 @@ function Layout.ResultOf(node)
 end
 
 Layout.IsBlock = isBlock
+Layout.IsText = isText
+Layout.IsImage = isImage

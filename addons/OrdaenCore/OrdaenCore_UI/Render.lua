@@ -29,8 +29,55 @@ end
 -- the caches remember the scale they measured at.
 local measurers = setmetatable({}, { __mode = "k" }) -- surface -> its hidden measuring font string
 local measuring, measuringScale -- the surface being drawn and its effective scale (set by Render.Draw)
-local naturalCache = setmetatable({}, { __mode = "k" }) -- element -> { text, font, scale, w, h }
-local wrappedCache = setmetatable({}, { __mode = "k" }) -- element -> { text, font, scale, width, h }
+local naturalCache = setmetatable({}, { __mode = "k" }) -- element -> { text|format, args, font, scale, w, h }
+local wrappedCache = setmetatable({}, { __mode = "k" }) -- element -> the same, plus width
+local NO_ARGS = {}
+local unpack = unpack
+
+-- Put an element's text on a font string: a plain string, or a format with arguments through WoW's
+-- SetFormattedText, which builds the string in C (no Lua string per change).
+local function setContent(fs, el)
+	if el.format then
+		local args = el.args or NO_ARGS
+		fs:SetFormattedText(el.format, unpack(args, 1, #args))
+	else
+		fs:SetText(el.text)
+	end
+end
+
+-- Whether the cache entry `c` was measured for the element's current content (compared value by value, so a
+-- changed argument measures again and an unchanged one doesn't).
+local function sameContent(c, el, font)
+	if c.font ~= font or c.scale ~= measuringScale or c.text ~= el.text or c.format ~= el.format then
+		return false
+	end
+	local args, seen = el.args, c.args
+	local n = args and #args or 0
+	if n ~= c.argCount then
+		return false
+	end
+	for i = 1, n do
+		if seen[i] ~= args[i] then
+			return false
+		end
+	end
+	return true
+end
+
+local function remember(c, el, font)
+	c.font, c.scale, c.text, c.format = font, measuringScale, el.text, el.format
+	local args = el.args
+	local n = args and #args or 0
+	local seen = c.args
+	if not seen then
+		seen = {}
+		c.args = seen
+	end
+	for i = 1, n do
+		seen[i] = args[i]
+	end
+	c.argCount = n
+end
 
 local function measurerFor(style)
 	local fs = measurers[measuring]
@@ -48,19 +95,19 @@ end
 --- Size of a text element: natural (one line) when width is nil, else wrapped to width. For the layout engine.
 local function measure(el, width)
 	local style = textStyle(el)
-	local text = el.text
+	local font = style.font
 	if width == nil then
 		local c = naturalCache[el]
 		if not c then
 			c = {}
 			naturalCache[el] = c
 		end
-		if c.text ~= text or c.font ~= style.font or c.scale ~= measuringScale then
+		if not sameContent(c, el, font) then
 			local fs = measurerFor(style)
 			fs:SetWidth(0)
-			fs:SetText(text)
+			setContent(fs, el)
+			remember(c, el, font)
 			-- One unit more than measured, so rounding never wraps a line that fits.
-			c.text, c.font, c.scale = text, style.font, measuringScale
 			c.w, c.h = ceil(fs:GetUnboundedStringWidth()) + 1, ceil(fs:GetStringHeight())
 		end
 		return c.w, c.h
@@ -70,11 +117,12 @@ local function measure(el, width)
 		c = {}
 		wrappedCache[el] = c
 	end
-	if c.text ~= text or c.font ~= style.font or c.width ~= width or c.scale ~= measuringScale then
+	if c.width ~= width or not sameContent(c, el, font) then
 		local fs = measurerFor(style)
 		fs:SetWidth(width)
-		fs:SetText(text)
-		c.text, c.font, c.width, c.scale, c.h = text, style.font, width, measuringScale, ceil(fs:GetStringHeight())
+		setContent(fs, el)
+		remember(c, el, font)
+		c.width, c.h = width, ceil(fs:GetStringHeight())
 	end
 	return width, c.h
 end
@@ -117,7 +165,7 @@ local function drawText(surface, p, el, x, y, w)
 	fs:SetTextColor(color[1], color[2], color[3], color[4] or 1)
 	fs:SetJustifyH(JUSTIFY[el.align] or "LEFT")
 	fs:SetWidth(w)
-	fs:SetText(el.text)
+	setContent(fs, el)
 	fs:ClearAllPoints()
 	fs:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)
 	fs:Show()
@@ -130,7 +178,17 @@ local function drawImage(surface, p, el, x, y, w, h)
 		tex = surface:CreateTexture(nil, "ARTWORK")
 		p.textures[p.usedTextures] = tex
 	end
-	tex:SetTexture(el.image)
+	if el.atlas then
+		tex:SetAtlas(el.atlas)
+	else
+		tex:SetTexture(el.image)
+	end
+	local tc = el.texCoord
+	if tc then
+		tex:SetTexCoord(tc[1], tc[2], tc[3], tc[4])
+	else
+		tex:SetTexCoord(0, 1, 0, 1) -- pooled textures may have been cropped before
+	end
 	tex:SetSize(w, h)
 	tex:ClearAllPoints()
 	tex:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)
@@ -142,14 +200,34 @@ local function drawBlock(surface, p, result, ox, oy)
 		local item = result.items[i]
 		local node = item.node
 		local x, y = ox + item.x, oy + item.y
-		if node.text ~= nil then
+		if Layout.IsText(node) then
 			drawText(surface, p, node, x, y, item.w)
-		elseif node.image ~= nil then
+		elseif Layout.IsImage(node) then
 			drawImage(surface, p, node, x, y, item.w, item.h)
 		else
 			drawBlock(surface, p, Layout.ResultOf(node), x, y)
 		end
 	end
+end
+
+-- The style's hover highlight: one texture per surface on the HIGHLIGHT layer, which WoW shows by itself while
+-- the mouse is over a mouse-enabled Button frame (and on LockHighlight). It covers the content box.
+local function drawHighlight(surface, p, look, root)
+	local tex = p.highlight
+	if not tex then
+		tex = surface:CreateTexture(nil, "HIGHLIGHT")
+		tex:SetBlendMode("ADD")
+		p.highlight = tex
+	end
+	tex:SetTexture(look.highlight)
+	local pad = root.padding or look.padding or 0
+	local top, right, bottom, left = pad, pad, pad, pad
+	if type(pad) == "table" then
+		top, right, bottom, left = pad[1] or 0, pad[2] or 0, pad[3] or 0, pad[4] or 0
+	end
+	tex:ClearAllPoints()
+	tex:SetPoint("TOPLEFT", surface, "TOPLEFT", left, -top)
+	tex:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -right, bottom)
 end
 
 --- What was measured and drawn on `surface` last time (dev-mode dumps only; builds tables, never call when hot).
@@ -167,7 +245,7 @@ function Render.Describe(surface, root)
 		local item = result.items[i]
 		local c = naturalCache[item.node]
 		out.layout[i] = {
-			text = item.node.text, x = item.x, y = item.y, w = item.w, h = item.h,
+			text = item.node.text or item.node.format, x = item.x, y = item.y, w = item.w, h = item.h,
 			natural = c and { c.w, c.h } or false,
 		}
 	end
@@ -205,6 +283,9 @@ function Render.Draw(surface, root, width)
 		local bg, border = look.background, look.border
 		surface:SetBackdropColor(bg[1], bg[2], bg[3], bg[4] or 1)
 		surface:SetBackdropBorderColor(border[1], border[2], border[3], border[4] or 1)
+	end
+	if look and look.highlight then
+		drawHighlight(surface, p, look, root)
 	end
 	surface:SetSize(result.width, result.height)
 	return result

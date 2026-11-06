@@ -35,6 +35,7 @@ ns.Theme = {
 | `background`, `border` | backdrop colours, `{ r, g, b, a }` |
 | `padding`, `gap` | defaults when the block doesn't set them |
 | `minWidth`, `maxWidth` | defaults when the block doesn't set them |
+| `highlight` | a texture drawn additively over the content while the mouse is over it (and on `LockHighlight`) |
 
 Layout defaults live in the theme on purpose: a theme with bigger fonts or a thicker border can also give itself
 more padding, and every block still fits.

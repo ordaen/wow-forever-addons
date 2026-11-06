@@ -3,62 +3,73 @@
 ## Requirements
 
 Your addon depends on Ordaen Core, like every Ordaen addon. The UI framework comes with it: Ordaen Core always loads
-the small entry point `OrdaenCore.UI`, and loads the rest (the addon **Ordaen Core - UI**) the first time a tooltip is
-shown. There is nothing else to install or list.
+the small entry point `OrdaenCore.UI`, and loads the rest (the addon **Ordaen Core - UI**) the first time it's
+needed. There is nothing else to install or list.
 
-## 1. Describe the tooltip once
+## 1. A tooltip
 
-Build the table at file load, not in `OnEnter`. It is data: a block with the `tooltip` style and its children.
+Build it once, at file load. `UI.Tooltip` gives your table methods; it stays your data.
 
 ```lua
 local UI = OrdaenCore.UI
-local BELOW = { side = "below" }
 
-local zoneName = { text = "", style = "title" }       -- filled in on hover
+local zoneName = { text = "", style = "title" }
 local subzoneName = { text = "", style = "subtitle" }
-local zoneTooltip = {
-  style = "tooltip",
+local zoneTooltip = UI.Tooltip({
   zoneName,
   subzoneName,
   { text = L.ZONE_TOOLTIP_MAP, style = "hint" },
-}
+}, { side = "below" })
 ```
 
-## 2. Show and hide it
-
-Change the fields you need, then show it. `ShowTooltip` places the tooltip next to its owner; `HideTooltip` hides it
-only if this owner's tooltip is the one shown.
+Change fields when your data changes, and refresh. `:Refresh()` redraws only if the tooltip is shown, so you can
+call it from any event.
 
 ```lua
-zoneButton:SetScript("OnEnter", function(self)
+local function onZoneChanged()
   zoneName.text = GetRealZoneText() or ""
   subzoneName.text = GetSubZoneText() or ""
   subzoneName.hidden = subzoneName.text == "" or subzoneName.text == zoneName.text
-  UI.ShowTooltip(self, zoneTooltip, BELOW)
-end)
-zoneButton:SetScript("OnLeave", function(self) UI.HideTooltip(self) end)
+  zoneTooltip:Refresh()
+end
 ```
 
 `hidden = true` removes a child from the layout completely: no empty line, no gap.
 
-## 3. Keep it live
+## 2. A button that has it
 
-A tooltip that shows changing data stays the same table. Change its fields from your own event or timer and call
-`RefreshTooltip`. It redraws only if that owner's tooltip is shown, so you can call it unconditionally.
+A component owns a frame and draws its block on it. `tooltip = …` shows the tooltip while the mouse is over it.
+
+```lua
+local zoneLabel = { text = "", style = "normal" }
+
+local zone = UI.Button({
+  name = "MyAddonZone",
+  parent = Minimap,
+  tooltip = zoneTooltip,
+  zoneLabel,
+})
+zone:On("click", function() ToggleWorldMap() end)
+zone:SetPoint("BOTTOM", Minimap, "TOP", 0, 9)
+```
+
+`zone:SetText(GetMinimapZoneText())` changes the label and redraws it.
+
+## 3. Game events
+
+Components take Blizzard's events with the same `:On`, by their upper-case names:
 
 ```lua
 local invitesLine = { text = L.CALENDAR_PENDING, color = { 1, 0.5, 0.1 }, hidden = true }
-local clockTooltip = {
-  style = "tooltip",
-  invitesLine,
-  { text = L.TIME_TOOLTIP_CALENDAR, style = "hint" },
-  { text = L.TIME_TOOLTIP_CLOCK, style = "hint" },
-}
+local clockTooltip = UI.Tooltip({ invitesLine, { text = L.TIME_TOOLTIP_CALENDAR, style = "hint" } })
 
-local function updateInvites() -- on CALENDAR_UPDATE_PENDING_INVITES
+local clock = UI.Button({ name = "MyAddonClock", parent = Minimap, tooltip = clockTooltip,
+  { format = "%02d:%02d", args = { 0, 0 }, style = "small" } })
+
+clock:On("CALENDAR_UPDATE_PENDING_INVITES", function(self)
   invitesLine.hidden = C_Calendar.GetNumPendingInvites() == 0
-  UI.RefreshTooltip(timeButton)
-end
+  self:Refresh() -- also redraws its tooltip if it's shown
+end)
 ```
 
 ::: tip Use color for meaning
@@ -66,19 +77,35 @@ end
 theme, so a theme addon can restyle it.
 :::
 
-## 4. Lay out rows
+## 4. Values that change often
+
+For text that changes every second or faster, use `format` and `args` instead of building a string. The renderer
+passes them to WoW's `SetFormattedText`, so no Lua string is created per change.
+
+```lua
+local coordValue = { format = "%.1f, %.1f", args = { 0, 0 }, style = "small" }
+local coords = UI.Block({ name = "MyAddonCoords", parent = Minimap, coordValue })
+
+local function onMove(x, y)
+  coordValue.args[1], coordValue.args[2] = x, y
+  coords:Refresh()
+end
+```
+
+`UI.Block` is a component without click semantics: with no listeners it takes no mouse, so clicks go to the minimap.
+
+## 5. Rows
 
 Children of a block sit in a grid. With two columns, children fill the cells left to right, row by row:
 
 ```lua
-local mailTooltip = {
-  style = "tooltip",
+local mailTooltip = UI.Tooltip({
   columns = { "auto", "1fr" },   -- labels as wide as the widest label, values get the rest
   gap = { 12, 2 },               -- 12 between columns, 2 between rows
   { text = "Mail", style = "title", colSpan = 2 },
-  { text = "From", style = "label" },    { text = "Auction House", style = "value", align = "right" },
-  { text = "Items", style = "label" },   { text = "3", style = "value", align = "right" },
-}
+  { text = "From", style = "label" },  { text = "Auction House", style = "value", align = "right" },
+  { text = "Items", style = "label" }, { text = "3", style = "value", align = "right" },
+})
 ```
 
 ```
@@ -93,5 +120,5 @@ local mailTooltip = {
 
 ## If the framework can't load
 
-If **Ordaen Core - UI** is disabled in the AddOns list or missing, the first `ShowTooltip` prints one chat line
-naming the reason. After that, tooltips stay off quietly. Your code doesn't need to check anything.
+If **Ordaen Core - UI** is disabled in the AddOns list or missing, the first use prints one chat line naming the
+reason. `UI.Block` and `UI.Button` then return `nil`, and tooltips stay off quietly.

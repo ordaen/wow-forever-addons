@@ -1,12 +1,22 @@
 # Blocks and elements
 
+Three ideas, from data to objects:
+
+| Concept | What it is | Example |
+|---|---|---|
+| **Block** | data: a box with a style and a grid of children | `{ style = "tooltip", { text = "…" } }` |
+| **Component** | a kind of thing on screen: builds on a block, has behaviour and methods | `Tooltip`, `Block`, `Button` |
+| **Instance** | what a component call returns: an object with methods; owns its WoW frame | `local zone = UI.Button({ … })` |
+
+## Nodes
+
 There are three kinds of nodes. A node is a plain Lua table; its fields tell the framework what it is.
 
 | Node | Recognised by | Holds |
 |---|---|---|
-| **Block** | neither `text` nor `image` | children in its array part, laid out in a grid |
-| **Text** | `text = "..."` | one string, always wrapped to its cell |
-| **Image** | `image = file` | a texture path or file ID |
+| **Block** | no `text`, `format`, `image` or `atlas` | children in its array part, laid out in a grid |
+| **Text** | `text = "..."` or `format = "..."` | one string, always wrapped to its cell |
+| **Image** | `image = file` or `atlas = name` | a texture |
 
 ```lua
 local block = {
@@ -64,7 +74,28 @@ cell; its height stays.
 | `colSpan = n` | Takes `n` columns (capped at the block's column count). |
 | `align` | `"left"`, `"center"` or `"right"` inside its cell. Default: left. |
 
-## Composites
+## Components
 
-Buttons, bars and dropdowns won't be new element types. They will be blocks made of blocks, text and images, with
-event listeners. That part is planned: see [Roadmap](/roadmap).
+A component puts a block on screen as an object. Today there are three:
+
+| Component | Made with | Frame | Use |
+|---|---|---|---|
+| Tooltip | `UI.Tooltip(block, opts)` | the one shared tooltip surface | hover information |
+| Block | `UI.Block(spec)` | its own | labels, icons, readouts |
+| Button | `UI.Button(spec)` | its own | the same with the `button` style; clickable once it has a `click` listener |
+
+```lua
+local bag = UI.Button({
+  name = "MyBagButton", parent = Minimap, style = "iconButton",
+  { image = "Interface\\Icons\\INV_Misc_Bag_10", size = 20 },
+})
+bag:On("click", function(self, mouseButton) ToggleBackpack() end)
+bag:On("dragstart", startDragging)
+```
+
+The spec is a block (style, columns, children) plus the component's own fields: `name`, `parent`, `strata`,
+`level`, `tooltip`, `on`. Change the block's fields and call `:Refresh()`; `:SetText()` is a shortcut for the first
+text. Placement (`SetPoint`, `Show`, ...) goes straight to the frame, and `instance.frame` is the frame itself.
+
+All instances of a component share one metatable, so methods cost one table lookup and nothing is copied per
+instance. Bars and dropdowns will be components made the same way: see [Roadmap](/roadmap).

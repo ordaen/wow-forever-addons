@@ -20,18 +20,25 @@ A table without `text` or `image`. Its array part holds the children.
 
 | Field | Type | Default | |
 |---|---|---|---|
-| `text` | string | required | |
-| `style` | string | `"body"` | `title`, `subtitle`, `body`, `label`, `value`, `hint` |
+| `text` | string | `text` or `format` | |
+| `format` | string | | a format string, drawn with `args` through WoW's `SetFormattedText` |
+| `args` | list | | values for `format`; change them in place, then refresh |
+| `style` | string | `"body"` | `title`, `subtitle`, `body`, `label`, `value`, `hint`, `normal`, `small` |
 | `color` | `{ r, g, b [, a] }` | the style's | 0 to 1; for meaning only |
+
+`format` + `args` is for values that change often (coordinates, a clock): no Lua string is built per change, and
+the text is measured again only when an argument's value changes.
 
 ## Image
 
 | Field | Type | Default | |
 |---|---|---|---|
-| `image` | texture path or file ID | required | |
+| `image` | texture path or file ID | `image` or `atlas` | |
+| `atlas` | atlas name | | |
 | `width` | number | `size`, else 16 | |
 | `height` | number | `size`, else `width` | |
 | `size` | number | | sets both |
+| `texCoord` | `{ left, right, top, bottom }` | whole texture | e.g. `{ 0.08, 0.92, 0.08, 0.92 }` trims an icon's border |
 
 ## Any child
 

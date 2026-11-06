@@ -29,6 +29,19 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 - **Measure, don't guess:** before merging a feature into `develop`, check its memory and CPU in the Ordaen Dev window
   (Performance tab, once it exists) and wrap hot spots in `Debug.Time`. Mention the numbers when handing work over.
 
+## Lua code style (user's decision; applies to every session and repo with addon Lua)
+
+- **Object style.** Anything with state or identity is an object whose methods are called with `:`
+  (`tooltip:Show(owner)`, `button:On("click", fn)`, `A:OnLogin(fn)`), never a free function that takes the object as
+  an argument (`UI.ShowTooltip(owner, tooltip)`). Methods live on one shared metatable per kind (`__index`), never
+  copied into each instance.
+- **Events:** `obj:On(event, fn)` / `obj:Off(event, fn)` with plain functions only; no `On(event, object, "Method")`
+  form. Lua has no bound methods (`obj.Method` loses `obj`, `obj:Method` without a call isn't valid syntax), so a
+  callback that needs its object is a closure created once (at load or at creation), never per call or event.
+- **Cost:** object style must not hurt performance noticeably: shared metatables, instances created once, no tables or
+  closures per call or event. A method call through `__index` is one table lookup and is fine.
+- **Stateless helpers stay module functions:** pure math and data (`Layout.Run`, `ns.RingOffset`) need no object.
+
 ## Game install
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
@@ -159,12 +172,22 @@ those. Core API names become permanent at the first release of OrdaenCore; until
 - **Loading:** `addons/OrdaenCore/UI.lua` (always loaded, tiny) loads the module `OrdaenCore_UI` (`LoadOnDemand`,
   shipped in the Core zip via `move-folders`, versioned with Core) on the first `ShowTooltip`; Hide/Refresh never
   load it. If it can't load (disabled, missing), one chat line says why and tooltips stay off quietly.
-- **Cost:** callers build their block tables once and change fields (`text`, `hidden`), then `RefreshTooltip(owner)`
-  from their own timer or event while shown. One shared tooltip surface; font strings and textures are pooled;
-  layout results are reused tables; nothing is copied per show; no timers or `OnUpdate` in the framework.
-- **Tooltips API:** `OrdaenCore.UI.ShowTooltip(owner, block, opts)`, `HideTooltip(owner)`, `RefreshTooltip(owner)`;
-  `opts = { side = "right" | "left" | "below" | "above" | "default", x, y }`. Text styles in the default theme:
-  `title`, `subtitle`, `body` (default), `label`, `value`, `hint`; block style `tooltip`.
+- **Cost:** callers build their block tables once and change fields (`text`, `hidden`, `args`), then `:Refresh()` from
+  their own timer or event. One shared tooltip surface; font strings and textures are pooled; layout results are
+  reused tables; nothing is copied per show; no timers or `OnUpdate` in the framework. Text that changes often is
+  `{ format = "...", args = { ... } }`, drawn with `SetFormattedText` (no Lua string per change).
+- **Components** (user's decision, object style): a **block** is data; a **component** is a kind of thing on screen
+  (Tooltip, Block, Button; later windows, inputs, bars, dropdowns, and addon-defined ones); an **instance** is an
+  object with `:` methods sharing one metatable per component, owning its WoW frame (`instance.frame`).
+  - `local tip = UI.Tooltip(block, opts)`: the same table with methods `:Show(owner)`, `:Hide(owner?)`, `:Refresh()`,
+    `:IsShown()`; made in the always-loaded `UI.lua`, so it loads nothing until the first `:Show`.
+    `opts = { side = "right" | "left" | "below" | "above" | "default", x, y }`.
+  - `UI.Block(spec)`, `UI.Button(spec)` (style `button` by default): spec = block + `name`, `parent`, `strata`,
+    `level`, `tooltip`, `on`. Methods `:On(event, fn)`, `:Off`, `:Tooltip(tip)`, `:Refresh()`, `:SetText()`, and
+    placement passed to the frame (`SetPoint`, `Show`, `GetCenter`, `LockHighlight`, ...). They load the framework
+    and return nil if it can't load.
+  - Block styles in the default theme: `tooltip`, `button`, `iconButton` (the gear-button look), `slot`; text styles
+    `title`, `subtitle`, `body` (default), `label`, `value`, `hint`, `normal`, `small`.
 - **Scale and position** (user's decision): our blocks live on the global UI scale only (children of `UIParent`, sizes
   in UI units, no scale property). A block attached to a scaled Blizzard frame inherits that frame's scale; the
   renderer measures text on the surface it draws on, so either way it fits. An anchored tooltip takes only its
@@ -172,12 +195,14 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   puts its own: Edit Mode's "HUD Tooltip" position (`GameTooltipDefaultContainer`, bottom-right to bottom-right).
 - **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: restyled in place by a
   future tooltip addon (taking its look from the theme), never hidden and redrawn as a lookalike.
-- **Events** (user's decision): one `on` table per block for both sources. User events are lower case (`click`,
+- **Events** (user's decision, built in `OrdaenCore_UI/Component.lua`): `instance:On(event, fn)` / `:Off(event, fn)`
+  with plain functions only, or `on = { ... }` in the spec, for both sources. User events are lower case (`click`,
   `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`, later keyboard); system events are
-  Blizzard's own UPPER_CASE event names (`on = { click = fn, CALENDAR_UPDATE_PENDING_INVITES = fn }`) and get
-  Blizzard's arguments unchanged. No bubbling: only the block with the listener gets it (as in native WoW). One shared
-  event frame registers a game event only while some block listens and unregisters it after the last; a block becomes
-  a mouse-enabled frame only if it has user listeners. High-frequency game events are allowed but must exit early.
+  Blizzard's own UPPER_CASE event names (`CALENDAR_UPDATE_PENDING_INVITES`) and get Blizzard's arguments unchanged.
+  Listeners get the instance first. No bubbling: only the block with the listener gets it (as in native WoW). One
+  shared event frame registers a game event only while some instance listens and unregisters it after the last; a
+  frame takes the mouse only once it has a user listener. WoW scripts are set to dispatchers made once at load, so
+  `:On` creates no closure. High-frequency game events are allowed but must exit early.
 - **Elements:** text, image, blocks, and the inputs that can't be composed from blocks because they need WoW's own
   widgets: text entry (EditBox), checkbox (CheckButton) and slider. Buttons, bars and dropdowns are composite blocks.
 - **Out of scope for v1:** secure actions (casting, using items, targeting). They need Blizzard's secure templates,

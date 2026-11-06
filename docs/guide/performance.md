@@ -15,26 +15,33 @@ of your code.
 
 ## What your code should do
 
-**Build tables once**, at file load. Don't build a block in `OnEnter`:
+**Build tables once**, at file load or creation. Don't build a block in an `enter` listener:
 
 ```lua
 -- Good: built once, a field changes
 local title = { text = "", style = "title" }
-local tip = { style = "tooltip", title }
-local function onEnter(self)
-  title.text = self.name
-  UI.ShowTooltip(self, tip)
+local tip = UI.Tooltip({ title })
+local function onEnter(button)
+  title.text = nameOf(button)
+  tip:Show(button.frame)
 end
 
 -- Bad: a new table tree (and new cache entries) on every hover
-local function onEnter(self)
-  UI.ShowTooltip(self, { style = "tooltip", { text = self.name, style = "title" } })
+local function onEnter(button)
+  UI.Tooltip({ { text = nameOf(button), style = "title" } }):Show(button.frame)
 end
 ```
 
-**Build opts once** too: `local BELOW = { side = "below" }`.
+**Make listeners once.** `:On(event, fn)` stores `fn`; a function written inline in a loop or an event handler is a
+new closure each time. Define listeners at file level and pass them.
 
-**Refresh from your own events.** `RefreshTooltip` is cheap when the tooltip isn't shown (it returns at once), so
+**Refresh from your own events.** `tip:Refresh()` is cheap when the tooltip isn't shown (it returns at once), so
 call it whenever your data changes instead of tracking whether the tooltip is open.
 
+**Use `format` + `args`** for text that changes often. `{ format = "%.1f, %.1f", args = { x, y } }` is drawn with
+WoW's `SetFormattedText`: no Lua string per change, and the text is measured again only when an argument changes.
+
 **Use `hidden`** for optional lines instead of rebuilding the block.
+
+**Object style costs nothing that matters.** All instances of a component share one metatable; a method call is one
+table lookup.

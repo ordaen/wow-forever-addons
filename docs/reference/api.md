@@ -1,41 +1,102 @@
 # API
 
-All functions are on `OrdaenCore.UI`. Names become permanent at the first release of Ordaen Core; until then they
-may still change.
+Everything is on `OrdaenCore.UI`. Things with state are objects with `:` methods (see "Lua code style" in
+`CLAUDE.md`). Names become permanent at the first release of Ordaen Core; until then they may still change.
 
-## ShowTooltip
+## UI.Tooltip
 
 ```lua
-OrdaenCore.UI.ShowTooltip(owner, block, opts)
+local tip = OrdaenCore.UI.Tooltip(block, opts)
 ```
 
-Shows `block` as a tooltip for `owner`, replacing any tooltip that is shown. Loads the framework on the first call.
+Turns `block` into a tooltip object and returns the same table, now with methods. `style` defaults to `"tooltip"`.
+Creating one loads nothing; the framework loads on the first `:Show`.
 
 | Parameter | Type | |
 |---|---|---|
-| `owner` | frame | what the tooltip belongs to and is placed next to |
-| `block` | table | a block with `style = "tooltip"`; see [Block format](/reference/format) |
-| `opts` | table, optional | placement only: `{ side, x, y }` |
+| `block` | table | children: text, images, nested blocks; see [Block format](/reference/format) |
+| `opts` | table, optional | placement: `{ side, x, y }` |
 
 `opts.side`: `"right"` (default), `"left"`, `"below"`, `"above"`, or `"default"` (Edit Mode's HUD Tooltip position).
 `opts.x`, `opts.y`: an extra offset in UI units.
 
-## HideTooltip
+### tip:Show(owner)
+
+Shows the tooltip next to `owner` (a frame), replacing any tooltip that is shown.
+
+### tip:Hide(owner?)
+
+Hides the tooltip if it is the one shown. With `owner`, only if it is shown for that owner. Never loads the framework.
+
+### tip:Refresh()
+
+Redraws the tooltip from its current fields, if it is shown. Does nothing otherwise; cheap to call from any event.
+
+### tip:IsShown()
+
+Whether this tooltip is the one on screen.
+
+## UI.Block and UI.Button
 
 ```lua
-OrdaenCore.UI.HideTooltip(owner)
+local label = OrdaenCore.UI.Block(spec)
+local button = OrdaenCore.UI.Button(spec)
 ```
 
-Hides the tooltip if it belongs to `owner`. Does nothing otherwise, and never loads the framework.
+Create a component: an object that owns a WoW frame and draws `spec` (a block) on it. `UI.Button` uses the
+`button` style unless the spec names another. Both load the framework, and return `nil` if it can't load (the
+player gets one chat line).
 
-## RefreshTooltip
+| Spec field | Type | |
+|---|---|---|
+| `name` | string, optional | global name of the frame |
+| `parent` | frame, optional | default `UIParent` |
+| `strata`, `level` | optional | frame strata and level |
+| `tooltip` | tooltip object, optional | shown while the mouse is over it |
+| `on` | table, optional | listeners, as with `:On` |
+| block fields | | `style`, `columns`, `width`, children, ... see [Block format](/reference/format) |
 
-```lua
-OrdaenCore.UI.RefreshTooltip(owner)
-```
+### c:On(event, fn) and c:Off(event, fn)
 
-Lays out and redraws `owner`'s tooltip from its block's current fields, if that tooltip is shown. Does nothing
-otherwise, and never loads the framework.
+Call `fn(c, ...)` on `event`, until `:Off` with the same function. Several listeners per event run in the order they
+were added.
+
+| Event | Source | `...` |
+|---|---|---|
+| `click` | the player | mouse button (`"LeftButton"`, ...), down |
+| `enter`, `leave` | the player | |
+| `mousedown`, `mouseup` | the player | mouse button |
+| `dragstart`, `dragstop` | the player (left button) | |
+| `wheel` | the player | delta |
+| `ZONE_CHANGED`, any Blizzard event | the game | Blizzard's arguments, unchanged |
+
+The frame takes the mouse only once a user listener exists, so a label without listeners lets clicks through to what's
+under it. Game events share one frame, which registers an event only while some component listens. Unknown event
+names are an error.
+
+Only plain functions: there is no `On(event, object, "Method")` form. A listener that needs another object is a
+closure made once.
+
+### c:Tooltip(tip)
+
+Shows `tip` while the mouse is over the component. The same as `tooltip = tip` in the spec.
+
+### c:Refresh()
+
+Lays out and redraws after the block's fields changed. Also refreshes its tooltip.
+
+### c:SetText(text)
+
+Sets the first text element and redraws.
+
+### Placement and visibility
+
+These go straight to the frame: `SetPoint`, `ClearAllPoints`, `GetPoint`, `SetParent`, `GetParent`, `Show`, `Hide`,
+`IsShown`, `IsVisible`, `SetShown`, `SetFrameStrata`, `GetFrameStrata`, `SetFrameLevel`, `GetFrameLevel`, `SetScale`,
+`GetScale`, `GetEffectiveScale`, `GetCenter`, `GetWidth`, `GetHeight`, `IsMouseOver`, `LockHighlight`,
+`UnlockHighlight`, `SetAlpha`.
+
+`c.frame` is the WoW frame itself, for anchoring other frames to the component.
 
 ## Internal
 
