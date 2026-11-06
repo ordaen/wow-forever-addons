@@ -33,6 +33,10 @@ end
 ---@field bar number|false the status bar's fill 0..1 (unit health), false when none is shown
 ---@field barColor number[]
 ---@field fingerprint string|nil the first line, to notice a change without reading everything
+---@field kind number|false the tooltip data's type (Enum.TooltipDataType: Item, Spell, Unit, ...), false when unknown
+---@field id number|false the item, spell, ... id in the tooltip data
+---@field gameLines integer lines the game wrote (from the tooltip data); rows after them are other addons'
+---@field priceRow integer|false the row holding the sell price
 
 --- A new, empty model (one per native tooltip, made once).
 ---@return OrdaenTooltipsModel
@@ -41,7 +45,10 @@ function Reader.NewModel()
 	for i = 1, Reader.MAX_ROWS do
 		rows[i] = { left = "", right = "", leftColor = false, rightColor = false, blank = false, colors = { {}, {} } }
 	end
-	return { count = 0, rows = rows, bar = false, barColor = { 0, 1, 0 }, fingerprint = nil }
+	return {
+		count = 0, rows = rows, bar = false, barColor = { 0, 1, 0 }, fingerprint = nil,
+		kind = false, id = false, gameLines = 0, priceRow = false,
+	}
 end
 
 --- Whether we may touch `frame` now: not forbidden, not protected in combat, nothing about it secret.
@@ -87,22 +94,38 @@ local function readFont(fs, row, side)
 	return true
 end
 
--- Sell prices are drawn by a money frame, not a line's text: take them from the tooltip's data.
-local function moneyLines(tooltip, model)
-	if not (tooltip.GetTooltipData and GetMoneyString) then
+local function safeNumber(value)
+	return type(value) == "number" and not isSecret(value) and value or false
+end
+
+-- What the tooltip shows, from its data (the game's own description of it): its kind and id, how many lines are
+-- the game's (the rest were added by other addons), and the sell price, which a money frame draws instead of a
+-- line's text: it becomes the right side of its row.
+local function readData(tooltip, model)
+	model.kind, model.id, model.gameLines, model.priceRow = false, false, model.count, false
+	if not tooltip.GetTooltipData then
 		return
 	end
 	local data = tooltip:GetTooltipData()
-	if isSecret(data) or type(data) ~= "table" or type(data.lines) ~= "table" then
+	if isSecret(data) or type(data) ~= "table" then
 		return
 	end
-	for i, line in ipairs(data.lines) do
-		local price = type(line) == "table" and line.price
+	model.kind, model.id = safeNumber(data.type), safeNumber(data.id)
+	local lines = data.lines
+	if isSecret(lines) or type(lines) ~= "table" then
+		return
+	end
+	model.gameLines = math.min(#lines, model.count)
+	for i, line in ipairs(lines) do
+		local price = type(line) == "table" and safeNumber(line.price)
 		local row = model.rows[i]
-		if row and i <= model.count and type(price) == "number" and not isSecret(price) and price > 0
-			and row.left == "" then
-			row.left = GetMoneyString(price)
+		if price and price > 0 and row and i <= model.count and GetMoneyString then
+			row.right = GetMoneyString(price)
+			if row.left == "" then
+				row.left = SELL_PRICE or ""
+			end
 			row.blank = false
+			model.priceRow = i
 		end
 	end
 end
@@ -148,7 +171,7 @@ function Reader.Read(tooltip, model)
 	end
 	model.count = n
 	model.fingerprint = n > 0 and model.rows[1].left or nil
-	moneyLines(tooltip, model)
+	readData(tooltip, model)
 	return readBar(tooltip, model)
 end
 

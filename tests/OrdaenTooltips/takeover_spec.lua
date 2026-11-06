@@ -80,7 +80,7 @@ local function line(text, r, g, b)
 end
 
 describe("Ordaen Tooltips", function()
-	local ns, frames, secrets, tooltip, left, right
+	local ns, frames, secrets, tooltip, left, right, data
 
 	local function frameNamed(name)
 		for _, f in ipairs(frames) do
@@ -95,7 +95,7 @@ describe("Ordaen Tooltips", function()
 	end
 
 	before_each(function()
-		frames, secrets = {}, {}
+		frames, secrets, data = {}, {}, nil
 		left, right = {}, {}
 		tooltip = stub("GameTooltip", {
 			NumLines = function()
@@ -112,6 +112,9 @@ describe("Ordaen Tooltips", function()
 			end,
 			IsForbidden = function()
 				return false
+			end,
+			GetTooltipData = function()
+				return data
 			end,
 		})
 		helpers.stubGlobals({
@@ -132,6 +135,18 @@ describe("Ordaen Tooltips", function()
 			C_Timer = { After = function() end },
 			GameTooltip = tooltip,
 			GameTooltipStatusBar = stub("GameTooltipStatusBar"),
+			Enum = { TooltipDataType = { Item = 0, Spell = 1, Unit = 2 } },
+			C_Item = { GetItemIconByID = function(id)
+				return id == 19019 and 135349 or nil
+			end },
+			C_Spell = { GetSpellTexture = function()
+				return 136243
+			end },
+			ITEM_LEVEL = "Item Level %d",
+			SELL_PRICE = "Sell Price:",
+			GetMoneyString = function(copper)
+				return copper .. "c"
+			end,
 			issecretvalue = function(v)
 				return secrets[v] == true
 			end,
@@ -187,5 +202,31 @@ describe("Ordaen Tooltips", function()
 		show({ { text } })
 		assert.is_false(frameNamed("OrdaenTooltipsGameTooltip").shown)
 		assert.equals(1, tooltip.alpha)
+	end)
+
+	it("draws an item: its icon, its level as the subtitle, the sell price, a divider before addons' lines", function()
+		data = { type = 0, id = 19019, lines = { {}, {}, {}, { price = 25000 } } }
+		show({
+			{ "Thunderfury", nil, 1, 0.5, 0 },
+			{ "Item Level 80" },
+			{ "One-Hand", "Sword" },
+			{ "" },
+			{ "Seen in 2 bags (Altoholic)" }, -- another addon's line, after the game's four
+		})
+		local d = ns.Takeover.Describe().GameTooltip
+		assert.equals("Thunderfury", d.title)
+		assert.equals("Item Level 80", d.subtitle)
+		assert.equals(135349, d.icon)
+		assert.equals("25000c", d.price)
+		assert.equals(5, d.dividerAt)
+	end)
+
+	it("shows a unit's level line as its subtitle and no icon", function()
+		data = { type = 2, lines = { {}, {}, {} } }
+		show({ { "Hogger", nil, 1, 0.1, 0.1 }, { "Level 11 Elite Gnoll" }, { "Riverpaw" } })
+		local d = ns.Takeover.Describe().GameTooltip
+		assert.equals("Level 11 Elite Gnoll", d.subtitle)
+		assert.is_false(d.icon)
+		assert.is_false(d.dividerAt) -- every line is the game's: no divider
 	end)
 end)

@@ -70,8 +70,9 @@ would have caught it is half a fix: say which check now catches it, or add one.
 7. **Player actions stay in the click's own call.** Code that a click runs (UI listeners, dialog buttons) calls
    protected functions (`ReloadUI`, `C_UI.Reload`) only directly, without `securecallfunction`, C_Timer or another
    frame's script in between: the game blocks them otherwise ("call to Reload() was blocked", the conflict dialog,
-   2026-11-06). Catch errors with `xpcall` instead. Specs can't see this (fakes have no "hardware event"), so a
-   button with a protected action gets an in-game check.
+   2026-11-06). Catch errors with `xpcall` instead. forever-lint FL8 flags `ReloadUI` passed as a value
+   (`AfterCombat(ReloadUI)`, `C_Timer.After(x, ReloadUI)`); specs can't see the rest (fakes have no "hardware
+   event"), so a button with a protected action gets an in-game check.
 8. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
    a position), the side that comes second completes it: the owner announces its thing when it creates it
    (`EventRegistry:TriggerEvent("OrdaenDevButton.Created", b)`) and the taker also checks at its own start. A

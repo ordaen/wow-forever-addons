@@ -29,6 +29,9 @@ local unavailable = false
 ---@field color number[]|nil { r, g, b [, a] }, for meaning only (a pending invite), not decoration
 ---@field caps boolean|nil capitals (plain text only); default from the style
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
+---@field hidden boolean|nil as a child: skipped
+---@field colSpan number|nil as a child: columns it spans
+---@field align string|nil as a child: "left", "center" or "right" in its cell
 
 ---@class OrdaenUISeparator
 ---@field separator string "rule" (a hairline), "divider" (a stronger break), "caption" (text between lines)
@@ -52,6 +55,9 @@ local unavailable = false
 ---@field height number|nil
 ---@field size number|nil width and height
 ---@field texCoord number[]|nil { left, right, top, bottom }
+---@field hidden boolean|nil as a child: skipped
+---@field colSpan number|nil as a child: columns it spans
+---@field align string|nil as a child: "left", "center" or "right" in its cell
 
 ---@class OrdaenUIBlock
 ---@field style string|nil style role in the theme (tooltip, header, button, iconButton, slot)

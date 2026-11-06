@@ -1,6 +1,6 @@
--- Ordaen Tooltips, taking over: the native tooltips (GameTooltip, ItemRefTooltip) stay shown and keep their content
--- and their owners, so every addon that fills or checks them works as before; we make them invisible (alpha 0) and
--- draw our view in their place. Anything we can't read safely stays native.
+-- Ordaen Tooltips, taking over: the native tooltips (GameTooltip, ItemRefTooltip, the comparison tooltips) stay
+-- shown and keep their content and their owners, so every addon that fills or checks them works as before; we make
+-- them invisible (alpha 0) and draw our view in their place. Anything we can't read safely stays native.
 --
 -- Hooks (hooksecurefunc / HookScript: Blizzard's code is untouched):
 --   Show, SetShown, OnShow      read, draw ours, native alpha 0 (every show resets it to 1)
@@ -14,7 +14,8 @@ ns.Takeover = Takeover
 
 local Reader, View = ns.Reader, ns.View
 
-local NATIVES = { "GameTooltip", "ItemRefTooltip" }
+-- The comparison tooltips ("currently equipped") anchor to GameTooltip; their views anchor to its view.
+local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "ShoppingTooltip2" }
 local CHECK_INTERVAL = 0.25
 
 local feature -- the "takeover" feature (Core.lua)
@@ -24,6 +25,12 @@ local ticker
 
 local isSecret = issecretvalue or function()
 	return false
+end
+
+-- The view drawn for a native tooltip, for anchoring one view to another (made once).
+local function viewOf(frame)
+	local state = states[frame]
+	return state and state.view or nil
 end
 
 local function setNativeAlpha(native, state, alpha)
@@ -68,7 +75,7 @@ local function draw(native)
 		return
 	end
 	state.view:Fill(state.model)
-	state.view:Follow(native)
+	state.view:Follow(native, viewOf)
 	state.view:SetAlpha(state.alpha or 1)
 	showView(state)
 	setNativeAlpha(native, state, 0)
@@ -161,7 +168,20 @@ end
 function Takeover.Describe()
 	local out = {}
 	for native, state in pairs(states) do
-		out[native:GetName()] = { shown = state.view:IsShown(), rows = state.model.count, alpha = state.alpha or 1 }
+		local view, model = state.view, state.model
+		local header = view.header
+		local divider = false
+		for i, row in pairs(view.rows) do
+			if not row.block.hidden and not row.divider.hidden then
+				divider = i
+			end
+		end
+		out[native:GetName()] = {
+			shown = view:IsShown(), rows = model.count, alpha = state.alpha or 1,
+			title = header.titleText.text, subtitle = not header.subtitleText.hidden and header.subtitleText.text or false,
+			icon = not header[1].hidden and header.iconImage.image or false, dividerAt = divider,
+			price = model.priceRow and model.rows[model.priceRow].right or false,
+		}
 	end
 	return out
 end

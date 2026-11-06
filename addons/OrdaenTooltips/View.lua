@@ -1,22 +1,36 @@
 -- Ordaen Tooltips, drawing: one OrdaenCore.UI block per native tooltip, built once, its fields refilled from the
--- Reader's model on each show. The first line is the title; its colour (an item's quality, a unit's reaction) is
--- the tooltip's accent. Every other line is a row: left text, and right text when there is one. A blank line is a
--- small gap before the next row. The unit health bar is a bar element.
---
--- This is the generic view, for every tooltip: other addons' lines and simple native tooltips. Items, units and
--- spells get layouts of their own later (docs/roadmap.md).
+-- Reader's model and the Layouts' decisions on each show.
+--   header   the theme's header band: an icon when the kind has one (items, spells), the title (the first line, in
+--            its colour: an item's quality, a unit's reaction, which is also the tooltip's accent), a subtitle
+--   rows     the other lines: left text, and right text when there is one; a blank line is a small gap; a divider
+--            before the lines other addons added
+--   bar      the unit health bar
 local _, ns = ...
 
 local View = {}
 ns.View = View
 
 local UI = OrdaenCore.UI
-local Reader = ns.Reader
+local Reader, Layouts = ns.Reader, ns.Layouts
+
+local isSecret = issecretvalue or function()
+	return false
+end
+
+local ICON_SIZE = 32
+local ICON_CROP = { 0.08, 0.92, 0.08, 0.92 }
+local NO_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
+
+---@class OrdaenTooltipsRowView
+---@field block OrdaenUIBlock
+---@field divider OrdaenUISeparator
+---@field left OrdaenUIText
+---@field right OrdaenUIText
 
 ---@class OrdaenTooltipsView
 ---@field component OrdaenUIComponent
----@field title OrdaenUIText
----@field rows table[] row blocks, { block, left, right }
+---@field header OrdaenUIHeader
+---@field rows OrdaenTooltipsRowView[]
 ---@field bar OrdaenUIBar
 local ViewMethods = {}
 local ViewMeta = { __index = ViewMethods }
@@ -25,14 +39,15 @@ local ViewMeta = { __index = ViewMethods }
 ---@param name string global frame name, e.g. "OrdaenTooltipsGameTooltip"
 ---@return OrdaenTooltipsView|nil
 function View.New(name)
-	local title = { text = "", style = "title" }
-	local spec = { name = name, parent = UIParent, strata = "TOOLTIP", style = "tooltip", title }
+	local header = UI.Header({ title = "", subtitle = "", icon = NO_ICON, iconSize = ICON_SIZE, texCoord = ICON_CROP })
+	local spec = { name = name, parent = UIParent, strata = "TOOLTIP", style = "tooltip", header }
 	local rows = {}
 	for i = 2, Reader.MAX_ROWS do
+		local divider = { separator = "divider", colSpan = 2, hidden = true }
 		local left = { text = "", style = "body" }
 		local right = { text = "", style = "value", align = "right", hidden = true }
-		local block = { columns = { "1fr", "auto" }, gap = { "lg", 0 }, hidden = true, left, right }
-		rows[i] = { block = block, left = left, right = right }
+		local block = { columns = { "1fr", "auto" }, gap = { "lg", 0 }, hidden = true, divider, left, right }
+		rows[i] = { block = block, divider = divider, left = left, right = right }
 		spec[#spec + 1] = block
 	end
 	local bar = { bar = 0, hidden = true }
@@ -43,38 +58,66 @@ function View.New(name)
 	end
 	component:SetClampedToScreen(true)
 	component:Hide()
-	return setmetatable({ component = component, title = title, rows = rows, bar = bar }, ViewMeta)
+	return setmetatable({ component = component, header = header, rows = rows, bar = bar }, ViewMeta)
 end
 
 -- Spacing before a row that follows a blank line (other addons separate their sections with one).
 local GAP_BEFORE = { "sm", 0, 0, 0 }
 
+local function fillHeader(self, model, layout)
+	local first = model.rows[1]
+	local header = self.header
+	header.titleText.text = first and first.left or ""
+	header.titleText.color = first and first.leftColor or nil
+	local accent = first and first.leftColor or nil
+	header.accent = accent
+	self.component.block.accent = accent
+	header.subtitleText.text = layout.subtitle or ""
+	header.subtitleText.hidden = not layout.subtitle
+	local iconColumn = header[1]
+	if layout.icon then
+		header.iconImage.image = layout.icon
+		iconColumn.hidden = false
+	else
+		iconColumn.hidden = true
+	end
+end
+
 --- Fill the blocks from `model` and redraw.
 ---@param model OrdaenTooltipsModel
 function ViewMethods:Fill(model)
-	local first = model.rows[1]
-	local block = self.component.block
-	self.title.text = first and first.left or ""
-	self.title.color = first and first.leftColor or nil
-	block.accent = first and first.leftColor or nil
+	local layout = Layouts.Decide(model)
+	fillHeader(self, model, layout)
 	local gap = false
 	for i = 2, Reader.MAX_ROWS do
 		local view = self.rows[i]
 		local row = i <= model.count and model.rows[i]
-		if not row or row.blank then
+		if not row or row.blank or layout.skip[i] then
 			view.block.hidden = true
 			gap = row and row.blank and i > 2 or gap
 		else
 			view.block.hidden = false
-			view.block.padding = gap and GAP_BEFORE or nil
+			view.divider.hidden = i ~= layout.extrasFrom
+			view.block.padding = gap and i ~= layout.extrasFrom and GAP_BEFORE or nil
 			gap = false
 			local hasRight = row.right ~= ""
 			view.left.text = row.left
 			view.left.color = row.leftColor or nil
+			view.left.style = i == model.priceRow and "label" or "body"
 			view.left.colSpan = hasRight and 1 or 2
 			view.right.hidden = not hasRight
 			view.right.text = row.right
 			view.right.color = row.rightColor or nil
+		end
+	end
+	-- A divider on a row that was skipped would be lost: put it on the next shown row instead.
+	local from = layout.extrasFrom
+	if from and self.rows[from] and self.rows[from].block.hidden then
+		for i = from + 1, Reader.MAX_ROWS do
+			if not self.rows[i].block.hidden then
+				self.rows[i].divider.hidden = false
+				break
+			end
 		end
 	end
 	self.bar.hidden = not model.bar
@@ -83,13 +126,22 @@ function ViewMethods:Fill(model)
 	self.component:Refresh()
 end
 
---- Put the view where the native tooltip is: the same corner on the same point, so it grows the same way.
+--- Put the view where the native tooltip is. A native anchored to another native we draw (the comparison tooltips
+--- next to GameTooltip) is anchored to that one's view, so the pair lines up with our sizes; otherwise the view
+--- takes the native's own corner, so it grows the same way.
 ---@param native GameTooltip
-function ViewMethods:Follow(native)
-	local point = native:GetPoint(1)
+---@param viewOf fun(native: table): OrdaenTooltipsView|nil
+function ViewMethods:Follow(native, viewOf)
+	local point, relativeTo, relativePoint, x, y = native:GetPoint(1)
 	local c = self.component
 	c:ClearAllPoints()
-	if type(point) == "string" then
+	if isSecret(point) or isSecret(relativeTo) or isSecret(x) or isSecret(y) then
+		point, relativeTo = nil, nil -- in combat the anchor can be hidden: centre on the native tooltip
+	end
+	local other = relativeTo and viewOf(relativeTo)
+	if type(point) == "string" and other and other ~= self then
+		c:SetPoint(point, other.component.frame, relativePoint, x, y)
+	elseif type(point) == "string" then
 		c:SetPoint(point, native, point)
 	else
 		c:SetPoint("CENTER", native, "CENTER")
