@@ -61,6 +61,12 @@ local TOOLTIP_ART = {
 	insets = { left = 4, right = 4, top = 4, bottom = 4 },
 }
 local BUTTON_HIGHLIGHT = { texture = "Interface\\Buttons\\ButtonHilight-Square" }
+local DIALOG_ART = { -- Blizzard's popup look (StaticPopup)
+	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
+	edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
+	tile = true, tileSize = 32, edgeSize = 32,
+	insets = { left = 11, right = 12, top = 12, bottom = 11 },
+}
 
 -- Fonts: the client's own files, so every language's glyphs are there (the user's client is ruRU). `body` is
 -- the tooltip font, `header` the tooltip header font, `ui` the general interface font.
@@ -116,6 +122,31 @@ THEMES.ordaen = {
 			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
 		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
+		dialog = {
+			padding = "xl", gap = "lg",
+			fill = {
+				top = { 0.05, 0.04, 0.05, 0.96, accent = 0.07 },
+				bottom = { 0.015, 0.012, 0.015, 0.96, accent = 0.025 },
+			},
+			edges = {
+				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
+				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+			},
+			vignette = { size = "lg", alpha = 0.35 },
+		},
+		pushButton = {
+			padding = { "sm", "lg", "sm", "lg" },
+			fill = { top = { 0, 0, 0, 0.9, accent = 0.32 }, bottom = { 0, 0, 0, 0.9, accent = 0.12 } },
+			edges = {
+				top = { 1, { 0, 0, 0, 1, accent = 0.8 } },
+				right = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+				bottom = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+				left = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+			},
+			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
+		},
 	},
 	text = {
 		title = { font = "header", size = "title", color = { 0.96, 0.91, 0.82 }, caps = true },
@@ -151,6 +182,13 @@ THEMES.blizzard = {
 			highlight = BUTTON_HIGHLIGHT,
 		},
 		slot = { padding = 3, highlight = BUTTON_HIGHLIGHT },
+		dialog = {
+			padding = "xl", gap = "lg", backdrop = DIALOG_ART, background = { 1, 1, 1, 1 }, border = { 1, 1, 1, 1 },
+		},
+		pushButton = {
+			padding = { "sm", "lg", "sm", "lg" }, backdrop = TOOLTIP_ART, background = { 0.25, 0.04, 0.02, 0.95 },
+			border = { 0.8, 0.8, 0.8, 1 }, highlight = BUTTON_HIGHLIGHT,
+		},
 	},
 	text = {
 		title = { font = "header", size = "large", color = { 1, 1, 1 }, shadow = true },
@@ -185,6 +223,12 @@ THEMES.minimal = {
 		button = { padding = 0, gap = 0 },
 		iconButton = { padding = 4, fill = GREY_FILL, edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } } },
 		slot = { padding = 3, highlight = { color = { 1, 1, 1, 0.12 } } },
+		dialog = { padding = "xl", gap = "lg", fill = GREY_FILL, edges = GREY_EDGES },
+		pushButton = {
+			padding = { "sm", "lg", "sm", "lg" },
+			fill = { top = { 0.14, 0.14, 0.16, 0.95 }, bottom = { 0.14, 0.14, 0.16, 0.95 } },
+			edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } },
+		},
 	},
 	text = {
 		title = { font = "body", size = "large", color = { 0.95, 0.95, 0.95 } },

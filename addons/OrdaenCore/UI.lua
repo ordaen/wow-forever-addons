@@ -192,6 +192,55 @@ function UI.Header(spec)
 	return header --[[@as OrdaenUIHeader]]
 end
 
+-- Confirmation dialogs -------------------------------------------------------------------------------
+
+---@class OrdaenUIConfirmButton
+---@field text string the button's label (a Blizzard global such as OKAY or CANCEL, or a locale string)
+---@field onClick fun()|nil run after the dialog closed
+
+---@class OrdaenUIConfirmSpec
+---@field text string the message
+---@field buttons OrdaenUIConfirmButton[] up to 4, left to right
+---@field onCancel fun()|nil run when the player closes it with Escape
+
+---@class OrdaenUIConfirm : OrdaenUIConfirmSpec
+local ConfirmMethods = {}
+local ConfirmMeta = { __index = ConfirmMethods }
+
+--- Show the dialog (one at a time for every addon; a second one waits until the first closes). Loads the
+--- framework the first time.
+function ConfirmMethods:Show()
+	local f = framework()
+	if f then
+		f.ShowConfirm(self)
+	end
+end
+
+--- Close it if shown, or take it out of the queue. Its onCancel doesn't run.
+function ConfirmMethods:Hide()
+	if impl then
+		impl.HideConfirm(self)
+	end
+end
+
+---@return boolean
+function ConfirmMethods:IsShown()
+	return impl ~= nil and impl.ConfirmShown(self)
+end
+
+--- Make `spec` a confirm object (the same table, with methods): a message and buttons, shown centred near the top
+--- of the screen in the theme's dialog look. Escape closes it and runs onCancel. Change `text` before :Show() to
+--- reuse it. Costs nothing until the first :Show.
+---
+---   local ask = UI.Confirm({ text = L.RELOAD_NEEDED, buttons = { { text = OKAY, onClick = ReloadUI },
+---     { text = CANCEL } } })
+---   ask:Show()
+---@param spec OrdaenUIConfirmSpec
+---@return OrdaenUIConfirm
+function UI.Confirm(spec)
+	return setmetatable(spec, ConfirmMeta) --[[@as OrdaenUIConfirm]]
+end
+
 -- Components ---------------------------------------------------------------------------------------
 
 --- A block on its own frame (a label, an icon): see OrdaenCore_UI/Component.lua. Loads the framework.

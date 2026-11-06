@@ -125,6 +125,9 @@ OrdaenCore.UI._Provide({
 	RefreshTooltip = Tooltip.Refresh,
 	TooltipShown = Tooltip.IsShown,
 	Restyle = Tooltip.Restyle,
+	ShowConfirm = ns.Confirm.Show,
+	HideConfirm = ns.Confirm.Hide,
+	ConfirmShown = ns.Confirm.IsShown,
 	Block = Component.Block,
 	Button = Component.Button,
 })

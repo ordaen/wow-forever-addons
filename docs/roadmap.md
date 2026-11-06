@@ -12,6 +12,7 @@ Decisions are recorded in `CLAUDE.md` ("UI framework `OrdaenCore.UI`"). Nothing 
 - **Three themes** (`ordaen`, `blizzard`, `minimal`) and one **design scale** (spacing tokens, text tiers) from the
   player's global text size, both chosen in Ordaen Core's settings; **accent** colours; surfaces drawn without art.
 - **Separators** (rule, divider, caption), **bars**, **Shift rows**, **headers** (`UI.Header`).
+- **Confirmation dialogs** (`UI.Confirm`), one at a time for every addon, Escape as cancel.
 
 See [Blocks and elements](/guide/blocks#components) and the [API](/reference/api).
 
@@ -25,7 +26,6 @@ See [Blocks and elements](/guide/blocks#components) and the [API](/reference/api
 - **Settings pages** built from UI components, from the `settings = { ... }` spec in `NewAddon` (replacing the
   Blizzard Settings builder in Ordaen Core): dropdowns, sliders, checkboxes, colour pickers, text input, key
   bindings, action buttons, settings that grey out when their parent is off.
-- **Confirmation popups**: `UI.Confirm{ text, buttons = { ... } }`, instead of hand-made StaticPopupDialogs.
 - **Windows** are top-level components with a fixed, saved position and size. The framework remembers them.
 - **Your own components** later: `UI.Component(name, { build = ..., methods = ... })`, so an addon can define a kind
   of thing once and reuse it.

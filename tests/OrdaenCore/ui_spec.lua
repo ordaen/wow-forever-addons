@@ -147,6 +147,12 @@ local function fakeFrame(name, log, parent)
 	function f:SetSize(w, h)
 		self.size = { w, h }
 	end
+	function f:GetWidth()
+		return self.size and self.size[1] or 0
+	end
+	function f:GetHeight()
+		return self.size and self.size[2] or 0
+	end
 	function f:SetPoint(...)
 		self.point = { ... }
 	end
@@ -176,6 +182,13 @@ local function fakeFrame(name, log, parent)
 	end
 	function f:SetScript(script, fn)
 		self.scripts[script] = fn
+	end
+	function f:HookScript(script, fn)
+		local before = self.scripts[script]
+		self.scripts[script] = before and function(...)
+			before(...)
+			fn(...)
+		end or fn
 	end
 	function f:RegisterEvent(event)
 		self.events[event] = true
@@ -675,6 +688,76 @@ describe("OrdaenCore.UI", function()
 			header.titleText.text = "Elwynn"
 			tip:Refresh()
 			assert.same({ "ELWYNN", "Trade District", "Goldshire" }, shownTexts(s))
+		end)
+	end)
+
+	describe("confirm dialogs", function()
+		-- The shown frame whose drawn text is `text` (a button's label, the message).
+		local function frameWithText(text)
+			for _, f in ipairs(frames) do
+				if f.shown then
+					for _, fs in ipairs(f.fonts) do
+						if fs.shown and fs.text == text then
+							return f
+						end
+					end
+				end
+			end
+		end
+
+		it("cost nothing until shown, then show the message and the buttons", function()
+			local ask = UI.Confirm({ text = "Reload now?", buttons = { { text = "OK" }, { text = "Later" } } })
+			assert.equals(0, loads)
+			ask:Show()
+			local dialog = frameNamed("OrdaenUIConfirm")
+			assert.is_true(dialog.shown)
+			assert.is_true(ask:IsShown())
+			assert.truthy(frameWithText("Reload now?"))
+			assert.truthy(frameWithText("OK"))
+			assert.truthy(frameWithText("Later"))
+			assert.equals("OrdaenUIConfirm", rawget(_G, "UISpecialFrames")[#rawget(_G, "UISpecialFrames")])
+		end)
+
+		it("close on a button, then run its function", function()
+			local pressed
+			local ask = UI.Confirm({ text = "Keep ours?", buttons = {
+				{ text = "Keep ours", onClick = function()
+					pressed = "ours"
+				end },
+				{ text = "Keep theirs" },
+			} })
+			ask:Show()
+			local button = frameWithText("Keep ours")
+			button.scripts.OnClick(button, "LeftButton")
+			assert.equals("ours", pressed)
+			assert.is_false(frameNamed("OrdaenUIConfirm").shown)
+			assert.is_false(ask:IsShown())
+		end)
+
+		it("count Escape as cancel", function()
+			local cancelled = false
+			local ask = UI.Confirm({ text = "?", buttons = { { text = "OK" } }, onCancel = function()
+				cancelled = true
+			end })
+			ask:Show()
+			local dialog = frameNamed("OrdaenUIConfirm")
+			dialog:Hide() -- what Escape does to a frame in UISpecialFrames
+			dialog.scripts.OnHide(dialog)
+			assert.is_true(cancelled)
+			assert.is_false(ask:IsShown())
+		end)
+
+		it("show one at a time: a second waits for the first to close", function()
+			local first = UI.Confirm({ text = "First", buttons = { { text = "OK" } } })
+			local second = UI.Confirm({ text = "Second", buttons = { { text = "Fine" } } })
+			first:Show()
+			second:Show()
+			assert.is_true(first:IsShown())
+			assert.is_false(second:IsShown())
+			local ok = frameWithText("OK")
+			ok.scripts.OnClick(ok, "LeftButton")
+			assert.is_true(second:IsShown())
+			assert.truthy(frameWithText("Second"))
 		end)
 	end)
 

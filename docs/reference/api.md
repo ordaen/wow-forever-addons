@@ -57,6 +57,35 @@ subtitle beside it, on the theme's header band. Put it first in a tooltip. Loads
 
 Fields to change afterwards: `titleText`, `subtitleText`, `iconImage`, `plateText` (elements), `accent`.
 
+## UI.Confirm
+
+```lua
+local ask = OrdaenCore.UI.Confirm({
+  text = L.CONFLICT_TOOLTIPS,
+  buttons = {
+    { text = L.KEEP_OURS, onClick = keepOurs },
+    { text = L.KEEP_THEIRS, onClick = keepTheirs },
+    { text = L.DECIDE_LATER },
+  },
+  onCancel = decideLater, -- Escape
+})
+ask:Show()
+```
+
+Turns `spec` into a confirm object (the same table, with methods): a message and up to four buttons, centred
+near the top of the screen in the theme's `dialog` look, buttons in `pushButton`. Creating one loads nothing.
+
+| Field | Type | |
+|---|---|---|
+| `text` | string | the message; change it before `:Show()` to reuse the object |
+| `buttons` | list | `{ text, onClick? }`, left to right; `onClick` runs after the dialog closed |
+| `onCancel` | function, optional | runs when the player closes it with Escape |
+
+`ask:Show()` shows it (loading the framework the first time). There is one dialog for every Ordaen addon: a second
+confirm shown while one is open waits until it closes. `ask:Hide()` closes it, or takes it out of the queue,
+without running `onCancel`. `ask:IsShown()`. Labels follow the text rules (`text-en`, `text-ru`); Blizzard's
+`OKAY`, `CANCEL`, `YES`, `NO` where they fit.
+
 ## UI.Block and UI.Button
 
 ```lua
