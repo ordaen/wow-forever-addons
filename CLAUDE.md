@@ -104,42 +104,40 @@ addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
 
 ## UI framework `OrdaenCore.UI`: design philosophy (set in stone by the user)
 
-Owner (user's decision): the Ordaen Minimap session owns `OrdaenCore.UI`: `addons/OrdaenCore/UI.lua`,
-`Tooltip.lua`, later UI files, and `tests/OrdaenCore/ui_spec.lua`. Requests go to it. The Ordaen Core session owns the
-rest of the Core (`Core.lua`, the `OrdaenCore.toc` file list, `tests/OrdaenCore/helpers.lua`) and gets a heads-up
-before the UI owner touches those. Core API names become permanent at the first release of OrdaenCore; until then
-the UI shape may change, keeping its safety properties (per-drawn-thing `pcall` with fallback, no per-show copies,
-no timers or `OnUpdate` in the framework, unknown slots degrade).
+Owner (user's decision): the Ordaen Minimap session owns `OrdaenCore.UI`: `addons/OrdaenCore/UI.lua`, the
+load-on-demand module `addons/OrdaenCore/OrdaenCore_UI/`, and their specs (`tests/OrdaenCore/ui_spec.lua`,
+`layout_spec.lua`). Requests go to it. The Ordaen Core session owns the rest of the Core (`Core.lua`, the
+`OrdaenCore.toc` file list, `.pkgmeta`, `tests/OrdaenCore/helpers.lua`) and gets a heads-up before the UI owner touches
+those. Core API names become permanent at the first release of OrdaenCore; until then the UI shape may change.
 
-- **Addons declare, they never render.** Addon code asks `OrdaenCore.UI` for what it wants (e.g. a tooltip, later a
-  button with a tooltip, a window) in our own format and never learns who draws it. One framework in Ordaen Core, the
-  same calls in every addon: consistency and one place to change behavior.
-- **Renderers are per kind and only render.** A renderer addon registers for one kind
-  (`OrdaenCore.UI.RegisterRenderer(kind, renderer)`, e.g. the tooltip addon for `"tooltip"`) and then draws every
-  thing of that kind, fully and once, with the whole rich format. Nothing is restyled afterwards. Without a renderer
-  for a kind, the Core draws what Blizzard's own UI can (tooltips: plain `GameTooltip` lines). No addon depends on a
-  renderer addon; renderer addons are `OptionalDeps` of every Ordaen addon so they register before anything is drawn.
-- **The format only grows** (`content.v`): new kinds, slots and optional fields, never changed meanings. Unknown slots
-  are skipped (falling back to their `text`), so a newer addon on an older Core or renderer degrades, never errors.
-  Names in `OrdaenCore.UI` are forever (Core API rule).
-- **Callers describe content, not looks.** Placement goes in `opts`; colors, fonts and art are the renderer's.
-- **Cost:** the renderer is chosen when a thing is drawn; the real frames are then used directly (no wrapper per
-  call); no per-show copying of content; no timers or `OnUpdate` in the framework (live content is refreshed by the
-  caller's own timer, e.g. `OrdaenCore.UI.RefreshTooltip(owner)`).
-- **Tooltips v1** (in Core: `addons/OrdaenCore/UI.lua` registry, `Tooltip.lua` API + fallback; spec
-  `tests/OrdaenCore/ui_spec.lua`): `OrdaenCore.UI.ShowTooltip(owner, content, opts)`, `HideTooltip(owner)`,
-  `RefreshTooltip(owner)`, `RegisterRenderer("tooltip", { formatVersion, Show(owner, content, opts), Hide(owner),
-  Refresh(owner, content) })`. Content shape: `{ v = 1, title = { text, icon?, color? }, subtitle = { text, color? },
-  { kind = "row", label, value, color? }, { kind = "line", text, color? }, { kind = "bar", label, value, max, color? },
-  { kind = "separator" }, { kind = "hint", text } }` (list items in order). `color = { r, g, b }` is for meaning
-  (e.g. a pending invite), not decoration. `opts = { anchor, x, y }`. Renderer calls run in `pcall`; on an error that
-  tooltip falls back to plain lines and the error goes to `geterrorhandler()`. The Core keeps references to the
-  caller's tables (weak keys), never copies; callers keep their content tables and change fields, then call
-  `RefreshTooltip` from their own timer while shown.
-- **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: the tooltip addon
-  restyles them in place, never hides them to draw a lookalike (the cost of PrettyTooltip's approach).
-- **Open:** sizes and layout of buttons and windows (adaptive layout, resizable windows); packaging the framework as an
-  embeddable library for third-party addons.
+- **Addons declare, they never render.** Addon code describes what it wants in our block format and hands it to
+  `OrdaenCore.UI`; it never draws, styles or measures. Same calls in every addon, one place to change behavior.
+- **Everything is a block.** A block is a box (style role, optional size) whose children are cells of a grid
+  (`columns` of tracks: number = fixed, `"auto"` = widest natural content, `"Nfr"` = share of the rest; `gap`,
+  `padding`; `width`/`minWidth`/`maxWidth`; children may `colSpan`, `align`, be `hidden`). Elements: `text` (always
+  wraps, never truncated), `image`, and blocks. A top-level block has a trigger and a position; a tooltip is one with
+  a hover trigger, anchored to its owner, passive, on the tooltip layer, one at a time. Later: buttons (composite
+  blocks with click), windows (fixed, saved position/size: the framework remembers them), more roles.
+- **One renderer, themes are data.** The only drawing code is the framework's (`OrdaenCore_UI/Render.lua`). Looks come
+  from a theme table (`Theme.lua`: per style role the art, colors and layout defaults; per text style a font object
+  and color). The default theme uses Blizzard's art and fonts; a theme addon will only replace that data. No second
+  renderer, no fallback branches. `color` on an element is for meaning (a pending invite), not decoration.
+- **Layout** (`OrdaenCore_UI/Layout.lua`, pure Lua, `layout_spec.lua`): two passes like CSS grid: column widths
+  (fixed, auto, then fr shares; too little room shrinks fr then auto columns, never below 8 px), then row heights from
+  text wrapped to those widths. Text is measured by the renderer with the theme's fonts, cached per element.
+- **Loading:** `addons/OrdaenCore/UI.lua` (always loaded, tiny) loads the module `OrdaenCore_UI` (`LoadOnDemand`,
+  shipped in the Core zip via `move-folders`, versioned with Core) on the first `ShowTooltip`; Hide/Refresh never
+  load it. If it can't load (disabled, missing), one chat line says why and tooltips stay off quietly.
+- **Cost:** callers build their block tables once and change fields (`text`, `hidden`), then `RefreshTooltip(owner)`
+  from their own timer or event while shown. One shared tooltip surface; font strings and textures are pooled;
+  layout results are reused tables; nothing is copied per show; no timers or `OnUpdate` in the framework.
+- **Tooltips API:** `OrdaenCore.UI.ShowTooltip(owner, block, opts)`, `HideTooltip(owner)`, `RefreshTooltip(owner)`;
+  `opts = { side = "right" | "left" | "below" | "above", x, y }`. Text styles in the default theme: `title`,
+  `subtitle`, `body` (default), `label`, `value`, `hint`; block style `tooltip`.
+- **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: restyled in place by a
+  future tooltip addon (taking its look from the theme), never hidden and redrawn as a lookalike.
+- **Open:** buttons and windows (triggers, fixed positions with remembering, resizing); theme addon API; packaging
+  the framework as an embeddable library for third-party addons.
 - PrettyTooltip (MIT, © 2026 FallenShard) is a reference and a source of features, not a base to fork. Any code taken
   from it keeps its copyright notice and license text.
 
