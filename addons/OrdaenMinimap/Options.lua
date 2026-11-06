@@ -55,6 +55,19 @@ function Options.Register(db, onChange)
 	Settings.CreateSlider(category, register("scale", L.MAP_SCALE, ns.DEFAULTS.scale), sliderOptions,
 		L.MAP_SCALE_TOOLTIP)
 
+	if layout and CreateSettingsListSectionHeaderInitializer then
+		layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L.HEADER_DRAWER))
+	end
+	Settings.CreateCheckbox(category, register("drawerEnabled", L.DRAWER_ENABLED, ns.DEFAULTS.drawerEnabled),
+		L.DRAWER_ENABLED_TOOLTIP)
+	Settings.CreateCheckbox(category,
+		register("hideBlizzardCompartment", L.HIDE_BLIZZARD_COMPARTMENT, ns.DEFAULTS.hideBlizzardCompartment),
+		L.HIDE_BLIZZARD_COMPARTMENT_TOOLTIP)
+	local columnOptions = Settings.CreateSliderOptions(ns.DRAWER_COLUMNS_MIN, ns.DRAWER_COLUMNS_MAX, 1)
+	columnOptions:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right)
+	Settings.CreateSlider(category, register("drawerColumns", L.DRAWER_COLUMNS, ns.DEFAULTS.drawerColumns),
+		columnOptions, L.DRAWER_COLUMNS_TOOLTIP)
+
 	Settings.RegisterAddOnCategory(category)
 end
 

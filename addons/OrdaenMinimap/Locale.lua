@@ -41,6 +41,21 @@ local enUS = {
 	CONFLICT_OVERRIDE_HINT = "keeping Ordaen Minimap. If %s has its own minimap options (shape, border), "
 		.. "turn them off there.",
 	CONFLICT_LATER_HINT = "Ordaen Minimap stays off until the next login, where it asks again.",
+
+	HEADER_DRAWER = "Button drawer",
+	DRAWER_ENABLED = "Button drawer",
+	DRAWER_ENABLED_TOOLTIP = "Collects other addons' minimap buttons and addon compartment entries behind one "
+		.. "small button. Turning it off needs a /reload to put the buttons back on the map.",
+	HIDE_BLIZZARD_COMPARTMENT = "Hide Blizzard's addon button",
+	HIDE_BLIZZARD_COMPARTMENT_TOOLTIP = "Hides Blizzard's addon compartment button; its entries are in the drawer.",
+	DRAWER_COLUMNS = "Columns",
+	DRAWER_COLUMNS_TOOLTIP = "How many buttons per row in the drawer.",
+	DRAWER_TOOLTIP_CLICK = "Click: open or close the drawer",
+	DRAWER_TOOLTIP_RIGHT = "Right-click: settings",
+	DRAWER_TOOLTIP_MOVE = "Shift-drag: move this button",
+	DRAWER_MBB_WARNING = "MinimapButtonButton is loaded, so the button drawer stays off (both would grab the same "
+		.. "buttons). Disable one of them.",
+	DRAWER_RELOAD_HINT = "button drawer off. Type /reload to put the buttons back on the minimap.",
 }
 
 local ruRU = {
@@ -82,6 +97,21 @@ local ruRU = {
 	CONFLICT_OVERRIDE_HINT = "Ordaen Minimap остаётся. Если у %s есть свои настройки миникарты (форма, рамка), "
 		.. "выключите их там.",
 	CONFLICT_LATER_HINT = "Ordaen Minimap выключен до следующего входа в игру, тогда вопрос появится снова.",
+
+	HEADER_DRAWER = "Панель кнопок",
+	DRAWER_ENABLED = "Панель кнопок",
+	DRAWER_ENABLED_TOOLTIP = "Собирает кнопки модификаций с миникарты и пункты меню модификаций за одной маленькой "
+		.. "кнопкой. Чтобы вернуть кнопки на карту после выключения, нужен /reload.",
+	HIDE_BLIZZARD_COMPARTMENT = "Скрыть кнопку модификаций Blizzard",
+	HIDE_BLIZZARD_COMPARTMENT_TOOLTIP = "Скрывает кнопку меню модификаций Blizzard; её пункты есть в панели.",
+	DRAWER_COLUMNS = "Столбцы",
+	DRAWER_COLUMNS_TOOLTIP = "Сколько кнопок в одном ряду панели.",
+	DRAWER_TOOLTIP_CLICK = "Щелчок: открыть или закрыть панель",
+	DRAWER_TOOLTIP_RIGHT = "Правый щелчок: настройки",
+	DRAWER_TOOLTIP_MOVE = "Shift + перетаскивание: переместить кнопку",
+	DRAWER_MBB_WARNING = "Загружен MinimapButtonButton, поэтому панель кнопок выключена (обе собирают одни и те же "
+		.. "кнопки). Выключите одну из них.",
+	DRAWER_RELOAD_HINT = "панель кнопок выключена. Введите /reload, чтобы вернуть кнопки на миникарту.",
 }
 
 local translations = { ruRU = ruRU }

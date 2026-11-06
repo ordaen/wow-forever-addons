@@ -12,7 +12,7 @@ describe("IsMinimapButtonName", function()
 		for _, name in ipairs({
 			"LibDBIcon10_Details",
 			"AtlasLootMinimapButton",
-			"Questie_MinimapFrame",
+			"Bagnon_MinimapFrame",
 			"Foo-Minimap-Button",
 			"SomeAddonMinimap",
 		}) do
@@ -29,5 +29,32 @@ describe("IsMinimapButtonName", function()
 		assert.is_false(ns.IsMinimapButtonName("MinimapZoomIn"))
 		assert.is_false(ns.IsMinimapButtonName(""))
 		assert.is_false(ns.IsMinimapButtonName(nil))
+	end)
+
+	it("accepts the two buttons that ignore the square shape", function()
+		assert.is_true(ns.IsMinimapButtonName("AltoholicMinimapButton"))
+		assert.is_true(ns.IsMinimapButtonName("AutoBiographer_MinimapButton"))
+	end)
+
+	it("rejects map pins and waypoints", function()
+		assert.is_false(ns.IsMinimapButtonName("Questie_MinimapFrame"))
+		assert.is_false(ns.IsMinimapButtonName("HandyNotes_Minimap"))
+		assert.is_false(ns.IsMinimapButtonName("TomTomMinimapIcon"))
+		assert.is_false(ns.IsMinimapButtonName("GatherLiteMinimapIcon"))
+	end)
+
+	it("accepts TomCats buttons even though they end in the year", function()
+		assert.is_true(ns.IsMinimapButtonName("TomCats-MinimapButton2026"))
+	end)
+end)
+
+describe("LibDBIconObjectName", function()
+	local ns = {}
+	assert(loadfile("addons/OrdaenMinimap/Names.lua"))("OrdaenMinimap", ns)
+
+	it("extracts the data object name", function()
+		assert.equals("Details", ns.LibDBIconObjectName("LibDBIcon10_Details"))
+		assert.is_nil(ns.LibDBIconObjectName("AltoholicMinimapButton"))
+		assert.is_nil(ns.LibDBIconObjectName(nil))
 	end)
 end)

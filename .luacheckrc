@@ -14,6 +14,9 @@ read_globals = {
 	"LibStub",
 	-- used by OrdaenMinimap
 	"C_Timer",
+	"GameTooltip",
+	"IsShiftKeyDown",
+	"MouseIsOver",
 	"CreateSettingsListSectionHeaderInitializer",
 	"ReloadUI",
 	"StaticPopup_Show",

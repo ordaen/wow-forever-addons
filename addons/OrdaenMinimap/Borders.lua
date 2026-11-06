@@ -52,9 +52,13 @@ ns.DEFAULTS = {
 	borderStyle = "gold",
 	borderColor = "natural",
 	scale = 1,
+	drawerEnabled = true,
+	hideBlizzardCompartment = true,
+	drawerColumns = 6,
 }
 
 ns.SCALE_MIN, ns.SCALE_MAX, ns.SCALE_STEP = 0.8, 1.6, 0.05
+ns.DRAWER_COLUMNS_MIN, ns.DRAWER_COLUMNS_MAX = 2, 12
 
 local function byId(list, id)
 	for _, entry in ipairs(list) do
@@ -104,6 +108,17 @@ function ns.ApplyDefaults(db)
 		db.scale = ns.DEFAULTS.scale
 	else
 		db.scale = math.min(ns.SCALE_MAX, math.max(ns.SCALE_MIN, scale))
+	end
+	for _, flag in ipairs({ "drawerEnabled", "hideBlizzardCompartment" }) do
+		if type(db[flag]) ~= "boolean" then
+			db[flag] = ns.DEFAULTS[flag]
+		end
+	end
+	local columns = tonumber(db.drawerColumns)
+	if not columns then
+		db.drawerColumns = ns.DEFAULTS.drawerColumns
+	else
+		db.drawerColumns = math.min(ns.DRAWER_COLUMNS_MAX, math.max(ns.DRAWER_COLUMNS_MIN, math.floor(columns + 0.5)))
 	end
 	return db
 end

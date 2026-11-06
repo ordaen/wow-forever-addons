@@ -39,6 +39,9 @@ local function stubObject(name, extra)
 	obj.IsShown = function(self)
 		return self.shown
 	end
+	obj.CreateTexture = function()
+		return stubObject(name .. ".texture")
+	end
 	for k, v in pairs(extra or {}) do
 		rawset(obj, k, v)
 	end
@@ -62,7 +65,20 @@ describe("OrdaenMinimap smoke", function()
 	before_each(function()
 		frames, hooks, chat, settings, opened = {}, {}, {}, {}, nil
 		-- What the fake client reports; tests change these to simulate other addons.
-		world = { loaded = {}, stack = BLIZZARD_STACK, taint = { true, nil }, popups = {}, timers = {}, disabled = {} }
+		world = {
+			loaded = {},
+			stack = BLIZZARD_STACK,
+			taint = { true, nil }, -- issecurevariable("GetMinimapShape")
+			secure = {}, -- issecurevariable(_G, name) for frame names
+			popups = {},
+			timers = {},
+			disabled = {},
+			addonList = {}, -- C_AddOns.GetAddOnInfo(i)
+			children = {}, -- Minimap:GetChildren()
+			icons = {}, -- LibDBIcon buttons by name
+			iconOrder = {},
+			runtimeEntries = {}, -- AddonCompartmentFrame.registeredAddons
+		}
 		helpers.stubGlobals({
 			GetLocale = function()
 				return "ruRU"
@@ -83,11 +99,46 @@ describe("OrdaenMinimap smoke", function()
 		addons.DisableAddOn = function(name)
 			table.insert(world.disabled, name)
 		end
+		addons.GetNumAddOns = function()
+			return #world.addonList
+		end
+		addons.GetAddOnInfo = function(i)
+			return world.addonList[i]
+		end
 		local minimap = stubObject("Minimap")
 		minimap.ZoomIn = stubObject("ZoomIn")
 		minimap.ZoomOut = stubObject("ZoomOut")
+		minimap.GetChildren = function()
+			return unpack(world.children)
+		end
 		local stubs = {
 			Minimap = minimap,
+			AddonCompartmentFrame = stubObject("AddonCompartmentFrame", { registeredAddons = world.runtimeEntries }),
+			UISpecialFrames = {},
+			GameTooltip = stubObject("GameTooltip"),
+			MouseIsOver = function()
+				return false
+			end,
+			IsShiftKeyDown = function()
+				return false
+			end,
+			LibStub = function(major)
+				if major ~= "LibDBIcon-1.0" then
+					return nil
+				end
+				return {
+					GetButtonList = function()
+						return world.iconOrder
+					end,
+					GetMinimapButton = function(_, name)
+						return world.icons[name]
+					end,
+					RegisterCallback = function(_, event, fn)
+						world.iconCallbacks = world.iconCallbacks or {}
+						world.iconCallbacks[event] = fn
+					end,
+				}
+			end,
 			MinimapCompassTexture = stubObject("MinimapCompassTexture"),
 			MinimapCluster = stubObject("MinimapCluster", { UpdateMinimapConfig = function() end }),
 			CreateFrame = function(_, name)
@@ -113,7 +164,10 @@ describe("OrdaenMinimap smoke", function()
 				return { header = text }
 			end,
 			SlashCmdList = {},
-			issecurevariable = function()
+			issecurevariable = function(tbl, name)
+				if type(tbl) == "table" then
+					return world.secure[name] == true, nil
+				end
 				return world.taint[1], world.taint[2]
 			end,
 			C_Timer = {
@@ -162,6 +216,7 @@ describe("OrdaenMinimap smoke", function()
 					return stubObject("sliderOptions")
 				end,
 				CreateSlider = function() end,
+				CreateCheckbox = function() end,
 				RegisterAddOnCategory = function() end,
 				OpenToCategory = function(id)
 					opened = id
@@ -178,6 +233,15 @@ describe("OrdaenMinimap smoke", function()
 		ns = {}
 		loadToc("OrdaenMinimap", ns)
 	end)
+
+	local function frameNamed(name)
+		for _, f in ipairs(frames) do
+			if f.name == name then
+				return f
+			end
+		end
+		return nil
+	end
 
 	local function fire(event, arg)
 		local eventFrame = frames[1]
@@ -203,7 +267,7 @@ describe("OrdaenMinimap smoke", function()
 		assert.is_false(Minimap.ZoomIn.shown)
 		assert.is_function(Minimap.scripts.OnMouseWheel)
 
-		local border = frames[#frames]
+		local border = frameNamed("OrdaenMinimapBorder")
 		assert.equals("OrdaenMinimapBorder", border.name)
 		assert.equals("Interface\\DialogFrame\\UI-DialogBox-Border", border.calls.SetBackdrop[1][1].edgeFile)
 		assert.same({ 1 }, Minimap.calls.SetScale[1])
@@ -232,7 +296,7 @@ describe("OrdaenMinimap smoke", function()
 		fire("PLAYER_LOGIN")
 		settings.borderStyle:Set("thin")
 		settings.borderColor:Set("class")
-		local border = frames[#frames]
+		local border = frameNamed("OrdaenMinimapBorder")
 		local lastBackdrop = border.calls.SetBackdrop[#border.calls.SetBackdrop][1]
 		assert.equals("Interface\\Buttons\\WHITE8X8", lastBackdrop.edgeFile)
 		assert.same({ 0.78, 0.61, 0.43, 1 },
@@ -335,13 +399,13 @@ describe("OrdaenMinimap smoke", function()
 			world.stack = [[[string "@Interface/AddOns/SexyMap/Shapes.lua"]:348: in function 'ApplyShape']]
 			Minimap:SetMaskTexture("round")
 			assert.equals("SexyMap", world.popups[1].data)
-			assert.is_false(frames[#frames].shown) -- our border is gone
+			assert.is_false(frameNamed("OrdaenMinimapBorder").shown) -- our border is gone
 			assert.is_nil(_G.GetMinimapShape)
 		end)
 
 		it("the delayed check catches changes that bypassed our hooks", function()
 			login()
-			assert.equals(1, #world.timers)
+			assert.is_function(world.timers[1]) -- the delayed check is scheduled first
 			rawset(_G, "GetMinimapShape", function()
 				return "ROUND"
 			end)
@@ -354,6 +418,132 @@ describe("OrdaenMinimap smoke", function()
 			login()
 			world.timers[1]()
 			assert.equals(0, #world.popups)
+		end)
+	end)
+
+	describe("drawer", function()
+		local function login()
+			fire("ADDON_LOADED", "OrdaenMinimap")
+			fire("PLAYER_LOGIN")
+		end
+
+		local function addButton(name, opts)
+			local button = stubObject(name, { GetName = function()
+				return name
+			end })
+			if opts and opts.libdbicon then
+				world.icons[opts.libdbicon] = button
+				table.insert(world.iconOrder, opts.libdbicon)
+			else
+				table.insert(world.children, button)
+			end
+			return button
+		end
+
+		local function addTocEntry(addon, fields)
+			table.insert(world.addonList, addon)
+			world.loaded[addon] = true
+			helpers.metadata[addon] = fields
+		end
+
+		it("collects buttons that ignore the square, LibDBIcon buttons, and leaves the rest", function()
+			local alto = addButton("AltoholicMinimapButton")
+			local bio = addButton("AutoBiographer_MinimapButton")
+			local details = addButton("LibDBIcon10_Details", { libdbicon = "Details" })
+			local pin = addButton("HandyNotes_Minimap")
+			local blizzard = addButton("MiniMapTrackingButton")
+			world.secure.MiniMapTrackingButton = true
+			local drawerCalls = function(b)
+				return b.calls.SetParent and #b.calls.SetParent or 0
+			end
+			login()
+			local container = frameNamed("OrdaenMinimapDrawer")
+			assert.truthy(container)
+			assert.truthy(frameNamed("OrdaenMinimapDrawerButton"))
+			for _, b in ipairs({ alto, bio, details }) do
+				assert.equals(1, drawerCalls(b), b.name)
+				assert.equals(container, b.calls.SetParent[1][1])
+			end
+			assert.equals(0, drawerCalls(pin))
+			assert.equals(0, drawerCalls(blizzard))
+		end)
+
+		it("keeps collected buttons from moving themselves back onto the map", function()
+			local bio = addButton("AutoBiographer_MinimapButton")
+			login()
+			local before = bio.calls.SetPoint and #bio.calls.SetPoint or 0
+			bio:SetPoint("TOPLEFT", Minimap, "TOPLEFT", 52, -52) -- what its own code does
+			local after = bio.calls.SetPoint and #bio.calls.SetPoint or 0
+			assert.equals(before, after)
+		end)
+
+		it("collects LibDBIcon buttons created after login", function()
+			login()
+			local late = stubObject("LibDBIcon10_Late")
+			world.iconCallbacks.LibDBIcon_IconCreated("LibDBIcon_IconCreated", late, "Late")
+			assert.equals(frameNamed("OrdaenMinimapDrawer"), late.calls.SetParent[1][1])
+		end)
+
+		it("shows compartment entries, calls their functions, and hides twins of shown icons", function()
+			local clicked = {}
+			rawset(_G, "Pawn_OnCompartmentClick", function(addon, mouseButton)
+				table.insert(clicked, { addon, mouseButton })
+			end)
+			addTocEntry("Pawn", { Title = "Pawn", AddonCompartmentFunc = "Pawn_OnCompartmentClick" })
+			addTocEntry("Details", { Title = "Details!", AddonCompartmentFunc = "Details_Click" })
+			addButton("LibDBIcon10_Details", { libdbicon = "Details" })
+			table.insert(world.runtimeEntries, {
+				text = "Baganator",
+				func = function(_, input)
+					table.insert(clicked, { "Baganator", input.buttonName })
+				end,
+			})
+			login()
+			frameNamed("OrdaenMinimapDrawerButton").scripts.OnClick(nil, "LeftButton")
+
+			local description = ns.Drawer.Describe()
+			assert.same({ "toc: Pawn", "runtime: Baganator" }, description.entries)
+
+			local entryButtons = {}
+			for _, f in ipairs(frames) do
+				if f.name == "anon" and f.scripts.OnClick and f.index then
+					entryButtons[f.index] = f
+				end
+			end
+			entryButtons[1].scripts.OnClick(entryButtons[1], "RightButton")
+			entryButtons[2].scripts.OnClick(entryButtons[2], "LeftButton")
+			assert.same({ { "Pawn", "RightButton" }, { "Baganator", "LeftButton" } }, clicked)
+			rawset(_G, "Pawn_OnCompartmentClick", nil)
+		end)
+
+		it("hides Blizzard's compartment button by default and shows it when the option is off", function()
+			login()
+			assert.is_false(_G.AddonCompartmentFrame.shown)
+			_G.AddonCompartmentFrame:Show()
+			assert.is_false(_G.AddonCompartmentFrame.shown)
+			settings.hideBlizzardCompartment:Set(false)
+			assert.is_true(_G.AddonCompartmentFrame.shown)
+		end)
+
+		it("stays off with a warning while MinimapButtonButton is loaded", function()
+			world.loaded.MinimapButtonButton = true
+			local bio = addButton("AutoBiographer_MinimapButton")
+			login()
+			assert.is_nil(frameNamed("OrdaenMinimapDrawerButton"))
+			assert.is_nil(bio.calls.SetParent)
+			local warned = false
+			for _, line in ipairs(chat) do
+				warned = warned or line:find("MinimapButtonButton", 1, true) ~= nil
+			end
+			assert.is_true(warned)
+		end)
+
+		it("does nothing when turned off in the settings", function()
+			rawset(_G, "OrdaenMinimapDB", { drawerEnabled = false })
+			login()
+			assert.is_nil(frameNamed("OrdaenMinimapDrawerButton"))
+			settings.drawerEnabled:Set(true)
+			assert.truthy(frameNamed("OrdaenMinimapDrawerButton"))
 		end)
 	end)
 end)

@@ -29,5 +29,7 @@ Borders.lua
 Conflicts.lua
 Map.lua
 Guard.lua
+DrawerData.lua
+Drawer.lua
 Options.lua
 Core.lua

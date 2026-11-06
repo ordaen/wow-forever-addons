@@ -62,7 +62,7 @@ decided with the user.
 - SavedVariables `OrdaenMinimapDB`; slash `/om` opens the settings (alias `/ordaenminimap`), `/om reset` restores defaults.
 - Forever runs the **modern (mainline) minimap code** with Forever tweaks (SexyMap loads its mainline files there; its
   `Init_Camelot.lua` sets `isForever`). Frame names differ between clients, so `Map.lua` looks up each Blizzard piece by
-  several names, skips missing ones and records what it found (`/om dump` with dev mode). Toggling "rotate minimap"
+  several names, skips missing ones and records what it found (dev-mode dump: "Save for Claude & reload" in the Ordaen Dev window). Toggling "rotate minimap"
   runs `MinimapCluster:UpdateMinimapConfig`, which resets the mask and sizes: we hook it and re-apply.
 - Settings page: Blizzard Settings API in its newer form (`Settings.RegisterAddOnSetting(category, variable, key, tbl,
   type, name, default)`, `Settings.CreateDropdown/CreateSlider/CreateCheckbox`), registered on `ADDON_LOADED` because it
@@ -83,6 +83,11 @@ decided with the user.
 - Feature: square map with a configurable border. Styles in `ns.BORDER_STYLES` are backdrops drawn by a frame around the
   map; built-in ones use game textures (gold dialog, tooltip, thin line). Custom art goes in `media/` as a new style.
 - Feature: button drawer (replaces MinimapButtonButton, MBB) that also collects **addon compartment** entries.
+  Implemented in `DrawerData.lua` (pure: grid, entry merging) and `Drawer.lua`; settings `drawerEnabled` (default
+  on), `hideBlizzardCompartment` (default on), `drawerColumns`; main button position `drawerButton` is an offset from
+  the minimap center (Shift-drag moves it, right-click opens settings). Needed on a square map anyway: addons like
+  Altoholic (AddonFactory template) and AutoBiographer place their buttons on a circle with their own math and never
+  ask `GetMinimapShape`. MBB's code is "All rights reserved": use it as a behavior reference only, never copy it.
   - One main button; clicking it toggles a grid "drawer" of buttons.
   - Collects minimap buttons the way MBB does (`_forever_\Interface\AddOns\MinimapButtonButton\Logic\Main.lua` is the reference):
     LibDBIcon buttons (+ `LibDBIcon_IconCreated` callback), Minimap children whose names match

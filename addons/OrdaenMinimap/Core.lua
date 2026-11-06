@@ -17,11 +17,12 @@ local function Print(...)
 end
 ns.Print = Print
 
--- What /om dump saves (through Debug.Snapshot, so frames are described rather than stored).
+-- The dev-mode dump ("Save for Claude & reload" in the Ordaen Dev window), through Debug.Snapshot.
 local function dumpState()
 	return {
 		db = OrdaenMinimapDB,
 		map = ns.Map.Describe(),
+		drawer = ns.Drawer.Describe(),
 	}
 end
 
@@ -30,6 +31,7 @@ local function applyAll()
 		return
 	end
 	ns.Map.Apply(OrdaenMinimapDB)
+	ns.Drawer.Apply(OrdaenMinimapDB)
 end
 
 local frame = CreateFrame("Frame")
@@ -73,6 +75,8 @@ SlashCmdList.ORDAENMINIMAP = Debug.Wrap(function(msg)
 			OrdaenMinimapDB[key] = value
 		end
 		OrdaenMinimapDB.conflictChoice = nil
+		OrdaenMinimapDB.drawerButton = nil
+		ns.Drawer.PlaceMainButton()
 		applyAll()
 		Print(L.RESET_DONE)
 	else

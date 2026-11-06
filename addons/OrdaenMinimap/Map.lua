@@ -44,7 +44,7 @@ local function findFirst(names)
 	return nil, nil
 end
 
-Map.found = {} -- name -> found name or false, for /om dump
+Map.found = {} -- name -> found name or false, for the dev-mode dump
 Map.active = false -- true while we own the minimap's look (false = stepped aside for a conflict)
 Map.onForeignChange = nil -- function(what, stack), set by Guard.lua
 
@@ -277,7 +277,7 @@ function Map.Verify()
 	return problems
 end
 
---- What /om dump records about the map.
+--- What the dev-mode dump records about the map.
 function Map.Describe()
 	return {
 		active = Map.active,
