@@ -117,6 +117,32 @@ describe("OrdaenCore.UI layout", function()
 		assert.equals(LINE, r.items[2].y)
 	end)
 
+	it("places a block child left, centred or right in a wide cell, at its content's width", function()
+		local function side(align)
+			return { align = align, columns = { "auto", "auto" }, gap = 0, padding = 0, { text = "ab" },
+				{ text = "cd" } }
+		end
+		local l, c, rt = side("left"), side("center"), side("right")
+		local root = { columns = { "1fr" }, width = 200, padding = 0, gap = 0, l, c, rt }
+		Layout.Run(root, nil, ctx())
+		local items = Layout.ResultOf(root).items
+		assert.same({ 0, 24 }, { items[1].x, items[1].w })
+		assert.same({ 88, 24 }, { items[2].x, items[2].w })
+		assert.same({ 176, 24 }, { items[3].x, items[3].w })
+	end)
+
+	it("centres children in their row and rows in a fixed height (rowAlign), a child may differ (valign)", function()
+		local tall = { image = "x", width = 10, height = 30 }
+		local short = { text = "ab" }
+		local low = { text = "cd", valign = "bottom" }
+		local root = { columns = { "auto", "auto", "auto" }, rowAlign = "center", height = 50, padding = 0, gap = 0,
+			tall, short, low }
+		local r = Layout.Run(root, nil, ctx())
+		-- the row is 30 high; the block 50, so the row starts at 10
+		assert.same({ 10, 19, 28 }, { r.items[1].y, r.items[2].y, r.items[3].y })
+		assert.equals(50, r.height)
+	end)
+
 	it("skips hidden children without leaving a gap", function()
 		local invites = { text = "invites!", hidden = true }
 		local block = { gap = 5, invites, { text = "Click: calendar" } }

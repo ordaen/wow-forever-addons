@@ -103,6 +103,20 @@ end
 -- Blizzard's layout code moves its buttons (vehicle UI, Edit Mode): put ours back right after. Hooked once per
 -- button; does nothing for a button we gave back.
 local hooked = {}
+-- Blizzard greys out a button that can't be used yet (talents before level 10): our icon follows, in the theme's
+-- colour for disabled things. Runs on Blizzard's Enable/Disable, rare.
+local function followEnabled(button)
+	local dress = dresses[button]
+	if not dress or not slotOf[button] then
+		return
+	end
+	local color = (not button:IsEnabled()) and "color.disabled" or nil
+	if dress.icon.color ~= color then
+		dress.icon.color = color
+		dress:Refresh()
+	end
+end
+
 local function hookPlacement(button)
 	if hooked[button] then
 		return
@@ -110,26 +124,55 @@ local function hookPlacement(button)
 	hooked[button] = true
 	hooksecurefunc(button, "SetPoint", place)
 	hooksecurefunc(button, "SetParent", place)
+	hooksecurefunc(button, "Enable", followEnabled)
+	hooksecurefunc(button, "Disable", followEnabled)
+	hooksecurefunc(button, "SetEnabled", followEnabled)
 	-- Found at runtime, so the build can't claim them: another bar addon moving them is a conflict (Conflict.lua).
 	ns.Addon:Claim(button, { "SetPoint", "SetParent" }, button:GetName() or "a Blizzard button")
 end
 
 -- Blizzard's icon of a button, for our look of it: its normal texture's atlas or file, else its `icon` region.
--- A texture's atlas or file, if it has one.
+-- Art around an icon, never the icon: hover and highlight frames (the first test picked
+-- "UI-HUD-ActionBar-IconFrame-Mouseover" for the character and social buttons).
+local function decoration(name)
+	return type(name) == "string" and (name:find("IconFrame") or name:find("Mouseover") or name:find("Highlight")
+		or name:find("Border")) ~= nil
+end
+
+-- A texture's atlas or file, if it has one that isn't decoration.
 local function art(texture)
 	if not (texture and texture.GetAtlas) then
 		return nil, nil
 	end
 	local atlas = texture:GetAtlas()
 	if atlas then
+		if decoration(atlas) then
+			return nil, nil
+		end
 		return nil, atlas
 	end
-	return texture:GetTexture(), nil
+	local file = texture:GetTexture()
+	if decoration(file) then
+		return nil, nil
+	end
+	return file, nil
 end
+
+-- No art found (the social button may draw its icon on child frames): the friends toast icon.
+local FALLBACK_ICON = "Interface\\FriendsFrame\\UI-Toast-FriendOnlineIcon"
+
+-- Buttons whose icon Blizzard draws some other way (the character button shows the player's portrait).
+local OWN_ICONS = {
+	CharacterMicroButton = "UI-HUD-MicroMenu-CharacterInfo-Up",
+}
 
 -- Blizzard's icon of a button: its own `icon` (a bag's item), else its normal texture, else the first texture
 -- region with art (QuickJoinToastButton draws its icon on a plain region).
 local function iconOf(button)
+	local own = OWN_ICONS[button:GetName() or ""]
+	if own then
+		return nil, own
+	end
 	local file, atlas = art(rawget(button, "icon"))
 	if file or atlas then
 		return file, atlas
@@ -146,7 +189,7 @@ local function iconOf(button)
 			end
 		end
 	end
-	return nil, nil
+	return FALLBACK_ICON, nil
 end
 
 -- Blizzard's text on the buttons we hold (a bag's free slots, the friends count): we show our own next to them,
@@ -208,6 +251,7 @@ local function take(button, slot, texts)
 	if texts then
 		hideTexts(button)
 	end
+	followEnabled(button)
 	ns.Addon.Debug:Logf("held %s: icon %s", button:GetName() or "?", tostring(atlas or icon))
 end
 
@@ -379,12 +423,12 @@ local function build()
 	local s = db()
 	size = s.buttonSize
 	local across = horizontal()
-	microGroup = microGroup or { gap = 2 }
-	socialGroup = socialGroup or { gap = "xs", align = "center" }
-	bagGroup = bagGroup or { gap = 2 }
-	left = left or { gap = "md", align = "left", microGroup, socialGroup }
+	microGroup = microGroup or { gap = 2, rowAlign = "center" }
+	socialGroup = socialGroup or { gap = "xs", rowAlign = "center" }
+	bagGroup = bagGroup or { gap = 2, rowAlign = "center" }
+	left = left or { gap = "md", align = "left", rowAlign = "center", microGroup, socialGroup }
 	left.columns = across and { "auto", "auto" } or { "auto" }
-	right = right or { gap = "md", align = "right", money }
+	right = right or { gap = "md", align = "right", rowAlign = "center", money }
 	for i = 1, MAX_CURRENCIES do
 		right[1 + i] = currencyTexts[i]
 	end
@@ -396,23 +440,19 @@ local function build()
 			gap = "xs",
 			tipName, tipValue, tipRested, tipQuest, tipRate, tipLevel,
 		}, { side = "above" })
-		barHolder = UI.Block({ width = 200, xp })
+		barHolder = UI.Block({ width = 200, padding = 0, xp })
 		if barHolder then
 			barHolder:On("enter", onBarEnter)
 			barHolder:On("leave", onBarLeave)
 		end
 	end
 	middle = middle or { embed = barHolder, align = "center" }
-	xp.height = math.max(10, math.floor(size * 0.5))
-	if barHolder then
-		-- the bar in the middle of the row's height (blocks align only across, so a top padding)
-		barHolder.block.height = size + 4
-		barHolder.block.padding = { math.floor((size + 4 - xp.height) / 2), 0, 0, 0 }
-	end
+	xp.height = math.max(10, size - 4)
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
 		spec = {
 			columns = { "1fr", "auto", "1fr" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size + 8,
+			rowAlign = "center",
 			left, middle, right,
 		}
 	else

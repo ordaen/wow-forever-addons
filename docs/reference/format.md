@@ -15,6 +15,7 @@ A table without `text`, `image`, `separator` or `bar`. Its array part holds the 
 | `minWidth` | number | theme | |
 | `maxWidth` | number | theme | `tooltip`: 25 ems (300 at text size 12) |
 | `height` | number | from content | forces the height |
+| `rowAlign` | `"top"`, `"center"`, `"bottom"` | top | children in their rows; with `height`, the rows in that height |
 | `[1..n]` | nodes | | the children, in order |
 
 ## Text
@@ -65,7 +66,7 @@ Separators take their cell's whole width; give them `colSpan` in a block with se
 | `animate` | boolean | false | changes glide (the game animates the status bar, no Lua per frame), a gain flashes for a moment (the theme's `motion.fade`), a value that drops (a new level) runs to the end first, then starts again |
 | `sections` | integer | none | split into this many sections by one-pixel lines in the theme's bar edge colour, like Blizzard's experience bar (20) |
 | `text`, or `format` + `args` | | | text on the bar, centred; `style`, `textColor` as for text |
-| `height` | number | the theme's (`sm`) | |
+| `height` | number | the theme's (`md`) | |
 
 The texture is the theme's `bar.texture` token. Colours given as token names follow the theme, so an addon never
 picks a colour of its own for a look (`color.xp`, `color.quest`, `color.rested`, `color.reputation.<standing>`
@@ -77,7 +78,8 @@ with the standings `hated` to `exalted`).
 |---|---|---|---|
 | `hidden` | boolean | false | skipped: no cell, no gap |
 | `colSpan` | number | 1 | capped at the column count |
-| `align` | `"left"`, `"center"`, `"right"` | left | placement inside the cell |
+| `align` | `"left"`, `"center"`, `"right"` | left | placement inside the cell (a block with `align` is as wide as its content) |
+| `valign` | `"top"`, `"center"`, `"bottom"` | the parent's `rowAlign` | placement inside the row's height |
 | `shift` | boolean | none | `true`: only while Shift is held; `false`: only while it isn't (a "Hold Shift" hint) |
 
 A tooltip with `shift` rows listens to `MODIFIER_STATE_CHANGED` only while it is shown and redraws when Shift

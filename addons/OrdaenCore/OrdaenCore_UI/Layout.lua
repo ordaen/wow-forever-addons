@@ -11,8 +11,11 @@
 --     child, child, ...             -- blocks or elements
 --   }
 -- Every child may have: colSpan = n, hidden = true (skipped), align = "left" | "center" | "right" (default:
--- text left, blocks and images stretch/left), shift = true (only while Shift is held) or false (only while it
--- isn't): secondary rows a player asks for.
+-- text left, blocks and images stretch/left; a block with `align` shrinks to its content, then is placed),
+-- valign = "top" | "center" | "bottom" (in its row; default: the block's rowAlign, else top), shift = true (only
+-- while Shift is held) or false (only while it isn't): secondary rows a player asks for.
+-- A block's rowAlign = "center" | "bottom" places its children that way in their rows and, when the block has a
+-- fixed height, its rows in that height (a bar in the middle of a panel's height).
 -- padding and gap take spacing tokens ("xs", "sm", "md", "lg", "xl") or numbers; tokens come from the theme's
 -- design scale (ctx.space), so they grow with the player's text size.
 -- Elements: { text = "...", style = "body" } or { format = "%d:%02d", args = { h, m } } (text drawn with WoW's
@@ -146,6 +149,13 @@ local function sizeIn(child, cellWidth, natural, ctx)
 	elseif isImage(child) then
 		local w, h = imageSize(child)
 		return min(w, cellWidth), h
+	end
+	if child.align and not child.width then
+		-- placed inside its cell: as wide as its content (up to the cell), so left/center/right mean something
+		local r = layoutBlock(child, nil, ctx)
+		if r.width <= cellWidth then
+			return r.width, r.height
+		end
 	end
 	local r = layoutBlock(child, child.width or cellWidth, ctx)
 	return r.width, r.height
@@ -324,6 +334,15 @@ function layoutBlock(node, width, ctx)
 		r.rowY[rr] = y
 		y = y + r.rowHeight[rr] + (rr < rows and gapRow or 0)
 	end
+	-- A fixed height with rowAlign: the rows sit in the middle (or at the bottom) of it.
+	local rowAlign = node.rowAlign
+	local shift = 0
+	if node.height and rowAlign and rowAlign ~= "top" then
+		local free = node.height - (y + padBottom)
+		if free > 0 then
+			shift = rowAlign == "center" and floor(free / 2 + 0.5) or free
+		end
+	end
 	for i = 1, count do
 		local item = items[i]
 		local align = item.node.align
@@ -333,7 +352,15 @@ function layoutBlock(node, width, ctx)
 		elseif align == "center" then
 			left = left + floor((item.cellWidth - item.w) / 2 + 0.5)
 		end
-		item.x, item.y = left, r.rowY[item.row]
+		local top = r.rowY[item.row] + shift
+		local valign = item.node.valign or rowAlign
+		local free = r.rowHeight[item.row] - item.h
+		if free > 0 and valign == "center" then
+			top = top + floor(free / 2 + 0.5)
+		elseif free > 0 and valign == "bottom" then
+			top = top + free
+		end
+		item.x, item.y = left, top
 	end
 
 	r.width = outer

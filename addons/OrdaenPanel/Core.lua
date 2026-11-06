@@ -90,7 +90,9 @@ Micro:OnEnable(function(db)
 	if A.Debug:IsEnabled() then
 		local names = {}
 		for i, child in ipairs(candidates) do
-			names[i] = (child:GetName() or "?") .. (child:IsShown() and "" or " (hidden)")
+			local parent = child:GetParent()
+			names[i] = (child:GetName() or "?") .. " in " .. (parent and parent:GetName() or "?")
+				.. (child:IsVisible() and "" or " (not visible)") .. (child:IsEnabled() and "" or " (disabled)")
 		end
 		A.Debug:Logf("micromenu: %d of %d candidates: %s", #microButtons, #candidates, table.concat(names, ", "))
 	end

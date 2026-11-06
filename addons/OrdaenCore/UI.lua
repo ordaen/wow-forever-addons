@@ -93,7 +93,9 @@ local unavailable = false
 ---@field height number|nil
 ---@field hidden boolean|nil as a child: skipped, no cell
 ---@field colSpan number|nil as a child: columns it spans
----@field align string|nil as a child: "left", "center" or "right" in its cell
+---@field align string|nil as a child: "left", "center" or "right" in its cell (a block shrinks to its content)
+---@field valign string|nil as a child: "top", "center" or "bottom" in its row (default: the parent's rowAlign)
+---@field rowAlign string|nil "top" (default), "center" or "bottom": children in their rows, rows in a fixed height
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUITooltipOpts

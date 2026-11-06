@@ -134,7 +134,7 @@ describe("Ordaen Panel segments", function()
 				GetName = function()
 					return name
 				end,
-				IsShown = function()
+				IsVisible = function()
 					return shown ~= false
 				end,
 				GetLeft = function()

@@ -164,7 +164,8 @@ Segments.bags = {
 local Micro = {}
 ns.Micro = Micro
 
---- The micro buttons to show, in the order Blizzard laid them out: shown children named "...MicroButton", sorted
+--- The micro buttons to show, in the order Blizzard laid them out: visible frames named "...MicroButton" (a button
+--- this client doesn't use is shown on a hidden parent: the Housing and Achievements buttons on Forever), sorted
 --- by position (left to right, or top to bottom when they stand in a column), minus the ones the player hid.
 ---@param children table[] MicroMenu's children (frames with GetName, IsShown, GetLeft, GetTop)
 ---@param hidden table<string, boolean> db.hiddenMicro
@@ -174,7 +175,7 @@ function Micro.Order(children, hidden, out)
 	local n = 0
 	for _, child in ipairs(children) do
 		local name = child.GetName and child:GetName()
-		if name and name:find("MicroButton$") and child:IsShown() and not hidden[name] then
+		if name and name:find("MicroButton$") and child:IsVisible() and not hidden[name] then
 			n = n + 1
 			out[n] = child
 		end
