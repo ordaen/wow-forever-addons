@@ -128,6 +128,44 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 		Core = helpers.loadCore()
 	end)
 
+	describe("loading screen", function()
+		it("runs what waited when LOADING_SCREEN_DISABLED comes", function()
+			start()
+			local ran = 0
+			Core._AfterLoadingScreen(function()
+				ran = ran + 1
+			end)
+			login(true)
+			assert.equals(0, ran)
+			fire("LOADING_SCREEN_DISABLED")
+			assert.equals(1, ran)
+			Core._AfterLoadingScreen(function()
+				ran = ran + 1
+			end)
+			assert.equals(2, ran, "right away once it is gone")
+		end)
+
+		it("ends it at PLAYER_ENTERING_WORLD when that comes first, and runs nothing twice", function()
+			start()
+			local ran = 0
+			Core._AfterLoadingScreen(function()
+				ran = ran + 1
+			end)
+			login(true)
+			fire("PLAYER_ENTERING_WORLD", false, true)
+			assert.equals(1, ran)
+			fire("LOADING_SCREEN_DISABLED") -- late: nothing runs twice
+			assert.equals(1, ran)
+			fire("LOADING_SCREEN_ENABLED") -- a zone change
+			Core._AfterLoadingScreen(function()
+				ran = ran + 1
+			end)
+			assert.equals(1, ran)
+			fire("PLAYER_ENTERING_WORLD", false, false)
+			assert.equals(2, ran)
+		end)
+	end)
+
 	describe("unit events", function()
 		it("register on one frame per unit, and only reach that unit's handlers", function()
 			local A = start()

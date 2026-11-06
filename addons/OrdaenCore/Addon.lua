@@ -522,9 +522,17 @@ end
 local loadingScreen = true
 local afterLoading = {} -- functions waiting for the loading screen to end
 
+-- Whichever comes first ends it: PLAYER_ENTERING_WORLD (the world is ready; after a /reload Forever sent
+-- LOADING_SCREEN_DISABLED only much later, so a dialog waited, 2026-11-06) or LOADING_SCREEN_DISABLED. Dev mode logs
+-- each with its time, to see how the client orders them.
 local function onLoadingScreen(event)
+	local Debug = Core.NewDebug("OrdaenCore")
+	Debug:Logf("%s at %.1f", event, GetTime())
 	if event == "LOADING_SCREEN_ENABLED" then
 		loadingScreen = true
+		return
+	end
+	if not loadingScreen then
 		return
 	end
 	loadingScreen = false
@@ -587,6 +595,7 @@ function Core.NewAddon(addonName, addonNs, spec)
 		watchingLoadingScreen = true
 		addHandler("LOADING_SCREEN_ENABLED", onLoadingScreen)
 		addHandler("LOADING_SCREEN_DISABLED", onLoadingScreen)
+		addHandler("PLAYER_ENTERING_WORLD", onLoadingScreen)
 	end
 	if not loggedIn and not waitingForLogin then
 		loggedIn = IsLoggedIn() or false
