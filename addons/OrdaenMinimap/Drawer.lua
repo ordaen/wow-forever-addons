@@ -448,7 +448,7 @@ local function createFrames()
 
 	mainButton:SetScript("OnClick", ns.Debug.Wrap(function(_, mouseButton)
 		if mouseButton == "RightButton" then
-			ns.Options.Open()
+			ns.Addon:OpenSettings()
 		else
 			Drawer.Toggle()
 		end

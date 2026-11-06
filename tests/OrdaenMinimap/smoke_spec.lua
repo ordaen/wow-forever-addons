@@ -72,12 +72,7 @@ local function stubObject(name, extra)
 end
 
 local function loadToc(addon, ns)
-	local toc = assert(io.open("addons/" .. addon .. "/" .. addon .. ".toc")):read("*a")
-	for file in toc:gmatch("[^\r\n]+") do
-		if file:match("%.lua$") then
-			assert(loadfile("addons/" .. addon .. "/" .. file))(addon, ns)
-		end
-	end
+	helpers.loadAddon(addon, ns)
 end
 
 describe("OrdaenMinimap smoke", function()
@@ -253,6 +248,9 @@ describe("OrdaenMinimap smoke", function()
 				return { header = text }
 			end,
 			SlashCmdList = {},
+			IsLoggedIn = function()
+				return false -- the specs fire PLAYER_LOGIN themselves
+			end,
 			issecurevariable = function(tbl, name)
 				if type(tbl) == "table" then
 					return world.secure[name] == true, nil

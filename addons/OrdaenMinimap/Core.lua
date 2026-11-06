@@ -1,23 +1,24 @@
+-- Ordaen Minimap's start: declares the addon to the Ordaen Core framework (SavedVariables, settings page, slash
+-- commands) and starts the features once the settings and the world are there.
 local addonName, ns = ...
-if not OrdaenCore.IsCompatible(addonName) then
-	return
-end
-local Debug = OrdaenCore.NewDebug(addonName)
-ns.Debug = Debug
 
 local L = ns.L
-local SLASH = "/om"
 
-local function Print(...)
-	local parts = {}
-	for i = 1, select("#", ...) do
-		parts[i] = tostring((select(i, ...)))
+local function applyAll()
+	if ns.Guard.blocked then
+		return
 	end
-	DEFAULT_CHAT_FRAME:AddMessage("|cff33ff99" .. addonName .. "|r: " .. table.concat(parts, " "))
+	local db = OrdaenMinimapDB
+	ns.Map.Apply(db)
+	if not ns.Map.active then
+		return
+	end
+	ns.Buttons.Apply(db)
+	ns.Info.Apply(db)
+	ns.Drawer.Apply(db)
 end
-ns.Print = Print
 
--- The dev-mode dump ("Save for Claude & reload" in the Ordaen Dev window), through Debug.Snapshot.
+-- The dev-mode dump ("Save for Claude & reload" in the Ordaen Dev window).
 local function dumpState()
 	return {
 		db = OrdaenMinimapDB,
@@ -29,17 +30,51 @@ local function dumpState()
 	}
 end
 
-local function applyAll()
-	if ns.Guard.blocked then
-		return
-	end
-	ns.Map.Apply(OrdaenMinimapDB)
-	if not ns.Map.active then
-		return
-	end
-	ns.Buttons.Apply(OrdaenMinimapDB)
-	ns.Info.Apply(OrdaenMinimapDB)
-	ns.Drawer.Apply(OrdaenMinimapDB)
+local A = OrdaenCore.NewAddon(addonName, ns, {
+	db = "OrdaenMinimapDB",
+	defaults = ns.DEFAULTS,
+	slash = { "/om", "/ordaenminimap" },
+	dump = dumpState,
+	settings = {
+		title = "SETTINGS_TITLE",
+		onChange = applyAll,
+		{ header = "HEADER_BORDER" },
+		{ key = "borderStyle", label = "BORDER_STYLE", tooltip = "BORDER_STYLE_TOOLTIP", choices = ns.BORDER_STYLES },
+		{ key = "borderColor", label = "BORDER_COLOR", tooltip = "BORDER_COLOR_TOOLTIP", choices = ns.BORDER_COLORS },
+		{ header = "HEADER_MAP" },
+		{
+			key = "scale",
+			label = "MAP_SCALE",
+			tooltip = "MAP_SCALE_TOOLTIP",
+			min = ns.SCALE_MIN,
+			max = ns.SCALE_MAX,
+			step = ns.SCALE_STEP,
+			format = "percent",
+		},
+		{ header = "HEADER_DRAWER" },
+		{ key = "drawerEnabled", label = "DRAWER_ENABLED", tooltip = "DRAWER_ENABLED_TOOLTIP" },
+		{
+			key = "hideBlizzardCompartment",
+			label = "HIDE_BLIZZARD_COMPARTMENT",
+			tooltip = "HIDE_BLIZZARD_COMPARTMENT_TOOLTIP",
+		},
+		{
+			key = "drawerColumns",
+			label = "DRAWER_COLUMNS",
+			tooltip = "DRAWER_COLUMNS_TOOLTIP",
+			min = ns.DRAWER_COLUMNS_MIN,
+			max = ns.DRAWER_COLUMNS_MAX,
+			step = 1,
+		},
+	},
+})
+if not A then
+	return -- Ordaen Core is too old; the player was told
+end
+ns.Addon = A
+ns.Debug = A.Debug
+function ns.Print(...)
+	A:Print(...)
 end
 
 -- WoW APIs this addon uses that aren't confirmed on Forever yet (many retail/classic FrameXML helpers
@@ -61,7 +96,7 @@ local UNCONFIRMED_APIS = {
 }
 
 local function logApiAvailability()
-	if not Debug.IsEnabled() then
+	if not A.Debug.IsEnabled() then
 		return
 	end
 	local parts = {}
@@ -72,60 +107,32 @@ local function logApiAvailability()
 		end
 		parts[#parts + 1] = path .. "=" .. (value ~= nil and type(value) or "missing")
 	end
-	Debug.Log("api: " .. table.concat(parts, ", "))
+	A.Debug.Log("api: " .. table.concat(parts, ", "))
 end
 
-local frame = CreateFrame("Frame")
-frame:RegisterEvent("ADDON_LOADED")
-frame:RegisterEvent("PLAYER_LOGIN")
-frame:SetScript("OnEvent", Debug.Wrap(function(_, event, arg1)
-	if event == "ADDON_LOADED" and arg1 == addonName then
-		OrdaenMinimapDB = ns.ApplyDefaults(OrdaenMinimapDB or {})
-		OrdaenMinimapDB.buttonAngles = ns.SanitizeAngles(OrdaenMinimapDB.buttonAngles)
-		OrdaenMinimapDB.drawerButton = nil -- old free position of the drawer button (before the ring)
-		Debug.Init(OrdaenMinimapDB, { slash = SLASH, print = Print, dump = dumpState })
-		ns.Options.Register(OrdaenMinimapDB, applyAll)
-	elseif event == "ADDON_LOADED" and arg1:find("^Blizzard_") then
-		-- Some pieces we hide come with load-on-demand Blizzard addons (the clock with Blizzard_TimeManager).
+A:OnLoad(function(db)
+	ns.ApplyDefaults(db)
+	db.buttonAngles = ns.SanitizeAngles(db.buttonAngles)
+	db.drawerButton = nil -- old free position of the drawer button (before the ring)
+end)
+
+-- Some pieces we hide come with load-on-demand Blizzard addons (the clock with Blizzard_TimeManager).
+A:On("ADDON_LOADED", function(_, name)
+	if name:find("^Blizzard_") then
 		ns.Map.RetryHidden()
-	elseif event == "PLAYER_LOGIN" then
-		local version = C_AddOns.GetAddOnMetadata(addonName, "Version") or "?"
-		Debug.Log("PLAYER_LOGIN")
-		logApiAvailability()
-		if ns.Guard.Start(OrdaenMinimapDB, applyAll) then
-			applyAll()
-		end
-		Print(L.LOADED:format(version, SLASH))
 	end
-end))
+end)
 
-local function printHelp()
-	Print(L.HELP_HEADER)
-	Print("  " .. L.HELP_OPEN:format(SLASH))
-	Print("  " .. L.HELP_RESET:format(SLASH))
-	for _, line in ipairs(Debug.HelpLines()) do
-		Print("  " .. line)
-	end
-end
-
-SLASH_ORDAENMINIMAP1 = SLASH
-SLASH_ORDAENMINIMAP2 = "/ordaenminimap"
-SlashCmdList.ORDAENMINIMAP = Debug.Wrap(function(msg)
-	if Debug.HandleSlash(msg) then
-		return
-	end
-	local cmd = ((msg or ""):match("^%s*(%S*)") or ""):lower()
-	if cmd == "" then
-		ns.Options.Open()
-	elseif cmd == "reset" then
-		for key, value in pairs(ns.DEFAULTS) do
-			OrdaenMinimapDB[key] = value
-		end
-		OrdaenMinimapDB.conflictChoice = nil
-		OrdaenMinimapDB.buttonAngles = {}
+A:OnLogin(function()
+	A.Debug.Log("PLAYER_LOGIN")
+	logApiAvailability()
+	if ns.Guard.Start(OrdaenMinimapDB, applyAll) then
 		applyAll()
-		Print(L.RESET_DONE)
-	else
-		printHelp()
 	end
+	A:Print(L.LOADED:format(C_AddOns.GetAddOnMetadata(addonName, "Version") or "?", A.slash))
+end)
+
+A:OnReset(function()
+	OrdaenMinimapDB.buttonAngles = ns.SanitizeAngles(nil)
+	applyAll()
 end)
