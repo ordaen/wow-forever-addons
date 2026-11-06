@@ -236,19 +236,20 @@ end
 
 -- Our tooltips go through OrdaenCore.UI, built once; only the entry's title changes on hover.
 local UI = OrdaenCore.UI
-local LEFT = { anchor = "ANCHOR_LEFT" }
-local entryTooltip = { v = 1, title = { text = "" } }
+local LEFT = { side = "left" }
+local entryTitle = { text = "", style = "title" }
+local entryTooltip = { style = "tooltip", entryTitle }
 local mainTooltip = {
-	v = 1,
-	title = { text = L.SETTINGS_TITLE },
-	{ kind = "hint", text = L.DRAWER_TOOLTIP_CLICK },
-	{ kind = "hint", text = L.DRAWER_TOOLTIP_RIGHT },
-	{ kind = "hint", text = L.DRAWER_TOOLTIP_MOVE },
+	style = "tooltip",
+	{ text = L.SETTINGS_TITLE, style = "title" },
+	{ text = L.DRAWER_TOOLTIP_CLICK, style = "hint" },
+	{ text = L.DRAWER_TOOLTIP_RIGHT, style = "hint" },
+	{ text = L.DRAWER_TOOLTIP_MOVE, style = "hint" },
 }
 
 -- For entries whose addon has no hover function of its own.
 local function plainTooltip(owner, text)
-	entryTooltip.title.text = text or "?"
+	entryTitle.text = text or "?"
 	UI.ShowTooltip(owner, entryTooltip, LEFT)
 end
 

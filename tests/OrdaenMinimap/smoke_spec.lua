@@ -419,18 +419,31 @@ describe("OrdaenMinimap smoke", function()
 		end)
 
 		it("shows the clock tooltip through OrdaenCore.UI, with the invites line only when invites are pending", function()
-			local function shownLines()
-				local lines = {}
-				for _, call in ipairs(GameTooltip.calls.AddLine or {}) do
-					lines[#lines + 1] = call[1]
+			-- Drawing is OrdaenCore.UI's job (tests/OrdaenCore/ui_spec.lua); here: the block Minimap declares.
+			local shown, refreshed = {}, 0
+			local UI = rawget(_G, "OrdaenCore").UI
+			UI.ShowTooltip = function(owner, block, opts)
+				shown.owner, shown.block, shown.opts = owner, block, opts
+			end
+			UI.RefreshTooltip = function()
+				refreshed = refreshed + 1
+			end
+			local function visibleTexts()
+				local texts = {}
+				for _, el in ipairs(shown.block) do
+					if not el.hidden then
+						texts[#texts + 1] = el.text
+					end
 				end
-				GameTooltip.calls.AddLine = nil
-				return table.concat(lines, "|")
+				return table.concat(texts, "|")
 			end
 			login()
 			local clock = frameNamed("OrdaenMinimapClock")
 			clock.scripts.OnEnter(clock)
-			local plain = shownLines()
+			assert.equals(clock, shown.owner)
+			assert.equals("tooltip", shown.block.style)
+			assert.equals("below", shown.opts.side)
+			local plain = visibleTexts()
 			assert.truthy(plain:find(ns.L.TIME_TOOLTIP_CALENDAR, 1, true))
 			assert.falsy(plain:find(ns.L.CALENDAR_PENDING, 1, true))
 
@@ -441,9 +454,10 @@ describe("OrdaenMinimap smoke", function()
 					infoEvents = frames[i + 1]
 				end
 			end
+			local before = refreshed
 			infoEvents.scripts.OnEvent(infoEvents, "CALENDAR_UPDATE_PENDING_INVITES")
-			clock.scripts.OnEnter(clock)
-			assert.truthy(shownLines():find(ns.L.CALENDAR_PENDING, 1, true))
+			assert.equals(before + 1, refreshed) -- a shown tooltip is redrawn with the new line
+			assert.truthy(visibleTexts():find(ns.L.CALENDAR_PENDING, 1, true))
 		end)
 
 		it("opens the calendar from the clock", function()

@@ -138,7 +138,33 @@ local function updateClock()
 	end
 end
 
-local showClockTooltip -- defined with the frames below
+-- Tooltips through OrdaenCore.UI: each block is built once and only fields change (text on hover, the
+-- invites line's `hidden` when invites change).
+local UI = OrdaenCore.UI
+local BELOW = { side = "below" }
+local zoneName = { text = "", style = "title" } -- filled in on hover
+local subzoneName = { text = "", style = "subtitle" }
+local zoneTooltip = {
+	style = "tooltip",
+	zoneName,
+	subzoneName,
+	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
+}
+local invitesLine = { text = L.CALENDAR_PENDING, color = { 1, 0.5, 0.1 }, hidden = true }
+local clockTooltip = {
+	style = "tooltip",
+	invitesLine,
+	{ text = L.TIME_TOOLTIP_CALENDAR, style = "hint" },
+	{ text = L.TIME_TOOLTIP_CLOCK, style = "hint" },
+}
+
+local function hideTooltip(self)
+	UI.HideTooltip(self)
+end
+
+local function showClockTooltip(self)
+	UI.ShowTooltip(self, clockTooltip, BELOW)
+end
 
 local function updateInvites()
 	pendingInvites = C_Calendar.GetNumPendingInvites() > 0
@@ -147,9 +173,8 @@ local function updateInvites()
 	else
 		timeText:SetTextColor(1, 1, 1)
 	end
-	if timeButton:IsMouseOver() then
-		showClockTooltip(timeButton) -- the tooltip with or without the invites line
-	end
+	invitesLine.hidden = not pendingInvites
+	UI.RefreshTooltip(timeButton) -- redraws it only if it is shown
 end
 
 -- Ticking --------------------------------------------------------------------------------------
@@ -219,36 +244,6 @@ end
 
 -- Frames ---------------------------------------------------------------------------------------
 
--- Tooltips through OrdaenCore.UI: each content table is built once and only a field changes on hover.
-local UI = OrdaenCore.UI
-local BELOW = { anchor = "ANCHOR_BOTTOM" }
-local zoneTooltip = {
-	v = 1,
-	title = { text = "" }, -- the zone, filled in on hover
-	subtitle = { text = "" }, -- the subzone
-	{ kind = "hint", text = L.ZONE_TOOLTIP_MAP },
-}
-local clockTooltip = {
-	v = 1,
-	{ kind = "hint", text = L.TIME_TOOLTIP_CALENDAR },
-	{ kind = "hint", text = L.TIME_TOOLTIP_CLOCK },
-}
-local clockInvitesTooltip = {
-	v = 1,
-	{ kind = "line", text = L.CALENDAR_PENDING, color = { 1, 0.5, 0.1 } },
-	{ kind = "separator" },
-	{ kind = "hint", text = L.TIME_TOOLTIP_CALENDAR },
-	{ kind = "hint", text = L.TIME_TOOLTIP_CLOCK },
-}
-
-local function hideTooltip(self)
-	UI.HideTooltip(self)
-end
-
-function showClockTooltip(self) -- the local declared above
-	UI.ShowTooltip(self, pendingInvites and clockInvitesTooltip or clockTooltip, BELOW)
-end
-
 local function createFrames()
 	local level = (Minimap:GetFrameLevel() or 1) + 6
 
@@ -262,8 +257,9 @@ local function createFrames()
 		ToggleWorldMap()
 	end)
 	zoneButton:SetScript("OnEnter", function(self)
-		zoneTooltip.title.text = GetRealZoneText() or ""
-		zoneTooltip.subtitle.text = GetSubZoneText() or ""
+		zoneName.text = GetRealZoneText() or ""
+		subzoneName.text = GetSubZoneText() or ""
+		subzoneName.hidden = subzoneName.text == "" or subzoneName.text == zoneName.text
 		UI.ShowTooltip(self, zoneTooltip, BELOW)
 	end)
 	zoneButton:SetScript("OnLeave", hideTooltip)
