@@ -20,6 +20,11 @@
     },
     "bar": {
       "ordaen": { "label": "BAR_ORDAEN", "file": "Interface\\AddOns\\OrdaenCore\\media\\bar-ordaen" },
+      // Candidates for the Ordaen theme's bar, to pick in game (the losers go once one is chosen).
+      "gloss": { "label": "BAR_GLOSS", "file": "Interface\\AddOns\\OrdaenCore\\media\\bar-gloss" },
+      "matte": { "label": "BAR_MATTE", "file": "Interface\\AddOns\\OrdaenCore\\media\\bar-matte" },
+      "sheen": { "label": "BAR_SHEEN", "file": "Interface\\AddOns\\OrdaenCore\\media\\bar-sheen" },
+      "bevel": { "label": "BAR_BEVEL", "file": "Interface\\AddOns\\OrdaenCore\\media\\bar-bevel" },
       "flat": { "label": "BAR_FLAT", "file": "Interface\\Buttons\\WHITE8X8" },
       "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\\TargetingFrame\\UI-StatusBar" }
     }
