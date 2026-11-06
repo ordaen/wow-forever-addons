@@ -55,7 +55,9 @@ local settingAlpha = false -- our own SetAlpha calls on those buttons (the hook 
 
 -- Over the chat the input only shows while typing, but Blizzard's IM style just fades it: its buttons stayed under
 -- the mouse while invisible, and Blizzard's chat fade (mouse over the chat) blinked them (2026-11-07). They follow
--- the typing instead: seen and clickable while the input has the keyboard focus, else alpha 0 and no mouse.
+-- the typing instead: seen and clickable while the input has the keyboard focus, else alpha 0 and no mouse. The
+-- faded input itself took clicks meant for the chat under it (the scroll-to-bottom button opened it): it gets the
+-- mouse only while typing too.
 local function showButtons()
 	local seen = not overlaid or (current ~= nil and current:HasFocus()) or false
 	buttonsSeen = seen
@@ -65,6 +67,9 @@ local function showButtons()
 		b.frame:EnableMouse(seen)
 	end
 	settingAlpha = false
+	for input in pairs(inputs) do
+		input:EnableMouse(not overlaid or input:HasFocus())
+	end
 end
 
 -- Blizzard fading a button (its chat fade): our alpha again.
@@ -469,6 +474,9 @@ function Input.Disable()
 		end
 		b.frame:SetAlpha(1)
 		b.frame:EnableMouse(true)
+	end
+	for input in pairs(inputs) do
+		input:EnableMouse(true)
 	end
 	showSocial()
 end

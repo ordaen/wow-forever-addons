@@ -942,6 +942,23 @@ describe("Ordaen Chat", function()
 			assert.is_false(mouse(menuButton))
 		end)
 
+		it("leaves the chat under it clickable until typing (the scroll-to-bottom button opened it)", function()
+			login()
+			local input = windows[1].editBox
+			local function mouse()
+				local calls = input.calls.EnableMouse
+				return calls[#calls][1]
+			end
+			assert.is_false(mouse(), "faded out, not typing: clicks reach the chat")
+			input:Show()
+			input.focused = true
+			input.scripts.OnEditFocusGained(input)
+			assert.is_true(mouse(), "typing: the input takes clicks (moving the cursor)")
+			input.focused = false
+			input.scripts.OnEditFocusLost(input)
+			assert.is_false(mouse())
+		end)
+
 		it("goes back over the chat when Blizzard places the input again", function()
 			login()
 			windows[1].editBox:SetPoint("TOPLEFT", windows[1], "BOTTOMLEFT", -5, -2)
