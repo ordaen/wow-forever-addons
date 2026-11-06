@@ -29,6 +29,9 @@ local BLIZZARD = {
 	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame" } },
 	{ id = "craftingOrder", names = { "MinimapCluster.IndicatorFrame.CraftingOrderFrame" } },
 	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" } },
+	-- The Ordaen Dev gear button (dev mode, wow-dev-tools). While `ordaenPlacedBy` is set, it leaves its
+	-- position and dragging to us (agreed with the dev-tools session); clicks and tooltip stay its own.
+	{ id = "dev", names = { "OrdaenDevButton" }, claim = true },
 }
 
 local db
@@ -252,6 +255,9 @@ local function adopt(entry)
 	found[entry.id] = name or false
 	if not frame then
 		return
+	end
+	if entry.claim then
+		frame.ordaenPlacedBy = "OrdaenMinimap"
 	end
 	applying = true
 	frame:SetParent(Minimap)

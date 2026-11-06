@@ -13,6 +13,7 @@ ns.RING_DEFAULT_ANGLES = {
 	mail = 25,
 	craftingOrder = 5,
 	landing = 330,
+	dev = 200, -- the Ordaen Dev gear button (dev mode only)
 }
 
 ns.RING_GAP = 2 -- px between the border and a button

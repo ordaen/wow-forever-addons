@@ -447,6 +447,17 @@ describe("OrdaenMinimap smoke", function()
 			assert.is_nil(driver.scripts.OnUpdate) -- nothing runs once the drag ends
 		end)
 
+		it("takes over placing the Ordaen Dev gear button (dev mode) and tells it so", function()
+			local gear = stubObject("OrdaenDevButton")
+			rawset(_G, "OrdaenDevButton", gear)
+			login()
+			assert.equals("OrdaenMinimap", gear.ordaenPlacedBy)
+			assert.same({ Minimap }, gear.calls.SetParent[1])
+			assert.is_true(lastPoint(gear)[4] < -(70 + 7)) -- default 200 degrees: left side, outside the border
+			assert.is_function(gear.scripts.OnDragStart)
+			rawset(_G, "OrdaenDevButton", nil)
+		end)
+
 		it("moves Blizzard's mail indicator off the map too", function()
 			login()
 			local mail = MinimapCluster.IndicatorFrame.MailFrame
