@@ -413,6 +413,7 @@ function M.Rebuild(root)
 	writeFile(base .. "/luacheck.lua", M.Luacheck(contents[current], current))
 	-- LuaLS definitions of the current version (.luarc.json points lua-language-server at them).
 	os.execute('mkdir -p "' .. base .. '/luals"')
+	os.execute('rm -f "' .. base .. '/luals/"*.lua') -- files are split into parts; drop parts that are gone
 	for name, content in pairs(lualsDefs.Generate(structured[current], current)) do
 		writeFile(base .. "/luals/" .. name, content)
 	end

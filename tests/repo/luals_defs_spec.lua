@@ -96,4 +96,41 @@ describe("LuaLS definitions", function()
 	it("lists the event names", function()
 		assert.truthy(files["events.lua"]:find('---@alias WowEvent\n---| "PLAYER_LOGIN"\n---| "ZONE_CHANGED"', 1, true))
 	end)
+
+	-- lua-language-server silently skips library files over its preload size, and Lua refuses a chunk with more
+	-- than 200 locals at once: both left Minimap and UIParent undefined after the deep dump (2026-11-06).
+	it("cuts big files into parts at the top level, never inside a block or after an annotation", function()
+		local saved = defs.MAX_FILE
+		defs.MAX_FILE = 60
+		local content = "---@meta\n\ndo\n---@class A\nlocal A = {}\nfunction A:x() end\nend\n"
+			.. "---@param n number\nfunction f(n) end\n" .. "do\n---@class B\nlocal B = {}\nB.y = 1\nend\n"
+		local out = defs.Split({ ["big.lua"] = content, ["small.lua"] = "x = 1" }, "api/forever/test")
+		defs.MAX_FILE = saved
+		assert.equals("x = 1", out["small.lua"])
+		assert.is_nil(out["big.lua"])
+		local n = 0
+		for name, text in pairs(out) do
+			if name ~= "small.lua" then
+				n = n + 1
+				assert(loadstring(text), name .. " parses on its own")
+				assert.is_nil(text:find("^%-%-%-@param[^\n]*$"), "an annotation never ends a part")
+			end
+		end
+		assert.is_true(n >= 2, "split into parts")
+		assert.truthy(out["big_2.lua"]:find("^%-%-%-@meta\n"))
+	end)
+
+	it("keeps every generated file of the current dump small enough and parseable", function()
+		local current = io.open("api/forever/CURRENT"):read("*l")
+		local p = io.popen('ls api/forever/luals/*.lua')
+		local count = 0
+		for file in p:lines() do
+			local text = io.open(file):read("*a")
+			assert.is_true(#text <= 500 * 1024, file .. " is over lua-language-server's 500 KB")
+			assert(loadstring(text), file .. " doesn't parse (more than 200 locals?)")
+			count = count + 1
+		end
+		p:close()
+		assert.is_true(count > 0 and current ~= nil)
+	end)
 end)
