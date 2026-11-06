@@ -3,5 +3,14 @@
   "HELP_OPEN": "%s - открыть настройки",
   "HELP_RESET": "%s reset - вернуть настройки по умолчанию",
   "RESET_DONE": "настройки сброшены.",
-  "NEEDS_NEWER_CORE": "%s требуется Ordaen Core версии %s или новее (у вас %s). Обновите Ordaen Core."
+  "NEEDS_NEWER_CORE": "%s требуется Ordaen Core версии %s или новее (у вас %s). Обновите Ordaen Core.",
+  "SETTINGS_TITLE": "Ordaen Core",
+  "HEADER_APPEARANCE": "Внешний вид",
+  "THEME": "Тема оформления",
+  "THEME_TOOLTIP": "Как выглядят все аддоны Ordaen: собственный стиль Ordaen, оформление Blizzard или плоский минимализм.",
+  "THEME_ORDAEN": "Ordaen",
+  "THEME_BLIZZARD": "Blizzard",
+  "THEME_MINIMAL": "Минимализм",
+  "TEXT_SIZE": "Размер текста",
+  "TEXT_SIZE_TOOLTIP": "Размер основного текста во всех аддонах Ordaen; заголовки, мелкий текст и отступы меняются вместе с ним."
 }

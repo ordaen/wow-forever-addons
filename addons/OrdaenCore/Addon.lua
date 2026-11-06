@@ -274,11 +274,21 @@ local function printHelp(addon)
 	end
 end
 
+-- Empty `t` for a reset, but keep the nested tables the defaults have: a settings control is bound to its table
+-- (db.ui for "ui.theme"), so replacing it would leave the control writing to a table nobody reads.
+local function clear(t, defaults)
+	for key, value in pairs(t) do
+		if type(value) == "table" and type(defaults[key]) == "table" then
+			clear(value, defaults[key])
+		else
+			t[key] = nil
+		end
+	end
+end
+
 local function reset(addon)
 	local db = addon.db
-	for key in pairs(db) do
-		db[key] = nil
-	end
+	clear(db, addon.spec.defaults or {})
 	copyDefaults(db, addon.spec.defaults or {})
 	if Core.Settings then
 		Core.Settings.Sanitize(addon)
@@ -427,3 +437,6 @@ function Core.NewAddon(addonName, addonNs, spec)
 	end
 	return addon
 end
+
+-- For files that must load after this one (the build orders by what a file reads at load).
+ns.NewAddon = Core.NewAddon

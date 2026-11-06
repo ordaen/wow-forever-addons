@@ -4,9 +4,11 @@ local helpers = require("tests.OrdaenCore.helpers")
 describe("OrdaenCore.NewAddon", function()
 	local Core, chat
 
-	-- The framework's one event frame: the frame with an OnEvent script.
+	-- The framework's one event frame: the newest frame with an OnEvent script (the Core registers itself through
+	-- the framework while loading, so each loadCore makes one).
 	local function fire(event, ...)
-		for _, frame in ipairs(helpers.created) do
+		for i = #helpers.created, 1, -1 do
+			local frame = helpers.created[i]
 			if frame.scripts.OnEvent then
 				frame.scripts.OnEvent(frame, event, ...)
 				return
@@ -84,7 +86,7 @@ describe("OrdaenCore.NewAddon", function()
 	end)
 
 	it("runs OnLogin right after loading when the player is already in the world (load on demand)", function()
-		helpers.loggedIn = true
+		fire("PLAYER_LOGIN") -- the Core loads before login; a load-on-demand addon after it
 		local A = newAddon()
 		local ran = false
 		A:OnLogin(function()
@@ -209,6 +211,26 @@ describe("OrdaenCore.NewAddon", function()
 		rawset(_G, "TestAddonDB", { style = "gone", scale = 9, columns = 3.6, on = "yes" })
 		fire("ADDON_LOADED", "TestAddon")
 		assert.same({ style = "a", scale = 1.6, columns = 4, on = true }, A.db)
+	end)
+
+	it("handles dotted keys (nested tables), and reset keeps the nested tables settings are bound to", function()
+		local A = newAddon({
+			db = "TestAddonDB",
+			slash = { "/ta" },
+			defaults = { ui = { theme = "a", size = 12 } },
+			settings = {
+				{ key = "ui.theme", label = "THEME", choices = { { id = "a", label = "A" }, { id = "b", label = "B" } } },
+				{ key = "ui.size", label = "SIZE", min = 10, max = 16, step = 1 },
+			},
+		})
+		rawset(_G, "TestAddonDB", { ui = { theme = "gone", size = 40 } })
+		fire("ADDON_LOADED", "TestAddon")
+		assert.same({ ui = { theme = "a", size = 16 } }, A.db)
+		local ui = A.db.ui
+		ui.theme, ui.extra = "b", true
+		SlashCmdList.TESTADDON("reset")
+		assert.equals(ui, A.db.ui, "the same table, so a control bound to it keeps working")
+		assert.same({ theme = "a", size = 12 }, A.db.ui)
 	end)
 
 	it("adds an addon compartment entry that passes the mouse button on", function()

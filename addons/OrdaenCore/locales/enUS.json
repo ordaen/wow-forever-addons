@@ -3,5 +3,14 @@
   "HELP_OPEN": "%s - open the settings",
   "HELP_RESET": "%s reset - restore the default settings",
   "RESET_DONE": "settings restored to defaults.",
-  "NEEDS_NEWER_CORE": "%s needs Ordaen Core %s or newer (you have %s). Please update Ordaen Core."
+  "NEEDS_NEWER_CORE": "%s needs Ordaen Core %s or newer (you have %s). Please update Ordaen Core.",
+  "SETTINGS_TITLE": "Ordaen Core",
+  "HEADER_APPEARANCE": "Appearance",
+  "THEME": "Theme",
+  "THEME_TOOLTIP": "How every Ordaen addon looks: Ordaen's own style, Blizzard's art, or flat and minimal.",
+  "THEME_ORDAEN": "Ordaen",
+  "THEME_BLIZZARD": "Blizzard",
+  "THEME_MINIMAL": "Minimal",
+  "TEXT_SIZE": "Text size",
+  "TEXT_SIZE_TOOLTIP": "Size of body text in every Ordaen addon; titles, small text and spacing scale with it."
 }
