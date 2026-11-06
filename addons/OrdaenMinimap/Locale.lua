@@ -56,6 +56,7 @@ local enUS = {
 	DRAWER_MBB_WARNING = "MinimapButtonButton is loaded, so the button drawer stays off (both would grab the same "
 		.. "buttons). Disable one of them.",
 	DRAWER_RELOAD_HINT = "button drawer off. Type /reload to put the buttons back on the minimap.",
+	STYLE_BRONZE_RIM = "Bronze rim",
 }
 
 local ruRU = {
@@ -112,6 +113,7 @@ local ruRU = {
 	DRAWER_MBB_WARNING = "Загружен MinimapButtonButton, поэтому панель кнопок выключена (обе собирают одни и те же "
 		.. "кнопки). Выключите одну из них.",
 	DRAWER_RELOAD_HINT = "панель кнопок выключена. Введите /reload, чтобы вернуть кнопки на миникарту.",
+	STYLE_BRONZE_RIM = "Бронзовый обод",
 }
 
 local translations = { ruRU = ruRU }
