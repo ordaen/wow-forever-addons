@@ -63,6 +63,7 @@ Separators take their cell's whole width; give them `colSpan` in a block with se
 | `color` | `{ r, g, b [, a] }` or a colour token (`"color.xp"`) | the theme's (accent) | for meaning: health, progress, XP |
 | `questColor`, `overlayColor` | the same | `color` | |
 | `animate` | boolean | false | changes glide (the game animates the status bar, no Lua per frame), a gain flashes for a moment (the theme's `motion.fade`), a value that drops (a new level) runs to the end first, then starts again |
+| `sections` | integer | none | split into this many sections by one-pixel lines in the theme's bar edge colour, like Blizzard's experience bar (20) |
 | `text`, or `format` + `args` | | | text on the bar, centred; `style`, `textColor` as for text |
 | `height` | number | the theme's (`sm`) | |
 

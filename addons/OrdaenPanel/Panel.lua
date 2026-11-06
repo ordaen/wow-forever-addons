@@ -38,7 +38,7 @@ local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of 
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
 	color = "color.xp", questColor = "color.quest", overlayColor = "color.rested",
-	format = "%d%%", args = { 0 }, style = "small",
+	format = "%d%%", args = { 0 }, style = "small", sections = 20,
 }
 local social = { format = "", args = { 0, 0 }, style = "value" }
 local money = { format = MONEY_FORMAT, args = { 0, 0, 0 }, style = "value" }
@@ -115,18 +115,62 @@ local function hookPlacement(button)
 end
 
 -- Blizzard's icon of a button, for our look of it: its normal texture's atlas or file, else its `icon` region.
-local function iconOf(button)
-	local texture = button.GetNormalTexture and button:GetNormalTexture()
-	local atlas = texture and texture:GetAtlas()
+-- A texture's atlas or file, if it has one.
+local function art(texture)
+	if not (texture and texture.GetAtlas) then
+		return nil, nil
+	end
+	local atlas = texture:GetAtlas()
 	if atlas then
 		return nil, atlas
 	end
-	local file = texture and texture:GetTexture()
-	if file then
-		return file, nil
+	return texture:GetTexture(), nil
+end
+
+-- Blizzard's icon of a button: its own `icon` (a bag's item), else its normal texture, else the first texture
+-- region with art (QuickJoinToastButton draws its icon on a plain region).
+local function iconOf(button)
+	local file, atlas = art(rawget(button, "icon"))
+	if file or atlas then
+		return file, atlas
 	end
-	local icon = rawget(button, "icon")
-	return icon and icon.GetTexture and icon:GetTexture() or nil, nil
+	file, atlas = art(button.GetNormalTexture and button:GetNormalTexture())
+	if file or atlas then
+		return file, atlas
+	end
+	for _, region in ipairs({ button:GetRegions() }) do
+		if region:IsObjectType("Texture") then
+			file, atlas = art(region)
+			if file or atlas then
+				return file, atlas
+			end
+		end
+	end
+	return nil, nil
+end
+
+-- Blizzard's text on the buttons we hold (a bag's free slots, the friends count): we show our own next to them,
+-- and theirs doesn't fit the smaller button. Alphas kept to give back.
+local textAlphas = {}
+local function hideTexts(button)
+	for _, region in ipairs({ button:GetRegions() }) do
+		if region:IsObjectType("FontString") then
+			if textAlphas[region] == nil then
+				textAlphas[region] = region:GetAlpha()
+			end
+			region:SetAlpha(0)
+		end
+	end
+end
+
+local function showTexts(button)
+	for _, region in ipairs({ button:GetRegions() }) do
+		local alpha = textAlphas[region]
+		if alpha then
+			region:SetAlpha(alpha)
+			textAlphas[region] = nil
+		end
+	end
 end
 
 local function slotFor(i)
@@ -142,7 +186,7 @@ local function slotFor(i)
 	return slot
 end
 
-local function take(button, slot)
+local function take(button, slot, texts)
 	if not homes[button] then
 		local home = { button:GetParent() }
 		if button:GetNumPoints() > 0 then
@@ -159,8 +203,12 @@ local function take(button, slot)
 		dress:SetIcon(icon, atlas)
 		dress:Apply()
 	else
-		dresses[button] = UI.Dress(button, { icon = icon, atlas = atlas, iconSize = size - 8 })
+		dresses[button] = UI.Dress(button, { icon = icon, atlas = atlas, iconSize = size - 4 })
 	end
+	if texts then
+		hideTexts(button)
+	end
+	ns.Addon.Debug:Logf("held %s: icon %s", button:GetName() or "?", tostring(atlas or icon))
 end
 
 local function giveBack(button)
@@ -168,6 +216,7 @@ local function giveBack(button)
 		return
 	end
 	slotOf[button] = nil
+	showTexts(button)
 	local dress = dresses[button]
 	if dress then
 		dress:Undress()
@@ -185,7 +234,7 @@ local function giveBack(button)
 end
 
 -- Fill a group block with slots for `buttons` (from slot index `first`); returns the next free slot index.
-local function fillGroup(group, buttons, first, extra)
+local function fillGroup(group, buttons, first, extra, texts)
 	local n = 0
 	for i = #group, 1, -1 do
 		group[i] = nil
@@ -195,7 +244,7 @@ local function fillGroup(group, buttons, first, extra)
 		if slot then
 			n = n + 1
 			group[n] = { embed = slot }
-			take(button, slot)
+			take(button, slot, texts)
 		end
 	end
 	if extra then
@@ -275,10 +324,10 @@ local function placeButtons()
 	if s.social and quickJoin then
 		socialButtons[1] = quickJoin
 	end
-	next = fillGroup(socialGroup, socialButtons, next, s.social and social or nil)
+	next = fillGroup(socialGroup, socialButtons, next, s.social and social or nil, true)
 	if s.bags then
 		readBags()
-		fillGroup(bagGroup, bagButtons, next, bagText)
+		fillGroup(bagGroup, bagButtons, next, bagText, true)
 	else
 		fillGroup(bagGroup, {}, next)
 	end
@@ -333,9 +382,9 @@ local function build()
 	microGroup = microGroup or { gap = 2 }
 	socialGroup = socialGroup or { gap = "xs", align = "center" }
 	bagGroup = bagGroup or { gap = 2 }
-	left = left or { gap = "md", microGroup, socialGroup }
+	left = left or { gap = "md", align = "left", microGroup, socialGroup }
 	left.columns = across and { "auto", "auto" } or { "auto" }
-	right = right or { gap = "md", money }
+	right = right or { gap = "md", align = "right", money }
 	for i = 1, MAX_CURRENCIES do
 		right[1 + i] = currencyTexts[i]
 	end
@@ -353,11 +402,17 @@ local function build()
 			barHolder:On("leave", onBarLeave)
 		end
 	end
-	middle = middle or { embed = barHolder }
+	middle = middle or { embed = barHolder, align = "center" }
 	xp.height = math.max(10, math.floor(size * 0.5))
+	if barHolder then
+		-- the bar in the middle of the row's height (blocks align only across, so a top padding)
+		barHolder.block.height = size + 4
+		barHolder.block.padding = { math.floor((size + 4 - xp.height) / 2), 0, 0, 0 }
+	end
 	if across then
+		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
 		spec = {
-			columns = { "auto", "1fr", "auto" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size + 8,
+			columns = { "1fr", "auto", "1fr" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size + 8,
 			left, middle, right,
 		}
 	else

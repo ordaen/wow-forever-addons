@@ -51,6 +51,7 @@ local unavailable = false
 ---@field questColor number[]|string|nil default: color
 ---@field overlayColor number[]|string|nil default: color
 ---@field animate boolean|nil changes glide (the game animates the status bar), gains flash, a drop wraps around
+---@field sections integer|nil split into this many sections by lines in the theme's bar edge colour (Blizzard's 20)
 ---@field text string|nil text on the bar, centred; or format + args
 ---@field format string|nil
 ---@field args any[]|nil

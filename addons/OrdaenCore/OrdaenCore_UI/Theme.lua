@@ -199,7 +199,7 @@ THEMES.ordaen = {
 	},
 	bar = {
 		height = "md", track = { 0.08, 0.08, 0.09, 0.9 }, trackBottom = { 0.02, 0.02, 0.02, 0.9 },
-		edge = { 0, 0, 0, 0.95 }, fill = { 0, 0, 0, 1, accent = 1 },
+		edge = { 0.36, 0.31, 0.24, 1 }, fill = { 0, 0, 0, 1, accent = 1 },
 	},
 }
 

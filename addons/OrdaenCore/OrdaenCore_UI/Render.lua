@@ -400,6 +400,7 @@ local INTERPOLATE = Enum and Enum.StatusBarInterpolation and Enum.StatusBarInter
 local QUEST_ALPHA, OVERLAY_ALPHA = 0.7, 0.45 -- how strong the parts behind the value are drawn
 local WRAP_TIME = 0.5 -- seconds the bar takes to run to the end on a wrap before starting again
 local FLASH_ALPHA, FLASH_FADES = 0.35, 6 -- the gain flash: how bright it starts, how many theme fades it lasts
+local NO_EDGE = { 0, 0, 0, 0.6 } -- section lines of a theme whose bars have no edge
 
 local function statusBar(parent, level)
 	local bar = CreateFrame("StatusBar", nil, parent)
@@ -436,6 +437,7 @@ local function newBar(surface)
 	b.flash, b.fade, b.fadeAlpha = flash, fade, alpha
 	b.label = b.value:CreateFontString(nil, "OVERLAY")
 	b.label:SetWordWrap(false)
+	b.ticks = {} -- the section lines, made on first use
 	-- After a wrap ran to the end: start again from the bottom (made once per bar, not per draw).
 	b.wrap = function()
 		if b.wrapTo then
@@ -522,6 +524,27 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 		b.fade:Play()
 	end
 	b.element, b.lo, b.hi, b.last = el, lo, hi, value
+	-- Sections, as on Blizzard's bars: lines in the edge's colour over the parts, one pixel wide.
+	local sections = tonumber(el.sections) or 0
+	local ticks = b.ticks
+	local tickColor = edge or NO_EDGE
+	local px = pixel()
+	for i = 1, sections - 1 do
+		local t = ticks[i]
+		if not t then
+			t = b.value:CreateTexture(nil, "ARTWORK", nil, 7)
+			t:SetTexture(WHITE)
+			ticks[i] = t
+		end
+		t:SetVertexColor(rgba(tickColor, accent))
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", b.value, "TOPLEFT", floor(w * i / sections / px + 0.5) * px, 0)
+		t:SetSize(px, max(h, 0.01))
+		t:Show()
+	end
+	for i = max(sections, 1), #ticks do
+		ticks[i]:Hide()
+	end
 	-- Text on the bar, centred.
 	if el.text or el.format then
 		local style = textStyle(el)
