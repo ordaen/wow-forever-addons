@@ -112,6 +112,7 @@ end
 function Tooltip.Restyle()
 	Theme.Apply()
 	Component.RefreshAll()
+	ns.Dress.RefreshFonts()
 	if current.block then
 		Tooltip.Refresh(current.block)
 	end
@@ -132,4 +133,5 @@ OrdaenCore.UI._Provide({
 	Button = Component.Button,
 	Panel = Component.Panel,
 	Dress = ns.Dress.New,
+	DressFont = ns.Dress.Font,
 })

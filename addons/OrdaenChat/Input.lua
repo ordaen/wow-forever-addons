@@ -1,8 +1,11 @@
--- The input group: the chat input and Blizzard's chat menu button (the speech bubble: emotes, languages) drawn as
--- one block, the button on the input's left. The input's own art goes (alpha 0); OrdaenCore.UI draws the group's
--- surface in the theme's "panel" role. The button stays Blizzard's (its menu works unchanged); we only place it, and
--- put it back when Blizzard's layout code moves it (hooks on SetPoint/SetParent, no replaced methods: no taint).
--- Cost: no events and nothing per frame; hooks on rarely called functions (an input shown, a window opened).
+-- The input group: the chat input and Blizzard's chat buttons drawn as one block. From the input leftwards: the chat
+-- menu (the speech bubble: emotes, languages), the channels button (join, leave, voice), and the voice mute and
+-- deafen buttons while Blizzard shows them. UI.Dress draws the input (style "panel", reaching left over the
+-- buttons) and each button (style "iconButton", Blizzard's own icon); Blizzard's frames keep their clicks and menus.
+-- We only place the buttons, and put them back when Blizzard's layout code moves them (hooks on SetPoint/SetParent,
+-- no replaced methods: no taint). The social button isn't ours: Ordaen Panel takes it.
+-- Cost: no events and nothing per frame; hooks on rarely called functions (an input or a voice button shown, a
+-- window opened, Blizzard re-placing a button).
 local _, ns = ...
 
 local Input = {}
@@ -12,188 +15,202 @@ local UI = OrdaenCore.UI
 
 local GAP = 2
 local ART = { "Left", "Mid", "Right", "FocusLeft", "FocusMid", "FocusRight" } -- <EditBox name> .. part, all dumped
+-- Nearest the input first. All dumped globals.
+local BUTTONS = {
+	"ChatFrameMenuButton", "ChatFrameChannelButton", "ChatFrameToggleVoiceMuteButton",
+	"ChatFrameToggleVoiceDeafenButton",
+}
 
 local on = false
-local yielded = false -- another addon took the input: going off leaves the button where that addon put it
+local yielded = false -- another addon took the input: going off leaves the buttons where that addon put them
 local current -- the input the group sits on (the last one shown)
-local surfaces = {} -- input -> its UI block (the group's surface)
-local hiddenArt = {} -- texture -> true: input art we set to alpha 0
+local inputs = {} -- input -> its dress
+local buttons = {} -- name -> { frame, dress, home = { parent, point... } }
 local placing = false
-local home -- where the menu button was: { parent, point... } to give it back when the feature goes off
-local neighbors = {} -- Blizzard buttons anchored to the menu button, re-anchored where it was
 
-local function button()
-	return _G.ChatFrameMenuButton
-end
-
-local function size(input)
-	local b = button()
-	local surface = surfaces[input]
-	if not (surface and b) then
-		return
+-- Blizzard's icon of a button, for our look of it: its normal texture's atlas or file.
+local function iconOf(frame)
+	local texture = frame.GetNormalTexture and frame:GetNormalTexture()
+	if not texture then
+		return nil, nil
 	end
-	surface.block.width = input:GetWidth() + b:GetWidth() + GAP
-	surface.block.height = math.max(input:GetHeight(), b:GetHeight())
-	surface:Refresh()
+	local atlas = texture:GetAtlas()
+	if atlas then
+		return nil, atlas
+	end
+	return texture:GetTexture(), nil
 end
 
--- Put the menu button on the left of `current`, inside the group.
+-- Width the group needs left of the input: every shown button and its gap.
+local function leftWidth()
+	local width = 0
+	for _, name in ipairs(BUTTONS) do
+		local b = buttons[name]
+		if b and b.frame:IsShown() then
+			width = width + b.frame:GetWidth() + GAP
+		end
+	end
+	return width
+end
+
+-- Put the shown buttons in a row on the left of `current`, and the input's look over them.
 local function place()
-	local b = button()
-	if not (on and current and b) or placing then
+	if not (on and current) or placing then
 		return
 	end
 	placing = true
-	b:SetParent(current)
-	b:ClearAllPoints()
-	b:SetPoint("RIGHT", current, "LEFT", -GAP, 0)
+	local anchor = current
+	for _, name in ipairs(BUTTONS) do
+		local b = buttons[name]
+		if b then
+			local frame = b.frame
+			frame:SetParent(current)
+			frame:ClearAllPoints()
+			frame:SetPoint("RIGHT", anchor, "LEFT", -GAP, 0)
+			if b.dress then
+				b.dress:Apply() -- our look follows the new parent (shown and hidden with the input)
+			end
+			if frame:IsShown() then
+				anchor = frame
+			end
+		end
+	end
+	local dress = inputs[current]
+	if dress then
+		dress.opts.extend[1] = leftWidth()
+		dress:Apply()
+	end
 	placing = false
 end
 
 local function onInputShown(input)
 	current = input
 	place()
-	size(input)
 end
 
-local function dress(input)
-	if surfaces[input] or not input then
+local function dressInput(input)
+	if not input or inputs[input] then
 		return
 	end
 	local name = input:GetName()
+	local art = {}
 	for _, part in ipairs(ART) do
 		local texture = name and _G[name .. part]
 		if texture then
-			hiddenArt[texture] = true
-			if on then
-				texture:SetAlpha(0)
-			end
+			art[#art + 1] = texture
 		end
 	end
-	local surface = UI.Block({ parent = input, style = "panel", width = 1, height = 1 })
-	if not surface then
+	local dress = UI.Dress(input, { style = "panel", size = "frame", art = art, extend = { 0, 0, 0, 0 } })
+	if not dress then
 		return -- OrdaenCore_UI can't load (the player was told)
 	end
-	surface:SetPoint("RIGHT", input, "RIGHT", 0, 0)
-	surface:SetFrameLevel(math.max(0, input:GetFrameLevel() - 1))
-	surfaces[input] = surface
+	inputs[input] = dress
+	UI.DressFont(input, "body")
+	local header = name and _G[name .. "Header"]
+	if header then
+		UI.DressFont(header, "body")
+	end
 	input:HookScript("OnShow", onInputShown)
-	input:HookScript("OnSizeChanged", size)
-	if on and input:IsShown() then
-		onInputShown(input)
-	end
 end
 
-local function dressWindow(frame)
-	if frame then
-		dress(frame.editBox)
-	end
-end
-
--- Buttons Blizzard anchored to the menu button (they'd follow it to the input): anchor them where it was.
-local function freeNeighbors(b)
-	local point, relativeTo, relativePoint, x, y = b:GetPoint(1)
-	for _, name in ipairs({ "ChatFrameChannelButton", "ChatFrameToggleVoiceDeafenButton",
-		"ChatFrameToggleVoiceMuteButton", "QuickJoinToastButton", "TextToSpeechButtonFrame" }) do
-		local other = _G[name]
-		if other and other:GetNumPoints() > 0 then
-			local p, rel, rp, ox, oy = other:GetPoint(1)
-			if rel == b then
-				neighbors[other] = { p, rel, rp, ox, oy }
-				other:ClearAllPoints()
-				other:SetPoint(p, relativeTo, rp, ox, oy)
-				ns.Debug:Logf("input: %s was anchored to the chat menu button, now to %s", name,
-					relativeTo and relativeTo.GetName and relativeTo:GetName() or "?")
+local function dressInputs()
+	for i = 1, NUM_CHAT_WINDOWS + 40 do
+		local frame = _G["ChatFrame" .. i]
+		if not frame then
+			if i > NUM_CHAT_WINDOWS then
+				break
 			end
+		else
+			dressInput(frame.editBox)
 		end
 	end
-	return { b:GetParent(), point, relativeTo, relativePoint, x, y }
+end
+
+local function takeButtons()
+	for _, name in ipairs(BUTTONS) do
+		local frame = _G[name]
+		if frame and not buttons[name] then
+			local icon, atlas = iconOf(frame)
+			local b = { frame = frame, home = { frame:GetParent() } }
+			if frame:GetNumPoints() > 0 then
+				local point, relativeTo, relativePoint, x, y = frame:GetPoint(1)
+				b.home[2], b.home[3], b.home[4], b.home[5], b.home[6] = point, relativeTo, relativePoint, x, y
+			end
+			b.dress = UI.Dress(frame, { icon = icon, atlas = atlas })
+			buttons[name] = b
+			hooksecurefunc(frame, "SetPoint", place)
+			hooksecurefunc(frame, "SetParent", place)
+			-- The voice buttons come and go with voice chat: the row closes up.
+			frame:HookScript("OnShow", place)
+			frame:HookScript("OnHide", place)
+		elseif buttons[name] and buttons[name].dress then
+			buttons[name].dress:Apply()
+		end
+	end
 end
 
 local hooked = false
 
 --- Start the input group: the "inputGroup" feature's OnEnable.
 function Input.Enable()
-	local b = button()
 	on = true
-	for texture in pairs(hiddenArt) do
-		texture:SetAlpha(0)
+	for _, dress in pairs(inputs) do
+		dress:Apply()
 	end
-	for _, surface in pairs(surfaces) do
-		surface:Show()
-	end
-	if b and not home then
-		home = freeNeighbors(b)
-	end
+	takeButtons()
 	if not hooked then
 		hooked = true
-		for i = 1, NUM_CHAT_WINDOWS do
-			dressWindow(_G["ChatFrame" .. i])
-		end
-		-- Whisper tabs are windows opened later.
+		dressInputs()
 		hooksecurefunc("FCF_OpenTemporaryWindow", function()
-			for i = NUM_CHAT_WINDOWS + 1, NUM_CHAT_WINDOWS + 40 do
-				local frame = _G["ChatFrame" .. i]
-				if not frame then
-					break
-				end
-				dressWindow(frame)
+			if on then
+				dressInputs()
 			end
 		end)
-		if b then
-			hooksecurefunc(b, "SetPoint", place)
-			hooksecurefunc(b, "SetParent", place)
-		end
 	end
 	current = current or ChatFrame1.editBox
 	place()
-	size(current)
 end
 
---- Stop: Blizzard's input art and the button's place come back.
+--- Stop: Blizzard's input art and the buttons' places and looks come back.
 function Input.Disable()
 	on = false
-	for texture in pairs(hiddenArt) do
-		texture:SetAlpha(1)
+	for _, dress in pairs(inputs) do
+		dress:Undress()
 	end
-	for _, surface in pairs(surfaces) do
-		surface:Hide()
-	end
-	local b = button()
-	if b and home and not yielded then
-		placing = true
-		b:SetParent(home[1])
-		b:ClearAllPoints()
-		if home[2] then
-			b:SetPoint(home[2], home[3], home[4], home[5], home[6])
+	for _, b in pairs(buttons) do
+		if b.dress then
+			b.dress:Undress()
 		end
-		placing = false
-		for other, p in pairs(neighbors) do
-			other:ClearAllPoints()
-			other:SetPoint(p[1], p[2], p[3], p[4], p[5])
+		if not yielded then
+			local home = b.home
+			placing = true
+			b.frame:SetParent(home[1])
+			b.frame:ClearAllPoints()
+			if home[2] then
+				b.frame:SetPoint(home[2], home[3], home[4], home[5], home[6])
+			end
+			placing = false
 		end
-		neighbors, home = {}, nil
 	end
 end
 
---- Another addon took the input or the chat menu button (a conflict): when the feature goes off, put the input's
---- art back but leave the button to that addon.
+--- Another addon took the input or a chat button (a conflict): when the feature goes off, put Blizzard's look
+--- back but leave the buttons where that addon put them.
 function Input.StepAside()
 	yielded = true
 end
 
 --- What the dev-mode dump records.
 function Input.Describe()
-	local b = button()
+	local placed = {}
+	for name, b in pairs(buttons) do
+		local parent = b.frame:GetParent()
+		placed[name] = { parent = parent and parent:GetName() or false, shown = b.frame:IsShown() }
+	end
 	local dressed = {}
-	for input in pairs(surfaces) do
+	for input in pairs(inputs) do
 		dressed[#dressed + 1] = input:GetName() or "?"
 	end
-	return {
-		on = on,
-		yielded = yielded,
-		current = current and current:GetName() or false,
-		button = b and { parent = b:GetParent() and b:GetParent():GetName() or false, shown = b:IsShown() } or false,
-		dressed = dressed,
-	}
+	return { on = on, yielded = yielded, current = current and current:GetName() or false, buttons = placed,
+		dressed = dressed }
 end

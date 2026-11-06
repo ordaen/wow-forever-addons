@@ -307,11 +307,30 @@ end
 ---
 ---   local dress = UI.Dress(CharacterMicroButton, { atlas = "UI-HUD-MicroMenu-CharacterInfo-Up" })
 ---@param frame Frame
----@param opts OrdaenUIDressOpts|nil icon or atlas, iconSize (20), style, clickable (default frame.Button or frame)
+--- With `size = "frame"` our block covers Blizzard's frame (or `cover`) and its size stays Blizzard's or Edit
+--- Mode's (chat windows, inputs, tabs); `art` lists the textures to hide when the frame's children hold content;
+--- `states` + `:SetState(state)` switch the style (a selected tab). Only textures are hidden, never text, and they
+--- stay hidden when Blizzard fades them back in.
+---@param opts OrdaenUIDressOpts|nil icon or atlas, iconSize (20), style, clickable, size, cover, extend, art, states
 ---@return OrdaenUIDress|nil nil when the framework can't load (the player was told)
 function UI.Dress(frame, opts)
 	local f = framework()
 	return f and f.Dress(frame, opts)
+end
+
+--- Put the theme's font and the global text size (text style `style`, default "body") on Blizzard's own text: a
+--- FontString, an EditBox or a chat window. It stays when Blizzard sets the font again and follows theme and text
+--- size changes. Addons never call SetFont themselves. Loads the framework.
+---
+---   UI.DressFont(ChatFrame1, "body")
+---   UI.DressFont(ChatFrame1Tab:GetFontString(), "label")
+---@param target table anything with SetFont(file, size, flags) and GetFont()
+---@param style string|nil
+function UI.DressFont(target, style)
+	local f = framework()
+	if f then
+		f.DressFont(target, style)
+	end
 end
 
 --- The last tooltip as measured and drawn, for dev-mode dumps (false if the framework isn't loaded). Not for

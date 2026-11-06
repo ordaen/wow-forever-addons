@@ -14,6 +14,9 @@ How themes work: [Themes](/guide/themes).
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight | tooltip backdrop, Blizzard highlight | flat fill, grey border |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only | Blizzard highlight | highlight only |
 | `panel` | a box holding other things (the minimap drawer) | tooltip surface | tooltip backdrop | flat fill, grey border |
+| `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge | tooltip backdrop, dim | faint grey fill |
+| `tabSelected` | the tab shown | tooltip surface, accent top edge | tooltip backdrop, gold border | grey fill, accent line |
+| `tabFlash` | a tab with a new message | accent fill | gold-tinted backdrop | lighter fill, accent line |
 | `dialog` | confirmation dialogs (`UI.Confirm`) | like `tooltip`, padding `xl` | Blizzard's popup art | like `tooltip`, padding `xl` |
 | `pushButton` | a dialog's buttons | accent band, accent edges, highlight | tooltip backdrop on red, Blizzard highlight | grey fill and border |
 

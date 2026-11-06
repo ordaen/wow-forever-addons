@@ -11,15 +11,17 @@ local addonName, ns = ...
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	db = "OrdaenChatDB",
 	charDb = "OrdaenChatCharDB",
-	defaults = { inputGroup = true, sortChannels = true },
+	defaults = { chatLook = true, inputGroup = true, sortChannels = true },
 	charDefaults = {},
 	slash = { "/ochat", "/ordaenchat" },
 	conflicts = { "Prat-3.0" },
 	dump = function()
-		return { tabs = ns.Tabs.Describe(), whispers = ns.Whispers.Describe(), input = ns.Input.Describe() }
+		return { tabs = ns.Tabs.Describe(), whispers = ns.Whispers.Describe(), input = ns.Input.Describe(),
+			look = ns.Look.Describe() }
 	end,
 	settings = {
 		title = "SETTINGS_TITLE",
+		{ key = "chatLook", label = "CHAT_LOOK", tooltip = "CHAT_LOOK_TOOLTIP" },
 		{ key = "inputGroup", label = "INPUT_GROUP", tooltip = "INPUT_GROUP_TOOLTIP" },
 		{ key = "sortChannels", label = "SORT_CHANNELS", tooltip = "SORT_CHANNELS_TOOLTIP" },
 	},
@@ -36,6 +38,15 @@ end
 local layout = A:Feature("layout")
 layout:OnEnable(function()
 	ns.Tabs.ApplyOnce(A.charDb)
+end)
+
+-- Windows, tabs and fonts in the theme (Look.lua).
+local look = A:Feature("look", { setting = "chatLook" })
+look:OnEnable(function()
+	ns.Look.Enable()
+end)
+look:OnDisable(function()
+	ns.Look.Disable()
 end)
 
 local sortChannels = A:Feature("sortChannels", { setting = "sortChannels" })

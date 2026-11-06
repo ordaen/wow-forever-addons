@@ -60,6 +60,7 @@ local byFrame = setmetatable({}, { __mode = "k" }) -- WoW frame -> instance
 --- Placement and visibility, passed to the frame (PASSTHROUGH below):
 ---@field SetPoint fun(self: OrdaenUIComponent, point: string, relTo: any, relPoint: string?, x: number?, y: number?)
 ---@field ClearAllPoints fun(self: OrdaenUIComponent)
+---@field SetAllPoints fun(self: OrdaenUIComponent, target: table)
 ---@field GetPoint fun(self: OrdaenUIComponent, index: number|nil): string|nil, any, string|nil, number|nil, number|nil
 ---@field SetParent fun(self: OrdaenUIComponent, parent: any)
 ---@field GetParent fun(self: OrdaenUIComponent): any
@@ -282,7 +283,7 @@ end
 
 -- Placement and visibility go straight to the frame: they are where the block sits, not how it looks.
 local PASSTHROUGH = {
-	"SetPoint", "ClearAllPoints", "GetPoint", "SetParent", "GetParent",
+	"SetPoint", "ClearAllPoints", "SetAllPoints", "GetPoint", "SetParent", "GetParent",
 	"Show", "Hide", "IsShown", "IsVisible", "SetShown",
 	"SetFrameStrata", "GetFrameStrata", "SetFrameLevel", "GetFrameLevel",
 	"SetScale", "GetScale", "GetEffectiveScale", "GetCenter", "GetWidth", "GetHeight",

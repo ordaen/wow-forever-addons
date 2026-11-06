@@ -185,10 +185,18 @@ Places it again after its options changed. A resolution or UI scale change re-pl
 local dress = UI.Dress(CharacterMicroButton, { atlas = "UI-HUD-MicroMenu-CharacterInfo-Up" })
 ```
 
-Puts one of Blizzard's buttons in our look without taking it over. Its art goes to alpha 0 and our block is drawn
-under it (style `iconButton` unless `style` says otherwise). Blizzard's frame stays on top and keeps its clicks,
-menus and scripts. While the mouse is over Blizzard's button, ours shows its highlight. The frame takes our block's
-size. Dressing the same frame again returns the same object.
+Puts one of Blizzard's frames in our look without taking it over. Its art (textures only, never its text) goes to
+alpha 0 and stays there when Blizzard fades it back in; our block is drawn under it (style `iconButton` unless
+`style` says otherwise). Blizzard's frame stays on top and keeps its clicks, menus and scripts. While the mouse is
+over Blizzard's frame, ours shows its highlight. A button takes our block's size; with `size = "frame"` our block
+covers the frame instead and its size stays Blizzard's or Edit Mode's (chat windows, inputs, tabs). Dressing the
+same frame again returns the same object.
+
+```lua
+UI.Dress(ChatFrame1, { style = "panel", size = "frame", cover = ChatFrame1Background, art = { ChatFrame1Background } })
+local tab = UI.Dress(ChatFrame1Tab, { style = "tab", size = "frame", states = { selected = "tabSelected" } })
+tab:SetState("selected") -- from a hook on Blizzard's own state change, never by polling
+```
 
 | Option | Default | |
 |---|---|---|
@@ -197,6 +205,26 @@ size. Dressing the same frame again returns the same object.
 | `iconSize` | 20 | |
 | `style` | `"iconButton"` | |
 | `clickable` | `frame.Button`, else the frame | the frame that gets the mouse |
+| `size` | `"look"` | `"frame"`: cover the frame, keep its size |
+| `cover` | the frame | with `size = "frame"`: the region to cover (a background reaching past the frame) |
+| `extend` | | with `size = "frame"`: `{ left, right, top, bottom }` added around `cover` |
+| `art` | every texture of the frame and its children | the textures to hide, when children hold content |
+| `states` | | state -> style role for `d:SetState(state)` |
+
+### d:SetState(state)
+
+Switches to the style `states[state]`, or back to `style` for any other state (nil).
+
+### UI.DressFont(target, style)
+
+```lua
+UI.DressFont(ChatFrame1, "body")
+UI.DressFont(ChatFrame1Tab:GetFontString(), "label")
+```
+
+Puts the theme's font and the global text size of text style `style` (default `body`) on Blizzard's own text: a
+FontString, an EditBox or a chat window. Blizzard's font flags stay. When Blizzard sets the font again (the chat
+font size menu), ours comes back, and a theme or text size change re-applies it. Addons never call `SetFont`.
 
 ### d:SetIcon(icon, atlas)
 

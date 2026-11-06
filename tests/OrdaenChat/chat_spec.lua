@@ -48,6 +48,14 @@ local function stub(name, extra)
 	function obj:SetAlpha(a)
 		self.alpha = a
 	end
+	function obj:GetAlpha()
+		return self.alpha or 1
+	end
+	function obj:IsObjectType(kind)
+		return kind == self.kind
+	end
+	function obj:GetRegions() end
+	function obj:GetChildren() end
 	function obj:SetParent(p)
 		self.parent = p
 	end
@@ -99,12 +107,18 @@ local function chatWindow(i, title, shown)
 			end
 		end
 	end
-	w.editBox = stub("ChatFrame" .. i .. "EditBox")
+	w.editBox = stub("ChatFrame" .. i .. "EditBox", { GetFont = function()
+		return "Fonts\\FRIZQT__.TTF", 14, ""
+	end })
+	w.isDocked = true
+	function w:GetFont()
+		return "Fonts\\FRIZQT__.TTF", 14, ""
+	end
 	return w
 end
 
 describe("Ordaen Chat", function()
-	local ns, frames, windows, cvars, menuButton, art, loaded, stack
+	local ns, frames, windows, cvars, menuButton, channelButton, art, loaded, stack, windowArt, selectedWindow
 
 	local function fire(event, ...)
 		frames[1].scripts.OnEvent(frames[1], event, ...)
@@ -124,7 +138,7 @@ describe("Ordaen Chat", function()
 	end
 
 	before_each(function()
-		frames, windows, cvars, art, loaded = {}, {}, {}, {}, {}
+		frames, windows, cvars, art, loaded, windowArt = {}, {}, {}, {}, {}, {}
 		stack = "" -- who calls a claimed method: nobody's addon (Blizzard's own code) unless a test says so
 		rawset(_G, "OrdaenChatDB", nil) -- SavedVariables: each test starts as a new character
 		rawset(_G, "OrdaenChatCharDB", nil)
@@ -168,6 +182,14 @@ describe("Ordaen Chat", function()
 			end,
 			FCF_SelectDockFrame = function() end,
 			FCF_OpenTemporaryWindow = function() end,
+			-- Blizzard's tab colours (the selection changed) and alert flashes (a message in a hidden tab).
+			FCFTab_UpdateColors = function() end,
+			FCF_StartAlertFlash = function() end,
+			FCF_StopAlertFlash = function() end,
+			GeneralDockManager = stub("GeneralDockManager"),
+			FCFDock_GetSelectedWindow = function()
+				return selectedWindow
+			end,
 			GetChannelName = function()
 				return 0
 			end,
@@ -186,10 +208,23 @@ describe("Ordaen Chat", function()
 			windows[i] = chatWindow(i, title, i <= 2)
 			globals["ChatFrame" .. i] = windows[i]
 			for _, part in ipairs({ "Left", "Mid", "Right", "FocusLeft", "FocusMid", "FocusRight" }) do
-				local texture = stub("ChatFrame" .. i .. "EditBox" .. part)
+				local texture = stub("ChatFrame" .. i .. "EditBox" .. part, { kind = "Texture" })
 				art[#art + 1] = texture
 				globals["ChatFrame" .. i .. "EditBox" .. part] = texture
 			end
+			-- The window's background (reaches past it) and its tab with the tab's name.
+			local background = stub("ChatFrame" .. i .. "Background", { kind = "Texture" })
+			globals["ChatFrame" .. i .. "Background"] = background
+			windowArt[i] = background
+			local label = stub("ChatFrame" .. i .. "TabText", { kind = "FontString", GetFont = function()
+				return "Fonts\\FRIZQT__.TTF", 12, ""
+			end })
+			local tab = stub("ChatFrame" .. i .. "Tab", { GetFontString = function()
+				return label
+			end })
+			tab.label = label
+			globals["ChatFrame" .. i .. "Tab"] = tab
+			windows[i].tab = tab
 		end
 		-- Blizzard's default: every channel shows in General.
 		windows[1].channelList = { "General", "Trade", "LocalDefense" }
@@ -198,7 +233,14 @@ describe("Ordaen Chat", function()
 			return 26
 		end })
 		menuButton.parent = windows[1]
+		menuButton.shown = true -- Blizzard shows it
 		globals.ChatFrameMenuButton = menuButton
+		channelButton = stub("ChatFrameChannelButton", { GetWidth = function()
+			return 26
+		end })
+		channelButton.parent = windows[1]
+		channelButton.shown = true
+		globals.ChatFrameChannelButton = channelButton
 		helpers.stubGlobals(globals)
 		rawget(_G, "C_AddOns").IsAddOnLoaded = function(name)
 			return loaded[name] == true
@@ -311,6 +353,12 @@ describe("Ordaen Chat", function()
 			end
 		end)
 
+		it("puts the channels button next to the chat menu, in the same group", function()
+			login()
+			assert.equals(windows[1].editBox, channelButton.parent)
+			assert.same({ "RIGHT", menuButton, "LEFT", -2, 0 }, channelButton.point)
+		end)
+
 		it("follows the input that is shown", function()
 			login()
 			windows[3].editBox:Show()
@@ -360,6 +408,39 @@ describe("Ordaen Chat", function()
 			assert.truthy(conflictWith("Chattynator"))
 			assert.same({ "TOPLEFT", windows[1], "TOPRIGHT", 0, 0 }, menuButton.point) -- not moved back
 			assert.equals(1, art[1].alpha) -- our look is gone, the input's own art is back
+		end)
+	end)
+
+	describe("look", function()
+		it("dresses the windows and tabs in the theme, keeping Blizzard's sizes, with the theme's fonts", function()
+			selectedWindow = windows[1]
+			login()
+			assert.equals(0, windowArt[1].alpha)
+			assert.equals(0, windowArt[3].alpha) -- every window, also the ones opened for tabs
+			assert.is_nil(windows[1].calls.SetSize, "Edit Mode keeps the window's size")
+			local look = ns.Look.Describe()
+			assert.equals("selected", look.tabs.ChatFrame1Tab)
+			assert.equals("normal", look.tabs.ChatFrame2Tab)
+			assert.truthy(windows[1].tab.label.calls.SetFont, "the tab's name in the theme's font")
+			assert.truthy(windows[1].calls.SetFont, "the chat lines in the theme's font")
+		end)
+
+		it("follows Blizzard's tab selection and new-message flashes", function()
+			selectedWindow = windows[1]
+			login()
+			FCF_StartAlertFlash(windows[2])
+			assert.equals("flash", ns.Look.Describe().tabs.ChatFrame2Tab)
+			selectedWindow = windows[2]
+			FCFTab_UpdateColors(windows[2].tab, true)
+			assert.equals("selected", ns.Look.Describe().tabs.ChatFrame2Tab)
+			assert.equals("normal", ns.Look.Describe().tabs.ChatFrame1Tab)
+		end)
+
+		it("gives Blizzard's look back when turned off", function()
+			login()
+			ns.Addon.db.chatLook = false
+			ns.Addon:_SettingChanged("chatLook", false)
+			assert.equals(1, windowArt[1].alpha)
 		end)
 	end)
 end)

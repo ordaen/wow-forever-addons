@@ -1,7 +1,9 @@
 {
   "SETTINGS_TITLE": "Ordaen Chat",
-  "INPUT_GROUP": "Chat menu next to the input",
-  "INPUT_GROUP_TOOLTIP": "Show the chat menu button (emotes, languages) on the left of the chat input, drawn as one group with it.",
+  "CHAT_LOOK_TOOLTIP": "Draw chat windows and tabs in the Ordaen Core theme, with its font and text size.",
+  "CHAT_LOOK": "Chat in the theme",
+  "INPUT_GROUP": "Chat buttons next to the input",
+  "INPUT_GROUP_TOOLTIP": "Put the chat menu, channels and voice buttons on the left of the chat input, drawn as one group with it.",
   "SORT_CHANNELS": "New channels go to the Channels tab",
   "SORT_CHANNELS_TOOLTIP": "A channel you join shows in the Channels tab instead of General. Channels you put in other tabs stay there.",
   "TABS_DONE": "chat tabs set up: General, Guild, Channels. Whispers open in their own tabs. Type /ochat tabs to set them up again.",

@@ -122,6 +122,25 @@ THEMES.ordaen = {
 			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
 		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
+		-- Chat tabs (UI.Dress with states): unselected, selected, flashing (a new message in a tab not shown).
+		tab = {
+			padding = 0,
+			fill = { top = { 0.05, 0.04, 0.05, 0.6 }, bottom = { 0.02, 0.02, 0.02, 0.6 } },
+			edges = { top = { 1, { 0, 0, 0, 0.8, accent = 0.35 } } },
+			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
+		},
+		tabSelected = {
+			padding = 0,
+			fill = { top = { 0.05, 0.04, 0.05, 0.93, accent = 0.2 }, bottom = { 0.015, 0.012, 0.015, 0.93 } },
+			edges = { top = { 2, { 0, 0, 0, 1, accent = 1 } } },
+			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
+		},
+		tabFlash = {
+			padding = 0,
+			fill = { top = { 0, 0, 0, 0.9, accent = 0.55 }, bottom = { 0, 0, 0, 0.9, accent = 0.2 } },
+			edges = { top = { 1, { 0, 0, 0, 1, accent = 1 } } },
+			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
+		},
 		panel = { -- a box holding other things (the minimap drawer): the tooltip surface, no size of its own
 			padding = 0,
 			fill = {
@@ -195,6 +214,12 @@ THEMES.blizzard = {
 			highlight = BUTTON_HIGHLIGHT,
 		},
 		slot = { padding = 3, highlight = BUTTON_HIGHLIGHT },
+		tab = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.55 }, border = { 0.6, 0.6, 0.6, 0.8 },
+			highlight = BUTTON_HIGHLIGHT },
+		tabSelected = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.09, 0.09, 0.19, 0.95 },
+			border = { 1, 0.82, 0, 1 }, highlight = BUTTON_HIGHLIGHT },
+		tabFlash = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.35, 0.25, 0, 0.9 },
+			border = { 1, 0.82, 0, 1 }, highlight = BUTTON_HIGHLIGHT },
 		panel = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.85 }, border = { 1, 1, 1, 1 } },
 		dialog = {
 			padding = "xl", gap = "lg", backdrop = DIALOG_ART, background = { 1, 1, 1, 1 }, border = { 1, 1, 1, 1 },
@@ -237,6 +262,12 @@ THEMES.minimal = {
 		button = { padding = 0, gap = 0 },
 		iconButton = { padding = 4, fill = GREY_FILL, edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } } },
 		slot = { padding = 3, highlight = { color = { 1, 1, 1, 0.12 } } },
+		tab = { padding = 0, fill = { top = { 0.08, 0.08, 0.09, 0.6 }, bottom = { 0.08, 0.08, 0.09, 0.6 } },
+			highlight = { color = { 1, 1, 1, 0.08 } } },
+		tabSelected = { padding = 0, fill = GREY_FILL, edges = { top = { 1, { 0.56, 0.62, 0.72, 1 } } },
+			highlight = { color = { 1, 1, 1, 0.08 } } },
+		tabFlash = { padding = 0, fill = { top = { 0.2, 0.22, 0.26, 0.94 }, bottom = { 0.2, 0.22, 0.26, 0.94 } },
+			edges = { top = { 1, { 0.56, 0.62, 0.72, 1 } } }, highlight = { color = { 1, 1, 1, 0.08 } } },
 		panel = { padding = 0, fill = GREY_FILL, edges = GREY_EDGES },
 		dialog = { padding = "xl", gap = "lg", fill = GREY_FILL, edges = GREY_EDGES },
 		pushButton = {

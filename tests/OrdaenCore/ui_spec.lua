@@ -47,6 +47,15 @@ local function fakeFontString(log, frame)
 		self.fontFile, self.fontSize, self.fontFlags = file, size, flags
 		return true
 	end
+	function fs:GetFont()
+		return self.fontFile, self.fontSize, self.fontFlags
+	end
+	function fs:IsObjectType(kind)
+		return kind == "FontString" or kind == "Region"
+	end
+	function fs:SetAlpha(a)
+		self.alpha = a
+	end
 	function fs:SetShadowOffset(x, y)
 		self.shadow = { x, y }
 	end
@@ -93,6 +102,9 @@ end
 
 local function fakeTexture(layer)
 	local t = { layer = layer, shown = true }
+	function t:IsObjectType(kind)
+		return kind == "Texture" or kind == "Region"
+	end
 	function t:SetTexture(file)
 		self.file, self.atlas = file, nil
 	end
@@ -387,6 +399,18 @@ describe("OrdaenCore.UI", function()
 				local f = fakeFrame(name, log, parent)
 				table.insert(frames, f)
 				return f
+			end,
+			-- Blizzard's: runs `fn` after the original, with the same arguments.
+			hooksecurefunc = function(target, method, fn)
+				if type(target) == "string" then
+					target, method, fn = _G, target, method
+				end
+				local original = target[method]
+				rawset(target, method, function(...)
+					local a, b, c = original(...)
+					fn(...)
+					return a, b, c
+				end)
 			end,
 		})
 		for _, font in ipairs({ "GameTooltipHeaderText", "GameTooltipText", "GameTooltipTextSmall", "GameFontNormal",
@@ -806,6 +830,77 @@ describe("OrdaenCore.UI", function()
 			assert.is_falsy(dress.look.frame.highlightLocked, "an undressed button doesn't light ours")
 			assert.equals(dress, UI.Dress(frame), "dressed again: the same object")
 			assert.same({ 0, 0 }, { art.alpha, glow.alpha })
+		end)
+
+		it("hides only art, never text, and keeps it hidden when Blizzard fades it back in", function()
+			local frame, art = blizzardButton()
+			local label = frame:CreateFontString()
+			UI.Dress(frame, { icon = 136243 })
+			assert.is_nil(label.alpha, "a button's text (its count, a tab's name) stays")
+			art:SetAlpha(0.6) -- Blizzard fading its art in (a chat background on hover)
+			assert.equals(0, art.alpha)
+		end)
+
+		-- A chat window: its background reaches past the frame, its message lines are children (content).
+		local function chatWindow()
+			local holder = fakeFrame("UIParentLike", log, _G.UIParent)
+			local window = fakeFrame("ChatFrameLike", log, holder)
+			window:SetSize(400, 180)
+			local background = window:CreateTexture(nil, "BACKGROUND")
+			local border = window:CreateTexture(nil, "BORDER")
+			local lines = fakeFrame(nil, log, window)
+			local line = lines:CreateTexture(nil, "ARTWORK") -- an icon inside a message line
+			return window, background, border, line
+		end
+
+		it("cover a frame at its own size with size = \"frame\", hiding only the art listed", function()
+			local window, background, border, line = chatWindow()
+			local dress = UI.Dress(window, { style = "panel", size = "frame", cover = background,
+				art = { background, border } })
+			assert.same({ 400, 180 }, window.size, "Blizzard's (Edit Mode's) size stays")
+			assert.same({ "ALL", background }, dress.look.frame.point)
+			assert.same({ 0, 0 }, { background.alpha, border.alpha })
+			assert.is_nil(line.alpha, "a message line's icon isn't art")
+			assert.is_nil(dress.icon, "no icon in a window")
+			dress:Undress()
+			assert.same({ 1, 1 }, { background.alpha, border.alpha })
+			assert.same({ 400, 180 }, window.size)
+		end)
+
+		it("reach past the covered region with `extend` (an input with buttons on its left)", function()
+			local window = chatWindow()
+			local dress = UI.Dress(window, { style = "panel", size = "frame", extend = { 60, 0, 2, 2 }, art = {} })
+			local look = dress.look.frame
+			assert.same({ "BOTTOMRIGHT", window, "BOTTOMRIGHT", 0, -2 }, look.point)
+		end)
+
+		it("switch the style with :SetState (a selected or flashing tab)", function()
+			local window = chatWindow()
+			local dress = UI.Dress(window, { style = "tab", size = "frame", art = {},
+				states = { selected = "tabSelected", flash = "tabFlash" } })
+			dress:SetState("selected")
+			assert.equals("tabSelected", dress.look.block.style)
+			dress:SetState("flash")
+			assert.equals("tabFlash", dress.look.block.style)
+			dress:SetState(nil)
+			assert.equals("tab", dress.look.block.style)
+		end)
+
+		it("put the theme's font on Blizzard's text and keep it there with UI.DressFont", function()
+			local frame = fakeFrame("Tab", log, _G.UIParent)
+			local label = frame:CreateFontString()
+			label:SetFont("Fonts\\FRIZQT__.TTF", 14, "OUTLINE")
+			UI.DressFont(label, "label")
+			local file, size, flags = label:GetFont()
+			assert.is_not.equals("Fonts\\FRIZQT__.TTF", file)
+			assert.equals("OUTLINE", flags, "Blizzard's flags stay")
+			label:SetFont("Fonts\\FRIZQT__.TTF", 20, "OUTLINE") -- the chat font size menu
+			assert.equals(file, (label:GetFont()))
+			assert.equals(size, select(2, label:GetFont()))
+			-- A bigger global text size: re-applied with the theme.
+			rawset(_G, "OrdaenCoreDB", { ui = { textSize = 16 } })
+			UI._SettingsChanged()
+			assert.is_true(select(2, label:GetFont()) > size)
 		end)
 
 		it("hides art Blizzard adds later on :Refresh, and changes the icon", function()
