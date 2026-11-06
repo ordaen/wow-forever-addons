@@ -60,8 +60,12 @@ would have caught it is half a fix: say which check now catches it, or add one.
 3. **Strict, shared fakes.** Specs use the shared fakes in `tests/OrdaenCore/helpers.lua`, generated from the API
    dump: unknown fields and methods are `nil`, and object fakes check `self` like the real thing. No per-spec stub that
    is looser than the game (a lenient stub made `frame.Button` look real; the no-op kit made dot calls look fine).
-4. **Merge only when green.** `develop` moves only through `ordaen merge <branch>` (rebase, `ordaen check`,
-   fast-forward only if everything passes). Don't decide "green" from filtered output; read the summary. Check
+4. **Merge, then check; red develop is fixed first.** `develop` moves only through `ordaen merge <branch>`
+   (user's decision, 2026-11-07): it rebases the branch, fast-forwards develop at once, then runs `ordaen check`
+   (~10 s) on that commit, so sessions no longer get refused because develop moved during their check. Run
+   `ordaen check` in your worktree before merging anyway. If the merge prints `DEVELOP IS RED`, the session that
+   merged fixes develop next, before anything else. `--check-first` keeps the older order (check, then
+   fast-forward only when green). Don't decide "green" from filtered output; read the summary. Check
    `git status`/`git diff --stat` before each commit (a refused file write once left a stale file in a green build).
 5. **Isolated features.** Each feature of an addon is an `A:Feature(...)` (Core `Feature.lua`): the framework
    starts each one in its own protected call, so one feature's error is reported and the rest still start.
@@ -99,7 +103,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - When `scripts/test.sh` is green, rebase onto `develop` and run `git merge --ff-only feat/<topic>` from the main checkout. That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart, observed 2026-11-07), TOC changes and even new addon folders (observed 2026-11-06 with OrdaenCore_UI). A new addon must be linked first (`ordaen link`).
+  - When `scripts/test.sh` is green, run `ordaen merge feat/<topic>` (rule 4: rebase, fast-forward develop, check). That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, new textures (`.tga` in media/: no client restart, observed 2026-11-07), TOC changes and even new addon folders (observed 2026-11-06 with OrdaenCore_UI). A new addon must be linked first (`ordaen link`).
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
