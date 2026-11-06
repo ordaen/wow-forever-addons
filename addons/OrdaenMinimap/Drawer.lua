@@ -189,8 +189,14 @@ end
 
 local function tocEntries()
 	local list = {}
-	for i = 1, C_AddOns.GetNumAddOns() do
-		local name = C_AddOns.GetAddOnInfo(i)
+	-- Not confirmed on Forever yet: fall back to the old globals, else no TOC entries.
+	local getNum = C_AddOns.GetNumAddOns or _G.GetNumAddOns
+	local getInfo = C_AddOns.GetAddOnInfo or _G.GetAddOnInfo
+	if type(getNum) ~= "function" or type(getInfo) ~= "function" then
+		return list
+	end
+	for i = 1, getNum() do
+		local name = getInfo(i)
 		local func = name and C_AddOns.IsAddOnLoaded(name) and C_AddOns.GetAddOnMetadata(name, "AddonCompartmentFunc")
 		if func then
 			list[#list + 1] = {

@@ -350,6 +350,15 @@ describe("OrdaenMinimap smoke", function()
 			assert.is_true(world.reloaded)
 		end)
 
+		it("asks the user to disable by hand when the client has no DisableAddOn", function()
+			rawget(_G, "C_AddOns").DisableAddOn = nil
+			world.loaded.SexyMap = true
+			login()
+			popup().OnAccept(nil, "SexyMap")
+			assert.is_nil(world.reloaded)
+			assert.truthy(chat[#chat]:find("SexyMap", 1, true))
+		end)
+
 		it("decide later keeps the map untouched for the session", function()
 			world.loaded.SexyMap = true
 			login()

@@ -57,6 +57,7 @@ local enUS = {
 		.. "buttons). Disable one of them.",
 	DRAWER_RELOAD_HINT = "button drawer off. Type /reload to put the buttons back on the minimap.",
 	STYLE_BRONZE_RIM = "Bronze rim",
+	CONFLICT_DISABLE_MANUALLY = "please disable %s in the AddOns list (character screen) and restart the game.",
 }
 
 local ruRU = {
@@ -114,6 +115,7 @@ local ruRU = {
 		.. "кнопки). Выключите одну из них.",
 	DRAWER_RELOAD_HINT = "панель кнопок выключена. Введите /reload, чтобы вернуть кнопки на миникарту.",
 	STYLE_BRONZE_RIM = "Бронзовый обод",
+	CONFLICT_DISABLE_MANUALLY = "выключите %s в списке модификаций (на экране выбора персонажа) и перезапустите игру.",
 }
 
 local translations = { ruRU = ruRU }

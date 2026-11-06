@@ -38,11 +38,25 @@ local function remember(other, choice)
 	db.conflictChoice[other or "?"] = choice
 end
 
+-- C_AddOns.DisableAddOn is not confirmed on Forever yet; fall back to the old global, then to asking
+-- the user to do it in the AddOns list.
+local function disableAddOn(name)
+	local disable = C_AddOns.DisableAddOn or _G.DisableAddOn
+	if type(disable) ~= "function" then
+		ns.Debug.Logf("conflict: no DisableAddOn API, asking the user to disable %s", name)
+		ns.Print(L.CONFLICT_DISABLE_MANUALLY:format(title(name)))
+		return false
+	end
+	disable(name)
+	return true
+end
+
 local function keepOurs(other)
 	if ns.KeepOursAction(other) == "disable" then
 		ns.Debug.Logf("conflict: disabling %s and reloading", other)
-		C_AddOns.DisableAddOn(other)
-		ReloadUI()
+		if disableAddOn(other) then
+			ReloadUI()
+		end
 		return
 	end
 	remember(other, "ours")
@@ -56,8 +70,9 @@ end
 
 local function keepOther(other)
 	ns.Debug.Logf("conflict: keeping %s, disabling %s and reloading", tostring(other), addonName)
-	C_AddOns.DisableAddOn(addonName)
-	ReloadUI()
+	if disableAddOn(addonName) then
+		ReloadUI()
+	end
 end
 
 local function decideLater(other)

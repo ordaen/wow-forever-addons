@@ -136,7 +136,8 @@ local function enableWheelZoom()
 	Minimap:EnableMouseWheel(true)
 	Minimap:SetScript("OnMouseWheel", function(self, delta)
 		local zoom = self:GetZoom() + (delta > 0 and 1 or -1)
-		zoom = math.max(0, math.min(self:GetZoomLevels() - 1, zoom))
+		local levels = self.GetZoomLevels and self:GetZoomLevels() or 6
+		zoom = math.max(0, math.min(levels - 1, zoom))
 		self:SetZoom(zoom)
 	end)
 end

@@ -34,6 +34,34 @@ local function applyAll()
 	ns.Drawer.Apply(OrdaenMinimapDB)
 end
 
+-- WoW APIs this addon uses that aren't confirmed on Forever yet (many retail/classic FrameXML helpers
+-- are missing there). Dev mode logs which exist, so one in-game session settles it.
+local UNCONFIRMED_APIS = {
+	"C_AddOns.DisableAddOn",
+	"DisableAddOn",
+	"C_AddOns.GetNumAddOns",
+	"C_AddOns.GetAddOnInfo",
+	"Minimap.GetZoomLevels",
+	"Minimap.SetTaskBlobRingScalar",
+	"StaticPopupDialogs",
+	"AddonCompartmentFrame.registeredAddons",
+}
+
+local function logApiAvailability()
+	if not Debug.IsEnabled() then
+		return
+	end
+	local parts = {}
+	for _, path in ipairs(UNCONFIRMED_APIS) do
+		local value = _G
+		for key in path:gmatch("[^.]+") do
+			value = type(value) == "table" and value[key] or nil
+		end
+		parts[#parts + 1] = path .. "=" .. (value ~= nil and type(value) or "missing")
+	end
+	Debug.Log("api: " .. table.concat(parts, ", "))
+end
+
 local frame = CreateFrame("Frame")
 frame:RegisterEvent("ADDON_LOADED")
 frame:RegisterEvent("PLAYER_LOGIN")
@@ -45,6 +73,7 @@ frame:SetScript("OnEvent", Debug.Wrap(function(_, event, arg1)
 	elseif event == "PLAYER_LOGIN" then
 		local version = C_AddOns.GetAddOnMetadata(addonName, "Version") or "?"
 		Debug.Log("PLAYER_LOGIN")
+		logApiAvailability()
 		if ns.Guard.Start(OrdaenMinimapDB, applyAll) then
 			applyAll()
 		end
