@@ -67,6 +67,21 @@ describe("api_import", function()
 			Import.SortVersions({ "1.61.0-71000", "1.60.1-9", "1.60.1-70790" }))
 	end)
 
+	it("leaves out names that aren't identifiers (per-user and per-session noise)", function()
+		local dump = fakeDump(70790)
+		dump.globals["$HealerMarkerCheckButton"] = "widget"
+		dump.globals["101_CutsceneName_Ref"] = "string"
+		dump.namespaces.hash_SlashCmdList = { ["/om"] = "string", ["/ordaen"] = "string" }
+		dump.namespaces.g_addonCategoriesCollapsed = { ["Чат"] = "boolean", Libraries = "boolean" }
+		local files = Import.Render(dump)
+		assert.is_nil(files["globals.txt"]:find("$Healer", 1, true))
+		assert.is_nil(files["globals.txt"]:find("101_", 1, true))
+		assert.is_nil(files["namespaces.txt"]:find("/om", 1, true))
+		assert.is_nil(files["namespaces.txt"]:find("Чат", 1, true))
+		assert.truthy(files["namespaces.txt"]:find("g_addonCategoriesCollapsed.Libraries\tboolean", 1, true))
+		assert.truthy(files["namespaces.txt"]:find("Enum.<skipped>\t6000+", 1, true))
+	end)
+
 	it("writes CHANGES.md newest first, with what each version added and removed", function()
 		local old = Import.Render(fakeDump(70790, { MouseIsOver = "function" }))
 		local new = Import.Render(fakeDump(71000, { C_NewThing = "table" }))

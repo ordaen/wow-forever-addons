@@ -34,6 +34,15 @@ function M.FolderName(meta)
 	return tostring(meta.version) .. "-" .. tostring(meta.build)
 end
 
+-- Only names code can use as an identifier are API. Others are per-user or per-session noise: template
+-- placeholders ("$HealerMarkerCheckButton"), localized lookup keys (hash_EmoteTokenList,
+-- hash_SlashCmdList, which also lists other addons' slash commands), the user's own UI state
+-- (g_addonCategoriesCollapsed). Markers like "<skipped>" are kept.
+local function identifier(name)
+	return type(name) == "string" and name:match("^[%a_][%w_]*$") ~= nil
+end
+M.IsIdentifier = identifier
+
 --- The text files for one dump, as filename -> content.
 function M.Render(dump)
 	local out = {}
@@ -46,14 +55,20 @@ function M.Render(dump)
 
 	local globals = {}
 	for name, kind in pairs(dump.globals or {}) do
-		globals[#globals + 1] = name .. "\t" .. kind
+		if identifier(name) then
+			globals[#globals + 1] = name .. "\t" .. kind
+		end
 	end
 	out["globals.txt"] = lines(globals)
 
 	local namespaces = {}
 	for name, members in pairs(dump.namespaces or {}) do
-		for key, kind in pairs(members) do
-			namespaces[#namespaces + 1] = name .. "." .. key .. "\t" .. kind
+		if identifier(name) then
+			for key, kind in pairs(members) do
+				if identifier(key) or key == "<skipped>" then
+					namespaces[#namespaces + 1] = name .. "." .. key .. "\t" .. kind
+				end
+			end
 		end
 	end
 	out["namespaces.txt"] = lines(namespaces)
