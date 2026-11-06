@@ -116,9 +116,6 @@ describe("OrdaenMinimap smoke", function()
 			AddonCompartmentFrame = stubObject("AddonCompartmentFrame", { registeredAddons = world.runtimeEntries }),
 			UISpecialFrames = {},
 			GameTooltip = stubObject("GameTooltip"),
-			MouseIsOver = function()
-				return false
-			end,
 			IsShiftKeyDown = function()
 				return false
 			end,

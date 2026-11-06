@@ -16,7 +16,6 @@ read_globals = {
 	"C_Timer",
 	"GameTooltip",
 	"IsShiftKeyDown",
-	"MouseIsOver",
 	"CreateSettingsListSectionHeaderInitializer",
 	"ReloadUI",
 	"StaticPopup_Show",

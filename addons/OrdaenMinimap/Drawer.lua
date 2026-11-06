@@ -398,7 +398,8 @@ local function createFrames()
 		away = 0
 	end)
 	container:SetScript("OnUpdate", function(self, elapsed)
-		if MouseIsOver(self) or MouseIsOver(mainButton) then
+		-- frame:IsMouseOver(), not the global MouseIsOver(): Forever has no MouseIsOver.
+		if self:IsMouseOver() or mainButton:IsMouseOver() then
 			away = 0
 		else
 			away = away + elapsed
