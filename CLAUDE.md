@@ -104,6 +104,13 @@ addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
 
 ## UI framework `OrdaenCore.UI`: design philosophy (set in stone by the user)
 
+Owner (user's decision): the Ordaen Minimap session owns `OrdaenCore.UI`: `addons/OrdaenCore/UI.lua`,
+`Tooltip.lua`, later UI files, and `tests/OrdaenCore/ui_spec.lua`. Requests go to it. The Ordaen Core session owns the
+rest of the Core (`Core.lua`, the `OrdaenCore.toc` file list, `tests/OrdaenCore/helpers.lua`) and gets a heads-up
+before the UI owner touches those. Core API names become permanent at the first release of OrdaenCore; until then
+the UI shape may change, keeping its safety properties (per-drawn-thing `pcall` with fallback, no per-show copies,
+no timers or `OnUpdate` in the framework, unknown slots degrade).
+
 - **Addons declare, they never render.** Addon code asks `OrdaenCore.UI` for what it wants (e.g. a tooltip, later a
   button with a tooltip, a window) in our own format and never learns who draws it. One framework in Ordaen Core, the
   same calls in every addon: consistency and one place to change behavior.
