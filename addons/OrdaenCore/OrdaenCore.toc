@@ -1,6 +1,17 @@
 ## Interface: 16001
 ## Title: Ordaen Core
 ## Notes: Shared code for the Ordaen addons (debug log, error reports). Does nothing on its own.
+## Category: Libraries
+## Category-deDE: Bibliotheken
+## Category-esES: Bibliotecas
+## Category-esMX: Bibliotecas
+## Category-frFR: Bibliothèques
+## Category-itIT: Librerie
+## Category-koKR: 라이브러리
+## Category-ptBR: Bibliotecas
+## Category-ruRU: Библиотеки
+## Category-zhCN: 函数库
+## Category-zhTW: 函式庫
 # The Version line is bumped by release-please; do not edit it by hand.
 # x-release-please-start-version
 ## Version: 0.0.0
