@@ -114,7 +114,8 @@ Local package build (Git Bash): `scripts/package.sh OrdaenMinimap` → `.release
 
 ### Adding an addon
 
-1. Create `addons/<Name>/` with `<Name>.toc` (copy the version block markers), `.pkgmeta`, Lua files.
+1. Create `addons/<Name>/` with `<Name>.toc` (copy the version block markers and the `## Category` lines from an
+   existing addon), `.pkgmeta`, Lua files.
 2. Add it to `release-please-config.json` (`packages`, with `"initial-version": "0.1.0"`) and `.release-please-manifest.json` (`"0.0.0"`).
 3. Depend on the Core: `## Dependencies: OrdaenCore` and `## X-Ordaen-MinCore: <current Core version>` in the TOC,
    `required-dependencies: [ordaen-core]` in `.pkgmeta`, and wire up the debug kit as in

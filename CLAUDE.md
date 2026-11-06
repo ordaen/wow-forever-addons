@@ -47,7 +47,9 @@ scripts/test.sh                 luacheck + busted (Git Bash -> WSL, or native on
 ## Branding
 
 Every addon is named `Ordaen<Name>` (folder, .toc, globals) with TOC title `Ordaen <Name>`, so CurseForge search
-finds them all. One CurseForge project per addon (no pack).
+finds them all. One CurseForge project per addon (no pack). Every TOC sets `## Category:` plus the localized
+`## Category-xxXX:` lines, copied from an installed addon that uses the same category so they share a group in the
+addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
 
 ## First addon: OrdaenMinimap
 
