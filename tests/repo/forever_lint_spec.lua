@@ -150,6 +150,24 @@ string.format("%d", 1)
 ]]))
 	end)
 
+	it("FL7: flags Debug:Time whose results are used, not Time statements", function()
+		assert.same({ "FL7@4", "FL7@5", "FL7@6", "FL7@7", "FL7@8", "FL7@9", "FL7@10" }, codes([[
+local A, fn = {}, nil
+Debug:Time("ok", fn)
+do debug():Time("ok", fn) end
+local x = Debug:Time("a", fn)
+y = A.Debug:Time("b", fn)
+use(Debug:Time("c", fn))
+if debug():Time("d", fn) then end
+for _ in Debug:Time("e", fn) do end
+local t = { Debug:Time("f", fn) }
+z = 1 + Debug:Time("g", fn)
+local t2 = Debug:TimeStart()
+Debug:TimeEnd(t2, "fine")
+ns.Map:Time("not the kit")
+]]))
+	end)
+
 	it("honors forever-lint: ignore comments", function()
 		assert.same({ "FL1@3" }, codes([[
 local f = CreateFrame("Frame")

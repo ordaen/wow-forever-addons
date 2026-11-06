@@ -10,6 +10,8 @@
 --   FL4 arg type   a literal of the wrong kind for a documented argument (a string where a number goes, ...)
 --   FL5 frame type CreateFrame("X") with a type that isn't a widget type in the dump
 --   FL6 debug kit  a debug kit method called with '.' (Debug.Log(...), debug().Logf(...)): it takes ':'
+--   FL7 debug time Debug:Time(...) whose results are used: release builds strip the call, so it may only
+--                  be a statement (time a value with t = Debug:TimeStart() ... Debug:TimeEnd(t, "label"))
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
 -- Silence one line with a trailing comment:  -- forever-lint: ignore FL2
 --
@@ -148,7 +150,7 @@ end
 -- or a call of a function named like it (`debug()`, `getDebug()`).
 local KIT_METHODS = {}
 for name in ([[Init IsEnabled Log Logf Warn Warnf Verbose Verbosef Wrap Call Dump Snapshot HandleSlash HelpLines
-	Trace TraceFrame TraceEnabled]]):gmatch("%a+") do
+	Trace TraceFrame TraceEnabled TimeStart TimeEnd Time]]):gmatch("%a+") do
 	KIT_METHODS[name] = true
 end
 
@@ -390,16 +392,27 @@ function M.LintSource(api, source)
 		scope = saved
 	end
 
-	function walk(node)
+	-- inExpr: the node's value is used (it sits in an expression, not directly in a block)
+	local function walkExprs(list)
+		for _, expr in ipairs(list or {}) do
+			walk(expr, true)
+		end
+	end
+
+	function walk(node, inExpr)
 		if type(node) ~= "table" then
 			return
 		end
 		local tag = node.tag
+		if inExpr and tag == "Invoke" and node[2].tag == "String" and node[2][1] == "Time" and isDebugKit(node[1]) then
+			report(node[2], "FL7", "Debug:Time(...) used as a value: release builds strip it, so it may only be a "
+				.. "statement; time a value with local t = Debug:TimeStart() ... Debug:TimeEnd(t, \"label\")")
+		end
 		if tag == "Function" then
 			walkFunction(node)
 			return
 		elseif tag == "Local" then
-			walk(node[2])
+			walkExprs(node[2])
 			local names, exprs = node[1], node[2] or {}
 			for i, id in ipairs(names) do
 				local t = (i <= #exprs) and typeOf(exprs[i]) or nil
@@ -411,7 +424,7 @@ function M.LintSource(api, source)
 			walk(node[2])
 			return
 		elseif tag == "Set" then
-			walk(node[2])
+			walkExprs(node[2])
 			local targets, exprs = node[1], node[2]
 			for i, target in ipairs(targets) do
 				local p = path(target)
@@ -426,9 +439,14 @@ function M.LintSource(api, source)
 			checkCall(node)
 		elseif tag == "Invoke" then
 			checkInvoke(node)
+		elseif tag == "Forin" then
+			walkExprs(node[2])
+			walk(node[3])
+			return
 		end
+		local expr = tag ~= nil and tag ~= "Do"
 		for i = 1, #node do
-			walk(node[i])
+			walk(node[i], expr)
 		end
 	end
 

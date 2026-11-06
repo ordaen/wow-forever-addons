@@ -172,6 +172,29 @@ end
 function StandIn:HandleSlash(msg)
 	return false
 end
+
+-- Timing (Performance tab). Release builds strip `local t = Debug:TimeStart()`, `Debug:TimeEnd(...)` and
+-- `Debug:Time(...)` statements; forever-lint FL7 refuses a Time call whose results are used.
+
+--- A start mark for TimeEnd (debugprofilestop in the real kit); 0 here.
+---@return number
+function StandIn:TimeStart()
+	return 0
+end
+
+--- Record the time since `start` under `label`.
+---@param start number from TimeStart
+---@param label string
+function StandIn:TimeEnd(start, label) end
+
+--- Run `fn(...)` and record its time under `label`; returns fn's results.
+---@param label string
+---@param fn function
+---@param ... any
+---@return any ...
+function StandIn:Time(label, fn, ...)
+	return fn(...)
+end
 -- luacheck: pop
 
 local standIn = setmetatable({}, { __index = StandIn })

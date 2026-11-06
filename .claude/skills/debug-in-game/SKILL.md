@@ -1,6 +1,6 @@
 ---
 name: debug-in-game
-description: Debug an Ordaen addon's in-game behavior in WoW Forever. Use when the user reports a bug, error, odd layout or "it doesn't work" from the game, says "check" or "done" after testing, after merging a change the user will /reload, or when a feature needs testing in game. Covers the companion's live tools (wow_status, wow_errors, wow_log, wow_watch, wow_screenshot), what the user does in game, the saved data as a fallback, and how to make code observable with the debug kit.
+description: Debug an Ordaen addon's in-game behavior in WoW Forever. Use when the user reports a bug, error, odd layout or "it doesn't work" from the game, says "check" or "done" after testing, after merging a change the user will /reload, or when a feature needs testing in game. Covers the companion's live tools (wow_status, wow_errors, wow_log, wow_watch, wow_screenshot, wow_dump, wow_perf), what the user does in game, the saved data as a fallback, and how to make code observable with the debug kit.
 ---
 
 # Debugging Ordaen addons in game
@@ -29,6 +29,8 @@ chat, never from guesses about what the game showed.
   name, parent, shown/visible, size, points, strata, level, alpha and scale.
 - Wrap event, script and slash handlers in `Debug:Wrap(fn)` (the framework's `A:On` does it already). Dev mode also
   catches errors globally and blocked actions (taint), so wrapping is about clean stacks, not coverage.
+- Time code you suspect is slow: `local t = Debug:TimeStart()` ... `Debug:TimeEnd(t, "drawer.collect")`, or the
+  statement `Debug:Time("drawer.layout", fn, ...)`. Release builds strip both, so never use Time's results (FL7).
 - `ordaen check` green before handing over.
 
 ## 2. Hand over
@@ -57,7 +59,10 @@ Instead of waiting for "done", you can `wow_watch` for the session start or the 
 4. `wow_dump { addon? }`: each addon's state (its `dump` callback: settings, frame snapshots), with the time and
    session it was taken. The companion can't ask the game for it (the channel is one-way), so first ask the user to
    open the Ordaen Dev window (gear button on the minimap) and click **Send state**; no reload needed.
-5. Fallback when the companion isn't running: the saved data in
+5. `wow_perf { seconds?, addon?, top? }`: the Performance tab: memory and CPU per addon and the `Debug:Time` labels
+   (count, total, max) over the last `seconds`. Ask the user to do the action being measured, then read it with
+   `seconds` covering that (about 10). Mention the numbers when handing work over (CLAUDE.md, Performance).
+6. Fallback when the companion isn't running: the saved data in
    `_forever_\WTF\Account\1170042654#1\SavedVariables\OrdaenCore_Debug.lua` (`OrdaenCoreDebugDB`: `errors`,
    `addons[<Addon>].log`, `addons[<Addon>].dump`, `sessions`). WoW writes it only on `/reload` or logout. Paths:
    game `C:\Program Files (x86)\World of Warcraft\_forever_\`, screenshots in `_forever_\Screenshots\`, client logs in

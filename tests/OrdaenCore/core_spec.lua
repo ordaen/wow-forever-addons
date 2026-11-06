@@ -103,6 +103,18 @@ describe("OrdaenCore", function()
 			assert.are.same({ 1, 2 }, { a, b })
 		end)
 
+		it("times nothing but still runs the timed function", function()
+			local Debug = Core.NewDebug("TestAddon")
+			local t = Debug:TimeStart()
+			assert.are.equal(0, t)
+			Debug:TimeEnd(t, "label")
+			local seen
+			Debug:Time("label", function(x, y)
+				seen = x + y
+			end, 1, 2)
+			assert.are.equal(3, seen)
+		end)
+
 		it("adds no help lines and handles no commands", function()
 			local Debug = Core.NewDebug("TestAddon")
 			assert.are.same({}, Debug:HelpLines())
