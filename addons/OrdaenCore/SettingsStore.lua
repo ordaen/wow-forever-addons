@@ -32,7 +32,8 @@ local StoreMeta = { __index = StoreMethods }
 
 local stores = {} -- every bound store, for theme switches
 local theme = "ordaen"
-local tokens = { assets = {}, tokens = {}, themes = {} } -- THEME_TOKENS (Store.SetTokens)
+-- THEME_TOKENS (generated from themes.jsonc, loaded before this file); specs may replace it (Store.SetTokens)
+local tokens = ns.THEME_TOKENS or { assets = {}, tokens = {}, themes = {} }
 
 -- Paths ------------------------------------------------------------------------------------------
 
@@ -167,6 +168,14 @@ end
 --- A theme token's value in the current theme (e.g. "color.accent").
 function Store.Token(name)
 	local values = tokens.themes[theme] or tokens.themes.ordaen
+	return values and values[name]
+end
+
+--- A theme token's value in theme `themeName` (the UI renderer asks for the theme it draws with).
+---@param themeName string|nil
+---@param name string
+function Store.TokenIn(themeName, name)
+	local values = tokens.themes[themeName] or tokens.themes.ordaen
 	return values and values[name]
 end
 

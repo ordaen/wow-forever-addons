@@ -55,9 +55,19 @@ Separators take their cell's whole width; give them `colSpan` in a block with se
 
 | Field | Type | Default | |
 |---|---|---|---|
-| `bar` | number | | filled part, 0 to 1 |
-| `color` | `{ r, g, b [, a] }` | the theme's (accent) | for meaning: health, progress |
+| `bar` | number | | the value, from `min` to `max` |
+| `min`, `max` | number | 0, 1 | the range |
+| `quest` | number | the value | a second part behind the value, up to here, lighter (XP from completed quests) |
+| `overlay` | number | `quest` | a third part, dimmed, up to here (rested XP) |
+| `color` | `{ r, g, b [, a] }` or a colour token (`"color.xp"`) | the theme's (accent) | for meaning: health, progress, XP |
+| `questColor`, `overlayColor` | the same | `color` | |
+| `animate` | boolean | false | changes glide (the game animates the status bar, no Lua per frame), a gain flashes for a moment (the theme's `motion.fade`), a value that drops (a new level) runs to the end first, then starts again |
+| `text`, or `format` + `args` | | | text on the bar, centred; `style`, `textColor` as for text |
 | `height` | number | the theme's (`sm`) | |
+
+The texture is the theme's `bar.texture` token. Colours given as token names follow the theme, so an addon never
+picks a colour of its own for a look (`color.xp`, `color.quest`, `color.rested`, `color.reputation.<standing>`
+with the standings `hated` to `exalted`).
 
 ## Any child
 

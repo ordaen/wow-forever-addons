@@ -217,7 +217,7 @@ local function poolOf(surface)
 	local p = pools[surface]
 	if not p then
 		p = {
-			fonts = {}, images = {}, solids = {}, usedFonts = 0, usedImages = 0, usedSolids = 0,
+			fonts = {}, images = {}, solids = {}, bars = {}, usedFonts = 0, usedImages = 0, usedSolids = 0, usedBars = 0,
 			embeds = {}, placed = {}, -- embedded frames placed in the last draw (set), and in this one
 			from = CreateColor(0, 0, 0, 0), to = CreateColor(0, 0, 0, 0),
 		}
@@ -384,13 +384,151 @@ local function drawSeparator(surface, p, el, x, y, w, h, accent)
 	end
 end
 
+-- Bars ------------------------------------------------------------------------------------------------
+-- A bar is three status bars over a track: the value on top, then `quest` (lighter) and `overlay` (dimmed: rested
+-- XP) behind it, each from `min` to its own value. Status bars because the game animates a value change itself
+-- (SetValue with interpolation, no Lua per frame). A gain flashes the new part for a moment; a value that drops
+-- (a new level) fills to the end first, then starts again. Pooled per surface like font strings.
+
+local INTERPOLATE = Enum and Enum.StatusBarInterpolation and Enum.StatusBarInterpolation.ExponentialEaseOut
+local QUEST_ALPHA, OVERLAY_ALPHA = 0.75, 0.4 -- how strong the parts behind the value are drawn
+local WRAP_TIME = 0.35 -- seconds the bar takes to run to the end on a wrap before starting again
+
+local function statusBar(parent, level)
+	local bar = CreateFrame("StatusBar", nil, parent)
+	bar:SetFrameLevel(level)
+	return bar
+end
+
+-- Set a status bar's value: animated when the element asks for it and the bar showed this element before.
+local function setValue(bar, v, animate)
+	if animate and INTERPOLATE then
+		bar:SetValue(v, INTERPOLATE)
+	else
+		bar:SetValue(v)
+	end
+end
+
+local function newBar(surface)
+	local base = surface:GetFrameLevel()
+	local b = {
+		overlay = statusBar(surface, base + 1),
+		quest = statusBar(surface, base + 2),
+		value = statusBar(surface, base + 3),
+	}
+	-- The gain flash: a texture over the value bar, faded out by an animation (no OnUpdate).
+	local flash = b.value:CreateTexture(nil, "OVERLAY")
+	flash:SetTexture(WHITE)
+	flash:SetBlendMode("ADD")
+	flash:SetAlpha(0)
+	local fade = flash:CreateAnimationGroup()
+	local alpha = fade:CreateAnimation("Alpha") --[[@as Alpha]]
+	alpha:SetFromAlpha(0.6)
+	alpha:SetToAlpha(0)
+	b.flash, b.fade, b.fadeAlpha = flash, fade, alpha
+	b.label = b.value:CreateFontString(nil, "OVERLAY")
+	b.label:SetWordWrap(false)
+	-- After a wrap ran to the end: start again from the bottom (made once per bar, not per draw).
+	b.wrap = function()
+		if b.wrapTo then
+			b.value:SetValue(b.lo)
+			setValue(b.value, b.wrapTo, true)
+			b.wrapTo = nil
+		end
+	end
+	return b
+end
+
+local function paint(bar, texture, color, alpha, accent, lo, hi)
+	bar:SetStatusBarTexture(texture)
+	local r, g, b = rgba(color, accent)
+	bar:SetStatusBarColor(r, g, b, alpha)
+	bar:SetMinMaxValues(lo, hi)
+end
+
+local function place(bar, surface, x, y, w, h)
+	bar:ClearAllPoints()
+	bar:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)
+	bar:SetSize(max(w, 0.01), max(h, 0.01))
+	bar:Show()
+end
+
 local function drawBar(surface, p, el, x, y, w, h, accent)
-	local bar = Theme.bar
-	solid(surface, p, "ARTWORK", 0, x, y, w, h, bar.track, bar.track, accent)
-	local value = max(0, min(1, tonumber(el.bar) or 0))
-	if value > 0 then
-		local fill = el.color or bar.fill
-		solid(surface, p, "ARTWORK", 1, x, y, w * value, h, fill, fill, accent)
+	local look = Theme.bar
+	solid(surface, p, "ARTWORK", 0, x, y, w, h, look.track, look.track, accent)
+	p.usedBars = p.usedBars + 1
+	local b = p.bars[p.usedBars]
+	if not b then
+		b = newBar(surface)
+		p.bars[p.usedBars] = b
+	end
+	local lo = tonumber(el.min) or 0
+	local hi = tonumber(el.max) or 1
+	if hi <= lo then
+		hi = lo + 1
+	end
+	local value = max(lo, min(hi, tonumber(el.bar) or lo))
+	local quest = max(value, min(hi, tonumber(el.quest) or value))
+	local overlay = max(quest, min(hi, tonumber(el.overlay) or quest))
+	local texture = Theme.BarTexture()
+	local fill = Theme.Color(el.color, look.fill)
+	paint(b.value, texture, fill, 1, accent, lo, hi)
+	paint(b.quest, texture, Theme.Color(el.questColor, fill), QUEST_ALPHA, accent, lo, hi)
+	paint(b.overlay, texture, Theme.Color(el.overlayColor, fill), OVERLAY_ALPHA, accent, lo, hi)
+	place(b.value, surface, x, y, w, h)
+	place(b.quest, surface, x, y, w, h)
+	place(b.overlay, surface, x, y, w, h)
+	-- Animate only a change of the same element on the same bar (pooled bars can move to another element).
+	local same = b.element == el and b.lo == lo and b.hi == hi
+	local animate = el.animate and same
+	if animate and value < b.last then
+		-- a wrap (a new level): run to the end, then start again from the bottom
+		setValue(b.value, hi, true)
+		b.wrapTo = value
+		C_Timer.After(WRAP_TIME, b.wrap)
+	else
+		b.wrapTo = nil
+		setValue(b.value, value, animate)
+	end
+	setValue(b.quest, quest, animate)
+	setValue(b.overlay, overlay, animate)
+	-- The gain flash over the newly filled part.
+	if animate and value > b.last and Theme.Fade() > 0 then
+		local from = (b.last - lo) / (hi - lo) * w
+		b.flash:ClearAllPoints()
+		b.flash:SetPoint("TOPLEFT", b.value, "TOPLEFT", from, 0)
+		b.flash:SetSize(max((value - b.last) / (hi - lo) * w, 0.01), h)
+		b.fade:Stop()
+		b.fadeAlpha:SetDuration(Theme.Fade() * 4)
+		b.fade:Play()
+	end
+	b.element, b.lo, b.hi, b.last = el, lo, hi, value
+	-- Text on the bar, centred.
+	if el.text or el.format then
+		local style = textStyle(el)
+		setFont(b.label, style)
+		local color = el.textColor
+		if color then
+			b.label:SetTextColor(color[1], color[2], color[3], color[4] or 1)
+		else
+			b.label:SetTextColor(rgba(style.color, accent))
+		end
+		setContent(b.label, el, style)
+		b.label:ClearAllPoints()
+		b.label:SetPoint("CENTER", b.value, "CENTER", 0, 0)
+		b.label:Show()
+	else
+		b.label:Hide()
+	end
+end
+
+local function hideBars(p)
+	for i = p.usedBars + 1, #p.bars do
+		local b = p.bars[i]
+		b.value:Hide()
+		b.quest:Hide()
+		b.overlay:Hide()
+		b.element = nil
 	end
 end
 
@@ -535,7 +673,7 @@ function Render.Draw(surface, root, width)
 	ctx.shift = IsShiftKeyDown() and true or false
 	local result = Layout.Run(root, width, ctx)
 	local p = poolOf(surface)
-	p.usedFonts, p.usedImages, p.usedSolids = 0, 0, 0
+	p.usedFonts, p.usedImages, p.usedSolids, p.usedBars = 0, 0, 0, 0
 	local look = Theme.BlockStyle(root.style)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
@@ -546,6 +684,7 @@ function Render.Draw(surface, root, width)
 	hideRest(p.fonts, p.usedFonts)
 	hideRest(p.images, p.usedImages)
 	hideRest(p.solids, p.usedSolids)
+	hideBars(p)
 	-- Embedded frames placed last time but not now (hidden children): hide them. Then this draw's set becomes the
 	-- last one (two sets swapped, so no table per draw).
 	local before, now = p.embeds, p.placed

@@ -41,8 +41,21 @@ local unavailable = false
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUIBar
----@field bar number filled part, 0..1
----@field color number[]|nil fill colour, for meaning (health, progress); default from the theme and accent
+---@field bar number the value, from min to max (default 0..1)
+---@field min number|nil default 0
+---@field max number|nil default 1
+---@field quest number|nil a second part behind the value, from the value up to here, lighter (XP from completed quests)
+---@field overlay number|nil a third part, dimmed, up to here (rested XP)
+---@field color number[]|string|nil the value's colour: { r, g, b } or a theme colour token ("color.xp"); default from
+--- the theme and accent
+---@field questColor number[]|string|nil default: color
+---@field overlayColor number[]|string|nil default: color
+---@field animate boolean|nil changes glide (the game animates the status bar), gains flash, a drop wraps around
+---@field text string|nil text on the bar, centred; or format + args
+---@field format string|nil
+---@field args any[]|nil
+---@field style string|nil the text's style
+---@field textColor number[]|nil
 ---@field height number|nil
 ---@field colSpan number|nil
 ---@field hidden boolean|nil as a child: skipped

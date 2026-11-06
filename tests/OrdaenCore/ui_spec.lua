@@ -117,6 +117,22 @@ local function fakeTexture(layer)
 	function t:Hide()
 		self.shown = false
 	end
+	function t:SetAlpha(a)
+		self.alpha = a
+	end
+	-- An animation group that remembers whether it played (the bar's gain flash).
+	function t:CreateAnimationGroup()
+		local group = { played = 0 }
+		function group:CreateAnimation()
+			return setmetatable({}, STRICT)
+		end
+		function group:Play()
+			self.played = self.played + 1
+		end
+		function group:Stop() end
+		self.group = group
+		return group
+	end
 	return setmetatable(t, STRICT)
 end
 
@@ -210,6 +226,19 @@ local function fakeFrame(name, log, parent)
 	function f:UnregisterEvent(event)
 		self.events[event] = nil
 	end
+	-- Status bars (the bar element): range, value (and whether it was animated), colour, texture.
+	function f:SetMinMaxValues(lo, hi)
+		self.range = { lo, hi }
+	end
+	function f:SetValue(v, interpolation)
+		self.value, self.interpolation = v, interpolation
+	end
+	function f:SetStatusBarColor(...)
+		self.barColor = { ... }
+	end
+	function f:SetStatusBarTexture(file)
+		self.barTexture = file
+	end
 	return setmetatable(f, STRICT)
 end
 
@@ -236,6 +265,17 @@ describe("OrdaenCore.UI", function()
 
 	local function surface()
 		return frameNamed("OrdaenUITooltip")
+	end
+
+	-- The status bars drawn on `parent` (three per bar element: overlay, quest, value), in creation order.
+	local function barsOf(parent)
+		local out = {}
+		for _, f in ipairs(frames) do
+			if f.parent == parent and f.range then
+				out[#out + 1] = f
+			end
+		end
+		return out
 	end
 
 	before_each(function()
@@ -671,9 +711,54 @@ describe("OrdaenCore.UI", function()
 			assert.equals(inner, layout[2].w)
 			assert.equals(inner, layout[3].w)
 			local lines = solids(s, "ARTWORK")
-			assert.equals(4, #lines) -- two caption lines, the bar's track and fill
+			assert.equals(3, #lines) -- two caption lines and the bar's track; the fill is a status bar
 			assert.equals(inner, lines[3].size[1])
-			assert.equals(inner * 0.25, lines[4].size[1])
+			local value = barsOf(s)[3]
+			assert.same({ 0, 1 }, value.range)
+			assert.equals(0.25, value.value)
+			assert.equals(inner, value.size[1])
+		end)
+
+		it("draw a bar's quest and dimmed overlay parts behind its value, colours from theme tokens", function()
+			UI.Tooltip({
+				{ bar = 3000, min = 0, max = 10000, quest = 4500, overlay = 6500, color = "color.xp",
+					overlayColor = "color.rested", text = "42%" },
+			}):Show(owner)
+			local bars = barsOf(surface())
+			local overlay, quest, value = bars[1], bars[2], bars[3]
+			assert.same({ 3000, 4500, 6500 }, { value.value, quest.value, overlay.value })
+			assert.same({ 0.62, 0.45, 0.85, 1 }, value.barColor) -- color.xp of the ordaen theme
+			assert.same({ 0.62, 0.45, 0.85, 0.75 }, quest.barColor) -- the value's colour, lighter
+			assert.same({ 0.3, 0.5, 0.85, 0.4 }, overlay.barColor) -- color.rested, dimmed
+			assert.equals("Interface\\Buttons\\WHITE8X8", value.barTexture) -- bar.texture "flat"
+			assert.same({ "42%" }, shownTexts(value))
+		end)
+
+		it("animate a bar's changes: glide, flash the gain, wrap around on a drop", function()
+			rawset(_G, "Enum", { StatusBarInterpolation = { Immediate = 0, ExponentialEaseOut = 1 } })
+			helpers.loadAddon("OrdaenCore/OrdaenCore_UI") -- read the enum again
+			local timers = {}
+			rawset(_G, "C_Timer", { After = function(_, fn)
+				timers[#timers + 1] = fn
+			end })
+			local xp = { bar = 3000, min = 0, max = 10000, animate = true }
+			local tip = UI.Tooltip({ xp })
+			tip:Show(owner)
+			local value = barsOf(surface())[3]
+			assert.is_nil(value.interpolation, "the first draw sets it at once")
+			xp.bar = 3500
+			tip:Refresh()
+			assert.equals(3500, value.value)
+			assert.equals(1, value.interpolation)
+			local flash = value.textures[1]
+			assert.equals(1, flash.group.played)
+			xp.bar = 200 -- a new level
+			tip:Refresh()
+			assert.equals(10000, value.value, "first runs to the end")
+			timers[1]()
+			assert.equals(200, value.value, "then from the bottom to the new value")
+			rawset(_G, "Enum", nil)
+			rawset(_G, "C_Timer", nil)
 		end)
 
 		it("show Shift rows only while Shift is held, and listen for it only while shown", function()

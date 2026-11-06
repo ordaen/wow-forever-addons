@@ -395,3 +395,42 @@ function Theme.BlockStyle(role)
 	ensure()
 	return role and Theme.blocks[role] or nil
 end
+
+-- Theme tokens (OrdaenCore/themes.jsonc, kept by Ordaen Core's settings store): what addons' looks follow.
+
+--- A token's value in the theme the renderer draws with (e.g. "color.xp" -> { r, g, b }), or nil.
+---@param name string
+function Theme.Token(name)
+	ensure()
+	local store = OrdaenCore._SettingsStore
+	return store and store.TokenIn(Theme.name, name)
+end
+
+--- A colour given as { r, g, b, a? } or as a colour token's name ("color.xp"): the colour, or `fallback`.
+---@param spec number[]|string|nil
+---@param fallback number[]|nil
+---@return number[]|nil
+function Theme.Color(spec, fallback)
+	if type(spec) == "string" then
+		local value = Theme.Token(spec)
+		return type(value) == "table" and value or fallback
+	end
+	return spec or fallback
+end
+
+local FLAT = "Interface\\Buttons\\WHITE8X8"
+
+--- The bar texture file the theme uses (token bar.texture, an asset of kind "bar").
+---@return string
+function Theme.BarTexture()
+	local store = OrdaenCore._SettingsStore
+	local id = Theme.Token("bar.texture")
+	local asset = store and id and store.Asset("bar", id)
+	return asset and asset.file or FLAT
+end
+
+--- The theme's fade time in seconds (token motion.fade).
+---@return number
+function Theme.Fade()
+	return tonumber(Theme.Token("motion.fade")) or 0
+end

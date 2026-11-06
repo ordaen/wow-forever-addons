@@ -44,4 +44,7 @@ Text without a surface behind it (`normal`, `small`) keeps a shadow in every the
 | `separator = "rule"` | 1 px accent hairline | 1 px grey | faint 1 px |
 | `separator = "divider"` | two hairlines with a gap | one line | one line |
 | `separator = "caption"` | caption text between two lines | gold caption, no lines | caption between faint lines |
-| `bar` | accent fill on a dark track | Blizzard green | thin accent fill |
+| `bar` | accent fill on a dark track, flat texture | Blizzard green, Blizzard's bar texture | thin accent fill, flat |
+
+Bar colours by meaning are theme tokens (`themes.jsonc`): `color.xp`, `color.quest`, `color.rested`, and
+`color.reputation.hated` .. `color.reputation.exalted`; the texture is `bar.texture`.
