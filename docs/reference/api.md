@@ -118,9 +118,12 @@ were added.
 | `mousedown`, `mouseup` | the player | mouse button |
 | `dragstart`, `dragstop` | the player (left button) | |
 | `wheel` | the player | delta |
+| `render` | the framework, after it drew the block (created, `:Refresh()`, a theme change, a panel placed) | width, height |
 | `ZONE_CHANGED`, any Blizzard event | the game | Blizzard's arguments, unchanged |
 
-The frame takes the mouse only once a user listener exists, so a label without listeners lets clicks through to what's
+Sizes change only when the framework draws a block (or when the UI scale changes, which re-places panels), so anything
+that follows a block's size listens to `render` instead of watching the frame's size. The frame takes the mouse only
+once a user listener exists, so a label without listeners lets clicks through to what's
 under it. Game events share one frame, which registers an event only while some component listens. Unknown event
 names are an error.
 

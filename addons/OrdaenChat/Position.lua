@@ -19,6 +19,11 @@ local MARGIN = 4 -- between the chat's background and the screen edge or panel
 local on = false
 local placing = false
 local editModePoints -- where Edit Mode had the chat before we moved it: given back when the feature goes off
+-- Blizzard clamps the chat to the screen with insets that keep room for its button column on the left (FCF, set
+-- again in FCF_UpdateButtonSide): that column is empty now (Input.lua), but its room pushed the chat 30 UI units off
+-- the left edge (2026-11-06). Ours leave only the background's own reach; Blizzard's come back when the feature goes
+-- off.
+local blizzardClamp -- { left, right, top, bottom } before ours
 local hooked = false
 
 -- How far the chat's background and input reach past the window frame, to the left and below (both move with it).
@@ -53,6 +58,11 @@ local function place()
 		end
 	end
 	local outLeft, outBottom = reach(chat)
+	local left, right, top, bottom = chat:GetClampRectInsets()
+	if not blizzardClamp then
+		blizzardClamp = { left, right, top, bottom }
+	end
+	chat:SetClampRectInsets(-outLeft, right, top, bottom)
 	local x = UI.ScreenInset("left") + MARGIN + outLeft
 	local y = UI.ScreenInset("bottom") + MARGIN + outBottom
 	chat:ClearAllPoints()
@@ -79,6 +89,13 @@ function Position.Enable()
 			end
 		end)
 		EventRegistry:RegisterCallback("OrdaenUI.InsetsChanged", onInsetsChanged, Position)
+		-- Blizzard sets its clamp insets again (the button side changed): ours again.
+		hooksecurefunc("FCF_UpdateButtonSide", function(frame)
+			if frame == ChatFrame1 and on and not placing then
+				blizzardClamp = nil
+				place()
+			end
+		end)
 	end
 	place()
 end
@@ -87,14 +104,17 @@ end
 function Position.Disable()
 	on = false
 	local chat = ChatFrame1
+	placing = true
+	if blizzardClamp then
+		chat:SetClampRectInsets(blizzardClamp[1], blizzardClamp[2], blizzardClamp[3], blizzardClamp[4])
+	end
 	if editModePoints then
-		placing = true
 		chat:ClearAllPoints()
 		for _, p in ipairs(editModePoints) do
 			chat:SetPoint(p[1], p[2], p[3], p[4], p[5])
 		end
-		placing = false
 	end
+	placing = false
 end
 
 --- What the dev-mode dump records.

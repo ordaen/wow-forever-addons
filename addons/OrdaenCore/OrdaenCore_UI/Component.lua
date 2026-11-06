@@ -8,8 +8,11 @@
 --   clock:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", -2, -9)
 --
 -- Events: lower case = the player's input on this block (click, enter, leave, mousedown, mouseup, dragstart,
--- dragstop, wheel), upper case = Blizzard's game events, with Blizzard's arguments unchanged. Listeners get the
--- instance first. No bubbling. The frame takes the mouse only once a user listener exists.
+-- dragstop, wheel) and the framework's own (render: drawn, with its width and height), upper case = Blizzard's
+-- game events, with Blizzard's arguments unchanged. Listeners get the instance first. No bubbling. The frame takes
+-- the mouse only once a user listener exists. Sizes change only when the framework draws (or the UI scale changes,
+-- which re-places panels), so `render` is where anything that follows a block's size hooks in: nobody watches
+-- frame sizes.
 --
 -- Cost: one metatable per component kind, one table per instance, created once. The WoW scripts are a fixed set
 -- of dispatchers (one function per event name, made at load), so :On creates no closure. Game events go through
@@ -57,6 +60,7 @@ local byFrame = setmetatable({}, { __mode = "k" }) -- WoW frame -> instance
 ---@field block OrdaenUIBlock the instance's block tree (change fields, then :Refresh())
 ---@field tooltip OrdaenUITooltip|nil shown while the mouse is over it
 ---@field listeners table<string, function[]> event -> listeners, in the order added (replaced, never changed)
+---@field onDrawn fun(self: OrdaenUIComponent)|nil the framework's own follower of each draw (a panel's inset)
 --- Placement and visibility, passed to the frame (PASSTHROUGH below):
 ---@field SetPoint fun(self: OrdaenUIComponent, point: string, relTo: any, relPoint: string?, x: number?, y: number?)
 ---@field ClearAllPoints fun(self: OrdaenUIComponent)
@@ -108,6 +112,9 @@ local SCRIPTS = {
 	dragstop = "OnDragStop",
 	wheel = "OnMouseWheel",
 }
+
+-- The framework's own events: no WoW script behind them, fired by the framework itself.
+local OWN_EVENTS = { render = true }
 
 local dispatchers = {}
 for event in pairs(SCRIPTS) do
@@ -212,7 +219,7 @@ function Base:On(event, fn)
 			listenGame(self, event)
 		elseif SCRIPTS[event] then
 			prepare(self, event)
-		else
+		elseif not OWN_EVENTS[event] then
 			error("OrdaenCore.UI: unknown event " .. tostring(event), 2)
 		end
 	end
@@ -260,9 +267,23 @@ function Base:Tooltip(tooltip)
 	self.tooltip = tooltip
 end
 
---- Lay out and redraw after the block's fields changed.
+-- Draw an instance, then tell who listens: its own "render" listeners (other addons following its size), and the
+-- framework's internal follower (a panel recording how much of its edge it covers).
+local function draw(instance)
+	local frame = instance.frame
+	Render.Draw(frame, instance.block, instance.block.width)
+	if instance.onDrawn then
+		instance.onDrawn(instance)
+	end
+	local list = instance.listeners.render
+	if list then
+		run(list, instance, frame:GetWidth(), frame:GetHeight())
+	end
+end
+
+--- Lay out and redraw after the block's fields changed. Fires "render" (width, height) when drawn.
 function Base:Refresh()
-	Render.Draw(self.frame, self.block, self.block.width)
+	draw(self)
 	if self.tooltip then
 		self.tooltip:Refresh()
 	end
@@ -353,7 +374,7 @@ end
 --- Redraw every instance (after a theme or text-size change). Rare: only on a settings change.
 function Component.RefreshAll()
 	for _, instance in pairs(byFrame) do
-		Render.Draw(instance.frame, instance.block, instance.block.width)
+		draw(instance)
 	end
 end
 
@@ -394,9 +415,9 @@ local insets = { bottom = 0, top = 0, left = 0, right = 0 }
 
 local updateInsets
 
--- A panel's thickness on its edge, from its frame as drawn now. Also on every size change: the panel grows after its
--- first placement as its content fills in (13 then 40 UI units for Ordaen Panel, 2026-11-06). A faded panel still
--- covers its edge (fading it doesn't move what sits beside it).
+-- A panel's thickness on its edge, from its frame as drawn: run after every draw (placed or refreshed), because a
+-- panel grows after its first placement as its content fills in (13 then 40 UI units for Ordaen Panel,
+-- 2026-11-06). A faded panel still covers its edge (fading it doesn't move what sits beside it).
 local function recordCover(self)
 	local cover = covers[self]
 	if not cover then
@@ -449,11 +470,10 @@ local function placePanel(self)
 	local offset = opts.offset or 0
 	frame:ClearAllPoints()
 	frame:SetPoint(EDGE_POINT[edge], UIParent, EDGE_POINT[edge], d[1] * offset, d[2] * offset)
-	Render.Draw(frame, block, block.width)
 	local cover = covers[self] or {}
 	covers[self] = cover
 	cover[1], cover[3] = edge, offset
-	recordCover(self)
+	draw(self) -- records the cover (onDrawn)
 end
 
 local function onScreenChanged(self)
@@ -506,9 +526,7 @@ function Component.Panel(spec, opts)
 	instance.fadeAlpha = fade:CreateAnimation("Alpha") --[[@as Alpha]]
 	instance:On("DISPLAY_SIZE_CHANGED", onScreenChanged)
 	instance:On("UI_SCALE_CHANGED", onScreenChanged)
-	instance.frame:HookScript("OnSizeChanged", function()
-		recordCover(instance)
-	end) -- once per panel
+	instance.onDrawn = recordCover
 	placePanel(instance)
 	return instance
 end

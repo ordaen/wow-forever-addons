@@ -792,12 +792,25 @@ describe("OrdaenCore.UI", function()
 			assert.equals(2, heard)
 		end)
 
-		it("follow a panel that grows after it was placed (its content filled in)", function()
+		it("follow a panel that grows after it was placed (its content filled in, then :Refresh())", function()
 			screen(1920, 1080)
 			local panel = UI.Panel({ { text = "Gold" } })
-			panel.frame:SetSize(1920, 40)
-			panel.frame.scripts.OnSizeChanged(panel.frame, 1920, 40)
-			assert.equals(40, UI.ScreenInset("bottom"))
+			local before = UI.ScreenInset("bottom")
+			panel.block[2] = { text = "Silver" } -- a second row
+			panel:Refresh()
+			assert.is_true(UI.ScreenInset("bottom") > before)
+		end)
+
+		it("tell listeners when they're drawn, with their size (\"render\")", function()
+			local block = UI.Block({ { text = "Gold" } })
+			local seen
+			block:On("render", function(self, width, height)
+				seen = { self, width, height }
+			end)
+			block:Refresh()
+			assert.equals(block, seen[1])
+			assert.same({ block.frame:GetWidth(), block.frame:GetHeight() }, { seen[2], seen[3] })
+			assert.is_false(block.frame.mouse or false, "a framework event doesn't make the frame take the mouse")
 		end)
 
 		it("stretch along the bottom edge by default, re-placed when the screen changes", function()

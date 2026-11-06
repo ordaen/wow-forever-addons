@@ -279,7 +279,10 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   auras) get their own layouts step by step.
 - **Events** (user's decision, built in `OrdaenCore_UI/Component.lua`): `instance:On(event, fn)` / `:Off(event, fn)`
   with plain functions only, or `on = { ... }` in the spec, for both sources. User events are lower case (`click`,
-  `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`, later keyboard); system events are
+  `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`, later keyboard), and so are the
+  framework's own (`render`, width and height, after each draw: the user's decision, 2026-11-06; sizes change only
+  when the framework draws or the UI scale changes, so code following a block's size listens to it and nothing
+  watches frame sizes); system events are
   Blizzard's own UPPER_CASE event names (`CALENDAR_UPDATE_PENDING_INVITES`) and get Blizzard's arguments unchanged.
   Listeners get the instance first. No bubbling: only the block with the listener gets it (as in native WoW). One
   shared event frame registers a game event only while some instance listens and unregisters it after the last; a

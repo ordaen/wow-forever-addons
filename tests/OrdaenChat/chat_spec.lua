@@ -217,6 +217,7 @@ describe("Ordaen Chat", function()
 				end
 				table.insert(dock, math.min(index, #dock + 1), frame)
 			end,
+			FCF_UpdateButtonSide = function() end,
 			FCF_UnDockFrame = function(frame)
 				for k, w in ipairs(dock) do
 					if w == frame then
@@ -328,6 +329,14 @@ describe("Ordaen Chat", function()
 		end
 		function chat:GetLeft()
 			return 20
+		end
+		-- Blizzard's clamp keeps room for its button column on the left of the window.
+		chat.clamp = { -35, 35, 26, -50 }
+		function chat:GetClampRectInsets()
+			return unpack(self.clamp)
+		end
+		function chat:SetClampRectInsets(l, r, t, b)
+			self.clamp = { l, r, t, b }
 		end
 		function chat:GetBottom()
 			return 100
@@ -641,6 +650,7 @@ describe("Ordaen Chat", function()
 			login()
 			-- reach: background 5 left of the frame, input 40 below it; margin 4
 			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
+			assert.same({ -5, 35, 26, -50 }, windows[1].clamp, "no room left for Blizzard's empty button column")
 		end)
 
 		it("moves above a panel at the bottom as soon as one is placed", function()
@@ -668,6 +678,7 @@ describe("Ordaen Chat", function()
 			ns.Addon.db.chatAbovePanel = false
 			ns.Addon:_SettingChanged("chatAbovePanel", false)
 			assert.same({ { "BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95 } }, windows[1].points)
+			assert.same({ -35, 35, 26, -50 }, windows[1].clamp, "Blizzard's clamp back")
 		end)
 	end)
 end)
