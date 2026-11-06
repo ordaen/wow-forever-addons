@@ -101,21 +101,30 @@ addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
   Миникарта") is still for the user to decide; until then titles stay English.
 - The Ordaen Dev window (dev mode) is English only.
 
-## Tooltips: design philosophy (set in stone by the user)
+## UI framework `OrdaenCore.UI`: design philosophy (set in stone by the user)
 
-- **Two kinds of tooltip, never mixed.**
-  1. Blizzard's tooltips (items, units, spells, ...) and every other addon's: **restyled in place** (the real
-     `GameTooltip` and friends get our look and extra lines). Never hidden and redrawn as a lookalike: a shadow copy
-     has to chase everything Blizzard and other addons do to the real one (PrettyTooltip's approach and its cost).
-  2. Tooltips our own addons create: described in **our tooltip format** (content in design slots: title with
-     icon and color, subtitle, badges, sections, label/value rows, bars, icon lists, hint footer; the set only grows)
-     and drawn by whichever renderer is present. This is where we go beyond what Blizzard's tooltip can show.
-- **The translator lives in Ordaen Core and knows nothing about rendering.** Addons only call the Core (working name
-  `OrdaenCore.ShowTooltip(owner, content)`). Its one built-in output is plain Blizzard lines (title, double lines for
-  rows, text for bars), so every addon works without OrdaenTooltip. OrdaenTooltip *registers itself* as the renderer
-  (working name `OrdaenCore.RegisterTooltipRenderer`); the Core never references it. No addon depends on OrdaenTooltip.
-- Callers describe content, not layout or colors: the look is OrdaenTooltip's opinionated default, not per call.
-- Open: publishing the translator as an embeddable library for third-party addons (same code, other packaging).
+- **Addons declare, they never render.** Addon code asks `OrdaenCore.UI` for what it wants (e.g. a tooltip, later a
+  button with a tooltip, a window) in our own format and never learns who draws it. One framework in Ordaen Core, the
+  same calls in every addon: consistency and one place to change behavior.
+- **Renderers are per kind and only render.** A renderer addon registers for one kind
+  (`OrdaenCore.UI.RegisterRenderer(kind, renderer)`, e.g. the tooltip addon for `"tooltip"`) and then draws every
+  thing of that kind, fully and once, with the whole rich format. Nothing is restyled afterwards. Without a renderer
+  for a kind, the Core draws what Blizzard's own UI can (tooltips: plain `GameTooltip` lines). No addon depends on a
+  renderer addon; renderer addons are `OptionalDeps` of every Ordaen addon so they register before anything is drawn.
+- **The format only grows** (`content.v`): new kinds, slots and optional fields, never changed meanings. Unknown slots
+  are skipped (falling back to their `text`), so a newer addon on an older Core or renderer degrades, never errors.
+  Names in `OrdaenCore.UI` are forever (Core API rule).
+- **Callers describe content, not looks.** Placement goes in `opts`; colors, fonts and art are the renderer's.
+- **Cost:** the renderer is chosen when a thing is drawn; the real frames are then used directly (no wrapper per
+  call); no per-show copying of content; no timers or `OnUpdate` in the framework (live content is refreshed by the
+  caller's own timer, e.g. `OrdaenCore.UI.RefreshTooltip(owner)`).
+- **Tooltips v1** (requested from the Core session): `ShowTooltip(owner, content, opts)`, `HideTooltip(owner)`,
+  `RefreshTooltip(owner)`; slots title, subtitle, row, line, bar, separator, hint. Renderer calls run in `pcall`
+  with a plain-lines fallback, so a broken renderer can't break every addon's tooltips.
+- **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: the tooltip addon
+  restyles them in place, never hides them to draw a lookalike (the cost of PrettyTooltip's approach).
+- **Open:** sizes and layout of buttons and windows (adaptive layout, resizable windows); packaging the framework as an
+  embeddable library for third-party addons.
 - PrettyTooltip (MIT, © 2026 FallenShard) is a reference and a source of features, not a base to fork. Any code taken
   from it keeps its copyright notice and license text.
 
