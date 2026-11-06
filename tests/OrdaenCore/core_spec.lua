@@ -65,33 +65,28 @@ describe("OrdaenCore", function()
 	end)
 
 	describe("debug API without the debug module (players)", function()
-		local Debug, printed
-
-		before_each(function()
-			printed = {}
-			Debug = Core.NewDebug("TestAddon")
-			Debug.Init({}, {
-				slash = "/t",
-				print = function(msg)
-					printed[#printed + 1] = msg
-				end,
-			})
+		it("is one shared table for every addon, so players pay nothing per addon", function()
+			assert.is_false(Core.debugMode)
+			assert.are.equal(Core.NewDebug("TestAddon"), Core.NewDebug("OtherAddon"))
 		end)
 
-		it("is off and records nothing", function()
-			assert.is_false(Core.debugMode)
-			assert.is_false(Debug.IsEnabled())
+		it("records nothing and touches no settings", function()
+			local Debug = Core.NewDebug("TestAddon")
 			local db = {}
-			Debug.Init(db, {})
+			Debug.Init(db, { slash = "/t" })
 			Debug.Log("x")
-			Debug.RecordError("x")
+			Debug.Logf("%s", "x")
 			Debug.Dump()
+			assert.is_false(Debug.IsEnabled())
 			assert.are.same({}, db)
 		end)
 
 		it("leaves functions unwrapped so errors take the normal path", function()
+			local Debug = Core.NewDebug("TestAddon")
 			local function fn() end
 			assert.are.equal(fn, Debug.Wrap(fn))
+			local t = {}
+			assert.are.equal(t, Debug.Snapshot(t))
 			assert.has_error(function()
 				Debug.Call(error, "boom")
 			end, "boom")
@@ -101,12 +96,10 @@ describe("OrdaenCore", function()
 			assert.are.same({ 1, 2 }, { a, b })
 		end)
 
-		it("answers debug commands with a hint and leaves the rest to the addon", function()
-			assert.is_true(Debug.HandleSlash("debug"))
-			assert.truthy(printed[1]:find("Ordaen Core - Debug", 1, true))
-			assert.is_false(Debug.HandleSlash("columns 4"))
-			assert.is_false(Debug.HandleSlash(""))
-			assert.truthy(Debug.HelpLines()[1]:find("/t debug", 1, true))
+		it("adds no help lines and handles no commands", function()
+			local Debug = Core.NewDebug("TestAddon")
+			assert.are.same({}, Debug.HelpLines())
+			assert.is_false(Debug.HandleSlash("debug"))
 		end)
 	end)
 end)
