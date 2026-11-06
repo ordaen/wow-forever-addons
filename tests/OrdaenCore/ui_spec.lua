@@ -68,6 +68,26 @@ describe("OrdaenCore_Debug UI", function()
 		assert.are.same({}, Store.Get().errors)
 	end)
 
+	it("refreshes for a repeating error at most once per batch, not on every repeat", function()
+		local timers = {}
+		rawset(_G, "C_Timer", {
+			After = function(_, fn)
+				timers[#timers + 1] = fn
+			end,
+		})
+		UI.Toggle()
+		local loop = "Interface/AddOns/OrdaenMinimap/Drawer.lua:401: attempt to call a nil value"
+		Store.AddError({ message = loop })
+		for _ = 1, 100 do
+			Store.AddError({ message = loop })
+		end
+		assert.are.equal(1, #timers)
+		local panel = window().panels.errors
+		assert.truthy(panel.detail:GetText():find(": x1,", 1, true))
+		timers[1]()
+		assert.truthy(panel.detail:GetText():find(": x101,", 1, true))
+	end)
+
 	it("switches tabs", function()
 		UI.Toggle()
 		window().tabs[2].scripts.OnClick()

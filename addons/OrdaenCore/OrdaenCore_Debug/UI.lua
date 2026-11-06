@@ -264,7 +264,12 @@ function UI.RefreshErrors()
 	end
 	panel.list:SetHeight(math.max(1, #list * ROW_HEIGHT))
 	panel.empty:SetShown(#list == 0)
-	setTextView(panel.detail, selected and Store.FormatError(selected) or "")
+	-- Don't replace the text under the user while they select it (a repeating error would
+	-- otherwise reset the selection on every refresh).
+	if not (panel.detail:HasFocus() and panel.detail.entryId == selectedId) then
+		panel.detail.entryId = selectedId
+		setTextView(panel.detail, selected and Store.FormatError(selected) or "")
+	end
 
 	Store.MarkSeen()
 	UI.UpdateButton()
@@ -443,10 +448,33 @@ end
 ------------------------------------------------------------------------------------------------
 -- Startup and notifications
 
-Store.OnChange(function(entry, isNew)
-	UI.UpdateButton()
-	if window and window:IsShown() then
+-- An error that repeats every frame must not rebuild the window every frame: new errors show
+-- at once, repeats (only a count changes) refresh at most every REPEAT_REFRESH seconds.
+local REPEAT_REFRESH = 0.5
+local refreshPending = false
+
+local function refreshSoon()
+	if refreshPending then
+		return
+	end
+	refreshPending = true
+	local function run()
+		refreshPending = false
 		UI.RefreshErrors()
+	end
+	if C_Timer and C_Timer.After then
+		C_Timer.After(REPEAT_REFRESH, run)
+	else
+		run()
+	end
+end
+
+Store.OnChange(function(entry, isNew)
+	if isNew or not entry then
+		UI.UpdateButton()
+		UI.RefreshErrors()
+	elseif window and window:IsShown() then
+		refreshSoon()
 	end
 	-- Announce new errors of our own addons once in chat; others only show in the badge.
 	if isNew and entry and entry.source ~= "other" and not announced[entry.id] and DEFAULT_CHAT_FRAME then

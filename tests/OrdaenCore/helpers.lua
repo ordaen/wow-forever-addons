@@ -127,6 +127,7 @@ function M.stubGlobals(overrides)
 		table.insert(M.forwarded, err)
 	end
 	rawset(_G, "BugGrabber", nil)
+	rawset(_G, "C_Timer", nil)
 	rawset(_G, "OrdaenCoreDebugDB", nil)
 	for name, value in pairs(overrides or {}) do
 		stubs[name] = value
