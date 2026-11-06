@@ -101,6 +101,24 @@ addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
   Миникарта") is still for the user to decide; until then titles stay English.
 - The Ordaen Dev window (dev mode) is English only.
 
+## Tooltips: design philosophy (set in stone by the user)
+
+- **Two kinds of tooltip, never mixed.**
+  1. Blizzard's tooltips (items, units, spells, ...) and every other addon's: **restyled in place** (the real
+     `GameTooltip` and friends get our look and extra lines). Never hidden and redrawn as a lookalike: a shadow copy
+     has to chase everything Blizzard and other addons do to the real one (PrettyTooltip's approach and its cost).
+  2. Tooltips our own addons create: described in **our tooltip format** (content in design slots: title with
+     icon and color, subtitle, badges, sections, label/value rows, bars, icon lists, hint footer; the set only grows)
+     and drawn by whichever renderer is present. This is where we go beyond what Blizzard's tooltip can show.
+- **The translator lives in Ordaen Core and knows nothing about rendering.** Addons only call the Core (working name
+  `OrdaenCore.ShowTooltip(owner, content)`). Its one built-in output is plain Blizzard lines (title, double lines for
+  rows, text for bars), so every addon works without OrdaenTooltip. OrdaenTooltip *registers itself* as the renderer
+  (working name `OrdaenCore.RegisterTooltipRenderer`); the Core never references it. No addon depends on OrdaenTooltip.
+- Callers describe content, not layout or colors: the look is OrdaenTooltip's opinionated default, not per call.
+- Open: publishing the translator as an embeddable library for third-party addons (same code, other packaging).
+- PrettyTooltip (MIT, © 2026 FallenShard) is a reference and a source of features, not a base to fork. Any code taken
+  from it keeps its copyright notice and license text.
+
 ## First addon: OrdaenMinimap
 
 Our own specialized take on **SexyMap** (installed reference: `_forever_\Interface\AddOns\SexyMap\`), deliberately with
