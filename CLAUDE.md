@@ -71,6 +71,7 @@ scripts/link.ps1                create/remove AddOns junctions
 scripts/package.sh              package one addon (CI + Git Bash)
 scripts/test.sh                 luacheck + busted (Git Bash -> WSL, or native on Linux/CI)
 scripts/api-import.sh           import the in-game API dump into api/forever/ (api_import.lua does the work)
+scripts/forever_lint.lua        forever-lint: addon code against api/forever/<CURRENT>/api.json (json.lua: its JSON)
 api/forever/<version>-<build>/  the real Forever API per client version (generated; history in git)
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
 .claude/skills/debug-in-game/   how Claude debugs in-game behavior (loaded on demand)
@@ -199,3 +200,16 @@ The real Lua API of each Forever client version, dumped in game, so nobody guess
   every `:Method(` call in `addons/` against the dumped widget/object methods (non-widget methods, e.g. Settings or
   LibDBIcon objects, need an entry with proof in `tests/repo/method_allowlist.lua`), and specs refuse to stub a global
   the dump lacks (`tests/repo/forever_api.lua`, used by `helpers.stubGlobals` and the Minimap smoke spec).
+- **forever-lint** (`scripts/forever_lint.lua`, runs in `scripts/test.sh` and CI after luacheck) reads
+  `api/forever/<CURRENT>/api.json` and checks what luacheck can't: **FL1** event names in
+  `RegisterEvent`/`RegisterUnitEvent`/`UnregisterEvent`/`IsEventRegistered` against Blizzard's API documentation;
+  **FL2** methods per widget type on variables it can type (`CreateFrame("Type", …, "Template")`, `:CreateTexture()`,
+  `:CreateFontString()`, …; `BackdropTemplate` adds `BackdropTemplateMixin`; other templates allow any method);
+  **FL3** more arguments than a documented function takes; **FL4** literals of the wrong kind; **FL5** unknown
+  `CreateFrame` types. It reports only what it's sure of. Silence a line with `-- forever-lint: ignore FL2`, and only
+  with a reason in the comment. "Too few arguments" is not checked: the dump doesn't record argument defaults yet.
+  Owner of the linter and `api/` tooling: the Ordaen Core session.
+- **`api.json`** per version is the structured form of the text files (globals, namespaces, widgets, objects, and
+  documented `functions`/`events` with typed `args`/`returns`/`payload`), for the linter and other tools (e.g. the
+  companion app). `bash scripts/api-import.sh` writes it; `lua5.1 scripts/api_import.lua --rebuild .` (in WSL)
+  regenerates every derived file from the committed text files without a new dump.

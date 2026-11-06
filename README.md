@@ -71,6 +71,10 @@ and commit the result. `api/forever/CHANGES.md` shows what each Forever patch ad
 specs use the newest dump, so code that calls something Forever doesn't have fails before it reaches the game.
 Dump again after every Forever patch, and click **Clear API dump** once it's imported.
 
+`scripts/test.sh` also runs **forever-lint** (`scripts/forever_lint.lua`), which checks event names, methods per
+widget type, argument counts and literal argument types against the dump (`api.json`, the structured form of each
+version). Silence a line with `-- forever-lint: ignore FL2` and say why.
+
 ### Debugging in game
 
 Players never have errors collected: Ordaen Core only carries a do-nothing debug stand-in, and Lua errors go to
