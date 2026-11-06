@@ -65,11 +65,16 @@ or remove anything that has been released; add a new name instead. An addon that
 
 ### Debugging in game
 
-Every addon includes the Ordaen debug kit. With `/om` as the example slash command:
+Debugging is an optional **development mode**, so players never have errors collected. To turn it on, enable
+**Ordaen Core - Debug** in the in-game AddOns list (it ships with Ordaen Core, disabled by default) and restart
+the game. While it is enabled, every Ordaen addon records its errors (stack trace, locals, versions) and a
+timestamped log. When it is disabled, nothing is recorded and errors go to BugSack or Blizzard's default handler.
+
+Commands in dev mode, with `/om` as the example slash command:
 
 | Command | Effect |
 |---|---|
-| `/om debug` | Toggle the debug log (`on`, `off`, `echo` to also print it in chat, `clear`). |
+| `/om debug` | Toggle the debug log, on by default (`on`, `off`, `echo` to also print it in chat, `clear`). |
 | `/om dump` | Save a snapshot of the addon's state: settings, frame sizes, positions, parents. |
 | `/om errors` | Copyable report of recorded errors (`clear` to reset). |
 | `/om debug error` | Raise a test error to check the error pipeline. |
@@ -79,8 +84,8 @@ logout:
 `C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\<Addon>.lua`.
 Screenshots (Print Screen) go to `_forever_\Screenshots\`.
 
-Addons cannot reach the network, so there is no telemetry. Users send errors with `/<cmd> errors` and the
-[bug report form](.github/ISSUE_TEMPLATE/bug_report.yml).
+Addons cannot reach the network, so there is no telemetry. To report a bug, a player enables Ordaen Core - Debug,
+reproduces the problem and sends `/<cmd> errors` through the [bug report form](.github/ISSUE_TEMPLATE/bug_report.yml).
 
 ### Commits
 
@@ -118,7 +123,8 @@ Local package build (Git Bash): `scripts/package.sh OrdaenMinimap` → `.release
    existing addon), `.pkgmeta`, Lua files.
 2. Add it to `release-please-config.json` (`packages`, with `"initial-version": "0.1.0"`) and `.release-please-manifest.json` (`"0.0.0"`).
 3. Depend on the Core: `## Dependencies: OrdaenCore` and `## X-Ordaen-MinCore: <current Core version>` in the TOC,
-   `required-dependencies: [ordaen-core]` in `.pkgmeta`, and wire up the debug kit as in
+   `## OptionalDeps: OrdaenCore_Debug` in the TOC, `required-dependencies: [ordaen-core]` in `.pkgmeta`, and wire up
+   the debug kit as in
    `addons/OrdaenMinimap/Core.lua`.
 4. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
 5. Rerun `pwsh ./scripts/link.ps1`, then restart the game client.

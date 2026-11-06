@@ -14,11 +14,15 @@ You cannot see the game; the user can. Work from files the game writes to disk, 
 - Screenshots: `_forever_\Screenshots\` (Print Screen in game)
 - Client logs: `_forever_\Logs\`
 
+## 0. Dev mode must be on
+
+Recording only happens while the optional addon **Ordaen Core - Debug** (`OrdaenCore_Debug`) is enabled in the in-game AddOns list. It is disabled by default, and players run without it. If `<Addon>DB.debug` is missing or stale, ask the user to enable it and restart the client. Without it, errors only reach BugSack (`!BugGrabber.lua`).
+
 ## 1. Make the code observable before testing
 
 - New code logs its decisions with `Debug.Log(...)` / `Debug.Logf(fmt, ...)`: what was collected or skipped and why, sizes, positions, events. `Debug.Log` returns early when debug is off, but guard expensive string building with `if Debug.IsEnabled() then ... end`.
 - The `dump` callback passed to `Debug.Init` returns the state the feature owns. Frames can go in as they are: `Debug.Snapshot` stores name, parent, shown/visible, size, points, strata, level, alpha and scale.
-- Event, script and slash handlers are wrapped in `Debug.Wrap(fn)`, so errors are recorded with stack and locals and still reach BugSack.
+- Event, script and slash handlers are wrapped in `Debug.Wrap(fn)`, so in dev mode errors are recorded with stack and locals and still reach BugSack. Without dev mode, `Wrap` returns the function unchanged.
 - Run `bash scripts/test.sh` (Git Bash; runs luacheck and busted in WSL) and get it green.
 
 ## 2. Hand over with a repro script
@@ -26,7 +30,7 @@ You cannot see the game; the user can. Work from files the game writes to disk, 
 Tell the user exactly what to do, with the addon's own slash command (`/om` for OrdaenMinimap):
 
 1. Restart the client or `/reload`: say which. **A new file or any `.toc` change needs a full client restart.**
-2. `/om debug on`, then `/om debug clear`
+2. `/om debug clear` (the log is on by default in dev mode)
 3. Reproduce the problem
 4. `/om dump` if layout or state matters; Print Screen if it's visual
 5. `/reload` (SavedVariables are written to disk only on reload or logout), then tell Claude "check"

@@ -32,7 +32,8 @@ Developed on Windows (the user normally works on Linux — explain Windows speci
 
 ```
 addons/<Addon>/                 addon source (.toc, .lua, .pkgmeta)
-addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; debug kit)
+addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; no-op debug stand-in)
+addons/OrdaenCore/OrdaenCore_Debug/  optional dev-mode addon "Ordaen Core - Debug" (real debug kit), shipped in the Core zip
 tests/<Addon>/*_spec.lua        busted specs (load addon files with loadfile(path)(addonName, ns))
 tests/OrdaenCore/helpers.lua    WoW API stubs + Core loader, for any spec that needs the Core
 scripts/link.ps1                create/remove AddOns junctions
@@ -82,7 +83,8 @@ decided with the user.
 
 - `addons/OrdaenCore/` holds the code every addon shares. It publishes the global `OrdaenCore` and contains no features. Every addon has `## Dependencies: OrdaenCore` in its TOC, `## X-Ordaen-MinCore: <version>`, and `required-dependencies: [ordaen-core]` in `.pkgmeta` (the CurseForge slug is a guess until the project exists).
 - **The Core API only grows.** Users update the Core and the addons independently. Never change the behavior of a released Core function or remove one; add a new name instead. When an addon starts using a new Core API, raise its `X-Ordaen-MinCore`. `OrdaenCore.IsCompatible(addonName)` enforces that in packaged builds; git checkouts are detected by the unreplaced `@project-version@` token in `Core.lua` and skip the check.
-- Each addon starts with `if not OrdaenCore.IsCompatible(addonName) then return end`, then takes its own debug kit with `OrdaenCore.NewDebug(addonName)`. Init it in `ADDON_LOADED` with the addon's SavedVariables table, wrap handlers in `Debug.Wrap`, and forward slash input through `Debug.HandleSlash` (example: `addons/OrdaenMinimap/Core.lua`). New code logs its decisions with `Debug.Log`.
+- Each addon starts with `if not OrdaenCore.IsCompatible(addonName) then return end`, then takes its own debug kit with `OrdaenCore.NewDebug(addonName)`. Every addon lists `## OptionalDeps: OrdaenCore_Debug` so the dev-mode module loads first when enabled. Init it in `ADDON_LOADED` with the addon's SavedVariables table, wrap handlers in `Debug.Wrap`, and forward slash input through `Debug.HandleSlash` (example: `addons/OrdaenMinimap/Core.lua`). New code logs its decisions with `Debug.Log`.
 - Before handing code over for an in-game test, run `bash scripts/test.sh` until it is green. Say whether `/reload` is enough or a full client restart is needed (any new file or `.toc` change).
+- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit lives in the separate addon `OrdaenCore_Debug` ("Ordaen Core - Debug", `## DefaultState: Disabled`), nested in `addons/OrdaenCore/`. The packager's `move-folders` ships it as its own folder in the Core zip, and `link.ps1` links nested addon folders. Enabling it in the AddOns list turns on error recording and the log for every Ordaen addon. Never make players' builds record anything.
 - For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
 - Addons have no network access, so there is no telemetry. Users report errors with `/<cmd> errors` and the GitHub issue form. Add each new addon to its dropdown.
