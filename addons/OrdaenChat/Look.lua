@@ -61,8 +61,60 @@ local function centerLabel(label)
 	centering = false
 end
 
+-- The chat's scrollbar without its arrow buttons: the track takes their room (the mouse wheel and the thumb scroll).
+local arrows = {} -- arrow button -> true (hidden while the look is on)
+local tracks = {} -- track -> its points before
+local function keepArrowHidden(button)
+	if on and arrows[button] then
+		button:Hide()
+	end
+end
+
+local function slimScrollbar(frame)
+	local bar = frame.ScrollBar
+	if type(bar) ~= "table" or not bar.Track then
+		return
+	end
+	for _, button in ipairs({ bar.Back, bar.Forward }) do
+		if button and not arrows[button] then
+			arrows[button] = true
+			hooksecurefunc(button, "Show", keepArrowHidden)
+		end
+		if button then
+			button:Hide()
+		end
+	end
+	local track = bar.Track
+	if not tracks[track] then
+		local points = {}
+		for i = 1, track:GetNumPoints() do
+			points[i] = { track:GetPoint(i) }
+		end
+		tracks[track] = points
+	end
+	track:ClearAllPoints()
+	track:SetPoint("TOP", bar, "TOP", 0, 0)
+	track:SetPoint("BOTTOM", bar, "BOTTOM", 0, 0)
+end
+
+local function fullScrollbars()
+	for button in pairs(arrows) do
+		button:Show()
+	end
+	for track, points in pairs(tracks) do
+		track:ClearAllPoints()
+		for _, p in ipairs(points) do
+			track:SetPoint(p[1], p[2], p[3], p[4], p[5])
+		end
+	end
+end
+
 local function dressWindow(frame)
-	if not frame or windows[frame] then
+	if not frame then
+		return
+	end
+	slimScrollbar(frame)
+	if windows[frame] then
 		return
 	end
 	local name = frame:GetName()
@@ -169,6 +221,7 @@ end
 --- Give the chat Blizzard's look back (the fonts stay the theme's until a /reload).
 function Look.Disable()
 	on = false
+	fullScrollbars()
 	for _, dress in pairs(windows) do
 		dress:Undress()
 	end

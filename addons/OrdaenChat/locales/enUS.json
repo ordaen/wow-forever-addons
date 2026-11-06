@@ -1,5 +1,7 @@
 {
   "SETTINGS_TITLE": "Ordaen Chat",
+  "INPUT_OVERLAY": "Input over the chat while typing",
+  "INPUT_OVERLAY_TOOLTIP": "Show the chat input and its buttons over the last chat lines, only after you press Enter. This also sets Blizzard's chat style to IM.",
   "CHAT_ABOVE_PANEL": "Chat above the panel",
   "CHAT_ABOVE_PANEL_TOOLTIP": "Keep the chat at the bottom left, above Ordaen Panel when it's at the bottom. Turn this off to place the chat in Edit Mode.",
   "CLASS_COLORS": "Names in class colours",

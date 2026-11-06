@@ -131,6 +131,7 @@ local function chatWindow(i, title, shown)
 	function w.editBox:SetTextInsets(l, r, t, b)
 		self.insets = { l, r, t, b }
 	end
+	w.editBox.chatFrame = w
 	w.isDocked = true
 	function w:GetFont()
 		return "Fonts\\FRIZQT__.TTF", 14, ""
@@ -492,9 +493,10 @@ describe("Ordaen Chat", function()
 			assert.same({ "LEFT", input, "LEFT", 2, 0 }, channelButton.point, "the row starts inside the input")
 			assert.same({ "LEFT", channelButton, "RIGHT", 2, 0 }, menuButton.point, "the chat menu next to the text")
 			assert.equals(15 + 26 + 2 + 26 + 2, input.insets[1], "the text starts after the row")
-			-- Blizzard resets the insets for its header: ours go on top again, never twice.
-			input.insets = { 15, 13, 0, 0 }
-			ChatEdit_UpdateHeader(input)
+			-- Blizzard sets the insets for its header (the input's own UpdateHeader): ours go on top, never twice.
+			input:SetTextInsets(15 + 40, 13, 0, 0) -- "Сказать:" is wider than "Say:"
+			assert.equals(15 + 40 + 56, input.insets[1], "the caret starts after the header, not under it")
+			input:SetTextInsets(15, 13, 0, 0)
 			assert.equals(15 + 56, input.insets[1])
 			assert.is_false(social.parent:IsShown(), "the social button is hidden until Ordaen Panel takes it")
 			for _, texture in ipairs(art) do
@@ -679,6 +681,42 @@ describe("Ordaen Chat", function()
 			ns.Addon:_SettingChanged("chatAbovePanel", false)
 			assert.same({ { "BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95 } }, windows[1].points)
 			assert.same({ -35, 35, 26, -50 }, windows[1].clamp, "Blizzard's clamp back")
+		end)
+	end)
+
+	describe("input over the chat", function()
+		it("sits on the bottom of the chat's background, shown only while typing (IM style)", function()
+			login()
+			assert.same({ "BOTTOMRIGHT", windowArt[1], "BOTTOMRIGHT", 0, 0 }, windows[1].editBox.point)
+			assert.equals("im", cvars.chatStyle)
+		end)
+
+		it("goes back over the chat when Blizzard places the input again", function()
+			login()
+			windows[1].editBox:SetPoint("TOPLEFT", windows[1], "BOTTOMLEFT", -5, -2)
+			assert.same({ "BOTTOMRIGHT", windowArt[1], "BOTTOMRIGHT", 0, 0 }, windows[1].editBox.point)
+		end)
+
+		it("stays under the window with the setting off", function()
+			rawset(_G, "OrdaenChatDB", { inputOverlay = false })
+			login()
+			assert.is_nil(windows[1].editBox.point)
+			assert.is_nil(cvars.chatStyle)
+		end)
+	end)
+
+	describe("scrollbar", function()
+		it("has no arrow buttons; the track takes their room", function()
+			local bar = stub("ScrollBar")
+			bar.Back, bar.Forward, bar.Track = stub("Back"), stub("Forward"), stub("Track")
+			bar.Back.shown, bar.Forward.shown = true, true
+			windows[1].ScrollBar = bar
+			login()
+			assert.is_false(bar.Back:IsShown())
+			assert.is_false(bar.Forward:IsShown())
+			assert.same({ "BOTTOM", bar, "BOTTOM", 0, 0 }, bar.Track.point)
+			bar.Back:Show() -- Blizzard shows it again (the bar's layout)
+			assert.is_false(bar.Back:IsShown())
 		end)
 	end)
 end)

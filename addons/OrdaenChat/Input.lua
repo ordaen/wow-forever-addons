@@ -41,6 +41,10 @@ local headers = {} -- input -> { header = FontString, point = Blizzard's point }
 local added = {} -- input -> the left text inset we added on top of Blizzard's
 local buttons = {} -- name -> { frame, dress, home = { parent, point... } }
 local placing = false
+local insetting = false -- our own SetTextInsets call (the hook leaves it alone)
+local anchoring = false -- our own SetPoint calls on an input
+local overlaid = false -- the input sits over the chat (setting inputOverlay)
+local blizzardPoints = {} -- input -> its points under the chat window, given back when the overlay goes off
 local hiddenParent -- holds Blizzard's social button while Ordaen Panel isn't there to take it
 local socialHome
 
@@ -83,18 +87,68 @@ local function shiftText(input)
 	end
 	local left, right, top, bottom = input:GetTextInsets()
 	local blizzards = (left or 0) - (added[input] or 0)
+	insetting = true
 	input:SetTextInsets(blizzards + width, right or 0, top or 0, bottom or 0)
+	insetting = false
 	added[input] = width
 end
 
--- Blizzard set the input's insets for its header ("Say:", "To Name:"), from scratch: add ours again on top.
-local function onHeaderUpdated(input)
-	if inputs[input] then
-		added[input] = 0
-		if on then
-			shiftText(input)
-		end
+-- Blizzard set the input's insets for its header ("Say:", "To Name:"), from scratch: add ours again on top. A hook on
+-- the input's own SetTextInsets, so every path counts (Forever updates the header in the input's UpdateHeader
+-- method, not the old global ChatEdit_UpdateHeader: the caret sat under "Say:", 2026-11-06).
+local function onInsetsSet(input)
+	if insetting or not inputs[input] then
+		return
 	end
+	added[input] = 0
+	if on then
+		shiftText(input)
+	end
+end
+
+-- Over the chat: the input on the bottom of its window's background, over the last lines, instead of below the
+-- window. Blizzard's own "IM" chat style shows it only while typing (Enter) and hides it after.
+local function overlay(input)
+	local h = blizzardPoints[input]
+	if not h then
+		h = {}
+		for i = 1, input:GetNumPoints() do
+			h[i] = { input:GetPoint(i) }
+		end
+		blizzardPoints[input] = h
+	end
+	local window = input.chatFrame or input:GetParent()
+	local background = window and _G[(window:GetName() or "") .. "Background"]
+	if not background then
+		return
+	end
+	anchoring = true
+	input:ClearAllPoints()
+	input:SetPoint("BOTTOMLEFT", background, "BOTTOMLEFT", 0, 0)
+	input:SetPoint("BOTTOMRIGHT", background, "BOTTOMRIGHT", 0, 0)
+	anchoring = false
+end
+
+local function underChat(input)
+	local h = blizzardPoints[input]
+	if not h then
+		return
+	end
+	anchoring = true
+	input:ClearAllPoints()
+	for _, p in ipairs(h) do
+		input:SetPoint(p[1], p[2], p[3], p[4], p[5])
+	end
+	anchoring = false
+end
+
+-- Blizzard placing an input again: note its place, then over the chat again.
+local function onInputPlaced(input)
+	if anchoring or not (on and overlaid and inputs[input]) then
+		return
+	end
+	blizzardPoints[input] = nil
+	overlay(input)
 end
 
 -- Put the shown buttons in a row inside the left end of `current`, the text after them.
@@ -157,6 +211,11 @@ local function dressInput(input)
 		headers[input] = entry
 	end
 	input:HookScript("OnShow", onInputShown)
+	hooksecurefunc(input, "SetTextInsets", onInsetsSet)
+	hooksecurefunc(input, "SetPoint", onInputPlaced)
+	if on and overlaid then
+		overlay(input)
+	end
 end
 
 local function dressInputs()
@@ -239,9 +298,13 @@ function Input.Enable()
 				dressInputs()
 			end
 		end)
-		hooksecurefunc("ChatEdit_UpdateHeader", onHeaderUpdated)
 	end
 	current = current or ChatFrame1.editBox --[[@as EditBox]]
+	for input in pairs(inputs) do
+		if overlaid then
+			overlay(input)
+		end
+	end
 	takeButtons(current:GetHeight())
 	hideSocial()
 	place()
@@ -253,6 +316,7 @@ function Input.Disable()
 	for input, dress in pairs(inputs) do
 		dress:Undress()
 		shiftText(input)
+		underChat(input)
 	end
 	for _, b in pairs(buttons) do
 		if b.dress then
@@ -270,6 +334,25 @@ function Input.Disable()
 		end
 	end
 	showSocial()
+end
+
+--- The input over the chat, shown only while typing (setting inputOverlay), or under the window (Blizzard's place).
+--- Sets Blizzard's own chat style option ("IM": the input shows on Enter) when turned on; the player can change that
+--- option in Blizzard's settings.
+---@param on_ boolean
+function Input.SetOverlay(on_)
+	overlaid = on_
+	if on_ then
+		C_CVar.SetCVar("chatStyle", "im")
+		ns.Debug:Logf("input: over the chat, chatStyle now %s", tostring(C_CVar.GetCVar("chatStyle")))
+	end
+	for input in pairs(inputs) do
+		if on and on_ then
+			overlay(input)
+		else
+			underChat(input)
+		end
+	end
 end
 
 --- Another addon took the input or a chat button (a conflict): when the feature goes off, put Blizzard's look

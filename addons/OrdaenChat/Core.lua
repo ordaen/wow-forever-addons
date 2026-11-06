@@ -13,7 +13,7 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 	db = "OrdaenChatDB",
 	charDb = "OrdaenChatCharDB",
 	defaults = { chatLook = true, inputGroup = true, sortChannels = true, classColors = true, dimEvents = true,
-		chatAbovePanel = true },
+		chatAbovePanel = true, inputOverlay = true },
 	charDefaults = {},
 	slash = { "/ochat", "/ordaenchat" },
 	conflicts = { "Prat-3.0" },
@@ -26,6 +26,7 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 		{ key = "chatLook", label = "CHAT_LOOK", tooltip = "CHAT_LOOK_TOOLTIP" },
 		{ key = "chatAbovePanel", label = "CHAT_ABOVE_PANEL", tooltip = "CHAT_ABOVE_PANEL_TOOLTIP" },
 		{ key = "inputGroup", label = "INPUT_GROUP", tooltip = "INPUT_GROUP_TOOLTIP" },
+		{ key = "inputOverlay", label = "INPUT_OVERLAY", tooltip = "INPUT_OVERLAY_TOOLTIP" },
 		{ key = "sortChannels", label = "SORT_CHANNELS", tooltip = "SORT_CHANNELS_TOOLTIP" },
 		{ key = "classColors", label = "CLASS_COLORS", tooltip = "CLASS_COLORS_TOOLTIP" },
 		{ key = "dimEvents", label = "DIM_EVENTS", tooltip = "DIM_EVENTS_TOOLTIP" },
@@ -111,7 +112,13 @@ end
 
 local inputGroup = A:Feature("inputGroup", { setting = "inputGroup", when = ownLook })
 inputGroup:OnEnable(function()
+	ns.Input.SetOverlay(A.db.inputOverlay)
 	ns.Input.Enable()
+end)
+inputGroup:OnChange(function(key, value)
+	if key == "inputOverlay" then
+		ns.Input.SetOverlay(value)
+	end
 end)
 inputGroup:OnDisable(function()
 	ns.Input.Disable()
