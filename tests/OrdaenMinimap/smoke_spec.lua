@@ -178,6 +178,26 @@ describe("OrdaenMinimap smoke", function()
 			GetMinimapZoneText = function()
 				return "Elwynn Forest"
 			end,
+			GetRealZoneText = function()
+				return "Elwynn Forest"
+			end,
+			GetSubZoneText = function()
+				return "Goldshire"
+			end,
+			TimeManager_Toggle = function()
+				world.clockSettings = true
+			end,
+			ToggleWorldMap = function() end,
+			C_CVar = {
+				GetCVarBool = function()
+					return nil
+				end,
+			},
+			C_Calendar = {
+				GetNumPendingInvites = function()
+					return world.invites or 0
+				end,
+			},
 			C_PvP = {
 				GetZonePVPInfo = function()
 					return "friendly"
@@ -396,6 +416,34 @@ describe("OrdaenMinimap smoke", function()
 			assert.same({ "%.1f, %.1f", 25, 50 }, coords.calls.SetFormattedText[#coords.calls.SetFormattedText])
 			local clock = frameNamed("OrdaenMinimapClock")
 			assert.same({ "%02d:%02d", 14, 5 }, clock.font.calls.SetFormattedText[1])
+		end)
+
+		it("shows the clock tooltip through OrdaenCore.UI, with the invites line only when invites are pending", function()
+			local function shownLines()
+				local lines = {}
+				for _, call in ipairs(GameTooltip.calls.AddLine or {}) do
+					lines[#lines + 1] = call[1]
+				end
+				GameTooltip.calls.AddLine = nil
+				return table.concat(lines, "|")
+			end
+			login()
+			local clock = frameNamed("OrdaenMinimapClock")
+			clock.scripts.OnEnter(clock)
+			local plain = shownLines()
+			assert.truthy(plain:find(ns.L.TIME_TOOLTIP_CALENDAR, 1, true))
+			assert.falsy(plain:find(ns.L.CALENDAR_PENDING, 1, true))
+
+			world.invites = 2
+			local infoEvents
+			for i, f in ipairs(frames) do
+				if f.name == "OrdaenMinimapClock" then
+					infoEvents = frames[i + 1]
+				end
+			end
+			infoEvents.scripts.OnEvent(infoEvents, "CALENDAR_UPDATE_PENDING_INVITES")
+			clock.scripts.OnEnter(clock)
+			assert.truthy(shownLines():find(ns.L.CALENDAR_PENDING, 1, true))
 		end)
 
 		it("opens the calendar from the clock", function()

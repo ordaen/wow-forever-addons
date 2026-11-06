@@ -234,10 +234,22 @@ local function shownIconKeys()
 	return keys
 end
 
+-- Our tooltips go through OrdaenCore.UI, built once; only the entry's title changes on hover.
+local UI = OrdaenCore.UI
+local LEFT = { anchor = "ANCHOR_LEFT" }
+local entryTooltip = { v = 1, title = { text = "" } }
+local mainTooltip = {
+	v = 1,
+	title = { text = L.SETTINGS_TITLE },
+	{ kind = "hint", text = L.DRAWER_TOOLTIP_CLICK },
+	{ kind = "hint", text = L.DRAWER_TOOLTIP_RIGHT },
+	{ kind = "hint", text = L.DRAWER_TOOLTIP_MOVE },
+}
+
+-- For entries whose addon has no hover function of its own.
 local function plainTooltip(owner, text)
-	GameTooltip:SetOwner(owner, "ANCHOR_LEFT")
-	GameTooltip:SetText(text or "?")
-	GameTooltip:Show()
+	entryTooltip.title.text = text or "?"
+	UI.ShowTooltip(owner, entryTooltip, LEFT)
 end
 
 -- Clicks go straight to the other addon; its errors are its own (not wrapped in our debug kit).
@@ -285,7 +297,8 @@ local function entryOnLeave(self)
 	elseif item and item.kind == "runtime" and type(e.funcOnLeave) == "function" then
 		e.funcOnLeave(self, e)
 	end
-	GameTooltip:Hide()
+	UI.HideTooltip(self) -- ours, if we showed one
+	GameTooltip:Hide() -- the other addon's own hover code usually draws on GameTooltip
 end
 
 local function entryButton(index)
@@ -440,15 +453,10 @@ local function createFrames()
 		end
 	end))
 	mainButton:SetScript("OnEnter", function(self)
-		GameTooltip:SetOwner(self, "ANCHOR_LEFT")
-		GameTooltip:SetText(L.SETTINGS_TITLE)
-		GameTooltip:AddLine(L.DRAWER_TOOLTIP_CLICK, 1, 1, 1)
-		GameTooltip:AddLine(L.DRAWER_TOOLTIP_RIGHT, 1, 1, 1)
-		GameTooltip:AddLine(L.DRAWER_TOOLTIP_MOVE, 1, 1, 1)
-		GameTooltip:Show()
+		UI.ShowTooltip(self, mainTooltip, LEFT)
 	end)
-	mainButton:SetScript("OnLeave", function()
-		GameTooltip:Hide()
+	mainButton:SetScript("OnLeave", function(self)
+		UI.HideTooltip(self)
 	end)
 end
 

@@ -33,8 +33,7 @@ local active = false
 -- Zone -----------------------------------------------------------------------------------------
 
 local function updateZone()
-	local text = GetMinimapZoneText and GetMinimapZoneText() or GetZoneText()
-	zoneText:SetText(text or "")
+	zoneText:SetText(GetMinimapZoneText() or "")
 	local pvp = C_PvP.GetZonePVPInfo()
 	local c = pvp and PVP_COLORS[pvp] or NORMAL
 	zoneText:SetTextColor(c[1], c[2], c[3])
@@ -43,19 +42,14 @@ end
 -- Coordinates ----------------------------------------------------------------------------------
 
 local mapLeft, mapTop, mapWidth, mapHeight -- world rectangle of the player's map, nil when unknown
-local useFallback = false -- no world rectangle API: ask C_Map every tick (creates a table each time)
 local lastWorldX, lastWorldY
 local shownX, shownY
 
 local function updateMapRect()
 	mapLeft = nil
 	lastWorldX = nil
-	local mapID = C_Map and C_Map.GetBestMapForUnit and C_Map.GetBestMapForUnit("player")
+	local mapID = C_Map.GetBestMapForUnit("player")
 	if not mapID then
-		return
-	end
-	if not (C_Map.GetWorldPosFromMapPos and CreateVector2D) then
-		useFallback = C_Map.GetPlayerMapPosition ~= nil
 		return
 	end
 	-- Like HereBeDragons: the corner (0, 0) and the center, doubled (some maps clamp at 1).
@@ -70,7 +64,7 @@ local function updateMapRect()
 	if width ~= 0 and height ~= 0 then
 		mapLeft, mapTop, mapWidth, mapHeight = left, top, width, height
 	end
-	if ns.Debug.IsEnabled() and C_Map.GetPlayerMapPosition then
+	if ns.Debug.IsEnabled() then
 		-- Check our math against Blizzard's once per zone (dev mode only).
 		local pos = C_Map.GetPlayerMapPosition(mapID, "player")
 		local wx, wy = UnitPosition("player")
@@ -95,12 +89,6 @@ local function showCoords(x, y)
 end
 
 local function updateCoords()
-	if useFallback then
-		local mapID = C_Map.GetBestMapForUnit("player")
-		local pos = mapID and C_Map.GetPlayerMapPosition(mapID, "player")
-		showCoords(pos and pos.x, pos and pos.y)
-		return
-	end
 	-- UnitPosition gives world X (north) then Y (west); nil in instances, where there are no coordinates.
 	local wx, wy = UnitPosition("player")
 	if not (wx and mapLeft) then
@@ -120,19 +108,12 @@ end
 local shownMinute
 local pendingInvites = false
 
-local function cvarBool(name)
-	if C_CVar and C_CVar.GetCVarBool then
-		return C_CVar.GetCVarBool(name)
-	elseif GetCVarBool then
-		return GetCVarBool(name)
-	end
-	return nil
-end
+local cvarBool = C_CVar.GetCVarBool
 
 local function updateClock()
 	-- Blizzard's clock settings: local or realm time, 24-hour or AM/PM.
 	local hour, minute
-	if cvarBool("timeMgrUseLocalTime") or not GetGameTime then
+	if cvarBool("timeMgrUseLocalTime") then
 		local now = time()
 		local key = math.floor(now / 60)
 		if key == shownMinute then
@@ -149,7 +130,7 @@ local function updateClock()
 		shownMinute = key
 	end
 	if cvarBool("timeMgrUseMilitaryTime") == false then
-		local suffix = hour >= 12 and (TIMEMANAGER_PM or "PM") or (TIMEMANAGER_AM or "AM")
+		local suffix = hour >= 12 and TIMEMANAGER_PM or TIMEMANAGER_AM
 		local h12 = hour % 12
 		timeText:SetFormattedText("%d:%02d %s", h12 == 0 and 12 or h12, minute, suffix)
 	else
@@ -157,13 +138,17 @@ local function updateClock()
 	end
 end
 
+local showClockTooltip -- defined with the frames below
+
 local function updateInvites()
-	pendingInvites = C_Calendar and C_Calendar.GetNumPendingInvites
-		and C_Calendar.GetNumPendingInvites() > 0 or false
+	pendingInvites = C_Calendar.GetNumPendingInvites() > 0
 	if pendingInvites then
 		timeText:SetTextColor(1, 0.5, 0.1)
 	else
 		timeText:SetTextColor(1, 1, 1)
+	end
+	if timeButton:IsMouseOver() then
+		showClockTooltip(timeButton) -- the tooltip with or without the invites line
 	end
 end
 
@@ -234,27 +219,34 @@ end
 
 -- Frames ---------------------------------------------------------------------------------------
 
-local function tooltip(owner, ...)
-	GameTooltip:SetOwner(owner, "ANCHOR_BOTTOM")
-	for i = 1, select("#", ...) do
-		local line = select(i, ...)
-		if line then
-			GameTooltip:AddLine(line, 1, 1, 1)
-		end
-	end
-	GameTooltip:Show()
+-- Tooltips through OrdaenCore.UI: each content table is built once and only a field changes on hover.
+local UI = OrdaenCore.UI
+local BELOW = { anchor = "ANCHOR_BOTTOM" }
+local zoneTooltip = {
+	v = 1,
+	title = { text = "" }, -- the zone, filled in on hover
+	subtitle = { text = "" }, -- the subzone
+	{ kind = "hint", text = L.ZONE_TOOLTIP_MAP },
+}
+local clockTooltip = {
+	v = 1,
+	{ kind = "hint", text = L.TIME_TOOLTIP_CALENDAR },
+	{ kind = "hint", text = L.TIME_TOOLTIP_CLOCK },
+}
+local clockInvitesTooltip = {
+	v = 1,
+	{ kind = "line", text = L.CALENDAR_PENDING, color = { 1, 0.5, 0.1 } },
+	{ kind = "separator" },
+	{ kind = "hint", text = L.TIME_TOOLTIP_CALENDAR },
+	{ kind = "hint", text = L.TIME_TOOLTIP_CLOCK },
+}
+
+local function hideTooltip(self)
+	UI.HideTooltip(self)
 end
 
-local function hideTooltip()
-	GameTooltip:Hide()
-end
-
-local function openCalendar()
-	if ToggleCalendar then
-		ToggleCalendar()
-	elseif GameTimeFrame then
-		GameTimeFrame:Click()
-	end
+function showClockTooltip(self) -- the local declared above
+	UI.ShowTooltip(self, pendingInvites and clockInvitesTooltip or clockTooltip, BELOW)
 end
 
 local function createFrames()
@@ -267,12 +259,12 @@ local function createFrames()
 	zoneText:SetAllPoints()
 	zoneText:SetWordWrap(false)
 	zoneButton:SetScript("OnClick", function()
-		if ToggleWorldMap then
-			ToggleWorldMap()
-		end
+		ToggleWorldMap()
 	end)
 	zoneButton:SetScript("OnEnter", function(self)
-		tooltip(self, GetRealZoneText and GetRealZoneText(), L.ZONE_TOOLTIP_MAP)
+		zoneTooltip.title.text = GetRealZoneText() or ""
+		zoneTooltip.subtitle.text = GetSubZoneText() or ""
+		UI.ShowTooltip(self, zoneTooltip, BELOW)
 	end)
 	zoneButton:SetScript("OnLeave", hideTooltip)
 
@@ -288,17 +280,12 @@ local function createFrames()
 	timeText:SetJustifyH("RIGHT")
 	timeButton:SetScript("OnClick", ns.Debug.Wrap(function(_, mouseButton)
 		if mouseButton == "RightButton" then
-			if TimeManager_Toggle then
-				TimeManager_Toggle()
-			end
+			TimeManager_Toggle()
 		else
-			openCalendar()
+			ToggleCalendar()
 		end
 	end))
-	timeButton:SetScript("OnEnter", function(self)
-		tooltip(self, pendingInvites and L.CALENDAR_PENDING or nil, L.TIME_TOOLTIP_CALENDAR,
-			TimeManager_Toggle and L.TIME_TOOLTIP_CLOCK or nil)
-	end)
+	timeButton:SetScript("OnEnter", showClockTooltip)
 	timeButton:SetScript("OnLeave", hideTooltip)
 
 	events = CreateFrame("Frame")
@@ -360,7 +347,6 @@ function Info.Describe()
 	return {
 		active = active,
 		moving = moving,
-		fallbackCoords = useFallback,
 		mapRect = mapLeft and { mapLeft, mapTop, mapWidth, mapHeight } or false,
 		zone = zoneButton,
 		clock = timeButton,
