@@ -222,6 +222,28 @@ describe("api_import", function()
 			assert.same({ name = "a", type = "number", nilable = true, default = true }, both)
 		end)
 
+		it("keeps <forbidden> (a table WoW protects) as a marker: it exists, any member may be there", function()
+			local dump = deepDump()
+			dump.globals.SecureThing = "table"
+			dump.namespaces.SecureThing = { ["<forbidden>"] = "1" }
+			dump.globals.ProtectedFrame = "widget"
+			dump.objects.ProtectedFrame = { ["<forbidden>"] = "1" }
+			local files = Import.Render(dump)
+			assert.truthy(files["namespaces.txt"]:find("SecureThing.<forbidden>\t1\n", 1, true))
+			assert.truthy(files["objects.txt"]:find("ProtectedFrame.<forbidden>\t1\n", 1, true))
+			local api = Import.Structured(files)
+			assert.equals("1", api.namespaces.SecureThing["<forbidden>"])
+			local globals = assert(loadstring(Import.Luacheck(files, "1.60.2-71000")))()
+			assert.same({ other_fields = true }, globals.SecureThing)
+			assert.same({ other_fields = true }, globals.ProtectedFrame)
+			assert.same({ other_fields = true }, globals.UIParent) -- truncated: members not all known either
+			local Lint = dofile("scripts/forever_lint.lua")
+			assert.is_nil(Lint.ObjectMembers(api, "ProtectedFrame"))
+			local luals = dofile("scripts/luals_defs.lua").Generate(api, "1.60.2-71000")
+			assert.truthy(luals["objects.lua"]:find("---@class ProtectedFrameObject\n---@field [string] any", 1, true))
+			assert.falsy(luals["functions.lua"]:find("<forbidden>", 1, true))
+		end)
+
 		it("doesn't claim 'no default' for dumps that don't record defaults", function()
 			local api = Import.Structured(Import.Render(fakeDump(70790)))
 			assert.is_false(api.meta.docsDefaults)

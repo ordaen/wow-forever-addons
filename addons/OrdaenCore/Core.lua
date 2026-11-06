@@ -116,6 +116,8 @@ function StandIn:Verbose(...) end
 ---@param ... any
 function StandIn:Verbosef(fmt, ...) end
 
+--- The addon's dev-mode state (the dump callback's result); nothing here.
+---@return table|nil
 function StandIn:Dump() end
 
 --- For the companion: what happened ("event", "enter", "click", "slash", "setting"...) and its detail.
@@ -145,10 +147,10 @@ function StandIn:Wrap(fn)
 	return fn
 end
 
----@generic T
----@param value T
+--- A saveable copy of `value` (frames as name, size, points...); the value itself here.
+---@param value any
 ---@param depth integer|nil
----@return T
+---@return any
 function StandIn:Snapshot(value, depth)
 	return value
 end

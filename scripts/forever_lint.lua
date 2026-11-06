@@ -75,7 +75,7 @@ function M.Prepare(api)
 end
 
 --- Members of a dumped Blizzard object (name -> type), following "<ref>" aliases; nil when the dump
---- doesn't have the path or its tree was truncated (then nothing can be said).
+--- doesn't have the path, its tree was truncated or WoW protects it ("<forbidden>": nothing can be said).
 function M.ObjectMembers(api, objectPath)
 	local objects = api.objects or {}
 	local members = objects[objectPath]
@@ -85,7 +85,7 @@ function M.ObjectMembers(api, objectPath)
 		end
 		members = objects[members["<ref>"]]
 	end
-	if not members or members["<truncated>"] then
+	if not members or members["<truncated>"] or members["<forbidden>"] then
 		return nil
 	end
 	return members

@@ -38,7 +38,8 @@ end
 -- Only names code can use as an identifier are API. Others are per-user or per-session noise: template
 -- placeholders ("$HealerMarkerCheckButton"), localized lookup keys (hash_EmoteTokenList,
 -- hash_SlashCmdList, which also lists other addons' slash commands), the user's own UI state
--- (g_addonCategoriesCollapsed). Markers like "<skipped>" are kept.
+-- (g_addonCategoriesCollapsed). Markers like "<skipped>" (too big to list) and "<forbidden>" (a table WoW protects:
+-- it exists, reading it would taint) are kept.
 local function identifier(name)
 	return type(name) == "string" and name:match("^[%a_][%w_]*$") ~= nil
 end
@@ -66,7 +67,7 @@ function M.Render(dump)
 	for name, members in pairs(dump.namespaces or {}) do
 		if identifier(name) then
 			for key, kind in pairs(members) do
-				if identifier(key) or key == "<skipped>" then
+				if identifier(key) or key == "<skipped>" or key == "<forbidden>" then
 					namespaces[#namespaces + 1] = name .. "." .. key .. "\t" .. kind
 				end
 			end
@@ -219,8 +220,12 @@ function M.Luacheck(files, folder)
 		widgetMethods[widgetType][method] = true
 	end
 	local objects = {}
+	local opaque = {} -- objects whose members aren't all known: "<truncated>", "<forbidden>"
 	for line in (files["objects.txt"] or ""):gmatch("[^\n]+") do
 		local path, key, kind = line:match("^(.+)%.([^.\t]+)\t(.+)$")
+		if path and (key == "<truncated>" or key == "<forbidden>") then
+			opaque[path] = true
+		end
 		-- Only top-level objects with identifier-safe keys become luacheck fields. Deep paths, unnamed
 		-- children ("#3") and markers ("<ref>", "<objectType>", "<truncated>") stay in the text/JSON only.
 		if path and path:match("^[%a_][%w_]*$") then
@@ -246,14 +251,14 @@ function M.Luacheck(files, folder)
 		local name, kind = line:match("^([^\t]+)\t(.+)$")
 		if name and name:match("^[%a_][%w_]*$") then
 			local members = namespaces[name]
-			if members and not members["<skipped>"] then
+			if members and not members["<skipped>"] and not members["<forbidden>"] then
 				out[#out + 1] = "\t[" .. quote(name) .. "] = { fields = {"
 				for _, key in ipairs(sortedKeys(members)) do
 					local open = (members[key] == "table" or members[key] == "widget") and "{ other_fields = true }" or "{}"
 					out[#out + 1] = "\t\t[" .. quote(key) .. "] = " .. open .. ","
 				end
 				out[#out + 1] = "\t} },"
-			elseif objects[name] then
+			elseif objects[name] and not opaque[name] then
 				out[#out + 1] = "\t[" .. quote(name) .. "] = { fields = {"
 				for _, key in ipairs(sortedKeys(objects[name])) do
 					out[#out + 1] = "\t\t[" .. quote(key) .. "] = { other_fields = true },"

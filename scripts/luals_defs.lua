@@ -267,7 +267,7 @@ function M.Generate(api, folder)
 			local widgetType = members["<objectType>"]
 			local base = widgetType and sets[widgetType] and (" : " .. widgetType) or ""
 			write(("---@class %s%s"):format(objectClass[path], base))
-			if members["<truncated>"] then
+			if members["<truncated>"] or members["<forbidden>"] then -- members not (all) known
 				write("---@field [string] any")
 			end
 			local methods = {}
