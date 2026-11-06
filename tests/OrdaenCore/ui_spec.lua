@@ -994,6 +994,22 @@ describe("OrdaenCore.UI", function()
 			assert.is_false(dress.look.frame.shown)
 		end)
 
+		it("follow the frame to another strata and level (the chat input goes to DIALOG while typing)", function()
+			local input = chatWindow()
+			input:Show()
+			input:SetFrameStrata("LOW")
+			input:SetFrameLevel(9)
+			local dress = UI.Dress(input, { style = "input", size = "frame", art = {} })
+			local look = dress.look.frame
+			assert.same({ "LOW", 8 }, { look:GetFrameStrata(), look:GetFrameLevel() }, "right under the frame")
+			input:SetFrameStrata("DIALOG") -- Blizzard, as typing starts
+			assert.same({ "DIALOG", 8 }, { look:GetFrameStrata(), look:GetFrameLevel() })
+			input:SetFrameLevel(14) -- Blizzard raised it
+			input:Hide()
+			input:Show()
+			assert.equals(13, look:GetFrameLevel(), "under it again when shown")
+		end)
+
 				it("reach past the covered region with `extend` (an input with buttons on its left)", function()
 			local window = chatWindow()
 			local dress = UI.Dress(window, { style = "panel", size = "frame", extend = { 60, 0, 2, 2 }, art = {} })

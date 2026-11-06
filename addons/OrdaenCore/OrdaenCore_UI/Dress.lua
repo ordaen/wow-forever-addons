@@ -170,12 +170,34 @@ local function wanted(dress)
 	return true
 end
 
+-- Our block sits right under Blizzard's frame: its strata, one level below. Blizzard moves some frames to another
+-- strata while they're used (the chat input goes to DIALOG while typing): a look left in the old strata showed the
+-- chat's text over the input's background (2026-11-07), so it follows every strata change and each show.
+local function layer(dress)
+	local frame, look = dress.frame, dress.look
+	look:SetFrameStrata(frame:GetFrameStrata())
+	local level = frame:GetFrameLevel()
+	look:SetFrameLevel(level > 1 and level - 1 or 1)
+	if level < 2 then
+		frame:SetFrameLevel(2)
+	end
+end
+
 -- Our block is a sibling of Blizzard's frame (so it never covers it): it shows and hides with that frame. Without
 -- this, every hidden chat window, tab and voice button left its look on screen (2026-11-06).
 local function onFrameShown(frame)
 	for _, dress in pairs(byClickable) do
 		if dress.frame == frame and dress.dressed then
+			layer(dress)
 			dress.look:SetShown(wanted(dress))
+		end
+	end
+end
+
+local function onFrameStrata(frame)
+	for _, dress in pairs(byClickable) do
+		if dress.frame == frame and dress.dressed then
+			layer(dress)
 		end
 	end
 end
@@ -183,6 +205,7 @@ end
 local function onFocus(frame)
 	for _, dress in pairs(byClickable) do
 		if dress.frame == frame and dress.dressed and dress.opts.focus then
+			layer(dress)
 			dress.look:SetShown(wanted(dress))
 		end
 	end
@@ -225,7 +248,6 @@ function Dress:Apply()
 	local frame, look = self.frame, self.look
 	self.dressed = true
 	look:SetParent(frame:GetParent())
-	look:SetFrameStrata(frame:GetFrameStrata())
 	if self.opts.size == "frame" then
 		placeOver(self)
 		look:SetShown(wanted(self))
@@ -241,11 +263,7 @@ function Dress:Apply()
 		end
 	end
 	look:SetAlpha(self.opts.focus and 1 or frame:GetAlpha())
-	local level = frame:GetFrameLevel()
-	look:SetFrameLevel(level > 1 and level - 1 or 1)
-	if level < 2 then
-		frame:SetFrameLevel(2)
-	end
+	layer(self)
 	hideArt(self)
 end
 
@@ -346,6 +364,7 @@ function Dress.New(frame, opts)
 	frame:HookScript("OnShow", onFrameShown)
 	frame:HookScript("OnHide", onFrameHidden)
 	hooksecurefunc(frame, "SetAlpha", onFrameAlpha)
+	hooksecurefunc(frame, "SetFrameStrata", onFrameStrata)
 	if frame:IsObjectType("EditBox") then -- `focus` may be turned on later
 		frame:HookScript("OnEditFocusGained", onFocus)
 		frame:HookScript("OnEditFocusLost", onFocus)
