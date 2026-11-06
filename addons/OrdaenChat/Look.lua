@@ -136,6 +136,8 @@ function Look.Enable()
 		dress:Apply()
 	end
 	dressAll()
+	-- Blizzard sized the tabs for its own font: size them again for the theme's (else "General" reads "Gen...").
+	FCFDock_UpdateTabs(GeneralDockManager, true)
 	if not hooked then
 		hooked = true
 		hooksecurefunc("FCFTab_UpdateColors", onTabColors)

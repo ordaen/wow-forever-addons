@@ -150,6 +150,24 @@ local function placeOver(self)
 	end
 end
 
+-- Our block is a sibling of Blizzard's frame (so it never covers it): it shows and hides with that frame. Without
+-- this, every hidden chat window, tab and voice button left its look on screen (2026-11-06).
+local function onFrameShown(frame)
+	for _, dress in pairs(byClickable) do
+		if dress.frame == frame and dress.dressed then
+			dress.look:Show()
+		end
+	end
+end
+
+local function onFrameHidden(frame)
+	for _, dress in pairs(byClickable) do
+		if dress.frame == frame then
+			dress.look:Hide()
+		end
+	end
+end
+
 -- With size "frame" our block follows the size it covers (Blizzard's or Edit Mode's): redraw at that size.
 local function resize(self)
 	if not self.dressed then
@@ -172,12 +190,12 @@ function Dress:Apply()
 	look:SetFrameStrata(frame:GetFrameStrata())
 	if self.opts.size == "frame" then
 		placeOver(self)
-		look:Show()
+		look:SetShown(frame:IsShown())
 		resize(self)
 	else
 		look:ClearAllPoints()
 		look:SetPoint("CENTER", frame, "CENTER")
-		look:Show()
+		look:SetShown(frame:IsShown())
 		frame:SetSize(look:GetWidth(), look:GetHeight())
 		if self.clickable ~= frame then
 			self.clickable:ClearAllPoints()
@@ -280,8 +298,10 @@ function Dress.New(frame, opts)
 		clickable:HookScript("OnEnter", onEnter)
 		clickable:HookScript("OnLeave", onLeave)
 	end
+	-- Once per dress: dressing the same frame again returns this one.
+	frame:HookScript("OnShow", onFrameShown)
+	frame:HookScript("OnHide", onFrameHidden)
 	if opts.size == "frame" then
-		-- Once per dress: dressing the same frame again returns this one.
 		look.frame:HookScript("OnSizeChanged", function()
 			resize(self)
 		end)

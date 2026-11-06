@@ -32,6 +32,13 @@ local function stub(name, extra)
 	function obj:IsShown()
 		return self.shown
 	end
+	function obj:SetShown(shown)
+		if shown then
+			self:Show()
+		else
+			self:Hide()
+		end
+	end
 	function obj:SetScript(script, fn)
 		self.scripts[script] = fn
 	end
@@ -118,6 +125,7 @@ local function chatWindow(i, title, shown)
 end
 
 describe("Ordaen Chat", function()
+	local tabsSized
 	local ns, frames, windows, cvars, menuButton, channelButton, art, loaded, stack, windowArt, selectedWindow
 
 	local function fire(event, ...)
@@ -189,6 +197,9 @@ describe("Ordaen Chat", function()
 			GeneralDockManager = stub("GeneralDockManager"),
 			FCFDock_GetSelectedWindow = function()
 				return selectedWindow
+			end,
+			FCFDock_UpdateTabs = function()
+				tabsSized = (tabsSized or 0) + 1
 			end,
 			GetChannelName = function()
 				return 0
@@ -425,6 +436,7 @@ describe("Ordaen Chat", function()
 			assert.equals("normal", look.tabs.ChatFrame2Tab)
 			assert.truthy(windows[1].tab.label.calls.SetFont, "the tab's name in the theme's font")
 			assert.truthy(windows[1].calls.SetFont, "the chat lines in the theme's font")
+			assert.truthy(tabsSized, "Blizzard sizes the tabs again for the theme's font")
 		end)
 
 		it("follows Blizzard's tab selection and new-message flashes", function()

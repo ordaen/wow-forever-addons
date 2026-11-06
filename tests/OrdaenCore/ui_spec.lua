@@ -245,11 +245,27 @@ local function fakeFrame(name, log, parent)
 	function f:SetPoint(...)
 		self.point = { ... }
 	end
+	-- Like the game: OnShow/OnHide run when the frame's own shown state changes.
 	function f:Show()
+		local was = self.shown
 		self.shown = true
+		if not was and self.scripts and self.scripts.OnShow then
+			self.scripts.OnShow(self)
+		end
 	end
 	function f:Hide()
+		local was = self.shown
 		self.shown = false
+		if was and self.scripts and self.scripts.OnHide then
+			self.scripts.OnHide(self)
+		end
+	end
+	function f:SetShown(shown)
+		if shown then
+			self:Show()
+		else
+			self:Hide()
+		end
 	end
 	function f:IsShown()
 		return self.shown
@@ -865,6 +881,21 @@ describe("OrdaenCore.UI", function()
 			dress:Undress()
 			assert.same({ 1, 1 }, { background.alpha, border.alpha })
 			assert.same({ 400, 180 }, window.size)
+		end)
+
+		it("show and hide with Blizzard's frame (a hidden chat window, tab or voice button leaves no look)", function()
+			local window, background = chatWindow()
+			window:Show()
+			local dress = UI.Dress(window, { style = "panel", size = "frame", cover = background, art = { background } })
+			assert.is_true(dress.look.frame.shown)
+			window:Hide()
+			assert.is_false(dress.look.frame.shown)
+			window:Show()
+			assert.is_true(dress.look.frame.shown)
+			local hidden = chatWindow()
+			hidden:Hide()
+			assert.is_false(UI.Dress(hidden, { style = "panel", size = "frame", art = {} }).look.frame.shown,
+				"dressed while hidden: our look starts hidden")
 		end)
 
 		it("reach past the covered region with `extend` (an input with buttons on its left)", function()
