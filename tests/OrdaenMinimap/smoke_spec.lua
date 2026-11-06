@@ -333,7 +333,21 @@ describe("OrdaenMinimap smoke", function()
 		rawset(_G, "OrdaenMinimapDB", nil)
 		rawset(_G, "GetMinimapShape", nil)
 
-		helpers.loadCore()
+		-- A debug kit that, like the dev addon's real one, must be called with ":". The Core's no-op stand-in
+		-- ignores self, so a dot call (`debug().Logf(...)`) passes the specs and crashes only in dev mode.
+		local core = helpers.loadCore()
+		local strict = {}
+		for _, method in ipairs({ "Init", "Log", "Logf", "Warn", "Warnf", "Verbose", "Verbosef", "Dump", "Trace",
+			"TraceFrame", "IsEnabled", "TraceEnabled", "Wrap", "Snapshot", "Call", "HelpLines", "HandleSlash" }) do
+			local standIn = core.NewDebug()[method]
+			strict[method] = function(self, ...)
+				assert(self == strict, "debug kit method " .. method .. " called with '.' instead of ':'")
+				return standIn(self, ...)
+			end
+		end
+		core.NewDebug = function()
+			return strict
+		end
 		ns = {}
 		loadToc("OrdaenMinimap", ns)
 	end)

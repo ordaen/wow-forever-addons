@@ -148,7 +148,7 @@ local function collect(button, source)
 	table.sort(collected, function(a, b)
 		return a.name:lower() < b.name:lower()
 	end)
-	debug().Logf("drawer: collected %s (%s)", name, source)
+	debug():Logf("drawer: collected %s (%s)", name, source)
 	queueLayout()
 end
 
@@ -338,7 +338,7 @@ local function refreshEntries()
 	for i = #entries + 1, #entryButtons do
 		entryButtons[i]:Hide()
 	end
-	debug().Logf("drawer: %d compartment entries", #entries)
+	debug():Logf("drawer: %d compartment entries", #entries)
 end
 
 -- Blizzard's compartment button -----------------------------------------------------------------
@@ -384,7 +384,7 @@ function Drawer.ApplyBlizzardCompartment()
 		frame:SetParent(compartmentParent or MinimapCluster)
 		placingCompartment = false
 	end
-	debug().Logf("drawer: Blizzard compartment %s", compartmentHidden() and "hidden" or "shown")
+	debug():Logf("drawer: Blizzard compartment %s", compartmentHidden() and "hidden" or "shown")
 end
 
 -- Main button and drawer frame ------------------------------------------------------------------
@@ -481,7 +481,7 @@ function Drawer.Start(savedDb)
 	end
 	if C_AddOns.IsAddOnLoaded("MinimapButtonButton") then
 		ns.Print(L.DRAWER_MBB_WARNING)
-		debug().Log("drawer: skipped, MinimapButtonButton is loaded")
+		debug():Log("drawer: skipped, MinimapButtonButton is loaded")
 		return
 	end
 	if not createFrames() then
