@@ -234,6 +234,10 @@ tab:SetState("selected") -- from a hook on Blizzard's own state change, never by
 | `states` | | state -> style role for `d:SetState(state)` |
 | `focus` | false | an EditBox: our look shows only while it's typed in, at full alpha (whatever alpha Blizzard gives it) |
 
+A frame sized from secret combat numbers (Blizzard's damage meter bars on Forever) has a secret size. Dressing it
+works: Blizzard's art is hidden and our look covers the frame by its anchors, but the look isn't laid out again for
+a size it can't read, so give such frames a look that doesn't depend on its size (a plain surface).
+
 ### Dressing with a whole block
 
 `block = { ... }` draws our look as that block (a row of cells, say) instead of an icon, in the role `style`.

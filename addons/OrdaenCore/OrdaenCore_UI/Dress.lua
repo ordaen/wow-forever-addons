@@ -237,6 +237,12 @@ local function resize(self)
 	local look = self.look
 	local block = look.block
 	local width, height = look:GetWidth(), look:GetHeight()
+	-- A frame sized from secret combat numbers (the damage meter's bars) has a secret size: our code can't compare
+	-- or lay it out (it errored, 2026-11-07). Our look still covers the frame by its anchors; it isn't drawn again
+	-- for that size.
+	if issecretvalue(width) or issecretvalue(height) then
+		return
+	end
 	if block.width ~= width or block.height ~= height then
 		block.width, block.height = width, height
 		look:Refresh()
@@ -247,6 +253,7 @@ end
 function Dress:Apply()
 	local frame, look = self.frame, self.look
 	self.dressed = true
+	hideArt(self) -- first: Blizzard's art goes even if something below fails
 	look:SetParent(frame:GetParent())
 	if self.opts.size == "frame" then
 		placeOver(self)
@@ -264,7 +271,6 @@ function Dress:Apply()
 	end
 	look:SetAlpha(self.opts.focus and 1 or frame:GetAlpha())
 	layer(self)
-	hideArt(self)
 end
 
 --- Hide art Blizzard added since dressing (a new texture, a re-created child) and redraw our look.

@@ -367,6 +367,11 @@ local function fakeFrame(name, log, parent)
 	return setmetatable(f, STRICT)
 end
 
+-- Stands for a secret value in the fake world (issecretvalue says so).
+local SECRET = setmetatable({}, { __tostring = function()
+	return "<secret>"
+end })
+
 describe("OrdaenCore.UI", function()
 	local UI, chat, frames, log, loads, loadResult
 
@@ -418,6 +423,10 @@ describe("OrdaenCore.UI", function()
 				local f = fakeFrame(name, log, parent)
 				table.insert(frames, f)
 				return f
+			end,
+			-- Secret values (Forever): SECRET stands for one, a number our code may pass on but not compare.
+			issecretvalue = function(value)
+				return value == SECRET
 			end,
 			-- Blizzard's CallbackRegistry: a callback gets its owner first, then the event's arguments.
 			EventRegistry = {
@@ -992,6 +1001,24 @@ describe("OrdaenCore.UI", function()
 			focused = false
 			input.scripts.OnEditFocusLost(input)
 			assert.is_false(dress.look.frame.shown)
+		end)
+
+		it("dress a frame whose size is secret (a damage meter bar) without measuring it", function()
+			local bar = chatWindow()
+			bar:Show()
+			local dress = UI.Dress(bar, { style = "panel", size = "frame", art = {} })
+			local look = dress.look.frame
+			local drawn = look.size
+			look.GetWidth = function()
+				return SECRET -- sized from combat numbers
+			end
+			look.GetHeight = function()
+				return SECRET
+			end
+			dress:Apply() -- before: "attempt to compare a secret value"
+			look.scripts.OnSizeChanged(look)
+			assert.same(drawn, look.size, "not drawn again for a size it can't read")
+			assert.is_true(look.shown, "still covering the frame")
 		end)
 
 		it("follow the frame to another strata and level (the chat input goes to DIALOG while typing)", function()
