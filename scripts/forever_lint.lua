@@ -12,8 +12,8 @@
 --   FL6 debug kit  a debug kit method called with '.' (Debug.Log(...), debug().Logf(...)): it takes ':'
 --   FL7 debug time Debug:Time(...) whose results are used: release builds strip the call, so it may only
 --                  be a statement (time a value with t = Debug:TimeStart() ... Debug:TimeEnd(t, "label"))
---   FL8 reload     ReloadUI passed as a value (A:AfterCombat(ReloadUI), C_Timer.After(1, ReloadUI)): the game
---                  allows a reload only in the player's click itself, so call ReloadUI() there
+--   FL8 reload     any ReloadUI / C_UI.Reload in addon code: Forever blocks a reload from addon code even inside
+--                  a click; a secure /reload macro button reloads (UI.Confirm `macro`), or the player types /reload
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
 -- Silence one line with a trailing comment:  -- forever-lint: ignore FL2
 --
@@ -401,20 +401,18 @@ function M.LintSource(api, source)
 		end
 	end
 
-	-- FL8: the callee of `ReloadUI()` is the one allowed use; any other `ReloadUI` is the function as a value.
-	local calledReload = {}
-
 	function walk(node, inExpr)
 		if type(node) ~= "table" then
 			return
 		end
 		local tag = node.tag
-		if tag == "Call" and node[1].tag == "Id" and node[1][1] == "ReloadUI" then
-			calledReload[node[1]] = true
-		elseif tag == "Id" and node[1] == "ReloadUI" and not calledReload[node] then
-			report(node, "FL8", "ReloadUI passed as a value: a reload works only in the player's click itself, so call "
-				.. "ReloadUI() there (not through AfterCombat, a timer, securecallfunction or an event; in combat tell "
-				.. "the player to /reload)")
+		if tag == "Id" and node[1] == "ReloadUI" then
+			report(node, "FL8", "ReloadUI from addon code: Forever blocks a reload from addon code even inside a click; "
+				.. "give the button a secure macro (UI.Confirm button `macro = \"/reload\"`), or tell the player to "
+				.. "type /reload")
+		elseif tag == "Index" and node[1].tag == "Id" and node[1][1] == "C_UI" and node[2].tag == "String"
+			and node[2][1] == "Reload" then
+			report(node, "FL8", "C_UI.Reload from addon code: Forever blocks it; use a secure /reload macro button")
 		end
 		if inExpr and tag == "Invoke" and node[2].tag == "String" and node[2][1] == "Time" and isDebugKit(node[1]) then
 			report(node[2], "FL7", "Debug:Time(...) used as a value: release builds strip it, so it may only be a "

@@ -411,7 +411,7 @@ The real Lua API of each Forever client version, dumped in game, so nobody guess
   node's `<objectType>`; truncated trees aren't checked);
   **FL3** more arguments than a documented function takes, and fewer than it needs once the dump records argument
   defaults (`meta.docsDefaults`; Blizzard marks defaulted arguments non-nilable); **FL4** literals of the wrong kind;
-  **FL5** unknown `CreateFrame` types; **FL6** debug kit methods called with `.`; **FL7** a `Debug:Time(...)` whose results are used (release builds strip it); **FL8** `ReloadUI` passed as a value (a reload works only in the player's click itself). It reports only what it's sure of. Silence a line with
+  **FL5** unknown `CreateFrame` types; **FL6** debug kit methods called with `.`; **FL7** a `Debug:Time(...)` whose results are used (release builds strip it); **FL8** any `ReloadUI`/`C_UI.Reload` in addon code (Forever blocks it even in a click; a secure `/reload` macro button reloads). It reports only what it's sure of. Silence a line with
   `-- forever-lint: ignore FL2`, and only with a reason in the comment.
 - Dump format the importer understands (written by `ApiDump.lua` in `../wow-dev-tools`): docs args `name:type`, `?`
   = nilable, `=` = has a default (`name:type?=` both); `objects[<dotted path>]` at any depth, `#<n>` for unnamed

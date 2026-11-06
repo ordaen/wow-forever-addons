@@ -150,14 +150,16 @@ string.format("%d", 1)
 ]]))
 	end)
 
-	it("FL8: flags ReloadUI passed as a value, not ReloadUI() called", function()
-		assert.same({ "FL8@2", "FL8@3", "FL8@4" }, codes([[
+	it("FL8: flags every reload from addon code", function()
+		assert.same({ "FL8@2", "FL8@3", "FL8@4", "FL8@5", "FL8@6", "FL8@7" }, codes([[
 local A = {}
 A:AfterCombat(ReloadUI)
 C_Timer.After(1, ReloadUI)
 local reload = ReloadUI
 ReloadUI()
 if x then ReloadUI() end
+C_UI.Reload()
+local ok = { macro = "/reload" }
 ]]))
 	end)
 
