@@ -28,7 +28,9 @@ local barAsset -- the barTexture setting: a bar asset id
 local hookedMeter = false
 local looks = {} -- session window -> its WindowLook
 local bars = {} -- bar frame -> its bar dress, or false (no status bar)
-local edges = {} -- bar frame -> the dress that hides Blizzard's shadow edge over it
+local hiddenArt = {} -- Blizzard texture we keep at alpha 0 -> Blizzard's own alpha for it (given back when off)
+local hookedArt = {} -- texture -> true once its SetAlpha carries our hook
+local settingAlpha = false -- our own SetAlpha calls
 local texts = 0 -- texts dressed (for the dump)
 local windowOf = {} -- a header look or a Blizzard control -> its session window (never a field on theirs)
 
@@ -37,6 +39,45 @@ local function dressText(text, style)
 		UI.DressFont(text, style)
 		texts = texts + 1
 	end
+end
+
+-- Art of a bar, hidden by hand: a bar's size is a secret value in combat (Blizzard sizes it from the numbers), so
+-- nothing that measures it (UI.Dress) may touch it; alphas aren't secret. Blizzard sets their alpha again with the
+-- meter's background transparency: we note its value (to give back) and keep 0.
+local function keepHidden(texture, alpha)
+	if settingAlpha or hiddenArt[texture] == nil then
+		return
+	end
+	hiddenArt[texture] = alpha
+	if on then
+		settingAlpha = true
+		texture:SetAlpha(0)
+		settingAlpha = false
+	end
+end
+
+local function hideArt(texture)
+	if type(texture) ~= "table" then
+		return
+	end
+	if hiddenArt[texture] == nil then
+		hiddenArt[texture] = texture:GetAlpha()
+	end
+	if not hookedArt[texture] then
+		hookedArt[texture] = true
+		hooksecurefunc(texture, "SetAlpha", keepHidden)
+	end
+	settingAlpha = true
+	texture:SetAlpha(0)
+	settingAlpha = false
+end
+
+local function showArt()
+	settingAlpha = true
+	for texture, alpha in pairs(hiddenArt) do
+		texture:SetAlpha(alpha)
+	end
+	settingAlpha = false
 end
 
 local function dressBar(bar)
@@ -50,13 +91,8 @@ local function dressBar(bar)
 		dressText(statusBar.Value, "value")
 		-- Blizzard's per-bar art: a shadowed, bordered track under the fill (Background) and a shadow edge over it
 		-- (BackgroundEdge, OVERLAY: it darkened every texture's rim). Only the fill and its texts stay, on our panel.
-		-- Their alpha follows the meter's background transparency, so a dress keeps them hidden, not hidden once.
-		local art = {} -- once per bar
-		art[#art + 1] = bar.GetBackground and bar:GetBackground() or nil
-		art[#art + 1] = bar.GetBackgroundEdge and bar:GetBackgroundEdge() or nil
-		if #art > 0 then
-			edges[bar] = UI.Dress(statusBar, { style = "none", size = "frame", art = art })
-		end
+		hideArt(bar.GetBackground and bar:GetBackground())
+		hideArt(bar.GetBackgroundEdge and bar:GetBackgroundEdge())
 	end
 end
 
@@ -306,8 +342,8 @@ function Look.Enable(asset)
 			dress:Apply()
 		end
 	end
-	for _, dress in pairs(edges) do
-		dress:Apply()
+	for texture in pairs(hiddenArt) do
+		hideArt(texture)
 	end
 	Look.Hook()
 end
@@ -336,9 +372,7 @@ function Look.Disable()
 			dress:Undress()
 		end
 	end
-	for _, dress in pairs(edges) do
-		dress:Undress()
-	end
+	showArt()
 end
 
 --- What the dev-mode dump records: whether the game's meter is there and on, and what we dressed.

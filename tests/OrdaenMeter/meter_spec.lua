@@ -4,7 +4,13 @@
 local helpers = require("tests.OrdaenCore.helpers")
 
 -- What the stand-ins' getters answer (the meter's header strip is 32 tall, as in Blizzard's XML).
-local DEFAULTS = { GetNumPoints = 0, GetWidth = 100, GetHeight = 32 }
+local DEFAULTS = { GetNumPoints = 0, GetWidth = 100, GetHeight = 32, GetAlpha = 1 }
+
+-- The arguments of the last SetAlpha call on a stand-in.
+local function lastAlpha(obj)
+	local calls = obj.calls.SetAlpha
+	return calls and calls[#calls]
+end
 
 -- A WoW object stand-in that records calls; unknown widget methods are no-ops (see helpers.isStubMethod).
 local function stub(name, extra)
@@ -365,9 +371,12 @@ describe("Ordaen Meter", function()
 		assert.equals(ns.Addon:Get("barTexture"), bars[first.statusBar].asset)
 		assert.equals("body", fonts[first.statusBar.Name])
 		assert.equals("value", fonts[first.statusBar.Value])
-		local edge = dressed[first.statusBar]
-		assert.same({ "none", { first.track, first.edge } }, { edge.spec.style, edge.spec.art },
-			"Blizzard's track and shadow edge kept hidden")
+		assert.is_nil(dressed[first.statusBar], "never measured: a bar's size is secret in combat")
+		for _, art in ipairs({ first.track, first.edge }) do
+			assert.same({ 0 }, lastAlpha(art), "Blizzard's track and shadow edge hidden")
+			art:SetAlpha(0.6) -- the meter's background transparency
+			assert.same({ 0 }, lastAlpha(art), "and kept hidden")
+		end
 		local later = entry("Bar2")
 		window:Show(later) -- InitEntry and SetupEntry both run; dressing happens once (fakeDressing asserts it)
 		window:SetupEntry(later) -- reused from the pool
@@ -412,7 +421,8 @@ describe("Ordaen Meter", function()
 			assert.is_false(dressed[frame].on)
 		end
 		assert.is_false(bars[bar.statusBar].on)
-		assert.is_false(dressed[bar.statusBar].on, "Blizzard's shadow edge back")
+		assert.same({ 1 }, lastAlpha(bar.track), "Blizzard's track back, at its own alpha")
+		assert.same({ 1 }, lastAlpha(bar.edge))
 		assert.equals(1, #window.settings.calls.ClearAllPoints - placed, "back where Blizzard put it")
 		local later = entry("Bar2")
 		window:Show(later)
