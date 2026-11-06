@@ -1,0 +1,26 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/master/setting/schema.json",
+  "runtime.version": "Lua 5.1",
+  "workspace.library": [
+    "api/forever/luals"
+  ],
+  "workspace.checkThirdParty": false,
+  "workspace.ignoreDir": [
+    "dist",
+    "tests",
+    "scripts",
+    "api",
+    "docs",
+    "art",
+    "node_modules",
+    ".release",
+    ".lua",
+    ".luarocks"
+  ],
+  "diagnostics.libraryFiles": "Disable",
+  "diagnostics.globals": [
+    "OrdaenMinimapDB",
+    "LibStub",
+    "BugGrabber"
+  ]
+}

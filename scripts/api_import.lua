@@ -5,6 +5,7 @@
 --   api/forever/CHANGES.md    what each version added/removed compared with the previous one
 --   api/forever/luacheck.lua  read_globals for .luacheckrc, generated from CURRENT
 --   api/forever/<v>/api.json  the same API, structured (for scripts/forever_lint.lua and other tools)
+--   api/forever/luals/        LuaLS definitions of CURRENT (scripts/luals_defs.lua), for lua-language-server
 --
 --   lua scripts/api_import.lua <path to SavedVariables/OrdaenCore_Debug.lua> <repo root>
 --   lua scripts/api_import.lua --rebuild <repo root>   regenerate the derived files from the text files
@@ -273,6 +274,7 @@ end
 
 local scriptDir = (debug.getinfo(1, "S").source:match("^@(.*[/\\])") or "./")
 local json = dofile(scriptDir .. "json.lua")
+local lualsDefs = dofile(scriptDir .. "luals_defs.lua")
 
 --- "name:type?, other:type=" -> list of {name, type, nilable[, default]}. A trailing "?" means Nilable, a
 --- trailing "=" means the argument has a documented Default (both: "type?="). `default` is only set when
@@ -391,18 +393,24 @@ function M.Rebuild(root)
 		io.stderr:write("No versions in " .. base .. "\n")
 		os.exit(1)
 	end
-	local contents = {}
+	local contents, structured = {}, {}
 	for _, f in ipairs(folders) do
 		contents[f] = { ["meta.txt"] = readFile(base .. "/" .. f .. "/meta.txt") }
 		for _, name in ipairs(FILES) do
 			contents[f][name .. ".txt"] = readFile(base .. "/" .. f .. "/" .. name .. ".txt")
 		end
-		writeFile(base .. "/" .. f .. "/api.json", json.encode(M.Structured(contents[f])))
+		structured[f] = M.Structured(contents[f])
+		writeFile(base .. "/" .. f .. "/api.json", json.encode(structured[f]))
 	end
 	local current = folders[#folders]
 	writeFile(base .. "/CURRENT", current .. "\n")
 	writeFile(base .. "/CHANGES.md", M.Changes(folders, contents))
 	writeFile(base .. "/luacheck.lua", M.Luacheck(contents[current], current))
+	-- LuaLS definitions of the current version (.luarc.json points lua-language-server at them).
+	os.execute('mkdir -p "' .. base .. '/luals"')
+	for name, content in pairs(lualsDefs.Generate(structured[current], current)) do
+		writeFile(base .. "/luals/" .. name, content)
+	end
 	return current, #folders
 end
 

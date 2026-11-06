@@ -49,11 +49,20 @@ jobs:
           luaVersion: "5.1.5" # the Lua version WoW runs
       - uses: leafo/gh-actions-luarocks@v6
       - run: luarocks install luacheck && luarocks install busted
+      - name: Install lua-language-server (type checks against api/forever/luals)
+        env:
+          LUALS_VERSION: "3.19.2"
+        run: |
+          dir="$RUNNER_TEMP/lua-language-server"
+          mkdir -p "$dir"
+          curl -fsSL "https://github.com/LuaLS/lua-language-server/releases/download/$LUALS_VERSION/lua-language-server-$LUALS_VERSION-linux-x64.tar.gz" | tar -xz -C "$dir"
+          echo "$dir/bin" >> "$GITHUB_PATH"
       - uses: ./.github/actions/ordaen
         with:
           client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
-      # build (generated TOCs/locales, load order checks), luacheck, forever-lint, busted on dist/
+      # build (generated TOCs/locales, load order checks), luacheck, forever-lint, lua-language-server,
+      # busted on dist/
       - run: eval "$(luarocks path)" && ordaen check
 
   package:

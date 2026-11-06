@@ -26,7 +26,13 @@ busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
    sudo apt-get install -y lua5.1 liblua5.1-0-dev luarocks build-essential
    sudo luarocks --lua-version=5.1 install busted
    sudo luarocks --lua-version=5.1 install luacheck
+   # lua-language-server: type checks against the real Forever API (the version CI uses, see ci.yml)
+   v=3.19.2; d=~/.local/share/lua-language-server-$v; mkdir -p $d ~/.local/bin
+   curl -fsSL https://github.com/LuaLS/lua-language-server/releases/download/$v/lua-language-server-$v-linux-x64.tar.gz | tar -xz -C $d
+   printf '#!/bin/sh\nexec %s/bin/lua-language-server "$@"\n' $d > ~/.local/bin/lua-language-server
+   chmod +x ~/.local/bin/lua-language-server
    ```
+   Editors with the Lua extension (LuaLS) pick up `.luarc.json`: completion and type checks for the Forever API.
 4. **The `ordaen` build tool** (maintainers; it lives in the private `wow-dev-tools` repo): clone `wow-dev-tools` next
    to this repo, install [Rust](https://rustup.rs), then in `wow-dev-tools`: `cargo install --path cli`.
 5. **Repo**, in the repo folder:

@@ -310,3 +310,13 @@ The real Lua API of each Forever client version, dumped in game, so nobody guess
   documented `functions`/`events` with typed `args`/`returns`/`payload`), for the linter and other tools (e.g. the
   companion app). `bash scripts/api-import.sh` writes it; `lua5.1 scripts/api_import.lua --rebuild .` (in WSL)
   regenerates every derived file from the committed text files without a new dump.
+- **LuaLS type checking**: the import also writes `api/forever/luals/*.lua` (`scripts/luals_defs.lua`, from the
+  current api.json): widget classes with inheritance worked out from the method sets (`Frame`, `Button : Frame`,
+  `Texture`, … unprefixed, as `GetObjectType()` names them; `CreateFrame("Button")` returns `Button`, with
+  `"BackdropTemplate"` a `ButtonWithBackdrop`), typed documented functions (arguments after the first are optional
+  until the dump records defaults), `WowEvent` (every documented event name) for `RegisterEvent` & co., the dumped
+  objects (`MinimapObject`, `MinimapCluster_TrackingObject`, …), every other global. `.luarc.json` points
+  lua-language-server at it (editors use it too); `ordaen lint`/`check` run `lua-language-server --check` and report
+  its warnings (tool `luals`). Our own types: classes prefixed by addon (`OrdaenUI…` for OrdaenCore.UI,
+  `OrdaenMinimap…`), custom fields on frames declared with `---@class X : Button` + `---@field`, casts with
+  `--[[@as X]]`. Other addons' globals (LibStub, BugGrabber) and our SavedVariables are listed in `.luarc.json`.
