@@ -85,7 +85,6 @@ local function overlayFor(i)
 		overlay = CreateFrame("Button", nil, frame, "SecureActionButtonTemplate")
 		overlay:SetAllPoints(frame)
 		overlay:SetFrameLevel(frame:GetFrameLevel() + 2)
-		overlay:RegisterForClicks("AnyUp")
 		overlay:SetAttribute("type1", "macro")
 		overlay:HookScript("PreClick", overlayPreClick)
 		overlay:HookScript("PostClick", overlayPostClick)
@@ -107,7 +106,15 @@ local function setOverlays(confirm, count)
 		local macro = entry and entry.macro
 		if macro then
 			local overlay = overlayFor(i)
-			overlay:SetAttribute("macrotext1", macro)
+			-- A secure button acts on the press the player's "ActionButtonUseKeyDown" setting names (down by
+			-- default); registered for the other half only, its PreClick ran but the macro never did (2026-11-06).
+			-- Like DialogueUI's macro buttons: register exactly that half.
+			if C_CVar.GetCVarBool("ActionButtonUseKeyDown") then
+				overlay:RegisterForClicks("LeftButtonDown")
+			else
+				overlay:RegisterForClicks("LeftButtonUp")
+			end
+			overlay:SetAttribute("macrotext", macro)
 			overlay:Show()
 		elseif overlays[i] then
 			overlays[i]:Hide()

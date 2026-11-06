@@ -242,6 +242,10 @@ describe("OrdaenCore.UI", function()
 		chat, frames, loads, loadResult, uiScale = {}, {}, 0, true, 1
 		log = { setText = 0, setFormatted = 0 }
 		helpers.stubGlobals({
+			-- The player's settings at Blizzard's defaults (secure buttons act on key down).
+			C_CVar = { GetCVarBool = function(name)
+				return name == "ActionButtonUseKeyDown"
+			end },
 			DEFAULT_CHAT_FRAME = { AddMessage = function(_, msg)
 				table.insert(chat, msg)
 			end },
@@ -793,7 +797,9 @@ describe("OrdaenCore.UI", function()
 			end
 			assert.truthy(overlay)
 			assert.equals("macro", overlay.attributes.type1)
-			assert.equals("/reload", overlay.attributes.macrotext1)
+			assert.equals("/reload", overlay.attributes.macrotext)
+			-- On the press the game acts on (ActionButtonUseKeyDown, on by default): the other half did nothing.
+			assert.same({ "LeftButtonDown" }, overlay.clicks)
 			overlay.scripts.PreClick(overlay, "LeftButton")
 			assert.is_true(turnedOff)
 		end)
