@@ -45,6 +45,11 @@ local zoneTooltip = UI.Tooltip({
 	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
 }, { side = "below" })
 
+-- The zone name opens the world map: its key binding at the bottom of the tooltip (the calendar has no binding).
+local function updateHotkeys()
+	zoneTooltip.hotkey = UI.Binding("TOGGLEWORLDMAP")
+end
+
 local coordValue = { format = "%.1f, %.1f", args = { 0, 0 }, style = "small", hidden = true }
 
 local CLOCK_24, CLOCK_12 = "%02d:%02d", "%d:%02d %s"
@@ -247,6 +252,7 @@ local function listen(feature)
 	feature:On("PLAYER_STARTED_MOVING", onStartMoving)
 	feature:On("PLAYER_STOPPED_MOVING", onStopMoving)
 	feature:On("CALENDAR_UPDATE_PENDING_INVITES", updateInvites)
+	feature:On("UPDATE_BINDINGS", updateHotkeys)
 	feature:Every(SLOW, slowTick)
 	fast = feature:Every(FAST, updateCoords)
 	fast:Stop()
@@ -293,6 +299,7 @@ function Info.Enable(feature, savedDb)
 	end
 	active = true
 	shownLocal, shownRealm = nil, nil
+	updateHotkeys()
 	Info.Apply(savedDb)
 	updateZone()
 	updateMapRect()
@@ -334,5 +341,6 @@ function Info.Describe()
 		mapRect = mapLeft and { mapLeft, mapTop, mapWidth, mapHeight } or false,
 		zone = zone and zone.frame or false,
 		clock = clock and clock.frame or false,
+		zoneHotkey = zoneTooltip.hotkey or false,
 	}
 end

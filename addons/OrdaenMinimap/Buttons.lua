@@ -273,6 +273,7 @@ local function fillLanding(frame)
 	landingTitle.text = title
 	landingText.text = type(text) == "string" and text or ""
 	landingText.hidden = landingText.text == ""
+	landingTip.hotkey = UI.Binding("TOGGLEGARRISONLANDINGPAGE")
 	return true
 end
 

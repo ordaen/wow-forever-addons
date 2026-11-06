@@ -218,6 +218,13 @@ describe("OrdaenMinimap smoke", function()
 				world.clockSettings = true
 			end,
 			ToggleWorldMap = function() end,
+			-- The player's key bindings (Blizzard's defaults for the ones we show).
+			GetBindingKey = function(command)
+				return ({ TOGGLEWORLDMAP = "M" })[command]
+			end,
+			GetBindingText = function(key)
+				return key
+			end,
 			C_CVar = {
 				GetCVarBool = function()
 					return nil
@@ -472,6 +479,7 @@ describe("OrdaenMinimap smoke", function()
 			login()
 			local zone = frameNamed("OrdaenMinimapZone")
 			assert.equals("Elwynn Forest", zone.font.text)
+			assert.equals("M", ns.Info.Describe().zoneHotkey, "the world map's key at the bottom of its tooltip")
 			assert.same({ 0.1, 1, 0.1, 1 }, zone.font.calls.SetTextColor[#zone.font.calls.SetTextColor])
 			-- gold border: outset 7, + 2 px gap
 			assert.same({ "BOTTOM", Minimap, "TOP", 0, 9 }, lastPoint(zone))

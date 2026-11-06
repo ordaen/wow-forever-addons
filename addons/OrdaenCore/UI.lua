@@ -348,6 +348,26 @@ function UI.Color(token, fallback)
 	return f and f.Color(token, fallback) or fallback
 end
 
+local bindingText = {} -- key ("SHIFT-M") -> its text for players ("Shift-M")
+
+--- The key bound to a binding command ("TOGGLEWORLDMAP") as players read it ("M", "Shift-M"), or nil when it has
+--- none: a tooltip's `hotkey`. Listen to UPDATE_BINDINGS to follow the player's changes. Creates no strings once a
+--- key has been seen. Doesn't load the framework.
+---@param command string
+---@return string|nil
+function UI.Binding(command)
+	local key = GetBindingKey(command)
+	if type(key) ~= "string" or key == "" then
+		return nil
+	end
+	local text = bindingText[key]
+	if not text then
+		text = GetBindingText(key) or key
+		bindingText[key] = text
+	end
+	return text
+end
+
 --- A spacing token's size in UI units at the current text size ("xs".."xl"; a number comes back as it is). For a
 --- Blizzard setting that takes a size (a chat window's line spacing); listen to EventRegistry "OrdaenUI.ThemeChanged"
 --- to follow a text size change. Loads the framework.

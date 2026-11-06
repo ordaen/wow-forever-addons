@@ -268,6 +268,15 @@ Puts the theme's font and the global text size of text style `style` (default `b
 FontString, an EditBox or a chat window. Blizzard's font flags stay. When Blizzard sets the font again (the chat
 font size menu), ours comes back, and a theme or text size change re-applies it. Addons never call `SetFont`.
 
+### UI.Binding(command)
+
+```lua
+zoneTooltip.hotkey = UI.Binding("TOGGLEWORLDMAP") -- "M", or nil when unbound
+```
+
+The key bound to a Blizzard binding command as players read it ("M", "Shift-M"), or nil: for a tooltip's `hotkey`.
+Set it again on `UPDATE_BINDINGS` to follow the player's changes. Doesn't load the framework.
+
 ### UI.Space(token)
 
 ```lua
