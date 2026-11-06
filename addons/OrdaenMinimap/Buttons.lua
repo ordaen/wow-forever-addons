@@ -11,6 +11,7 @@ local Buttons = {}
 ns.Buttons = Buttons
 
 local UI = OrdaenCore.UI
+local L = ns.L
 local SIZE = 28 -- our ring buttons: the "iconButton" style's padding (4 each side) around a 20 px icon
 local ICON = 20
 local TRACKING_ICON = "Interface\\Icons\\INV_Misc_Spyglass_02"
@@ -20,12 +21,12 @@ local RETRY_DELAY = 5 -- some Blizzard buttons are created after login
 -- .IndicatorFrame and ExpansionLandingPageMinimapButton; the frames inside IndicatorFrame are one level
 -- deeper than the dump goes (their mixins exist), so they are looked up and skipped when missing.
 local BLIZZARD = {
-	{ id = "tracking", names = { "MinimapCluster.Tracking" }, skin = true },
+	{ id = "tracking", names = { "MinimapCluster.Tracking" }, skin = true, tip = "tracking" },
 	-- keepParent: these call self:GetParent():Layout() on their events (Blizzard_Minimap Minimap.lua:520), so
 	-- they must stay children of IndicatorFrame. We only anchor them to the minimap.
-	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame" }, keepParent = true },
+	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame" }, keepParent = true, tip = "mail" },
 	{ id = "craftingOrder", names = { "MinimapCluster.IndicatorFrame.CraftingOrderFrame" }, keepParent = true },
-	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" } },
+	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" }, tip = "landing" },
 	-- The Ordaen Dev gear button (dev mode, wow-dev-tools). While `ordaenPlacedBy` is set, it leaves its
 	-- position and dragging to us (agreed with the dev-tools session); clicks and tooltip stay its own.
 	-- The dev addon makes it seconds after login, so it also announces it (DEV_BUTTON_CREATED below).
@@ -186,6 +187,134 @@ function Buttons.Create(id, name, iconTexture)
 	return button
 end
 
+-- Tooltips for Blizzard's buttons ---------------------------------------------------------------
+-- Everything on our minimap shows OrdaenCore.UI tooltips, Blizzard's buttons too: their OnEnter shows
+-- GameTooltip, a hook hides it and shows ours. No title: what the tooltip belongs to is under the mouse
+-- (CLAUDE.md, "Tooltips"). Built once; filled on hover from Blizzard's own data and strings.
+
+local MAX_LINES = 6
+local RING_TIP = { side = "left" } -- side set per hover from the button's angle
+
+local function lineList(style)
+	local lines = {}
+	for i = 1, MAX_LINES do
+		lines[i] = { text = "", style = style, hidden = true }
+	end
+	return lines
+end
+
+local function addLine(lines, n, value)
+	if n < MAX_LINES and type(value) == "string" and value ~= "" then
+		n = n + 1
+		lines[n].text, lines[n].hidden = value, false
+	end
+	return n
+end
+
+local function hideFrom(lines, n)
+	for i = n + 1, MAX_LINES do
+		lines[i].hidden = true
+	end
+end
+
+local trackingLines = lineList("value")
+local trackingNone = { text = MINIMAP_TRACKING_TOOLTIP_NONE, style = "label", hidden = true }
+local trackingBlock = {}
+for i = 1, MAX_LINES do
+	trackingBlock[i] = trackingLines[i]
+end
+trackingBlock[#trackingBlock + 1] = trackingNone
+trackingBlock[#trackingBlock + 1] = { text = L.TRACKING_TOOLTIP_MENU, style = "hint" }
+local trackingTip = UI.Tooltip(trackingBlock, RING_TIP)
+
+-- What is tracked now. Forever's info has `name` and `active` like mainline's; anything else is unused.
+local function fillTracking()
+	local n = 0
+	for i = 1, C_Minimap.GetNumTrackingTypes() do
+		local info = C_Minimap.GetTrackingInfo(i)
+		if info and info.active then
+			n = addLine(trackingLines, n, info.name)
+		end
+	end
+	hideFrom(trackingLines, n)
+	trackingNone.hidden = n > 0
+	return true
+end
+
+local mailFrom = { text = HAVE_MAIL_FROM, style = "label" }
+local mailLines = lineList("value")
+local mailBlock = { mailFrom }
+for i = 1, MAX_LINES do
+	mailBlock[#mailBlock + 1] = mailLines[i]
+end
+local mailTip = UI.Tooltip(mailBlock, RING_TIP)
+
+local function fillMail()
+	local a, b, c = GetLatestThreeSenders()
+	local n = addLine(mailLines, 0, a)
+	n = addLine(mailLines, n, b)
+	n = addLine(mailLines, n, c)
+	hideFrom(mailLines, n)
+	mailFrom.text = n > 0 and HAVE_MAIL_FROM or HAVE_MAIL
+	return true
+end
+
+local landingTitle = { text = "", style = "value" }
+local landingText = { text = "", style = "hint" }
+local landingTip = UI.Tooltip({ landingTitle, landingText }, RING_TIP)
+
+-- Blizzard's expansion button keeps its name and description in .title / .description (mainline code);
+-- without them its own tooltip stays.
+local function fillLanding(frame)
+	local title, text = rawget(frame, "title"), rawget(frame, "description")
+	if type(title) ~= "string" then
+		return false
+	end
+	landingTitle.text = title
+	landingText.text = type(text) == "string" and text or ""
+	landingText.hidden = landingText.text == ""
+	return true
+end
+
+local TIPS = {
+	tracking = { tip = trackingTip, fill = fillTracking },
+	mail = { tip = mailTip, fill = fillMail },
+	landing = { tip = landingTip, fill = fillLanding },
+}
+
+local tipOf = {} -- hovered frame -> { tip, fill, item }
+
+local function showTip(frame)
+	local t = tipOf[frame]
+	if not (t and t.fill(frame)) then
+		return -- nothing to say: Blizzard's own tooltip stays
+	end
+	if GameTooltip:IsOwned(frame) then
+		GameTooltip:Hide()
+	end
+	-- Left half of the ring: the tooltip goes left, right half: right, so it never covers the map.
+	local angle = ns.ButtonAngle(db and db.buttonAngles, t.item.id) % 360
+	RING_TIP.side = (angle > 90 and angle < 270) and "left" or "right"
+	t.tip:Show(frame)
+end
+
+local function hideTip(frame)
+	local t = tipOf[frame]
+	if t then
+		t.tip:Hide(frame)
+	end
+end
+
+local function useOurTip(entry, hovered, item)
+	local spec = TIPS[entry.tip]
+	if not spec then
+		return
+	end
+	tipOf[hovered] = { tip = spec.tip, fill = spec.fill, item = item }
+	hovered:HookScript("OnEnter", showTip)
+	hovered:HookScript("OnLeave", hideTip)
+end
+
 -- Blizzard's buttons ----------------------------------------------------------------------------
 
 local function hideArt(frame)
@@ -263,9 +392,10 @@ local function adopt(entry)
 		dragFrame = childButton(frame) or frame
 	end
 	applying = false
-	local _, target = register(entry.id, frame, dragFrame)
+	local item, target = register(entry.id, frame, dragFrame)
 	target:HookScript("OnDragStart", startDrag)
 	target:HookScript("OnDragStop", stopDrag)
+	useOurTip(entry, target, item)
 	hooksecurefunc(frame, "SetPoint", onForeignSetPoint)
 	if not entry.keepParent then
 		hooksecurefunc(frame, "SetParent", onForeignSetParent)

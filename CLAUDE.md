@@ -246,6 +246,12 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   renderer measures text on the surface it draws on, so either way it fits. An anchored tooltip takes only its
   position from its owner, never its scale. Tooltips anchored to nothing (`side = "default"`) sit where Blizzard
   puts its own: Edit Mode's "HUD Tooltip" position (`GameTooltipDefaultContainer`, bottom-right to bottom-right).
+- **Tooltips** (user's rules, 2026-11-06): everything on our UI shows OrdaenCore.UI tooltips, including Blizzard
+  buttons we adopt (the minimap's tracking, mail, expansion buttons: hook their OnEnter, hide GameTooltip, show
+  ours from Blizzard's data); ask other Ordaen addons (Ordaen Dev) to do the same. A tooltip anchored beside what
+  it describes has **no title** naming that thing (the clock's tooltip doesn't say "Time"): it's obvious from the
+  mouse. Titles only for custom things whose purpose isn't self-evident (the drawer button, compartment entries,
+  Ordaen Dev).
 - **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: restyled in place by a
   future tooltip addon (taking its look from the theme), never hidden and redrawn as a lookalike.
 - **Events** (user's decision, built in `OrdaenCore_UI/Component.lua`): `instance:On(event, fn)` / `:Off(event, fn)`

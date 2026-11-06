@@ -86,3 +86,17 @@ end
 
 Item, unit and spell tooltips are Blizzard's `GameTooltip` and stay that way. A future tooltip addon will restyle
 them in place with the theme; they will never be hidden and redrawn as a lookalike.
+
+## Titles
+
+A tooltip next to what it describes doesn't name that thing: the player's mouse is on it. The clock's tooltip
+lists local and realm time, without a "Time" title; the tracking button's lists what is tracked. Give a tooltip a
+title (`UI.Header`) only when the thing under the mouse doesn't explain itself: a custom button (Ordaen Minimap's
+drawer, Ordaen Dev's gear button) or an entry for another addon (the drawer's compartment entries).
+
+## Buttons that aren't yours
+
+Blizzard frames your addon takes over (Ordaen Minimap's tracking, mail and expansion buttons) show
+`OrdaenCore.UI` tooltips too, so everything on your UI looks the same: hook the frame's `OnEnter` (`HookScript`),
+hide `GameTooltip` if it is owned by that frame, fill your tooltip from Blizzard's own data and strings, and show
+it; hide it on `OnLeave`. Don't replace Blizzard's scripts, which would taint them.

@@ -35,10 +35,13 @@ local active = false
 -- Blocks and tooltips: built once; only fields change. ------------------------------------------
 
 local zoneLabel = { text = "", style = "normal" }
--- The zone tooltip's header: zone and subzone, tinted with the zone's PvP colour.
-local zoneHeader = UI.Header({ title = "" })
+-- Tooltips beside what they describe have no title (CLAUDE.md, "Tooltips"). The zone tooltip says the zone
+-- (in its PvP colour) and the subzone: the label on the map often shows only one of them.
+local zoneName = { text = "", style = "value" }
+local subzoneName = { text = "", style = "label" }
 local zoneTooltip = UI.Tooltip({
-	zoneHeader,
+	zoneName,
+	subzoneName,
 	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
 }, { side = "below" })
 
@@ -51,7 +54,6 @@ local localTime = { format = CLOCK_24, args = { 0, 0, "" }, style = "value", ali
 local realmTime = { format = CLOCK_24, args = { 0, 0, "" }, style = "value", align = "right" }
 local invitesLine = { text = L.CALENDAR_PENDING, color = INVITES_COLOR, colSpan = 2, hidden = true }
 local clockTooltip = UI.Tooltip({
-	UI.Header({ title = TIMEMANAGER_TOOLTIP_TITLE }),
 	{
 		columns = { "auto", "1fr" },
 		gap = { "lg", "xs" },
@@ -75,11 +77,10 @@ local function updateZone()
 	zoneLabel.color = color -- nil: the "normal" style's colour
 	zone:Refresh()
 	-- The tooltip's lines change with the zone, not on hover.
-	local title, subtitle = zoneHeader.titleText, zoneHeader.subtitleText
-	title.text = GetRealZoneText() or ""
-	subtitle.text = GetSubZoneText() or ""
-	subtitle.hidden = subtitle.text == "" or subtitle.text == title.text
-	zoneHeader.accent = color -- nil: the theme's accent
+	zoneName.text = GetRealZoneText() or ""
+	zoneName.color = color -- nil: the value style's colour
+	subzoneName.text = GetSubZoneText() or ""
+	subzoneName.hidden = subzoneName.text == "" or subzoneName.text == zoneName.text
 	zoneTooltip:Refresh()
 end
 

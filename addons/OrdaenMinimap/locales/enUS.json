@@ -44,5 +44,6 @@
   "ZONE_TOOLTIP_MAP": "Left-click: world map",
   "TIME_TOOLTIP_CALENDAR": "Left-click: calendar",
   "TIME_TOOLTIP_CLOCK": "Right-click: clock settings",
-  "CALENDAR_PENDING": "You have new calendar invitations"
+  "CALENDAR_PENDING": "You have new calendar invitations",
+  "TRACKING_TOOLTIP_MENU": "Left-click: choose what to track"
 }

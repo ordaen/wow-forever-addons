@@ -44,5 +44,6 @@
   "ZONE_TOOLTIP_MAP": "ЛКМ: карта мира",
   "TIME_TOOLTIP_CALENDAR": "ЛКМ: календарь",
   "TIME_TOOLTIP_CLOCK": "ПКМ: настройки часов",
-  "CALENDAR_PENDING": "У вас новые приглашения в календаре"
+  "CALENDAR_PENDING": "У вас новые приглашения в календаре",
+  "TRACKING_TOOLTIP_MENU": "ЛКМ: выбор отслеживания"
 }

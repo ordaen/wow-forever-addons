@@ -151,7 +151,28 @@ describe("OrdaenMinimap smoke", function()
 			Minimap = minimap,
 			AddonCompartmentFrame = stubObject("AddonCompartmentFrame", { registeredAddons = world.runtimeEntries }),
 			UISpecialFrames = {},
-			GameTooltip = stubObject("GameTooltip"),
+			GameTooltip = stubObject("GameTooltip", {
+				IsOwned = function(self, frame)
+					return self.owner == frame
+				end,
+			}),
+			-- Blizzard's strings and data our tooltips read (all in the Forever dump).
+			TIMEMANAGER_TOOLTIP_LOCALTIME = "Local Time:",
+			TIMEMANAGER_TOOLTIP_REALMTIME = "Realm Time:",
+			MINIMAP_TRACKING_TOOLTIP_NONE = "No tracking",
+			HAVE_MAIL = "You have unread mail",
+			HAVE_MAIL_FROM = "Unread mail from:",
+			GetLatestThreeSenders = function()
+				return unpack(world.mailSenders or {})
+			end,
+			C_Minimap = {
+				GetNumTrackingTypes = function()
+					return #(world.tracking or {})
+				end,
+				GetTrackingInfo = function(i)
+					return world.tracking and world.tracking[i]
+				end,
+			},
 			IsShiftKeyDown = function()
 				return false
 			end,
@@ -471,6 +492,50 @@ describe("OrdaenMinimap smoke", function()
 			assert.truthy(visibleTexts():find(ns.L.CALENDAR_PENDING, 1, true)) -- the shown tooltip was redrawn
 			clock.scripts.OnLeave(clock)
 			assert.is_false(frameNamed("OrdaenUITooltip").shown)
+		end)
+
+		it("shows our tooltips on Blizzard's buttons instead of GameTooltip, without a title", function()
+			local UI = rawget(_G, "OrdaenCore").UI
+			local function texts()
+				local out = {}
+				for _, item in ipairs(UI._Describe().layout) do
+					out[#out + 1] = item.text
+				end
+				return out
+			end
+			world.tracking = { { name = "Find Herbs", active = true }, { name = "Find Minerals", active = false } }
+			login()
+			local button = MinimapCluster.Tracking.Button
+			GameTooltip.owner = button -- Blizzard's OnEnter showed its tooltip first
+			button.scripts.OnEnter(button)
+			assert.is_false(GameTooltip.shown)
+			assert.is_true(frameNamed("OrdaenUITooltip").shown)
+			assert.same({ "Find Herbs", ns.L.TRACKING_TOOLTIP_MENU }, texts())
+			button.scripts.OnLeave(button)
+			assert.is_false(frameNamed("OrdaenUITooltip").shown)
+
+			world.tracking = {}
+			button.scripts.OnEnter(button)
+			assert.same({ "No tracking", ns.L.TRACKING_TOOLTIP_MENU }, texts())
+
+			world.mailSenders = { "Thrall", "Jaina" }
+			local mail = MinimapCluster.IndicatorFrame.MailFrame
+			mail.scripts.OnEnter(mail)
+			assert.same({ "Unread mail from:", "Thrall", "Jaina" }, texts())
+		end)
+
+		it("shows local and realm time in the clock tooltip, without a title", function()
+			login()
+			local clock = frameNamed("OrdaenMinimapClock")
+			clock.scripts.OnEnter(clock)
+			local labels = {}
+			for _, item in ipairs(rawget(_G, "OrdaenCore").UI._Describe().layout) do
+				if item.text then
+					labels[#labels + 1] = item.text
+				end
+			end
+			assert.equals("Local Time:", labels[1])
+			assert.equals("Realm Time:", labels[3])
 		end)
 
 		it("opens the calendar from the clock", function()
