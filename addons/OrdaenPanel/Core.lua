@@ -3,8 +3,8 @@
 -- on OrdaenCore.UI's edge panel, bars and dressed Blizzard buttons) listens to ns.Changed.
 local addonName, ns = ...
 
--- Edge, length and button size change the layout; the groups and visibility are features (below).
-local LAYOUT = { edge = true, fit = true, buttonSize = true }
+-- Edge, length and height change the layout; the groups and visibility are features (below).
+local LAYOUT = { edge = true, fit = true, height = true }
 
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	slash = { "/op", "/ordaenpanel" },

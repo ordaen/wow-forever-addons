@@ -144,7 +144,7 @@ Segments.currencies = {
 local bags = { free = 0, reagentFree = 0 }
 Segments.bags = {
 	model = bags,
-	events = { "BAG_UPDATE_DELAYED" },
+	events = { "BAG_UPDATE_DELAYED", "BAG_CONTAINER_UPDATE" }, -- the second: a bag equipped or taken off
 	update = function()
 		local free = 0
 		for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS do

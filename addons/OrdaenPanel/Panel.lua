@@ -14,9 +14,9 @@ local L = ns.L
 local View = {}
 ns.View = View
 
-local MONEY_FORMAT = "%d|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
-	.. " %d|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t"
-	.. " %d|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
+local GOLD_FORMAT = "%d|TInterface\\MoneyFrame\\UI-GoldIcon:0:0:2:0|t"
+local SILVER_FORMAT = "%d|TInterface\\MoneyFrame\\UI-SilverIcon:0:0:2:0|t"
+local COPPER_FORMAT = "%d|TInterface\\MoneyFrame\\UI-CopperIcon:0:0:2:0|t"
 local CURRENCY_FORMAT = "%d|T%s:0:0:2:0|t"
 local MAX_CURRENCIES = 6
 local SOCIAL_BUTTON = "QuickJoinToastButton" -- in the API dump (1.60.1-70790)
@@ -45,7 +45,11 @@ local tipFriends = { format = "", args = { 0 } }
 local tipBnet = { format = "", args = { 0 } }
 local tipGuild = { format = "", args = { 0, 0 }, hidden = true }
 local socialTip ---@type OrdaenUITooltip|nil
-local money = { format = MONEY_FORMAT, args = { 0, 0, 0 }, style = "value" }
+-- Gold, silver and copper: a zero amount isn't shown (copper stays when it's all there is).
+local gold = { format = GOLD_FORMAT, args = { 0 }, style = "value" }
+local silver = { format = SILVER_FORMAT, args = { 0 }, style = "value" }
+local copper = { format = COPPER_FORMAT, args = { 0 }, style = "value" }
+local money = { columns = { "auto", "auto", "auto" }, gap = "xs", rowAlign = "center", gold, silver, copper }
 local currencyTexts = {}
 for i = 1, MAX_CURRENCIES do
 	currencyTexts[i] = { format = CURRENCY_FORMAT, args = { 0, "" }, style = "value", hidden = true }
@@ -73,7 +77,10 @@ local sizes = {} ---@type table<table, number[]> Blizzard button -> its size bef
 local dresses = {} ---@type table<table, OrdaenUIDress>
 local portraits = {} ---@type table<table, table> Blizzard button -> the texture of it that stays (the portrait)
 local placing = false
-local size = 24
+-- Sizes, all from the panel's height (setting `height`): cells fill it, icons, the bar and the portrait are 60 %.
+local size = 60 -- the panel's height
+local cellWidth = 48
+local iconSide = 36
 
 local function db()
 	return ns.Addon.db
@@ -116,7 +123,7 @@ local function place(button)
 	if portrait then
 		portrait:ClearAllPoints()
 		portrait:SetPoint("CENTER", button, "CENTER")
-		portrait:SetSize(w - 6, h - 6)
+		portrait:SetSize(iconSide, iconSide)
 	end
 	placing = false
 end
@@ -256,7 +263,7 @@ end
 
 -- An atlas icon keeps its proportions (Blizzard's micro icons are taller than wide): fit into the icon square.
 local function fitIcon(icon, atlas)
-	local side = size - 8
+	local side = iconSide
 	local info = atlas and C_Texture.GetAtlasInfo(atlas)
 	if info and info.width and info.height and info.width > 0 and info.height > 0 then
 		local ratio = info.width / info.height
@@ -348,9 +355,13 @@ local function cellFor(button)
 	local name = button:GetName()
 	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
 	portraits[button] = portrait
-	local cell = cells[button] or { style = "iconButton" }
+	local cell = cells[button] or { style = "barButton" }
 	cells[button] = cell
-	cell.width, cell.height = size, size
+	if horizontal() then
+		cell.width, cell.height = cellWidth, size
+	else
+		cell.width, cell.height = size, cellWidth
+	end
 	cell.highlight = false
 	if portrait then
 		cell[1] = nil
@@ -577,7 +588,9 @@ end
 
 local function build()
 	local s = db()
-	size = s.buttonSize
+	size = s.height
+	cellWidth = math.floor(size * 0.8 + 0.5)
+	iconSide = math.floor(size * 0.6 + 0.5)
 	local across = horizontal()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
 	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
@@ -605,11 +618,11 @@ local function build()
 		end
 	end
 	middle = middle or { embed = barHolder, align = "center" }
-	xp.height = math.max(10, size - 8)
+	xp.height = iconSide
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
 		spec = {
-			columns = { "1fr", "auto", "1fr" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size + 8,
+			columns = { "1fr", "auto", "1fr" }, gap = "lg", padding = { 0, "sm", 0, "sm" }, height = size,
 			rowAlign = "center",
 			left, middle, right,
 		}
@@ -705,7 +718,7 @@ local function updateExperience()
 	tipLevel.hidden = seconds == nil
 	tipLevel.args[1], tipLevel.args[2] = seconds and math.ceil(seconds / 60) or 0, gains or 0
 	if barHolder then
-		barHolder.block.width = horizontal() and math.max(120, math.floor(UIParent:GetWidth() * 0.3)) or 8 * size
+		barHolder.block.width = horizontal() and math.max(120, math.floor(UIParent:GetWidth() * 0.3)) or 4 * size
 		barHolder:Refresh()
 	end
 	if tooltip and tooltip:IsShown() then
@@ -727,7 +740,10 @@ local function updateCurrencies()
 	local s = db()
 	local m = ns.Segments.currencies.model
 	money.hidden = not s.currencies
-	money.args[1], money.args[2], money.args[3] = m.gold, m.silver, m.copper
+	gold.args[1], silver.args[1], copper.args[1] = m.gold, m.silver, m.copper
+	gold.hidden = m.gold == 0
+	silver.hidden = m.silver == 0
+	copper.hidden = m.copper == 0 and (m.gold > 0 or m.silver > 0)
 	for i = 1, MAX_CURRENCIES do
 		local entry, text = m.list[i], currencyTexts[i]
 		text.hidden = not s.currencies or i > m.count
@@ -808,6 +824,12 @@ function View.Update(segment)
 			updateSocial()
 		elseif segment == "bags" then
 			updateBags()
+			-- a bag equipped or taken off: its slot's icon changed
+			for _, button in ipairs(bagButtons) do
+				if cellOf[button] then
+					cellFor(button)
+				end
+			end
 		end
 	elseif segment == "experience" then
 		local wasHidden = middle.hidden

@@ -121,6 +121,16 @@ THEMES.ordaen = {
 			},
 			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
+		-- A button in a bar (a panel's row): side edges only, the bar's own top and bottom lines frame it.
+		barButton = {
+			padding = 0,
+			fill = { top = { 0.07, 0.06, 0.07, 0.88 }, bottom = { 0.02, 0.02, 0.02, 0.88 } },
+			edges = {
+				right = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+				left = { 1, { 0, 0, 0, 1, accent = 0.45 } },
+			},
+			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
+		},
 		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
 		-- Chat tabs (UI.Dress with states): unselected, selected, flashing (a new message in a tab not shown).
 		tab = {
@@ -230,6 +240,12 @@ THEMES.blizzard = {
 			padding = 4, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.8 }, border = { 1, 1, 1, 1 },
 			highlight = BUTTON_HIGHLIGHT,
 		},
+		barButton = {
+			padding = 0,
+			fill = { top = { 0, 0, 0, 0.8 }, bottom = { 0, 0, 0, 0.8 } },
+			edges = { right = { 1, { 0.34, 0.28, 0.18, 1 } }, left = { 1, { 0.34, 0.28, 0.18, 1 } } },
+			highlight = BUTTON_HIGHLIGHT,
+		},
 		slot = { padding = 3, highlight = BUTTON_HIGHLIGHT },
 		tab = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.55 }, border = { 0.6, 0.6, 0.6, 0.8 },
 			highlight = BUTTON_HIGHLIGHT },
@@ -281,6 +297,10 @@ THEMES.minimal = {
 		header = { padding = { 0, 0, "xs", 0 }, gap = { "md", "xs" } },
 		button = { padding = 0, gap = 0 },
 		iconButton = { padding = 4, fill = GREY_FILL, edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } } },
+		barButton = {
+			padding = 0, fill = GREY_FILL, edges = { right = { 1, GREY_EDGE }, left = { 1, GREY_EDGE } },
+			highlight = { color = { 1, 1, 1, 0.1 } },
+		},
 		slot = { padding = 3, highlight = { color = { 1, 1, 1, 0.12 } } },
 		tab = { padding = 0, fill = { top = { 0.08, 0.08, 0.09, 0.6 }, bottom = { 0.08, 0.08, 0.09, 0.6 } },
 			highlight = { color = { 1, 1, 1, 0.08 } } },
