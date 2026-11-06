@@ -11,10 +11,9 @@ in art/out/frames/:
   the inner part of each cell (x inset 1/128 of the file width = 4 px of a 64 px cell, y from 0.0625 to
   0.9375), so the art lives in a 56 px content square and the 4 px margin is padding. Top and bottom edges
   are drawn rotated: the cell's x axis runs down the screen (left column = top of the frame). Side edges
-  tile every edgeSize screen px, so this version has no chips (they would repeat).
+  tile every edgeSize screen px, so this version has no wear (it would repeat).
 - <style>-frame.tga: the whole frame as one square texture (transparent middle), stretched over the border
-  frame. Nothing repeats, so this one carries the wear: chips in the outer edge, scratches across the bar,
-  dull spots on the ridge.
+  frame. Nothing repeats, so this one carries the wear: nicks in the ridge and dull spots.
 
 Everything is drawn from one distance field of a square frame, so corners and edges always match.
 """
@@ -57,8 +56,10 @@ STYLES = {
         mitre_softness=2.0,    # how gently the lighting turns at the corners
         grain=0.06,            # fine scratches along the bar
         # Wear for the whole-frame texture, per side (counts are ranges; sizes in screen px).
-        wear=dict(seed=11, chips=(2, 4), chip_len=(3, 10), chip_depth=(2.0, 4.5),
-                  gashes=(0, 2), gash_width=(0.8, 1.4), dull=(1, 3), dull_len=(10, 30)),
+        # Wear for the whole-frame texture, per side (count ranges; sizes in screen px): nicks in the ridge
+        # like the round ring has (a pale dent next to the ridge, a short dark cut across it), dull spots.
+        wear=dict(seed=11, dents=(0, 2), dent_len=(3.5, 5.5), cuts=(0, 2), cut_width=(0.9, 1.2),
+                  dull=(1, 3), dull_len=(10, 30), dent_color=rgb("bfb29a"), nick_dark=rgb("24160b")),
     ),
 }
 
@@ -72,36 +73,26 @@ def lerp(a, b, t):
     return a + (b - a) * t[..., None]
 
 
-def wear_maps(s, side, along, length):
-    """Per-pixel wear for one side: chip depth into the outer edge, gash strength, dullness (style units)."""
+def wear_events(s, side, length):
+    """Random wear marks for one side of the whole-frame texture, positions in style units along the side."""
     w = s["wear"]
     rng = np.random.default_rng(w["seed"] * 10 + side)
     u = UNITS_PER_SCREEN_PX
-    chip = np.zeros_like(along)
-    gash = np.zeros_like(along)
-    gash_lit = np.zeros_like(along)
-    dull = np.zeros_like(along)
     margin = 0.08 * length
-    for _ in range(rng.integers(w["chips"][0], w["chips"][1] + 1)):
-        a = rng.uniform(margin, length - margin)
-        hl = rng.uniform(*w["chip_len"]) * u / 2
-        dp = rng.uniform(*w["chip_depth"]) * u
-        t = np.clip(1 - ((along - a) / hl) ** 2, 0, 1)
-        # Uneven break: a couple of sine wobbles over the chip.
-        wobble = 1 + 0.25 * np.sin((along - a) / hl * rng.uniform(4, 8) + rng.uniform(0, 6))
-        chip = np.maximum(chip, dp * np.sqrt(t) * wobble)
-    for _ in range(rng.integers(w["gashes"][0], w["gashes"][1] + 1)):
-        a = rng.uniform(margin, length - margin)
-        hw = rng.uniform(*w["gash_width"]) * u / 2
-        reach = rng.uniform(0.4, 1.0)  # how far across the bar it goes, from the outer side
-        g = np.exp(-((along - a) / hw) ** 2)
-        gash = np.maximum(gash, g * reach)
-        gash_lit = np.maximum(gash_lit, np.exp(-((along - a - 1.6 * hw) / hw) ** 2) * reach)
-    for _ in range(rng.integers(w["dull"][0], w["dull"][1] + 1)):
-        a = rng.uniform(margin, length - margin)
-        hl = rng.uniform(*w["dull_len"]) * u / 2
-        dull = np.maximum(dull, smoothstep(hl, hl * 0.4, np.abs(along - a)) * rng.uniform(0.4, 0.8))
-    return chip, gash, gash_lit, dull
+
+    def pos():
+        return rng.uniform(margin, length - margin)
+
+    events = []
+    for _ in range(rng.integers(*w["dull"]) if w["dull"][1] else 0):
+        events.append(dict(kind="dull", a=pos(), hl=rng.uniform(*w["dull_len"]) * u / 2, k=rng.uniform(0.4, 0.8)))
+    for _ in range(rng.integers(w["dents"][0], w["dents"][1] + 1)):
+        events.append(dict(kind="dent", a=pos(), hl=rng.uniform(*w["dent_len"]) * u / 2,
+                           skew=rng.uniform(-0.8, 0.8)))
+    for _ in range(rng.integers(w["cuts"][0], w["cuts"][1] + 1)):
+        events.append(dict(kind="cut", a=pos(), w=rng.uniform(*w["cut_width"]) * u / 2,
+                           out=rng.uniform(1, 3) * u, **{"in": rng.uniform(1, 3) * u}, skew=rng.uniform(-0.3, 0.3)))
+    return events
 
 
 def render_frame(s, n, unit, worn):
@@ -129,31 +120,43 @@ def render_frame(s, n, unit, worn):
 
     vertical = np.abs(px) > np.abs(py)
     along = np.where(vertical, y, x) * to_units  # coordinate along the nearest side
-    chip = gash = gash_lit = dull = np.zeros_like(d)
+    u = UNITS_PER_SCREEN_PX
+    dull, brk, dent, dent_dark, cut = (np.zeros_like(d) for _ in range(5))
     if worn:
         side = np.where(vertical, np.where(px < 0, 0, 1), np.where(py < 0, 2, 3))
         length = N * to_units
-        chip, gash, gash_lit, dull = (np.zeros_like(d) for _ in range(4))
         for sd in range(4):
             mask = side == sd
-            maps = wear_maps(s, sd, along, length)
-            for acc, mp in zip((chip, gash, gash_lit, dull), maps):
-                acc[mask] = mp[mask]
+            for ev in wear_events(s, sd, length):
+                da = along - ev["a"]
+                if ev["kind"] == "dull":
+                    v = smoothstep(ev["hl"], ev["hl"] * 0.4, np.abs(da)) * ev["k"]
+                    dull[mask] = np.maximum(dull[mask], v[mask])
+                elif ev["kind"] == "dent":
+                    # Pale exposed metal on the outer slope against the ridge, slanted, dark towards the inside.
+                    dc = e2 - 0.5 * u + ev["skew"] * da
+                    v = smoothstep(1.0, 0.55, (da / ev["hl"]) ** 2 + ((d - dc) / (1.8 * u)) ** 2)
+                    vd = smoothstep(1.0, 0.5, (da / ev["hl"]) ** 2 + ((d - dc - 1.5 * u) / (0.9 * u)) ** 2) * (1 - v)
+                    dent[mask] = np.maximum(dent[mask], v[mask])
+                    dent_dark[mask] = np.maximum(dent_dark[mask], vd[mask])
+                    brk[mask] = np.maximum(brk[mask], smoothstep(1.3, 0.6, np.abs(da) / ev["hl"])[mask])
+                else:  # cut: a short dark line across the ridge
+                    off = np.abs(da - ev["skew"] * (d - e2))
+                    span = smoothstep(e2 - ev["out"], e2 - ev["out"] + u, d) * smoothstep(e3 + ev["in"], e3 + ev["in"] - u, d)
+                    v = smoothstep(ev["w"], ev["w"] * 0.3, off) * span
+                    cut[mask] = np.maximum(cut[mask], v[mask])
+                    brk[mask] = np.maximum(brk[mask], smoothstep(ev["w"] * 3, ev["w"], off)[mask])
 
     def slope(lit, dark, t, k):
         return lerp(lerp(dark[0], dark[1], t), lerp(lit[0], lit[1], t), k)
 
     outer = slope(s["outer_lit"], s["outer_dark"], np.clip((d - e1) / a, 0, 1), k_out)
     ridge = lerp(s["ridge_dark"], s["ridge_lit"], k_out)
-    ridge = lerp(ridge, outer * 1.1, dull)  # worn ridge loses its shine
+    ridge = lerp(ridge, outer * 1.05, np.maximum(dull, brk))  # worn or broken ridge loses its shine
     inner = slope(s["inner_lit"], s["inner_dark"], np.clip((d - e3) / iw, 0, 1), 1 - k_out)
-    # A chip moves the outer edge inward; its fresh break gets the outline colour.
-    edge = chip
     body = np.select([(d < e2)[..., None], (d < e3)[..., None], (d < e4)[..., None]],
                      [outer, ridge, inner], s["lip_color"] + 0 * outer)
-    color = np.where((d < edge + o * np.where(chip > 0, 0.7, 1))[..., None], s["outline_color"] + 0 * outer, body)
-    # Rough, darker metal just inside a chip.
-    color = lerp(color, color * 0.7, smoothstep(edge + o + 3, edge + o, d) * (chip > 0))
+    color = np.where((d < e1)[..., None], s["outline_color"] + 0 * outer, body)
 
     # Fine scratches along the bar, periodic over CONTENT units so backdrop edges tile.
     rng = np.random.default_rng(7)
@@ -161,18 +164,16 @@ def render_frame(s, n, unit, worn):
     phases = rng.uniform(0, 2 * np.pi, (len(ks), 2))
     grain = sum(np.sin(2 * np.pi * kk * along / CONTENT + p[0]) * np.sin(2 * np.pi * (kk + 2) * d / width + p[1])
                 for kk, p in zip(ks, phases)) / len(ks)
-    rim = (d >= edge + o) & (d < e4)
+    rim = (d >= e1) & (d < e4)
     color = np.where(rim[..., None], color * (1 + s["grain"] * grain[..., None]), color)
-    # Gashes across the bar from the outer side: a dark cut with a lit lip beside it.
-    across = smoothstep(0, 0.15, 1 - (d - e1) / (e4 - e1)) * (d >= e1) * (d < e4)
-    reach_ok = (d - e1) / (e4 - e1)
-    cut = gash * across * (reach_ok < np.maximum(gash, 1e-6) * 1.0)
-    color = lerp(color, color * 0.45, np.clip(cut * 1.6, 0, 1))
-    lit_lip = gash_lit * across * (reach_ok < np.maximum(gash_lit, 1e-6))
-    color = lerp(color, np.minimum(color * 1.5, 1), np.clip(lit_lip * 0.8, 0, 1))
+    # Nicks in the ridge (only inside the bar).
+    w = s["wear"]
+    color = lerp(color, w["dent_color"] + 0 * color, dent * 0.85 * rim)
+    color = lerp(color, w["nick_dark"] + 0 * color, dent_dark * 0.8 * rim)
+    color = lerp(color, w["nick_dark"] + 0 * color, cut * 0.85 * rim)
     color = np.clip(color, 0, 1)
 
-    alpha = smoothstep(edge - 0.5, edge + 0.5, d) * (1 - smoothstep(width - 0.5, width + 0.5, d))
+    alpha = smoothstep(-0.5, 0.5, d) * (1 - smoothstep(width - 0.5, width + 0.5, d))
     # Downsample (premultiplied, box filter).
     pre = np.dstack([color * alpha[..., None], alpha])
     pre = pre.reshape(n, SS, n, SS, 4).mean(axis=(1, 3))
