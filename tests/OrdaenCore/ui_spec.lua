@@ -994,6 +994,16 @@ describe("OrdaenCore.UI", function()
 			assert.same({ "BOTTOMRIGHT", window, "BOTTOMRIGHT", 0, -2 }, look.point)
 		end)
 
+		it("reach past it by spacing tokens, following the text size (a chat window's padding)", function()
+			local window = chatWindow()
+			local dress = UI.Dress(window, { style = "panel", size = "frame", extend = { "md", 0, "xs", "sm" }, art = {} })
+			local look = dress.look.frame
+			assert.same({ "BOTTOMRIGHT", window, "BOTTOMRIGHT", 0, -4 }, look.point, "sm: 4 at the default text size")
+			rawset(_G, "OrdaenCoreDB", { ui = { textSize = 16 } })
+			UI._SettingsChanged()
+			assert.is_true(-look.point[5] > 4, "a bigger text size: more room")
+		end)
+
 		it("switch the style with :SetState (a selected or flashing tab)", function()
 			local window = chatWindow()
 			local dress = UI.Dress(window, { style = "tab", size = "frame", art = {},

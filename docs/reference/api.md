@@ -229,7 +229,7 @@ tab:SetState("selected") -- from a hook on Blizzard's own state change, never by
 | `clickable` | `frame.Button`, else the frame | the frame that gets the mouse |
 | `size` | `"look"` | `"frame"`: cover the frame, keep its size |
 | `cover` | the frame | with `size = "frame"`: the region to cover (a background reaching past the frame) |
-| `extend` | | with `size = "frame"`: `{ left, right, top, bottom }` added around `cover` |
+| `extend` | | with `size = "frame"`: `{ left, right, top, bottom }` added around `cover`, each a spacing token (`"md"`, follows the text size) or UI units |
 | `art` | every texture of the frame and its children | the textures to hide, when children hold content |
 | `states` | | state -> style role for `d:SetState(state)` |
 | `focus` | false | an EditBox: our look shows only while it's typed in, at full alpha (whatever alpha Blizzard gives it) |
@@ -263,6 +263,15 @@ UI.DressFont(ChatFrame1Tab:GetFontString(), "label")
 Puts the theme's font and the global text size of text style `style` (default `body`) on Blizzard's own text: a
 FontString, an EditBox or a chat window. Blizzard's font flags stay. When Blizzard sets the font again (the chat
 font size menu), ours comes back, and a theme or text size change re-applies it. Addons never call `SetFont`.
+
+### UI.Space(token)
+
+```lua
+ChatFrame1:SetSpacing(UI.Space("xs")) -- the gap between chat messages
+```
+
+A spacing token's size (`xs` to `xl`) in UI units at the current text size, for a Blizzard setting that takes a
+size. A number comes back as it is. Listen to EventRegistry `"OrdaenUI.ThemeChanged"` to follow a text size change.
 
 
 ### UI.DressBar(bar, asset)

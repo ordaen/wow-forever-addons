@@ -347,6 +347,16 @@ function UI.Color(token, fallback)
 	return f and f.Color(token, fallback) or fallback
 end
 
+--- A spacing token's size in UI units at the current text size ("xs".."xl"; a number comes back as it is). For a
+--- Blizzard setting that takes a size (a chat window's line spacing); listen to EventRegistry "OrdaenUI.ThemeChanged"
+--- to follow a text size change. Loads the framework.
+---@param token string|number
+---@return number
+function UI.Space(token)
+	local f = framework()
+	return f and f.Space(token) or 0
+end
+
 --- Put the theme's font and the global text size (text style `style`, default "body") on Blizzard's own text: a
 --- FontString, an EditBox or a chat window. It stays when Blizzard sets the font again and follows theme and text
 --- size changes. Addons never call SetFont themselves. Loads the framework.

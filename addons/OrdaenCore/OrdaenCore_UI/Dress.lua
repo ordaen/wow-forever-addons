@@ -30,7 +30,8 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 --- block covers Blizzard's frame (or `cover`) and its size stays Blizzard's or Edit Mode's (windows, inputs, tabs)
 ---@field cover table|nil with size "frame": the region our block covers (default the frame), e.g. a background
 --- texture that reaches past the frame
----@field extend number[]|nil with size "frame": { left, right, top, bottom } UI units added around `cover`
+---@field extend (number|string)[]|nil with size "frame": { left, right, top, bottom } added around `cover`, each a
+--- spacing token ("md") or UI units; tokens follow the text size (inner padding of a chat window)
 ---@field art table[]|nil the textures to hide; default every texture of the frame and its children (give a list
 --- when the frame's children hold content, e.g. a chat window's message lines)
 ---@field states table<string, string>|nil state -> style role for :SetState (any other state: `style`)
@@ -148,8 +149,9 @@ local function placeOver(self)
 	local e = opts.extend
 	look:ClearAllPoints()
 	if e then
-		look:SetPoint("TOPLEFT", cover, "TOPLEFT", -e[1], e[3])
-		look:SetPoint("BOTTOMRIGHT", cover, "BOTTOMRIGHT", e[2], -e[4])
+		local space = Theme.Space
+		look:SetPoint("TOPLEFT", cover, "TOPLEFT", -space(e[1]), space(e[3]))
+		look:SetPoint("BOTTOMRIGHT", cover, "BOTTOMRIGHT", space(e[2]), -space(e[4]))
 	else
 		look:SetAllPoints(cover)
 	end
@@ -396,6 +398,15 @@ function Dress.Font(target, style)
 		hooksecurefunc(target, "SetFont", applyFont)
 	end
 	applyFont(target)
+end
+
+--- Place every dressed look with an `extend` again (the text size changed, so its tokens did: Tooltip.Restyle).
+function Dress.RefreshPlaces()
+	for _, dress in pairs(byClickable) do
+		if dress.dressed and dress.opts.size == "frame" and dress.opts.extend then
+			placeOver(dress)
+		end
+	end
 end
 
 --- Re-apply every dressed font (the theme or the text size changed: Tooltip.Restyle).
