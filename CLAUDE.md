@@ -67,6 +67,11 @@ would have caught it is half a fix: say which check now catches it, or add one.
    starts each one in its own protected call, so one feature's error is reported and the rest still start.
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
    (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done.
+7. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
+   a position), the side that comes second completes it: the owner announces its thing when it creates it
+   (`EventRegistry:TriggerEvent("OrdaenDevButton.Created", b)`) and the taker also checks at its own start. A
+   fixed delay has no ordering guarantee (the Ordaen Dev gear button sat on the minimap border for seconds after
+   each reload until a 5 s retry found it, 2026-11-06). Specs cover both orders: created before and after login.
 
 ## Game install
 

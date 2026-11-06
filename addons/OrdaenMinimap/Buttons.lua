@@ -28,8 +28,14 @@ local BLIZZARD = {
 	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" } },
 	-- The Ordaen Dev gear button (dev mode, wow-dev-tools). While `ordaenPlacedBy` is set, it leaves its
 	-- position and dragging to us (agreed with the dev-tools session); clicks and tooltip stay its own.
+	-- The dev addon makes it seconds after login, so it also announces it (DEV_BUTTON_CREATED below).
 	{ id = "dev", names = { "OrdaenDevButton" }, claim = true },
 }
+-- EventRegistry event the dev addon triggers right after creating its gear button (with the button). Taking
+-- the button over on that event, as well as at Apply, works in either order: no timer, no window in which
+-- the button sits at the dev addon's own spot on the border.
+local DEV_BUTTON_CREATED = "OrdaenDevButton.Created"
+local DEV_ENTRY = BLIZZARD[#BLIZZARD]
 
 local db
 local items = {} -- id -> { id, frame }
@@ -274,6 +280,10 @@ local function adoptAll()
 	end
 end
 
+local function onDevButtonCreated()
+	adopt(DEV_ENTRY)
+end
+
 --- Take over Blizzard's buttons (once) and place everything for the current settings.
 ---@param savedDb table OrdaenMinimapDB
 function Buttons.Apply(savedDb)
@@ -281,6 +291,7 @@ function Buttons.Apply(savedDb)
 	if not setUp then
 		setUp = true
 		adoptAll()
+		EventRegistry:RegisterCallback(DEV_BUTTON_CREATED, onDevButtonCreated, Buttons)
 		C_Timer.After(RETRY_DELAY, ns.Debug:Wrap(adoptAll))
 		Minimap:HookScript("OnSizeChanged", Buttons.Layout)
 	end

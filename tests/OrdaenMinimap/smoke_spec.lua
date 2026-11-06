@@ -276,6 +276,19 @@ describe("OrdaenMinimap smoke", function()
 					table.insert(world.timers, fn)
 				end,
 			},
+			-- Blizzard's CallbackRegistryMixin: a callback gets its owner first, then the event's arguments.
+			EventRegistry = {
+				callbacks = {},
+				RegisterCallback = function(self, event, fn, owner)
+					self.callbacks[event] = self.callbacks[event] or {}
+					table.insert(self.callbacks[event], { fn, owner })
+				end,
+				TriggerEvent = function(self, event, ...)
+					for _, c in ipairs(self.callbacks[event] or {}) do
+						c[1](c[2], ...)
+					end
+				end,
+			},
 			ReloadUI = function()
 				world.reloaded = true
 			end,
@@ -517,6 +530,18 @@ describe("OrdaenMinimap smoke", function()
 			assert.same({ Minimap }, gear.calls.SetParent[1])
 			assert.is_true(lastPoint(gear)[4] < -(70 + 7)) -- default 200 degrees: left side, outside the border
 			assert.is_function(gear.scripts.OnDragStart)
+			rawset(_G, "OrdaenDevButton", nil)
+		end)
+
+		it("takes over the gear button at once when the dev addon makes it after login", function()
+			-- In game the dev addon creates it seconds after login; until a timer found it, it sat at its own
+			-- spot on the border (2026-11-06). The dev addon announces it through EventRegistry instead.
+			login()
+			local gear = stubObject("OrdaenDevButton")
+			rawset(_G, "OrdaenDevButton", gear)
+			EventRegistry:TriggerEvent("OrdaenDevButton.Created", gear)
+			assert.equals("OrdaenMinimap", gear.ordaenPlacedBy)
+			assert.is_true(lastPoint(gear)[4] < -(70 + 7)) -- placed on the ring right away
 			rawset(_G, "OrdaenDevButton", nil)
 		end)
 
