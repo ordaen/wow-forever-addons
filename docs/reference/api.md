@@ -148,6 +148,37 @@ These go straight to the frame: `SetPoint`, `ClearAllPoints`, `GetPoint`, `SetPa
 
 `c.frame` is the WoW frame itself, for anchoring other frames to the component.
 
+## UI.Panel
+
+```lua
+local bar = UI.Panel({ columns = { "auto", "1fr", "auto" }, left, middle, right }, { edge = "bottom" })
+bar:FadeTo(0)   -- hidden: no clicks, but enter/leave still arrive (show on mouseover)
+bar:FadeTo(1)
+```
+
+A component pinned to a screen edge (style `panel` unless the spec names one), with the methods of
+`UI.Block`/`UI.Button` plus:
+
+| Option | Default | |
+|---|---|---|
+| `edge` | `"bottom"` | `"bottom"`, `"top"`, `"left"`, `"right"` |
+| `fit` | `"full"` | `"full"`: the whole edge; `"center"`: as long as its content, centred on the edge |
+| `offset` | 0 | distance from the edge |
+
+### p:FadeTo(alpha, seconds?)
+
+Fades to `alpha` over `seconds` (default: the theme's `motion.fade` token), by an animation the game runs (no
+OnUpdate). Below full alpha the panel takes no clicks, so they reach what's underneath, but enter and leave still
+arrive, so a "show on mouseover" rule can bring it back.
+
+### p:IsFaded()
+
+Whether it is faded or fading below full alpha.
+
+### p:Place()
+
+Places it again after its options changed. A resolution or UI scale change re-places it by itself.
+
 ## Internal
 
 Not for addon code.

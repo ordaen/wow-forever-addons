@@ -286,6 +286,20 @@ function UI.Button(spec)
 	return f and f.Button(spec)
 end
 
+--- A block pinned to a screen edge, the whole edge long or fit to its content (style "panel" unless given):
+--- `:FadeTo(alpha, seconds?)`, `:IsFaded()`, `:Place()` after changing its options; events as any component.
+--- Re-placed by itself when the resolution or UI scale changes. Loads the framework.
+---
+---   local bar = UI.Panel({ columns = { "auto", "1fr", "auto" }, left, middle, right }, { edge = "bottom" })
+---   bar:FadeTo(0) -- hidden: no clicks, but enter/leave still arrive (show on mouseover)
+---@param spec OrdaenUIComponentSpec
+---@param opts OrdaenUIPanelOpts|nil edge ("bottom"), fit ("full" | "center"), offset
+---@return OrdaenUIPanel|nil nil when the framework can't load (the player was told)
+function UI.Panel(spec, opts)
+	local f = framework()
+	return f and f.Panel(spec, opts)
+end
+
 --- The last tooltip as measured and drawn, for dev-mode dumps (false if the framework isn't loaded). Not for
 --- regular addon code: it builds tables.
 function UI._Describe()

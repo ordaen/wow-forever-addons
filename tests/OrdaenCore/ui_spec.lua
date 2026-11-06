@@ -239,6 +239,39 @@ local function fakeFrame(name, log, parent)
 	function f:SetStatusBarTexture(file)
 		self.barTexture = file
 	end
+	-- Fading (panels): alpha, clicks, and an animation group that remembers its last fade.
+	function f:SetAlpha(a)
+		self.alpha = a
+	end
+	function f:GetAlpha()
+		return self.alpha or 1
+	end
+	function f:SetMouseClickEnabled(on)
+		self.clicksEnabled = on
+	end
+	function f:CreateAnimationGroup()
+		local group = { played = 0 }
+		function group:CreateAnimation()
+			local anim = {}
+			function anim:SetFromAlpha(a)
+				group.from = a
+			end
+			function anim:SetToAlpha(a)
+				group.to = a
+			end
+			function anim:SetDuration(d)
+				group.duration = d
+			end
+			return setmetatable(anim, STRICT)
+		end
+		function group:Play()
+			self.played = self.played + 1
+		end
+		function group:Stop() end
+		function group:SetToFinalAlpha() end
+		self.group = group
+		return group
+	end
 	return setmetatable(f, STRICT)
 end
 
@@ -617,6 +650,51 @@ describe("OrdaenCore.UI", function()
 			coords:Refresh()
 			assert.same({ "42.6, 61.0" }, shownTexts(coords.frame))
 			assert.is_true(log.setFormatted > before + 2) -- measured again, then drawn
+		end)
+	end)
+
+	describe("panels", function()
+		local function screen(w, h)
+			_G.UIParent:SetSize(w, h)
+		end
+
+		it("stretch along the bottom edge by default, re-placed when the screen changes", function()
+			screen(1920, 1080)
+			local panel = UI.Panel({ { text = "Gold" } })
+			local f = panel.frame
+			assert.same({ "BOTTOM", _G.UIParent, "BOTTOM", 0, 0 }, f.point)
+			assert.equals(1920, f.size[1])
+			screen(2560, 1440)
+			for _, fr in ipairs(frames) do
+				if fr.events and fr.events.DISPLAY_SIZE_CHANGED and fr.scripts.OnEvent then
+					fr.scripts.OnEvent(fr, "DISPLAY_SIZE_CHANGED")
+				end
+			end
+			assert.equals(2560, f.size[1])
+		end)
+
+		it("stand along the left or right edge full height, or fit their content in the middle", function()
+			screen(1920, 1080)
+			local left = UI.Panel({ { text = "Gold" } }, { edge = "left", offset = 4 })
+			assert.same({ "LEFT", _G.UIParent, "LEFT", 4, 0 }, left.frame.point)
+			assert.equals(1080, left.frame.size[2])
+			local fit = UI.Panel({ { text = "Gold" } }, { edge = "top", fit = "center" })
+			assert.same({ "TOP", _G.UIParent, "TOP", 0, 0 }, fit.frame.point)
+			assert.is_true(fit.frame.size[1] < 1920, "as wide as its content")
+		end)
+
+		it("fade with the theme's time and take no clicks while faded", function()
+			screen(1920, 1080)
+			local panel = UI.Panel({ { text = "Gold" } })
+			panel:FadeTo(0)
+			local group = panel.frame.group
+			assert.same({ 1, 0, 0.15, 1 }, { group.from, group.to, group.duration, group.played })
+			assert.is_false(panel.frame.clicksEnabled)
+			assert.is_true(panel:IsFaded())
+			panel:FadeTo(1, 0)
+			assert.equals(1, panel.frame.alpha)
+			assert.is_true(panel.frame.clicksEnabled)
+			assert.is_false(panel:IsFaded())
 		end)
 	end)
 

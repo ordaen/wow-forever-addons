@@ -362,3 +362,98 @@ function Component.Of(frame)
 end
 
 Component.Base = Base
+
+-- Panels: a block pinned to a screen edge -----------------------------------------------------------------------
+-- Full length (the whole edge) or fit to its content, centred on the edge. Faded by an animation group (the game
+-- runs it, no OnUpdate); a faded panel takes no clicks but still notices the mouse, so "show on mouseover" can bring
+-- it back.
+
+---@class OrdaenUIPanelOpts
+---@field edge string|nil "bottom" (default), "top", "left", "right"
+---@field fit string|nil "full" (default: the whole edge) or "center" (as long as its content, centred)
+---@field offset number|nil distance from the edge
+
+---@class OrdaenUIPanel : OrdaenUIComponent
+---@field panel OrdaenUIPanelOpts
+---@field fade AnimationGroup
+---@field fadeAlpha Alpha
+---@field targetAlpha number
+
+local EDGE_POINT = { bottom = "BOTTOM", top = "TOP", left = "LEFT", right = "RIGHT" }
+local EDGE_DIRECTION = { bottom = { 0, 1 }, top = { 0, -1 }, left = { 1, 0 }, right = { -1, 0 } }
+
+local Panel = setmetatable({}, { __index = Base })
+local PanelMeta = { __index = Panel }
+
+-- Size and place the panel for the screen as it is now (again after a resolution or UI scale change).
+local function placePanel(self)
+	local opts, block, frame = self.panel, self.block, self.frame
+	local edge = EDGE_POINT[opts.edge] and opts.edge or "bottom"
+	local horizontal = edge == "bottom" or edge == "top"
+	if opts.fit ~= "center" then
+		if horizontal then
+			block.width, block.height = UIParent:GetWidth(), nil
+		else
+			block.width, block.height = nil, UIParent:GetHeight()
+		end
+	end
+	local d = EDGE_DIRECTION[edge]
+	local offset = opts.offset or 0
+	frame:ClearAllPoints()
+	frame:SetPoint(EDGE_POINT[edge], UIParent, EDGE_POINT[edge], d[1] * offset, d[2] * offset)
+	Render.Draw(frame, block, block.width)
+end
+
+local function onScreenChanged(self)
+	placePanel(self)
+end
+
+--- Fade to `alpha` over `seconds` (default: the theme's motion.fade). Below full alpha the panel takes no clicks
+--- (they reach what's underneath) but still gets enter/leave, so mouseover can show it again.
+---@param alpha number 0..1
+---@param seconds number|nil
+function Panel:FadeTo(alpha, seconds)
+	local frame = self.frame
+	seconds = seconds or ns.Theme.Fade()
+	self.targetAlpha = alpha
+	frame:SetMouseClickEnabled(alpha >= 1)
+	self.fade:Stop()
+	if seconds <= 0 or frame:GetAlpha() == alpha then
+		frame:SetAlpha(alpha)
+		return
+	end
+	self.fadeAlpha:SetFromAlpha(frame:GetAlpha())
+	self.fadeAlpha:SetToAlpha(alpha)
+	self.fadeAlpha:SetDuration(seconds)
+	self.fade:Play()
+end
+
+--- Whether the panel is faded (or fading) below full alpha.
+---@return boolean
+function Panel:IsFaded()
+	return self.targetAlpha < 1
+end
+
+--- Place the panel again (after its options changed: edge, fit, offset).
+function Panel:Place()
+	placePanel(self)
+end
+
+--- A block pinned to a screen edge (style "panel" unless given). Takes events like any component.
+---@param spec OrdaenUIComponentSpec
+---@param opts OrdaenUIPanelOpts|nil
+---@return OrdaenUIPanel
+function Component.Panel(spec, opts)
+	local instance = create(spec, "panel") --[[@as OrdaenUIPanel]]
+	setmetatable(instance, PanelMeta)
+	instance.panel = opts or {}
+	instance.targetAlpha = 1
+	local fade = instance.frame:CreateAnimationGroup()
+	fade:SetToFinalAlpha(true)
+	instance.fade = fade
+	instance.fadeAlpha = fade:CreateAnimation("Alpha") --[[@as Alpha]]
+	instance:On("DISPLAY_SIZE_CHANGED", onScreenChanged)
+	instance:On("UI_SCALE_CHANGED", onScreenChanged)
+	placePanel(instance)
+	return instance
+end

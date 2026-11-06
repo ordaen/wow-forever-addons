@@ -130,4 +130,5 @@ OrdaenCore.UI._Provide({
 	ConfirmShown = ns.Confirm.IsShown,
 	Block = Component.Block,
 	Button = Component.Button,
+	Panel = Component.Panel,
 })
