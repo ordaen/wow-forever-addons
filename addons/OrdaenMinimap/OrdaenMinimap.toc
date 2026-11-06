@@ -1,6 +1,17 @@
 ## Interface: 16001
 ## Title: Ordaen Minimap
 ## Notes: A tidy, low-config minimap: square or round shape, button drawer, addon compartment entries.
+## Category: User Interface
+## Category-deDE: Benutzerinterface
+## Category-esES: Interfaz de usuario
+## Category-esMX: Interfaz de usuario
+## Category-frFR: Interface utilisateur
+## Category-itIT: Interfaccia utente
+## Category-koKR: 사용자 인터페이스
+## Category-ptBR: Interface do usuário
+## Category-ruRU: Интерфейс пользователя
+## Category-zhCN: 用户界面
+## Category-zhTW: 使用者介面
 # The Version line is bumped by release-please; do not edit it by hand.
 # x-release-please-start-version
 ## Version: 0.0.0
