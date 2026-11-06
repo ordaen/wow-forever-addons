@@ -75,6 +75,7 @@ local unavailable = false
 ---@field height number|nil
 ---@field size number|nil width and height
 ---@field texCoord number[]|nil { left, right, top, bottom }
+---@field crop boolean|nil trim an item or spell icon's own border by the theme's icon.crop
 ---@field color number[]|string|nil a tint, { r, g, b, a? } or a colour token ("color.icon" for glyph icons)
 ---@field hidden boolean|nil as a child: skipped
 ---@field colSpan number|nil as a child: columns it spans
@@ -98,6 +99,7 @@ local unavailable = false
 ---@field align string|nil as a child: "left", "center" or "right" in its cell (a block shrinks to its content)
 ---@field valign string|nil as a child: "top", "center" or "bottom" in its row (default: the parent's rowAlign)
 ---@field rowAlign string|nil "top" (default), "center" or "bottom": children in their rows, rows in a fixed height
+---@field edges table|nil per side (top, right, bottom, left): false = none, true = the style's, { width, colour }
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUITooltipOpts

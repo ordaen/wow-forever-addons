@@ -12,7 +12,6 @@ How themes work: [Themes](/guide/themes).
 | `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges | no surface | no surface |
 | `button` | clickable text without a surface | | | |
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight | tooltip backdrop, Blizzard highlight | flat fill, grey border |
-| `barButton` | a button in a bar's row (side edges only: the bar's own lines frame it) | dark fill, accent side edges, warm highlight | dark fill, bronze side edges, Blizzard highlight | flat fill, grey side edges |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only | Blizzard highlight | highlight only |
 | `panel` | a box holding other things (the minimap drawer) | tooltip surface | tooltip backdrop | flat fill, grey border |
 | `input` | a text input over other text (the chat input) | opaque tooltip surface | opaque dark backdrop | opaque grey fill |

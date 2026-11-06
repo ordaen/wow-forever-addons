@@ -1186,6 +1186,20 @@ describe("OrdaenCore.UI", function()
 			assert.equals(track, value.size[1], "the parts fill the track")
 		end)
 
+		it("let a block drop or keep each of its style's edges", function()
+			local both = { style = "iconButton", width = 20, height = 20 }
+			local second = { style = "iconButton", width = 20, height = 20 }
+			local tip = UI.Tooltip({ columns = { "auto", "auto" }, gap = 8, both, second })
+			tip:Show(owner)
+			local full = #solids(surface(), "BORDER")
+			second.edges = { top = false, bottom = false } -- only its left and right
+			tip:Refresh()
+			assert.equals(full - 2, #solids(surface(), "BORDER"))
+			second.edges = { top = false, right = false, bottom = false, left = false }
+			tip:Refresh()
+			assert.equals(full - 4, #solids(surface(), "BORDER"), "none at all")
+		end)
+
 		it("draw a bar's quest and dimmed overlay parts behind its value, colours from theme tokens", function()
 			UI.Tooltip({
 				{ bar = 3000, min = 0, max = 10000, quest = 4500, overlay = 6500, color = "color.xp",

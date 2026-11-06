@@ -277,9 +277,41 @@ local function has(mask, bit)
 	return mask % (bit * 2) >= bit
 end
 
+-- A block's edges: its style's, with the block's own `edges = { top = false, ... }` on top (false: none on that side,
+-- true: the style's, or { width, colour }). Filled into one table per block, reused every draw (no garbage);
+-- nil when the block has no edge at all.
+local SIDES = { "top", "right", "bottom", "left" }
+local DEFAULT_EDGE = { 1, { 0, 0, 0, 1 } }
+local mergedEdges = setmetatable({}, { __mode = "k" })
+local function edgesOf(look, node)
+	local own = node and node.edges
+	local base = look and look.edges
+	if not own then
+		return base
+	end
+	local out = mergedEdges[node]
+	if not out then
+		out = {}
+		mergedEdges[node] = out
+	end
+	local any = false
+	for _, side in ipairs(SIDES) do
+		local e = own[side]
+		if e == nil or e == true then
+			e = (base and base[side]) or (e == true and (base and (base.top or base.left) or DEFAULT_EDGE)) or nil
+		elseif e == false then
+			e = nil
+		end
+		out[side] = e
+		any = any or e ~= nil
+	end
+	return any and out or nil
+end
+
 -- A block's own surface (fill, vignette, edges), from its look, on rectangle x, y, w, h. `depth` puts nested
 -- surfaces above their parent's. `skip`: edges a neighbour or the parent already draws there (TOP, RIGHT...).
-local function drawSurface(surface, p, look, accent, x, y, w, h, depth, skip)
+-- `edges`: the block's edges (edgesOf).
+local function drawSurface(surface, p, look, accent, x, y, w, h, depth, skip, edges)
 	skip = skip or 0
 	local sub = min(6, depth * 2 - 2)
 	local fill = look.fill
@@ -295,7 +327,6 @@ local function drawSurface(surface, p, look, accent, x, y, w, h, depth, skip)
 		solid(surface, p, "BACKGROUND", layer, x, y, s, h, BLACK, BLACK, accent, true, a, 0)
 		solid(surface, p, "BACKGROUND", layer, x + w - s, y, s, h, BLACK, BLACK, accent, true, 0, a)
 	end
-	local edges = look.edges
 	if edges then
 		local px = pixel()
 		local level = min(7, depth)
@@ -360,6 +391,10 @@ local function drawImage(surface, p, el, x, y, w, h)
 	local tc = el.texCoord
 	if tc then
 		tex:SetTexCoord(tc[1], tc[2], tc[3], tc[4])
+	elseif el.crop and not el.atlas then
+		-- an item or spell icon without its own border: trimmed by the theme's icon.crop
+		local c = tonumber(Theme.Token("icon.crop")) or 0
+		tex:SetTexCoord(c, 1 - c, c, 1 - c)
 	else
 		tex:SetTexCoord(0, 1, 0, 1) -- pooled textures may have been cropped before
 	end
@@ -643,8 +678,7 @@ local function drawCellHighlight(surface, p, look, x, y, w, h, accent)
 	solid(surface, p, "ARTWORK", -1, x, y, w, h, c, c, accent)
 end
 
-function drawBlock(surface, p, result, ox, oy, accent, depth, parentLook)
-	local parentEdges = parentLook and parentLook.edges
+function drawBlock(surface, p, result, ox, oy, accent, depth, parentEdges)
 	local styled = 0
 	for i = 1, result.count do
 		local item = result.items[i]
@@ -669,6 +703,7 @@ function drawBlock(surface, p, result, ox, oy, accent, depth, parentLook)
 			drawImage(surface, p, node, x, y, item.w, item.h)
 		else
 			local look = Theme.BlockStyle(node.style)
+			local edges = nil -- its edges once drawn (edgesOf), for collapsing its children against them
 			if look then
 				local sx, sy, sw, sh = x, y, item.w, item.h
 				if look.bleed then
@@ -678,17 +713,18 @@ function drawBlock(surface, p, result, ox, oy, accent, depth, parentLook)
 					end
 				end
 				local skip = 0
-				if look.edges then
+				edges = edgesOf(look, node)
+				if edges then
 					skip = collapse(p, depth, styled, parentEdges, ox, oy, result.width, result.height, sx, sy, sw, sh)
 					styled = styled + 1
-					rememberSibling(p, depth, styled, look.edges, sx, sy, sw, sh)
+					rememberSibling(p, depth, styled, edges, sx, sy, sw, sh)
 				end
-				drawSurface(surface, p, look, own, sx, sy, sw, sh, depth + 1, skip)
+				drawSurface(surface, p, look, own, sx, sy, sw, sh, depth + 1, skip, edges)
 				if node.highlight then
 					drawCellHighlight(surface, p, look, sx, sy, sw, sh, own)
 				end
 			end
-			drawBlock(surface, p, Layout.ResultOf(node), x, y, own, depth + 1, look)
+			drawBlock(surface, p, Layout.ResultOf(node), x, y, own, depth + 1, edges)
 		end
 	end
 end
@@ -827,9 +863,9 @@ function Render.Draw(surface, root, width)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
 	if look then
-		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1)
+		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end
-	drawBlock(surface, p, result, 0, 0, accent, 1, look)
+	drawBlock(surface, p, result, 0, 0, accent, 1, edgesOf(look, root))
 	hideRest(p.fonts, p.usedFonts)
 	hideRest(p.images, p.usedImages)
 	hideRest(p.solids, p.usedSolids)

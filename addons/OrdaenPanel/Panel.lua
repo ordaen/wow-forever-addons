@@ -77,7 +77,7 @@ local sizes = {} ---@type table<table, number[]> Blizzard button -> its size bef
 local dresses = {} ---@type table<table, OrdaenUIDress>
 local portraits = {} ---@type table<table, table> Blizzard button -> the texture of it that stays (the portrait)
 local placing = false
--- Sizes, all from the panel's height (setting `height`): cells fill it, icons, the bar and the portrait are 60 %.
+-- Sizes, all from the panel's height (setting `height`): square cells fill it, icons and the bar are 60 %.
 local size = 60 -- the panel's height
 local cellWidth = 48
 local iconSide = 36
@@ -123,7 +123,7 @@ local function place(button)
 	if portrait then
 		portrait:ClearAllPoints()
 		portrait:SetPoint("CENTER", button, "CENTER")
-		portrait:SetSize(iconSide, iconSide)
+		portrait:SetSize(w - 2, h - 2) -- the whole cell, inside its side edges
 	end
 	placing = false
 end
@@ -355,8 +355,11 @@ local function cellFor(button)
 	local name = button:GetName()
 	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
 	portraits[button] = portrait
-	-- rowAlign: the icon in the middle of the cell's height (a fixed-height block centres its row only when asked)
-	local cell = cells[button] or { style = "barButton", rowAlign = "center" }
+	-- A button look with side edges only: the panel's own top and bottom lines frame the row. rowAlign: the icon
+	-- in the middle of the cell's height (a fixed-height block centres its row only when asked).
+	local cell = cells[button] or {
+		style = "iconButton", padding = 0, rowAlign = "center", edges = { top = false, bottom = false },
+	}
 	cells[button] = cell
 	if horizontal() then
 		cell.width, cell.height = cellWidth, size
@@ -376,6 +379,7 @@ local function cellFor(button)
 	end
 	local el = cell[1] or { align = "center", valign = "center" }
 	el.image, el.atlas = icon, atlas
+	el.crop = icon ~= nil -- item icons (bags) lose their own border; atlases are drawn whole
 	fitIcon(el, atlas)
 	cell[1] = el
 	return cell
@@ -596,7 +600,7 @@ end
 local function build()
 	local s = db()
 	size = s.height
-	cellWidth = math.floor(size * 0.8 + 0.5)
+	cellWidth = size -- square cells
 	iconSide = math.floor(size * 0.6 + 0.5)
 	local across = horizontal()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons

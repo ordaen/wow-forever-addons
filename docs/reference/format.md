@@ -15,6 +15,7 @@ A table without `text`, `image`, `separator` or `bar`. Its array part holds the 
 | `minWidth` | number | theme | |
 | `maxWidth` | number | theme | `tooltip`: 25 ems (300 at text size 12) |
 | `height` | number | from content | forces the height |
+| `edges` | `{ top, right, bottom, left }`: `false`, `true` or `{ width, colour }` | the style's | this block's own edges, side by side: `false` none, `true` the style's, or a width and colour. `{ top = false, bottom = false }` keeps only the side edges (buttons in a bar framed by the bar's lines) |
 | `rowAlign` | `"top"`, `"center"`, `"bottom"` | top | children in their rows; with `height`, the rows in that height |
 | `[1..n]` | nodes | | the children, in order |
 
@@ -41,6 +42,7 @@ the text is measured again only when an argument's value changes.
 | `width` | number | `size`, else 16 | |
 | `height` | number | `size`, else `width` | |
 | `size` | number | | sets both |
+| `crop` | boolean | false | trim an item or spell icon's own border, by the theme's `icon.crop` (ignored for atlases and with `texCoord`) |
 | `texCoord` | `{ left, right, top, bottom }` | whole texture | e.g. `{ 0.08, 0.92, 0.08, 0.92 }` trims an icon's border |
 | `color` | `{ r, g, b, a? }` or a colour token | untinted | a tint; `"color.icon"` for white glyph icons (`OrdaenCore/media/icon-*`) |
 
