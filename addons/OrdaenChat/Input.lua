@@ -62,8 +62,9 @@ local function place()
 	local anchor = current
 	for _, name in ipairs(BUTTONS) do
 		local b = buttons[name]
-		if b then
-			local frame = b.frame
+		-- Looked up by name from the literal list, so the build claims these calls (claims.rs).
+		local frame = _G[name]
+		if b and frame then
 			frame:SetParent(current)
 			frame:ClearAllPoints()
 			frame:SetPoint("RIGHT", anchor, "LEFT", -GAP, 0)

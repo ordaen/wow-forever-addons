@@ -389,7 +389,7 @@ describe("Ordaen Chat", function()
 			end
 		end
 
-		it("with Prat: asked at login, the input group stays off, tabs still set up", function()
+		it("with Prat: asked at login, input group and look stay off, tabs still set up", function()
 			loaded["Prat-3.0"] = true
 			login()
 			local c = conflictWith("Prat-3.0")
@@ -397,6 +397,8 @@ describe("Ordaen Chat", function()
 			assert.is_false(c.handled) -- the player is asked (Core's dialog)
 			assert.equals(windows[1], menuButton.parent) -- we never took the button
 			assert.is_nil(art[1].alpha)
+			assert.is_nil(windowArt[1].alpha, "the chat's background stays Blizzard's (or the other addon's)")
+			assert.is_false(ns.Look.Describe().on)
 			assert.truthy(windowTitled("Channels"))
 			assert.is_true(ns.Input.Describe().yielded)
 		end)
