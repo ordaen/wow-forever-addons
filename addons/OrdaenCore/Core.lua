@@ -1,10 +1,10 @@
--- Ordaen Core: code shared by all Ordaen addons. Every Ordaen addon declares
--- `## Dependencies: OrdaenCore` and gets the API from the global OrdaenCore.
+-- Ordaen Core: code shared by all Ordaen addons. Every Ordaen addon uses the global OrdaenCore (the build
+-- derives `## Dependencies: OrdaenCore` from that) and starts with OrdaenCore.NewAddon (Addon.lua).
 --
 -- Compatibility rule: users update the Core and the addons independently, so the public API
 -- only grows. Never change or remove something that has been released; add a new name instead.
--- An addon that needs a newer Core declares `## X-Ordaen-MinCore: <version>` in its TOC and
--- calls OrdaenCore.IsCompatible(addonName) before using anything else.
+-- An addon that needs a newer Core sets "minCore" in its addon.jsonc (`## X-Ordaen-MinCore`);
+-- NewAddon checks it with OrdaenCore.IsCompatible.
 local addonName, ns = ...
 
 local Core = {}
@@ -59,9 +59,7 @@ function Core.IsCompatible(addon)
 	if not warned[addon] then
 		warned[addon] = true
 		local title = metadata(addon, "Title") or addon
-		DEFAULT_CHAT_FRAME:AddMessage(string.format(
-			"|cffff5555%s needs Ordaen Core %s or newer (you have %s). Please update Ordaen Core.|r",
-			title, required, Core.version))
+		DEFAULT_CHAT_FRAME:AddMessage("|cffff5555" .. ns.L.NEEDS_NEWER_CORE:format(title, required, Core.version) .. "|r")
 	end
 	return false
 end

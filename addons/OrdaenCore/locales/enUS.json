@@ -1,0 +1,7 @@
+{
+  "HELP_HEADER": "commands:",
+  "HELP_OPEN": "%s - open the settings",
+  "HELP_RESET": "%s reset - restore the default settings",
+  "RESET_DONE": "settings restored to defaults.",
+  "NEEDS_NEWER_CORE": "%s needs Ordaen Core %s or newer (you have %s). Please update Ordaen Core."
+}
