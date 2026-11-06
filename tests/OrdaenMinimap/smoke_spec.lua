@@ -36,6 +36,9 @@ local function stubObject(name, extra)
 	obj.GetScript = function(self, script)
 		return self.scripts[script]
 	end
+	obj.IsShown = function(self)
+		return self.shown
+	end
 	for k, v in pairs(extra or {}) do
 		rawset(obj, k, v)
 	end
@@ -52,13 +55,20 @@ local function loadToc(addon, ns)
 end
 
 describe("OrdaenMinimap smoke", function()
-	local ns, frames, hooks, chat, settings, opened
+	local ns, frames, hooks, chat, settings, opened, world
+
+	local BLIZZARD_STACK = "Interface/AddOns/Blizzard_Minimap/Minimap.lua:120: in function <...>"
 
 	before_each(function()
 		frames, hooks, chat, settings, opened = {}, {}, {}, {}, nil
+		-- What the fake client reports; tests change these to simulate other addons.
+		world = { loaded = {}, stack = BLIZZARD_STACK, taint = { true, nil }, popups = {}, timers = {}, disabled = {} }
 		helpers.stubGlobals({
 			GetLocale = function()
 				return "ruRU"
+			end,
+			debugstack = function()
+				return world.stack
 			end,
 			DEFAULT_CHAT_FRAME = {
 				AddMessage = function(_, msg)
@@ -66,6 +76,13 @@ describe("OrdaenMinimap smoke", function()
 				end,
 			},
 		})
+		local addons = rawget(_G, "C_AddOns") -- created by helpers.stubGlobals
+		addons.IsAddOnLoaded = function(name)
+			return world.loaded[name]
+		end
+		addons.DisableAddOn = function(name)
+			table.insert(world.disabled, name)
+		end
 		local minimap = stubObject("Minimap")
 		minimap.ZoomIn = stubObject("ZoomIn")
 		minimap.ZoomOut = stubObject("ZoomOut")
@@ -96,6 +113,21 @@ describe("OrdaenMinimap smoke", function()
 				return { header = text }
 			end,
 			SlashCmdList = {},
+			issecurevariable = function()
+				return world.taint[1], world.taint[2]
+			end,
+			C_Timer = {
+				After = function(_, fn)
+					table.insert(world.timers, fn)
+				end,
+			},
+			ReloadUI = function()
+				world.reloaded = true
+			end,
+			StaticPopupDialogs = {},
+			StaticPopup_Show = function(which, text, _, data)
+				table.insert(world.popups, { which = which, text = text, data = data })
+			end,
 			Settings = {
 				RegisterVerticalLayoutCategory = function(name)
 					return stubObject("category:" .. name), stubObject("layout")
@@ -220,5 +252,108 @@ describe("OrdaenMinimap smoke", function()
 		_G.OrdaenMinimapDB.borderStyle = "thin"
 		SlashCmdList.ORDAENMINIMAP("reset")
 		assert.equals("gold", _G.OrdaenMinimapDB.borderStyle)
+	end)
+
+	describe("conflicts", function()
+		local function login()
+			fire("ADDON_LOADED", "OrdaenMinimap")
+			fire("PLAYER_LOGIN")
+		end
+
+		local function popup()
+			return StaticPopupDialogs.ORDAEN_MINIMAP_CONFLICT
+		end
+
+		it("steps aside and asks when a known minimap addon is loaded", function()
+			world.loaded.SexyMap = true
+			login()
+			assert.is_nil(Minimap.calls.SetMaskTexture)
+			assert.equals(1, #world.popups)
+			assert.equals("SexyMap", world.popups[1].data)
+			assert.truthy(world.popups[1].text:find("SexyMap", 1, true))
+		end)
+
+		it("keeping ours disables a dedicated minimap addon and reloads", function()
+			world.loaded.SexyMap = true
+			login()
+			popup().OnAccept(nil, "SexyMap")
+			assert.same({ "SexyMap" }, world.disabled)
+			assert.is_true(world.reloaded)
+		end)
+
+		it("keeping the other addon disables ours and reloads", function()
+			world.loaded.SexyMap = true
+			login()
+			popup().OnCancel(nil, "SexyMap", "clicked")
+			assert.same({ "OrdaenMinimap" }, world.disabled)
+			assert.is_true(world.reloaded)
+		end)
+
+		it("decide later keeps the map untouched for the session", function()
+			world.loaded.SexyMap = true
+			login()
+			popup().OnAlt(nil, "SexyMap")
+			settings.borderStyle:Set("thin")
+			assert.is_nil(Minimap.calls.SetMaskTexture)
+			assert.is_nil(world.reloaded)
+		end)
+
+		it("detects an addon that defined GetMinimapShape first, and can override it", function()
+			rawset(_G, "GetMinimapShape", function()
+				return "SQUARE"
+			end)
+			world.taint = { false, "EnhanceQoL" }
+			login()
+			assert.equals("EnhanceQoL", world.popups[1].data)
+			assert.is_nil(Minimap.calls.SetMaskTexture)
+
+			-- A multi-purpose addon is overridden, not disabled.
+			popup().OnAccept(nil, "EnhanceQoL")
+			assert.same({}, world.disabled)
+			assert.equals("ours", _G.OrdaenMinimapDB.conflictChoice.EnhanceQoL)
+			assert.equals(1, #Minimap.calls.SetMaskTexture)
+		end)
+
+		it("remembers an override at the next login", function()
+			rawset(_G, "OrdaenMinimapDB", { conflictChoice = { SexyMap = "ours" } })
+			world.loaded.SexyMap = true
+			login()
+			assert.equals(0, #world.popups)
+			assert.equals(1, #Minimap.calls.SetMaskTexture)
+		end)
+
+		it("re-applies when Blizzard changes the mask, without asking", function()
+			login()
+			Minimap:SetMaskTexture("round")
+			assert.equals(0, #world.popups)
+			local calls = Minimap.calls.SetMaskTexture
+			assert.same({ "Interface\\Buttons\\WHITE8X8" }, calls[#calls])
+		end)
+
+		it("detects another addon changing the mask later and names it", function()
+			login()
+			world.stack = [[[string "@Interface/AddOns/SexyMap/Shapes.lua"]:348: in function 'ApplyShape']]
+			Minimap:SetMaskTexture("round")
+			assert.equals("SexyMap", world.popups[1].data)
+			assert.is_false(frames[#frames].shown) -- our border is gone
+			assert.is_nil(_G.GetMinimapShape)
+		end)
+
+		it("the delayed check catches changes that bypassed our hooks", function()
+			login()
+			assert.equals(1, #world.timers)
+			rawset(_G, "GetMinimapShape", function()
+				return "ROUND"
+			end)
+			world.taint = { false, "SomeUI" }
+			world.timers[1]()
+			assert.equals("SomeUI", world.popups[1].data)
+		end)
+
+		it("the delayed check stays quiet when nothing changed", function()
+			login()
+			world.timers[1]()
+			assert.equals(0, #world.popups)
+		end)
 	end)
 end)

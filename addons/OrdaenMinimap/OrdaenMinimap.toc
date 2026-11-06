@@ -26,6 +26,8 @@
 Locale.lua
 Names.lua
 Borders.lua
+Conflicts.lua
 Map.lua
+Guard.lua
 Options.lua
 Core.lua

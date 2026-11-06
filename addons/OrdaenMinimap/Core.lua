@@ -26,6 +26,9 @@ local function dumpState()
 end
 
 local function applyAll()
+	if ns.Guard.blocked then
+		return
+	end
 	ns.Map.Apply(OrdaenMinimapDB)
 end
 
@@ -40,7 +43,9 @@ frame:SetScript("OnEvent", Debug.Wrap(function(_, event, arg1)
 	elseif event == "PLAYER_LOGIN" then
 		local version = C_AddOns.GetAddOnMetadata(addonName, "Version") or "?"
 		Debug.Log("PLAYER_LOGIN")
-		applyAll()
+		if ns.Guard.Start(OrdaenMinimapDB, applyAll) then
+			applyAll()
+		end
 		Print(L.LOADED:format(version, SLASH))
 	end
 end))
@@ -67,6 +72,7 @@ SlashCmdList.ORDAENMINIMAP = Debug.Wrap(function(msg)
 		for key, value in pairs(ns.DEFAULTS) do
 			OrdaenMinimapDB[key] = value
 		end
+		OrdaenMinimapDB.conflictChoice = nil
 		applyAll()
 		Print(L.RESET_DONE)
 	else

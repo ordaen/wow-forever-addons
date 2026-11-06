@@ -13,7 +13,11 @@ read_globals = {
 	"InCombatLockdown",
 	"LibStub",
 	-- used by OrdaenMinimap
+	"C_Timer",
 	"CreateSettingsListSectionHeaderInitializer",
+	"ReloadUI",
+	"StaticPopup_Show",
+	"issecurevariable",
 	"MinimalSliderWithSteppersMixin",
 	"MinimapCluster",
 	"RAID_CLASS_COLORS",
@@ -37,6 +41,7 @@ read_globals = {
 globals = {
 	"GetMinimapShape", -- Blizzard convention: the minimap addon defines it
 	"OrdaenCore",
+	"StaticPopupDialogs", -- we add our popup to it
 	"OrdaenMinimapDB",
 	"SLASH_ORDAENMINIMAP1",
 	"SLASH_ORDAENMINIMAP2",

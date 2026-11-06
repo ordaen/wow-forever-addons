@@ -28,7 +28,19 @@ local enUS = {
 	HELP_HEADER = "commands:",
 	HELP_OPEN = "%s - open the settings",
 	HELP_RESET = "%s reset - restore the default settings",
-	RESET_DONE = "settings restored to defaults.",
+	RESET_DONE = "settings restored to defaults (including conflict choices).",
+
+	UNKNOWN_ADDON = "another addon",
+	CONFLICT_TEXT = "%s also changes the minimap. Both at once will fight over it.\n\nWhich one do you want to keep?",
+	CONFLICT_TEXT_UNKNOWN = "Another addon changes the minimap too. Both at once will fight over it.\n\n"
+		.. "Keep Ordaen Minimap, or turn it off?",
+	CONFLICT_KEEP_OURS = "Keep Ordaen Minimap",
+	CONFLICT_KEEP_OTHER = "Keep %s",
+	CONFLICT_DISABLE_OURS = "Turn off Ordaen Minimap",
+	CONFLICT_LATER = "Decide later",
+	CONFLICT_OVERRIDE_HINT = "keeping Ordaen Minimap. If %s has its own minimap options (shape, border), "
+		.. "turn them off there.",
+	CONFLICT_LATER_HINT = "Ordaen Minimap stays off until the next login, where it asks again.",
 }
 
 local ruRU = {
@@ -57,7 +69,19 @@ local ruRU = {
 	HELP_HEADER = "команды:",
 	HELP_OPEN = "%s - открыть настройки",
 	HELP_RESET = "%s reset - вернуть настройки по умолчанию",
-	RESET_DONE = "настройки сброшены.",
+	RESET_DONE = "настройки сброшены (включая выбор при конфликтах).",
+
+	UNKNOWN_ADDON = "другая модификация",
+	CONFLICT_TEXT = "%s тоже меняет миникарту. Вместе они будут мешать друг другу.\n\nКакую модификацию оставить?",
+	CONFLICT_TEXT_UNKNOWN = "Другая модификация тоже меняет миникарту. Вместе они будут мешать друг другу.\n\n"
+		.. "Оставить Ordaen Minimap или выключить её?",
+	CONFLICT_KEEP_OURS = "Оставить Ordaen Minimap",
+	CONFLICT_KEEP_OTHER = "Оставить %s",
+	CONFLICT_DISABLE_OURS = "Выключить Ordaen Minimap",
+	CONFLICT_LATER = "Решить позже",
+	CONFLICT_OVERRIDE_HINT = "Ordaen Minimap остаётся. Если у %s есть свои настройки миникарты (форма, рамка), "
+		.. "выключите их там.",
+	CONFLICT_LATER_HINT = "Ordaen Minimap выключен до следующего входа в игру, тогда вопрос появится снова.",
 }
 
 local translations = { ruRU = ruRU }

@@ -71,6 +71,15 @@ decided with the user.
   helpers), `Map.lua` (square mask, hide round pieces, wheel zoom, border frame, scale, `GetMinimapShape`),
   `Options.lua` (settings page), `Core.lua` (events, slash). Specs: `borders_spec.lua` (logic) and `smoke_spec.lua`
   (loads the whole addon against stubbed WoW objects).
+- Conflicts (`Conflicts.lua` pure logic, `Guard.lua` WoW side): at login, a known list of dedicated minimap addons
+  (SexyMap, BasicMinimap, Chinchilla, pMinimap) plus generic detection: who defined `GetMinimapShape`
+  (`issecurevariable` names the tainting addon), hooks on everything `Map.lua` changes (changes made outside
+  `withApplying` are attributed with `debugstack`: first `Interface/AddOns/<Name>/` that isn't ours or `Blizzard_*`),
+  and a check 5 s after login for changes that bypassed hooks. On a conflict we step aside and show a StaticPopup:
+  keep ours (dedicated addon: `C_AddOns.DisableAddOn` + reload; multi-purpose/unknown: remember
+  `conflictChoice[addon] = "ours"` and override), keep the other (disable ours + reload), or decide later.
+  Multi-purpose addons (ElvUI, EnhanceQoL, Leatrix Plus) are deliberately not in the known list. The BigWigs packager
+  has no `incompatible` relation; set that on the CurseForge project page by hand.
 - Feature: square map with a configurable border. Styles in `ns.BORDER_STYLES` are backdrops drawn by a frame around the
   map; built-in ones use game textures (gold dialog, tooltip, thin line). Custom art goes in `media/` as a new style.
 - Feature: button drawer (replaces MinimapButtonButton, MBB) that also collects **addon compartment** entries.
