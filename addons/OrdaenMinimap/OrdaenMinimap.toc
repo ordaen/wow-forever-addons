@@ -18,6 +18,7 @@
 # x-release-please-end
 ## Dependencies: OrdaenCore
 ## X-Ordaen-MinCore: 0.1.0
+## OptionalDeps: OrdaenCore_Debug
 ## SavedVariables: OrdaenMinimapDB
 ## IconTexture: Interface\Icons\INV_Misc_Bag_10
 
