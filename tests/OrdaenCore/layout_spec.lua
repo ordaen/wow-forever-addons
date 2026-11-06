@@ -276,4 +276,32 @@ describe("OrdaenCore.UI layout", function()
 			assert.equals("more", down.items[2].node.text)
 		end)
 	end)
+
+	describe("embedded components", function()
+		local function withEmbeds()
+			local c = ctx()
+			c.embed = function(el)
+				return el.embed.w, el.embed.h
+			end
+			return c
+		end
+
+		it("size their block like any child, side by side, and skip hidden ones", function()
+			local a, b, c = { w = 80, h = 24 }, { w = 120, h = 24 }, { w = 999, h = 24 }
+			local r = Layout.Run({ columns = { "auto", "auto", "auto" }, gap = 4, padding = 10,
+				{ embed = a }, { embed = b }, { embed = c, hidden = true } }, nil, withEmbeds())
+			assert.equals(10 + 80 + 4 + 120 + 4 + 10, r.width) -- the hidden one takes no cell; its column is empty
+			assert.equals(24 + 20, r.height)
+			assert.equals(2, r.count)
+			assert.equals(10 + 80 + 4, r.items[2].x)
+		end)
+
+		it("make a block grow to fit them: the row is never narrower than its buttons", function()
+			local r = Layout.Run({ minWidth = 100,
+				{ text = "Short" },
+				{ columns = { "auto", "auto" }, { embed = { w = 150, h = 20 } }, { embed = { w = 150, h = 20 } } },
+			}, nil, withEmbeds())
+			assert.is_true(r.width >= 300)
+		end)
+	end)
 end)

@@ -67,12 +67,14 @@ would have caught it is half a fix: say which check now catches it, or add one.
    starts each one in its own protected call, so one feature's error is reported and the rest still start.
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
    (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done.
-7. **Player actions stay in the click's own call.** Code that a click runs (UI listeners, dialog buttons) calls
-   protected functions (`ReloadUI`, `C_UI.Reload`) only directly, without `securecallfunction`, C_Timer or another
-   frame's script in between: the game blocks them otherwise ("call to Reload() was blocked", the conflict dialog,
-   2026-11-06). Catch errors with `xpcall` instead. forever-lint FL8 flags `ReloadUI` passed as a value
-   (`AfterCombat(ReloadUI)`, `C_Timer.After(x, ReloadUI)`); specs can't see the rest (fakes have no "hardware
-   event"), so a button with a protected action gets an in-game check.
+7. **Player actions stay in the click's own call; reloading needs secure code.** Code that a click runs (UI
+   listeners, dialog buttons) calls protected functions only directly, without `securecallfunction`, C_Timer or
+   another frame's script in between; catch errors with `xpcall`. `ReloadUI` / `C_UI.Reload` are stricter on
+   Forever: blocked from any addon code, even directly in a click (the conflict dialog, 2026-11-06). Reload with a
+   `UI.Confirm` button's `macro = "/reload"` (a secure overlay runs it), or tell the player to type `/reload`.
+   forever-lint FL8 flags `ReloadUI` passed as a value (`AfterCombat(ReloadUI)`, `C_Timer.After(x, ReloadUI)`);
+   specs can't see the rest (fakes have no "hardware event" or secure state), so a protected action gets an in-game
+   check.
 8. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
    a position), the side that comes second completes it: the owner announces its thing when it creates it
    (`EventRegistry:TriggerEvent("OrdaenDevButton.Created", b)`) and the taker also checks at its own start. A
@@ -285,7 +287,9 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   widgets: text entry (EditBox), checkbox (CheckButton) and slider. Buttons, bars and dropdowns are composite blocks.
 - **Out of scope for v1:** secure actions (casting, using items, targeting). They need Blizzard's secure templates,
   and touching those from addon code causes blocked-action (taint) errors; an addon that needs one uses Blizzard's
-  templates directly.
+  templates directly. One exception, in the framework: a `UI.Confirm` button may carry `macro = "/reload"`, run by a
+  SecureActionButtonTemplate overlay (on Forever, `ReloadUI` works only from secure code, not from addon code,
+  not even in a click; out of combat only).
 - **Open:** declarative shortcuts (e.g. `tooltip = block` for enter/leave; to be decided); positions of top-level
   blocks (anchored, cursor, fixed and remembered) and interaction states (hover, pressed, disabled, selected); resizing;
   scrolling and repeated lists; theme addon API; packaging the framework as an embeddable library for other addons.

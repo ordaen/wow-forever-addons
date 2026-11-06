@@ -18,6 +18,8 @@
 -- Elements: { text = "...", style = "body" } or { format = "%d:%02d", args = { h, m } } (text drawn with WoW's
 -- SetFormattedText, so values that change often create no Lua strings); { image = file } or { atlas = name },
 -- with width = n, height = n (or size = n) and optional texCoord = { left, right, top, bottom }.
+-- Embedded components { embed = component } (a button inside a dialog) are cells of the component's own size
+-- (ctx.embed); the renderer puts their frame there. This is how a block holds things that take the mouse.
 -- Stretch elements fill their cell's width; their height comes from ctx.element: separators
 -- { separator = "rule" | "divider" } or { separator = "caption", text = "Stats" }, and bars { bar = 0..1 }.
 --
@@ -79,6 +81,10 @@ local function isStretch(node)
 	return node.separator ~= nil or node.bar ~= nil
 end
 
+local function isEmbed(node)
+	return node.embed ~= nil
+end
+
 local function isText(node)
 	return (node.text ~= nil or node.format ~= nil) and not isStretch(node)
 end
@@ -88,7 +94,7 @@ local function isImage(node)
 end
 
 local function isBlock(node)
-	return not isText(node) and not isImage(node) and not isStretch(node)
+	return not isText(node) and not isImage(node) and not isStretch(node) and not isEmbed(node)
 end
 
 local function imageSize(node)
@@ -113,7 +119,9 @@ local layoutBlock -- forward
 
 -- Natural (max-content) width of a child.
 local function naturalWidth(child, ctx)
-	if isStretch(child) then
+	if isEmbed(child) then
+		return (ctx.embed(child))
+	elseif isStretch(child) then
 		return (ctx.element(child))
 	elseif isText(child) then
 		return (ctx.measure(child, nil))
@@ -126,7 +134,10 @@ end
 -- Height of a child given its cell width; also the width it actually takes (text: its natural width, or the
 -- whole cell when it has to wrap; `align` then places it inside the cell).
 local function sizeIn(child, cellWidth, natural, ctx)
-	if isStretch(child) then
+	if isEmbed(child) then
+		local w, h = ctx.embed(child)
+		return math.min(w, cellWidth), h
+	elseif isStretch(child) then
 		local _, h = ctx.element(child)
 		return cellWidth, h
 	elseif isText(child) then
@@ -331,7 +342,8 @@ function layoutBlock(node, width, ctx)
 end
 
 --- Lay out a block tree. ctx = { measure = fn(element, width) -> w, h, defaults = fn(style) -> { padding, gap },
---- element = fn(stretch element) -> natural width, height, space = fn(token or number) -> number (optional),
+--- element = fn(stretch element) -> natural width, height, embed = fn(embed element) -> width, height,
+--- space = fn(token or number) -> number (optional),
 --- shift = whether Shift is held }.
 ---@return table the root's result
 function Layout.Run(root, width, ctx)
@@ -347,3 +359,4 @@ Layout.IsBlock = isBlock
 Layout.IsText = isText
 Layout.IsImage = isImage
 Layout.IsStretch = isStretch
+Layout.IsEmbed = isEmbed

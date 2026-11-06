@@ -183,6 +183,20 @@ local function fakeFrame(name, log, parent)
 	function f:SetScript(script, fn)
 		self.scripts[script] = fn
 	end
+	function f:SetFrameLevel(level)
+		self.level = level
+	end
+	function f:GetFrameLevel() -- a real frame always has one: its parent's + 1 unless set
+		if self.level then
+			return self.level
+		end
+		local parentLevel = self.parent and self.parent.GetFrameLevel and self.parent:GetFrameLevel()
+		return parentLevel and parentLevel + 1 or 1
+	end
+	function f:SetAttribute(key, value)
+		self.attributes = self.attributes or {}
+		self.attributes[key] = value
+	end
 	function f:HookScript(script, fn)
 		local before = self.scripts[script]
 		self.scripts[script] = before and function(...)
@@ -745,6 +759,43 @@ describe("OrdaenCore.UI", function()
 			dialog.scripts.OnHide(dialog)
 			assert.is_true(cancelled)
 			assert.is_false(ask:IsShown())
+		end)
+
+		it("grow to fit their buttons: none sticks out of the dialog", function()
+			UI.Confirm({ text = "Two addons change the tooltips.", buttons = {
+				{ text = "Keep Ordaen Tooltips" }, { text = "Keep PrettyTooltip" }, { text = "Keep both" },
+			} }):Show()
+			local dialog = frameNamed("OrdaenUIConfirm")
+			for _, label in ipairs({ "Keep Ordaen Tooltips", "Keep PrettyTooltip", "Keep both" }) do
+				local button = frameWithText(label)
+				local point = button.point -- { "TOPLEFT", dialog, "TOPLEFT", x, -y }
+				assert.equals(dialog, point[2])
+				assert.is_true(point[4] >= 0, label .. " starts left of the dialog")
+				assert.is_true(point[4] + button.size[1] <= dialog.size[1], label .. " sticks out on the right")
+				assert.is_true(-point[5] + button.size[2] <= dialog.size[2], label .. " sticks out at the bottom")
+			end
+		end)
+
+		it("run a button's macro through a secure overlay, after its onClick", function()
+			local turnedOff = false
+			UI.Confirm({ text = "Reload?", buttons = {
+				{ text = "Reload", macro = "/reload", onClick = function()
+					turnedOff = true
+				end },
+				{ text = "Not now" },
+			} }):Show()
+			local button = frameWithText("Reload")
+			local overlay
+			for _, f in ipairs(frames) do
+				if f.parent == button and f.attributes then
+					overlay = f
+				end
+			end
+			assert.truthy(overlay)
+			assert.equals("macro", overlay.attributes.type1)
+			assert.equals("/reload", overlay.attributes.macrotext1)
+			overlay.scripts.PreClick(overlay, "LeftButton")
+			assert.is_true(turnedOff)
 		end)
 
 		it("show one at a time: a second waits for the first to close", function()

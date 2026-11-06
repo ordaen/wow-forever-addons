@@ -197,7 +197,15 @@ local function defaults(style)
 	return Theme.BlockStyle(style) or NO_DEFAULTS
 end
 
-Render.context = { measure = measure, defaults = defaults, element = element, space = Theme.Space, shift = false }
+-- An embedded component's size: what it drew itself at (its owner refreshes it before laying out the block).
+local function embedSize(el)
+	local frame = el.embed.frame
+	return frame:GetWidth() or 0, frame:GetHeight() or 0
+end
+
+Render.context = {
+	measure = measure, defaults = defaults, element = element, embed = embedSize, space = Theme.Space, shift = false,
+}
 
 -- Drawing --------------------------------------------------------------------------------------
 
@@ -210,6 +218,7 @@ local function poolOf(surface)
 	if not p then
 		p = {
 			fonts = {}, images = {}, solids = {}, usedFonts = 0, usedImages = 0, usedSolids = 0,
+			embeds = {}, placed = {}, -- embedded frames placed in the last draw (set), and in this one
 			from = CreateColor(0, 0, 0, 0), to = CreateColor(0, 0, 0, 0),
 		}
 		pools[surface] = p
@@ -391,7 +400,13 @@ local function drawBlock(surface, p, result, ox, oy, accent, depth)
 		local node = item.node
 		local x, y = ox + item.x, oy + item.y
 		local own = node.accent or accent
-		if Layout.IsStretch(node) then
+		if Layout.IsEmbed(node) then
+			local frame = node.embed.frame
+			frame:ClearAllPoints()
+			frame:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)
+			frame:Show()
+			p.placed[frame] = true
+		elseif Layout.IsStretch(node) then
 			if node.bar ~= nil then
 				drawBar(surface, p, node, x, y, item.w, item.h, own)
 			else
@@ -531,6 +546,16 @@ function Render.Draw(surface, root, width)
 	hideRest(p.fonts, p.usedFonts)
 	hideRest(p.images, p.usedImages)
 	hideRest(p.solids, p.usedSolids)
+	-- Embedded frames placed last time but not now (hidden children): hide them. Then this draw's set becomes the
+	-- last one (two sets swapped, so no table per draw).
+	local before, now = p.embeds, p.placed
+	for frame in pairs(before) do
+		if not now[frame] then
+			frame:Hide()
+		end
+		before[frame] = nil
+	end
+	p.embeds, p.placed = now, before
 	if (look and look.highlight) or p.highlight then
 		drawHighlight(surface, p, look, result)
 	end

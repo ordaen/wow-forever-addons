@@ -48,6 +48,12 @@ local unavailable = false
 ---@field hidden boolean|nil as a child: skipped
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
+---@class OrdaenUIEmbed
+---@field embed OrdaenUIComponent a component placed in this cell at its own size (a button in a dialog)
+---@field hidden boolean|nil as a child: skipped (its frame is hidden)
+---@field colSpan number|nil
+---@field align string|nil
+
 ---@class OrdaenUIImage
 ---@field image string|number|nil texture path or file ID, or:
 ---@field atlas string|nil atlas name
@@ -202,7 +208,9 @@ end
 
 ---@class OrdaenUIConfirmButton
 ---@field text string the button's label (a Blizzard global such as OKAY or CANCEL, or a locale string)
----@field onClick fun()|nil run after the dialog closed
+---@field onClick fun()|nil run after the dialog closed (with `macro`: run first, in the same click)
+---@field macro string|nil a secure macro the click runs, e.g. "/reload" (reloading is allowed only from secure code);
+--- out of combat only: shown in combat, the button runs onClick alone
 
 ---@class OrdaenUIConfirmSpec
 ---@field text string the message
