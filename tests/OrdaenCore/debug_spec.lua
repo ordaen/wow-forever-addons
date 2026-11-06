@@ -185,8 +185,7 @@ describe("OrdaenCore_Debug (dev mode)", function()
 				return "level " .. level
 			end)
 			rawset(_G, "debugstack", function()
-				return "[C]: ?
-[Interface/AddOns/TestAddon/Core.lua]:5: in function <...>"
+				return "[C]: ?\n[Interface/AddOns/TestAddon/Core.lua]:5: in function <...>"
 			end)
 			Debug.Call(error, "from C", 0)
 			rawset(_G, "debugstack", function()
