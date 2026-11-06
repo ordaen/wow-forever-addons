@@ -4,24 +4,71 @@ World of Warcraft addons for the **WoW Forever** flavor (interface `16001`).
 
 | Addon | Description |
 |---|---|
+| [Ordaen Core](addons/OrdaenCore) | Shared code every Ordaen addon depends on (debug log, error reports). Does nothing on its own. |
 | [Ordaen Minimap](addons/OrdaenMinimap) | Our own SexyMap-style minimap with little configuration; collects minimap buttons and addon compartment entries into one drawer. |
 
 ## Development
 
-Requirements: Git, Node.js (only for commit linting).
+Development happens on Windows: the game runs there and the repo lives on the Windows drive. Lua tooling (luacheck,
+busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
 
-```powershell
-npm install              # installs commitlint + the git commit-msg hook (husky)
-./scripts/link.ps1       # junction every addon into the Forever AddOns folder
-```
+### One-time setup
 
-Edit the code, then `/reload` in game. Changes to a `.toc` file or new files need a client restart.
-Install BugSack + BugGrabber in game to see Lua errors.
+1. **Windows tools:** [Git for Windows](https://gitforwindows.org/) (includes Git Bash),
+   [Node.js](https://nodejs.org/) LTS (commit linting only) and [PowerShell 7](https://aka.ms/powershell) (`pwsh`).
+2. **WSL Ubuntu**, from an *admin* terminal (Win+X → Terminal (Admin)):
+   ```powershell
+   wsl --install -d Ubuntu      # reboot if asked, then open "Ubuntu" from the Start menu once to create a user
+   ```
+3. **Lua 5.1 + test tools inside Ubuntu** (WoW runs Lua 5.1, so do not use a newer Lua):
+   ```bash
+   sudo apt-get update
+   sudo apt-get install -y lua5.1 liblua5.1-0-dev luarocks build-essential
+   sudo luarocks --lua-version=5.1 install busted
+   sudo luarocks --lua-version=5.1 install luacheck
+   ```
+4. **Repo**, in the repo folder:
+   ```powershell
+   npm install                  # commitlint + the git commit-msg hook (husky)
+   pwsh ./scripts/link.ps1      # junction every addon into the Forever AddOns folder
+   ```
+   A junction is Windows' directory link (like a symlink; no admin needed). `pwsh ./scripts/link.ps1 -Unlink` removes
+   the junctions and leaves the repo files alone. Junctions point at *this* checkout: to try another branch or a git
+   worktree in game, check it out here, or unlink and run that worktree's `link.ps1`.
+5. **In game:** install [BugSack](https://www.curseforge.com/wow/addons/bugsack) and
+   [BugGrabber](https://www.curseforge.com/wow/addons/bug-grabber) to see and keep Lua errors.
 
-`./scripts/link.ps1 -Unlink` removes the junctions (the files in the repo are not touched).
+### Everyday loop
 
-Run the script from PowerShell 7 (`pwsh`). The older built-in Windows PowerShell 5.1 (`powershell.exe`) refuses
-to run local scripts by default; fix that once with `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`.
+1. Edit the code.
+2. Run the same Lua checks as CI, from Git Bash: `scripts/test.sh`. Extra arguments go to busted
+   (`scripts/test.sh --filter Snapshot`).
+3. In game: `/reload`. A **new file or a changed `.toc` needs a full client restart**; WoW only scans the AddOns
+   folder at startup.
+
+Code shared by several addons lives in **Ordaen Core** (`addons/OrdaenCore/`), which every addon lists in
+`## Dependencies`. Users can update the Core and the addons separately, so the Core's API only grows: never change
+or remove anything that has been released; add a new name instead. An addon that needs a newer Core sets
+`## X-Ordaen-MinCore: <version>` in its TOC (git checkouts skip that check).
+
+### Debugging in game
+
+Every addon includes the Ordaen debug kit. With `/om` as the example slash command:
+
+| Command | Effect |
+|---|---|
+| `/om debug` | Toggle the debug log (`on`, `off`, `echo` to also print it in chat, `clear`). |
+| `/om dump` | Save a snapshot of the addon's state: settings, frame sizes, positions, parents. |
+| `/om errors` | Copyable report of recorded errors (`clear` to reset). |
+| `/om debug error` | Raise a test error to check the error pipeline. |
+
+The log, dump and errors are stored in the addon's SavedVariables, which WoW writes to disk only on `/reload` or
+logout:
+`C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\<Addon>.lua`.
+Screenshots (Print Screen) go to `_forever_\Screenshots\`.
+
+Addons cannot reach the network, so there is no telemetry. Users send errors with `/<cmd> errors` and the
+[bug report form](.github/ISSUE_TEMPLATE/bug_report.yml).
 
 ### Commits
 
@@ -57,7 +104,11 @@ Local package build (Git Bash): `scripts/package.sh OrdaenMinimap` → `.release
 
 1. Create `addons/<Name>/` with `<Name>.toc` (copy the version block markers), `.pkgmeta`, Lua files.
 2. Add it to `release-please-config.json` (`packages`, with `"initial-version": "0.1.0"`) and `.release-please-manifest.json` (`"0.0.0"`).
-3. Rerun `./scripts/link.ps1`.
+3. Depend on the Core: `## Dependencies: OrdaenCore` and `## X-Ordaen-MinCore: <current Core version>` in the TOC,
+   `required-dependencies: [ordaen-core]` in `.pkgmeta`, and wire up the debug kit as in
+   `addons/OrdaenMinimap/Core.lua`.
+4. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
+5. Rerun `pwsh ./scripts/link.ps1`, then restart the game client.
 
 ## Repository secrets
 

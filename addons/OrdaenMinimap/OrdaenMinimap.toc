@@ -5,6 +5,8 @@
 # x-release-please-start-version
 ## Version: 0.0.0
 # x-release-please-end
+## Dependencies: OrdaenCore
+## X-Ordaen-MinCore: 0.1.0
 ## SavedVariables: OrdaenMinimapDB
 ## IconTexture: Interface\Icons\INV_Misc_Bag_10
 

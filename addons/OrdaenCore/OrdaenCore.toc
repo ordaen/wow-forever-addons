@@ -1,0 +1,11 @@
+## Interface: 16001
+## Title: Ordaen Core
+## Notes: Shared code for the Ordaen addons (debug log, error reports). Does nothing on its own.
+# The Version line is bumped by release-please; do not edit it by hand.
+# x-release-please-start-version
+## Version: 0.0.0
+# x-release-please-end
+## IconTexture: Interface\Icons\INV_Misc_Gear_01
+
+Core.lua
+Debug.lua

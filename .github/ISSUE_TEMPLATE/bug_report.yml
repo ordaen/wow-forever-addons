@@ -1,0 +1,36 @@
+name: Bug report
+description: Something broke or behaves oddly in one of the Ordaen addons.
+labels: [bug]
+body:
+  - type: dropdown
+    id: addon
+    attributes:
+      label: Addon
+      # Keep in sync with addons/ (one entry per addon).
+      options:
+        - OrdaenMinimap
+        - OrdaenCore
+        - Not sure
+    validations:
+      required: true
+  - type: textarea
+    id: report
+    attributes:
+      label: Error report
+      description: >
+        In game, type the addon's slash command followed by `errors` (for example `/om errors`).
+        A window opens with the report already selected: press Ctrl+C and paste it here.
+        It contains the error, addon version and client version, nothing personal.
+      render: text
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened?
+      description: What were you doing, what did you expect, what happened instead? Screenshots help.
+    validations:
+      required: true
+  - type: textarea
+    id: addons
+    attributes:
+      label: Other addons (optional)
+      description: Especially other minimap, bag or UI replacement addons.

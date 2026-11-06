@@ -19,16 +19,22 @@ Developed on Windows (the user normally works on Linux — explain Windows speci
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `## Version` in the TOC via `x-release-please-start-version` block markers — never edit it by hand.
-- Quality: luacheck + busted (pure-logic tests only, Lua 5.1) in CI; manual testing in game with BugSack/BugGrabber. Lua is not installed locally on Windows.
+- Quality: luacheck + busted (pure-logic tests only, Lua 5.1) in CI; manual testing in game with BugSack/BugGrabber.
+- Dev environment is Windows + WSL only (README "Development" describes nothing else). Lua 5.1, luacheck and busted live in the WSL distro `Ubuntu`; `scripts/test.sh` (run from Git Bash) runs luacheck + busted there. From Git Bash, call WSL with `MSYS_NO_PATHCONV=1` and `--exec` (otherwise Git Bash rewrites `/mnt/...` paths and WSL's shell expands `$1` early).
 - Packaging: BigWigs packager (pinned in `scripts/package.sh`). It requires a git repo root as topdir, so the script copies the addon into a temp git repo and tags it. Packager handles CurseForge/Wago uploads; the zip is attached to release-please's GitHub release with `gh release upload` (packager's own GitHub upload would overwrite the release notes). Packager maps interface `16???` to the `forever` flavor (CurseForge game id 88568).
 
 ## Layout
 
 ```
 addons/<Addon>/                 addon source (.toc, .lua, .pkgmeta)
+addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; debug kit)
 tests/<Addon>/*_spec.lua        busted specs (load addon files with loadfile(path)(addonName, ns))
+tests/OrdaenCore/helpers.lua    WoW API stubs + Core loader, for any spec that needs the Core
 scripts/link.ps1                create/remove AddOns junctions
 scripts/package.sh              package one addon (CI + Git Bash)
+scripts/test.sh                 luacheck + busted (Git Bash -> WSL, or native on Linux/CI)
+.github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
+.claude/skills/debug-in-game/   how Claude debugs in-game behavior (loaded on demand)
 .github/workflows/ci.yml        commitlint, luacheck, busted, packaging dry run
 .github/workflows/release.yml   release-please, then package + upload per released addon
 ```
@@ -64,3 +70,12 @@ decided with the user.
   - Hide Blizzard's compartment button (default on). Warn if MBB is also loaded (they would conflict).
   - Drawer settings: columns, grow direction, autoClose, ignore list. Slash: reset, list, ignore/unignore.
   - Addons in Forever that use the compartment today: Altoholic, Baganator, Details, DialogueUI, Pawn, Prat.
+
+## Ordaen Core and debugging
+
+- `addons/OrdaenCore/` holds the code every addon shares. It publishes the global `OrdaenCore` and contains no features. Every addon has `## Dependencies: OrdaenCore` in its TOC, `## X-Ordaen-MinCore: <version>`, and `required-dependencies: [ordaen-core]` in `.pkgmeta` (the CurseForge slug is a guess until the project exists).
+- **The Core API only grows.** Users update the Core and the addons independently. Never change the behavior of a released Core function or remove one; add a new name instead. When an addon starts using a new Core API, raise its `X-Ordaen-MinCore`. `OrdaenCore.IsCompatible(addonName)` enforces that in packaged builds; git checkouts are detected by the unreplaced `@project-version@` token in `Core.lua` and skip the check.
+- Each addon starts with `if not OrdaenCore.IsCompatible(addonName) then return end`, then takes its own debug kit with `OrdaenCore.NewDebug(addonName)`. Init it in `ADDON_LOADED` with the addon's SavedVariables table, wrap handlers in `Debug.Wrap`, and forward slash input through `Debug.HandleSlash` (example: `addons/OrdaenMinimap/Core.lua`). New code logs its decisions with `Debug.Log`.
+- Before handing code over for an in-game test, run `bash scripts/test.sh` until it is green. Say whether `/reload` is enough or a full client restart is needed (any new file or `.toc` change).
+- For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
+- Addons have no network access, so there is no telemetry. Users report errors with `/<cmd> errors` and the GitHub issue form. Add each new addon to its dropdown.

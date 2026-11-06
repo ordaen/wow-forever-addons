@@ -39,6 +39,15 @@
     }
   ],
   "packages": {
+    "addons/OrdaenCore": {
+      "release-type": "simple",
+      "component": "OrdaenCore",
+      "package-name": "OrdaenCore",
+      "initial-version": "0.1.0",
+      "extra-files": [
+        "OrdaenCore.toc"
+      ]
+    },
     "addons/OrdaenMinimap": {
       "release-type": "simple",
       "component": "OrdaenMinimap",

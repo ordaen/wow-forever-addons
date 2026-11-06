@@ -7,3 +7,7 @@ manual-changelog:
 
 ignore:
   - version.txt
+
+# CurseForge/Wago project slugs; the app installs these together with this addon.
+required-dependencies:
+  - ordaen-core

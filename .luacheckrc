@@ -12,10 +12,22 @@ read_globals = {
 	"UIParent",
 	"InCombatLockdown",
 	"LibStub",
+	-- used by OrdaenCore/Debug.lua
+	"BackdropTemplateMixin",
+	"ChatFontNormal",
+	"GetBuildInfo",
+	"GetLocale",
+	"GetTime",
+	"UISpecialFrames",
+	"date",
+	"debuglocals",
+	"debugstack",
+	"geterrorhandler",
 }
 
 -- Globals the addons are allowed to define.
 globals = {
+	"OrdaenCore",
 	"OrdaenMinimapDB",
 	"SLASH_ORDAENMINIMAP1",
 	"SLASH_ORDAENMINIMAP2",
