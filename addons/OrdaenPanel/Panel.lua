@@ -33,7 +33,7 @@ local REP_TOKEN = setmetatable({}, {
 -- Blocks (made by build(), changed in place) ---------------------------------------------------------------------
 
 local panel ---@type OrdaenUIPanel|nil
-local spec, left, middle, right, microGroup, socialGroup, bagGroup, bagRow
+local spec, left, middle, right, microGroup, bagGroup, bagRow
 local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of its own, for its tooltip
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
@@ -355,7 +355,8 @@ local function cellFor(button)
 	local name = button:GetName()
 	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
 	portraits[button] = portrait
-	local cell = cells[button] or { style = "barButton" }
+	-- rowAlign: the icon in the middle of the cell's height (a fixed-height block centres its row only when asked)
+	local cell = cells[button] or { style = "barButton", rowAlign = "center" }
 	cells[button] = cell
 	if horizontal() then
 		cell.width, cell.height = cellWidth, size
@@ -396,6 +397,7 @@ local function noteHolder(button)
 end
 
 local function take(button, cell, texts)
+	texts = texts or button:GetName() == SOCIAL_BUTTON -- its friends count: ours is in its tooltip
 	if not homes[button] then
 		noteHolder(button)
 		local home = { button:GetParent() }
@@ -510,7 +512,7 @@ local function readBags()
 	end
 end
 
-local socialButtons = {}
+local leftButtons = {} -- the micro buttons, then the social button
 
 -- The group settings the buttons were last placed for: data events of a group don't move buttons, only turning a
 -- group on or off does.
@@ -525,15 +527,20 @@ local function placeButtons()
 	for button in pairs(cellOf) do
 		giveBack(button)
 	end
-	fillRow(microGroup, s.micromenu and ns.MicroButtons or NONE)
-	for i = #socialButtons, 1, -1 do
-		socialButtons[i] = nil
+	-- the micro buttons and the social button in one row: neighbours share one line, no gap between groups
+	for i = #leftButtons, 1, -1 do
+		leftButtons[i] = nil
+	end
+	if s.micromenu then
+		for i, button in ipairs(ns.MicroButtons) do
+			leftButtons[i] = button
+		end
 	end
 	local quickJoin = _G[SOCIAL_BUTTON]
 	if s.social and quickJoin then
-		socialButtons[1] = quickJoin
+		leftButtons[#leftButtons + 1] = quickJoin
 	end
-	fillRow(socialGroup, socialButtons, true)
+	fillRow(microGroup, leftButtons)
 	if s.bags then
 		readBags()
 		fillRow(bagRow, bagButtons, true)
@@ -594,11 +601,10 @@ local function build()
 	local across = horizontal()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
 	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
-	socialGroup = socialGroup or { gap = 0, padding = 0, rowAlign = "center" }
 	bagRow = bagRow or { gap = 0, padding = 0, rowAlign = "center" }
 	bagGroup = bagGroup or { gap = "xs", rowAlign = "center", bagRow, bagText }
-	left = left or { gap = "md", align = "left", rowAlign = "center", microGroup, socialGroup }
-	left.columns = across and { "auto", "auto" } or { "auto" }
+	left = left or { gap = 0, align = "left", rowAlign = "center", microGroup }
+	left.columns = { "auto" }
 	right = right or { gap = "md", align = "right", rowAlign = "center", money }
 	for i = 1, MAX_CURRENCIES do
 		right[1 + i] = currencyTexts[i]
