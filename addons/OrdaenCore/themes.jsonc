@@ -19,6 +19,7 @@
       "numbers": { "label": "FONT_NUMBERS", "object": "NumberFontNormal" }
     },
     "bar": {
+      "ordaen": { "label": "BAR_ORDAEN", "file": "Interface\\AddOns\\OrdaenCore\\media\\bar-ordaen" },
       "flat": { "label": "BAR_FLAT", "file": "Interface\\Buttons\\WHITE8X8" },
       "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\\TargetingFrame\\UI-StatusBar" }
     }
@@ -62,7 +63,7 @@
       "color.accent": [0.72, 0.56, 0.34],
       "color.positive": [0.45, 0.80, 0.40], "color.negative": [1, 0.34, 0.28], "color.warning": [1, 0.62, 0.25],
       "color.disabled": [0.5, 0.5, 0.5], "color.icon": [0.92, 0.85, 0.72], "color.muted": [0.62, 0.58, 0.52],
-      "bar.texture": "blizzard",
+      "bar.texture": "ordaen",
       "color.xp": [0.58, 0.12, 0.66], "color.quest": [0.8, 0.5, 0.86], "color.rested": [0.1, 0.42, 0.9],
       "color.reputation.hated": [0.8, 0.3, 0.22], "color.reputation.hostile": [0.8, 0.3, 0.22],
       "color.reputation.unfriendly": [0.75, 0.27, 0], "color.reputation.neutral": [0.9, 0.7, 0],
