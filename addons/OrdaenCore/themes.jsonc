@@ -1,0 +1,81 @@
+// The shared part of every Ordaen theme: the tokens addons' look settings follow, the assets (art, fonts, bar
+// textures) those refer to, and each theme's value for every token. The build checks it (every theme gives every
+// token a value of its type) and generates ThemeTokens.lua. Addons never define their look: their look settings
+// default to these tokens (docs/reference/settings.md). The UI renderer's surfaces and text styles are in
+// OrdaenCore_UI/Theme.lua and take their accent and fonts from here.
+{
+  "assets": {
+    "frame": {
+      "bronze-rim": { "label": "FRAME_BRONZE_RIM", "file": "Interface\AddOns\OrdaenCore\media\bronze-rim-frame", "outset": 11 },
+      "gold": { "label": "FRAME_GOLD", "edgeFile": "Interface\DialogFrame\UI-DialogBox-Border", "edgeSize": 24, "outset": 7 },
+      "tooltip": { "label": "FRAME_TOOLTIP", "edgeFile": "Interface\Tooltips\UI-Tooltip-Border", "edgeSize": 16, "outset": 4 },
+      "thin": { "label": "FRAME_THIN", "edgeFile": "Interface\Buttons\WHITE8X8", "edgeSize": 2, "outset": 2, "natural": [0, 0, 0] },
+      "none": { "label": "FRAME_NONE" }
+    },
+    "font": {
+      "body": { "label": "FONT_BODY", "object": "GameTooltipText" },
+      "header": { "label": "FONT_HEADER", "object": "GameTooltipHeaderText" },
+      "ui": { "label": "FONT_UI", "object": "GameFontNormal" },
+      "numbers": { "label": "FONT_NUMBERS", "object": "NumberFontNormal" }
+    },
+    "bar": {
+      "flat": { "label": "BAR_FLAT", "file": "Interface\Buttons\WHITE8X8" },
+      "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\TargetingFrame\UI-StatusBar" }
+    }
+  },
+  "tokens": {
+    "frame.border": "frame",
+    "font.body": "font",
+    "font.header": "font",
+    "font.numbers": "font",
+    "font.world": "font",
+    "color.accent": "color",
+    "color.positive": "color",
+    "color.negative": "color",
+    "color.warning": "color",
+    "color.disabled": "color",
+    "bar.texture": "bar",
+    "icon.crop": "number",
+    "motion.fade": "number",
+    "tooltip.delay": "number",
+    "sound.open": "sound",
+    "sound.close": "sound",
+    "sound.click": "sound"
+  },
+  "themes": {
+    "ordaen": {
+      "frame.border": "bronze-rim",
+      "font.body": "body", "font.header": "header", "font.numbers": "numbers", "font.world": "ui",
+      "color.accent": [0.72, 0.56, 0.34],
+      "color.positive": [0.45, 0.80, 0.40], "color.negative": [1, 0.34, 0.28], "color.warning": [1, 0.62, 0.25],
+      "color.disabled": [0.5, 0.5, 0.5],
+      "bar.texture": "flat",
+      "icon.crop": 0.08,
+      "motion.fade": 0.15, "tooltip.delay": 0,
+      "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON"
+    },
+    "blizzard": {
+      "frame.border": "gold",
+      "font.body": "body", "font.header": "header", "font.numbers": "numbers", "font.world": "ui",
+      "color.accent": [1, 0.82, 0],
+      "color.positive": [0.1, 1, 0.1], "color.negative": [1, 0.1, 0.1], "color.warning": [1, 0.5, 0.1],
+      "color.disabled": [0.5, 0.5, 0.5],
+      "bar.texture": "blizzard",
+      "icon.crop": 0,
+      "motion.fade": 0.2, "tooltip.delay": 0,
+      "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE",
+      "sound.click": "IG_MAINMENU_OPTION_CHECKBOX_ON"
+    },
+    "minimal": {
+      "frame.border": "thin",
+      "font.body": "body", "font.header": "body", "font.numbers": "numbers", "font.world": "ui",
+      "color.accent": [0.56, 0.62, 0.72],
+      "color.positive": [0.5, 0.8, 0.55], "color.negative": [0.9, 0.42, 0.4], "color.warning": [0.9, 0.72, 0.35],
+      "color.disabled": [0.45, 0.45, 0.47],
+      "bar.texture": "flat",
+      "icon.crop": 0.08,
+      "motion.fade": 0, "tooltip.delay": 0,
+      "sound.open": "", "sound.close": "", "sound.click": ""
+    }
+  }
+}

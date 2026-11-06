@@ -2,26 +2,33 @@
 -- current theme's default, and a theme switch moves every untouched setting (docs/reference/settings.md).
 local helpers = require("tests.OrdaenCore.helpers")
 
+-- The shared part of the themes (THEME_TOKENS, from OrdaenCore/themes.jsonc), as the build generates it.
+local TOKENS = {
+	assets = { frame = { rim = {}, gold = {}, thin = {} } },
+	tokens = { ["frame.border"] = "frame", ["color.accent"] = "color", ["motion.fade"] = "number" },
+	themes = {
+		ordaen = { ["frame.border"] = "rim", ["color.accent"] = { 0.72, 0.56, 0.34 }, ["motion.fade"] = 0.15 },
+		blizzard = { ["frame.border"] = "gold", ["color.accent"] = { 1, 0.82, 0 }, ["motion.fade"] = 0.2 },
+		minimal = { ["frame.border"] = "thin", ["color.accent"] = { 1, 0.82, 0 }, ["motion.fade"] = 0 },
+	},
+}
+
+-- An addon's SETTINGS_SCHEMA as the build generates it: look settings follow theme tokens, the rest have plain
+-- defaults.
 local function schema()
 	return {
 		db = "TestDB",
-		sections = { { keys = { "style", "scale", "enabled", "columns", "visibility.tracking", "angles", "tint" } } },
+		sections = { { keys = { "style", "scale", "enabled", "columns", "visibility.tracking", "angles", "tint",
+			"fade" } } },
 		settings = {
-			style = { type = "choice", choices = { "rim", "gold", "thin" }, themed = true },
-			scale = { type = "number", min = 0.8, max = 1.6, step = 0.05 },
-			enabled = { type = "boolean" },
-			columns = { type = "number", min = 2, max = 12, step = 1 },
-			["visibility.tracking"] = { type = "choice", choices = { "always", "hover", "hide" } },
-			angles = { type = "map", of = "number", page = false },
-			tint = { type = "color" },
-		},
-		defaults = {
-			ordaen = { style = "rim", scale = 1, enabled = true, columns = 6, visibility = { tracking = "always" },
-				angles = {}, tint = { 1, 1, 1 } },
-			blizzard = { style = "gold", scale = 1, enabled = true, columns = 6, visibility = { tracking = "always" },
-				angles = {}, tint = { 1, 1, 1 } },
-			minimal = { style = "thin", scale = 1, enabled = true, columns = 6, visibility = { tracking = "hover" },
-				angles = {}, tint = { 1, 1, 1 } },
+			style = { type = "asset", of = "frame", theme = "frame.border" },
+			scale = { type = "number", min = 0.8, max = 1.6, step = 0.05, default = 1 },
+			enabled = { type = "boolean", default = true },
+			columns = { type = "number", min = 2, max = 12, step = 1, default = 6 },
+			["visibility.tracking"] = { type = "choice", choices = { "always", "hover", "hide" }, default = "always" },
+			angles = { type = "map", of = "number", default = {}, page = false },
+			tint = { type = "color", theme = "color.accent" },
+			fade = { type = "number", min = 0, max = 1, step = 0.05, theme = "motion.fade" },
 		},
 	}
 end
@@ -42,12 +49,14 @@ describe("OrdaenCore settings store", function()
 		helpers.stubGlobals()
 		Store = helpers.loadCore()._SettingsStore
 		Store._Clear()
+		Store.SetTokens(TOKENS)
 	end)
 
 	it("reads the theme's default where the player chose nothing, and saves nothing", function()
 		local db = {}
 		Store.Bind(schema(), db)
-		assert.equals("rim", db.style)
+		assert.equals("rim", db.style) -- the theme's frame
+		assert.equals(0.15, db.fade)
 		assert.equals(6, db.columns)
 		assert.equals("always", db.visibility.tracking)
 		assert.same({ visibility = {}, angles = {} }, saved(db))
@@ -62,15 +71,21 @@ describe("OrdaenCore settings store", function()
 		end
 		Store.SetTheme("minimal")
 		assert.equals("thin", db.style)
-		assert.equals("hover", db.visibility.tracking)
+		assert.equals(0, db.fade)
 		assert.equals(1.2, db.scale)
 		table.sort(told)
-		assert.same({ "style=thin", "visibility.tracking=hover" }, told)
+		-- Blizzard's and minimal's accents are the same colour: not announced.
+		assert.same({ "fade=0", "style=thin", "tint=table" }, (function()
+			for i, t in ipairs(told) do
+				told[i] = t:gsub("table: .*", "table")
+			end
+			return told
+		end)())
 		assert.same({ scale = 1.2, visibility = {}, angles = {} }, saved(db))
 	end)
 
 	it("validates what it saves and drops saved values the schema refuses", function()
-		local db = { style = "neon", columns = 6.5, enabled = "yes", angles = { drawer = 90, bad = "x" } }
+		local db = { style = "neon", columns = 6.5, enabled = "yes", angles = { drawer = 90, bad = "x" } } -- no "neon" frame
 		local store = Store.Bind(schema(), db)
 		assert.equals("rim", db.style)
 		assert.equals(6, db.columns)
@@ -109,5 +124,21 @@ describe("OrdaenCore settings store", function()
 		local store = Store.Bind(schema(), {})
 		assert.equals("always", store:Get("visibility.tracking"))
 		assert.is_false(store:IsChanged("visibility.tracking"))
+	end)
+
+	it("lets the player pick another theme's asset for one addon, kept through theme switches", function()
+		local db = {}
+		local store = Store.Bind(schema(), db)
+		assert.is_true(store:Set("style", "gold")) -- Blizzard's frame while the theme is ordaen
+		Store.SetTheme("minimal")
+		assert.equals("gold", db.style)
+		store:Reset("style")
+		assert.equals("thin", db.style)
+	end)
+
+	it("reads theme tokens and assets for code that draws", function()
+		assert.same({ 0.72, 0.56, 0.34 }, Store.Token("color.accent"))
+		assert.is_table(Store.Asset("frame", "rim"))
+		assert.is_nil(Store.Asset("frame", "neon"))
 	end)
 end)

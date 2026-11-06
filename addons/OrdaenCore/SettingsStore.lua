@@ -1,6 +1,8 @@
 -- Ordaen Core: settings values. An addon's settings are declared in its settings.jsonc; the build turns that into
 -- ns.SETTINGS_SCHEMA (docs/reference/settings.md). This file keeps the values: the SavedVariables table holds only
--- what the player changed, and every other read falls back to the current theme's default.
+-- what the player changed, and every other read falls back to the current theme's default. Look settings default
+-- to a theme token (`theme = "frame.border"`): their default is whatever the theme says (THEME_TOKENS, from
+-- OrdaenCore/themes.jsonc), so addons never define their look.
 --
 --   db.borderStyle            -- the player's value, else the theme's default (one table lookup, no garbage)
 --   store:Set("scale", 1.2)   -- validated against the schema, then announced
@@ -30,6 +32,7 @@ local StoreMeta = { __index = StoreMethods }
 
 local stores = {} -- every bound store, for theme switches
 local theme = "ordaen"
+local tokens = { assets = {}, tokens = {}, themes = {} } -- THEME_TOKENS (Store.SetTokens)
 
 -- Paths ------------------------------------------------------------------------------------------
 
@@ -84,6 +87,11 @@ function Store.Valid(setting, value)
 			end
 		end
 		return false
+	elseif kind == "asset" then
+		local kindAssets = tokens.assets[setting.of]
+		return type(value) == "string" and kindAssets ~= nil and kindAssets[value] ~= nil
+	elseif kind == "sound" then
+		return type(value) == "string" -- a SOUNDKIT name, or "" for silent
 	elseif kind == "color" then
 		return isColor(value)
 	elseif kind == "text" or kind == "keybinding" then
@@ -104,9 +112,68 @@ end
 
 -- Binding ----------------------------------------------------------------------------------------
 
--- defaults / charDefaults: { ordaen = nested, blizzard = nested, minimal = nested }.
-local function themeDefaults(byTheme, name)
-	return byTheme and (byTheme[name] or byTheme.ordaen)
+-- The default of one setting in theme `name`: its theme token's value there, else its plain default.
+local function defaultOf(setting, name)
+	if setting.theme then
+		local values = tokens.themes[name] or tokens.themes.ordaen
+		return values and values[setting.theme]
+	end
+	return setting.default
+end
+
+-- The defaults of a schema in theme `name`, nested like the saved table, for one scope; made once per schema,
+-- theme and scope (at login and on a theme switch), then reused.
+local function themeDefaults(schema, name, scope)
+	local cache = schema._defaults
+	if not cache then
+		cache = {}
+		schema._defaults = cache
+	end
+	local cacheKey = name .. "/" .. scope
+	local out = cache[cacheKey]
+	if out then
+		return out
+	end
+	out = {}
+	for key, setting in pairs(schema.settings) do
+		if setting.type ~= "action" and (setting.scope or "account") == scope then
+			local path = pathOf(key)
+			local t = out
+			for i = 1, #path - 1 do
+				t[path[i]] = t[path[i]] or {}
+				t = t[path[i]]
+			end
+			local value = defaultOf(setting, name)
+			if setting.type == "map" and type(value) == "table" then
+				local copy = {}
+				for k, v in pairs(value) do
+					copy[k] = v
+				end
+				value = copy
+			end
+			t[path[#path]] = value
+		end
+	end
+	cache[cacheKey] = out
+	return out
+end
+
+--- The shared part of every theme (ns.THEME_TOKENS, generated from OrdaenCore/themes.jsonc). Core sets it at
+--- load; specs set their own.
+function Store.SetTokens(themeTokens)
+	tokens = themeTokens
+end
+
+--- A theme token's value in the current theme (e.g. "color.accent").
+function Store.Token(name)
+	local values = tokens.themes[theme] or tokens.themes.ordaen
+	return values and values[name]
+end
+
+--- An asset by kind and id (e.g. "frame", "bronze-rim"): its data from the theme manifest, or nil.
+function Store.Asset(kind, id)
+	local kindAssets = tokens.assets[kind]
+	return kindAssets and kindAssets[id]
 end
 
 -- Make `raw` (a saved table, or a nested table in it) fall back to `defaults`, and the nested tables the defaults
@@ -171,9 +238,9 @@ end
 ---@return OrdaenSettingsStore
 function Store.Bind(schema, db, charDb)
 	local store = setmetatable({ schema = schema, db = db, charDb = charDb, metas = {} }, StoreMeta)
-	bindTable(store, db, themeDefaults(schema.defaults, theme), "account", {})
-	if charDb and schema.charDefaults then
-		bindTable(store, charDb, themeDefaults(schema.charDefaults, theme), "character", {})
+	bindTable(store, db, themeDefaults(schema, theme, "account"), "account", {})
+	if charDb then
+		bindTable(store, charDb, themeDefaults(schema, theme, "character"), "character", {})
 	end
 	clean(store)
 	stores[#stores + 1] = store
@@ -288,8 +355,8 @@ end
 -- Themes -----------------------------------------------------------------------------------------
 
 local function pointAt(store, name)
-	local account = themeDefaults(store.schema.defaults, name)
-	local character = themeDefaults(store.schema.charDefaults, name)
+	local account = themeDefaults(store.schema, name, "account")
+	local character = themeDefaults(store.schema, name, "character")
 	for _, m in ipairs(store.metas) do
 		m.meta.__index = walk(m.scope == "character" and character or account, m.path, #m.path)
 	end

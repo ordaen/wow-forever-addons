@@ -12,5 +12,16 @@
   "THEME_BLIZZARD": "Blizzard",
   "THEME_MINIMAL": "Minimal",
   "TEXT_SIZE": "Text size",
-  "TEXT_SIZE_TOOLTIP": "Size of body text in every Ordaen addon; titles, small text and spacing scale with it."
+  "TEXT_SIZE_TOOLTIP": "Size of body text in every Ordaen addon; titles, small text and spacing scale with it.",
+  "FRAME_BRONZE_RIM": "Bronze rim",
+  "FRAME_GOLD": "Gold",
+  "FRAME_TOOLTIP": "Tooltip border",
+  "FRAME_THIN": "Thin line",
+  "FRAME_NONE": "None",
+  "FONT_BODY": "Tooltip text",
+  "FONT_HEADER": "Tooltip header",
+  "FONT_UI": "Interface",
+  "FONT_NUMBERS": "Numbers",
+  "BAR_FLAT": "Flat",
+  "BAR_BLIZZARD": "Blizzard"
 }

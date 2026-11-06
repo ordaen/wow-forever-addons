@@ -12,5 +12,16 @@
   "THEME_BLIZZARD": "Blizzard",
   "THEME_MINIMAL": "Минимализм",
   "TEXT_SIZE": "Размер текста",
-  "TEXT_SIZE_TOOLTIP": "Размер основного текста во всех аддонах Ordaen; заголовки, мелкий текст и отступы меняются вместе с ним."
+  "TEXT_SIZE_TOOLTIP": "Размер основного текста во всех аддонах Ordaen; заголовки, мелкий текст и отступы меняются вместе с ним.",
+  "FRAME_BRONZE_RIM": "Бронзовый обод",
+  "FRAME_GOLD": "Золотая",
+  "FRAME_TOOLTIP": "Рамка подсказки",
+  "FRAME_THIN": "Тонкая линия",
+  "FRAME_NONE": "Нет",
+  "FONT_BODY": "Текст подсказки",
+  "FONT_HEADER": "Заголовок подсказки",
+  "FONT_UI": "Интерфейс",
+  "FONT_NUMBERS": "Цифры",
+  "BAR_FLAT": "Плоская",
+  "BAR_BLIZZARD": "Blizzard"
 }
