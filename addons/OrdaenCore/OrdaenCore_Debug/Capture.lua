@@ -1,10 +1,12 @@
 -- Capture: our own error catcher (what BugGrabber does), active only in dev mode.
 --
 -- * Global error handler: every Lua error in the game (any addon, Blizzard UI, our unwrapped code
---   and file-load errors) is recorded, then handed on unchanged to the handler that was there before
---   (BugGrabber, or Blizzard's). If something else keeps the handler to itself (BugGrabber can), we
---   take its errors from its BugGrabber_BugGrabbed callback instead.
--- * Debug.Call / Debug.Wrap use WrapHandler, which records and forwards the same way.
+--   and file-load errors) is recorded. In dev mode the Ordaen Dev window is the error display, so
+--   errors are handed on only to BugGrabber (BugSack), never to Blizzard's error popup: that popup
+--   plays a sound and reopens on every error, which made a per-frame error impossible to close.
+--   If BugGrabber keeps the handler to itself, we take its errors from its BugGrabber_BugGrabbed
+--   callback instead.
+-- * Debug.Call / Debug.Wrap use the same handler.
 -- * Blocked or forbidden protected actions (taint) are recorded with kind "taint".
 -- Repeats only bump a counter before any stack is captured, so an error firing every frame is cheap.
 local _, ns = ...
@@ -13,7 +15,7 @@ local Store = ns.Store
 local Capture = {}
 ns.Capture = Capture
 
-local previousHandler -- the handler we replaced, if we managed to install ours
+local forwardTo -- BugGrabber's handler when it is installed; nil means errors stop here
 local forwarding = false -- true while we hand an error on, so callbacks don't record it twice
 
 -- level: the erroring frame as seen from the function calling grab (2 inside an error handler).
@@ -31,7 +33,10 @@ local function record(message, stack, locals, kind, source)
 end
 
 local function forward(err)
-	local handler = previousHandler or (geterrorhandler and geterrorhandler())
+	local handler = forwardTo
+	if Capture.mode == "buggrabber" and geterrorhandler then
+		handler = geterrorhandler() -- BugGrabber kept the handler: errors from Debug.Call go to it
+	end
 	if handler and handler ~= Capture.Handler then
 		forwarding = true
 		pcall(handler, err)
@@ -40,7 +45,7 @@ local function forward(err)
 end
 
 --- The global error handler (seterrorhandler), also the xpcall handler of Debug.Call: in both
---- cases the erroring frame is level 2. Records the error, then hands it on.
+--- cases the erroring frame is level 2. Records the error, then hands it on to BugGrabber if any.
 function Capture.Handler(err)
 	if not Store.Repeat(err) then
 		local stack, locals = grab(2)
@@ -81,8 +86,12 @@ function Capture.Install()
 		local before = geterrorhandler()
 		seterrorhandler(Capture.Handler)
 		if geterrorhandler() == Capture.Handler then
-			previousHandler = before
 			Capture.mode = "handler"
+			-- !BugGrabber loads before us (the "!" sorts first), so "before" is its handler when it
+			-- is installed. Otherwise "before" is Blizzard's popup, which we deliberately skip.
+			if type(BugGrabber) == "table" then
+				forwardTo = before
+			end
 		end
 	end
 	if Capture.mode == "none" and type(BugGrabber) == "table" and type(BugGrabber.RegisterCallback) == "function" then

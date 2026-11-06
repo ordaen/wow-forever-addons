@@ -15,18 +15,18 @@ describe("OrdaenCore_Debug Capture", function()
 			load()
 		end)
 
-		it("installs itself and keeps the previous handler", function()
+		it("installs itself as the global handler", function()
 			assert.are.equal("handler", Capture.Mode())
 			assert.are.equal(Capture.Handler, helpers.errorHandler)
 		end)
 
-		it("records an error with stack and locals, then hands it on once", function()
+		it("records an error with stack and locals, and keeps it from Blizzard's popup", function()
 			Capture.Handler("Interface/AddOns/OrdaenMinimap/Map.lua:12: boom")
 			local entry = Store.Get().errors[1]
 			assert.are.equal("OrdaenMinimap", entry.source)
 			assert.truthy(entry.stack)
 			assert.are.equal("x = 1", entry.locals)
-			assert.are.same({ "Interface/AddOns/OrdaenMinimap/Map.lua:12: boom" }, helpers.forwarded)
+			assert.are.same({}, helpers.forwarded) -- the previous handler is Blizzard's popup here
 		end)
 
 		it("counts repeats without capturing the stack again", function()
@@ -40,7 +40,6 @@ describe("OrdaenCore_Debug Capture", function()
 			end
 			assert.are.equal(1, stacks)
 			assert.are.equal(5, Store.Get().errors[1].count)
-			assert.are.equal(5, #helpers.forwarded)
 		end)
 
 		it("reads locals one level deeper when the stack starts in C (error called directly)", function()
@@ -60,12 +59,6 @@ describe("OrdaenCore_Debug Capture", function()
 			assert.are.same({ 4, 3 }, levels)
 		end)
 
-		it("still hands the error on when recording it fails", function()
-			rawset(_G, "date", nil) -- makes Store.AddError fail
-			Capture.Handler("original")
-			assert.are.same({ "original" }, helpers.forwarded)
-		end)
-
 		it("records blocked and forbidden actions as taint", function()
 			Capture.OnTaint("ADDON_ACTION_BLOCKED", "OrdaenMinimap", "Minimap:SetParent")
 			Capture.OnTaint("ADDON_ACTION_FORBIDDEN", "SomeAddon", "CastSpellByName")
@@ -75,6 +68,26 @@ describe("OrdaenCore_Debug Capture", function()
 			assert.are.equal("OrdaenMinimap: call to Minimap:SetParent() was blocked", errors[1].message)
 			assert.are.equal("other", errors[2].source)
 			assert.truthy(errors[2].message:find("forbidden", 1, true))
+		end)
+	end)
+
+	describe("with BugGrabber installed before us", function()
+		before_each(function()
+			load({ BugGrabber = {} }) -- its handler is the one we replace
+		end)
+
+		it("hands every error on to BugGrabber, repeats included", function()
+			for _ = 1, 3 do
+				Capture.Handler("boom")
+			end
+			assert.are.same({ "boom", "boom", "boom" }, helpers.forwarded)
+			assert.are.equal(3, Store.Get().errors[1].count)
+		end)
+
+		it("still hands the error on when recording it fails", function()
+			rawset(_G, "date", nil) -- makes Store.AddError fail
+			Capture.Handler("original")
+			assert.are.same({ "original" }, helpers.forwarded)
 		end)
 	end)
 

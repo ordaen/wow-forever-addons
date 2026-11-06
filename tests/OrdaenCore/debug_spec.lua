@@ -65,11 +65,11 @@ describe("OrdaenCore_Debug per-addon kit (dev mode)", function()
 			end)(4))
 		end)
 
-		it("record an error once and hand it on once", function()
+		it("record an error once and keep it from Blizzard's popup", function()
 			local result = Debug.Call(error, "kaboom", 0)
 			assert.is_nil(result)
 			assert.are.equal("kaboom", Store.Get().errors[1].message)
-			assert.are.same({ "kaboom" }, helpers.forwarded)
+			assert.are.same({}, helpers.forwarded) -- no BugGrabber: Blizzard's popup is skipped
 		end)
 	end)
 
