@@ -508,7 +508,7 @@ describe("OrdaenCore.UI", function()
 			assert.is_true(s.shown)
 			assert.is_true(tip:IsShown())
 			-- The ordaen theme: titles in capitals, in the header font at the title size (12 x 1.42), no shadow.
-			assert.same({ "ELWYNN FOREST", "Click: world map" }, shownTexts(s))
+			assert.same({ "Elwynn Forest", "Click: world map" }, shownTexts(s))
 			local visible = {}
 			for _, fs in ipairs(s.fonts) do
 				if fs.shown then
@@ -531,7 +531,7 @@ describe("OrdaenCore.UI", function()
 			tip:Show(owner)
 			local s = surface()
 			assert.is_nil(s.backdrop) -- drawn without art, as ordaen
-			assert.same({ "ELWYNN FOREST" }, shownTexts(s)) -- ordaen's title capitals
+			assert.same({ "Elwynn Forest" }, shownTexts(s)) -- titles keep their case
 		end)
 
 		it("redraw after their fields changed, hiding what is no longer drawn", function()
@@ -1202,7 +1202,7 @@ describe("OrdaenCore.UI", function()
 			UI.Tooltip({ { text = "Goldshire" }, { text = "Stormwind", style = "title" } }):Show(owner)
 			local s = surface()
 			assert.equals(16, fontOf(s, "Goldshire").fontSize)
-			assert.equals(23, fontOf(s, "STORMWIND").fontSize) -- title tier: 16 x 1.42
+			assert.equals(23, fontOf(s, "Stormwind").fontSize) -- title tier: 16 x 1.42
 			-- padding lg (12 at size 12) is 16 here, gap xs 3; min width 12 ems = 192.
 			assert.same({ 192, LINE + 3 + LINE + 32 }, s.size)
 		end)
@@ -1220,10 +1220,10 @@ describe("OrdaenCore.UI", function()
 			tip:Show(owner)
 			local label = UI.Block({ name = "Label", { text = "Goldshire", style = "small" } })
 			local s = surface()
-			assert.same({ "STORMWIND" }, shownTexts(s))
+			assert.same({ "Stormwind" }, shownTexts(s))
 			rawset(_G, "OrdaenCoreDB", { ui = { theme = "ordaen", textSize = 14 } })
 			UI._SettingsChanged()
-			assert.same({ "STORMWIND" }, shownTexts(s))
+			assert.same({ "Stormwind" }, shownTexts(s))
 			assert.equals(13, fontOf(label.frame, "Goldshire").fontSize) -- small tier of 14
 			rawset(_G, "OrdaenCoreDB", { ui = { theme = "ordaen", textSize = 12 } })
 			UI._SettingsChanged()
@@ -1247,7 +1247,7 @@ describe("OrdaenCore.UI", function()
 		end)
 
 		it("write capitals in Russian too", function()
-			UI.Tooltip({ { text = "Элвиннский лес, ёлка", style = "title" } }):Show(owner)
+			UI.Tooltip({ { text = "Элвиннский лес, ёлка", style = "caption" } }):Show(owner) -- captions keep capitals
 			assert.same({ "ЭЛВИННСКИЙ ЛЕС, ЁЛКА" }, shownTexts(surface()))
 		end)
 
@@ -1366,7 +1366,7 @@ describe("OrdaenCore.UI", function()
 			local tip = UI.Tooltip({ header, { text = "Goldshire" } })
 			tip:Show(owner)
 			local s = surface()
-			assert.same({ "STORMWIND", "Trade District", "Goldshire" }, shownTexts(s))
+			assert.same({ "Stormwind", "Trade District", "Goldshire" }, shownTexts(s))
 			local band
 			for _, t in ipairs(solids(s, "BACKGROUND")) do
 				if t.sublevel == 2 then
@@ -1377,7 +1377,7 @@ describe("OrdaenCore.UI", function()
 			assert.equals(s.size[1], band.size[1])
 			header.titleText.text = "Elwynn"
 			tip:Refresh()
-			assert.same({ "ELWYNN", "Trade District", "Goldshire" }, shownTexts(s))
+			assert.same({ "Elwynn", "Trade District", "Goldshire" }, shownTexts(s))
 		end)
 	end)
 

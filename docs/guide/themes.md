@@ -24,7 +24,7 @@ back to `ordaen`.
 
 | Theme | Look |
 |---|---|
-| `ordaen` | Ours, the default. Flat surfaces drawn without art: a dark vertical gradient, pixel-exact edges brighter on top, a soft darkened rim, a header band, warm text without shadows, titles in capitals. Tinted by an **accent** colour. |
+| `ordaen` | Ours, the default. Flat surfaces drawn without art: a dark vertical gradient, pixel-exact edges brighter on top, a soft darkened rim, a header band, warm text without shadows, titles set apart by size. Tinted by an **accent** colour. |
 | `blizzard` | Planned: mostly Blizzard's default look. |
 | `minimal` | Planned: little to no textures. |
 
@@ -79,6 +79,6 @@ Nested blocks with a style draw their own surface, so a `header` inside a `toolt
 ## Credits
 
 The `ordaen` theme's approach (accent-driven surfaces drawn without textures, gradient band, edges brighter on top,
-vignette, capitals for titles, hairline separators) follows the design of
+vignette, hairline separators) follows the design of
 [PrettyTooltip](https://github.com/FallenShard/PrettyTooltip) (MIT, © 2026 FallenShard). The values are our own
 scale; no code was taken.

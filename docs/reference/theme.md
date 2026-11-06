@@ -27,7 +27,7 @@ Tooltips are 12 to 25 ems wide.
 
 | Style | Tier | Use |
 |---|---|---|
-| `title` | `title` | the name of the thing; capitals |
+| `title` | `title` | the name of the thing, as written (the size sets it apart) |
 | `subtitle` | `small` | under the title; tinted by the accent |
 | `body` | `body` | running text (default) |
 | `label` | `small` | the left side of a label/value row |

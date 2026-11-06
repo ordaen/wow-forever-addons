@@ -178,7 +178,8 @@ THEMES.ordaen = {
 		},
 	},
 	text = {
-		title = { font = "header", size = "title", color = { 0.96, 0.91, 0.82 }, caps = true },
+		-- No capitals: the size step sets the title apart (the user's decision, 2026-11-07).
+		title = { font = "header", size = "title", color = { 0.96, 0.91, 0.82 } },
 		subtitle = { font = "body", size = "small", color = { 0.5, 0.5, 0.5, accent = 0.6 } },
 		body = { font = "body", size = "body", color = { 0.89, 0.85, 0.77 } },
 		label = { font = "body", size = "small", color = { 0.70, 0.65, 0.56 } },
