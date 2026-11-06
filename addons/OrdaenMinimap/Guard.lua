@@ -43,7 +43,7 @@ end
 local function disableAddOn(name)
 	local disable = C_AddOns.DisableAddOn or _G.DisableAddOn
 	if type(disable) ~= "function" then
-		ns.Debug.Logf("conflict: no DisableAddOn API, asking the user to disable %s", name)
+		ns.Debug:Logf("conflict: no DisableAddOn API, asking the user to disable %s", name)
 		ns.Print(L.CONFLICT_DISABLE_MANUALLY:format(title(name)))
 		return false
 	end
@@ -53,7 +53,7 @@ end
 
 local function keepOurs(other)
 	if ns.KeepOursAction(other) == "disable" then
-		ns.Debug.Logf("conflict: disabling %s and reloading", other)
+		ns.Debug:Logf("conflict: disabling %s and reloading", other)
 		if disableAddOn(other) then
 			ReloadUI()
 		end
@@ -61,7 +61,7 @@ local function keepOurs(other)
 	end
 	remember(other, "ours")
 	Guard.blocked = false
-	ns.Debug.Logf("conflict: overriding %s", tostring(other))
+	ns.Debug:Logf("conflict: overriding %s", tostring(other))
 	ns.Print(L.CONFLICT_OVERRIDE_HINT:format(title(other)))
 	if onResolved then
 		onResolved()
@@ -69,14 +69,14 @@ local function keepOurs(other)
 end
 
 local function keepOther(other)
-	ns.Debug.Logf("conflict: keeping %s, disabling %s and reloading", tostring(other), addonName)
+	ns.Debug:Logf("conflict: keeping %s, disabling %s and reloading", tostring(other), addonName)
 	if disableAddOn(addonName) then
 		ReloadUI()
 	end
 end
 
 local function decideLater(other)
-	ns.Debug.Logf("conflict: decide later (%s)", tostring(other))
+	ns.Debug:Logf("conflict: decide later (%s)", tostring(other))
 	ns.Print(L.CONFLICT_LATER_HINT)
 end
 
@@ -116,7 +116,7 @@ function Guard.Conflict(other, reason)
 	if choiceFor(other) == "ours" then
 		return false
 	end
-	ns.Debug.Logf("conflict with %s: %s", tostring(other), reason)
+	ns.Debug:Logf("conflict with %s: %s", tostring(other), reason)
 	Guard.blocked = true
 	ns.Map.StepAside()
 	if asked[other or "?"] then
@@ -157,7 +157,7 @@ local function onForeignChange(what, stack)
 end
 
 local function verifyLater()
-	C_Timer.After(VERIFY_DELAY, ns.Debug.Wrap(function()
+	C_Timer.After(VERIFY_DELAY, ns.Debug:Wrap(function()
 		local problems = ns.Map.Verify()
 		if #problems == 0 then
 			return

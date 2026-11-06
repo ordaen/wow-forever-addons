@@ -276,7 +276,7 @@ end
 ---@param db table OrdaenMinimapDB
 function Map.Apply(db)
 	currentDb = db
-	ns.Debug.Call(function()
+	ns.Debug:Call(function()
 		Map.active = true
 		withApplying(function()
 			setUpOnce()
@@ -289,7 +289,7 @@ function Map.Apply(db)
 			applyBorder(db)
 			Minimap:SetScale(db.scale)
 		end)
-		ns.Debug.Logf("Map.Apply style=%s color=%s scale=%s", db.borderStyle, db.borderColor, db.scale)
+		ns.Debug:Logf("Map.Apply style=%s color=%s scale=%s", db.borderStyle, db.borderColor, db.scale)
 	end)
 end
 
@@ -313,7 +313,7 @@ function Map.StepAside()
 		---@diagnostic disable-next-line: assign-type-mismatch
 		GetMinimapShape = nil
 	end
-	ns.Debug.Log("Map.StepAside")
+	ns.Debug:Log("Map.StepAside")
 end
 
 --- Differences between what we applied and what the minimap shows now (for the delayed check).

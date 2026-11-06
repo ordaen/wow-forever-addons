@@ -93,12 +93,12 @@ local function updateMapRect()
 	if width ~= 0 and height ~= 0 then
 		mapLeft, mapTop, mapWidth, mapHeight = left, top, width, height
 	end
-	if ns.Debug.IsEnabled() then
+	if ns.Debug:IsEnabled() then
 		-- Check our math against Blizzard's once per zone (dev mode only).
 		local pos = C_Map.GetPlayerMapPosition(mapID, "player")
 		local wx, wy = UnitPosition("player")
 		if pos and wx and mapLeft then
-			ns.Debug.Logf("coords: map %d ours %.3f, %.3f blizzard %.3f, %.3f", mapID,
+			ns.Debug:Logf("coords: map %d ours %.3f, %.3f blizzard %.3f, %.3f", mapID,
 				(mapLeft - wy) / mapWidth, (mapTop - wx) / mapHeight, pos.x, pos.y)
 		end
 	end

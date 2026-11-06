@@ -449,7 +449,7 @@ local function createFrames()
 	if not mainButton then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end
-	mainButton:On("click", ns.Debug.Wrap(function(_, mouseButton)
+	mainButton:On("click", ns.Debug:Wrap(function(_, mouseButton)
 		if mouseButton == "RightButton" then
 			ns.Addon:OpenSettings()
 		else
@@ -499,11 +499,11 @@ function Drawer.Start(savedDb)
 	end
 	-- Addons create buttons late (after login, after loading data); look again a few times.
 	for _, delay in ipairs(RESCAN_DELAYS) do
-		C_Timer.After(delay, ns.Debug.Wrap(collectAll))
+		C_Timer.After(delay, ns.Debug:Wrap(collectAll))
 	end
 	eventFrame = CreateFrame("Frame")
 	eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-	eventFrame:SetScript("OnEvent", ns.Debug.Wrap(onCombatEnd))
+	eventFrame:SetScript("OnEvent", ns.Debug:Wrap(onCombatEnd))
 end
 
 --- Apply changed drawer settings. Turning the drawer off needs a reload to give buttons back.

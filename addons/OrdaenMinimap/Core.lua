@@ -96,7 +96,7 @@ local UNCONFIRMED_APIS = {
 }
 
 local function logApiAvailability()
-	if not A.Debug.IsEnabled() then
+	if not A.Debug:IsEnabled() then
 		return
 	end
 	local parts = {}
@@ -108,7 +108,7 @@ local function logApiAvailability()
 		end
 		parts[#parts + 1] = path .. "=" .. (value ~= nil and type(value) or "missing")
 	end
-	A.Debug.Log("api: " .. table.concat(parts, ", "))
+	A.Debug:Log("api: " .. table.concat(parts, ", "))
 end
 
 A:OnLoad(function(db)
@@ -125,7 +125,7 @@ A:On("ADDON_LOADED", function(_, name)
 end)
 
 A:OnLogin(function()
-	A.Debug.Log("PLAYER_LOGIN")
+	A.Debug:Log("PLAYER_LOGIN")
 	logApiAvailability()
 	if ns.Guard.Start(OrdaenMinimapDB, applyAll) then
 		applyAll()

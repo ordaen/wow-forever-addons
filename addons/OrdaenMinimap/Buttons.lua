@@ -130,7 +130,7 @@ local function stopDrag()
 		driver:SetScript("OnUpdate", nil)
 	end
 	if dragging then
-		ns.Debug.Logf("buttons: %s moved to %d", dragging.id, db.buttonAngles[dragging.id] or -1)
+		ns.Debug:Logf("buttons: %s moved to %d", dragging.id, db.buttonAngles[dragging.id] or -1)
 	end
 	dragging = nil
 end
@@ -265,7 +265,7 @@ local function adopt(entry)
 		hooksecurefunc(frame, "SetParent", onForeignSetParent)
 	end
 	place(items[entry.id])
-	ns.Debug.Logf("buttons: adopted %s (%s)", entry.id, name)
+	ns.Debug:Logf("buttons: adopted %s (%s)", entry.id, name)
 end
 
 local function adoptAll()
@@ -281,7 +281,7 @@ function Buttons.Apply(savedDb)
 	if not setUp then
 		setUp = true
 		adoptAll()
-		C_Timer.After(RETRY_DELAY, ns.Debug.Wrap(adoptAll))
+		C_Timer.After(RETRY_DELAY, ns.Debug:Wrap(adoptAll))
 		Minimap:HookScript("OnSizeChanged", Buttons.Layout)
 	end
 	Buttons.Layout()
