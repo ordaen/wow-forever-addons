@@ -77,7 +77,8 @@ local sizes = {} ---@type table<table, number[]> Blizzard button -> its size bef
 local dresses = {} ---@type table<table, OrdaenUIDress>
 local portraits = {} ---@type table<table, table> Blizzard button -> the texture of it that stays (the portrait)
 local placing = false
--- Sizes, all from the panel's height (setting `height`): square cells fill it, icons and the bar are 60 %.
+-- Sizes, all from the panel's height (setting `height`): square cells fill it; an icon's picture shows at half the
+-- cell (iconSide; each atlas box scaled by its CONTENT), bag icons fill the cell; the bar is 60 %.
 local size = 60 -- the panel's height
 local cellWidth = 48
 local iconSide = 36
@@ -124,6 +125,13 @@ local function place(button)
 		portrait:ClearAllPoints()
 		portrait:SetPoint("CENTER", button, "CENTER")
 		portrait:SetSize(w - 2, h - 2) -- the whole cell, inside its side edges
+		-- Blizzard masks the portrait with a mask texture of its own size: it follows, or the face stays small
+		for _, region in ipairs({ button:GetRegions() }) do
+			if region:GetObjectType() == "MaskTexture" then
+				region:ClearAllPoints()
+				region:SetAllPoints(portrait)
+			end
+		end
 	end
 	placing = false
 end
@@ -262,8 +270,26 @@ local function artExcept(frame, keep, out)
 end
 
 -- An atlas icon keeps its proportions (Blizzard's micro icons are taller than wide): fit into the icon square.
-local function fitIcon(icon, atlas)
-	local side = iconSide
+-- How much of its atlas box each micro icon's picture fills (the larger of its visible width and height over the
+-- box height). Blizzard's micro atlases leave different empty margins, so equal boxes look unequal. Measured from
+-- the panel's pixels in game (screenshot 2026-11-06, boxes 36 units high); re-measure when Blizzard changes the art.
+local CONTENT = {
+	ProfessionMicroButton = 0.56, SpellbookMicroButton = 0.58, TalentMicroButton = 0.50,
+	QuestLogMicroButton = 0.64, GuildMicroButton = 0.61, LFDMicroButton = 0.44, CollectionsMicroButton = 0.53,
+	StoreMicroButton = 0.56, MainMenuMicroButton = 0.67, HelpMicroButton = 0.67,
+}
+local CONTENT_DEFAULT = 0.6
+
+-- Box size for an icon whose picture should show `visible` units: never more than the cell.
+local function boxFor(name, visible)
+	return math.min(size - 4, math.floor(visible / (CONTENT[name] or CONTENT_DEFAULT) + 0.5))
+end
+
+local function fitIcon(icon, atlas, name)
+	local side = boxFor(name, iconSide)
+	if icon.crop then
+		side = size - 4 -- an item icon (a bag) fills its cell, inside the panel's lines
+	end
 	local info = atlas and C_Texture.GetAtlasInfo(atlas)
 	if info and info.width and info.height and info.width > 0 and info.height > 0 then
 		local ratio = info.width / info.height
@@ -379,8 +405,9 @@ local function cellFor(button)
 	end
 	local el = cell[1] or { align = "center", valign = "center" }
 	el.image, el.atlas = icon, atlas
-	el.crop = icon ~= nil -- item icons (bags) lose their own border; atlases are drawn whole
-	fitIcon(el, atlas)
+	-- item icons (bags) lose their own border and fill the cell; atlases and the social glyph are drawn whole
+	el.crop = icon ~= nil and name ~= SOCIAL_BUTTON
+	fitIcon(el, atlas, name)
 	cell[1] = el
 	return cell
 end
@@ -421,6 +448,27 @@ local function take(button, cell, texts)
 		dresses[button] = UI.Dress(button, {
 			style = "none", size = "frame", art = portrait and artExcept(button, portrait) or nil,
 		})
+	end
+	local Debug = ns.Addon.Debug
+	if Debug:IsEnabled() then
+		-- dev: textures still visible after dressing, to find art Dress doesn't reach
+		local seen = {}
+		local function visible(frame, path)
+			for _, region in ipairs({ frame:GetRegions() }) do
+				if region:IsObjectType("Texture") and region:IsShown() and region:GetAlpha() > 0
+					and region ~= portraits[button] then
+					seen[#seen + 1] = path .. ":" .. tostring(region:GetAtlas() or region:GetTexture())
+						.. "@" .. region:GetDrawLayer()
+				end
+			end
+			for i, child in ipairs({ frame:GetChildren() }) do
+				visible(child, path .. "/" .. (child:GetName() or ("#" .. i)))
+			end
+		end
+		visible(button, button:GetName() or "?")
+		if #seen > 0 then
+			Debug:Logf("still visible on %s: %s", button:GetName() or "?", table.concat(seen, ", "))
+		end
 	end
 	if button:GetName() == SOCIAL_BUTTON then
 		hookSocialTip(button)
@@ -601,7 +649,7 @@ local function build()
 	local s = db()
 	size = s.height
 	cellWidth = size -- square cells
-	iconSide = math.floor(size * 0.6 + 0.5)
+	iconSide = math.floor(size * 0.5 + 0.5)
 	local across = horizontal()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
 	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
@@ -628,7 +676,7 @@ local function build()
 		end
 	end
 	middle = middle or { embed = barHolder, align = "center" }
-	xp.height = iconSide
+	xp.height = math.floor(size * 0.6 + 0.5)
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
 		spec = {
