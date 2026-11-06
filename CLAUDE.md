@@ -132,8 +132,13 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   from their own timer or event while shown. One shared tooltip surface; font strings and textures are pooled;
   layout results are reused tables; nothing is copied per show; no timers or `OnUpdate` in the framework.
 - **Tooltips API:** `OrdaenCore.UI.ShowTooltip(owner, block, opts)`, `HideTooltip(owner)`, `RefreshTooltip(owner)`;
-  `opts = { side = "right" | "left" | "below" | "above", x, y }`. Text styles in the default theme: `title`,
-  `subtitle`, `body` (default), `label`, `value`, `hint`; block style `tooltip`.
+  `opts = { side = "right" | "left" | "below" | "above" | "default", x, y }`. Text styles in the default theme:
+  `title`, `subtitle`, `body` (default), `label`, `value`, `hint`; block style `tooltip`.
+- **Scale and position** (user's decision): our blocks live on the global UI scale only (children of `UIParent`, sizes
+  in UI units, no scale property). A block attached to a scaled Blizzard frame inherits that frame's scale; the
+  renderer measures text on the surface it draws on, so either way it fits. An anchored tooltip takes only its
+  position from its owner, never its scale. Tooltips anchored to nothing (`side = "default"`) sit where Blizzard
+  puts its own: Edit Mode's "HUD Tooltip" position (`GameTooltipDefaultContainer`, bottom-right to bottom-right).
 - **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: restyled in place by a
   future tooltip addon (taking its look from the theme), never hidden and redrawn as a lookalike.
 - **Events** (user's decision): one `on` table per block for both sources. User events are lower case (`click`,
