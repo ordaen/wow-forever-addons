@@ -203,7 +203,20 @@ local function present(confirm)
 	playSound("sound.open")
 end
 
---- Show `confirm`, or queue it while another is open. Showing the one already shown redraws it.
+-- The framework, not each caller, waits for the loading screen: a dialog shown under it (at login, the first
+-- load after enabling an addon) wasn't there when it ended (the conflict dialog, 2026-11-06). Confirms shown then
+-- wait in the queue; the first one appears when the loading screen is gone.
+local waitingForLoad = false
+
+local function afterLoading()
+	waitingForLoad = false
+	if not current then
+		Confirm.Next()
+	end
+end
+
+--- Show `confirm`, or queue it while another is open or the loading screen is up. Showing the one already shown
+--- redraws it.
 function Confirm.Show(confirm)
 	if current == confirm then
 		present(confirm)
@@ -214,10 +227,10 @@ function Confirm.Show(confirm)
 			return
 		end
 	end
-	if current then
-		queue[#queue + 1] = confirm
-	else
-		present(confirm)
+	queue[#queue + 1] = confirm
+	if not current and not waitingForLoad then
+		waitingForLoad = true
+		OrdaenCore._AfterLoadingScreen(afterLoading) -- right away when no loading screen is up
 	end
 end
 

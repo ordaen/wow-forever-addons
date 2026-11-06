@@ -283,6 +283,9 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   shared event frame registers a game event only while some instance listens and unregisters it after the last; a
   frame takes the mouse only once it has a user listener. WoW scripts are set to dispatchers made once at load, so
   `:On` creates no closure. High-frequency game events are allowed but must exit early.
+- **The framework waits for the loading screen** (user's decision): things it shows on its own initiative, such as
+  dialogs (`UI.Confirm`), appear only after the loading screen is gone (`Core._AfterLoadingScreen`); callers just
+  `:Show()` and never wait themselves. Anything new of that kind (windows, notices) does the same.
 - **Elements:** text, image, blocks, and the inputs that can't be composed from blocks because they need WoW's own
   widgets: text entry (EditBox), checkbox (CheckButton) and slider. Buttons, bars and dropdowns are composite blocks.
 - **Out of scope for v1:** secure actions (casting, using items, targeting). They need Blizzard's secure templates,

@@ -264,6 +264,12 @@ describe("OrdaenCore.UI", function()
 		rawset(_G, "OrdaenCoreDB", nil) -- Ordaen Core's global settings: defaults (theme ordaen, text size 12)
 		helpers.shiftDown = false
 		local core = helpers.loadCore()
+		-- The game ends the loading screen after login; dialogs wait for it (Confirm.lua).
+		for _, f in ipairs(frames) do
+			if f.events and f.events.LOADING_SCREEN_DISABLED and f.scripts.OnEvent then
+				f.scripts.OnEvent(f, "LOADING_SCREEN_DISABLED")
+			end
+		end
 		rawget(_G, "C_AddOns").LoadAddOn = function(name)
 			loads = loads + 1
 			if not loadResult then
@@ -802,6 +808,22 @@ describe("OrdaenCore.UI", function()
 			assert.same({ "LeftButtonDown" }, overlay.clicks)
 			overlay.scripts.PreClick(overlay, "LeftButton")
 			assert.is_true(turnedOff)
+		end)
+
+		it("wait for the loading screen: one shown under it appears when it ends", function()
+			local eventFrame
+			for _, f in ipairs(frames) do
+				if f.events and f.events.LOADING_SCREEN_ENABLED then
+					eventFrame = f
+				end
+			end
+			eventFrame.scripts.OnEvent(eventFrame, "LOADING_SCREEN_ENABLED")
+			local ask = UI.Confirm({ text = "At login", buttons = { { text = "OK" } } })
+			ask:Show()
+			assert.is_false(ask:IsShown())
+			eventFrame.scripts.OnEvent(eventFrame, "LOADING_SCREEN_DISABLED")
+			assert.is_true(ask:IsShown())
+			assert.truthy(frameWithText("At login"))
 		end)
 
 		it("show one at a time: a second waits for the first to close", function()
