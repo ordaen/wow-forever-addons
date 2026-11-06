@@ -32,14 +32,22 @@ local function surfaceFrame()
 end
 
 local function anchor(frame, owner, opts)
-	local side = SIDES[opts and opts.side or "right"] or SIDES.right
+	local sideName = opts and opts.side or "right"
+	frame:ClearAllPoints()
+	if sideName == "default" then
+		-- Not next to its owner: where Blizzard puts tooltips that are anchored to nothing. The player moves
+		-- that spot in Edit Mode ("HUD Tooltip"), which positions GameTooltipDefaultContainer.
+		frame:SetPoint("BOTTOMRIGHT", GameTooltipDefaultContainer, "BOTTOMRIGHT", 0, 0)
+		return
+	end
+	local side = SIDES[sideName] or SIDES.right
 	local x = (opts and opts.x or 0) + side[3] * GAP
 	local y = (opts and opts.y or 0) + side[4] * GAP
-	frame:ClearAllPoints()
 	frame:SetPoint(side[1], owner, side[2], x, y)
 end
 
---- Show `block` (a "tooltip" block) for `owner`. opts = { side = "right" | "left" | "below" | "above", x, y }.
+--- Show `block` (a "tooltip" block) for `owner`.
+--- opts = { side = "right" | "left" | "below" | "above" | "default", x, y }; "default" = Edit Mode's HUD Tooltip spot.
 function Tooltip.Show(owner, block, opts)
 	local frame = surfaceFrame()
 	current.owner, current.block, current.opts = owner, block, opts

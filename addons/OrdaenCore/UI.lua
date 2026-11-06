@@ -40,7 +40,8 @@ end
 --- Show a tooltip block for `owner` (usually from its OnEnter).
 ---@param owner table the frame the tooltip belongs to
 ---@param block table a block tree with style = "tooltip"
----@param opts table|nil { side = "right" | "left" | "below" | "above", x, y }: placement only
+---@param opts table|nil { side = "right" | "left" | "below" | "above" | "default", x, y }: placement only.
+--- "default" puts it where Blizzard shows tooltips anchored to nothing (Edit Mode's "HUD Tooltip" position).
 function UI.ShowTooltip(owner, block, opts)
 	local f = framework()
 	if f then

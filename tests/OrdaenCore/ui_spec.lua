@@ -210,6 +210,14 @@ describe("OrdaenCore.UI", function()
 		assert.same({ "Click: calendar" }, shownTexts(s))
 	end)
 
+	it("puts a tooltip anchored to nothing at Edit Mode's HUD Tooltip position", function()
+		local container = { name = "GameTooltipDefaultContainer" }
+		rawset(_G, "GameTooltipDefaultContainer", container)
+		UI.ShowTooltip(owner, { style = "tooltip", { text = "Somewhere" } }, { side = "default" })
+		assert.same({ "BOTTOMRIGHT", container, "BOTTOMRIGHT", 0, 0 }, surface().point)
+		rawset(_G, "GameTooltipDefaultContainer", nil)
+	end)
+
 	it("hides only the owner's own tooltip", function()
 		UI.ShowTooltip(owner, { style = "tooltip", { text = "Mine" } })
 		UI.HideTooltip({ name = "someone else" })
