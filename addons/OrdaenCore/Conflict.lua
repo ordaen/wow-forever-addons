@@ -82,6 +82,7 @@ end
 local AREAS = {
 	{ "Tooltip", "CONFLICT_AREA_TOOLTIPS" },
 	{ "Minimap", "CONFLICT_AREA_MINIMAP" },
+	{ "ChatFrame", "CONFLICT_AREA_CHAT" }, -- ChatFrameMenuButton, ChatFrame1EditBox, ChatFrame2Tab...
 }
 
 -- An addon's title from its TOC, without colour codes (the dialog styles its own text).
@@ -153,7 +154,7 @@ local function ask(addon, other, what)
 	local L = ns.L
 	local area = L.CONFLICT_AREA_OTHER
 	for _, rule in ipairs(AREAS) do
-		if what:find(rule[1]) then
+		if what:find(rule[1], 1, true) then
 			area = L[rule[2]]
 			break
 		end

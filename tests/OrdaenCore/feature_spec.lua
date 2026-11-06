@@ -493,6 +493,18 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			rawset(_G, "GetTestShape", nil)
 		end)
 
+		it("name the chat when the contested frame is one of the chat's", function()
+			rawset(_G, "TestFrame", frame())
+			helpers.metadata.Prat = { Title = "Prat" }
+			local A = start()
+			login()
+			stack = WATCHER .. "Interface/AddOns/Prat/Modules/Buttons.lua:12: in function <x>\n"
+			A:Claim(_G.TestFrame, { "SetAlpha" }, "ChatFrameMenuButton")
+			_G.TestFrame:SetAlpha(0)
+			assert.equals(1, #dialogs)
+			assert.truthy(dialogs[1].text:find("both change the chat.", 1, true), dialogs[1].text)
+		end)
+
 		it("ask the player once which addon to keep, and turn the other off", function()
 			rawset(_G, "TestFrame", frame())
 			local disabled
