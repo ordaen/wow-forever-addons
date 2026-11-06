@@ -74,6 +74,7 @@ scripts/test.sh                 luacheck + busted (Git Bash -> WSL, or native on
 scripts/api-import.sh           import the in-game API dump into api/forever/ (api_import.lua does the work)
 scripts/forever_lint.lua        forever-lint: addon code against api/forever/<CURRENT>/api.json (json.lua: its JSON)
 api/forever/<version>-<build>/  the real Forever API per client version (generated; history in git)
+docs/                           OrdaenCore.UI docs site (VitePress, own package.json): cd docs && npm i && npm run dev
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
 .claude/skills/debug-in-game/   how Claude debugs in-game behavior (loaded on demand)
 .github/workflows/ci.yml        commitlint, luacheck, busted, packaging dry run
@@ -157,6 +158,9 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   scrolling and repeated lists; theme addon API; packaging the framework as an embeddable library for other addons.
 - PrettyTooltip (MIT, © 2026 FallenShard) is a reference and a source of features, not a base to fork. Any code taken
   from it keeps its copyright notice and license text.
+- **Docs:** `docs/` is the framework's documentation site (guide, reference, roadmap). Every change to the UI API, the
+  block format, layout rules or the theme updates the matching page in the same commit; planned parts stay on
+  `docs/roadmap.md` until built. Check with `npm run build` in `docs/` (fails on dead links).
 
 ## First addon: OrdaenMinimap
 
