@@ -1,13 +1,18 @@
--- Debug kit: one instance per addon, from OrdaenCore.NewDebug(addonName).
+-- Ordaen Core - Debug (OrdaenCore_Debug): the optional development mode for Ordaen addons.
 --
--- Everything is stored in the calling addon's SavedVariables under db.debug, which WoW writes to
--- WTF\Account\<account>\SavedVariables\<Addon>.lua on /reload or logout:
---   enabled, echo   debug switches (/<cmd> debug, /<cmd> debug echo)
+-- Disabled by default (## DefaultState: Disabled), so players never record anything: without it,
+-- OrdaenCore.NewDebug returns a no-op stand-in and errors take WoW's normal path. Enabling it in the
+-- AddOns list replaces OrdaenCore.NewDebug with the real kit below. Ordaen addons list this addon in
+-- ## OptionalDeps, so it loads before them.
+--
+-- One instance per addon. Everything is stored in that addon's SavedVariables under db.debug,
+-- which WoW writes to WTF\Account\<account>\SavedVariables\<Addon>.lua on /reload or logout:
+--   enabled, echo   log switches (/<cmd> debug, /<cmd> debug echo); the log is on by default
 --   log             timestamped lines, newest last, capped at LOG_MAX
 --   errors          de-duplicated errors with stack, locals and client info, capped at ERRORS_MAX
 --   dump            last /<cmd> dump: client info + the addon's own state snapshot
-local _, ns = ...
-local Core = ns.Core
+local Core = OrdaenCore
+Core.debugMode = true
 
 local instances = {}
 
@@ -100,7 +105,7 @@ function Core.NewDebug(addonName)
 		db.debug = saved
 		saved.log = saved.log or {}
 		saved.errors = saved.errors or {}
-		saved.enabled = saved.enabled == true
+		saved.enabled = saved.enabled ~= false -- dev mode: log unless switched off
 		saved.echo = saved.echo == true
 
 		local early = state

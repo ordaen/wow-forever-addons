@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Ordaen Core
-## Notes: Shared code for the Ordaen addons (debug log, error reports). Does nothing on its own.
+## Notes: Shared code for the Ordaen addons. Does nothing on its own.
 ## Category: Libraries
 ## Category-deDE: Bibliotheken
 ## Category-esES: Bibliotecas
@@ -19,4 +19,3 @@
 ## IconTexture: Interface\Icons\INV_Misc_Gear_01
 
 Core.lua
-Debug.lua

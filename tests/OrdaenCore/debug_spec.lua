@@ -1,11 +1,11 @@
 local helpers = require("tests.OrdaenCore.helpers")
 
--- A fresh Core (and so a fresh debug instance) for every test.
+-- A fresh Core with the debug module (dev mode), so a fresh debug instance, for every test.
 local function newDebug()
-	return helpers.loadCore().NewDebug("TestAddon")
+	return helpers.loadCore(true).NewDebug("TestAddon")
 end
 
-describe("OrdaenCore debug kit", function()
+describe("OrdaenCore_Debug (dev mode)", function()
 	local Debug, db, printed
 
 	before_each(function()
@@ -36,13 +36,18 @@ describe("OrdaenCore debug kit", function()
 	end)
 
 	describe("Log", function()
-		it("does nothing while debug is off", function()
-			Debug.Log("hello")
-			assert.are.equal(0, #db.debug.log)
+		it("is on by default in dev mode", function()
+			assert.is_true(Debug.IsEnabled())
 		end)
 
-		it("records timestamped lines while debug is on", function()
-			Debug.HandleSlash("debug on")
+		it("does nothing once switched off", function()
+			Debug.HandleSlash("debug off")
+			local before = #db.debug.log
+			Debug.Log("hello")
+			assert.are.equal(before, #db.debug.log)
+		end)
+
+		it("records timestamped lines", function()
 			Debug.Log("hello", 42, nil)
 			local last = db.debug.log[#db.debug.log]
 			assert.truthy(last:match("^%d%d:%d%d:%d%d%.500 hello 42 nil$"), last)
@@ -210,12 +215,19 @@ describe("OrdaenCore debug kit", function()
 		end)
 	end)
 
+	it("returns one instance per addon and marks dev mode", function()
+		local Core = rawget(_G, "OrdaenCore")
+		assert.is_true(Core.debugMode)
+		assert.are.equal(Debug, Core.NewDebug("TestAddon"))
+		assert.are_not.equal(Debug, Core.NewDebug("OtherAddon"))
+	end)
+
 	describe("HandleSlash", function()
 		it("toggles debug and leaves other commands to the addon", function()
 			assert.is_true(Debug.HandleSlash("debug"))
-			assert.is_true(Debug.IsEnabled())
-			assert.is_true(Debug.HandleSlash("  DEBUG off "))
 			assert.is_false(Debug.IsEnabled())
+			assert.is_true(Debug.HandleSlash("  DEBUG on "))
+			assert.is_true(Debug.IsEnabled())
 			assert.is_false(Debug.HandleSlash("columns 4"))
 			assert.is_false(Debug.HandleSlash("debug nonsense"))
 		end)

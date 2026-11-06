@@ -49,11 +49,13 @@ function M.stubGlobals(overrides)
 	end
 end
 
---- Load OrdaenCore's files in TOC order; returns the Core table.
-function M.loadCore()
+--- Load OrdaenCore the way WoW does; returns the Core table.
+---@param withDebugModule boolean|nil also load the optional OrdaenCore_Debug addon (dev mode)
+function M.loadCore(withDebugModule)
 	local ns = {}
-	for _, file in ipairs({ "Core.lua", "Debug.lua" }) do
-		assert(loadfile("addons/OrdaenCore/" .. file))("OrdaenCore", ns)
+	assert(loadfile("addons/OrdaenCore/Core.lua"))("OrdaenCore", ns)
+	if withDebugModule then
+		assert(loadfile("addons/OrdaenCore/OrdaenCore_Debug/Debug.lua"))("OrdaenCore_Debug", {})
 	end
 	return ns.Core
 end

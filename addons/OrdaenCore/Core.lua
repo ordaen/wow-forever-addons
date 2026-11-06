@@ -65,3 +65,64 @@ function Core.IsCompatible(addon)
 	end
 	return false
 end
+
+-- Debug API. Players get this no-op stand-in: nothing is recorded, Wrap returns the function
+-- unchanged, and errors take WoW's normal path (BugSack, Blizzard's handler). Development mode is
+-- the optional addon "Ordaen Core - Debug" (OrdaenCore_Debug, disabled by default); when enabled it
+-- loads before the Ordaen addons (they list it in ## OptionalDeps) and replaces Core.NewDebug.
+Core.debugMode = false
+
+local DEBUG_COMMANDS = { debug = true, dump = true, errors = true }
+local DEBUG_HINT = 'debug mode is off. Enable "Ordaen Core - Debug" in the AddOns list and restart the game.'
+
+local function noop() end
+
+--- The debug kit for one addon (no-op unless Ordaen Core - Debug is enabled).
+---@param addon string
+---@return table Debug
+function Core.NewDebug(addon)
+	local options = {}
+	local Debug = {
+		Log = noop,
+		Logf = noop,
+		Dump = noop,
+		RecordError = noop,
+		ShowReport = noop,
+	}
+
+	function Debug.Init(_, opts)
+		options = opts or {}
+	end
+
+	function Debug.IsEnabled()
+		return false
+	end
+
+	function Debug.Wrap(fn)
+		return fn
+	end
+
+	function Debug.Call(fn, ...)
+		return fn(...)
+	end
+
+	function Debug.HelpLines()
+		return { (options.slash or "") .. ' debug - development tools (needs "Ordaen Core - Debug")' }
+	end
+
+	--- Answers the debug commands with a hint; everything else is left to the addon.
+	function Debug.HandleSlash(msg)
+		local cmd = ((msg or ""):match("^%s*(%S*)") or ""):lower()
+		if not DEBUG_COMMANDS[cmd] then
+			return false
+		end
+		if options.print then
+			options.print(DEBUG_HINT)
+		else
+			DEFAULT_CHAT_FRAME:AddMessage(addon .. ": " .. DEBUG_HINT)
+		end
+		return true
+	end
+
+	return Debug
+end

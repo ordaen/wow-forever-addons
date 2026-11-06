@@ -1,0 +1,23 @@
+## Interface: 16001
+## Title: Ordaen Core - Debug
+## Notes: Development mode for the Ordaen addons: records errors, a debug log and state dumps. Leave it disabled unless you are developing or reporting a bug.
+## Category: Libraries
+## Category-deDE: Bibliotheken
+## Category-esES: Bibliotecas
+## Category-esMX: Bibliotecas
+## Category-frFR: Bibliothèques
+## Category-itIT: Librerie
+## Category-koKR: 라이브러리
+## Category-ptBR: Bibliotecas
+## Category-ruRU: Библиотеки
+## Category-zhCN: 函数库
+## Category-zhTW: 函式庫
+# The Version line is bumped by release-please; do not edit it by hand.
+# x-release-please-start-version
+## Version: 0.0.0
+# x-release-please-end
+## Dependencies: OrdaenCore
+## DefaultState: Disabled
+## IconTexture: Interface\Icons\INV_Misc_Gear_01
+
+Debug.lua

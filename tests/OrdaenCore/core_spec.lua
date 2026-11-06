@@ -64,9 +64,49 @@ describe("OrdaenCore", function()
 		end)
 	end)
 
-	it("returns one debug instance per addon", function()
-		local a = Core.NewDebug("TestAddon")
-		assert.are.equal(a, Core.NewDebug("TestAddon"))
-		assert.are_not.equal(a, Core.NewDebug("OtherAddon"))
+	describe("debug API without the debug module (players)", function()
+		local Debug, printed
+
+		before_each(function()
+			printed = {}
+			Debug = Core.NewDebug("TestAddon")
+			Debug.Init({}, {
+				slash = "/t",
+				print = function(msg)
+					printed[#printed + 1] = msg
+				end,
+			})
+		end)
+
+		it("is off and records nothing", function()
+			assert.is_false(Core.debugMode)
+			assert.is_false(Debug.IsEnabled())
+			local db = {}
+			Debug.Init(db, {})
+			Debug.Log("x")
+			Debug.RecordError("x")
+			Debug.Dump()
+			assert.are.same({}, db)
+		end)
+
+		it("leaves functions unwrapped so errors take the normal path", function()
+			local function fn() end
+			assert.are.equal(fn, Debug.Wrap(fn))
+			assert.has_error(function()
+				Debug.Call(error, "boom")
+			end, "boom")
+			local a, b = Debug.Call(function(x)
+				return x, 2
+			end, 1)
+			assert.are.same({ 1, 2 }, { a, b })
+		end)
+
+		it("answers debug commands with a hint and leaves the rest to the addon", function()
+			assert.is_true(Debug.HandleSlash("errors"))
+			assert.truthy(printed[1]:find("Ordaen Core - Debug", 1, true))
+			assert.is_false(Debug.HandleSlash("columns 4"))
+			assert.is_false(Debug.HandleSlash(""))
+			assert.truthy(Debug.HelpLines()[1]:find("/t debug", 1, true))
+		end)
 	end)
 end)
