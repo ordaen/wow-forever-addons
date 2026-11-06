@@ -10,6 +10,7 @@ body:
       options:
         - OrdaenMinimap
         - OrdaenTooltips
+        - OrdaenChat
         - OrdaenCore
         - Not sure
     validations:

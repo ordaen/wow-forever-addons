@@ -57,6 +57,15 @@
         "addon.jsonc"
       ]
     },
+    "addons/OrdaenChat": {
+      "release-type": "simple",
+      "component": "OrdaenChat",
+      "package-name": "OrdaenChat",
+      "initial-version": "0.1.0",
+      "extra-files": [
+        "addon.jsonc"
+      ]
+    },
     "addons/OrdaenTooltips": {
       "release-type": "simple",
       "component": "OrdaenTooltips",

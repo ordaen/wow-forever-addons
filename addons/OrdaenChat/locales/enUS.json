@@ -1,0 +1,13 @@
+{
+  "SETTINGS_TITLE": "Ordaen Chat",
+  "INPUT_GROUP": "Chat menu next to the input",
+  "INPUT_GROUP_TOOLTIP": "Show the chat menu button (emotes, languages) on the left of the chat input, drawn as one group with it.",
+  "SORT_CHANNELS": "New channels go to the Channels tab",
+  "SORT_CHANNELS_TOOLTIP": "A channel you join shows in the Channels tab instead of General. Channels you put in other tabs stay there.",
+  "TABS_DONE": "chat tabs set up: General, Guild, Channels. Whispers open in their own tabs. Type /ochat tabs to set them up again.",
+  "NO_FREE_WINDOW": "no free chat window for the %s tab. Close a tab, then type /ochat tabs.",
+  "TAB_FOR_CHANNEL": "channel %s now has its own tab.",
+  "CHANNEL_NOT_JOINED": "you aren't in a channel named %s.",
+  "HELP_TABS": "%s tabs - set up the chat tabs again (General, Guild, Channels)",
+  "HELP_TAB": "%s tab <channel> - give a channel its own tab"
+}
