@@ -84,8 +84,15 @@ local function percent(value)
 	return string.format("%d%%", math.floor(value * 100 + 0.5))
 end
 
+-- A size in UI units, with the screen pixels it takes now ("60 (72 px)"): the game lays sizes out in units, so
+-- "60 px" read like 60 screen pixels and wasn't (on a 1440p screen at 100 % a unit is 1.2 pixels).
 local function px(value)
-	return string.format("%d px", math.floor(value + 0.5))
+	local factor = PixelUtil and PixelUtil.GetPixelToUIUnitFactor and PixelUtil.GetPixelToUIUnitFactor()
+	local scale = UIParent and UIParent:GetEffectiveScale()
+	if factor and factor > 0 and scale then
+		return ns.L.SIZE_UNITS:format(math.floor(value + 0.5), math.floor(value * scale / factor + 0.5))
+	end
+	return string.format("%d", math.floor(value + 0.5))
 end
 
 local FORMATS = { percent = percent, px = px }

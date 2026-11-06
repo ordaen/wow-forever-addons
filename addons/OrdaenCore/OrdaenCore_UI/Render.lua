@@ -383,7 +383,9 @@ local function drawImage(surface, p, el, x, y, w, h)
 		tex = surface:CreateTexture(nil, "ARTWORK")
 		p.images[p.usedImages] = tex
 	end
-	if el.atlas then
+	if el.portrait then
+		SetPortraitTexture(tex, el.portrait) -- a unit's face; the caller refreshes on UNIT_PORTRAIT_UPDATE
+	elseif el.atlas then
 		tex:SetAtlas(el.atlas)
 	else
 		tex:SetTexture(el.image)

@@ -42,6 +42,7 @@ the text is measured again only when an argument's value changes.
 | `width` | number | `size`, else 16 | |
 | `height` | number | `size`, else `width` | |
 | `size` | number | | sets both |
+| `portrait` | unit (`"player"`) | none | the unit's face instead of `image`/`atlas` (Blizzard's SetPortraitTexture); refresh the block on `UNIT_PORTRAIT_UPDATE` |
 | `crop` | boolean | false | trim an item or spell icon's own border, by the theme's `icon.crop` (ignored for atlases and with `texCoord`) |
 | `texCoord` | `{ left, right, top, bottom }` | whole texture | e.g. `{ 0.08, 0.92, 0.08, 0.92 }` trims an icon's border |
 | `color` | `{ r, g, b, a? }` or a colour token | untinted | a tint; `"color.icon"` for white glyph icons (`OrdaenCore/media/icon-*`) |

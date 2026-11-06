@@ -70,12 +70,12 @@ local tooltip ---@type OrdaenUITooltip|nil
 -- nothing drawn, its size left alone) and sits invisibly over its cell, placed from the panel's "render" event; while
 -- it's hovered its cell lights.
 local hookSocialTip -- defined with the social tooltip, below
+local visibleArt -- dev, below
 local cellOf = {} ---@type table<table, table> Blizzard button -> its cell (a block in the panel)
 local cells = {} ---@type table<table, table> Blizzard button -> its cell, kept to reuse
 local homes = {} ---@type table<table, table> Blizzard button -> { parent, point, relativeTo, relativePoint, x, y }
 local sizes = {} ---@type table<table, number[]> Blizzard button -> its size before
 local dresses = {} ---@type table<table, OrdaenUIDress>
-local portraits = {} ---@type table<table, table> Blizzard button -> the texture of it that stays (the portrait)
 local placing = false
 -- Sizes, all from the panel's height (setting `height`): square cells fill it; an icon's picture shows at half the
 -- cell (iconSide; each atlas box scaled by its CONTENT), bag icons fill the cell; the bar is 60 %.
@@ -120,20 +120,14 @@ local function place(button)
 	button:ClearAllPoints()
 	button:SetPoint("TOPLEFT", panel.frame, "TOPLEFT", x, -y)
 	button:SetSize(w, h)
-	local portrait = portraits[button]
-	if portrait then
-		portrait:ClearAllPoints()
-		portrait:SetPoint("CENTER", button, "CENTER")
-		portrait:SetSize(w - 2, h - 2) -- the whole cell, inside its side edges
-		-- Blizzard masks the portrait with a mask texture of its own size: it follows, or the face stays small
-		for _, region in ipairs({ button:GetRegions() }) do
-			if region:GetObjectType() == "MaskTexture" then
-				region:ClearAllPoints()
-				region:SetAllPoints(portrait)
-			end
-		end
-	end
 	placing = false
+end
+
+-- The player's portrait changed (gear, form, a new look): the character cell draws it again.
+local function onPortraitChanged(_, unit)
+	if unit == "player" and panel then
+		panel:Refresh()
+	end
 end
 
 -- The panel was drawn: every button over its cell.
@@ -242,32 +236,10 @@ local function socialIcon()
 	return FALLBACK_ICON, nil
 end
 
--- The character button shows the player's face (Blizzard's portrait texture on it): that texture stays, the rest
--- of its art goes. Found by key or by Blizzard's global name.
-local function portraitOf(button)
-	local portrait = rawget(button, "Portrait")
-	if type(portrait) ~= "table" then
-		portrait = _G.MicroButtonPortrait
-	end
-	if type(portrait) == "table" and portrait.GetObjectType and portrait:GetParent() == button then
-		return portrait
-	end
-	return nil
-end
-
--- Every texture of a frame and its children except `keep`: what Dress hides when one texture must stay.
-local function artExcept(frame, keep, out)
-	out = out or {}
-	for _, region in ipairs({ frame:GetRegions() }) do
-		if region ~= keep and region:IsObjectType("Texture") then
-			out[#out + 1] = region
-		end
-	end
-	for _, child in ipairs({ frame:GetChildren() }) do
-		artExcept(child, keep, out)
-	end
-	return out
-end
+-- The character button shows the player's face: our own portrait image in its cell (the renderer draws it with
+-- SetPortraitTexture), not Blizzard's portrait texture, whose mask, crop and size Blizzard keeps setting (it came out
+-- small and squashed, 2026-11-06). Blizzard's art on the button goes like on every other button.
+local PORTRAIT_BUTTON = "CharacterMicroButton"
 
 -- An atlas icon keeps its proportions (Blizzard's micro icons are taller than wide): fit into the icon square.
 -- How much of its atlas box each micro icon's picture fills (the larger of its visible width and height over the
@@ -277,6 +249,7 @@ local CONTENT = {
 	ProfessionMicroButton = 0.56, SpellbookMicroButton = 0.58, TalentMicroButton = 0.50,
 	QuestLogMicroButton = 0.64, GuildMicroButton = 0.61, LFDMicroButton = 0.44, CollectionsMicroButton = 0.53,
 	StoreMicroButton = 0.56, MainMenuMicroButton = 0.67, HelpMicroButton = 0.67,
+	QuickJoinToastButton = 0.68, -- socialqueuing-icon-group (measured at 34 of a 50 box)
 }
 local CONTENT_DEFAULT = 0.6
 
@@ -379,8 +352,6 @@ end
 -- The cell of `button`: an "iconButton" block the button's size with its icon centred (none for the portrait).
 local function cellFor(button)
 	local name = button:GetName()
-	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
-	portraits[button] = portrait
 	-- A button look with side edges only: the panel's own top and bottom lines frame the row. rowAlign: the icon
 	-- in the middle of the cell's height (a fixed-height block centres its row only when asked).
 	local cell = cells[button] or {
@@ -393,8 +364,10 @@ local function cellFor(button)
 		cell.width, cell.height = size, cellWidth
 	end
 	cell.highlight = false
-	if portrait then
-		cell[1] = nil
+	if name == PORTRAIT_BUTTON then
+		local face = cell[1] or { portrait = "player", crop = true, align = "center", valign = "center" }
+		face.size = size - 4 -- the whole cell, inside the panel's lines, like a bag
+		cell[1] = face
 		return cell
 	end
 	local icon, atlas
@@ -427,6 +400,25 @@ local function noteHolder(button)
 	end
 end
 
+-- Dev: the textures of a held button (and its children) that still show, for art Dress doesn't reach (the grey
+-- shape behind the quest log's icon). Only from dev logging and the dump.
+function visibleArt(button, out, frame, path)
+	out = out or {}
+	frame = frame or button
+	path = path or (button:GetName() or "?")
+	for _, region in ipairs({ frame:GetRegions() }) do
+		if region:IsObjectType("Texture") and region:IsVisible() and region:GetAlpha() > 0
+			then
+			out[#out + 1] = path .. ":" .. tostring(region:GetAtlas() or region:GetTexture()) .. "@"
+				.. region:GetDrawLayer() .. " a" .. string.format("%.2f", region:GetAlpha())
+		end
+	end
+	for i, child in ipairs({ frame:GetChildren() }) do
+		visibleArt(button, out, child, path .. "/" .. (child:GetName() or ("#" .. i)))
+	end
+	return out
+end
+
 local function take(button, cell, texts)
 	texts = texts or button:GetName() == SOCIAL_BUTTON -- its friends count: ours is in its tooltip
 	if not homes[button] then
@@ -444,28 +436,11 @@ local function take(button, cell, texts)
 	if dress then
 		dress:Apply()
 	else
-		local portrait = portraits[button]
-		dresses[button] = UI.Dress(button, {
-			style = "none", size = "frame", art = portrait and artExcept(button, portrait) or nil,
-		})
+		dresses[button] = UI.Dress(button, { style = "none", size = "frame" })
 	end
 	local Debug = ns.Addon.Debug
 	if Debug:IsEnabled() then
-		-- dev: textures still visible after dressing, to find art Dress doesn't reach
-		local seen = {}
-		local function visible(frame, path)
-			for _, region in ipairs({ frame:GetRegions() }) do
-				if region:IsObjectType("Texture") and region:IsShown() and region:GetAlpha() > 0
-					and region ~= portraits[button] then
-					seen[#seen + 1] = path .. ":" .. tostring(region:GetAtlas() or region:GetTexture())
-						.. "@" .. region:GetDrawLayer()
-				end
-			end
-			for i, child in ipairs({ frame:GetChildren() }) do
-				visible(child, path .. "/" .. (child:GetName() or ("#" .. i)))
-			end
-		end
-		visible(button, button:GetName() or "?")
+		local seen = visibleArt(button)
 		if #seen > 0 then
 			Debug:Logf("still visible on %s: %s", button:GetName() or "?", table.concat(seen, ", "))
 		end
@@ -699,6 +674,7 @@ local function build()
 		if panel then
 			panel:On("enter", onPanelEnter)
 			panel:On("render", onPanelDrawn)
+			panel:On("UNIT_PORTRAIT_UPDATE", onPortraitChanged)
 			hoverTicker = ns.Addon:Every(0.25, checkHover)
 		end
 	end
@@ -838,8 +814,9 @@ function View.Dump()
 		if panel then
 			x, y, w, h = panel:RectOf(cell)
 		end
-		held[#held + 1] = { name = button:GetName(), shown = button:IsShown(), w = button:GetWidth(),
-			h = button:GetHeight(), cell = x and { x, y, w, h } or "not drawn" }
+		local entry = { name = button:GetName(), shown = button:IsShown(), w = button:GetWidth(),
+			h = button:GetHeight(), cell = x and { x, y, w, h } or "not drawn", art = visibleArt(button) }
+		held[#held + 1] = entry
 	end
 	local bars = {}
 	for _, name in ipairs(STATUS_BARS) do

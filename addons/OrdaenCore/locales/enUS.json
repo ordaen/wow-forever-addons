@@ -32,5 +32,6 @@
   "CONFLICT_AREA_CHAT": "the chat",
   "CONFLICT_AREA_OTHER": "the same part of the interface",
   "CONFLICT_TURN_OFF_MANUALLY": "Turn off %s in the AddOns list, then type /reload.",
-  "CONFLICT_RELOAD_AFTER_COMBAT": "%s is turned off. Type /reload after combat."
+  "CONFLICT_RELOAD_AFTER_COMBAT": "%s is turned off. Type /reload after combat.",
+  "SIZE_UNITS": "%d (%d px)"
 }

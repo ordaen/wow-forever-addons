@@ -76,6 +76,7 @@ local unavailable = false
 ---@field size number|nil width and height
 ---@field texCoord number[]|nil { left, right, top, bottom }
 ---@field crop boolean|nil trim an item or spell icon's own border by the theme's icon.crop
+---@field portrait string|nil a unit's face ("player"), instead of image or atlas; refresh on UNIT_PORTRAIT_UPDATE
 ---@field color number[]|string|nil a tint, { r, g, b, a? } or a colour token ("color.icon" for glyph icons)
 ---@field hidden boolean|nil as a child: skipped
 ---@field colSpan number|nil as a child: columns it spans
