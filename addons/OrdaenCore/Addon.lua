@@ -444,6 +444,7 @@ local function onAddonLoaded(addon)
 	runAll(addon._onLoad, addon.db, addon.charDb)
 	addon._onLoad = nil
 	if loggedIn then
+		addon:_CheckConflicts()
 		runAll(addon._onLogin)
 		addon._onLogin = nil
 		addon:_SyncFeatures()
@@ -469,6 +470,7 @@ local function onLifecycle(event, arg1)
 		removeHandler("PLAYER_LOGIN", onLifecycle)
 		for _, addon in ipairs(Core._addons) do
 			if addon.loaded then
+				addon:_CheckConflicts() -- Conflict.lua: the declared ones, before OnLogin
 				runAll(addon._onLogin)
 				addon._onLogin = nil
 				addon:_SyncFeatures() -- features start after the addon's own OnLogin (it may decide what may run)
@@ -511,6 +513,9 @@ function Core.NewAddon(addonName, addonNs, spec)
 		_wrapped = {},
 		_printParts = {},
 		_features = {},
+		_conflicts = {},
+		_conflictSeen = {},
+		_onConflict = {},
 	}, Addon)
 	byName[addonName] = addon
 	Core._addons[#Core._addons + 1] = addon

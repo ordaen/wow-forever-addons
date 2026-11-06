@@ -173,6 +173,12 @@ function StandIn:HandleSlash(msg)
 	return false
 end
 
+--- A conflict with another addon (the framework calls it from A:Conflict; dev mode sends it to the companion).
+---@param other string the other addon's folder name
+---@param what string what happened (English, for developers)
+---@param handled boolean
+function StandIn:Conflict(other, what, handled) end
+
 -- Timing (Performance tab). Release builds strip `local t = Debug:TimeStart()`, `Debug:TimeEnd(...)` and
 -- `Debug:Time(...)` statements; forever-lint FL7 refuses a Time call whose results are used.
 

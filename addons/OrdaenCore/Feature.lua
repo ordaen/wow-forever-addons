@@ -32,6 +32,7 @@ local call = Core._call
 ---@field name string
 ---@field setting string|nil a boolean setting (dotted key into the addon's db) that turns it on
 ---@field when (fun(db: table|nil): boolean)|nil
+---@field conflicts string[]|nil addons that keep it off while loaded (Conflict.lua)
 ---@field enabled boolean
 ---@field private _onEnable function[]
 ---@field private _onDisable function[]
@@ -59,6 +60,16 @@ local function wanted(feature)
 	end
 	if feature.when and not feature.when(addon.db) then
 		return false
+	end
+	-- it would be on: a declared conflict that is loaded keeps it off (recorded once, as handled)
+	local conflicts = feature.conflicts
+	if conflicts then
+		for i = 1, #conflicts do
+			if Core._IsAddOnLoaded(conflicts[i]) then
+				addon:Conflict(conflicts[i], "feature " .. feature.name .. " off", true)
+				return false
+			end
+		end
 	end
 	return true
 end
@@ -121,7 +132,7 @@ end
 
 --- Make a feature of this addon. Call it once per feature, at load.
 ---@param name string short, for the dev log ("drawer")
----@param opts { setting: string?, when: (fun(db: table|nil): boolean)? }|nil
+---@param opts { setting: string?, when: (fun(db: table|nil): boolean)?, conflicts: string[]? }|nil
 ---@return OrdaenFeature
 function Addon:Feature(name, opts)
 	local feature = setmetatable({
@@ -129,6 +140,7 @@ function Addon:Feature(name, opts)
 		name = name,
 		setting = opts and opts.setting,
 		when = opts and opts.when,
+		conflicts = opts and opts.conflicts,
 		enabled = false,
 		_onEnable = {},
 		_onDisable = {},

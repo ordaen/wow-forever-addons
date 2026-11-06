@@ -3,7 +3,7 @@
 local helpers = require("tests.OrdaenCore.helpers")
 
 describe("OrdaenCore features, ticker, unit events, migrations", function()
-	local Core, now, timers, reported
+	local Core, now, timers, reported, loadedAddons
 
 	-- The game's clock and C_Timer.After: timers fire in time order as the clock moves.
 	local function advance(seconds)
@@ -107,6 +107,10 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			end
 			return f
 		end)
+		loadedAddons = {}
+		_G.C_AddOns.IsAddOnLoaded = function(name)
+			return loadedAddons[name] == true, loadedAddons[name] == true
+		end
 		Core = helpers.loadCore()
 	end)
 
@@ -359,6 +363,51 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			assert.equals(5, seen)
 			assert.is_false(A:Hook({}, "Missing", function() end))
 			rawset(_G, "TestGlobalFn", nil)
+		end)
+	end)
+
+	describe("conflicts", function()
+		it("keep a feature off while a declared addon is loaded, recorded once as handled", function()
+			loadedAddons.MinimapButtonButton = true
+			local A = start()
+			local F = A:Feature("drawer", { conflicts = { "MinimapButtonButton" } })
+			local G = A:Feature("clock", { conflicts = { "NotInstalled" } })
+			login()
+			A:_SyncFeatures()
+			assert.is_false(F:IsEnabled())
+			assert.is_true(G:IsEnabled())
+			assert.same({ { other = "MinimapButtonButton", what = "feature drawer off", handled = true } }, A:Conflicts())
+		end)
+
+		it("call OnConflict before OnLogin for each declared addon that is loaded", function()
+			loadedAddons.SexyMap = true
+			local A = start({ db = "TestAddonDB", conflicts = { "SexyMap", "Chinchilla" } })
+			local order = {}
+			A:OnConflict(function(other)
+				order[#order + 1] = "conflict:" .. other
+				A:Conflict(other, "map left alone", true)
+			end)
+			A:OnLogin(function()
+				order[#order + 1] = "login"
+			end)
+			login()
+			assert.same({ "conflict:SexyMap", "login" }, order)
+			assert.same({ { other = "SexyMap", what = "map left alone", handled = true } }, A:Conflicts())
+		end)
+
+		it("record a declared conflict nobody handles as not handled", function()
+			loadedAddons.SexyMap = true
+			local A = start({ db = "TestAddonDB", conflicts = { "SexyMap" } })
+			login()
+			assert.same({ { other = "SexyMap", what = "loaded together", handled = false } }, A:Conflicts())
+		end)
+
+		it("keep at most 20 records per addon", function()
+			local A = start()
+			for i = 1, 30 do
+				A:Conflict("Other", "thing " .. i, false)
+			end
+			assert.equals(20, #A:Conflicts())
 		end)
 	end)
 

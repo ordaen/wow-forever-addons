@@ -58,6 +58,7 @@ return {
 	TimeStart = "Ordaen debug kit",
 	TimeEnd = "Ordaen debug kit",
 	Time = "Ordaen debug kit",
+	Conflict = "Ordaen debug kit",
 
 	-- LibDBIcon-1.0 (embedded by other addons), confirmed by its use in MinimapButtonButton Logic/Main.lua.
 	GetButtonList = "LibDBIcon-1.0",

@@ -150,7 +150,7 @@ end
 -- or a call of a function named like it (`debug()`, `getDebug()`).
 local KIT_METHODS = {}
 for name in ([[Init IsEnabled Log Logf Warn Warnf Verbose Verbosef Wrap Call Dump Snapshot HandleSlash HelpLines
-	Trace TraceFrame TraceEnabled TimeStart TimeEnd Time]]):gmatch("%a+") do
+	Trace TraceFrame TraceEnabled TimeStart TimeEnd Time Conflict]]):gmatch("%a+") do
 	KIT_METHODS[name] = true
 end
 
