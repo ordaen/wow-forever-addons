@@ -1,0 +1,7 @@
+{
+  "SETTINGS_TITLE": "Ordaen Meter",
+  "METER_LOOK": "Стиль Ordaen",
+  "METER_LOOK_TOOLTIP": "Измеритель урона игры в теме Ordaen. Если выключено, возвращается вид игры; её шрифты вернутся после /reload.",
+  "BAR_TEXTURE": "Текстура полос",
+  "BAR_TEXTURE_TOOLTIP": "Текстура полос измерителя. По умолчанию из темы."
+}

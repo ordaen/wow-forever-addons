@@ -12,6 +12,7 @@ body:
         - OrdaenTooltips
         - OrdaenChat
         - OrdaenPanel
+        - OrdaenMeter
         - OrdaenCore
         - Not sure
     validations:
