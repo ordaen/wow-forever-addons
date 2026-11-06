@@ -48,11 +48,14 @@ local function dressBar(bar)
 	if statusBar then
 		dressText(statusBar.Name, "body")
 		dressText(statusBar.Value, "value")
-		-- Blizzard's shadow edge lies over the fill (OVERLAY), darkening every bar's rim whatever its texture; its
-		-- alpha follows the meter's background transparency, so it's kept hidden by a dress, not hidden once.
-		local edge = bar.GetBackgroundEdge and bar:GetBackgroundEdge()
-		if edge then
-			edges[bar] = UI.Dress(statusBar, { style = "none", size = "frame", art = { edge } })
+		-- Blizzard's per-bar art: a shadowed, bordered track under the fill (Background) and a shadow edge over it
+		-- (BackgroundEdge, OVERLAY: it darkened every texture's rim). Only the fill and its texts stay, on our panel.
+		-- Their alpha follows the meter's background transparency, so a dress keeps them hidden, not hidden once.
+		local art = {} -- once per bar
+		art[#art + 1] = bar.GetBackground and bar:GetBackground() or nil
+		art[#art + 1] = bar.GetBackgroundEdge and bar:GetBackgroundEdge() or nil
+		if #art > 0 then
+			edges[bar] = UI.Dress(statusBar, { style = "none", size = "frame", art = art })
 		end
 	end
 end

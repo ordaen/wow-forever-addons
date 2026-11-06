@@ -58,9 +58,13 @@ end
 local function entry(name)
 	local statusBar = stub(name .. ".StatusBar", { kind = "StatusBar", Name = fontString(name .. ".Name"),
 		Value = fontString(name .. ".Value") })
-	local bar = stub(name, { kind = "Button", statusBar = statusBar, edge = texture(name .. ".BackgroundEdge") })
+	local bar = stub(name, { kind = "Button", statusBar = statusBar, track = texture(name .. ".Background"),
+		edge = texture(name .. ".BackgroundEdge") })
 	function bar:GetStatusBar()
 		return self.statusBar
+	end
+	function bar:GetBackground()
+		return self.track
 	end
 	function bar:GetBackgroundEdge()
 		return self.edge
@@ -362,7 +366,8 @@ describe("Ordaen Meter", function()
 		assert.equals("body", fonts[first.statusBar.Name])
 		assert.equals("value", fonts[first.statusBar.Value])
 		local edge = dressed[first.statusBar]
-		assert.same({ "none", { first.edge } }, { edge.spec.style, edge.spec.art }, "Blizzard's shadow edge kept hidden")
+		assert.same({ "none", { first.track, first.edge } }, { edge.spec.style, edge.spec.art },
+			"Blizzard's track and shadow edge kept hidden")
 		local later = entry("Bar2")
 		window:Show(later) -- InitEntry and SetupEntry both run; dressing happens once (fakeDressing asserts it)
 		window:SetupEntry(later) -- reused from the pool
