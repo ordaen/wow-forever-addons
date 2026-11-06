@@ -25,6 +25,7 @@ local function dumpState()
 		drawer = ns.Drawer.Describe(),
 		buttons = ns.Buttons.Describe(),
 		info = ns.Info.Describe(),
+		tooltip = OrdaenCore.UI._Describe(), -- the last tooltip as measured and drawn
 	}
 end
 

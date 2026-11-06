@@ -144,6 +144,36 @@ local function drawBlock(surface, p, result, ox, oy)
 	end
 end
 
+--- What was measured and drawn on `surface` last time (dev-mode dumps only; builds tables, never call when hot).
+function Render.Describe(surface, root)
+	local p = pools[surface]
+	local out = {
+		surfaceSize = { surface:GetWidth(), surface:GetHeight() },
+		surfaceScale = surface:GetEffectiveScale(),
+		measurerScale = measurer and measurer:GetParent():GetEffectiveScale() or false,
+		layout = {},
+		drawn = {},
+	}
+	local result = root and Layout.ResultOf(root)
+	for i = 1, result and result.count or 0 do
+		local item = result.items[i]
+		local c = naturalCache[item.node]
+		out.layout[i] = {
+			text = item.node.text, x = item.x, y = item.y, w = item.w, h = item.h,
+			natural = c and { c.w, c.h } or false,
+		}
+	end
+	for i = 1, p and p.usedFonts or 0 do
+		local fs = p.fonts[i]
+		out.drawn[i] = {
+			text = fs:GetText(), width = fs:GetWidth(), height = fs:GetHeight(),
+			stringWidth = fs:GetStringWidth(), stringHeight = fs:GetStringHeight(),
+			unbounded = fs:GetUnboundedStringWidth(),
+		}
+	end
+	return out
+end
+
 --- Lay out `root` and draw it onto `surface` (a frame; BackdropTemplate if its style has a backdrop).
 --- `width` nil = shrink to fit. Sizes the surface; returns the root's layout result.
 function Render.Draw(surface, root, width)

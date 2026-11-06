@@ -55,6 +55,12 @@ function UI.HideTooltip(owner)
 	end
 end
 
+--- The last tooltip as measured and drawn, for dev-mode dumps (false if the framework isn't loaded). Not for
+--- regular addon code: it builds tables.
+function UI._Describe()
+	return impl and impl.Describe() or false
+end
+
 --- Redraw `owner`'s tooltip after its block changed, if it is shown. Never loads the framework.
 function UI.RefreshTooltip(owner)
 	if impl then

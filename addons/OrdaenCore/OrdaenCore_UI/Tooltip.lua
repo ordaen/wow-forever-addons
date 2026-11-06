@@ -68,8 +68,17 @@ function Tooltip.Owner()
 	return surface and surface:IsShown() and current.owner or nil
 end
 
+--- The last tooltip as measured and drawn (dev-mode dumps).
+function Tooltip.Describe()
+	if not surface then
+		return false
+	end
+	return Render.Describe(surface, current.block or nil)
+end
+
 -- Hand the implementation to Ordaen Core's always-loaded entry point (addons/OrdaenCore/UI.lua).
 OrdaenCore.UI._Provide({
+	Describe = Tooltip.Describe,
 	ShowTooltip = Tooltip.Show,
 	HideTooltip = Tooltip.Hide,
 	RefreshTooltip = Tooltip.Refresh,
