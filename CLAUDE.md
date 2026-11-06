@@ -59,7 +59,20 @@ little configuration: opinionated defaults instead of option panels. Renamed fro
 release; the button drawer + addon compartment is one feature of it. Feature scope beyond the drawer is still to be
 decided with the user.
 
-- SavedVariables `OrdaenMinimapDB`; slash `/om` (alias `/ordaenminimap`).
+- SavedVariables `OrdaenMinimapDB`; slash `/om` opens the settings (alias `/ordaenminimap`), `/om reset` restores defaults.
+- Forever runs the **modern (mainline) minimap code** with Forever tweaks (SexyMap loads its mainline files there; its
+  `Init_Camelot.lua` sets `isForever`). Frame names differ between clients, so `Map.lua` looks up each Blizzard piece by
+  several names, skips missing ones and records what it found (`/om dump` with dev mode). Toggling "rotate minimap"
+  runs `MinimapCluster:UpdateMinimapConfig`, which resets the mask and sizes: we hook it and re-apply.
+- Settings page: Blizzard Settings API in its newer form (`Settings.RegisterAddOnSetting(category, variable, key, tbl,
+  type, name, default)`, `Settings.CreateDropdown/CreateSlider/CreateCheckbox`), registered on `ADDON_LOADED` because it
+  binds to the SavedVariables table. Reference: `MinimapButtonButton\Settings\SettingsMenu.lua`, `ForeverLootSparkles`.
+- Files: `Locale.lua` (enUS + ruRU; the user's client is ruRU), `Borders.lua` (border styles as data, defaults, pure
+  helpers), `Map.lua` (square mask, hide round pieces, wheel zoom, border frame, scale, `GetMinimapShape`),
+  `Options.lua` (settings page), `Core.lua` (events, slash). Specs: `borders_spec.lua` (logic) and `smoke_spec.lua`
+  (loads the whole addon against stubbed WoW objects).
+- Feature: square map with a configurable border. Styles in `ns.BORDER_STYLES` are backdrops drawn by a frame around the
+  map; built-in ones use game textures (gold dialog, tooltip, thin line). Custom art goes in `media/` as a new style.
 - Feature: button drawer (replaces MinimapButtonButton, MBB) that also collects **addon compartment** entries.
   - One main button; clicking it toggles a grid "drawer" of buttons.
   - Collects minimap buttons the way MBB does (`_forever_\Interface\AddOns\MinimapButtonButton\Logic\Main.lua` is the reference):

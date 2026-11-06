@@ -12,6 +12,14 @@ read_globals = {
 	"UIParent",
 	"InCombatLockdown",
 	"LibStub",
+	-- used by OrdaenMinimap
+	"CreateSettingsListSectionHeaderInitializer",
+	"MinimalSliderWithSteppersMixin",
+	"MinimapCluster",
+	"RAID_CLASS_COLORS",
+	"Settings",
+	"UnitClass",
+	"hooksecurefunc",
 	-- used by OrdaenCore/Debug.lua
 	"BackdropTemplateMixin",
 	"ChatFontNormal",
@@ -27,6 +35,7 @@ read_globals = {
 
 -- Globals the addons are allowed to define.
 globals = {
+	"GetMinimapShape", -- Blizzard convention: the minimap addon defines it
 	"OrdaenCore",
 	"OrdaenMinimapDB",
 	"SLASH_ORDAENMINIMAP1",

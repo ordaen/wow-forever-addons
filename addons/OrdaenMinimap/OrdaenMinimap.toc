@@ -1,6 +1,7 @@
 ## Interface: 16001
 ## Title: Ordaen Minimap
-## Notes: A tidy, low-config minimap: square or round shape, button drawer, addon compartment entries.
+## Notes: Square minimap with Blizzard-style borders and little configuration.
+## Notes-ruRU: Квадратная миникарта с рамками в стиле Blizzard и минимумом настроек.
 ## Category: User Interface
 ## Category-deDE: Benutzerinterface
 ## Category-esES: Interfaz de usuario
@@ -22,5 +23,9 @@
 ## SavedVariables: OrdaenMinimapDB
 ## IconTexture: Interface\Icons\INV_Misc_Bag_10
 
+Locale.lua
 Names.lua
+Borders.lua
+Map.lua
+Options.lua
 Core.lua
