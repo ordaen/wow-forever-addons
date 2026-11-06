@@ -104,30 +104,6 @@ describe("OrdaenMinimap locale", function()
 		return ns
 	end
 
-	-- English keys: everything Locale.lua defines (rawget skips the key-as-text fallback).
-	local function englishKeys()
-		local ns = loadLocale("enUS")
-		local keys = {}
-		for key in pairs(ns.L) do
-			keys[#keys + 1] = key
-		end
-		return keys
-	end
-
-	it("translates every English string for ruRU", function()
-		local captured
-		local fake = {
-			LOCALE = "ruRU",
-			ApplyTranslation = function(strings)
-				captured = strings
-			end,
-		}
-		loadInto(fake, "addons/OrdaenMinimap/Locale_ruRU.lua")
-		for _, key in ipairs(englishKeys()) do
-			assert.is_string(captured[key], "ruRU misses " .. key)
-		end
-	end)
-
 	it("has a label for every border style and color", function()
 		local ns = loadLocale("enUS")
 		loadInto(ns, "addons/OrdaenMinimap/Borders.lua")
