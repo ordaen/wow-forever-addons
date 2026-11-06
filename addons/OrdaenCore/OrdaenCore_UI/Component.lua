@@ -383,6 +383,7 @@ Component.Base = Base
 local EDGE_POINT = { bottom = "BOTTOM", top = "TOP", left = "LEFT", right = "RIGHT" }
 local EDGE_DIRECTION = { bottom = { 0, 1 }, top = { 0, -1 }, left = { 1, 0 }, right = { -1, 0 } }
 
+---@class OrdaenUIPanel
 local Panel = setmetatable({}, { __index = Base })
 local PanelMeta = { __index = Panel }
 

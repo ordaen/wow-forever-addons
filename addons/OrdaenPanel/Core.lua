@@ -3,16 +3,24 @@
 -- on OrdaenCore.UI's edge panel, bars and dressed Blizzard buttons) listens to ns.Changed.
 local addonName, ns = ...
 
+-- Edge, length and button size change the layout; the groups and visibility are features (below).
+local LAYOUT = { edge = true, fit = true, buttonSize = true }
+
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	slash = { "/op", "/ordaenpanel" },
+	onChange = function(key)
+		if LAYOUT[key] then
+			ns.Changed("layout")
+		end
+	end,
 }) --[[@as OrdaenPanelAddon]]
 if not A then
 	return -- Ordaen Core is too old; the player was told
 end
 ns.Addon = A
 
---- A segment's model changed (or its group went on/off): redraw it. Until Panel.lua exists, nothing is drawn.
----@param segment string "social", "experience", "currencies", "bags", "micromenu", "visibility"
+--- A segment's model changed (or its group went on/off): redraw it (Panel.lua).
+---@param segment string "social", "experience", "currencies", "bags", "micromenu", "visibility", "layout"
 function ns.Changed(segment)
 	local view = ns.View
 	if view then
