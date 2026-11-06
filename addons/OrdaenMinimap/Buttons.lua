@@ -10,14 +10,9 @@ local _, ns = ...
 local Buttons = {}
 ns.Buttons = Buttons
 
-local SIZE = 28
-local ICON_INSET = 4
-local BACKDROP = { -- same as the Ordaen Dev gear button
-	bgFile = "Interface/Tooltips/UI-Tooltip-Background",
-	edgeFile = "Interface/Tooltips/UI-Tooltip-Border",
-	edgeSize = 16,
-	insets = { left = 4, right = 4, top = 4, bottom = 4 },
-}
+local UI = OrdaenCore.UI
+local SIZE = 28 -- our ring buttons: the "iconButton" style's padding (4 each side) around a 20 px icon
+local ICON = 20
 local TRACKING_ICON = "Interface\\Icons\\INV_Misc_Spyglass_02"
 local RETRY_DELAY = 5 -- some Blizzard buttons are created after login
 
@@ -152,53 +147,35 @@ end
 
 -- Our buttons -----------------------------------------------------------------------------------
 
---- Dress a button in our style (the gear button's look): dark backdrop, icon, highlight.
----@return table icon texture
-function Buttons.Style(button)
-	button:SetSize(SIZE, SIZE)
-	if button.SetBackdrop then
-		button:SetBackdrop(BACKDROP)
-		button:SetBackdropColor(0, 0, 0, 0.8)
-	end
-	local icon = button:CreateTexture(nil, "ARTWORK")
-	icon:SetPoint("TOPLEFT", ICON_INSET, -ICON_INSET)
-	icon:SetPoint("BOTTOMRIGHT", -ICON_INSET, ICON_INSET)
-	button.icon = icon
-	local highlight = button:CreateTexture(nil, "HIGHLIGHT")
-	highlight:SetPoint("TOPLEFT", ICON_INSET, -ICON_INSET)
-	highlight:SetPoint("BOTTOMRIGHT", -ICON_INSET, ICON_INSET)
-	highlight:SetTexture("Interface\\Buttons\\ButtonHilight-Square")
-	highlight:SetBlendMode("ADD")
-	button.highlight = highlight
-	return icon
+-- Our ring buttons are OrdaenCore.UI components in the "iconButton" style (the gear button's look).
+local function iconSpec(name, iconTexture)
+	return {
+		name = name,
+		parent = Minimap,
+		style = "iconButton",
+		strata = "MEDIUM",
+		level = (Minimap:GetFrameLevel() or 1) + 8,
+		{ image = iconTexture, size = ICON },
+	}
 end
 
----@class OrdaenMinimapButton : Button, BackdropTemplate
----@field icon Texture set by Buttons.Style
----@field highlight Texture set by Buttons.Style
-
----@return OrdaenMinimapButton
-local function newStyled(name, frameType)
-	local template = BackdropTemplateMixin and "BackdropTemplate" or nil
-	local button = CreateFrame(frameType or "Button", name, Minimap, template) --[[@as OrdaenMinimapButton]]
-	Buttons.Style(button)
-	button:SetFrameStrata("MEDIUM")
-	button:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 8)
-	return button
+local function onDragStart(button)
+	startDrag(button.frame)
 end
 
 --- A new button of ours on the ring, e.g. the drawer button. Left-drag moves it around the minimap.
 ---@param id string key in ns.RING_DEFAULT_ANGLES
 ---@param name string global frame name
 ---@param iconTexture string
----@return table button
+---@return OrdaenUIComponent|nil button nil when OrdaenCore_UI can't load (the player was told)
 function Buttons.Create(id, name, iconTexture)
-	local button = newStyled(name)
-	button.icon:SetTexture(iconTexture)
-	button:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	register(id, button)
-	button:SetScript("OnDragStart", startDrag)
-	button:SetScript("OnDragStop", stopDrag)
+	local button = UI.Button(iconSpec(name, iconTexture))
+	if not button then
+		return nil
+	end
+	register(id, button.frame)
+	button:On("dragstart", onDragStart)
+	button:On("dragstop", stopDrag)
 	place(items[id])
 	return button
 end
@@ -223,24 +200,26 @@ local function childButton(frame)
 	return nil
 end
 
-local trackingLook -- our styled frame shown under Blizzard's (invisible) tracking button
+local trackingLook -- our component shown under Blizzard's (invisible) tracking button; takes no mouse
 
+-- Blizzard's button gets the hover, so ours shows its highlight on request.
 local function highlightOn()
-	trackingLook.highlight:Show()
+	trackingLook:LockHighlight()
 end
 
 local function highlightOff()
-	trackingLook.highlight:Hide()
+	trackingLook:UnlockHighlight()
 end
 
 --- Dress Blizzard's tracking button in our style. Blizzard's frame stays on top and gets the clicks
 --- (its menu keeps working); its own art is made invisible and ours sits underneath.
 local function skinTracking(frame)
 	local clickable = childButton(frame) or frame
-	trackingLook = newStyled("OrdaenMinimapTrackingButton", "Frame")
-	trackingLook:EnableMouse(false)
-	trackingLook.highlight:SetDrawLayer("OVERLAY")
-	trackingLook.highlight:Hide()
+	-- Forever has no API for the tracked type's icon (no GetTrackingTexture), so a spyglass.
+	trackingLook = UI.Block(iconSpec("OrdaenMinimapTrackingButton", TRACKING_ICON))
+	if not trackingLook then
+		return clickable -- OrdaenCore_UI can't load: Blizzard's own look stays
+	end
 	trackingLook:SetPoint("CENTER", frame, "CENTER")
 	frame:SetSize(SIZE, SIZE)
 	if clickable ~= frame then
@@ -252,8 +231,6 @@ local function skinTracking(frame)
 	hideArt(frame)
 	clickable:HookScript("OnEnter", highlightOn)
 	clickable:HookScript("OnLeave", highlightOff)
-	-- Forever has no API for the tracked type's icon (no GetTrackingTexture), so a spyglass.
-	trackingLook.icon:SetTexture(TRACKING_ICON)
 	return clickable
 end
 
@@ -316,5 +293,5 @@ function Buttons.Describe()
 	for id, item in pairs(items) do
 		placed[id] = { angle = ns.ButtonAngle(db and db.buttonAngles, id), frame = item.frame }
 	end
-	return { found = found, placed = placed, trackingLook = trackingLook }
+	return { found = found, placed = placed, trackingLook = trackingLook and trackingLook.frame or false }
 end

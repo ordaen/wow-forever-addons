@@ -1,17 +1,20 @@
 -- Text around the minimap, outside the border: the zone name above it, coordinates and the clock below.
 -- They replace Blizzard's zone text, clock and calendar button (hidden in Map.lua). A click on the clock
 -- opens the calendar, a right-click the clock settings, a click on the zone name the world map.
+-- All three are OrdaenCore.UI components; their tooltips are UI tooltip objects.
 --
 -- Cost: nothing runs per frame. The zone updates on zone events. Coordinates and the clock share one
 -- 1-second timer chain; while the player moves, a second chain refreshes coordinates every 0.1 s.
--- Coordinates come from UnitPosition (numbers only) and the map's world rectangle (read once per zone),
--- so ticking creates no tables; the text is set with SetFormattedText and only when it changes.
+-- Coordinates come from UnitPosition (numbers only) and the map's world rectangle (read once per zone), and
+-- are drawn as format + args (WoW's SetFormattedText), so ticking creates no tables or strings; the components
+-- are redrawn only when the shown value changes.
 local _, ns = ...
 
 local Info = {}
 ns.Info = Info
 
 local L = ns.L
+local UI = OrdaenCore.UI
 local SLOW, FAST = 1, 0.1
 local TEXT_GAP = 2
 
@@ -23,20 +26,46 @@ local PVP_COLORS = {
 	friendly = { 0.1, 1, 0.1 },
 	contested = { 1, 0.7, 0 },
 }
-local NORMAL = { 1, 0.82, 0 }
+local INVITES_COLOR = { 1, 0.5, 0.1 }
 
 local db
-local zoneButton, zoneText, coordText, timeButton, timeText
-local events
+local zone, coords, clock -- OrdaenCore.UI components, made on the first Apply
 local active = false
+
+-- Blocks and tooltips: built once; only fields change. ------------------------------------------
+
+local zoneLabel = { text = "", style = "normal" }
+local zoneName = { text = "", style = "title" }
+local subzoneName = { text = "", style = "subtitle" }
+local zoneTooltip = UI.Tooltip({
+	zoneName,
+	subzoneName,
+	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
+}, { side = "below" })
+
+local coordValue = { format = "%.1f, %.1f", args = { 0, 0 }, style = "small", hidden = true }
+
+local CLOCK_24, CLOCK_12 = "%02d:%02d", "%d:%02d %s"
+local clockValue = { format = CLOCK_24, args = { 0, 0, "" }, style = "small" }
+local invitesLine = { text = L.CALENDAR_PENDING, color = INVITES_COLOR, hidden = true }
+local clockTooltip = UI.Tooltip({
+	invitesLine,
+	{ text = L.TIME_TOOLTIP_CALENDAR, style = "hint" },
+	{ text = L.TIME_TOOLTIP_CLOCK, style = "hint" },
+}, { side = "below" })
 
 -- Zone -----------------------------------------------------------------------------------------
 
 local function updateZone()
-	zoneText:SetText(GetMinimapZoneText() or "")
+	zoneLabel.text = GetMinimapZoneText() or ""
 	local pvp = C_PvP.GetZonePVPInfo()
-	local c = pvp and PVP_COLORS[pvp] or NORMAL
-	zoneText:SetTextColor(c[1], c[2], c[3])
+	zoneLabel.color = pvp and PVP_COLORS[pvp] or nil -- nil: the "normal" style's gold
+	zone:Refresh()
+	-- The tooltip's lines change with the zone, not on hover.
+	zoneName.text = GetRealZoneText() or ""
+	subzoneName.text = GetSubZoneText() or ""
+	subzoneName.hidden = subzoneName.text == "" or subzoneName.text == zoneName.text
+	zoneTooltip:Refresh()
 end
 
 -- Coordinates ----------------------------------------------------------------------------------
@@ -80,11 +109,14 @@ local function showCoords(x, y)
 		x, y = math.floor(x * 1000 + 0.5), math.floor(y * 1000 + 0.5) -- tenths of a percent
 		if x ~= shownX or y ~= shownY then
 			shownX, shownY = x, y
-			coordText:SetFormattedText("%.1f, %.1f", x / 10, y / 10)
+			coordValue.args[1], coordValue.args[2] = x / 10, y / 10
+			coordValue.hidden = false
+			coords:Refresh()
 		end
 	elseif shownX then
 		shownX, shownY = nil, nil
-		coordText:SetText("")
+		coordValue.hidden = true
+		coords:Refresh()
 	end
 end
 
@@ -106,8 +138,6 @@ end
 -- Clock ----------------------------------------------------------------------------------------
 
 local shownMinute
-local pendingInvites = false
-
 local cvarBool = C_CVar.GetCVarBool
 
 local function updateClock()
@@ -129,52 +159,23 @@ local function updateClock()
 		end
 		shownMinute = key
 	end
+	local args = clockValue.args
 	if cvarBool("timeMgrUseMilitaryTime") == false then
-		local suffix = hour >= 12 and TIMEMANAGER_PM or TIMEMANAGER_AM
 		local h12 = hour % 12
-		timeText:SetFormattedText("%d:%02d %s", h12 == 0 and 12 or h12, minute, suffix)
+		clockValue.format = CLOCK_12
+		args[1], args[2], args[3] = h12 == 0 and 12 or h12, minute, hour >= 12 and TIMEMANAGER_PM or TIMEMANAGER_AM
 	else
-		timeText:SetFormattedText("%02d:%02d", hour, minute)
+		clockValue.format = CLOCK_24
+		args[1], args[2], args[3] = hour, minute, ""
 	end
-end
-
--- Tooltips through OrdaenCore.UI: each block is built once and only fields change (text on hover, the
--- invites line's `hidden` when invites change).
-local UI = OrdaenCore.UI
-local BELOW = { side = "below" }
-local zoneName = { text = "", style = "title" } -- filled in on hover
-local subzoneName = { text = "", style = "subtitle" }
-local zoneTooltip = {
-	style = "tooltip",
-	zoneName,
-	subzoneName,
-	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
-}
-local invitesLine = { text = L.CALENDAR_PENDING, color = { 1, 0.5, 0.1 }, hidden = true }
-local clockTooltip = {
-	style = "tooltip",
-	invitesLine,
-	{ text = L.TIME_TOOLTIP_CALENDAR, style = "hint" },
-	{ text = L.TIME_TOOLTIP_CLOCK, style = "hint" },
-}
-
-local function hideTooltip(self)
-	UI.HideTooltip(self)
-end
-
-local function showClockTooltip(self)
-	UI.ShowTooltip(self, clockTooltip, BELOW)
+	clock:Refresh()
 end
 
 local function updateInvites()
-	pendingInvites = C_Calendar.GetNumPendingInvites() > 0
-	if pendingInvites then
-		timeText:SetTextColor(1, 0.5, 0.1)
-	else
-		timeText:SetTextColor(1, 1, 1)
-	end
-	invitesLine.hidden = not pendingInvites
-	UI.RefreshTooltip(timeButton) -- redraws it only if it is shown
+	local pending = C_Calendar.GetNumPendingInvites() > 0
+	clockValue.color = pending and INVITES_COLOR or nil
+	invitesLine.hidden = not pending
+	clock:Refresh() -- also redraws its tooltip, if shown
 end
 
 -- Ticking --------------------------------------------------------------------------------------
@@ -202,7 +203,9 @@ local function fastTick()
 	C_Timer.After(FAST, fastTick)
 end
 
-local function startFast()
+-- Events ---------------------------------------------------------------------------------------
+
+local function onStartMoving()
 	moving = true
 	if not fastRunning then
 		fastRunning = true
@@ -210,108 +213,91 @@ local function startFast()
 	end
 end
 
--- Events ---------------------------------------------------------------------------------------
+local function onStopMoving()
+	moving = false
+	updateCoords()
+end
 
-local function onEvent(_, event)
-	if event == "PLAYER_STARTED_MOVING" then
-		startFast()
-	elseif event == "PLAYER_STOPPED_MOVING" then
-		moving = false
-		updateCoords()
-	elseif event == "CALENDAR_UPDATE_PENDING_INVITES" then
-		updateInvites()
-	else -- zone changes, loading screens
-		updateZone()
-		updateMapRect()
-		updateCoords()
+local function onZone()
+	updateZone()
+	updateMapRect()
+	updateCoords()
+end
+
+local function onClockClick(_, mouseButton)
+	if mouseButton == "RightButton" then
+		TimeManager_Toggle()
+	else
+		ToggleCalendar()
 	end
+end
+
+local function onZoneClick()
+	ToggleWorldMap()
 end
 
 -- All confirmed in api/forever/<CURRENT>/api.json. Written out literally so forever-lint checks them.
 local function registerEvents()
-	events:RegisterEvent("ZONE_CHANGED")
-	events:RegisterEvent("ZONE_CHANGED_INDOORS")
-	events:RegisterEvent("ZONE_CHANGED_NEW_AREA")
-	events:RegisterEvent("PLAYER_ENTERING_WORLD")
-	events:RegisterEvent("PLAYER_STARTED_MOVING")
-	events:RegisterEvent("PLAYER_STOPPED_MOVING")
-	events:RegisterEvent("CALENDAR_UPDATE_PENDING_INVITES")
+	local A = ns.Addon
+	A:On("ZONE_CHANGED", onZone)
+	A:On("ZONE_CHANGED_INDOORS", onZone)
+	A:On("ZONE_CHANGED_NEW_AREA", onZone)
+	A:On("PLAYER_ENTERING_WORLD", onZone)
+	A:On("PLAYER_STARTED_MOVING", onStartMoving)
+	A:On("PLAYER_STOPPED_MOVING", onStopMoving)
+	A:On("CALENDAR_UPDATE_PENDING_INVITES", updateInvites)
 end
 
 local function unregisterEvents()
-	events:UnregisterAllEvents()
+	local A = ns.Addon
+	A:Off("ZONE_CHANGED", onZone)
+	A:Off("ZONE_CHANGED_INDOORS", onZone)
+	A:Off("ZONE_CHANGED_NEW_AREA", onZone)
+	A:Off("PLAYER_ENTERING_WORLD", onZone)
+	A:Off("PLAYER_STARTED_MOVING", onStartMoving)
+	A:Off("PLAYER_STOPPED_MOVING", onStopMoving)
+	A:Off("CALENDAR_UPDATE_PENDING_INVITES", updateInvites)
 end
 
--- Frames ---------------------------------------------------------------------------------------
+-- Components -----------------------------------------------------------------------------------
 
-local function createFrames()
+local function createComponents()
 	local level = (Minimap:GetFrameLevel() or 1) + 6
-
-	zoneButton = CreateFrame("Button", "OrdaenMinimapZone", Minimap)
-	zoneButton:SetFrameLevel(level)
-	zoneButton:SetHeight(16)
-	zoneText = zoneButton:CreateFontString(nil, "OVERLAY", "GameFontNormal")
-	zoneText:SetAllPoints()
-	zoneText:SetWordWrap(false)
-	zoneButton:SetScript("OnClick", function()
-		ToggleWorldMap()
-	end)
-	zoneButton:SetScript("OnEnter", function(self)
-		zoneName.text = GetRealZoneText() or ""
-		subzoneName.text = GetSubZoneText() or ""
-		subzoneName.hidden = subzoneName.text == "" or subzoneName.text == zoneName.text
-		UI.ShowTooltip(self, zoneTooltip, BELOW)
-	end)
-	zoneButton:SetScript("OnLeave", hideTooltip)
-
-	coordText = Minimap:CreateFontString("OrdaenMinimapCoords", "OVERLAY", "GameFontHighlightSmall")
-	coordText:SetJustifyH("LEFT")
-
-	timeButton = CreateFrame("Button", "OrdaenMinimapClock", Minimap)
-	timeButton:SetFrameLevel(level)
-	timeButton:SetSize(60, 14)
-	timeButton:RegisterForClicks("LeftButtonUp", "RightButtonUp")
-	timeText = timeButton:CreateFontString(nil, "OVERLAY", "GameFontHighlightSmall")
-	timeText:SetPoint("RIGHT")
-	timeText:SetJustifyH("RIGHT")
-	timeButton:SetScript("OnClick", ns.Debug.Wrap(function(_, mouseButton)
-		if mouseButton == "RightButton" then
-			TimeManager_Toggle()
-		else
-			ToggleCalendar()
-		end
-	end))
-	timeButton:SetScript("OnEnter", showClockTooltip)
-	timeButton:SetScript("OnLeave", hideTooltip)
-
-	events = CreateFrame("Frame")
-	events:SetScript("OnEvent", ns.Debug.Wrap(onEvent))
+	zone = UI.Button({ name = "OrdaenMinimapZone", parent = Minimap, level = level, tooltip = zoneTooltip, zoneLabel })
+	coords = UI.Block({ name = "OrdaenMinimapCoords", parent = Minimap, level = level, coordValue })
+	clock = UI.Button({ name = "OrdaenMinimapClock", parent = Minimap, level = level, tooltip = clockTooltip,
+		clockValue })
+	if not (zone and coords and clock) then
+		return false -- OrdaenCore_UI can't load; the player was told
+	end
+	zone:On("click", onZoneClick)
+	clock:On("click", onClockClick)
+	return true
 end
 
 local function layout()
 	local style = ns.GetBorderStyle(db.borderStyle)
 	local outset = (style.backdrop or style.frame) and style.outset or 0
 	local gap = outset + TEXT_GAP
-	zoneButton:ClearAllPoints()
-	zoneButton:SetPoint("BOTTOMLEFT", Minimap, "TOPLEFT", 0, gap)
-	zoneButton:SetPoint("BOTTOMRIGHT", Minimap, "TOPRIGHT", 0, gap)
-	coordText:ClearAllPoints()
-	coordText:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 2, -gap)
-	timeButton:ClearAllPoints()
-	timeButton:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", -2, -gap)
+	zone:ClearAllPoints()
+	zone:SetPoint("BOTTOM", Minimap, "TOP", 0, gap)
+	coords:ClearAllPoints()
+	coords:SetPoint("TOPLEFT", Minimap, "BOTTOMLEFT", 2, -gap)
+	clock:ClearAllPoints()
+	clock:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", -2, -gap)
 end
 
 --- Show the texts for the current settings (creates them the first time).
 ---@param savedDb table OrdaenMinimapDB
 function Info.Apply(savedDb)
 	db = savedDb
-	if not zoneButton then
-		createFrames()
+	if not zone and not createComponents() then
+		return
 	end
 	layout()
-	zoneButton:Show()
-	coordText:Show()
-	timeButton:Show()
+	zone:Show()
+	coords:Show()
+	clock:Show()
 	if not active then
 		active = true
 		registerEvents()
@@ -328,14 +314,14 @@ end
 
 --- Remove the texts (another minimap addon owns the map).
 function Info.Hide()
-	if not zoneButton then
+	if not zone then
 		return
 	end
 	active = false
 	unregisterEvents()
-	zoneButton:Hide()
-	coordText:Hide()
-	timeButton:Hide()
+	zone:Hide()
+	coords:Hide()
+	clock:Hide()
 end
 
 --- What the dev-mode dump records.
@@ -344,7 +330,7 @@ function Info.Describe()
 		active = active,
 		moving = moving,
 		mapRect = mapLeft and { mapLeft, mapTop, mapWidth, mapHeight } or false,
-		zone = zoneButton,
-		clock = timeButton,
+		zone = zone and zone.frame or false,
+		clock = clock and clock.frame or false,
 	}
 end

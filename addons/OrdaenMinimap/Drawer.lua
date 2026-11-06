@@ -54,7 +54,7 @@ local function shownItems()
 		end
 	end
 	for i = 1, #entries do
-		items[#items + 1] = entryButtons[i]
+		items[#items + 1] = entryButtons[i].frame
 	end
 	return items
 end
@@ -88,7 +88,7 @@ function Drawer.Layout()
 	local horizontal = growLeft and "RIGHT" or "LEFT"
 	local corner = vertical .. horizontal
 	container:ClearAllPoints()
-	container:SetPoint(corner, mainButton, (growUp and "TOP" or "BOTTOM") .. horizontal, 0, growUp and 2 or -2)
+	container:SetPoint(corner, mainButton.frame, (growUp and "TOP" or "BOTTOM") .. horizontal, 0, growUp and 2 or -2)
 	container:SetSize(math.max(width, SLOT) + 2 * PAD, math.max(height, SLOT) + 2 * PAD)
 
 	local sx = growLeft and -1 or 1
@@ -110,7 +110,7 @@ end
 -- Collecting minimap buttons --------------------------------------------------------------------
 
 local function collect(button, source)
-	if collectedSet[button] or button == mainButton then
+	if collectedSet[button] or (mainButton and button == mainButton.frame) then
 		return
 	end
 	if button.IsProtected and button:IsProtected() and InCombatLockdown() then
@@ -234,94 +234,92 @@ local function shownIconKeys()
 	return keys
 end
 
--- Our tooltips go through OrdaenCore.UI, built once; only the entry's title changes on hover.
+-- Our tooltips are OrdaenCore.UI tooltip objects, built once; only the entry's title changes on hover.
 local UI = OrdaenCore.UI
 local LEFT = { side = "left" }
 local entryTitle = { text = "", style = "title" }
-local entryTooltip = { style = "tooltip", entryTitle }
-local mainTooltip = {
-	style = "tooltip",
+local entryTooltip = UI.Tooltip({ entryTitle }, LEFT)
+local mainTooltip = UI.Tooltip({
 	{ text = L.SETTINGS_TITLE, style = "title" },
 	{ text = L.DRAWER_TOOLTIP_CLICK, style = "hint" },
 	{ text = L.DRAWER_TOOLTIP_RIGHT, style = "hint" },
 	{ text = L.DRAWER_TOOLTIP_MOVE, style = "hint" },
-}
+}, LEFT)
+
+local entryIndex = setmetatable({}, { __mode = "k" }) -- entry button -> its index in `entries`
 
 -- For entries whose addon has no hover function of its own.
 local function plainTooltip(owner, text)
 	entryTitle.text = text or "?"
-	UI.ShowTooltip(owner, entryTooltip, LEFT)
+	entryTooltip:Show(owner)
 end
 
--- Clicks go straight to the other addon; its errors are its own (not wrapped in our debug kit).
-local function entryOnClick(self, mouseButton)
-	local item = entries[self.index]
+-- Entry buttons are OrdaenCore.UI components; the other addons' functions get the WoW frame, as Blizzard's
+-- compartment would give them. Clicks go straight to the other addon; its errors are its own.
+local function entryOnClick(button, mouseButton)
+	local item = entries[entryIndex[button]]
 	if not item then
 		return
 	end
-	local e = item.entry
+	local frame, e = button.frame, item.entry
 	if item.kind == "toc" then
 		local fn = _G[e.func]
 		if type(fn) == "function" then
-			fn(e.addon, mouseButton, self)
+			fn(e.addon, mouseButton, frame)
 		end
 	elseif type(e.func) == "function" then
-		e.func(self, { buttonName = mouseButton }, self)
+		e.func(frame, { buttonName = mouseButton }, frame)
 	end
 end
 
-local function entryOnEnter(self)
-	local item = entries[self.index]
+local function entryOnEnter(button)
+	local item = entries[entryIndex[button]]
 	if not item then
 		return
 	end
-	local e = item.entry
+	local frame, e = button.frame, item.entry
 	if item.kind == "toc" then
 		local fn = e.onEnter and _G[e.onEnter]
 		if type(fn) == "function" then
-			fn(e.addon, self)
+			fn(e.addon, frame)
 			return
 		end
-		plainTooltip(self, e.title)
+		plainTooltip(frame, e.title)
 	elseif type(e.funcOnEnter) == "function" then
-		e.funcOnEnter(self, e)
+		e.funcOnEnter(frame, e)
 	else
-		plainTooltip(self, e.text)
+		plainTooltip(frame, e.text)
 	end
 end
 
-local function entryOnLeave(self)
-	local item = entries[self.index]
-	local e = item and item.entry
+local function entryOnLeave(button)
+	local item = entries[entryIndex[button]]
+	local frame, e = button.frame, item and item.entry
 	if item and item.kind == "toc" and e.onLeave and type(_G[e.onLeave]) == "function" then
-		_G[e.onLeave](e.addon, self)
+		_G[e.onLeave](e.addon, frame)
 	elseif item and item.kind == "runtime" and type(e.funcOnLeave) == "function" then
-		e.funcOnLeave(self, e)
+		e.funcOnLeave(frame, e)
 	end
-	UI.HideTooltip(self) -- ours, if we showed one
+	entryTooltip:Hide(frame) -- ours, if we showed one
 	GameTooltip:Hide() -- the other addon's own hover code usually draws on GameTooltip
 end
 
----@class OrdaenMinimapEntryButton : Button
----@field icon Texture
+local ICON_CROP = { 0.08, 0.92, 0.08, 0.92 } -- trims the border most icons have
 
 local function entryButton(index)
 	local button = entryButtons[index]
 	if not button then
-		button = CreateFrame("Button", nil, container) --[[@as OrdaenMinimapEntryButton]]
-		button:SetSize(SLOT - 4, SLOT - 4)
-		button:RegisterForClicks("AnyUp")
-		button.icon = button:CreateTexture(nil, "ARTWORK")
-		button.icon:SetSize(ENTRY_ICON, ENTRY_ICON)
-		button.icon:SetPoint("CENTER")
-		button.icon:SetTexCoord(0.08, 0.92, 0.08, 0.92)
-		button:SetHighlightTexture("Interface\\Buttons\\ButtonHilight-Square", "ADD")
-		button:SetScript("OnClick", entryOnClick)
-		button:SetScript("OnEnter", entryOnEnter)
-		button:SetScript("OnLeave", entryOnLeave)
+		button = UI.Button({
+			parent = container,
+			style = "slot",
+			width = SLOT - 4,
+			height = SLOT - 4,
+			{ image = FALLBACK_ICON, size = ENTRY_ICON, texCoord = ICON_CROP, align = "center" },
+			on = { click = entryOnClick, enter = entryOnEnter, leave = entryOnLeave },
+		})
 		entryButtons[index] = button
 	end
-	button.index = index
+	entryIndex[button] = index
 	return button
 end
 
@@ -331,11 +329,10 @@ local function refreshEntries()
 		local button = entryButton(i)
 		local e = item.entry
 		local atlas = item.kind == "toc" and e.atlas or e.iconAtlas
-		if atlas and button.icon.SetAtlas then
-			button.icon:SetAtlas(atlas)
-		else
-			button.icon:SetTexture(e.icon or FALLBACK_ICON)
-		end
+		local icon = button.block[1]
+		icon.atlas = atlas or nil
+		icon.image = (not atlas) and (e.icon or FALLBACK_ICON) or nil
+		button:Refresh()
 		button:Show()
 	end
 	for i = #entries + 1, #entryButtons do
@@ -449,19 +446,18 @@ local function createFrames()
 	-- dragging moves it around the map (Buttons.lua).
 	mainButton = ns.Buttons.Create("drawer", "OrdaenMinimapDrawerButton", "Interface\\Icons\\INV_Misc_Bag_10")
 
-	mainButton:SetScript("OnClick", ns.Debug.Wrap(function(_, mouseButton)
+	if not mainButton then
+		return false -- OrdaenCore_UI can't load (the player was told)
+	end
+	mainButton:On("click", ns.Debug.Wrap(function(_, mouseButton)
 		if mouseButton == "RightButton" then
 			ns.Addon:OpenSettings()
 		else
 			Drawer.Toggle()
 		end
 	end))
-	mainButton:SetScript("OnEnter", function(self)
-		UI.ShowTooltip(self, mainTooltip, LEFT)
-	end)
-	mainButton:SetScript("OnLeave", function(self)
-		UI.HideTooltip(self)
-	end)
+	mainButton:Tooltip(mainTooltip)
+	return true
 end
 
 -- Start / settings ------------------------------------------------------------------------------
@@ -488,8 +484,10 @@ function Drawer.Start(savedDb)
 		debug().Log("drawer: skipped, MinimapButtonButton is loaded")
 		return
 	end
+	if not createFrames() then
+		return
+	end
 	started = true
-	createFrames()
 	Drawer.ApplyBlizzardCompartment()
 	collectAll()
 
@@ -539,7 +537,7 @@ function Drawer.Describe()
 		started = started,
 		collected = names,
 		entries = entryTitles,
-		mainButton = mainButton,
+		mainButton = mainButton and mainButton.frame or false,
 		container = container,
 		addon = addonName,
 	}

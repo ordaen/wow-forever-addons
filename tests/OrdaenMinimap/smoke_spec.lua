@@ -12,6 +12,9 @@ local function stubObject(name, extra)
 		GetFrameLevel = 3,
 		GetID = 42,
 		GetData = {},
+		-- What OrdaenCore.UI's renderer measures text with.
+		GetUnboundedStringWidth = 40,
+		GetStringHeight = 12,
 	}
 	setmetatable(obj, {
 		__index = function(self, method)
@@ -53,6 +56,9 @@ local function stubObject(name, extra)
 	end
 	obj.SetText = function(self, text)
 		self.text = text
+	end
+	obj.SetFormattedText = function(self, format, ...)
+		self.text = format:format(...)
 	end
 	obj.IsShown = function(self)
 		return self.shown
@@ -117,6 +123,12 @@ describe("OrdaenMinimap smoke", function()
 		local addons = rawget(_G, "C_AddOns") -- created by helpers.stubGlobals
 		addons.IsAddOnLoaded = function(name)
 			return world.loaded[name]
+		end
+		-- The UI framework (OrdaenCore_UI) loads on first use, against these same stubs.
+		addons.LoadAddOn = function(name)
+			assert.equals("OrdaenCore_UI", name)
+			helpers.loadAddon("OrdaenCore/OrdaenCore_UI")
+			return true
 		end
 		addons.DisableAddOn = function(name)
 			table.insert(world.disabled, name)
@@ -402,60 +414,46 @@ describe("OrdaenMinimap smoke", function()
 			assert.is_false(_G.GameTimeFrame.shown)
 		end)
 
-		it("shows the zone above, coordinates and the clock below, outside the border", function()
+		it("shows the zone above, coordinates and the clock below, outside the border, as UI components", function()
 			login()
 			local zone = frameNamed("OrdaenMinimapZone")
 			assert.equals("Elwynn Forest", zone.font.text)
-			assert.same({ 0.1, 1, 0.1 }, zone.font.calls.SetTextColor[1])
+			assert.same({ 0.1, 1, 0.1, 1 }, zone.font.calls.SetTextColor[#zone.font.calls.SetTextColor])
 			-- gold border: outset 7, + 2 px gap
-			assert.same({ "BOTTOMRIGHT", Minimap, "TOPRIGHT", 0, 9 }, lastPoint(zone))
-			local coords = Minimap.font
-			assert.equals("OrdaenMinimapCoords", coords.name)
-			assert.same({ "%.1f, %.1f", 25, 50 }, coords.calls.SetFormattedText[#coords.calls.SetFormattedText])
+			assert.same({ "BOTTOM", Minimap, "TOP", 0, 9 }, lastPoint(zone))
+			local coords = frameNamed("OrdaenMinimapCoords")
+			assert.equals("25.0, 50.0", coords.font.text)
+			assert.same({ "TOPLEFT", Minimap, "BOTTOMLEFT", 2, -9 }, lastPoint(coords))
 			local clock = frameNamed("OrdaenMinimapClock")
-			assert.same({ "%02d:%02d", 14, 5 }, clock.font.calls.SetFormattedText[1])
+			assert.equals("14:05", clock.font.text)
+			-- The coordinates take no mouse (clicks reach the map); zone and clock do.
+			assert.same({ false }, coords.calls.EnableMouse[#coords.calls.EnableMouse])
+			assert.same({ true }, clock.calls.EnableMouse[#clock.calls.EnableMouse])
 		end)
 
-		it("shows the clock tooltip through OrdaenCore.UI, with the invites line only when invites are pending", function()
-			-- Drawing is OrdaenCore.UI's job (tests/OrdaenCore/ui_spec.lua); here: the block Minimap declares.
-			local shown, refreshed = {}, 0
+		it("shows the clock tooltip on hover, with the invites line only when invites are pending", function()
+			-- Drawing is OrdaenCore.UI's job (tests/OrdaenCore/ui_spec.lua); here: what Minimap declares.
 			local UI = rawget(_G, "OrdaenCore").UI
-			UI.ShowTooltip = function(owner, block, opts)
-				shown.owner, shown.block, shown.opts = owner, block, opts
-			end
-			UI.RefreshTooltip = function()
-				refreshed = refreshed + 1
-			end
 			local function visibleTexts()
 				local texts = {}
-				for _, el in ipairs(shown.block) do
-					if not el.hidden then
-						texts[#texts + 1] = el.text
-					end
+				for _, item in ipairs(UI._Describe().layout) do
+					texts[#texts + 1] = item.text
 				end
 				return table.concat(texts, "|")
 			end
 			login()
 			local clock = frameNamed("OrdaenMinimapClock")
 			clock.scripts.OnEnter(clock)
-			assert.equals(clock, shown.owner)
-			assert.equals("tooltip", shown.block.style)
-			assert.equals("below", shown.opts.side)
+			assert.is_true(frameNamed("OrdaenUITooltip").shown)
 			local plain = visibleTexts()
 			assert.truthy(plain:find(ns.L.TIME_TOOLTIP_CALENDAR, 1, true))
 			assert.falsy(plain:find(ns.L.CALENDAR_PENDING, 1, true))
 
 			world.invites = 2
-			local infoEvents
-			for i, f in ipairs(frames) do
-				if f.name == "OrdaenMinimapClock" then
-					infoEvents = frames[i + 1]
-				end
-			end
-			local before = refreshed
-			infoEvents.scripts.OnEvent(infoEvents, "CALENDAR_UPDATE_PENDING_INVITES")
-			assert.equals(before + 1, refreshed) -- a shown tooltip is redrawn with the new line
-			assert.truthy(visibleTexts():find(ns.L.CALENDAR_PENDING, 1, true))
+			fire("CALENDAR_UPDATE_PENDING_INVITES")
+			assert.truthy(visibleTexts():find(ns.L.CALENDAR_PENDING, 1, true)) -- the shown tooltip was redrawn
+			clock.scripts.OnLeave(clock)
+			assert.is_false(frameNamed("OrdaenUITooltip").shown)
 		end)
 
 		it("opens the calendar from the clock", function()
@@ -468,16 +466,8 @@ describe("OrdaenMinimap smoke", function()
 		it("clears the coordinates where there are none (instances)", function()
 			login()
 			world.position = {}
-			-- Info.lua's event frame is created right after the clock.
-			local infoEvents
-			for i, f in ipairs(frames) do
-				if f.name == "OrdaenMinimapClock" then
-					infoEvents = frames[i + 1]
-				end
-			end
-			infoEvents.scripts.OnEvent(infoEvents, "ZONE_CHANGED_NEW_AREA")
-			local coords = Minimap.font
-			assert.equals("", coords.text)
+			fire("ZONE_CHANGED_NEW_AREA")
+			assert.is_false(frameNamed("OrdaenMinimapCoords").font.shown)
 		end)
 
 		it("puts the tracking button in our style outside the border and drags it around", function()
@@ -807,15 +797,17 @@ describe("OrdaenMinimap smoke", function()
 				end,
 			})
 			login()
-			frameNamed("OrdaenMinimapDrawerButton").scripts.OnClick(nil, "LeftButton")
+			local main = frameNamed("OrdaenMinimapDrawerButton")
+			main.scripts.OnClick(main, "LeftButton")
 
 			local description = ns.Drawer.Describe()
 			assert.same({ "toc: Pawn", "runtime: Baganator" }, description.entries)
 
+			-- Entry buttons are unnamed UI buttons, made in entry order.
 			local entryButtons = {}
 			for _, f in ipairs(frames) do
-				if f.name == "anon" and f.scripts.OnClick and f.index then
-					entryButtons[f.index] = f
+				if f.name == "anon" and f.scripts.OnClick and f.scripts.OnEnter then
+					entryButtons[#entryButtons + 1] = f
 				end
 			end
 			entryButtons[1].scripts.OnClick(entryButtons[1], "RightButton")
