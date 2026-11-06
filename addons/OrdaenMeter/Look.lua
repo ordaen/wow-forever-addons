@@ -22,8 +22,18 @@ local bars = {} -- bar frame -> its bar dress, or false (no status bar)
 local hookedWindow = {} -- session window -> true once its SetupEntry carries our hook
 local texts = 0 -- texts dressed (for the dump)
 
--- Every FontString of a frame and of its child frames (a bar's name and value; a header's titles), once per frame.
+local function dressText(text, style)
+	if type(text) == "table" and text:IsObjectType("FontString") then
+		UI.DressFont(text, style)
+		texts = texts + 1
+	end
+end
+
+-- Every FontString of a frame and of its child frames (a bar's name and value), once per frame.
 local function dressTexts(frame, style)
+	if not frame:IsObjectType("Frame") then
+		return -- a texture: no texts
+	end
 	for _, region in ipairs({ frame:GetRegions() }) do
 		if region:IsObjectType("FontString") then
 			UI.DressFont(region, style)
@@ -49,22 +59,38 @@ local function onSetupEntry(_, bar)
 	dressBar(bar)
 end
 
--- The textures that are the window's background (GetBackground may give a texture or a frame of them).
-local function backgroundArt(window)
-	local background = window.GetBackground and window:GetBackground()
-	if type(background) ~= "table" then
-		return {}
+-- Add a texture, or a frame's textures, to the art our panel covers.
+local function addArt(art, piece)
+	if type(piece) ~= "table" then
+		return
 	end
-	if background:IsObjectType("Texture") then
-		return { background }
+	if piece:IsObjectType("Texture") then
+		art[#art + 1] = piece
+		return
 	end
-	local art = {}
-	for _, region in ipairs({ background:GetRegions() }) do
+	for _, region in ipairs({ piece:GetRegions() }) do
 		if region:IsObjectType("Texture") then
 			art[#art + 1] = region
 		end
 	end
+end
+
+-- Blizzard's window art under our panel: its background and its header strip (both textures on Forever).
+local function windowArt(window)
+	local art = {}
+	addArt(art, window:GetBackground())
+	addArt(art, window:GetHeader())
 	return art
+end
+
+-- The header's texts: the meter type (a dropdown's label), the session timer, the "not active" line.
+local function dressHeader(window)
+	local dropdown = window:GetDamageMeterTypeDropdown()
+	if type(dropdown) == "table" then
+		dressText(dropdown.TypeName, "label")
+	end
+	dressText(window:GetSessionTimerFontString(), "label")
+	dressText(window:GetNotActiveFontString(), "body")
 end
 
 local function dressWindow(window)
@@ -72,15 +98,12 @@ local function dressWindow(window)
 		return
 	end
 	if not windows[window] then
-		local dress = UI.Dress(window, { style = "panel", size = "frame", art = backgroundArt(window) })
+		local dress = UI.Dress(window, { style = "panel", size = "frame", art = windowArt(window) })
 		if not dress then
 			return -- OrdaenCore_UI can't load (the player was told)
 		end
 		windows[window] = dress
-		local header = window.GetHeader and window:GetHeader()
-		if header then
-			dressTexts(header, "label")
-		end
+		dressHeader(window)
 	end
 	if not hookedWindow[window] then
 		-- Both run per bar (which one Blizzard's scroll box calls isn't in the API dump); dressing is once per bar.

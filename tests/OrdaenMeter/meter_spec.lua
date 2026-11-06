@@ -25,8 +25,8 @@ local function stub(name, extra)
 	function obj:GetChildren()
 		return unpack(self.children)
 	end
-	function obj:IsObjectType(kind)
-		return self.kind == kind
+	function obj:IsObjectType(kind) -- a StatusBar or Button is a Frame too, as in WoW
+		return self.kind == kind or (kind == "Frame" and (self.kind == "StatusBar" or self.kind == "Button"))
 	end
 	for k, v in pairs(extra or {}) do
 		rawset(obj, k, v)
@@ -54,18 +54,28 @@ local function entry(name)
 	return bar
 end
 
--- A session window: a background frame of textures, a header with a title, and its bars.
+-- A session window as on Forever: background and header are textures; the header's texts are the type dropdown's
+-- label, the session timer and the "not active" line; then its bars.
 local function sessionWindow(name)
-	local background = stub(name .. ".Background", { kind = "Frame" })
-	background.regions = { texture(name .. ".Bg") }
-	local header = stub(name .. ".Header", { kind = "Frame" })
-	header.regions = { fontString(name .. ".Title"), texture(name .. ".HeaderArt") }
-	local window = stub(name, { kind = "Frame", entries = {}, background = background, header = header })
+	local dropdown = stub(name .. ".DamageMeterTypeDropdown", { kind = "Button" })
+	dropdown.TypeName = fontString(name .. ".TypeName")
+	local window = stub(name, { kind = "Frame", entries = {}, background = texture(name .. ".Background"),
+		header = texture(name .. ".Header"), dropdown = dropdown, timer = fontString(name .. ".SessionTimer"),
+		notActive = fontString(name .. ".NotActive") })
 	function window:GetBackground()
 		return self.background
 	end
 	function window:GetHeader()
 		return self.header
+	end
+	function window:GetDamageMeterTypeDropdown()
+		return self.dropdown
+	end
+	function window:GetSessionTimerFontString()
+		return self.timer
+	end
+	function window:GetNotActiveFontString()
+		return self.notActive
 	end
 	function window:ForEachEntryFrame(fn)
 		for _, bar in ipairs(self.entries) do
@@ -192,8 +202,10 @@ describe("Ordaen Meter", function()
 		local dress = dressed[window]
 		assert.truthy(dress)
 		assert.equals("panel", dress.spec.style)
-		assert.same({ window.background.regions[1] }, dress.spec.art, "Blizzard's background is the art we cover")
-		assert.equals("label", fonts[window.header.regions[1]])
+		assert.same({ window.background, window.header }, dress.spec.art, "Blizzard's background and header strip")
+		assert.equals("label", fonts[window.dropdown.TypeName])
+		assert.equals("label", fonts[window.timer])
+		assert.equals("body", fonts[window.notActive])
 		assert.truthy(bars[bar.statusBar])
 		assert.equals(ns.Addon:Get("barTexture"), bars[bar.statusBar].asset)
 		assert.equals("body", fonts[bar.statusBar.regions[1]])
