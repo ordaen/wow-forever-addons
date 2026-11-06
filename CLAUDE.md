@@ -136,8 +136,20 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   `subtitle`, `body` (default), `label`, `value`, `hint`; block style `tooltip`.
 - **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: restyled in place by a
   future tooltip addon (taking its look from the theme), never hidden and redrawn as a lookalike.
-- **Open:** buttons and windows (triggers, fixed positions with remembering, resizing); theme addon API; packaging
-  the framework as an embeddable library for third-party addons.
+- **Events** (user's decision): one `on` table per block for both sources. User events are lower case (`click`,
+  `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`, later keyboard); system events are
+  Blizzard's own UPPER_CASE event names (`on = { click = fn, CALENDAR_UPDATE_PENDING_INVITES = fn }`) and get
+  Blizzard's arguments unchanged. No bubbling: only the block with the listener gets it (as in native WoW). One shared
+  event frame registers a game event only while some block listens and unregisters it after the last; a block becomes
+  a mouse-enabled frame only if it has user listeners. High-frequency game events are allowed but must exit early.
+- **Elements:** text, image, blocks, and the inputs that can't be composed from blocks because they need WoW's own
+  widgets: text entry (EditBox), checkbox (CheckButton) and slider. Buttons, bars and dropdowns are composite blocks.
+- **Out of scope for v1:** secure actions (casting, using items, targeting). They need Blizzard's secure templates,
+  and touching those from addon code causes blocked-action (taint) errors; an addon that needs one uses Blizzard's
+  templates directly.
+- **Open:** declarative shortcuts (e.g. `tooltip = block` for enter/leave; to be decided); positions of top-level
+  blocks (anchored, cursor, fixed and remembered) and interaction states (hover, pressed, disabled, selected); resizing;
+  scrolling and repeated lists; theme addon API; packaging the framework as an embeddable library for other addons.
 - PrettyTooltip (MIT, © 2026 FallenShard) is a reference and a source of features, not a base to fork. Any code taken
   from it keeps its copyright notice and license text.
 
