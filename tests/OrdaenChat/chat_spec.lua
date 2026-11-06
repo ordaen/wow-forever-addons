@@ -78,6 +78,13 @@ local function stub(name, extra)
 	function obj:CreateTexture()
 		return stub(name .. ".texture")
 	end
+	function obj:CreateAnimationGroup()
+		local group = stub(name .. ".fade")
+		function group:CreateAnimation()
+			return stub(name .. ".alpha")
+		end
+		return group
+	end
 	for k, v in pairs(extra or {}) do
 		rawset(obj, k, v)
 	end
@@ -239,6 +246,12 @@ describe("Ordaen Chat", function()
 				end,
 			},
 			ChatEdit_UpdateHeader = function() end,
+			UnitGUID = function()
+				return "Player-1-0001"
+			end,
+			UnitName = function()
+				return "Regy"
+			end,
 			QuickJoinToastButton = social,
 			FCF_SelectDockFrame = function() end,
 			FCF_OpenTemporaryWindow = function() end,
@@ -290,6 +303,42 @@ describe("Ordaen Chat", function()
 			windows[i].tab = tab
 		end
 		dock = { windows[1], windows[2] }
+		-- Where Edit Mode put the chat: its frame, with the background and the input reaching past it.
+		local chat = windows[1]
+		chat.points = { { "BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95 } }
+		function chat:GetNumPoints()
+			return #self.points
+		end
+		function chat:GetPoint(i)
+			return unpack(self.points[i])
+		end
+		function chat:ClearAllPoints()
+			self.points = {}
+		end
+		function chat:SetPoint(...)
+			table.insert(self.points, { ... })
+		end
+		function chat:GetLeft()
+			return 20
+		end
+		function chat:GetBottom()
+			return 100
+		end
+		function chat:ApplySystemAnchor()
+			self.points = { { "BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95 } } -- Edit Mode's layout
+		end
+		windowArt[1].GetLeft = function()
+			return 15
+		end
+		windowArt[1].GetBottom = function()
+			return 95
+		end
+		chat.editBox.GetLeft = function()
+			return 18
+		end
+		chat.editBox.GetBottom = function()
+			return 60
+		end
 		windows[2].messageTypeList = { "LOOT", "TRADESKILLS" } -- shown in Combat Log, not combat
 		-- Blizzard's default: every channel shows in General.
 		windows[1].channelList = { "General", "Trade", "LocalDefense" }
@@ -473,22 +522,39 @@ describe("Ordaen Chat", function()
 			assert.is_false(classColored.SAY)
 		end)
 
-		it("dim loot and crafting lines, keeping their links' own colours", function()
+		-- A chat message filter call as Blizzard makes it: message, sender name, ..., the sender's GUID (payload 12).
+		local function show(event, line, name, guid)
+			return filters[event](windows[1], event, line, name, "", "", "", "", 0, 0, "", 0, 0, guid)
+		end
+
+		it("mute the crafting log, keeping its links' own colours", function()
 			login()
 			local line = "Regy creates: |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
-			local filtered, shown = filters.CHAT_MSG_TRADESKILLS(windows[1], "CHAT_MSG_TRADESKILLS", line)
+			local filtered, shown = show("CHAT_MSG_TRADESKILLS", line, "Regy", "Player-1-0001")
 			assert.is_false(filtered)
 			local open = shown:match("^(|cff%x%x%x%x%x%x)")
 			assert.truthy(open, "the line starts in the muted colour")
 			assert.truthy(shown:find("|r" .. open .. ".", 1, true), "after the link: muted again")
-			assert.is_nil(filters.CHAT_MSG_SAY, "conversations keep their colour")
+		end)
+
+		it("keep Blizzard's colours for what happens to you, mute other players' loot", function()
+			login()
+			local mine = "You receive loot: |cff1eff00|Hitem:2589|h[Linen Cloth]|h|r."
+			local _, shown = show("CHAT_MSG_LOOT", mine, "Regy", "Player-1-0001")
+			assert.equals(mine, shown, "your loot: Blizzard's green")
+			local theirs = "Thrall receives loot: |cff1eff00|Hitem:2589|h[Linen Cloth]|h|r."
+			_, shown = show("CHAT_MSG_LOOT", theirs, "Thrall", "Player-1-0002")
+			assert.is_not.equals(theirs, shown, "theirs: muted")
+			for _, event in ipairs({ "CHAT_MSG_SKILL", "CHAT_MSG_COMBAT_XP_GAIN", "CHAT_MSG_MONEY", "CHAT_MSG_SAY" }) do
+				assert.is_nil(filters[event], event .. " keeps Blizzard's colour (skill-ups blue)")
+			end
 		end)
 
 		it("leave a secret message alone", function()
 			login()
 			local line = "secret"
 			secrets[line] = true
-			local _, shown = filters.CHAT_MSG_LOOT(windows[1], "CHAT_MSG_LOOT", line)
+			local _, shown = show("CHAT_MSG_LOOT", line, "Thrall", "Player-1-0002")
 			assert.equals(line, shown)
 		end)
 	end)
@@ -557,6 +623,35 @@ describe("Ordaen Chat", function()
 			ns.Addon.db.chatLook = false
 			ns.Addon:_SettingChanged("chatLook", false)
 			assert.equals(1, windowArt[1].alpha)
+		end)
+	end)
+
+	describe("position", function()
+		it("puts the chat bottom left, its background and input clear of the screen edge", function()
+			login()
+			-- reach: background 5 left of the frame, input 40 below it; margin 4
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
+		end)
+
+		it("moves above a panel at the bottom as soon as one is placed", function()
+			login()
+			OrdaenCore.UI.Panel({ { text = "Gold" } })
+			local inset = OrdaenCore.UI.ScreenInset("bottom")
+			assert.is_true(inset > 0)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, inset + 44 } }, windows[1].points)
+		end)
+
+		it("goes back above the panels after Edit Mode places it", function()
+			login()
+			windows[1]:ApplySystemAnchor()
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
+		end)
+
+		it("gives the place back to Edit Mode when turned off", function()
+			login()
+			ns.Addon.db.chatAbovePanel = false
+			ns.Addon:_SettingChanged("chatAbovePanel", false)
+			assert.same({ { "BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95 } }, windows[1].points)
 		end)
 	end)
 end)

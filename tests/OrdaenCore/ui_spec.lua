@@ -772,6 +772,26 @@ describe("OrdaenCore.UI", function()
 			_G.UIParent:SetSize(w, h)
 		end
 
+		it("tell others how much of their edge they cover, and announce a change", function()
+			screen(1920, 1080)
+			local heard = 0
+			_G.EventRegistry:RegisterCallback("OrdaenUI.InsetsChanged", function()
+				heard = heard + 1
+			end, {})
+			assert.equals(0, UI.ScreenInset("bottom"))
+			local panel = UI.Panel({ { text = "Gold" } }, { offset = 2 })
+			local height = panel.frame.size[2]
+			assert.is_true(height > 0)
+			assert.equals(height + 2, UI.ScreenInset("bottom"))
+			assert.equals(0, UI.ScreenInset("top"))
+			assert.equals(1, heard)
+			panel.panel.edge = "top"
+			panel:Place()
+			assert.equals(0, UI.ScreenInset("bottom"), "moved to the top: the bottom is free again")
+			assert.equals(height + 2, UI.ScreenInset("top"))
+			assert.equals(2, heard)
+		end)
+
 		it("stretch along the bottom edge by default, re-placed when the screen changes", function()
 			screen(1920, 1080)
 			local panel = UI.Panel({ { text = "Gold" } })

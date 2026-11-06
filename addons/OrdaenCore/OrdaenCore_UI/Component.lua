@@ -387,6 +387,36 @@ local EDGE_DIRECTION = { bottom = { 0, 1 }, top = { 0, -1 }, left = { 1, 0 }, ri
 local Panel = setmetatable({}, { __index = Base })
 local PanelMeta = { __index = Panel }
 
+-- How much of each screen edge the panels cover (thickness plus offset), so other frames can sit beside them
+-- (Ordaen Chat above a bottom panel). A change is announced with EventRegistry "OrdaenUI.InsetsChanged".
+local covers = {} -- panel -> { edge, thickness }
+local insets = { bottom = 0, top = 0, left = 0, right = 0 }
+
+local function updateInsets()
+	local changed = false
+	for edge, old in pairs(insets) do
+		local inset = 0
+		for _, cover in pairs(covers) do
+			if cover[1] == edge and cover[2] > inset then
+				inset = cover[2]
+			end
+		end
+		if inset ~= old then
+			insets[edge], changed = inset, true
+		end
+	end
+	if changed then
+		EventRegistry:TriggerEvent("OrdaenUI.InsetsChanged")
+	end
+end
+
+--- How much of `edge` ("bottom", "top", "left", "right") the panels cover, in UI units (0 when none).
+---@param edge string
+---@return number
+function Component.ScreenInset(edge)
+	return insets[edge] or 0
+end
+
 -- Size and place the panel for the screen as it is now (again after a resolution or UI scale change).
 local function placePanel(self)
 	local opts, block, frame = self.panel, self.block, self.frame
@@ -404,6 +434,12 @@ local function placePanel(self)
 	frame:ClearAllPoints()
 	frame:SetPoint(EDGE_POINT[edge], UIParent, EDGE_POINT[edge], d[1] * offset, d[2] * offset)
 	Render.Draw(frame, block, block.width)
+	-- A faded panel still covers its edge (fading it doesn't move what sits beside it).
+	local cover = covers[self] or {}
+	covers[self] = cover
+	cover[1] = edge
+	cover[2] = (horizontal and frame:GetHeight() or frame:GetWidth()) + offset
+	updateInsets()
 end
 
 local function onScreenChanged(self)

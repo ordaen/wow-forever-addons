@@ -137,4 +137,5 @@ OrdaenCore.UI._Provide({
 	Dress = ns.Dress.New,
 	DressFont = ns.Dress.Font,
 	Color = Theme.Color,
+	ScreenInset = Component.ScreenInset,
 })

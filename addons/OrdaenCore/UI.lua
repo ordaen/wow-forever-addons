@@ -320,6 +320,15 @@ function UI.Dress(frame, opts)
 	return f and f.Dress(frame, opts)
 end
 
+--- How much of a screen edge ("bottom", "top", "left", "right") Ordaen panels cover, in UI units: 0 when there are
+--- none (the framework isn't even loaded). Frames that sit beside the panels (the chat above a bottom panel) read
+--- it and follow EventRegistry "OrdaenUI.InsetsChanged". Loads nothing.
+---@param edge string
+---@return number
+function UI.ScreenInset(edge)
+	return impl and impl.ScreenInset(edge) or 0
+end
+
 --- A colour of the current theme: a colour token's value ("color.muted"), or `fallback`. For code that colours
 --- Blizzard's own text (a chat line); listen to EventRegistry "OrdaenUI.ThemeChanged" to follow a theme change.
 --- Loads the framework.

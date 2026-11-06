@@ -12,17 +12,19 @@ local addonName, ns = ...
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	db = "OrdaenChatDB",
 	charDb = "OrdaenChatCharDB",
-	defaults = { chatLook = true, inputGroup = true, sortChannels = true, classColors = true, dimEvents = true },
+	defaults = { chatLook = true, inputGroup = true, sortChannels = true, classColors = true, dimEvents = true,
+		chatAbovePanel = true },
 	charDefaults = {},
 	slash = { "/ochat", "/ordaenchat" },
 	conflicts = { "Prat-3.0" },
 	dump = function()
 		return { tabs = ns.Tabs.Describe(), whispers = ns.Whispers.Describe(), input = ns.Input.Describe(),
-			look = ns.Look.Describe() }
+			look = ns.Look.Describe(), position = ns.Position.Describe() }
 	end,
 	settings = {
 		title = "SETTINGS_TITLE",
 		{ key = "chatLook", label = "CHAT_LOOK", tooltip = "CHAT_LOOK_TOOLTIP" },
+		{ key = "chatAbovePanel", label = "CHAT_ABOVE_PANEL", tooltip = "CHAT_ABOVE_PANEL_TOOLTIP" },
 		{ key = "inputGroup", label = "INPUT_GROUP", tooltip = "INPUT_GROUP_TOOLTIP" },
 		{ key = "sortChannels", label = "SORT_CHANNELS", tooltip = "SORT_CHANNELS_TOOLTIP" },
 		{ key = "classColors", label = "CLASS_COLORS", tooltip = "CLASS_COLORS_TOOLTIP" },
@@ -75,6 +77,15 @@ dimEvents:OnDisable(function()
 	ns.Dim.Disable()
 end)
 
+-- Bottom left, above Ordaen panels (Position.lua); off: Edit Mode's place.
+local position = A:Feature("position", { setting = "chatAbovePanel", when = ownLook })
+position:OnEnable(function()
+	ns.Position.Enable()
+end)
+position:OnDisable(function()
+	ns.Position.Disable()
+end)
+
 local sortChannels = A:Feature("sortChannels", { setting = "sortChannels" })
 sortChannels:OnEnable(function()
 	ns.Tabs.SortChannels(sortChannels)
@@ -115,6 +126,7 @@ A:OnConflict(function(other, what)
 		ns.Input.StepAside()
 		inputGroup:Refresh()
 		look:Refresh()
+		position:Refresh()
 	end
 end)
 

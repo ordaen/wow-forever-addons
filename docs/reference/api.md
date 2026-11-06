@@ -179,6 +179,18 @@ Whether it is faded or fading below full alpha.
 
 Places it again after its options changed. A resolution or UI scale change re-places it by itself.
 
+### UI.ScreenInset(edge)
+
+```lua
+local bottom = UI.ScreenInset("bottom") -- how far up a bottom panel reaches
+EventRegistry:RegisterCallback("OrdaenUI.InsetsChanged", onInsets, owner)
+```
+
+How much of a screen edge (`"bottom"`, `"top"`, `"left"`, `"right"`) the panels cover: the thickest panel on that
+edge plus its offset, in UI units, 0 when there is none. A faded panel still covers its edge. Frames that sit beside
+the panels (Ordaen Chat above a bottom panel) read it and follow `OrdaenUI.InsetsChanged`, which fires when an inset
+changes (a panel placed, resized, moved to another edge). Loads nothing.
+
 ## UI.Dress
 
 ```lua
