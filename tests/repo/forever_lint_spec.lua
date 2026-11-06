@@ -136,6 +136,20 @@ local f = CreateFrame("Buton")
 ]]))
 	end)
 
+	it("FL6: flags debug kit methods called with '.', on any form of the kit", function()
+		assert.same({ "FL6@2", "FL6@3", "FL6@4", "FL6@5" }, codes([[
+local ns, A = {}, {}
+Debug.Log("x")
+ns.Debug.Wrap(fn)
+debug().Logf("%d", 1)
+A.Debug.TraceEnabled()
+Debug:Log("fine")
+debug():Logf("fine")
+ns.Map.Log("not the kit")
+string.format("%d", 1)
+]]))
+	end)
+
 	it("honors forever-lint: ignore comments", function()
 		assert.same({ "FL1@3" }, codes([[
 local f = CreateFrame("Frame")

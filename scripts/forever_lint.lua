@@ -9,6 +9,7 @@
 --                  the dump records argument defaults)
 --   FL4 arg type   a literal of the wrong kind for a documented argument (a string where a number goes, ...)
 --   FL5 frame type CreateFrame("X") with a type that isn't a widget type in the dump
+--   FL6 debug kit  a debug kit method called with '.' (Debug.Log(...), debug().Logf(...)): it takes ':'
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
 -- Silence one line with a trailing comment:  -- forever-lint: ignore FL2
 --
@@ -142,6 +143,28 @@ local function path(node)
 	return nil
 end
 
+-- The Ordaen debug kit (Core.NewDebug: the stand-in in OrdaenCore/Core.lua, the real kit in OrdaenCore_Debug) is an
+-- object: its methods are called with ':'. FL6 flags a '.' call on anything that is the kit: `Debug`, `x.Debug`,
+-- or a call of a function named like it (`debug()`, `getDebug()`).
+local KIT_METHODS = {}
+for name in ([[Init IsEnabled Log Logf Warn Warnf Verbose Verbosef Wrap Call Dump Snapshot HandleSlash HelpLines
+	Trace TraceFrame TraceEnabled]]):gmatch("%a+") do
+	KIT_METHODS[name] = true
+end
+
+local function isDebugKit(node)
+	if node.tag == "Id" then
+		return node[1] == "Debug"
+	elseif node.tag == "Index" and node[2].tag == "String" then
+		return node[2][1] == "Debug"
+	elseif node.tag == "Call" then
+		local fn = node[1]
+		local name = fn.tag == "Id" and fn[1] or (fn.tag == "Index" and fn[2].tag == "String" and fn[2][1])
+		return type(name) == "string" and name:lower():find("debug$") ~= nil
+	end
+	return false
+end
+
 local function multiValue(node)
 	return node and (node.tag == "Call" or node.tag == "Invoke" or node.tag == "Dots")
 end
@@ -230,7 +253,13 @@ function M.LintSource(api, source)
 
 	local function checkCall(node)
 		-- node: Call; node[1] = callee
-		local name = path(node[1])
+		local callee = node[1]
+		if callee.tag == "Index" and callee[2].tag == "String" and KIT_METHODS[callee[2][1]]
+			and isDebugKit(callee[1]) then
+			report(callee[2], "FL6", "debug kit method " .. callee[2][1] .. " called with '.'; it is a method: use ':' ("
+				.. "a '.' call passes the first argument as self)")
+		end
+		local name = path(callee)
 		if not name then
 			return
 		end
