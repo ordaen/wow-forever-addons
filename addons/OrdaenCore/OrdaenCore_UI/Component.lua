@@ -33,6 +33,32 @@ local byFrame = setmetatable({}, { __mode = "k" }) -- WoW frame -> instance
 ---@field block OrdaenUIBlock the instance's block tree (change fields, then :Refresh())
 ---@field tooltip OrdaenUITooltip|nil shown while the mouse is over it
 ---@field listeners table<string, function[]> event -> listeners, in the order added (replaced, never changed)
+--- Placement and visibility, passed to the frame (PASSTHROUGH below):
+---@field SetPoint fun(self: OrdaenUIComponent, point: string, relTo: any, relPoint: string?, x: number?, y: number?)
+---@field ClearAllPoints fun(self: OrdaenUIComponent)
+---@field GetPoint fun(self: OrdaenUIComponent, index: number|nil): string|nil, any, string|nil, number|nil, number|nil
+---@field SetParent fun(self: OrdaenUIComponent, parent: any)
+---@field GetParent fun(self: OrdaenUIComponent): any
+---@field Show fun(self: OrdaenUIComponent)
+---@field Hide fun(self: OrdaenUIComponent)
+---@field IsShown fun(self: OrdaenUIComponent): boolean
+---@field IsVisible fun(self: OrdaenUIComponent): boolean
+---@field SetShown fun(self: OrdaenUIComponent, shown: boolean)
+---@field SetFrameStrata fun(self: OrdaenUIComponent, strata: string)
+---@field GetFrameStrata fun(self: OrdaenUIComponent): string
+---@field SetFrameLevel fun(self: OrdaenUIComponent, level: number)
+---@field GetFrameLevel fun(self: OrdaenUIComponent): number
+---@field SetScale fun(self: OrdaenUIComponent, scale: number)
+---@field GetScale fun(self: OrdaenUIComponent): number
+---@field GetEffectiveScale fun(self: OrdaenUIComponent): number
+---@field GetCenter fun(self: OrdaenUIComponent): number|nil, number|nil
+---@field GetWidth fun(self: OrdaenUIComponent): number
+---@field GetHeight fun(self: OrdaenUIComponent): number
+---@field IsMouseOver fun(self: OrdaenUIComponent): boolean
+---@field LockHighlight fun(self: OrdaenUIComponent)
+---@field UnlockHighlight fun(self: OrdaenUIComponent)
+---@field SetAlpha fun(self: OrdaenUIComponent, alpha: number)
+---@field SetClampedToScreen fun(self: OrdaenUIComponent, clamped: boolean)
 local Base = {}
 local BaseMeta = { __index = Base }
 
@@ -236,7 +262,7 @@ local PASSTHROUGH = {
 	"Show", "Hide", "IsShown", "IsVisible", "SetShown",
 	"SetFrameStrata", "GetFrameStrata", "SetFrameLevel", "GetFrameLevel",
 	"SetScale", "GetScale", "GetEffectiveScale", "GetCenter", "GetWidth", "GetHeight",
-	"IsMouseOver", "LockHighlight", "UnlockHighlight", "SetAlpha",
+	"IsMouseOver", "LockHighlight", "UnlockHighlight", "SetAlpha", "SetClampedToScreen",
 }
 for _, method in ipairs(PASSTHROUGH) do
 	Base[method] = function(self, ...)

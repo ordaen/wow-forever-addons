@@ -9,6 +9,7 @@ body:
       # Keep in sync with addons/ (one entry per addon).
       options:
         - OrdaenMinimap
+        - OrdaenTooltips
         - OrdaenCore
         - Not sure
     validations:

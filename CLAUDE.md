@@ -259,8 +259,14 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   it describes has **no title** naming that thing (the clock's tooltip doesn't say "Time"): it's obvious from the
   mouse. Titles only for custom things whose purpose isn't self-evident (the drawer button, compartment entries,
   Ordaen Dev).
-- **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: restyled in place by a
-  future tooltip addon (taking its look from the theme), never hidden and redrawn as a lookalike.
+- **Every tooltip in our style** (user's decision 2026-11-06, replacing "restyle in place, never redraw"): the addon
+  **Ordaen Tooltips** draws Blizzard's and other addons' tooltips with OrdaenCore.UI. The native tooltip
+  (GameTooltip, ItemRefTooltip, later the comparison tooltips) stays the owner of its content and stays shown at
+  alpha 0, so every addon that fills or checks it works as before; we read it (`Reader.lua`: its lines, and its
+  tooltip data for prices and later per-type layouts) and draw our view in its place. Anything secret
+  (`issecretvalue`, combat) or forbidden stays native for that show. Only hooks (`hooksecurefunc`, `HookScript`),
+  never replaced methods. It replaces PrettyTooltip for the user; native types (items, units, spells, quests,
+  auras) get their own layouts step by step.
 - **Events** (user's decision, built in `OrdaenCore_UI/Component.lua`): `instance:On(event, fn)` / `:Off(event, fn)`
   with plain functions only, or `on = { ... }` in the spec, for both sources. User events are lower case (`click`,
   `enter`, `leave`, `mousedown`, `mouseup`, `dragstart`, `dragstop`, `wheel`, later keyboard); system events are

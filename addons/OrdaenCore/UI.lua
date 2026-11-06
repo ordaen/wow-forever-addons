@@ -34,11 +34,16 @@ local unavailable = false
 ---@field separator string "rule" (a hairline), "divider" (a stronger break), "caption" (text between lines)
 ---@field text string|nil the caption
 ---@field colSpan number|nil
+---@field hidden boolean|nil as a child: skipped
+---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUIBar
 ---@field bar number filled part, 0..1
 ---@field color number[]|nil fill colour, for meaning (health, progress); default from the theme and accent
 ---@field height number|nil
+---@field colSpan number|nil
+---@field hidden boolean|nil as a child: skipped
+---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
 
 ---@class OrdaenUIImage
 ---@field image string|number|nil texture path or file ID, or:

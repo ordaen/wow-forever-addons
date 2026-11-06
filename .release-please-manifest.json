@@ -1,4 +1,5 @@
 {
   "addons/OrdaenCore": "0.0.0",
-  "addons/OrdaenMinimap": "0.0.0"
+  "addons/OrdaenMinimap": "0.0.0",
+  "addons/OrdaenTooltips": "0.0.0"
 }
