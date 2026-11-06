@@ -337,6 +337,7 @@ local socialHooked = false
 local function onSocialEnter(button)
 	if socialTip then
 		GameTooltip:Hide()
+		socialTip.hotkey = UI.Binding("TOGGLESOCIAL") -- the friends list's key, at the bottom
 		socialTip:Show(button)
 	end
 end
