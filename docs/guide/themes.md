@@ -10,21 +10,23 @@ Ordaen Core's settings page (Options > AddOns > Ordaen Core, "Appearance") holds
 
 | Setting | Saved as | Values |
 |---|---|---|
-| Theme | `OrdaenCoreDB.ui.theme` | `ordaen` (default), `blizzard`, `minimal` |
+| Theme | `OrdaenCoreDB.ui.theme` | `ordaen` (the only one built for now; not on the page) |
 | Text size | `OrdaenCoreDB.ui.textSize` | body text height, 10 to 16 px (default 12) |
 
 A change redraws everything on screen at once: Ordaen Core calls `OrdaenCore.UI._SettingsChanged()`, which
 rebuilds the theme and redraws every component and the shown tooltip. Nothing reloads.
 
-## Three themes, always
+## Themes
 
-This is the rule for every theme set we ship (CLAUDE.md, "UI framework"):
+Three themes are planned (CLAUDE.md, "UI framework"); only `ordaen` is built for now (the user's decision,
+2026-11-07). The other two are unimplemented and not offered in the settings, and a saved name that isn't built falls
+back to `ordaen`.
 
 | Theme | Look |
 |---|---|
 | `ordaen` | Ours, the default. Flat surfaces drawn without art: a dark vertical gradient, pixel-exact edges brighter on top, a soft darkened rim, a header band, warm text without shadows, titles in capitals. Tinted by an **accent** colour. |
-| `blizzard` | Blizzard's tooltip art (backdrop), Blizzard's colours and shadowed text: looks like the game. |
-| `minimal` | Flat and quiet: one solid fill, a one-pixel grey border, plain text, no effects. |
+| `blizzard` | Planned: mostly Blizzard's default look. |
+| `minimal` | Planned: little to no textures. |
 
 Every theme defines every role, so your addon never needs to know which one is on.
 
@@ -69,7 +71,7 @@ entry then tints correctly for any accent, and no table is made per accent.
 | `edges` | `{ top, right, bottom, left }`, each `{ physical px, colour }`: whole pixels at any UI scale |
 | `vignette` | `{ size = token, alpha }`: the rim darkened inwards |
 | `bleed` | a nested block's surface reaches over its parent's padding to the edges (the header band) |
-| `backdrop`, `background`, `border` | Blizzard art instead of a fill (`blizzard` theme) |
+| `backdrop`, `background`, `border` | Blizzard art instead of a fill (no built theme uses it now) |
 | `highlight` | `{ texture = path }` or `{ color = { r, g, b, a } }`, shown while the mouse is over it |
 
 Nested blocks with a style draw their own surface, so a `header` inside a `tooltip` gets its band.

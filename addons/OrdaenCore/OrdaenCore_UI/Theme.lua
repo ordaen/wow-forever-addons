@@ -6,12 +6,10 @@
 -- from it, so one slider resizes all Ordaen UI and the proportions stay the same. Addons name roles
 -- (style = "title", gap = "sm"), never numbers, and pick a change up by themselves.
 --
--- The rule for themes (CLAUDE.md, "UI framework"): there are always these three, chosen globally in Ordaen Core
--- (OrdaenCoreDB.ui.theme):
---   ordaen   our own look, the default: flat surfaces drawn without art, tinted by an accent colour;
---   blizzard Blizzard's tooltip art, colours and shadowed text;
---   minimal  flat and quiet: solid fills, hairline borders, no effects.
--- Every theme defines every role, so an addon never needs to know which one is on.
+-- Themes (CLAUDE.md, "UI framework"): only `ordaen` is built for now (the user's decision, 2026-11-07); `blizzard`
+-- (mostly Blizzard's default look) and `minimal` (little to no textures) are planned and unimplemented. The theme is
+-- chosen globally in Ordaen Core (OrdaenCoreDB.ui.theme); an unknown name falls back to ordaen. Every theme defines
+-- every role, so an addon never needs to know which one is on.
 --
 -- Colours are { r, g, b, a?, accent = k? }: the colour plus k times the block's accent (its `accent` field,
 -- else the theme's), so one formula tints a surface for any accent without a table per accent.
@@ -52,21 +50,6 @@ local floor, max, min = math.floor, math.max, math.min
 -- The scale at text size 12; every step is multiplied by textSize / 12 and rounded.
 local SPACE = { xs = 2, sm = 4, md = 8, lg = 12, xl = 16 }
 local SIZE = { tiny = 0.75, small = 0.9, body = 1, large = 1.17, title = 1.42 }
-
--- Blizzard's art, for the blizzard theme.
-local TOOLTIP_ART = {
-	bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-	edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-	edgeSize = 16,
-	insets = { left = 4, right = 4, top = 4, bottom = 4 },
-}
-local BUTTON_HIGHLIGHT = { texture = "Interface\\Buttons\\ButtonHilight-Square" }
-local DIALOG_ART = { -- Blizzard's popup look (StaticPopup)
-	bgFile = "Interface\\DialogFrame\\UI-DialogBox-Background",
-	edgeFile = "Interface\\DialogFrame\\UI-DialogBox-Border",
-	tile = true, tileSize = 32, edgeSize = 32,
-	insets = { left = 11, right = 12, top = 12, bottom = 11 },
-}
 
 -- Fonts: the client's own files, so every language's glyphs are there (the user's client is ruRU). `body` is
 -- the tooltip font, `header` the tooltip header font, `ui` the general interface font.
@@ -217,108 +200,8 @@ THEMES.ordaen = {
 	},
 }
 
-THEMES.blizzard = {
-	accent = { 1, 0.82, 0 },
-	blocks = {
-		tooltip = {
-			padding = "md", gap = "xs", maxWidth = 25,
-			backdrop = TOOLTIP_ART, background = { 0.09, 0.09, 0.19, 0.95 }, border = { 1, 1, 1, 1 },
-		},
-		header = { padding = { 0, 0, "xs", 0 }, gap = { "md", "xs" } },
-		button = { padding = 0, gap = 0 },
-		iconButton = {
-			padding = 4, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.8 }, border = { 1, 1, 1, 1 },
-			highlight = BUTTON_HIGHLIGHT,
-		},
-		slot = { padding = 3, highlight = BUTTON_HIGHLIGHT },
-		tab = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.55 }, border = { 0.6, 0.6, 0.6, 0.8 },
-			highlight = BUTTON_HIGHLIGHT },
-		tabSelected = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.09, 0.09, 0.19, 0.95 },
-			border = { 1, 0.82, 0, 1 }, highlight = BUTTON_HIGHLIGHT },
-		tabFlash = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.35, 0.25, 0, 0.9 },
-			border = { 1, 0.82, 0, 1 }, highlight = BUTTON_HIGHLIGHT },
-		panel = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.85 }, border = { 1, 1, 1, 1 } },
-		input = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.03, 0.03, 0.06, 1 }, border = { 1, 1, 1, 1 } },
-		dialog = {
-			padding = "xl", gap = "lg", backdrop = DIALOG_ART, background = { 1, 1, 1, 1 }, border = { 1, 1, 1, 1 },
-		},
-		pushButton = {
-			padding = { "sm", "lg", "sm", "lg" }, backdrop = TOOLTIP_ART, background = { 0.25, 0.04, 0.02, 0.95 },
-			border = { 0.8, 0.8, 0.8, 1 }, highlight = BUTTON_HIGHLIGHT,
-		},
-	},
-	text = {
-		title = { font = "header", size = "large", color = { 1, 1, 1 }, shadow = true },
-		subtitle = { font = "body", size = "body", color = { 1, 0.82, 0 }, shadow = true },
-		body = { font = "body", size = "body", color = { 1, 1, 1 }, shadow = true },
-		label = { font = "body", size = "body", color = { 1, 0.82, 0 }, shadow = true },
-		value = { font = "body", size = "body", color = { 1, 1, 1 }, shadow = true },
-		hint = { font = "body", size = "small", color = { 0.5, 0.5, 0.5 }, shadow = true },
-		caption = { font = "body", size = "small", color = { 1, 0.82, 0 }, shadow = true },
-		normal = { font = "ui", size = "body", color = { 1, 0.82, 0 }, shadow = true },
-		small = { font = "ui", size = "small", color = { 1, 1, 1 }, shadow = true },
-	},
-	separators = {
-		rule = { space = "xs", width = 1, color = { 0.5, 0.5, 0.5, 0.5 } },
-		divider = { space = "sm", gap = 0, width = 1, color = { 0.5, 0.5, 0.5, 0.5 } },
-		caption = { space = "xs", gap = 0, width = 0, color = { 0, 0, 0, 0 } },
-	},
-	bar = {
-		height = "md", track = { 0, 0, 0, 0.75 }, edge = { 0.34, 0.28, 0.18, 1 }, fill = { 0, 0.69, 0, 1 },
-	},
-}
-
-local GREY_EDGE = { 0.26, 0.26, 0.29, 1 }
-local GREY_EDGES = {
-	top = { 1, GREY_EDGE }, right = { 1, GREY_EDGE }, bottom = { 1, GREY_EDGE }, left = { 1, GREY_EDGE },
-}
-local GREY_FILL = { top = { 0.08, 0.08, 0.09, 0.94 }, bottom = { 0.08, 0.08, 0.09, 0.94 } }
-
-THEMES.minimal = {
-	accent = { 0.56, 0.62, 0.72 },
-	blocks = {
-		tooltip = { padding = "md", gap = "xs", maxWidth = 25, fill = GREY_FILL, edges = GREY_EDGES },
-		header = { padding = { 0, 0, "xs", 0 }, gap = { "md", "xs" } },
-		button = { padding = 0, gap = 0 },
-		iconButton = { padding = 4, fill = GREY_FILL, edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } } },
-		slot = { padding = 3, highlight = { color = { 1, 1, 1, 0.12 } } },
-		tab = { padding = 0, fill = { top = { 0.08, 0.08, 0.09, 0.6 }, bottom = { 0.08, 0.08, 0.09, 0.6 } },
-			highlight = { color = { 1, 1, 1, 0.08 } } },
-		tabSelected = { padding = 0, fill = GREY_FILL, edges = { top = { 1, { 0.56, 0.62, 0.72, 1 } } },
-			highlight = { color = { 1, 1, 1, 0.08 } } },
-		tabFlash = { padding = 0, fill = { top = { 0.2, 0.22, 0.26, 0.94 }, bottom = { 0.2, 0.22, 0.26, 0.94 } },
-			edges = { top = { 1, { 0.56, 0.62, 0.72, 1 } } }, highlight = { color = { 1, 1, 1, 0.08 } } },
-		panel = { padding = 0, fill = GREY_FILL, edges = GREY_EDGES },
-		input = { padding = 0, fill = { top = { 0.08, 0.08, 0.09, 1 }, bottom = { 0.08, 0.08, 0.09, 1 } },
-			edges = GREY_EDGES },
-		dialog = { padding = "xl", gap = "lg", fill = GREY_FILL, edges = GREY_EDGES },
-		pushButton = {
-			padding = { "sm", "lg", "sm", "lg" },
-			fill = { top = { 0.14, 0.14, 0.16, 0.95 }, bottom = { 0.14, 0.14, 0.16, 0.95 } },
-			edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } },
-		},
-	},
-	text = {
-		title = { font = "body", size = "large", color = { 0.95, 0.95, 0.95 } },
-		subtitle = { font = "body", size = "small", color = { 0.5, 0.5, 0.5, accent = 0.5 } },
-		body = { font = "body", size = "body", color = { 0.85, 0.85, 0.85 } },
-		label = { font = "body", size = "small", color = { 0.62, 0.62, 0.64 } },
-		value = { font = "body", size = "body", color = { 0.95, 0.95, 0.95 } },
-		hint = { font = "body", size = "small", color = { 0.5, 0.5, 0.52 } },
-		caption = { font = "body", size = "tiny", color = { 0.55, 0.55, 0.58 }, caps = true },
-		normal = { font = "ui", size = "body", color = { 0.95, 0.95, 0.95 }, shadow = true },
-		small = { font = "ui", size = "small", color = { 0.85, 0.85, 0.85 }, shadow = true },
-	},
-	separators = {
-		rule = { space = "sm", width = 1, color = { 1, 1, 1, 0.1 } },
-		divider = { space = "md", gap = 0, width = 1, color = { 1, 1, 1, 0.14 } },
-		caption = { space = "xs", gap = "sm", width = 1, color = { 1, 1, 1, 0.1 } },
-	},
-	bar = { height = "xs", track = { 1, 1, 1, 0.08 }, fill = { 0, 0, 0, 1, accent = 1 } },
-}
-
 Theme.THEMES = THEMES
-Theme.ORDER = { "ordaen", "blizzard", "minimal" }
+Theme.ORDER = { "ordaen" }
 
 -- Resolving ------------------------------------------------------------------------------------------
 

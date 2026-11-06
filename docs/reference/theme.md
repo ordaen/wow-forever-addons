@@ -1,34 +1,34 @@
 # Themes and roles
 
-Every role below exists in all three themes (`ordaen`, `blizzard`, `minimal`). The exact values live in
-`OrdaenCore_UI/Theme.lua`, the single source; this page says what each role is for and how the themes differ.
+Only the `ordaen` theme is built for now (`blizzard` and `minimal` are planned: [Themes](/guide/themes)). The exact
+values live in `OrdaenCore_UI/Theme.lua`, the single source; this page says what each role is for and how it looks.
 How themes work: [Themes](/guide/themes).
 
 ## Block styles
 
-| Style | For | `ordaen` | `blizzard` | `minimal` |
-|---|---|---|---|---|
-| `tooltip` | tooltips (`UI.Tooltip` sets it) | gradient fill, 2 px accent top edge, 1 px sides, vignette, padding `lg` | tooltip backdrop, padding `md` | flat fill, 1 px grey border, padding `md` |
-| `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges | no surface | no surface |
-| `button` | clickable text without a surface | | | |
-| `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight | tooltip backdrop, Blizzard highlight | flat fill, grey border |
-| `slot` | a cell in a grid of icons (the drawer) | highlight only | Blizzard highlight | highlight only |
-| `panel` | a box holding other things (the minimap drawer) | tooltip surface | tooltip backdrop | flat fill, grey border |
-| `input` | a text input over other text (the chat input) | opaque tooltip surface | opaque dark backdrop | opaque grey fill |
-| `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge | tooltip backdrop, dim | faint grey fill |
-| `tabSelected` | the tab shown | tooltip surface, accent top edge | tooltip backdrop, gold border | grey fill, accent line |
-| `tabFlash` | a tab with a new message | accent fill | gold-tinted backdrop | lighter fill, accent line |
-| `dialog` | confirmation dialogs (`UI.Confirm`) | like `tooltip`, padding `xl` | Blizzard's popup art | like `tooltip`, padding `xl` |
-| `pushButton` | a dialog's buttons | accent band, accent edges, highlight | tooltip backdrop on red, Blizzard highlight | grey fill and border |
+| Style | For | `ordaen` |
+|---|---|---|
+| `tooltip` | tooltips (`UI.Tooltip` sets it) | gradient fill, 2 px accent top edge, 1 px sides, vignette, padding `lg` |
+| `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges |
+| `button` | clickable text without a surface | |
+| `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight |
+| `slot` | a cell in a grid of icons (the drawer) | highlight only |
+| `panel` | a box holding other things (the minimap drawer) | tooltip surface |
+| `input` | a text input over other text (the chat input) | opaque tooltip surface |
+| `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge |
+| `tabSelected` | the tab shown | tooltip surface, accent top edge |
+| `tabFlash` | a tab with a new message | accent fill |
+| `dialog` | confirmation dialogs (`UI.Confirm`) | like `tooltip`, padding `xl` |
+| `pushButton` | a dialog's buttons | accent band, accent edges, highlight |
 
-Tooltips are 12 to 25 ems wide in `ordaen`, at most 25 ems in the others.
+Tooltips are 12 to 25 ems wide.
 
 ## Text styles
 
 | Style | Tier | Use |
 |---|---|---|
-| `title` | `title` (`large` in `blizzard`, `minimal`) | the name of the thing; capitals in `ordaen` |
-| `subtitle` | `small` (`body` in `blizzard`) | under the title; tinted by the accent |
+| `title` | `title` | the name of the thing; capitals |
+| `subtitle` | `small` | under the title; tinted by the accent |
 | `body` | `body` | running text (default) |
 | `label` | `small` | the left side of a label/value row |
 | `value` | `body` | the right side |
@@ -37,21 +37,21 @@ Tooltips are 12 to 25 ems wide in `ordaen`, at most 25 ems in the others.
 | `normal` | `body` | names on the world (the minimap's zone), with a shadow |
 | `small` | `small` | small readouts on the world (coordinates, clock), with a shadow |
 
-Text without a surface behind it (`normal`, `small`) keeps a shadow in every theme; text on a surface has none in
-`ordaen` and `minimal`. Fonts are the client's own files (`GameTooltipText`, `GameTooltipHeaderText`,
+Text without a surface behind it (`normal`, `small`) keeps a shadow; text on a surface has none.
+Fonts are the client's own files (`GameTooltipText`, `GameTooltipHeaderText`,
 `GameFontNormal`), so every language's glyphs are there. An unknown style falls back to `body`.
 
 ## Separators and bars
 
-| Element | `ordaen` | `blizzard` | `minimal` |
-|---|---|---|---|
-| `separator = "rule"` | 1 px accent hairline | 1 px grey | faint 1 px |
-| `separator = "divider"` | two hairlines with a gap | one line | one line |
-| `separator = "caption"` | caption text between two lines | gold caption, no lines | caption between faint lines |
-| `bar` | accent fill on a dark gradient track, Blizzard's bar texture, a black 1 px edge | Blizzard green, Blizzard's bar texture, a bronze 1 px edge | thin accent fill, flat |
+| Element | `ordaen` |
+|---|---|
+| `separator = "rule"` | 1 px accent hairline |
+| `separator = "divider"` | two hairlines with a gap |
+| `separator = "caption"` | caption text between two lines |
+| `bar` | accent fill on a dark gradient track, Blizzard's bar texture, a black 1 px edge |
 
 Bar colours by meaning are theme tokens (`themes.jsonc`): `color.xp`, `color.quest`, `color.rested`, and
-`color.reputation.hated` .. `color.reputation.exalted` (Blizzard's own colours, slightly tuned in `ordaen`); the
+`color.reputation.hated` .. `color.reputation.exalted` (Blizzard's own colours, slightly tuned); the
 texture is `bar.texture`. A theme's bar may have an `edge` colour: one physical pixel around the bar with its corners
 left out, a small radius instead of Blizzard's curved ends. Changes glide (exponential ease-out), a gain flashes
 softly over the new part, a new level runs the bar to the end and starts again.

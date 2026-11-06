@@ -9,7 +9,7 @@ Decisions are recorded in `CLAUDE.md` ("UI framework `OrdaenCore.UI`"). Nothing 
 - **Shortcut** `tooltip = tip` on a component.
 - **Hover highlight** for styles that have one (`iconButton`, `slot`), and `LockHighlight` for a highlight shown on
   request.
-- **Three themes** (`ordaen`, `blizzard`, `minimal`) and one **design scale** (spacing tokens, text tiers) from the
+- **The `ordaen` theme** (`blizzard` and `minimal` are planned, see below) and one **design scale** (spacing tokens, text tiers) from the
   player's global text size, both chosen in Ordaen Core's settings; **accent** colours; surfaces drawn without art.
 - **Separators** (rule, divider, caption), **bars**, **Shift rows**, **headers** (`UI.Header`).
 - **Confirmation dialogs** (`UI.Confirm`), one at a time for every addon, Escape as cancel.
@@ -42,6 +42,8 @@ addon code causes blocked-action errors. An addon that needs one uses Blizzard's
 - **Interaction states** beyond hover: pressed, disabled, selected.
 - **Resizing** windows.
 - **Scrolling** and long repeated lists.
+- **The `blizzard` and `minimal` themes** (mostly Blizzard's default look; little to no textures): unimplemented for
+  now, the user's decision (2026-11-07).
 - **Theme addon API**: how a theme addon adds its own set of three themes.
 - **Library**: packaging the framework for addons outside Ordaen.
 - **Blizzard's tooltips**: restyled in place by a future tooltip addon, with the theme.

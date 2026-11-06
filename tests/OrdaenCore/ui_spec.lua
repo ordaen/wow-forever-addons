@@ -516,14 +516,13 @@ describe("OrdaenCore.UI", function()
 			assert.is_nil(s.backdrop) -- drawn without art
 		end)
 
-		it("draw Blizzard's art and shadowed text in the blizzard theme", function()
+		it("fall back to the ordaen look for a theme that isn't built (blizzard and minimal are planned)", function()
 			rawset(_G, "OrdaenCoreDB", { ui = { theme = "blizzard", textSize = 12 } })
 			local tip = UI.Tooltip({ { text = "Elwynn Forest", style = "title" } })
 			tip:Show(owner)
 			local s = surface()
-			assert.equals("Interface\\Tooltips\\UI-Tooltip-Border", s.backdrop.edgeFile)
-			assert.same({ "Elwynn Forest" }, shownTexts(s)) -- no capitals
-			assert.same({ 13 * CHAR + 1 + 16, LINE + 16 }, s.size) -- padding md (8)
+			assert.is_nil(s.backdrop) -- drawn without art, as ordaen
+			assert.same({ "ELWYNN FOREST" }, shownTexts(s)) -- ordaen's title capitals
 		end)
 
 		it("redraw after their fields changed, hiding what is no longer drawn", function()
@@ -732,12 +731,11 @@ describe("OrdaenCore.UI", function()
 		end)
 
 		it("draws an icon button's surface, image and hover highlight from the theme", function()
-			rawset(_G, "OrdaenCoreDB", { ui = { theme = "blizzard" } })
 			local icon = { image = "Interface\\Icons\\INV_Misc_Bag_10", size = 20 }
 			local button = UI.Button({ name = "Bag", style = "iconButton", icon })
 			local f = button.frame
 			assert.same({ 28, 28 }, f.size) -- padding 4 around a 20 px icon
-			assert.is_table(f.backdrop)
+			assert.is_nil(f.backdrop) -- drawn without art
 			local image, highlight
 			for _, t in ipairs(f.textures) do
 				if t.layer == "HIGHLIGHT" then
@@ -748,7 +746,8 @@ describe("OrdaenCore.UI", function()
 			end
 			assert.equals("Interface\\Icons\\INV_Misc_Bag_10", image.file)
 			assert.same({ 0, 1, 0, 1 }, image.texCoord)
-			assert.equals("Interface\\Buttons\\ButtonHilight-Square", highlight.file)
+			assert.equals("Interface\\Buttons\\WHITE8X8", highlight.file) -- the theme's highlight colour
+			assert.is_true(highlight.vertexColor[4] > 0)
 			icon.image, icon.atlas, icon.texCoord = nil, "ui-hud-minimap-mail-up", { 0.1, 0.9, 0.1, 0.9 }
 			button:Refresh()
 			assert.equals("ui-hud-minimap-mail-up", image.atlas)
@@ -1179,15 +1178,13 @@ describe("OrdaenCore.UI", function()
 			local label = UI.Block({ name = "Label", { text = "Goldshire", style = "small" } })
 			local s = surface()
 			assert.same({ "STORMWIND" }, shownTexts(s))
-			rawset(_G, "OrdaenCoreDB", { ui = { theme = "blizzard", textSize = 14 } })
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "ordaen", textSize = 14 } })
 			UI._SettingsChanged()
-			assert.same({ "Stormwind" }, shownTexts(s))
-			assert.equals("Interface\\Tooltips\\UI-Tooltip-Border", s.backdrop.edgeFile)
+			assert.same({ "STORMWIND" }, shownTexts(s))
 			assert.equals(13, fontOf(label.frame, "Goldshire").fontSize) -- small tier of 14
-			rawset(_G, "OrdaenCoreDB", { ui = { theme = "minimal", textSize = 12 } })
+			rawset(_G, "OrdaenCoreDB", { ui = { theme = "ordaen", textSize = 12 } })
 			UI._SettingsChanged()
-			assert.is_nil(s.backdrop) -- art taken off again
-			assert.same({ "Stormwind" }, shownTexts(s))
+			assert.equals(11, fontOf(label.frame, "Goldshire").fontSize) -- small tier of 12 again
 		end)
 
 		it("tint a surface with the block's accent, else the theme's", function()
