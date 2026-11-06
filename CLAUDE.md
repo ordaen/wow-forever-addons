@@ -201,6 +201,12 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   drawn without art, tinted by an accent; approach credited to PrettyTooltip, values our own), `blizzard` (Blizzard's
   art and shadowed text) is an option, and `minimal` (flat, hairlines, no effects) is the third. Every theme defines
   every role. A theme addon later adds a set of three, never one.
+- **Theme defaults for every setting** (user's rule, 2026-11-06): every addon declares its settings' defaults for
+  every theme. A setting whose default depends on the look (Ordaen Minimap's border style and colour) gives one per
+  theme (`ordaen`, `blizzard`, `minimal`); a setting that doesn't (drawer columns) says so with a single default. A
+  player's own choice wins over the theme's default. Planned: a settings manifest with a schema per addon, checked
+  by the build (types, ranges, choices, locale keys, all three themes present, keys the code reads), replacing the
+  `defaults`/`settings` tables in `NewAddon` (Core session: runtime and build; UI session: the settings page).
 - **One design scale, global settings** (user's decision): sizes, fonts and spacing are global for every Ordaen addon,
   chosen in Ordaen Core's settings (`OrdaenCoreDB.ui.theme`, `.textSize` = body px 10-16; c4 owns the page,
   `CoreSettings.lua`, which calls `OrdaenCore.UI._SettingsChanged()`). Spacing tokens `xs sm md lg xl` and text
