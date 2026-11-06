@@ -31,7 +31,7 @@ The game runs whatever is on `develop` in the main checkout `C:\Users\f3oal\code
 
 Tell the user exactly what to do:
 
-1. Restart the client or `/reload`: say which. **A new file or any `.toc` change needs a full client restart.**
+1. `/reload`. On Forever it also picks up new files, `.toc` changes and new addon folders (link new folders first with `scripts/link.ps1`).
 2. Reproduce the problem. Take a screenshot (Print Screen) if it's visual.
 3. Open the Ordaen Dev window (gear button), type what they saw in **Note for Claude**, and click **Save for Claude & reload**. That dumps every Ordaen addon's state, stores the note and writes everything to disk.
 4. Tell Claude "check".
