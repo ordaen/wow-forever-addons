@@ -3,8 +3,8 @@
 -- opens the calendar, a right-click the clock settings, a click on the zone name the world map.
 -- All three are OrdaenCore.UI components; their tooltips are UI tooltip objects.
 --
--- Cost: nothing runs per frame. The zone updates on zone events. Coordinates and the clock share one
--- 1-second timer chain; while the player moves, a second chain refreshes coordinates every 0.1 s.
+-- Cost: nothing runs per frame. The zone updates on zone events. Coordinates and the clock tick once a second on
+-- the Core's shared ticker; while the player moves, coordinates also tick every 0.1 s. Both stop with the feature.
 -- Coordinates come from UnitPosition (numbers only) and the map's world rectangle (read once per zone), and
 -- are drawn as format + args (WoW's SetFormattedText), so ticking creates no tables or strings; the components
 -- are redrawn only when the shown value changes.
@@ -198,43 +198,24 @@ local function updateInvites()
 	clock:Refresh() -- also redraws its tooltip, if shown
 end
 
--- Ticking --------------------------------------------------------------------------------------
+-- Ticking and events: on the "info" feature (Core.lua), so they run only while it is on. -------------
 
 local moving = false
-local fastRunning = false
-local slowRunning = false
+local fast -- ticker: coordinates every 0.1 s, only between PLAYER_STARTED_MOVING and PLAYER_STOPPED_MOVING
 
 local function slowTick()
-	if not active then
-		slowRunning = false
-		return
-	end
 	updateCoords()
 	updateClock()
-	C_Timer.After(SLOW, slowTick)
 end
-
-local function fastTick()
-	if not (active and moving) then
-		fastRunning = false
-		return
-	end
-	updateCoords()
-	C_Timer.After(FAST, fastTick)
-end
-
--- Events ---------------------------------------------------------------------------------------
 
 local function onStartMoving()
 	moving = true
-	if not fastRunning then
-		fastRunning = true
-		fastTick()
-	end
+	fast:Start()
 end
 
 local function onStopMoving()
 	moving = false
+	fast:Stop()
 	updateCoords()
 end
 
@@ -256,27 +237,19 @@ local function onZoneClick()
 	ToggleWorldMap()
 end
 
--- All confirmed in api/forever/<CURRENT>/api.json. Written out literally so forever-lint checks them.
-local function registerEvents()
-	local A = ns.Addon
-	A:On("ZONE_CHANGED", onZone)
-	A:On("ZONE_CHANGED_INDOORS", onZone)
-	A:On("ZONE_CHANGED_NEW_AREA", onZone)
-	A:On("PLAYER_ENTERING_WORLD", onZone)
-	A:On("PLAYER_STARTED_MOVING", onStartMoving)
-	A:On("PLAYER_STOPPED_MOVING", onStopMoving)
-	A:On("CALENDAR_UPDATE_PENDING_INVITES", updateInvites)
-end
-
-local function unregisterEvents()
-	local A = ns.Addon
-	A:Off("ZONE_CHANGED", onZone)
-	A:Off("ZONE_CHANGED_INDOORS", onZone)
-	A:Off("ZONE_CHANGED_NEW_AREA", onZone)
-	A:Off("PLAYER_ENTERING_WORLD", onZone)
-	A:Off("PLAYER_STARTED_MOVING", onStartMoving)
-	A:Off("PLAYER_STOPPED_MOVING", onStopMoving)
-	A:Off("CALENDAR_UPDATE_PENDING_INVITES", updateInvites)
+-- Once, on the feature's first start. All confirmed in api/forever/<CURRENT>/api.json; written out literally so
+-- forever-lint checks them. The feature registers them while it is on and releases them when it goes off.
+local function listen(feature)
+	feature:On("ZONE_CHANGED", onZone)
+	feature:On("ZONE_CHANGED_INDOORS", onZone)
+	feature:On("ZONE_CHANGED_NEW_AREA", onZone)
+	feature:On("PLAYER_ENTERING_WORLD", onZone)
+	feature:On("PLAYER_STARTED_MOVING", onStartMoving)
+	feature:On("PLAYER_STOPPED_MOVING", onStopMoving)
+	feature:On("CALENDAR_UPDATE_PENDING_INVITES", updateInvites)
+	feature:Every(SLOW, slowTick)
+	fast = feature:Every(FAST, updateCoords)
+	fast:Stop()
 end
 
 -- Components -----------------------------------------------------------------------------------
@@ -307,38 +280,47 @@ local function layout()
 	clock:SetPoint("TOPRIGHT", Minimap, "BOTTOMRIGHT", -2, -gap)
 end
 
---- Show the texts for the current settings (creates them the first time).
+--- Start the texts: the "info" feature's OnEnable (creates them the first time).
+---@param feature OrdaenFeature
+---@param savedDb table OrdaenMinimapDB
+function Info.Enable(feature, savedDb)
+	db = savedDb
+	if not zone then
+		if not createComponents() then
+			return
+		end
+		listen(feature)
+	end
+	active = true
+	shownLocal, shownRealm = nil, nil
+	Info.Apply(savedDb)
+	updateZone()
+	updateMapRect()
+	updateInvites()
+	slowTick()
+end
+
+--- Place the texts for the current settings (a setting changed: the border's size moves them).
 ---@param savedDb table OrdaenMinimapDB
 function Info.Apply(savedDb)
 	db = savedDb
-	if not zone and not createComponents() then
+	if not zone then
 		return
 	end
 	layout()
 	zone:Show()
 	coords:Show()
 	clock:Show()
-	if not active then
-		active = true
-		registerEvents()
-		shownLocal, shownRealm = nil, nil
-		updateZone()
-		updateMapRect()
-		updateInvites()
-		if not slowRunning then
-			slowRunning = true
-			slowTick()
-		end
-	end
 end
 
---- Remove the texts (another minimap addon owns the map).
+--- Remove the texts: the feature's OnDisable (another minimap addon owns the map). Its events and tickers stop
+--- with the feature.
 function Info.Hide()
 	if not zone then
 		return
 	end
 	active = false
-	unregisterEvents()
+	moving = false
 	zone:Hide()
 	coords:Hide()
 	clock:Hide()

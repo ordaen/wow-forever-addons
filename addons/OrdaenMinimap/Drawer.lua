@@ -473,8 +473,10 @@ local compartmentParent -- its own parent, to give it back
 local placingCompartment = false
 local loggedCompartment -- the state last logged
 
+local drawerOn = false -- the drawer feature is on (its entries replace Blizzard's compartment button)
+
 local function compartmentHidden()
-	return db and db.hideBlizzardCompartment and started
+	return db and db.hideBlizzardCompartment and drawerOn
 end
 
 local function keepCompartmentHidden(frame)
@@ -597,53 +599,53 @@ local function onCombatEnd()
 	end
 end
 
---- Start the drawer (once). Skipped while MinimapButtonButton is loaded: both would grab the buttons.
+--- Show the drawer: the "drawer" feature's OnEnable (collects the buttons the first time). The feature stays off
+--- while MinimapButtonButton is loaded (both would grab the same buttons; Core.lua tells the player).
 ---@param savedDb table OrdaenMinimapDB
-function Drawer.Start(savedDb)
+function Drawer.Enable(savedDb)
 	db = savedDb
-	if started or not db.drawerEnabled then
-		Drawer.ApplyBlizzardCompartment()
-		return
+	if not started then
+		if not createFrames() then
+			return
+		end
+		started = true
+		collectAll()
+		local icon = libDBIcon()
+		if icon and icon.RegisterCallback then
+			icon.RegisterCallback(Drawer, "LibDBIcon_IconCreated", function(_, button)
+				collect(button, "LibDBIcon")
+			end)
+		end
+		-- Addons create buttons late (after login, after loading data); look again a few times.
+		for _, delay in ipairs(RESCAN_DELAYS) do
+			C_Timer.After(delay, ns.Debug:Wrap(collectAll))
+		end
+		eventFrame = CreateFrame("Frame")
+		eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
+		eventFrame:SetScript("OnEvent", ns.Debug:Wrap(onCombatEnd))
 	end
-	if C_AddOns.IsAddOnLoaded("MinimapButtonButton") then
-		ns.Print(L.DRAWER_MBB_WARNING)
-		debug():Log("drawer: skipped, MinimapButtonButton is loaded")
-		return
-	end
-	if not createFrames() then
-		return
-	end
-	started = true
-	Drawer.ApplyBlizzardCompartment()
-	collectAll()
-
-	local icon = libDBIcon()
-	if icon and icon.RegisterCallback then
-		icon.RegisterCallback(Drawer, "LibDBIcon_IconCreated", function(_, button)
-			collect(button, "LibDBIcon")
-		end)
-	end
-	-- Addons create buttons late (after login, after loading data); look again a few times.
-	for _, delay in ipairs(RESCAN_DELAYS) do
-		C_Timer.After(delay, ns.Debug:Wrap(collectAll))
-	end
-	eventFrame = CreateFrame("Frame")
-	eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-	eventFrame:SetScript("OnEvent", ns.Debug:Wrap(onCombatEnd))
+	drawerOn = true
+	mainButton:Show()
+	Drawer.Apply(savedDb)
 end
 
---- Apply changed drawer settings. Turning the drawer off needs a reload to give buttons back.
+--- Hide the drawer: the feature's OnDisable. The collected buttons stay in it until a reload gives them back.
+function Drawer.Disable()
+	if not started then
+		return
+	end
+	drawerOn = false
+	mainButton:Hide()
+	container:Hide()
+	Drawer.ApplyBlizzardCompartment()
+	ns.Print(L.DRAWER_RELOAD_HINT)
+end
+
+--- Apply changed drawer settings while it is on.
 ---@param savedDb table OrdaenMinimapDB
 function Drawer.Apply(savedDb)
 	db = savedDb
-	if db.drawerEnabled and not started then
-		Drawer.Start(db)
-	elseif not db.drawerEnabled and started then
-		mainButton:Hide()
-		container:Hide()
-		ns.Print(L.DRAWER_RELOAD_HINT)
-	elseif started then
-		mainButton:Show()
+	if started then
 		Drawer.Layout()
 	end
 	Drawer.ApplyBlizzardCompartment()

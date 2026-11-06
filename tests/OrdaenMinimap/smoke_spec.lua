@@ -310,13 +310,6 @@ describe("OrdaenMinimap smoke", function()
 					end
 				end,
 			},
-			ReloadUI = function()
-				world.reloaded = true
-			end,
-			StaticPopupDialogs = {},
-			StaticPopup_Show = function(which, text, _, data)
-				table.insert(world.popups, { which = which, text = text, data = data })
-			end,
 			Settings = {
 				RegisterVerticalLayoutCategory = function(name)
 					return stubObject("category:" .. name), stubObject("layout")
@@ -371,7 +364,30 @@ describe("OrdaenMinimap smoke", function()
 
 		-- helpers.loadCore gives every addon the shared strict debug kit: like the dev addon's real one it must be
 		-- called with ":" (a dot call such as `debug().Logf(...)` fails here instead of only in dev mode).
+		-- As in game, the Core runs each handler and feature through securecallfunction (it reads it once, at load):
+		-- an error is reported and the rest go on. Here it is recorded, and a test that leaves one fails.
+		world.errors = {}
+		rawset(_G, "securecallfunction", function(fn, ...)
+			local result = { pcall(fn, ...) }
+			if not result[1] then
+				table.insert(world.errors, result[2])
+				return
+			end
+			return unpack(result, 2)
+		end)
 		helpers.loadCore()
+		-- Dialogs are the real UI.Confirm (tests/OrdaenCore/ui_spec.lua draws them); each one shown is recorded.
+		local UI = rawget(_G, "OrdaenCore").UI
+		local confirm = UI.Confirm
+		UI.Confirm = function(spec)
+			local dialog = confirm(spec)
+			local show = dialog.Show
+			function dialog:Show()
+				table.insert(world.popups, self)
+				show(self)
+			end
+			return dialog
+		end
 		ns = {}
 		loadToc("OrdaenMinimap", ns)
 	end)
@@ -658,23 +674,20 @@ describe("OrdaenMinimap smoke", function()
 		assert.same({ 1.3 }, Minimap.calls.SetScale[#Minimap.calls.SetScale])
 	end)
 
+	after_each(function()
+		rawset(_G, "securecallfunction", nil)
+		assert.same({}, world.errors) -- no handler or feature failed unseen
+	end)
+
 	it("starts the other features when one of them fails", function()
-		-- In game securecallfunction reports the error and returns; here it records it.
-		local errors = {}
-		rawset(_G, "securecallfunction", function(fn, ...)
-			local ok, err = pcall(fn, ...)
-			if not ok then
-				errors[#errors + 1] = err
-			end
-		end)
-		ns.Drawer.Apply = function()
+		ns.Drawer.Enable = function()
 			error("drawer broke")
 		end
 		fire("ADDON_LOADED", "OrdaenMinimap")
 		fire("PLAYER_LOGIN")
-		rawset(_G, "securecallfunction", nil)
-		assert.equals(1, #errors)
-		assert.truthy(tostring(errors[1]):find("drawer broke", 1, true))
+		assert.equals(1, #world.errors)
+		assert.truthy(tostring(world.errors[1]):find("drawer broke", 1, true))
+		world.errors = {} -- expected
 		assert.same({ "Interface\\Buttons\\WHITE8X8" }, Minimap.calls.SetMaskTexture[1]) -- the map is square
 		assert.equals("Elwynn Forest", frameNamed("OrdaenMinimapZone").font.text) -- and the texts are there
 	end)
@@ -720,51 +733,56 @@ describe("OrdaenMinimap smoke", function()
 			fire("PLAYER_LOGIN")
 		end
 
+		-- The dialog asking about the last conflict, and its buttons: keep ours, keep the other, keep both.
 		local function popup()
-			return StaticPopupDialogs.ORDAEN_MINIMAP_CONFLICT
+			return world.popups[#world.popups]
 		end
 
 		it("steps aside and asks when a known minimap addon is loaded", function()
 			world.loaded.SexyMap = true
 			login()
 			assert.is_nil(Minimap.calls.SetMaskTexture)
-			assert.equals(1, #world.popups)
-			assert.equals("SexyMap", world.popups[1].data)
-			assert.truthy(world.popups[1].text:find("SexyMap", 1, true))
+			assert.equals(1, #world.popups) -- ours only: the Core doesn't ask about the same conflict again
+			assert.truthy(popup().text:find("SexyMap", 1, true))
+			assert.truthy(popup().buttons[2].text:find("SexyMap", 1, true))
 		end)
 
-		it("keeping ours disables a dedicated minimap addon and reloads", function()
+		it("keeping ours disables a dedicated minimap addon, and the button reloads", function()
 			world.loaded.SexyMap = true
 			login()
-			popup().OnAccept(nil, "SexyMap")
+			local keep = popup().buttons[1]
+			assert.equals("/reload", keep.macro) -- ReloadUI is blocked from addon code on Forever
+			keep.onClick()
 			assert.same({ "SexyMap" }, world.disabled)
-			assert.is_true(world.reloaded)
 		end)
 
-		it("keeping the other addon disables ours and reloads", function()
+		it("keeping the other addon disables ours, and the button reloads", function()
 			world.loaded.SexyMap = true
 			login()
-			popup().OnCancel(nil, "SexyMap", "clicked")
+			local keep = popup().buttons[2]
+			assert.equals("/reload", keep.macro)
+			keep.onClick()
 			assert.same({ "OrdaenMinimap" }, world.disabled)
-			assert.is_true(world.reloaded)
 		end)
 
-		it("asks the user to disable by hand when the client has no DisableAddOn", function()
-			rawget(_G, "C_AddOns").DisableAddOn = nil
+		it("keeping both takes the map back and doesn't ask again", function()
 			world.loaded.SexyMap = true
 			login()
-			popup().OnAccept(nil, "SexyMap")
-			assert.is_nil(world.reloaded)
-			assert.truthy(chat[#chat]:find("SexyMap", 1, true))
+			assert.is_nil(popup().buttons[3].macro)
+			popup().buttons[3].onClick()
+			assert.same({}, world.disabled)
+			assert.equals("both", _G.OrdaenMinimapDB.conflictChoice.SexyMap)
+			assert.equals(1, #Minimap.calls.SetMaskTexture)
+			assert.truthy(frameNamed("OrdaenMinimapZone").shown) -- the other features follow the map
 		end)
 
-		it("decide later keeps the map untouched for the session", function()
+		it("Escape decides later: the map stays untouched for the session", function()
 			world.loaded.SexyMap = true
 			login()
-			popup().OnAlt(nil, "SexyMap")
+			popup().onCancel()
 			settings.borderStyle:Set("thin")
 			assert.is_nil(Minimap.calls.SetMaskTexture)
-			assert.is_nil(world.reloaded)
+			assert.same({}, world.disabled)
 		end)
 
 		it("detects an addon that defined GetMinimapShape first, and can override it", function()
@@ -773,11 +791,13 @@ describe("OrdaenMinimap smoke", function()
 			end)
 			world.taint = { false, "EnhanceQoL" }
 			login()
-			assert.equals("EnhanceQoL", world.popups[1].data)
+			assert.truthy(popup().text:find("EnhanceQoL", 1, true))
 			assert.is_nil(Minimap.calls.SetMaskTexture)
 
-			-- A multi-purpose addon is overridden, not disabled.
-			popup().OnAccept(nil, "EnhanceQoL")
+			-- A multi-purpose addon is overridden, not disabled: no reload.
+			local keep = popup().buttons[1]
+			assert.is_nil(keep.macro)
+			keep.onClick()
 			assert.same({}, world.disabled)
 			assert.equals("ours", _G.OrdaenMinimapDB.conflictChoice.EnhanceQoL)
 			assert.equals(1, #Minimap.calls.SetMaskTexture)
@@ -803,7 +823,7 @@ describe("OrdaenMinimap smoke", function()
 			login()
 			world.stack = [[[string "@Interface/AddOns/SexyMap/Shapes.lua"]:348: in function 'ApplyShape']]
 			Minimap:SetMaskTexture("round")
-			assert.equals("SexyMap", world.popups[1].data)
+			assert.truthy(popup().text:find("SexyMap", 1, true))
 			assert.is_false(frameNamed("OrdaenMinimapBorder").shown) -- our border is gone
 			assert.is_nil(_G.GetMinimapShape)
 		end)
@@ -816,7 +836,7 @@ describe("OrdaenMinimap smoke", function()
 			end)
 			world.taint = { false, "SomeUI" }
 			world.timers[1]()
-			assert.equals("SomeUI", world.popups[1].data)
+			assert.truthy(popup().text:find("SomeUI", 1, true))
 		end)
 
 		it("the delayed check stays quiet when nothing changed", function()

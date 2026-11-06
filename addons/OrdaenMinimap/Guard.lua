@@ -1,19 +1,19 @@
--- Conflict handling, WoW side: checks at login, reacts to foreign changes reported by Map.lua,
--- re-checks a few seconds after login, and asks the user which addon to keep.
+-- Conflict handling, WoW side: checks at login, reacts to foreign changes reported by Map.lua (and to the Core's
+-- findings, forwarded by Core.lua), re-checks a few seconds after login, and asks the player which addon to keep.
 local addonName, ns = ...
 
 local Guard = {}
 ns.Guard = Guard
 
 local L = ns.L
-local POPUP = "ORDAEN_MINIMAP_CONFLICT"
+local UI = OrdaenCore.UI
 local VERIFY_DELAY = 5
 
 local db
 local asked = {} -- addon (or "?") -> true once asked this session
-local onResolved -- re-apply callback from Core.lua
+local onResolved -- re-checks the features (Core.lua): the map goes on or off with Guard.blocked
 
---- True while we have stepped aside for an unresolved conflict; settings changes must not re-apply.
+--- True while we have stepped aside for an unresolved conflict: the map feature stays off.
 Guard.blocked = false
 
 local function isLoaded(name)
@@ -25,7 +25,7 @@ local function title(name)
 		return L.UNKNOWN_ADDON
 	end
 	local t = C_AddOns.GetAddOnMetadata(name, "Title")
-	-- Titles may carry color codes; strip them for the popup text.
+	-- Titles may carry color codes; strip them for the dialog text.
 	return t and t:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") or name
 end
 
@@ -38,96 +38,91 @@ local function remember(other, choice)
 	db.conflictChoice[other or "?"] = choice
 end
 
--- C_AddOns.DisableAddOn is not confirmed on Forever yet; fall back to the old global, then to asking
--- the user to do it in the AddOns list.
-local function disableAddOn(name)
-	local disable = C_AddOns.DisableAddOn or _G.DisableAddOn
-	if type(disable) ~= "function" then
-		ns.Debug:Logf("conflict: no DisableAddOn API, asking the user to disable %s", name)
-		ns.Print(L.CONFLICT_DISABLE_MANUALLY:format(title(name)))
-		return false
-	end
-	disable(name)
-	return true
-end
-
-local function keepOurs(other)
-	if ns.KeepOursAction(other) == "disable" then
-		ns.Debug:Logf("conflict: disabling %s and reloading", other)
-		if disableAddOn(other) then
-			ReloadUI()
-		end
-		return
-	end
-	remember(other, "ours")
+local function resolved()
 	Guard.blocked = false
-	ns.Debug:Logf("conflict: overriding %s", tostring(other))
-	ns.Print(L.CONFLICT_OVERRIDE_HINT:format(title(other)))
 	if onResolved then
 		onResolved()
 	end
 end
 
-local function keepOther(other)
-	ns.Debug:Logf("conflict: keeping %s, disabling %s and reloading", tostring(other), addonName)
-	if disableAddOn(addonName) then
-		ReloadUI()
+-- The dialog: made once, its text and buttons changed per conflict (one conflict asked at a time).
+local current -- the addon the dialog asks about (nil: unknown)
+local keepOurs = { text = L.CONFLICT_KEEP_OURS }
+local keepOther = { text = L.CONFLICT_DISABLE_OURS, macro = "/reload" }
+local keepBoth = { text = L.CONFLICT_KEEP_BOTH }
+local dialog
+
+-- The reloading buttons carry `macro = "/reload"`: Forever blocks ReloadUI from addon code, even in a click
+-- (CLAUDE.md, "Preventing bugs" 7). onClick runs first, in the same click, and turns the addon off.
+function keepOurs.onClick()
+	if keepOurs.macro then
+		ns.Debug:Logf("conflict: disabling %s and reloading", current)
+		C_AddOns.DisableAddOn(current)
+		return
 	end
+	remember(current, "ours")
+	ns.Debug:Logf("conflict: overriding %s", tostring(current))
+	ns.Print(L.CONFLICT_OVERRIDE_HINT:format(title(current)))
+	resolved()
 end
 
-local function decideLater(other)
-	ns.Debug:Logf("conflict: decide later (%s)", tostring(other))
+function keepOther.onClick()
+	ns.Debug:Logf("conflict: keeping %s, disabling %s and reloading", tostring(current), addonName)
+	C_AddOns.DisableAddOn(addonName)
+end
+
+function keepBoth.onClick()
+	remember(current, "both")
+	ns.Debug:Logf("conflict: keeping both (%s)", tostring(current))
+	ns.Print(L.CONFLICT_OVERRIDE_HINT:format(title(current)))
+	resolved()
+end
+
+-- Escape: nothing decided. We stay aside for this session and ask again at the next login.
+local function later()
+	ns.Debug:Logf("conflict: decide later (%s)", tostring(current))
 	ns.Print(L.CONFLICT_LATER_HINT)
 end
 
-local function definePopup()
-	if StaticPopupDialogs[POPUP] then
-		return
+local function ask(other)
+	current = other
+	dialog = dialog or UI.Confirm({ text = "", buttons = {}, onCancel = later })
+	local buttons = dialog.buttons
+	if other then
+		-- A dedicated minimap addon is turned off (reload); a multi-purpose one is overridden (remembered).
+		keepOurs.macro = ns.KeepOursAction(other) == "disable" and "/reload" or nil
+		keepOther.text = L.CONFLICT_KEEP_OTHER:format(title(other))
+		dialog.text = L.CONFLICT_TEXT:format(title(other))
+		buttons[1], buttons[2], buttons[3] = keepOurs, keepOther, keepBoth
+	else
+		-- Unknown addon: nothing to turn off or remember by name. Keep ours on top, or turn ours off.
+		keepOurs.macro = nil
+		keepOther.text = L.CONFLICT_DISABLE_OURS
+		dialog.text = L.CONFLICT_TEXT_UNKNOWN
+		buttons[1], buttons[2], buttons[3] = keepOurs, keepOther, nil
 	end
-	StaticPopupDialogs[POPUP] = {
-		text = "%s",
-		button1 = L.CONFLICT_KEEP_OURS,
-		button2 = L.CONFLICT_KEEP_OTHER,
-		button3 = L.CONFLICT_LATER,
-		OnAccept = function(_, data)
-			keepOurs(data)
-		end,
-		OnCancel = function(_, data, reason)
-			-- OnCancel also runs when the popup is closed by other means; only button2 keeps the other.
-			if reason == "clicked" then
-				keepOther(data)
-			end
-		end,
-		OnAlt = function(_, data)
-			decideLater(data)
-		end,
-		timeout = 0,
-		whileDead = true,
-		hideOnEscape = false,
-		showAlert = true,
-		preferredIndex = 3,
-	}
+	dialog:Show() -- UI.Confirm waits for the loading screen by itself
 end
 
---- Report a conflict: step aside and ask the user (once per addon per session).
+--- Report a conflict: step aside and ask the player (once per addon per session).
 ---@param other string|nil the conflicting addon, nil when unknown
 ---@param reason string what was detected, for the debug log
+---@return boolean true when we stepped aside
 function Guard.Conflict(other, reason)
-	if choiceFor(other) == "ours" then
+	local choice = choiceFor(other)
+	if choice == "ours" or choice == "both" then
 		return false
 	end
 	ns.Debug:Logf("conflict with %s: %s", tostring(other), reason)
 	Guard.blocked = true
-	ns.Map.StepAside()
+	if onResolved then
+		onResolved() -- the map feature goes off: its OnDisable steps aside
+	end
 	if asked[other or "?"] then
 		return true
 	end
 	asked[other or "?"] = true
-	definePopup()
-	local text = other and L.CONFLICT_TEXT:format(title(other)) or L.CONFLICT_TEXT_UNKNOWN
-	StaticPopupDialogs[POPUP].button2 = other and L.CONFLICT_KEEP_OTHER:format(title(other))
-		or L.CONFLICT_DISABLE_OURS
-	StaticPopup_Show(POPUP, text, nil, other)
+	ask(other)
 	return true
 end
 
@@ -170,17 +165,18 @@ local function verifyLater()
 	end))
 end
 
---- Set up conflict handling. Call once at PLAYER_LOGIN, before applying the map.
+--- Use these SavedVariables (OnLoad and after a reset; the Core's findings can come before OnLogin).
 ---@param savedDb table OrdaenMinimapDB
----@param reapply fun() applies the map (used after the user keeps ours)
----@return boolean true when the map may be applied now
-function Guard.Start(savedDb, reapply)
+function Guard.Init(savedDb)
 	db = savedDb
-	onResolved = reapply
+end
+
+--- Set up conflict handling. Call once in OnLogin: the features start after it, with Guard.blocked decided.
+---@param refresh fun() re-checks the features (the map is on while Guard.blocked is false)
+function Guard.Start(refresh)
 	ns.Map.onForeignChange = onForeignChange
-	if Guard.CheckAtLogin() then
-		return false
+	if not Guard.CheckAtLogin() then
+		verifyLater()
 	end
-	verifyLater()
-	return true
+	onResolved = refresh
 end

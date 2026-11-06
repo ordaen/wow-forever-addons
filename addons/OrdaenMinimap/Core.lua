@@ -4,32 +4,6 @@ local addonName, ns = ...
 
 local L = ns.L
 
--- Each feature starts in its own protected call (CLAUDE.md, "Preventing bugs"): an error in one is reported
--- (BugSack, Blizzard, dev mode) and the others still start. securecallfunction is looked up per call, so
--- specs can replace it; without it (older clients) errors propagate as before.
-local function isolated(fn, db)
-	local call = securecallfunction
-	if call then
-		call(fn, db)
-	else
-		fn(db)
-	end
-end
-
-local function applyAll()
-	if ns.Guard.blocked then
-		return
-	end
-	local db = OrdaenMinimapDB
-	isolated(ns.Map.Apply, db) -- first: the others only apply while we own the map
-	if not ns.Map.active then
-		return
-	end
-	isolated(ns.Buttons.Apply, db)
-	isolated(ns.Info.Apply, db)
-	isolated(ns.Drawer.Apply, db)
-end
-
 -- The dev-mode dump ("Send state" in the Ordaen Dev window; Claude reads it with wow_dump).
 local function dumpState()
 	return {
@@ -47,9 +21,13 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 	defaults = ns.DEFAULTS,
 	slash = { "/om", "/ordaenminimap" },
 	dump = dumpState,
+	migrations = {
+		function(db)
+			db.drawerButton = nil -- the drawer button's old free position (before the button ring)
+		end,
+	},
 	settings = {
 		title = "SETTINGS_TITLE",
-		onChange = applyAll,
 		{ header = "HEADER_BORDER" },
 		{ key = "borderStyle", label = "BORDER_STYLE", tooltip = "BORDER_STYLE_TOOLTIP", choices = ns.BORDER_STYLES },
 		{ key = "borderColor", label = "BORDER_COLOR", tooltip = "BORDER_COLOR_TOOLTIP", choices = ns.BORDER_COLORS },
@@ -92,13 +70,10 @@ end
 -- WoW APIs this addon uses that aren't confirmed on Forever yet (many retail/classic FrameXML helpers
 -- are missing there). Dev mode logs which exist, so one in-game session settles it.
 local UNCONFIRMED_APIS = {
-	"C_AddOns.DisableAddOn",
-	"DisableAddOn",
 	"C_AddOns.GetNumAddOns",
 	"C_AddOns.GetAddOnInfo",
 	"Minimap.GetZoomLevels",
 	"Minimap.SetTaskBlobRingScalar",
-	"StaticPopupDialogs",
 	"AddonCompartmentFrame.registeredAddons",
 	-- Frames deeper than the API dump goes (Buttons.lua / Info.lua / Map.lua look them up).
 	"MinimapCluster.Tracking.Button",
@@ -126,7 +101,78 @@ end
 A:OnLoad(function(db)
 	ns.ApplyDefaults(db)
 	db.buttonAngles = ns.SanitizeAngles(db.buttonAngles)
-	db.drawerButton = nil -- old free position of the drawer button (before the ring)
+	ns.Guard.Init(db)
+end)
+
+-- Features (Core Feature.lua): each starts in its own protected call after OnLogin, in this order, so one failing
+-- is reported and the others still start. The map comes first: the others only run while we own it.
+local function mapOwned()
+	return ns.Map.active
+end
+
+local mapFeature = A:Feature("map", {
+	when = function()
+		return not ns.Guard.blocked
+	end,
+})
+mapFeature:OnEnable(function(db)
+	ns.Map.Apply(db)
+end)
+mapFeature:OnDisable(function()
+	ns.Map.StepAside()
+end)
+mapFeature:OnChange(function()
+	ns.Map.Apply(OrdaenMinimapDB)
+end)
+
+local buttonsFeature = A:Feature("buttons", { when = mapOwned })
+buttonsFeature:OnEnable(function(db)
+	ns.Buttons.Apply(db)
+end)
+buttonsFeature:OnChange(function()
+	ns.Buttons.Apply(OrdaenMinimapDB)
+end)
+
+local infoFeature = A:Feature("info", { when = mapOwned })
+infoFeature:OnEnable(function(db)
+	ns.Info.Enable(infoFeature, db)
+end)
+infoFeature:OnDisable(function()
+	ns.Info.Hide()
+end)
+infoFeature:OnChange(function()
+	ns.Info.Apply(OrdaenMinimapDB)
+end)
+
+-- Off while MinimapButtonButton is loaded: both would grab the same buttons.
+local drawerFeature = A:Feature("drawer", {
+	setting = "drawerEnabled",
+	when = mapOwned,
+	conflicts = { "MinimapButtonButton" },
+})
+drawerFeature:OnEnable(function(db)
+	ns.Drawer.Enable(db)
+end)
+drawerFeature:OnDisable(function()
+	ns.Drawer.Disable()
+end)
+drawerFeature:OnChange(function()
+	ns.Drawer.Apply(OrdaenMinimapDB)
+end)
+
+-- Guard decided (a conflict, or the player kept ours): the map goes on or off, the others follow it.
+local function refreshFeatures()
+	mapFeature:Refresh()
+	buttonsFeature:Refresh()
+	infoFeature:Refresh()
+	drawerFeature:Refresh()
+end
+
+-- What the Core finds (an addon calling what we claim, e.g. Minimap:SetMaskTexture or GetMinimapShape) goes to
+-- Guard, which steps aside and asks with its own dialog; recorded as handled, so the Core doesn't ask as well.
+A:OnConflict(function(other, what)
+	ns.Guard.Conflict(other, what)
+	A:Conflict(other, what, true)
 end)
 
 -- Some pieces we hide come with load-on-demand Blizzard addons (the clock with Blizzard_TimeManager).
@@ -139,13 +185,28 @@ end)
 A:OnLogin(function()
 	A.Debug:Log("PLAYER_LOGIN")
 	logApiAvailability()
-	if ns.Guard.Start(OrdaenMinimapDB, applyAll) then
-		applyAll()
+	ns.Guard.Start(refreshFeatures) -- decides Guard.blocked; the features start right after OnLogin
+	if OrdaenMinimapDB.drawerEnabled and C_AddOns.IsAddOnLoaded("MinimapButtonButton") then
+		A:Print(L.DRAWER_MBB_WARNING)
 	end
 	A:Print(L.LOADED:format(C_AddOns.GetAddOnMetadata(addonName, "Version") or "?", A.slash))
 end)
 
+-- The features already went on or off for the defaults; the ones that are on re-apply them.
 A:OnReset(function()
-	OrdaenMinimapDB.buttonAngles = ns.SanitizeAngles(nil)
-	applyAll()
+	local db = OrdaenMinimapDB
+	db.buttonAngles = ns.SanitizeAngles(nil)
+	ns.Guard.Init(db)
+	if mapFeature:IsEnabled() then
+		ns.Map.Apply(db)
+	end
+	if buttonsFeature:IsEnabled() then
+		ns.Buttons.Apply(db)
+	end
+	if infoFeature:IsEnabled() then
+		ns.Info.Apply(db)
+	end
+	if drawerFeature:IsEnabled() then
+		ns.Drawer.Apply(db)
+	end
 end)

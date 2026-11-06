@@ -33,7 +33,8 @@ end
 ---@return string|nil
 function ns.FindKnownConflict(isLoaded, choices)
 	for _, name in ipairs(ns.KNOWN_CONFLICTS) do
-		if isLoaded(name) and not (choices and choices[name] == "ours") then
+		local choice = choices and choices[name]
+		if isLoaded(name) and choice ~= "ours" and choice ~= "both" then
 			return name
 		end
 	end
