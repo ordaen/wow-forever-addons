@@ -1,0 +1,88 @@
+// Ordaen Panel's settings (docs/reference/settings.md). Behaviour only: its look follows the theme.
+{
+  "db": "OrdaenPanelDB",
+  "title": "SETTINGS_TITLE",
+  "sections": [
+    {
+      "header": "HEADER_PANEL",
+      "settings": {
+        "edge": {
+          "type": "choice",
+          "choices": [
+            { "id": "bottom", "label": "EDGE_BOTTOM" },
+            { "id": "top", "label": "EDGE_TOP" },
+            { "id": "left", "label": "EDGE_LEFT" },
+            { "id": "right", "label": "EDGE_RIGHT" }
+          ],
+          "default": "bottom",
+          "label": "EDGE"
+        },
+        "fit": {
+          "type": "choice",
+          "choices": [
+            { "id": "full", "label": "FIT_FULL" },
+            { "id": "center", "label": "FIT_CENTER" }
+          ],
+          "default": "full",
+          "label": "FIT",
+          "tooltip": "FIT_TOOLTIP"
+        },
+        "buttonSize": {
+          "type": "number", "min": 16, "max": 40, "step": 1, "format": "px", "default": 24,
+          "label": "BUTTON_SIZE"
+        }
+      }
+    },
+    {
+      "header": "HEADER_GROUPS",
+      "settings": {
+        "micromenu": { "type": "boolean", "default": true, "label": "MICROMENU", "tooltip": "MICROMENU_TOOLTIP" },
+        "social": { "type": "boolean", "default": true, "label": "SOCIAL", "tooltip": "SOCIAL_TOOLTIP" },
+        "experience": { "type": "boolean", "default": true, "label": "EXPERIENCE", "tooltip": "EXPERIENCE_TOOLTIP" },
+        "currencies": { "type": "boolean", "default": true, "label": "CURRENCIES", "tooltip": "CURRENCIES_TOOLTIP" },
+        "bags": { "type": "boolean", "default": true, "label": "BAGS", "tooltip": "BAGS_TOOLTIP" }
+      }
+    },
+    {
+      "header": "HEADER_VISIBILITY",
+      "settings": {
+        "visibility.show": {
+          "type": "choice",
+          "choices": [
+            { "id": "always", "label": "SHOW_ALWAYS" },
+            { "id": "mouseover", "label": "SHOW_MOUSEOVER" },
+            { "id": "never", "label": "SHOW_NEVER" }
+          ],
+          "default": "always",
+          "label": "SHOW"
+        },
+        "visibility.combat": {
+          "type": "choice",
+          "choices": [
+            { "id": "any", "label": "COMBAT_ANY" },
+            { "id": "hide", "label": "COMBAT_HIDE" },
+            { "id": "only", "label": "COMBAT_ONLY" }
+          ],
+          "default": "any",
+          "label": "COMBAT"
+        },
+        "visibility.vehicle": { "type": "boolean", "default": true, "label": "HIDE_VEHICLE" },
+        "visibility.petBattle": { "type": "boolean", "default": true, "label": "HIDE_PET_BATTLE" },
+        "visibility.resting": { "type": "boolean", "default": false, "label": "HIDE_RESTING" },
+        "visibility.fadedAlpha": {
+          "type": "number", "min": 0, "max": 1, "step": 0.05, "format": "percent", "default": 0,
+          "label": "FADED_ALPHA", "tooltip": "FADED_ALPHA_TOOLTIP"
+        },
+        "visibility.condition": {
+          "type": "text", "default": "", "maxLength": 200,
+          "label": "CONDITION", "tooltip": "CONDITION_TOOLTIP"
+        }
+      }
+    },
+    {
+      "settings": {
+        "hiddenMicro": { "type": "map", "of": "boolean", "default": {}, "page": false }
+      }
+    }
+  ]
+}
