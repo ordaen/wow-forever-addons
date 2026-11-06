@@ -5,7 +5,8 @@
 --                  name Forever's API documentation doesn't list
 --   FL2 method     a method that the widget type doesn't have, on a variable we know holds that type
 --                  (from CreateFrame("Type", ..., "Template"), :CreateTexture(), :CreateFontString(), ...)
---   FL3 arguments  more arguments than a documented function takes
+--   FL3 arguments  more arguments than a documented function takes, or fewer than it needs (only when
+--                  the dump records argument defaults)
 --   FL4 arg type   a literal of the wrong kind for a documented argument (a string where a number goes, ...)
 --   FL5 frame type CreateFrame("X") with a type that isn't a widget type in the dump
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
@@ -70,6 +71,23 @@ function M.Prepare(api)
 	api.functions = api.functions or {}
 	api.namespaces = api.namespaces or {}
 	return api
+end
+
+--- Members of a dumped Blizzard object (name -> type), following "<ref>" aliases; nil when the dump
+--- doesn't have the path or its tree was truncated (then nothing can be said).
+function M.ObjectMembers(api, objectPath)
+	local objects = api.objects or {}
+	local members = objects[objectPath]
+	for _ = 1, 5 do
+		if not members or not members["<ref>"] then
+			break
+		end
+		members = objects[members["<ref>"]]
+	end
+	if not members or members["<truncated>"] then
+		return nil
+	end
+	return members
 end
 
 -- Types of values: { widget = "Button", templates = {...} } or nil (unknown).
@@ -179,6 +197,17 @@ function M.LintSource(api, source)
 	local function declare(name, t)
 		scope.vars[name] = t or false
 	end
+	-- A name our code declares or assigns (so it is not, or no longer, a Blizzard object).
+	local function declared(name)
+		local s = scope
+		while s do
+			if s.vars[name] ~= nil then
+				return true
+			end
+			s = s.parent
+		end
+		return false
+	end
 	local function assign(name, t)
 		local root = name:match("^[^.]+")
 		local s = scope
@@ -223,6 +252,20 @@ function M.LintSource(api, source)
 		if #args > #fn.args and not multiValue(args[#args]) then
 			report(node, "FL3", string.format("%s takes %d argument(s), got %d", name, #fn.args, #args))
 		end
+		-- Too few: only when the dump records defaults (meta.docsDefaults), since Blizzard's docs mark
+		-- arguments with a default as non-nilable.
+		if api.meta and api.meta.docsDefaults and not multiValue(args[#args]) then
+			local required = 0
+			for i, spec in ipairs(fn.args) do
+				if not spec.nilable and not spec.default then
+					required = i
+				end
+			end
+			if #args < required then
+				report(node, "FL3", string.format("%s needs %d argument(s) (%s), got %d", name, required,
+					fn.args[required].name, #args))
+			end
+		end
 		for i, arg in ipairs(args) do
 			local spec = fn.args[i]
 			local kind = literal(arg)
@@ -255,6 +298,16 @@ function M.LintSource(api, source)
 		local t = objectPath and lookup(objectPath)
 		if t and not hasMethod(api, t, method) then
 			report(node[2], "FL2", string.format("%s (%s) has no method %s on Forever", objectPath, t.widget, method))
+		elseif objectPath and not t and not declared(objectPath:match("^[^.]+")) then
+			-- A Blizzard object the dump walked (Minimap, MinimapCluster.Tracking.Button, ...).
+			local members = M.ObjectMembers(api, objectPath)
+			if members and members[method] ~= "function" then
+				local objectType = members["<objectType>"]
+				local set = objectType and api.methodSets[objectType]
+				if not (set and set[method]) then
+					report(node[2], "FL2", string.format("%s has no method %s on Forever", objectPath, method))
+				end
+			end
 		end
 	end
 

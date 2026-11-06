@@ -146,4 +146,70 @@ describe("api_import", function()
 		assert.is_table(assert(loadstring(read("luacheck.lua")))())
 		os.execute('rm -rf "' .. tmp .. '"')
 	end)
+
+	-- The planned dump format from wow-dev-tools: full-depth frame trees and argument defaults.
+	describe("deep objects and argument defaults", function()
+		local function deepDump()
+			local dump = fakeDump(71000)
+			dump.globals.MinimapCluster = "widget"
+			dump.objects = {
+				Minimap = { SetMaskTexture = "function", ZoomIn = "widget" },
+				["Minimap.ZoomIn"] = { Show = "function", ["<objectType>"] = "Button" },
+				MinimapCluster = { Tracking = "widget", UpdateMinimapConfig = "function" },
+				["MinimapCluster.Tracking"] = { Button = "widget" },
+				["MinimapCluster.Tracking.Button"] = { Click = "function", ["<objectType>"] = "Button" },
+				["MinimapCluster.#3"] = { ["<objectType>"] = "Texture", SetAlpha = "function" },
+				["MinimapCluster.Tracking.Parent"] = { ["<ref>"] = "MinimapCluster" },
+				UIParent = { ["<truncated>"] = "20000" },
+			}
+			dump.docs = {
+				functions = {
+					["C_AddOns.DisableAddOn"] = "(name:uiAddon, character:cstring=) -> ()",
+					["C_Map.GetBestMapForUnit"] = "(unitToken:UnitToken) -> (uiMapID:number?)",
+					["C_Test.Both"] = "(a:number?=, b:string) -> ()",
+				},
+				events = { PLAYER_LOGIN = "" },
+			}
+			return dump
+		end
+
+		it("keeps every deep path and marker in the text and the JSON", function()
+			local files = Import.Render(deepDump())
+			assert.truthy(files["objects.txt"]:find("MinimapCluster.Tracking.Button.Click\tfunction\n", 1, true))
+			assert.truthy(files["objects.txt"]:find("MinimapCluster.#3.<objectType>\tTexture\n", 1, true))
+			assert.truthy(files["objects.txt"]:find("MinimapCluster.Tracking.Parent.<ref>\tMinimapCluster\n", 1, true))
+			local api = Import.Structured(files)
+			assert.equals("function", api.objects["MinimapCluster.Tracking.Button"].Click)
+			assert.equals("Texture", api.objects["MinimapCluster.#3"]["<objectType>"])
+			assert.equals("MinimapCluster", api.objects["MinimapCluster.Tracking.Parent"]["<ref>"])
+			assert.equals("20000", api.objects.UIParent["<truncated>"])
+		end)
+
+		it("gives luacheck only top-level objects with identifier-safe keys", function()
+			local source = Import.Luacheck(Import.Render(deepDump()), "1.60.2-71000")
+			assert.is_nil(source:find("#3", 1, true))
+			assert.is_nil(source:find("<ref>", 1, true))
+			assert.is_nil(source:find("<objectType>", 1, true))
+			assert.is_nil(source:find("<truncated>", 1, true))
+			local globals = assert(loadstring(source))()
+			assert.truthy(globals.MinimapCluster.fields.Tracking)
+			assert.truthy(globals.MinimapCluster.fields.UpdateMinimapConfig)
+			assert.truthy(globals.Minimap.fields.SetMaskTexture)
+		end)
+
+		it("reads argument defaults, and marks the dump as recording them", function()
+			local api = Import.Structured(Import.Render(deepDump()))
+			assert.is_true(api.meta.docsDefaults)
+			local disable = api.functions["C_AddOns.DisableAddOn"].args
+			assert.same({ name = "character", type = "cstring", nilable = false, default = true }, disable[2])
+			assert.is_false(disable[1].default)
+			local both = api.functions["C_Test.Both"].args[1]
+			assert.same({ name = "a", type = "number", nilable = true, default = true }, both)
+		end)
+
+		it("doesn't claim 'no default' for dumps that don't record defaults", function()
+			local api = Import.Structured(Import.Render(fakeDump(70790)))
+			assert.is_false(api.meta.docsDefaults)
+		end)
+	end)
 end)

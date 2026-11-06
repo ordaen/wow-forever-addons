@@ -61,6 +61,59 @@ t:SetText("unknown now")
 ]]))
 	end)
 
+	it("FL2: checks methods on dumped Blizzard objects, at any depth", function()
+		local deep = Lint.Prepare({
+			meta = {},
+			widgets = { Button = { "Click", "SetPoint" } },
+			objects = {
+				Minimap = { SetMaskTexture = "function", ZoomIn = "widget" },
+				["MinimapCluster.Tracking.Button"] = { ["<objectType>"] = "Button", menu = "table" },
+				["MinimapCluster.Tracking.Alias"] = { ["<ref>"] = "MinimapCluster.Tracking.Button" },
+				UIParent = { ["<truncated>"] = "20000" },
+			},
+		})
+		local found = {}
+		for _, f in ipairs(Lint.LintSource(deep, [[
+Minimap:SetMaskTexture("x")
+Minimap:SetMaskTextureTypo("x")
+MinimapCluster.Tracking.Button:SetPoint("CENTER")
+MinimapCluster.Tracking.Button:Bogus()
+MinimapCluster.Tracking.Alias:Bogus()
+UIParent:AnythingGoes()
+local Minimap = getMyOwnTable()
+Minimap:Whatever()
+]])) do
+			found[#found + 1] = f.code .. "@" .. f.line
+		end
+		assert.same({ "FL2@2", "FL2@4", "FL2@5" }, found)
+	end)
+
+	it("FL3: checks too few arguments only once the dump records defaults", function()
+		local function prepared(withDefaults)
+			return Lint.Prepare({
+				meta = { docsDefaults = withDefaults },
+				widgets = {},
+				functions = {
+					["C_AddOns.DisableAddOn"] = { args = {
+						{ name = "name", type = "uiAddon", nilable = false, default = false },
+						{ name = "character", type = "cstring", nilable = false, default = withDefaults or nil },
+					} },
+					["C_AddOns.GetAddOnMetadata"] = { args = {
+						{ name = "name", type = "uiAddon", nilable = false, default = false },
+						{ name = "variable", type = "cstring", nilable = false, default = false },
+					} },
+				},
+			})
+		end
+		local source = 'C_AddOns.DisableAddOn("X")\nC_AddOns.GetAddOnMetadata("X")\nC_AddOns.GetAddOnMetadata(f())\n'
+		local withDefaults = {}
+		for _, f in ipairs(Lint.LintSource(prepared(true), source)) do
+			withDefaults[#withDefaults + 1] = f.code .. "@" .. f.line
+		end
+		assert.same({ "FL3@2" }, withDefaults) -- line 1: character has a default; line 3: f() may return two
+		assert.same({}, Lint.LintSource(prepared(false), source))
+	end)
+
 	it("FL3: flags too many arguments, but not a trailing call that may return several", function()
 		assert.same({ "FL3@1" }, codes([[
 C_Timer.After(1, function() end, "extra")

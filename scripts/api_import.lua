@@ -185,7 +185,9 @@ function M.Luacheck(files, folder)
 	local objects = {}
 	for line in (files["objects.txt"] or ""):gmatch("[^\n]+") do
 		local path, key = line:match("^(.+)%.([^.\t]+)\t")
-		if path and not path:find("%.") then
+		-- Only top-level objects with identifier-safe keys become luacheck fields. Deep paths, unnamed
+		-- children ("#3") and markers ("<ref>", "<objectType>", "<truncated>") stay in the text/JSON only.
+		if path and path:match("^[%a_][%w_]*$") and key:match("^[%a_][%w_]*$") then
 			objects[path] = objects[path] or {}
 			objects[path][key] = true
 		end
@@ -229,14 +231,24 @@ end
 local scriptDir = (debug.getinfo(1, "S").source:match("^@(.*[/\\])") or "./")
 local json = dofile(scriptDir .. "json.lua")
 
---- "name:type?, other:type" -> list of {name, type, nilable}.
-local function parseFields(text)
+--- "name:type?, other:type=" -> list of {name, type, nilable[, default]}. A trailing "?" means Nilable, a
+--- trailing "=" means the argument has a documented Default (both: "type?="). `default` is only set when
+--- the dump records defaults at all, so older dumps don't claim "no default".
+local function parseFields(text, withDefaults)
 	local list = json.array({})
 	for field in (text or ""):gmatch("[^,]+") do
 		local name, kind = field:match("^%s*([^:]+):(.-)%s*$")
 		if name then
+			local default = kind:sub(-1) == "="
+			if default then
+				kind = kind:sub(1, -2)
+			end
 			local nilable = kind:sub(-1) == "?"
-			list[#list + 1] = { name = name, type = nilable and kind:sub(1, -2) or kind, nilable = nilable }
+			local entry = { name = name, type = nilable and kind:sub(1, -2) or kind, nilable = nilable }
+			if withDefaults then
+				entry.default = default
+			end
+			list[#list + 1] = entry
 		end
 	end
 	return list
@@ -279,10 +291,13 @@ function M.Structured(files)
 			api.objects[path][key] = kind
 		end
 	end
+	-- Dumps that record defaults mark them with "=" (e.g. "character:cstring="); older ones don't.
+	local withDefaults = (files["docs.txt"] or ""):find("=[,)]") ~= nil
+	api.meta.docsDefaults = withDefaults
 	for line in (files["docs.txt"] or ""):gmatch("[^\n]+") do
 		local name, args, returns = line:match("^function ([^(]+)%((.-)%) %-> %((.-)%)$")
 		if name then
-			api.functions[name] = { args = parseFields(args), returns = parseFields(returns) }
+			api.functions[name] = { args = parseFields(args, withDefaults), returns = parseFields(returns) }
 		else
 			local event, payload = line:match("^event ([^(]+)%((.-)%)$")
 			if event then

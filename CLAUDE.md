@@ -204,10 +204,17 @@ The real Lua API of each Forever client version, dumped in game, so nobody guess
   `api/forever/<CURRENT>/api.json` and checks what luacheck can't: **FL1** event names in
   `RegisterEvent`/`RegisterUnitEvent`/`UnregisterEvent`/`IsEventRegistered` against Blizzard's API documentation;
   **FL2** methods per widget type on variables it can type (`CreateFrame("Type", …, "Template")`, `:CreateTexture()`,
-  `:CreateFontString()`, …; `BackdropTemplate` adds `BackdropTemplateMixin`; other templates allow any method);
-  **FL3** more arguments than a documented function takes; **FL4** literals of the wrong kind; **FL5** unknown
-  `CreateFrame` types. It reports only what it's sure of. Silence a line with `-- forever-lint: ignore FL2`, and only
-  with a reason in the comment. "Too few arguments" is not checked: the dump doesn't record argument defaults yet.
+  `:CreateFontString()`, …; `BackdropTemplate` adds `BackdropTemplateMixin`; other templates allow any method), and
+  on dumped Blizzard objects at any depth (`Minimap:…`, `MinimapCluster.Tracking.Button:…`, following `<ref>` and the
+  node's `<objectType>`; truncated trees aren't checked);
+  **FL3** more arguments than a documented function takes, and fewer than it needs once the dump records argument
+  defaults (`meta.docsDefaults`; Blizzard marks defaulted arguments non-nilable); **FL4** literals of the wrong kind;
+  **FL5** unknown `CreateFrame` types. It reports only what it's sure of. Silence a line with
+  `-- forever-lint: ignore FL2`, and only with a reason in the comment.
+- Dump format the importer understands (written by `ApiDump.lua` in `../wow-dev-tools`): docs args `name:type`, `?`
+  = nilable, `=` = has a default (`name:type?=` both); `objects[<dotted path>]` at any depth, `#<n>` for unnamed
+  children, `<objectType>` (widget type), `<ref>` (same table as another path), `<truncated>` (node cap hit). Only
+  top-level objects with identifier-safe keys become luacheck fields.
   Owner of the linter and `api/` tooling: the Ordaen Core session.
 - **`api.json`** per version is the structured form of the text files (globals, namespaces, widgets, objects, and
   documented `functions`/`events` with typed `args`/`returns`/`payload`), for the linter and other tools (e.g. the
