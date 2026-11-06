@@ -33,7 +33,8 @@ local function reach(chat)
 		return 0, 0
 	end
 	local minLeft, minBottom = left, bottom
-	for _, region in ipairs({ ChatFrame1Background, chat.editBox }) do
+	-- Blizzard's background, the input, and our background (it reaches past Blizzard's by the chat's padding).
+	for _, region in ipairs({ ChatFrame1Background, chat.editBox, ns.Look.Cover(chat) or false }) do
 		local l, b = region and region:GetLeft(), region and region:GetBottom()
 		if l and l < minLeft then
 			minLeft = l
@@ -89,6 +90,8 @@ function Position.Enable()
 			end
 		end)
 		EventRegistry:RegisterCallback("OrdaenUI.InsetsChanged", onInsetsChanged, Position)
+		-- The text size changed: so did the chat's padding, and with it how far its background reaches.
+		EventRegistry:RegisterCallback("OrdaenUI.ThemeChanged", onInsetsChanged, Position)
 		-- Blizzard sets its clamp insets again (the button side changed): ours again.
 		hooksecurefunc("FCF_UpdateButtonSide", function(frame)
 			if frame == ChatFrame1 and on and not placing then

@@ -20,6 +20,11 @@ local WINDOW_ART = {
 	"ButtonFrameTopTexture", "ButtonFrameBottomTexture", "ButtonFrameLeftTexture", "ButtonFrameRightTexture",
 }
 local TAB_STATES = { selected = "tabSelected", flash = "tabFlash" }
+-- Room around the messages (the user's request, 2026-11-06): our background reaches past Blizzard's by these spacing
+-- tokens (left, right, top, bottom); less at the top, where the tabs sit. And a gap between messages (also between
+-- the lines of a wrapped one: Blizzard's chat has one spacing for both).
+local PADDING = { "md", "md", "sm", "md" }
+local LINE_GAP = "xs"
 
 local on = false
 local centering = false
@@ -32,6 +37,15 @@ local flashing = {} -- chat window -> true while its tab flashes
 -- windows (Blizzard's temporary ones): a busy channel tab would count forever.
 local unread = {} -- whisper window -> messages arrived while it wasn't the tab shown
 local badges = {} -- tab -> its badge text element (in the tab's look)
+local blizzardSpacing = {} -- chat window -> its line spacing before ours (given back when the look goes off)
+
+-- The theme's gap between messages on a chat window (Blizzard's own spacing is kept to give back).
+local function spaceLines(frame)
+	if blizzardSpacing[frame] == nil then
+		blizzardSpacing[frame] = frame:GetSpacing() or 0
+	end
+	frame:SetSpacing(UI.Space(LINE_GAP))
+end
 
 local function selected(frame)
 	return FCFDock_GetSelectedWindow(GeneralDockManager) == frame or not frame.isDocked
@@ -150,12 +164,15 @@ local function dressWindow(frame)
 			art[#art + 1] = texture
 		end
 	end
-	local dress = UI.Dress(frame, { style = "panel", size = "frame", cover = _G[name .. "Background"], art = art })
+	local dress = UI.Dress(frame, {
+		style = "panel", size = "frame", cover = _G[name .. "Background"], extend = PADDING, art = art,
+	})
 	if not dress then
 		return -- OrdaenCore_UI can't load (the player was told)
 	end
 	windows[frame] = dress
 	UI.DressFont(frame, "body")
+	spaceLines(frame)
 	local tab = _G[name .. "Tab"]
 	if tab then
 		tabOf[frame] = tab
@@ -229,11 +246,21 @@ end
 
 local hooked = false
 
+-- The text size changed: the gap between messages follows it (the padding follows by itself: UI.Dress).
+local function onThemeChanged()
+	if on then
+		for frame in pairs(windows) do
+			spaceLines(frame)
+		end
+	end
+end
+
 --- Dress the chat: the "look" feature's OnEnable.
 function Look.Enable()
 	on = true
-	for _, dress in pairs(windows) do
+	for frame, dress in pairs(windows) do
 		dress:Apply()
+		spaceLines(frame)
 	end
 	for _, dress in pairs(tabs) do
 		dress:Apply()
@@ -247,6 +274,7 @@ function Look.Enable()
 		hooksecurefunc("FCF_StartAlertFlash", onFlash)
 		hooksecurefunc("FCF_StopAlertFlash", onFlashStop)
 		hooksecurefunc("FCF_OpenTemporaryWindow", onTemporaryWindow)
+		EventRegistry:RegisterCallback("OrdaenUI.ThemeChanged", onThemeChanged, Look)
 	end
 	onTabColors()
 end
@@ -255,12 +283,23 @@ end
 function Look.Disable()
 	on = false
 	fullScrollbars()
-	for _, dress in pairs(windows) do
+	for frame, dress in pairs(windows) do
 		dress:Undress()
+		if blizzardSpacing[frame] then
+			frame:SetSpacing(blizzardSpacing[frame])
+		end
 	end
 	for _, dress in pairs(tabs) do
 		dress:Undress()
 	end
+end
+
+--- Our background of a chat window (it reaches past Blizzard's by the padding), or nil when it has none.
+---@param frame Frame
+---@return Frame|nil
+function Look.Cover(frame)
+	local dress = windows[frame]
+	return dress and dress.dressed and dress.look.frame or nil
 end
 
 --- What the dev-mode dump records.

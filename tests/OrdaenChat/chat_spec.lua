@@ -99,6 +99,13 @@ local function chatWindow(i, title, shown)
 	function w:GetID()
 		return i -- a chat window's number, as the game gives it
 	end
+	w.spacing = 0 -- Blizzard's line spacing
+	function w:GetSpacing()
+		return self.spacing
+	end
+	function w:SetSpacing(spacing)
+		self.spacing = spacing
+	end
 	function w:RemoveAllMessageGroups()
 		self.messageTypeList = {}
 	end
@@ -753,10 +760,32 @@ describe("Ordaen Chat", function()
 			ns.Addon.db.chatLook = false
 			ns.Addon:_SettingChanged("chatLook", false)
 			assert.equals(1, windowArt[1].alpha)
+			assert.equals(0, windows[1].spacing, "Blizzard's line spacing back")
+			assert.is_nil(ns.Look.Cover(windows[1]))
+		end)
+
+		it("pads the messages and spaces them by the theme's tokens", function()
+			login()
+			assert.equals(OrdaenCore.UI.Space("xs"), windows[1].spacing)
+			assert.is_true(windows[1].spacing > 0)
+			assert.truthy(ns.Look.Cover(windows[1]), "our background, reaching past Blizzard's")
 		end)
 	end)
 
 	describe("position", function()
+		it("keeps our background clear of the screen edge too (it reaches past Blizzard's by the padding)", function()
+			login()
+			local cover = ns.Look.Cover(windows[1])
+			cover.GetLeft = function()
+				return 7 -- 13 left of the frame (Blizzard's background: 5)
+			end
+			cover.GetBottom = function()
+				return 50 -- 50 below it (the input: 40)
+			end
+			EventRegistry:TriggerEvent("OrdaenUI.ThemeChanged") -- the text size changed, and with it the padding
+			assert.same({ "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 17, 54 }, windows[1].points[#windows[1].points])
+		end)
+
 		it("puts the chat bottom left, its background and input clear of the screen edge", function()
 			login()
 			-- reach: background 5 left of the frame, input 40 below it; margin 4
