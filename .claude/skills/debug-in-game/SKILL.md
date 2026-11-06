@@ -16,7 +16,7 @@ You cannot see the game; the user can. Work from files the game writes to disk, 
 
 ## 0. Dev mode must be on
 
-Everything below needs the optional addon **Ordaen Core - Debug** (`OrdaenCore_Debug`) enabled in the in-game AddOns list. It is disabled by default, and players run without it. When it's on, a gear button with a red error badge is on screen and the **Ordaen Dev** window is available. If `OrdaenCore_Debug.lua` is missing or its `session` doesn't advance, ask the user to enable the addon and restart the client.
+Everything below needs the optional addon **Ordaen Core - Debug** (`OrdaenCore_Debug`) enabled in the in-game AddOns list. It is disabled by default, and players run without it. When it's on, a gear button with a red error badge sits on the minimap edge and the **Ordaen Dev** window is available. If `OrdaenCore_Debug.lua` is missing or its `session` doesn't advance, ask the user to enable the addon and restart the client.
 
 ## 1. Make the code observable before testing
 
@@ -59,5 +59,5 @@ Read only our own addons' files (and BugGrabber's), not other addons' saved data
 ## Reference
 
 - Code: `addons/OrdaenCore/OrdaenCore_Debug/` (`Store.lua` data, `Capture.lua` error catcher, `Debug.lua` per-addon kit, `UI.lua` window). The no-op stand-in for players is in `addons/OrdaenCore/Core.lua`.
-- The window opens from the gear button, the addon compartment, `/ordaen`, or `/<addon cmd> debug`. The Errors tab has filters (All, Ordaen, Other addons, Blocked actions), **Test error**, **Clear all**, and **Select for copy** for bug reports.
+- The window opens from the gear button on the minimap edge (not a compartment entry, so the drawer leaves it alone), `/ordaen`, or `/<addon cmd> debug`. In dev mode errors are not passed to Blizzard's error popup (only to BugGrabber if installed). The Errors tab has filters (All, Ordaen, Other addons, Blocked actions), **Test error**, **Clear all**, and **Select for copy** for bug reports.
 - Limits: 100 distinct errors (repeats are counted), 1000 log lines per addon, 20 saves, snapshots 5 levels deep and 200 keys per table.

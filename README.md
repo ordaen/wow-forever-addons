@@ -69,13 +69,15 @@ Debugging is an optional **development mode**, so players never have errors coll
 **Ordaen Core - Debug** in the in-game AddOns list (it ships with Ordaen Core, disabled by default) and restart
 the game. When it is disabled, nothing is recorded and errors go to BugSack or Blizzard's default handler.
 
-In dev mode a **gear button** sits on screen; a red number on it counts new errors. Click it (or use the addon
-compartment, `/ordaen`, or `/om debug`) to open the **Ordaen Dev** window:
+In dev mode a **gear button** sits on the minimap edge (drag it around the minimap); a red number on it counts
+new errors. It is not an addon compartment entry, so the Ordaen Minimap drawer leaves it alone. Click it (or use
+`/ordaen` or `/om debug`) to open the **Ordaen Dev** window:
 
 - **Errors**: every Lua error in the game (ours, other addons, Blizzard) and every blocked action (taint), with
   stack trace, local variables and versions. Filters for Ordaen / other addons / blocked actions,
   **Test error**, **Clear all**, and **Select for copy** for bug reports. Repeats are counted, not stored again.
-  If BugSack is installed too, both get every error.
+  In dev mode the window replaces Blizzard's error popup (no sounds, no popup that keeps reopening on a
+  repeating error). If BugSack is installed too, it still gets every error.
 - **Performance**, **Log** and **Inspect** are coming next.
 - **Note for Claude** + **Save for Claude & reload**: saves every Ordaen addon's state and your note, then
   reloads so everything is written to disk. This is the usual way to hand a test result to Claude.
