@@ -33,7 +33,7 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
 - AddOns folder: `C:\Program Files (x86)\World of Warcraft\_forever_\Interface\AddOns\`
-- Each addon in `addons/<Name>/` gets a directory junction in the AddOns folder via `scripts/link.ps1` (no admin needed), so edits show after `/reload` in game. The junctions point at the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`, which stays on `develop` (see Branches).
+- The game loads the **built** addons: `ordaen link` makes a directory junction in the AddOns folder for each addon in `dist/` (nested ones too, e.g. `OrdaenCore_UI`; no admin needed; `--unlink` removes them). They point at `dist/` of the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`, which stays on `develop` (see Branches). Keep `ordaen watch` running there while working: it rebuilds `dist/` on every change, then `/reload`. Without it the game runs the last build.
 
 ## Decisions so far
 
@@ -45,11 +45,11 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
   - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
   - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
-  - When `scripts/test.sh` is green, rebase onto `develop` and run `git merge --ff-only feat/<topic>` from the main checkout. That keeps the signed conventional commits. Then the user does `/reload`: on Forever that also picks up new files, `.toc` changes and even new addon folders (observed 2026-11-06 with OrdaenCore_UI). A new folder must be linked first (`scripts/link.ps1`).
+  - When `scripts/test.sh` is green, rebase onto `develop` and run `git merge --ff-only feat/<topic>` from the main checkout. That keeps the signed conventional commits. Then `ordaen watch` (running in the main checkout) rebuilds `dist/` and the user does `/reload`: on Forever that also picks up new files, TOC changes and even new addon folders (observed 2026-11-06 with OrdaenCore_UI). A new addon must be linked first (`ordaen link`).
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
-- Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `## Version` in the TOC via `x-release-please-start-version` block markers — never edit it by hand.
+- Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `"version"` in the addon's `addon.jsonc` (the line marked `// x-release-please-version`; nested addons take their parent's) — never edit it by hand.
 - Quality: luacheck + busted (pure-logic tests only, Lua 5.1) in CI; manual testing in game with dev mode (Ordaen Core - Debug).
 - **Forever lacks many retail/classic FrameXML helpers** (e.g. no global `MouseIsOver`; it errored every frame in the
   drawer). **The source of truth is the in-game API dump in `api/forever/`** (see "Forever API dump" below): never use,
@@ -57,20 +57,23 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   and the specs enforce this once a dump is imported. Before the first dump (or for things a dump can't see), confirm
   by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game; unconfirmed APIs get a
   fallback and go in the dev-mode `api:` log line (`UNCONFIRMED_APIS` in `addons/OrdaenMinimap/Core.lua`).
-- Dev environment is Windows + WSL only (README "Development" describes nothing else). Lua 5.1, luacheck and busted live in the WSL distro `Ubuntu`; `scripts/test.sh` (run from Git Bash) runs luacheck + busted there. From Git Bash, call WSL with `MSYS_NO_PATHCONV=1` and `--exec` (otherwise Git Bash rewrites `/mnt/...` paths and WSL's shell expands `$1` early).
+- Dev environment is Windows + WSL only (README "Development" describes nothing else). Lua 5.1, luacheck and busted live in the WSL distro `Ubuntu`; `ordaen` (and `scripts/test.sh`, which calls it) runs them there. From Git Bash, call WSL with `MSYS_NO_PATHCONV=1` and `--exec` (otherwise Git Bash rewrites `/mnt/...` paths and WSL's shell expands `$1` early).
 - Packaging: BigWigs packager (pinned in `scripts/package.sh`). It requires a git repo root as topdir, so the script copies the addon into a temp git repo and tags it. Packager handles CurseForge/Wago uploads; the zip is attached to release-please's GitHub release with `gh release upload` (packager's own GitHub upload would overwrite the release notes). Packager maps interface `16???` to the `forever` flavor (CurseForge game id 88568).
 
 ## Layout
 
 ```
-addons/<Addon>/                 addon source (.toc, .lua, .pkgmeta)
-addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; no-op debug stand-in;
-                                OrdaenCore.UI framework: UI.lua, Tooltip.lua)
-tests/<Addon>/*_spec.lua        busted specs (load addon files with loadfile(path)(addonName, ns))
+addons/<Addon>/                 addon source: addon.jsonc, *.lua, locales/<code>.json, media (no .toc/.pkgmeta/
+                                Locale*.lua: the build generates them)
+addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; addon framework: Addon.lua,
+                                Settings.lua; no-op debug stand-in; OrdaenCore.UI framework: UI.lua + OrdaenCore_UI/)
+dist/<Addon>/                   the built addons the game loads (ordaen build / watch; gitignored)
+ordaen.jsonc                    repo-wide build settings: interface version, languages, category names
+tests/<Addon>/*_spec.lua        busted specs (helpers.loadAddon loads a built addon from dist/ in TOC order)
 tests/OrdaenCore/helpers.lua    WoW API stubs + Core loader, for any spec that needs the Core
-scripts/link.ps1                create/remove AddOns junctions
-scripts/package.sh              package one addon (CI + Git Bash)
-scripts/test.sh                 luacheck + busted (Git Bash -> WSL, or native on Linux/CI)
+scripts/package.sh              package one addon from its release build (CI + Git Bash)
+scripts/test.sh                 `ordaen check` (build, luacheck, forever-lint, busted); with args: ordaen test -- args
+.ordaen-version                 the ordaen CLI release CI installs (.github/actions/ordaen)
 scripts/api-import.sh           import the in-game API dump into api/forever/ (api_import.lua does the work)
 scripts/forever_lint.lua        forever-lint: addon code against api/forever/<CURRENT>/api.json (json.lua: its JSON)
 api/forever/<version>-<build>/  the real Forever API per client version (generated; history in git)
@@ -84,23 +87,50 @@ docs/                           OrdaenCore.UI docs site (VitePress, own package.
 ## Branding
 
 Every addon is named `Ordaen<Name>` (folder, .toc, globals) with TOC title `Ordaen <Name>`, so CurseForge search
-finds them all. One CurseForge project per addon (no pack). Every TOC sets `## Category:` plus the localized
-`## Category-xxXX:` lines, copied from an installed addon that uses the same category so they share a group in the
-addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
+finds them all. One CurseForge project per addon (no pack). Every addon sets `"category"` in its addon.jsonc; the
+build writes `## Category:` plus the localized `## Category-xxXX:` lines from `ordaen.jsonc` (copied from an installed
+addon that uses the same category, so ours share a group in the addon list): OrdaenCore is `Libraries`, feature
+addons use e.g. `User Interface`.
+
+## Build (`ordaen`, private CLI in `../wow-dev-tools/cli`)
+
+The source in `addons/` is built into `dist/`, which the game, the specs and the release zips use. The code is the
+source of truth; `addon.jsonc` holds only what code can't say (title, notes, category, icon, version, minCore,
+loadOnDemand, CurseForge slug/ids). `ordaen build` writes per addon:
+
+- the **TOC**: header from addon.jsonc + `ordaen.jsonc`; `## Dependencies` from the globals the code uses (reading
+  `OrdaenCore` means OrdaenCore; then `## OptionalDeps: OrdaenCore_Debug` too); `## SavedVariables` from
+  `OrdaenCore.NewAddon(…, { db = "…", charDb = "…" })`; the **file list in load order derived from the code**: a file
+  that reads `ns.X` (or a global of the addon) at load comes after the file defining it, ties alphabetical. Only code
+  that runs at load counts: the top level and functions it calls; reads inside other functions don't.
+  `ordaen build --explain` prints why each file has its place.
+- **locales**: `locales/<code>.json` -> `Locale.lua` + `Locale_<code>.lua` (see Localization);
+- the **.pkgmeta**: package-as, changelog, `move-folders` for nested addons, required-dependencies (slugs);
+- release builds (`--release`, used by `scripts/package.sh`): `Debug.Log/Logf/Dump(…)` statements and
+  `if Debug.IsEnabled() then … end` blocks become spaces (line numbers in players' error reports still match the
+  source); `*.dev.lua` and `dev/` are left out. So Debug call arguments must not have side effects.
+
+The build refuses, with file:line (also in `ordaen check` and CI): B1 `ns.X` read at load that no file defines, B2 the
+same `ns.X`/global defined in two files, B3 files reading each other at load (a cycle), B4 a call at load into
+another file's `ns` function (do it in `OnLoad`/`OnLogin`), B5 locale problems, B6 manifest problems (also a
+hand-written .toc/.pkgmeta/Locale*.lua in addons/). Commands: `ordaen build|watch|link|lint|test|check`
+(`--json` for tools; `cli/README.md` in wow-dev-tools).
 
 ## Localization
 
 - English and Russian for now; the user's client is ruRU. Every user-facing string goes through `ns.L`.
-- Per addon: `Locale.lua` holds the English base (and the fallback; an unknown key shows as itself) and defines
-  `ns.ApplyTranslation`. Each other language is `Locale_<code>.lua` (e.g. `Locale_ruRU.lua`), listed after
-  `Locale.lua` in the TOC. It returns at once unless `ns.LOCALE` is its language, so other clients never build its
-  table. Only the client's language stays in memory (see Performance).
-- `tests/repo/locales_spec.lua` checks every addon automatically: no missing or unknown keys, and identical format
-  placeholders (`%s`, `%d`) in every language. Add a key to `Locale.lua` and every `Locale_<code>.lua` together.
+- Per addon: `locales/<code>.json` (`{ "KEY": "text" }`, keys UPPER_SNAKE_CASE), one file per language in
+  `ordaen.jsonc` `"locales"`. The build generates `Locale.lua` (English base and fallback: an unknown key shows as
+  itself; sets `ns.L` and `ns.LOCALE`) and one `Locale_<code>.lua` per other language, which returns at once unless
+  the client is in that language, so only the client's language stays in memory (see Performance).
+- The build refuses missing or unknown keys and different format placeholders (`%s`, `%d`) between languages. Add a
+  key to every `locales/*.json` together. Ordaen Core's own strings (help, reset) are in its own locales.
+- Labels in declarations (settings, command help) are locale keys, not strings.
 - Use Blizzard's own translated globals for common words where they fit (`CLOSE`, `OKAY`, `CANCEL`, `RESET`, `NONE`,
   `SETTINGS`), after confirming they exist on Forever.
-- TOC: localized `## Notes-ruRU` and `## Category-ruRU` lines. Whether titles get a `## Title-ruRU` (e.g. "Ordaen
-  Миникарта") is still for the user to decide; until then titles stay English.
+- TOC: `"notes"` (and `"title"`) in addon.jsonc may be `{ "enUS": …, "ruRU": … }`, giving `## Notes-ruRU` lines;
+  categories come localized from ordaen.jsonc. Whether titles get a `## Title-ruRU` (e.g. "Ordaen Миникарта") is
+  still for the user to decide; until then titles stay English.
 - The Ordaen Dev window (dev mode) is English only.
 
 ## UI framework `OrdaenCore.UI`: design philosophy (set in stone by the user)
@@ -174,14 +204,13 @@ decided with the user.
   `Init_Camelot.lua` sets `isForever`). Frame names differ between clients, so `Map.lua` looks up each Blizzard piece by
   several names, skips missing ones and records what it found (dev-mode dump: "Save for Claude & reload" in the Ordaen Dev window). Toggling "rotate minimap"
   runs `MinimapCluster:UpdateMinimapConfig`, which resets the mask and sizes: we hook it and re-apply.
-- Settings page: Blizzard Settings API in its newer form (`Settings.RegisterAddOnSetting(category, variable, key, tbl,
-  type, name, default)`, `Settings.CreateDropdown/CreateSlider/CreateCheckbox`), registered on `ADDON_LOADED` because it
-  binds to the SavedVariables table. Reference: `MinimapButtonButton\Settings\SettingsMenu.lua`, `ForeverLootSparkles`.
-- Files: `Locale.lua` (enUS + ruRU; the user's client is ruRU), `Borders.lua` (border styles as data, defaults, pure
-  helpers), `Ring.lua`/`Buttons.lua` (buttons around the map), `Info.lua` (zone, coordinates, clock), `Map.lua`
-  (square mask, hide Blizzard pieces, wheel zoom, border frame, scale, `GetMinimapShape`),
-  `Options.lua` (settings page), `Core.lua` (events, slash). Specs: `borders_spec.lua` (logic) and `smoke_spec.lua`
-  (loads the whole addon against stubbed WoW objects).
+- Settings page: declared in `Core.lua` (`settings` of `OrdaenCore.NewAddon`); the Core's `Settings.lua` builds it
+  with Blizzard's Settings API and keeps the saved values valid.
+- Files: `locales/*.json` (enUS + ruRU; the user's client is ruRU), `Borders.lua` (border styles as data, defaults,
+  pure helpers), `Ring.lua`/`Buttons.lua` (buttons around the map), `Info.lua` (zone, coordinates, clock), `Map.lua`
+  (square mask, hide Blizzard pieces, wheel zoom, border frame, scale, `GetMinimapShape`), `Core.lua` (the
+  `NewAddon` declaration: SavedVariables, settings page, slash; starts the features). Specs: `borders_spec.lua`
+  (logic) and `smoke_spec.lua` (loads the whole built addon against stubbed WoW objects).
 - Conflicts (`Conflicts.lua` pure logic, `Guard.lua` WoW side): at login, a known list of dedicated minimap addons
   (SexyMap, BasicMinimap, Chinchilla, pMinimap) plus generic detection: who defined `GetMinimapShape`
   (`issecurevariable` names the tainting addon), hooks on everything `Map.lua` changes (changes made outside
@@ -234,11 +263,11 @@ decided with the user.
 
 ## Ordaen Core and debugging
 
-- `addons/OrdaenCore/` holds the code every addon shares. It publishes the global `OrdaenCore` and contains no features. Every addon has `## Dependencies: OrdaenCore` in its TOC, `## X-Ordaen-MinCore: <version>`, and `required-dependencies: [ordaen-core]` in `.pkgmeta` (the CurseForge slug is a guess until the project exists).
-- **The Core API only grows.** Users update the Core and the addons independently. Never change the behavior of a released Core function or remove one; add a new name instead. When an addon starts using a new Core API, raise its `X-Ordaen-MinCore`. `OrdaenCore.IsCompatible(addonName)` enforces that in packaged builds; git checkouts are detected by the unreplaced `@project-version@` token in `Core.lua` and skip the check.
-- Each addon starts with `if not OrdaenCore.IsCompatible(addonName) then return end`, then takes its own debug kit with `OrdaenCore.NewDebug(addonName)`. Every addon lists `## OptionalDeps: OrdaenCore_Debug` so the dev-mode module loads first when enabled. Init it in `ADDON_LOADED` with the addon's SavedVariables table, wrap handlers in `Debug.Wrap`, and forward slash input through `Debug.HandleSlash` (example: `addons/OrdaenMinimap/Core.lua`). New code logs its decisions with `Debug.Log`.
-- Before handing code over for an in-game test, run `bash scripts/test.sh` until it is green. `/reload` is enough on Forever, also for new files, `.toc` changes and new (linked) addon folders.
-- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../wow-dev-tools`** next to the companion app and is never shipped (decided by the user: dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load `addons/OrdaenCore/Core.lua` and `api/forever/` from this checkout. Keep the stand-in's API in step with it. Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, and the Ordaen Dev window with "Save for Claude & reload". All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors (done), then Performance (memory, `C_AddOnProfiler` if present, `Debug.Time`), Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
+- `addons/OrdaenCore/` holds the code every addon shares. It publishes the global `OrdaenCore` and contains no features. The build gives every addon that uses it `## Dependencies: OrdaenCore`, `## OptionalDeps: OrdaenCore_Debug` and `required-dependencies: [ordaen-core]` in `.pkgmeta` (the CurseForge slug, `"package"` in addon.jsonc, is a guess until the project exists); `"minCore"` in addon.jsonc becomes `## X-Ordaen-MinCore`.
+- **The Core API only grows.** Users update the Core and the addons independently. Never change the behavior of a released Core function or remove one; add a new name instead. When an addon starts using a new Core API, raise its `"minCore"`. `OrdaenCore.IsCompatible(addonName)` enforces that in packaged builds; git checkouts are detected by the unreplaced `@project-version@` token in `Core.lua` and skip the check.
+- **Every addon starts through the framework** (`addons/OrdaenCore/Addon.lua`, example `addons/OrdaenMinimap/Core.lua`): `local A = OrdaenCore.NewAddon(addonName, ns, { db = "…DB", defaults = {…}, slash = {…}, settings = {…}, dump = fn })`, then `if not A then return end` (Core too old; the player was told). The spec is a table written in the file (the build reads `db`/`charDb`). The framework checks compatibility, takes the addon's debug kit (`A.Debug`; `Debug.Init` with the SavedVariables on its ADDON_LOADED, slash input through `Debug.HandleSlash`), fills defaults (deep, never overwriting), builds the settings page (`Settings.lua`: dropdown for `choices`, slider for numbers with min/max, checkbox for booleans; labels are locale keys; saved values kept valid), and registers the slash commands (`/x` opens settings, `/x reset` restores defaults then runs `A:OnReset`, `A:Command(name, fn, helpKey)`, help for anything else). Lifecycle: `A:OnLoad(fn(db, charDb))`, `A:OnLogin(fn)` (right away for load-on-demand addons loaded after login). Events: `A:On(event, fn(event, ...))` / `A:Off` on one frame shared by all Ordaen addons, handlers in the order added, each through `securecallfunction` so one failing handler doesn't stop the others; register only while a feature needs it. Also `A:AfterCombat(fn)`, `A:Compartment{ onClick, onEnter, onLeave, icon }` (Blizzard's addon compartment), `A:OpenSettings()`, `A:Print(...)`. New code logs its decisions with `A.Debug.Log` (stripped from release builds).
+- Before handing code over for an in-game test, run `bash scripts/test.sh` (= `ordaen check`) until it is green, with `ordaen watch` running so `dist/` is current. `/reload` is enough on Forever, also for new files, TOC changes and new (linked) addon folders.
+- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../wow-dev-tools`** next to the companion app and is never shipped (decided by the user: dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load the built Core (`dist/OrdaenCore/`, TOC order) and `api/forever/` from this checkout. Keep the stand-in's API in step with it. Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, and the Ordaen Dev window with "Save for Claude & reload". All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors (done), then Performance (memory, `C_AddOnProfiler` if present, `Debug.Time`), Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
 - For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
 - Addons have no network access, so there is no telemetry. Users report errors with `/<cmd> errors` and the GitHub issue form. Add each new addon to its dropdown.
 

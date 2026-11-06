@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Package one addon with the BigWigs packager.
+# Package one addon with the BigWigs packager, from its release build (`ordaen build --release`).
 #
 #   scripts/package.sh <AddonName> [<tag>]
 #
@@ -19,11 +19,15 @@ addon="${1:?usage: scripts/package.sh <AddonName> [<tag>]}"
 tag="${2:-}"
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-src="$root/addons/$addon"
-[ -f "$src/$addon.toc" ] || { echo "No addon at $src" >&2; exit 1; }
+[ -f "$root/addons/$addon/addon.jsonc" ] || { echo "No addon at $root/addons/$addon" >&2; exit 1; }
 
 work="$(mktemp -d)"
 trap 'rm -rf "$work"' EXIT
+
+# The zip holds the release build: generated TOC/.pkgmeta/locales, Debug calls stripped, dev files left out.
+# ordaen is the private build tool (wow-dev-tools); CI downloads a pinned release, locally it is on PATH or $ORDAEN.
+"${ORDAEN:-ordaen}" build --repo "$root" --release --out "$work/dist" "$addon"
+src="$work/dist/$addon"
 
 packager="$work/release.sh"
 curl -fsSL -o "$packager" "https://raw.githubusercontent.com/BigWigsMods/packager/$PACKAGER_VERSION/release.sh"

@@ -45,8 +45,7 @@
       "package-name": "OrdaenCore",
       "initial-version": "0.1.0",
       "extra-files": [
-        "OrdaenCore.toc",
-        "OrdaenCore_UI/OrdaenCore_UI.toc"
+        "addon.jsonc"
       ]
     },
     "addons/OrdaenMinimap": {
@@ -55,7 +54,7 @@
       "package-name": "OrdaenMinimap",
       "initial-version": "0.1.0",
       "extra-files": [
-        "OrdaenMinimap.toc"
+        "addon.jsonc"
       ]
     }
   }

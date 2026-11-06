@@ -49,10 +49,12 @@ jobs:
           luaVersion: "5.1.5" # the Lua version WoW runs
       - uses: leafo/gh-actions-luarocks@v6
       - run: luarocks install luacheck && luarocks install busted
-      - run: luacheck .
-      - name: forever-lint (code against the real Forever API)
-        run: eval "$(luarocks path)" && lua scripts/forever_lint.lua
-      - run: busted
+      - uses: ./.github/actions/ordaen
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+      # build (generated TOCs/locales, load order checks), luacheck, forever-lint, busted on dist/
+      - run: eval "$(luarocks path)" && ordaen check
 
   package:
     name: Package (dry run)
@@ -60,9 +62,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
+      - uses: ./.github/actions/ordaen
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
       - name: Package every addon (no upload)
         run: |
-          for dir in addons/*/; do
-            scripts/package.sh "$(basename "$dir")"
+          for manifest in addons/*/addon.jsonc; do
+            scripts/package.sh "$(basename "$(dirname "$manifest")")"
           done
           ls -l .release/*.zip

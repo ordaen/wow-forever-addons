@@ -131,8 +131,11 @@ function M.stubGlobals(overrides)
 		GameTooltip = M.stubObject("GameTooltip"),
 		ChatFontNormal = {},
 		BackdropTemplateMixin = {},
+		IsLoggedIn = function()
+			return M.loggedIn == true
+		end,
 		InCombatLockdown = function()
-			return false
+			return M.inCombat == true
 		end,
 		ReloadUI = function()
 			M.reloaded = true
@@ -165,18 +168,44 @@ function M.stubGlobals(overrides)
 	end
 end
 
---- Load OrdaenCore the way WoW does: every Lua file of its TOC, in order, with one shared namespace;
---- returns the Core table. (The dev-mode addon OrdaenCore_Debug and its specs live in the private
---- wow-dev-tools repo, which has its own copy of these helpers.)
-function M.loadCore()
-	local ns = {}
-	local toc = assert(io.open("addons/OrdaenCore/OrdaenCore.toc")):read("*a")
-	for file in toc:gmatch("[^\r\n]+") do
-		if file:match("%.lua$") then
-			assert(loadfile("addons/OrdaenCore/" .. file))("OrdaenCore", ns)
+--- The built addons, as the game loads them: `ordaen build` writes the TOCs (file order derived from the code)
+--- and the locale files there. `ordaen test` and `ordaen check` build before running the specs.
+M.DIST = "dist/"
+
+--- The Lua files of a built addon's TOC, in load order, as paths from the repo root.
+---@param path string the addon's folder inside dist/, e.g. "OrdaenCore" or "OrdaenCore/OrdaenCore_UI"
+---@return string[]
+function M.tocFiles(path)
+	local name = path:match("([^/]+)$")
+	local tocPath = M.DIST .. path .. "/" .. name .. ".toc"
+	local handle = assert(io.open(tocPath), "no " .. tocPath .. ": run `ordaen build` first (ordaen test does)")
+	local files = {}
+	for line in handle:read("*a"):gmatch("[^\r\n]+") do
+		if line:sub(1, 1) ~= "#" and line:match("%.lua$") then
+			files[#files + 1] = M.DIST .. path .. "/" .. line:gsub("\\", "/")
 		end
 	end
-	return ns.Core
+	handle:close()
+	return files
+end
+
+--- Load a built addon the way WoW does: every Lua file of its TOC, in order, with one shared namespace.
+---@param path string the addon's folder inside dist/
+---@param ns table|nil the namespace (a new one if nil)
+---@return table ns
+function M.loadAddon(path, ns)
+	ns = ns or {}
+	local name = path:match("([^/]+)$")
+	for _, file in ipairs(M.tocFiles(path)) do
+		assert(loadfile(file))(name, ns)
+	end
+	return ns
+end
+
+--- Load OrdaenCore the way WoW does; returns the Core table. (The dev-mode addon OrdaenCore_Debug and its
+--- specs live in the private wow-dev-tools repo, which has its own copy of these helpers.)
+function M.loadCore()
+	return M.loadAddon("OrdaenCore").Core
 end
 
 return M

@@ -1,7 +1,7 @@
 -- luacheck config. WoW runs Lua 5.1.
 std = "lua51"
 max_line_length = 120
-exclude_files = { "node_modules/", ".release/", ".lua/", ".luarocks/", ".install/", "api/" }
+exclude_files = { "dist/", "node_modules/", ".release/", ".lua/", ".luarocks/", ".install/", "api/" }
 
 -- Globals the addons are allowed to define (or add entries to).
 local ours = {

@@ -27,11 +27,11 @@ Everything below needs the dev-only addon **Ordaen Core - Debug** (`OrdaenCore_D
 
 ## 2. Hand over with a repro script
 
-The game runs whatever is on `develop` in the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`, through the AddOns junctions. Before handing over, get the change there: commit it on the feature branch, rebase onto `develop`, then run `git merge --ff-only <branch>` from the main checkout. Never switch the main checkout to another branch or re-point the junctions. If the change adds an addon folder, run `pwsh ./scripts/link.ps1` in the main checkout.
+The game runs the build of whatever is on `develop` in the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`: its `dist/`, through the AddOns junctions. `ordaen watch` running there keeps `dist/` current; if it isn't running, run `ordaen build` there. Before handing over, get the change there: commit it on the feature branch, rebase onto `develop`, then run `git merge --ff-only <branch>` from the main checkout. Never switch the main checkout to another branch or re-point the junctions. If the change adds an addon folder, run `ordaen link` in the main checkout.
 
 Tell the user exactly what to do:
 
-1. `/reload`. On Forever it also picks up new files, `.toc` changes and new addon folders (link new folders first with `scripts/link.ps1`).
+1. `/reload`. On Forever it also picks up new files, TOC changes and new addon folders (link new ones first with `ordaen link`).
 2. Reproduce the problem. Take a screenshot (Print Screen) if it's visual.
 3. Open the Ordaen Dev window (gear button), type what they saw in **Note for Claude**, and click **Save for Claude & reload**. That dumps every Ordaen addon's state, stores the note and writes everything to disk.
 4. Tell Claude "check".

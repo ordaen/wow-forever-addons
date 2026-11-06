@@ -39,6 +39,10 @@ jobs:
         path: ${{ fromJSON(needs.release-please.outputs.paths_released) }}
     steps:
       - uses: actions/checkout@v7
+      - uses: ./.github/actions/ordaen
+        with:
+          client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
+          private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
       - name: Resolve addon, version and tag
         run: |
           addon="$(basename "${{ matrix.path }}")"

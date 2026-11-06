@@ -27,16 +27,19 @@ busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
    sudo luarocks --lua-version=5.1 install busted
    sudo luarocks --lua-version=5.1 install luacheck
    ```
-4. **Repo**, in the repo folder:
+4. **The `ordaen` build tool** (maintainers; it lives in the private `wow-dev-tools` repo): clone `wow-dev-tools` next
+   to this repo, install [Rust](https://rustup.rs), then in `wow-dev-tools`: `cargo install --path cli`.
+5. **Repo**, in the repo folder:
    ```powershell
    npm install                  # commitlint + the git commit-msg hook (husky)
-   pwsh ./scripts/link.ps1      # junction every addon into the Forever AddOns folder
+   ordaen build                 # addons/ -> dist/ (the built addons: generated TOCs and locales)
+   ordaen link                  # junction every built addon into the Forever AddOns folder
    ```
-   A junction is Windows' directory link (like a symlink; no admin needed). `pwsh ./scripts/link.ps1 -Unlink` removes
-   the junctions and leaves the repo files alone. The junctions point at this checkout, so keep it on `develop`
+   A junction is Windows' directory link (like a symlink; no admin needed). `ordaen link --unlink` removes the
+   junctions and leaves the files alone. They point at `dist/` of this checkout, so keep it on `develop`
    (`git switch develop`): what's on `develop` is what the game runs.
-5. **Dev mode** (maintainers): clone the private `wow-dev-tools` repo next to this one and run its
-   `pwsh ./scripts/link.ps1`, then enable **Ordaen Core - Debug** in the AddOns list (see "Debugging in game").
+6. **Dev mode** (maintainers): run `pwsh ./scripts/link.ps1` in `wow-dev-tools`, then enable
+   **Ordaen Core - Debug** in the AddOns list (see "Debugging in game").
 
 ### Everyday loop
 
@@ -50,18 +53,34 @@ checkout never changes branch.
    cd ../wow-forever-addons-<topic> && npm install    # installs the commit hook in the new folder
    ```
 2. Edit and commit there (signed, [Conventional Commits](#commits)).
-3. Run the same Lua checks as CI: `scripts/test.sh`. Extra arguments go to busted
-   (`scripts/test.sh --filter Snapshot`).
+3. Run the same checks as CI: `scripts/test.sh` (= `ordaen check`: build, luacheck, forever-lint, busted). Extra
+   arguments go to busted (`scripts/test.sh --filter Snapshot`).
 4. Bring it into the game: `git rebase develop` in the worktree, then from the main checkout
    `git merge --ff-only feat/<topic>`.
-5. In game: `/reload`. A **new file or a changed `.toc` needs a full client restart**; WoW only scans the AddOns
-   folder at startup.
+5. Keep `ordaen watch` running in the main checkout: it rebuilds `dist/` whenever files change. In game: `/reload`
+   (on Forever that also picks up new files and TOC changes).
 6. When the feature is done: `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`.
 
-Code shared by several addons lives in **Ordaen Core** (`addons/OrdaenCore/`), which every addon lists in
-`## Dependencies`. Users can update the Core and the addons separately, so the Core's API only grows: never change
-or remove anything that has been released; add a new name instead. An addon that needs a newer Core sets
-`## X-Ordaen-MinCore: <version>` in its TOC (git checkouts skip that check).
+### How an addon is built
+
+`addons/<Name>/` is the source; `ordaen build` writes `dist/<Name>/`, which the game, the specs and the release zips
+use. Nothing in `dist/` is edited by hand or committed.
+
+- `addon.jsonc` holds only what the code can't say: title, notes, category, icon, version, the oldest Core it works
+  with (`minCore`), the CurseForge slug. `ordaen.jsonc` holds what all addons share (interface version, languages,
+  category names).
+- The TOC's file list comes from the code: a file that uses `ns.Something` while loading is placed after the file
+  that defines it (`ordaen build --explain` shows why). Dependencies come from the globals an addon uses,
+  SavedVariables from its `OrdaenCore.NewAddon` call.
+- Texts live in `locales/<language>.json`; the build checks them (every key translated, same `%s` placeholders) and
+  generates the Lua the game loads.
+- Release builds strip the dev-only debug calls, keeping line numbers.
+
+Code shared by several addons lives in **Ordaen Core** (`addons/OrdaenCore/`); every addon starts through its
+framework, `OrdaenCore.NewAddon` (settings with defaults, settings page, slash commands, events). Users can update
+the Core and the addons separately, so the Core's API only grows: never change or remove anything that has been
+released; add a new name instead. An addon that needs a newer Core sets `"minCore"` in its `addon.jsonc` (git
+checkouts skip that check).
 
 ### The real Forever API
 
@@ -71,7 +90,7 @@ and commit the result. `api/forever/CHANGES.md` shows what each Forever patch ad
 specs use the newest dump, so code that calls something Forever doesn't have fails before it reaches the game.
 Dump again after every Forever patch, and click **Clear API dump** once it's imported.
 
-`scripts/test.sh` also runs **forever-lint** (`scripts/forever_lint.lua`), which checks event names, methods per
+`ordaen check` (and so `scripts/test.sh`) also runs **forever-lint** (`scripts/forever_lint.lua`), which checks event names, methods per
 widget type, argument counts and literal argument types against the dump (`api.json`, the structured form of each
 version). Silence a line with `-- forever-lint: ignore FL2` and say why.
 
@@ -83,7 +102,7 @@ BugSack (if installed) or Blizzard's default handler.
 Maintainers have a **development mode**: the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug", with the
 Ordaen Dev window, its own error catcher, logs, state dumps, the game API dump and the live channel to the
 companion app). It lives in the private `wow-dev-tools` repo, next to the companion app, and is never shipped.
-Every Ordaen addon lists it in `## OptionalDeps`, so when it is installed it loads first and replaces the
+Every Ordaen addon lists it in `## OptionalDeps` (the build adds it), so when it is installed it loads first and replaces the
 stand-in. Its data goes to one file, which WoW writes on `/reload` or logout:
 `C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\OrdaenCore_Debug.lua`.
 
@@ -117,26 +136,27 @@ Handled by [release-please](https://github.com/googleapis/release-please):
    [BigWigs packager](https://github.com/BigWigsMods/packager) (`scripts/package.sh`),
    uploads to CurseForge/Wago when configured, and attaches the zip to the GitHub release.
 
-Never edit `## Version` in a `.toc` by hand; release-please owns it.
+Never edit `"version"` in an `addon.jsonc` by hand; release-please owns it.
 
-Local package build (Git Bash): `scripts/package.sh OrdaenMinimap` → `.release/`.
+Local package build (Git Bash): `scripts/package.sh OrdaenMinimap` → `.release/` (it runs
+`ordaen build --release` first). CI installs the `ordaen` release pinned in `.ordaen-version` with the org App,
+which needs read access to `wow-dev-tools`.
 
 ### Adding an addon
 
-1. Create `addons/<Name>/` with `<Name>.toc` (copy the version block markers and the `## Category` lines from an
-   existing addon), `.pkgmeta`, Lua files.
-2. Add it to `release-please-config.json` (`packages`, with `"initial-version": "0.1.0"`) and `.release-please-manifest.json` (`"0.0.0"`).
-3. Depend on the Core: `## Dependencies: OrdaenCore` and `## X-Ordaen-MinCore: <current Core version>` in the TOC,
-   `## OptionalDeps: OrdaenCore_Debug` in the TOC, `required-dependencies: [ordaen-core]` in `.pkgmeta`, and wire up
-   the debug kit as in
-   `addons/OrdaenMinimap/Core.lua`.
+1. Create `addons/<Name>/` with an `addon.jsonc` (copy one; `"version": "0.0.0"` with its
+   `// x-release-please-version` comment), `locales/enUS.json` + `locales/ruRU.json`, and the Lua files.
+2. Start it with `OrdaenCore.NewAddon` as in `addons/OrdaenMinimap/Core.lua`; set `"minCore"` to the current Core
+   version.
+3. Add it to `release-please-config.json` (`packages`, with `"initial-version": "0.1.0"` and
+   `"extra-files": ["addon.jsonc"]`) and `.release-please-manifest.json` (`"0.0.0"`).
 4. Add the addon to the dropdown in `.github/ISSUE_TEMPLATE/bug_report.yml`.
-5. Rerun `pwsh ./scripts/link.ps1`, then restart the game client.
+5. `ordaen build` and `ordaen link`, then `/reload`.
 
 ## Repository secrets
 
 | Secret | Needed for |
 |---|---|
 | `RELEASE_APP_PRIVATE_KEY` (+ variable `RELEASE_APP_CLIENT_ID`) | Org GitHub App that release-please acts as (Contents + Pull requests: read/write). |
-| `CF_API_KEY` | CurseForge uploads (plus `## X-Curse-Project-ID` in the TOC). |
-| `WAGO_API_TOKEN` | Wago uploads (plus `## X-Wago-ID` in the TOC). |
+| `CF_API_KEY` | CurseForge uploads (plus `"curseforgeId"` under `"package"` in the addon.jsonc). |
+| `WAGO_API_TOKEN` | Wago uploads (plus `"wagoId"` under `"package"` in the addon.jsonc). |

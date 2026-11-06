@@ -148,13 +148,7 @@ describe("OrdaenCore.UI", function()
 				return false, "DISABLED"
 			end
 			assert.equals("OrdaenCore_UI", name)
-			local ns = {}
-			local toc = assert(io.open("addons/OrdaenCore/OrdaenCore_UI/OrdaenCore_UI.toc")):read("*a")
-			for file in toc:gmatch("[^\r\n]+") do
-				if file:match("%.lua$") then
-					assert(loadfile("addons/OrdaenCore/OrdaenCore_UI/" .. file))("OrdaenCore_UI", ns)
-				end
-			end
+			helpers.loadAddon("OrdaenCore/OrdaenCore_UI")
 			return true
 		end
 		UI = core.UI
