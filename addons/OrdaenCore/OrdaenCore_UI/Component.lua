@@ -21,9 +21,33 @@ local Render = ns.Render
 local Component = {}
 ns.Component = Component
 
--- securecallfunction (when the client has it): an error in one listener is reported and the rest still run.
-local call = securecallfunction or function(fn, ...)
-	return fn(...)
+-- Listeners run protected: an error in one is reported (geterrorhandler: BugSack, Blizzard, dev mode) and the rest
+-- still run. Not through securecallfunction: it ends the "the player clicked" state the game needs for protected
+-- calls, so a button whose listener calls ReloadUI was blocked ("call to Reload() was blocked", the conflict
+-- dialog, 2026-11-06). xpcall keeps the listener in the click's own call. WoW's xpcall passes arguments; plain Lua
+-- 5.1 (the specs) doesn't, so that case falls back to pcall and reports the error afterwards.
+local function report(err)
+	local handler = geterrorhandler and geterrorhandler()
+	if handler then
+		handler(err)
+	end
+	return err
+end
+local XPCALL_PASSES_ARGS = select(2, xpcall(function(value)
+	return value
+end, report, true)) == true
+local call
+if XPCALL_PASSES_ARGS then
+	call = function(fn, ...)
+		return xpcall(fn, report, ...)
+	end
+else
+	call = function(fn, ...)
+		local ok, err = pcall(fn, ...)
+		if not ok then
+			report(err)
+		end
+	end
 end
 
 local byFrame = setmetatable({}, { __mode = "k" }) -- WoW frame -> instance

@@ -67,7 +67,12 @@ would have caught it is half a fix: say which check now catches it, or add one.
    starts each one in its own protected call, so one feature's error is reported and the rest still start.
 6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
    (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done.
-7. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
+7. **Player actions stay in the click's own call.** Code that a click runs (UI listeners, dialog buttons) calls
+   protected functions (`ReloadUI`, `C_UI.Reload`) only directly, without `securecallfunction`, C_Timer or another
+   frame's script in between: the game blocks them otherwise ("call to Reload() was blocked", the conflict dialog,
+   2026-11-06). Catch errors with `xpcall` instead. Specs can't see this (fakes have no "hardware event"), so a
+   button with a protected action gets an in-game check.
+8. **Handovers happen on an event, never on a timer.** When one addon takes something over from another (a frame,
    a position), the side that comes second completes it: the owner announces its thing when it creates it
    (`EventRegistry:TriggerEvent("OrdaenDevButton.Created", b)`) and the taker also checks at its own start. A
    fixed delay has no ordering guarantee (the Ordaen Dev gear button sat on the minimap border for seconds after
