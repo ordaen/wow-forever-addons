@@ -178,6 +178,25 @@ describe("OrdaenCore_Debug (dev mode)", function()
 			assert.are.same({ "original" }, passedOn)
 		end)
 
+		it("reads locals one level deeper when the stack starts in C (error called directly)", function()
+			local levels = {}
+			rawset(_G, "debuglocals", function(level)
+				levels[#levels + 1] = level
+				return "level " .. level
+			end)
+			rawset(_G, "debugstack", function()
+				return "[C]: ?
+[Interface/AddOns/TestAddon/Core.lua]:5: in function <...>"
+			end)
+			Debug.Call(error, "from C", 0)
+			rawset(_G, "debugstack", function()
+				return "[Interface/AddOns/TestAddon/Core.lua]:5: in function <...>"
+			end)
+			Debug.Call(error, "from Lua", 0)
+			assert.are.same({ 3, 2 }, levels)
+			assert.are.equal("level 3", db.debug.errors[1].locals)
+		end)
+
 		it("caps the number of stored errors", function()
 			for i = 1, Debug.ERRORS_MAX + 5 do
 				Debug.RecordError("error " .. i)

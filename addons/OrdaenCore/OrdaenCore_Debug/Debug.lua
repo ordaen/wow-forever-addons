@@ -331,7 +331,11 @@ function Core.NewDebug(addonName)
 		-- Capture first, called directly so the levels hold: level 1 is this handler,
 		-- level 2 is where the error was raised.
 		local stack = debugstack and debugstack(2) or nil
-		local locals = debuglocals and debuglocals(2) or nil
+		-- For error("...") level 2 is the C function error itself (stack starts with "[C]"), whose
+		-- locals are just temporaries; the caller's locals are one level further down.
+		-- (Verified in game, client 1.60.1.)
+		local localsLevel = (stack and stack:find("^%[C%]")) and 3 or 2
+		local locals = debuglocals and debuglocals(localsLevel) or nil
 		-- A bug in our own recording must never swallow the original error.
 		pcall(record, err, stack, locals)
 		-- Pass it on (BugSack/BugGrabber or Blizzard's error frame) while the original stack is live.
@@ -536,7 +540,11 @@ function Core.NewDebug(addonName)
 				return true
 			elseif rest == "error" then
 				-- Exercise the whole error pipeline: record, chat notice, BugSack, report window.
-				Debug.Call(error, "test error from " .. (options.slash or "") .. " debug error")
+				-- Raised from a Lua function with a local, so the report shows whether locals work.
+				Debug.Call(function()
+					local exampleLocal = "visible in the report's locals"
+					error("test error from " .. (options.slash or "") .. " debug error (" .. #exampleLocal .. ")")
+				end)
 				return true
 			else
 				return false
