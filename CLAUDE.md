@@ -148,8 +148,8 @@ decided with the user.
     `C_Map.GetPlayerMapPosition` once per zone to verify the math.
 - Feature: button drawer (replaces MinimapButtonButton, MBB) that also collects **addon compartment** entries.
   Implemented in `DrawerData.lua` (pure: grid, entry merging) and `Drawer.lua`; settings `drawerEnabled` (default
-  on), `hideBlizzardCompartment` (default on), `drawerColumns`; main button position `drawerButton` is an offset from
-  the minimap center (Shift-drag moves it, right-click opens settings). Needed on a square map anyway: addons like
+  on), `hideBlizzardCompartment` (default on), `drawerColumns`; the main button sits on the button ring
+  (`buttonAngles.drawer`; drag moves it, right-click opens settings). Needed on a square map anyway: addons like
   Altoholic (AddonFactory template) and AutoBiographer place their buttons on a circle with their own math and never
   ask `GetMinimapShape`. MBB's code is "All rights reserved": use it as a behavior reference only, never copy it.
   - One main button; clicking it toggles a grid "drawer" of buttons.
