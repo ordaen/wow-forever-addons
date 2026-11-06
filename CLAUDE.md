@@ -1,4 +1,4 @@
-# forever-addons
+# wow-forever-addons
 
 Monorepo of World of Warcraft addons for the **WoW Forever** flavor (interface `16001`).
 Developed on Windows (the user normally works on Linux — explain Windows specifics when relevant).
@@ -33,18 +33,18 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
 - AddOns folder: `C:\Program Files (x86)\World of Warcraft\_forever_\Interface\AddOns\`
-- Each addon in `addons/<Name>/` gets a directory junction in the AddOns folder via `scripts/link.ps1` (no admin needed), so edits show after `/reload` in game. The junctions point at the main checkout `C:\Users\f3oal\code\forever-addons`, which stays on `develop` (see Branches).
+- Each addon in `addons/<Name>/` gets a directory junction in the AddOns folder via `scripts/link.ps1` (no admin needed), so edits show after `/reload` in game. The junctions point at the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons`, which stays on `develop` (see Branches).
 
 ## Decisions so far
 
 - User wants things done properly from the start (full tooling, not "add later").
-- Repo: public GitHub repo `ordaen/forever-addons` (org; user is admin). The org forbids GITHUB_TOKEN from opening PRs, so release-please uses an org GitHub App token (`vars.RELEASE_APP_CLIENT_ID`, `secrets.RELEASE_APP_PRIVATE_KEY`). Default branch `main`, squash-merge only, PR title = commit message.
+- Repo: public GitHub repo `ordaen/wow-forever-addons` (org; user is admin). The org forbids GITHUB_TOKEN from opening PRs, so release-please uses an org GitHub App token (`vars.RELEASE_APP_CLIENT_ID`, `secrets.RELEASE_APP_PRIVATE_KEY`). Default branch `main`, squash-merge only, PR title = commit message.
 - Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`. GitHub user `f3oall`.
 - Signed commits are required on every branch (ordaen org ruleset). Commits are SSH-signed with `~/.ssh/id_ed25519` (global `commit.gpgsign`/`tag.gpgsign`). Commits GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
 - `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. Work on a branch and open a PR.
 - **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
-  - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
-  - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
+  - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\ordaen\wow-forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
+  - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
   - When `scripts/test.sh` is green, rebase onto `develop` and run `git merge --ff-only feat/<topic>` from the main checkout. That keeps the signed conventional commits. Then the user does `/reload`, or restarts the client if files were added or a `.toc` changed.
   - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
@@ -176,7 +176,7 @@ decided with the user.
 - **The Core API only grows.** Users update the Core and the addons independently. Never change the behavior of a released Core function or remove one; add a new name instead. When an addon starts using a new Core API, raise its `X-Ordaen-MinCore`. `OrdaenCore.IsCompatible(addonName)` enforces that in packaged builds; git checkouts are detected by the unreplaced `@project-version@` token in `Core.lua` and skip the check.
 - Each addon starts with `if not OrdaenCore.IsCompatible(addonName) then return end`, then takes its own debug kit with `OrdaenCore.NewDebug(addonName)`. Every addon lists `## OptionalDeps: OrdaenCore_Debug` so the dev-mode module loads first when enabled. Init it in `ADDON_LOADED` with the addon's SavedVariables table, wrap handlers in `Debug.Wrap`, and forward slash input through `Debug.HandleSlash` (example: `addons/OrdaenMinimap/Core.lua`). New code logs its decisions with `Debug.Log`.
 - Before handing code over for an in-game test, run `bash scripts/test.sh` until it is green. Say whether `/reload` is enough or a full client restart is needed (any new file or `.toc` change).
-- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../ordaen-companion`** next to the companion app and is never shipped (decided by the user: dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load `addons/OrdaenCore/Core.lua` and `api/forever/` from this checkout. Keep the stand-in's API in step with it. Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, and the Ordaen Dev window with "Save for Claude & reload". All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors (done), then Performance (memory, `C_AddOnProfiler` if present, `Debug.Time`), Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
+- **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit is the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug"), which lives in the **private repo `../wow-dev-tools`** next to the companion app and is never shipped (decided by the user: dev tooling, including the pixel channel, stays private). Its own `scripts/link.ps1` junctions it into the AddOns folder; its specs load `addons/OrdaenCore/Core.lua` and `api/forever/` from this checkout. Keep the stand-in's API in step with it. Installing and enabling it turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, and the Ordaen Dev window with "Save for Claude & reload". All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors (done), then Performance (memory, `C_AddOnProfiler` if present, `Debug.Time`), Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
 - For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
 - Addons have no network access, so there is no telemetry. Users report errors with `/<cmd> errors` and the GitHub issue form. Add each new addon to its dropdown.
 
@@ -184,7 +184,7 @@ decided with the user.
 
 The real Lua API of each Forever client version, dumped in game, so nobody guesses what exists.
 
-- **Make a dump** (user, dev mode on; the dev addon lives in `../ordaen-companion`): Ordaen Dev window → **Dump game API**. It walks `_G` once (a short hitch),
+- **Make a dump** (user, dev mode on; the dev addon lives in `../wow-dev-tools`): Ordaen Dev window → **Dump game API**. It walks `_G` once (a short hitch),
   stores names and types (never values) of Blizzard-defined globals only (`issecurevariable` drops anything other
   addons added), one level into tables (`C_*`, `Enum`…), the methods of every widget type, the members of key Blizzard
   objects (`Minimap`, `MinimapCluster`…), and Blizzard's API documentation if the client ships it. It saves to

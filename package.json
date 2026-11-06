@@ -1,5 +1,5 @@
 {
-  "name": "forever-addons",
+  "name": "wow-forever-addons",
   "private": true,
   "description": "Dev tooling only (commit linting). The addons themselves are plain Lua.",
   "type": "module",

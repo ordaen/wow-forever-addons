@@ -2,7 +2,7 @@
 -- while no dump has been imported yet, so specs can mark themselves pending instead of failing.
 local M = {}
 
--- Folder that contains api/forever/. The private ordaen-companion repo points it at this checkout.
+-- Folder that contains api/forever/. The private wow-dev-tools repo points it at this checkout.
 M.root = "."
 
 local function read(path)

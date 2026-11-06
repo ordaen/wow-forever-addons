@@ -147,7 +147,7 @@ function M.stubGlobals(overrides)
 end
 
 --- Load OrdaenCore the way WoW does; returns the Core table. (The dev-mode addon OrdaenCore_Debug
---- and its specs live in the private ordaen-companion repo, which has its own copy of these helpers.)
+--- and its specs live in the private wow-dev-tools repo, which has its own copy of these helpers.)
 function M.loadCore()
 	local ns = {}
 	assert(loadfile("addons/OrdaenCore/Core.lua"))("OrdaenCore", ns)

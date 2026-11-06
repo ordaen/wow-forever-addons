@@ -1,4 +1,4 @@
-# forever-addons
+# wow-forever-addons
 
 World of Warcraft addons for the **WoW Forever** flavor (interface `16001`).
 
@@ -35,7 +35,7 @@ busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
    A junction is Windows' directory link (like a symlink; no admin needed). `pwsh ./scripts/link.ps1 -Unlink` removes
    the junctions and leaves the repo files alone. The junctions point at this checkout, so keep it on `develop`
    (`git switch develop`): what's on `develop` is what the game runs.
-5. **Dev mode** (maintainers): clone the private `ordaen-companion` repo next to this one and run its
+5. **Dev mode** (maintainers): clone the private `wow-dev-tools` repo next to this one and run its
    `pwsh ./scripts/link.ps1`, then enable **Ordaen Core - Debug** in the AddOns list (see "Debugging in game").
 
 ### Everyday loop
@@ -46,8 +46,8 @@ checkout never changes branch.
 
 1. Start a feature (Git Bash, in the repo folder):
    ```bash
-   git worktree add ../forever-addons-<topic> -b feat/<topic> develop
-   cd ../forever-addons-<topic> && npm install    # installs the commit hook in the new folder
+   git worktree add ../wow-forever-addons-<topic> -b feat/<topic> develop
+   cd ../wow-forever-addons-<topic> && npm install    # installs the commit hook in the new folder
    ```
 2. Edit and commit there (signed, [Conventional Commits](#commits)).
 3. Run the same Lua checks as CI: `scripts/test.sh`. Extra arguments go to busted
@@ -56,7 +56,7 @@ checkout never changes branch.
    `git merge --ff-only feat/<topic>`.
 5. In game: `/reload`. A **new file or a changed `.toc` needs a full client restart**; WoW only scans the AddOns
    folder at startup.
-6. When the feature is done: `git worktree remove ../forever-addons-<topic>` and `git branch -d feat/<topic>`.
+6. When the feature is done: `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`.
 
 Code shared by several addons lives in **Ordaen Core** (`addons/OrdaenCore/`), which every addon lists in
 `## Dependencies`. Users can update the Core and the addons separately, so the Core's API only grows: never change
@@ -78,7 +78,7 @@ BugSack (if installed) or Blizzard's default handler.
 
 Maintainers have a **development mode**: the dev-only addon `OrdaenCore_Debug` ("Ordaen Core - Debug", with the
 Ordaen Dev window, its own error catcher, logs, state dumps, the game API dump and the live channel to the
-companion app). It lives in the private `ordaen-companion` repo, next to the companion app, and is never shipped.
+companion app). It lives in the private `wow-dev-tools` repo, next to the companion app, and is never shipped.
 Every Ordaen addon lists it in `## OptionalDeps`, so when it is installed it loads first and replaces the
 stand-in. Its data goes to one file, which WoW writes on `/reload` or logout:
 `C:\Program Files (x86)\World of Warcraft\_forever_\WTF\Account\<account>\SavedVariables\OrdaenCore_Debug.lua`.
