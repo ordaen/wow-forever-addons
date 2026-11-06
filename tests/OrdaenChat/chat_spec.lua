@@ -918,6 +918,30 @@ describe("Ordaen Chat", function()
 			assert.is_true(row:IsShown())
 		end)
 
+		it("keeps its buttons invisible and out of the mouse's way until typing, whatever Blizzard's fade does", function()
+			login()
+			local input = windows[1].editBox
+			local function mouse(button)
+				local calls = button.calls.EnableMouse
+				return calls[#calls][1]
+			end
+			assert.equals(0, channelButton.alpha, "not typing: invisible")
+			assert.is_false(mouse(channelButton), "and no hover over it")
+			channelButton:SetAlpha(1) -- Blizzard's chat fade, the mouse over the chat
+			assert.equals(0, channelButton.alpha)
+			input:Show()
+			input.focused = true
+			input.scripts.OnEditFocusGained(input)
+			assert.equals(1, menuButton.alpha, "typing: seen")
+			assert.is_true(mouse(menuButton))
+			menuButton:SetAlpha(0.4) -- the fade again: no blink
+			assert.equals(1, menuButton.alpha)
+			input.focused = false
+			input.scripts.OnEditFocusLost(input)
+			assert.equals(0, menuButton.alpha)
+			assert.is_false(mouse(menuButton))
+		end)
+
 		it("goes back over the chat when Blizzard places the input again", function()
 			login()
 			windows[1].editBox:SetPoint("TOPLEFT", windows[1], "BOTTOMLEFT", -5, -2)

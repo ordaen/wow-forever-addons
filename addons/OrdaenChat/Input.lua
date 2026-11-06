@@ -50,6 +50,60 @@ local blizzardPoints = {} -- input -> its points under the chat window, given ba
 local size = 32 -- the input's height when the buttons were taken: the cells' size
 local hiddenParent -- holds Blizzard's social button while Ordaen Panel isn't there to take it
 local socialHome
+local buttonsSeen = true -- the row's Blizzard buttons are seen and take the mouse (false: over the chat, not typing)
+local settingAlpha = false -- our own SetAlpha calls on those buttons (the hook leaves them alone)
+
+-- Over the chat the input only shows while typing, but Blizzard's IM style just fades it: its buttons stayed under
+-- the mouse while invisible, and Blizzard's chat fade (mouse over the chat) blinked them (2026-11-07). They follow
+-- the typing instead: seen and clickable while the input has the keyboard focus, else alpha 0 and no mouse.
+local function showButtons()
+	local seen = not overlaid or (current ~= nil and current:HasFocus()) or false
+	buttonsSeen = seen
+	settingAlpha = true
+	for _, b in pairs(buttons) do
+		b.frame:SetAlpha(seen and 1 or 0)
+		b.frame:EnableMouse(seen)
+	end
+	settingAlpha = false
+end
+
+-- Blizzard fading a button (its chat fade): our alpha again.
+local function onButtonAlpha(frame)
+	if on and not settingAlpha then
+		settingAlpha = true
+		frame:SetAlpha(buttonsSeen and 1 or 0)
+		settingAlpha = false
+	end
+end
+
+-- Dev mode: what draws over what while typing (the chat's text showed over the input's background, 2026-11-07).
+local function logLayers(input)
+	if ns.Debug:IsEnabled() then
+		local window = input.chatFrame or input:GetParent()
+		local lines = window and window.FontStringContainer
+		local dress = inputs[input]
+		local look = dress and dress.look.frame
+		ns.Debug:Logf("input: layers input %s/%d a%.2f (parent %s), row %s/%d a%.2f shown %s (parent %s), "
+			.. "lines %s/%d, window %s/%d",
+			input:GetFrameStrata(), input:GetFrameLevel(), input:GetEffectiveAlpha(),
+			tostring(input:GetParent() and input:GetParent():GetName()),
+			look and look:GetFrameStrata() or "-", look and look:GetFrameLevel() or -1,
+			look and look:GetEffectiveAlpha() or -1, tostring(look and look:IsShown()),
+			tostring(look and look:GetParent() and look:GetParent():GetName()),
+			lines and lines:GetFrameStrata() or "-", lines and lines:GetFrameLevel() or -1,
+			window and window:GetFrameStrata() or "-", window and window:GetFrameLevel() or -1)
+	end
+end
+
+local function onFocusGained(input)
+	current = input
+	showButtons()
+	logLayers(input)
+end
+
+local function onFocusLost()
+	showButtons()
+end
 
 -- Blizzard's icon of a button, for its cell: its normal texture's atlas or file.
 local function iconOf(frame)
@@ -260,6 +314,8 @@ local function dressInput(input)
 		headers[input] = entry
 	end
 	input:HookScript("OnShow", onInputShown)
+	input:HookScript("OnEditFocusGained", onFocusGained)
+	input:HookScript("OnEditFocusLost", onFocusLost)
 	hooksecurefunc(input, "SetTextInsets", onInsetsSet)
 	hooksecurefunc(input, "SetPoint", onInputPlaced)
 	if on and overlaid then
@@ -327,6 +383,7 @@ local function takeButtons()
 			frame:HookScript("OnHide", place)
 			frame:HookScript("OnEnter", onButtonEnter)
 			frame:HookScript("OnLeave", onButtonLeave)
+			hooksecurefunc(frame, "SetAlpha", onButtonAlpha)
 		elseif buttons[name] and buttons[name].dress then
 			buttons[name].dress:Apply()
 		end
@@ -384,6 +441,7 @@ function Input.Enable()
 	end
 	hideSocial()
 	place()
+	showButtons()
 end
 
 --- Stop: Blizzard's input art, text insets and the buttons' places, sizes and looks come back.
@@ -409,6 +467,8 @@ function Input.Disable()
 			b.frame:SetSize(b.size[1], b.size[2])
 			placing = false
 		end
+		b.frame:SetAlpha(1)
+		b.frame:EnableMouse(true)
 	end
 	showSocial()
 end
@@ -435,6 +495,9 @@ function Input.SetOverlay(on_)
 		else
 			underChat(input)
 		end
+	end
+	if on then
+		showButtons()
 	end
 end
 
