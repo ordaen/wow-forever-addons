@@ -33,18 +33,30 @@ busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
    pwsh ./scripts/link.ps1      # junction every addon into the Forever AddOns folder
    ```
    A junction is Windows' directory link (like a symlink; no admin needed). `pwsh ./scripts/link.ps1 -Unlink` removes
-   the junctions and leaves the repo files alone. Junctions point at *this* checkout: to try another branch or a git
-   worktree in game, check it out here, or unlink and run that worktree's `link.ps1`.
+   the junctions and leaves the repo files alone. The junctions point at this checkout, so keep it on `develop`
+   (`git switch develop`): what's on `develop` is what the game runs.
 5. **In game:** install [BugSack](https://www.curseforge.com/wow/addons/bugsack) and
    [BugGrabber](https://www.curseforge.com/wow/addons/bug-grabber) to see and keep Lua errors.
 
 ### Everyday loop
 
-1. Edit the code.
-2. Run the same Lua checks as CI, from Git Bash: `scripts/test.sh`. Extra arguments go to busted
+`develop` collects finished work and is what the game runs. Each feature gets its own branch in its own
+[git worktree](https://git-scm.com/docs/git-worktree) (a second working folder of the same repo), so the game
+checkout never changes branch.
+
+1. Start a feature (Git Bash, in the repo folder):
+   ```bash
+   git worktree add ../forever-addons-<topic> -b feat/<topic> develop
+   cd ../forever-addons-<topic> && npm install    # installs the commit hook in the new folder
+   ```
+2. Edit and commit there (signed, [Conventional Commits](#commits)).
+3. Run the same Lua checks as CI: `scripts/test.sh`. Extra arguments go to busted
    (`scripts/test.sh --filter Snapshot`).
-3. In game: `/reload`. A **new file or a changed `.toc` needs a full client restart**; WoW only scans the AddOns
+4. Bring it into the game: `git rebase develop` in the worktree, then from the main checkout
+   `git merge --ff-only feat/<topic>`.
+5. In game: `/reload`. A **new file or a changed `.toc` needs a full client restart**; WoW only scans the AddOns
    folder at startup.
+6. When the feature is done: `git worktree remove ../forever-addons-<topic>` and `git branch -d feat/<topic>`.
 
 Code shared by several addons lives in **Ordaen Core** (`addons/OrdaenCore/`), which every addon lists in
 `## Dependencies`. Users can update the Core and the addons separately, so the Core's API only grows: never change

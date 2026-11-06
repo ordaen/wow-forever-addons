@@ -7,7 +7,7 @@ Developed on Windows (the user normally works on Linux — explain Windows speci
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
 - AddOns folder: `C:\Program Files (x86)\World of Warcraft\_forever_\Interface\AddOns\`
-- Each addon in `addons/<Name>/` gets a directory junction in the AddOns folder via `scripts/link.ps1` (no admin needed), so edits show after `/reload` in game.
+- Each addon in `addons/<Name>/` gets a directory junction in the AddOns folder via `scripts/link.ps1` (no admin needed), so edits show after `/reload` in game. The junctions point at the main checkout `C:\Users\f3oal\code\forever-addons`, which stays on `develop` (see Branches).
 
 ## Decisions so far
 
@@ -16,6 +16,11 @@ Developed on Windows (the user normally works on Linux — explain Windows speci
 - Commit identity (global git config): `David Iunevich <1751835+f3oall@users.noreply.github.com>`. GitHub user `f3oall`.
 - Signed commits are required on every branch (ordaen org ruleset). Commits are SSH-signed with `~/.ssh/id_ed25519` (global `commit.gpgsign`/`tag.gpgsign`). Commits GitHub creates (squash merges, release-please via the App, Dependabot) are signed by GitHub.
 - `main` ruleset: PR-only, squash-only, linear history, required checks `Conventional commits`, `Lint & test (Lua)`, `Package (dry run)`; repo admins may bypass only when merging a PR. Work on a branch and open a PR.
+- **Branches (local-only until the user says otherwise: no push, PR or merge on GitHub):**
+  - `develop` is the integration branch and the **game checkout**: the main checkout `C:\Users\f3oal\code\forever-addons` stays on `develop`, and the game loads it through the junctions. Never switch that checkout to another branch.
+  - Do feature work on a branch off `develop` in its own worktree: `git worktree add ../forever-addons-<topic> -b feat/<topic> develop`, then `npm install` there (installs the commit hook).
+  - When `scripts/test.sh` is green, rebase onto `develop` and run `git merge --ff-only feat/<topic>` from the main checkout. That keeps the signed conventional commits. Then the user does `/reload`, or restarts the client if files were added or a `.toc` changed.
+  - Revisit at release: `main` is squash-only, so one develop→main PR gives each addon a single changelog line, and a commit touching several addons shows in each addon's changelog. Prefer one PR per addon or feature with a player-facing title. The merged rename PR #4 and release PR #5 need a `BEGIN_COMMIT_OVERRIDE` block so the rename line stays out of the first changelog.
 - Line endings: LF everywhere via `.gitattributes`. On Windows, set the exec bit with `git add --chmod=+x scripts/package.sh`.
 - Commits: Conventional Commits via commitlint (`commitlint.config.mjs`; scope = addon folder name or repo scope), enforced by husky `commit-msg` hook and in CI (PR title + PR commits).
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `## Version` in the TOC via `x-release-please-start-version` block markers — never edit it by hand.

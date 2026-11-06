@@ -31,7 +31,7 @@ Tell the user exactly what to do, with the addon's own slash command (`/om` for 
 4. `/om dump` if layout or state matters; Print Screen if it's visual
 5. `/reload` (SavedVariables are written to disk only on reload or logout), then tell Claude "check"
 
-The game loads addons through junctions to the main checkout `C:\Users\f3oal\code\forever-addons`. If the code is on another worktree or branch, tell the user to check it out there, or relink: `pwsh ./scripts/link.ps1 -Unlink` in the main checkout, then `pwsh ./scripts/link.ps1` in the worktree.
+The game runs whatever is on `develop` in the main checkout `C:\Users\f3oal\code\forever-addons`, through the AddOns junctions. Before handing over, get the fix there: commit it on the feature branch, rebase onto `develop`, then run `git merge --ff-only <branch>` from the main checkout. Never switch the main checkout to another branch or re-point the junctions. If the change adds a new addon folder, run `pwsh ./scripts/link.ps1` in the main checkout and have the user restart the client.
 
 ## 3. Read the results in this order
 
