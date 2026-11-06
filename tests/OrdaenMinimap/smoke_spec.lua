@@ -474,6 +474,14 @@ describe("OrdaenMinimap smoke", function()
 			assert.equals(0, drawerCalls(blizzard))
 		end)
 
+		it("never collects our own frames, like the Ordaen Dev button on the minimap edge", function()
+			local dev = addButton("OrdaenDevButton")
+			local devLike = addButton("OrdaenDevMinimapButton") -- would match a pattern if renamed
+			login()
+			assert.is_nil(dev.calls.SetParent)
+			assert.is_nil(devLike.calls.SetParent)
+		end)
+
 		it("keeps collected buttons from moving themselves back onto the map", function()
 			local bio = addButton("AutoBiographer_MinimapButton")
 			login()

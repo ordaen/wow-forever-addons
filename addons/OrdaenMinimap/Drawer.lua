@@ -165,6 +165,8 @@ local function isCollectable(frame)
 	if issecurevariable(_G, name) then
 		return false
 	end
+	-- Our own frames stay where they are, e.g. the Ordaen Dev gear button (OrdaenDevButton), which dev
+	-- mode deliberately keeps on the minimap edge.
 	return not name:find("^Ordaen")
 end
 
