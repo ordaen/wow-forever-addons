@@ -19,9 +19,30 @@
 -- plain arrays (no tables or closures per event), nothing runs per frame.
 local _, ns = ...
 
+---@class OrdaenCoreAPI
 local Core = ns.Core
 local L = ns.L
 
+--- The framework object of one addon (OrdaenCore.NewAddon). Methods are called with `:` (lua-language-server
+--- reports a `.` call as a type error: the first argument would land in self).
+---@class OrdaenAddon
+---@field name string
+---@field ns table the addon's namespace
+---@field spec table the NewAddon spec
+---@field L table<string, string> the addon's locale (ns.L)
+---@field Debug OrdaenDebug the addon's debug kit
+---@field db table|nil its SavedVariables, after OnLoad
+---@field charDb table|nil its per-character SavedVariables, after OnLoad
+---@field slash string|nil its main slash command
+---@field loaded boolean
+---@field private _onLoad function[]|nil
+---@field private _onLogin function[]|nil
+---@field private _onReset function[]
+---@field private _commands table<string, fun(rest: string)>
+---@field private _help string[]
+---@field private _wrapped table<function, function>
+---@field private _printParts string[]
+---@field _settingsCategory table|nil set by Settings.lua
 local Addon = {}
 Addon.__index = Addon
 
@@ -128,6 +149,7 @@ function Addon:Print(...)
 end
 
 --- Run `fn(db, charDb)` when the addon's SavedVariables are loaded (its ADDON_LOADED).
+---@param fn fun(db: table, charDb: table|nil) db is nil only for an addon that declares no `db`
 function Addon:OnLoad(fn)
 	if self.loaded then
 		call(fn, self.db, self.charDb)
@@ -137,6 +159,7 @@ function Addon:OnLoad(fn)
 end
 
 --- Run `fn()` at PLAYER_LOGIN, or right away if the player is already in the world (load-on-demand addons).
+---@param fn fun()
 function Addon:OnLogin(fn)
 	if self.loaded and loggedIn then
 		call(fn)
@@ -146,6 +169,8 @@ function Addon:OnLogin(fn)
 end
 
 --- Run `fn(event, ...)` on `event` until Off. Register only while a feature needs it.
+---@param event WowEvent
+---@param fn fun(event: string, ...)
 function Addon:On(event, fn)
 	local wrapped = self._wrapped[fn] or self.Debug:Wrap(fn)
 	self._wrapped[fn] = wrapped
@@ -153,6 +178,8 @@ function Addon:On(event, fn)
 end
 
 --- Stop running `fn` on `event`.
+---@param event WowEvent
+---@param fn fun(event: string, ...) the function given to On
 function Addon:Off(event, fn)
 	local wrapped = self._wrapped[fn]
 	if wrapped then
@@ -168,7 +195,8 @@ local function onCombatEnd()
 end
 
 --- Run `fn()` now, or when combat ends if protected frames are locked.
-function Addon.AfterCombat(_, fn)
+---@param fn fun()
+function Addon:AfterCombat(fn)
 	if not InCombatLockdown() then
 		call(fn)
 		return
@@ -182,6 +210,9 @@ end
 
 --- Add a slash subcommand: `/<slash> <name> <rest>` runs `fn(rest)`. `help` is a locale key with one %s (the
 --- slash command), shown by `/<slash> help`.
+---@param name string
+---@param fn fun(rest: string)
+---@param help string|nil locale key
 function Addon:Command(name, fn, help)
 	self._commands[name:lower()] = fn
 	if help then
@@ -190,6 +221,7 @@ function Addon:Command(name, fn, help)
 end
 
 --- Run `fn()` after `/<slash> reset` restored the default settings.
+---@param fn fun()
 function Addon:OnReset(fn)
 	self._onReset[#self._onReset + 1] = fn
 end
@@ -357,7 +389,7 @@ Core._addons = {}
 ---@param addonName string the first value of `...`
 ---@param addonNs table the addon's namespace (second value of `...`)
 ---@param spec table see the top of this file
----@return table|nil addon nil when this Ordaen Core is too old for the addon (the player was told)
+---@return OrdaenAddon|nil addon nil when this Ordaen Core is too old for the addon (the player was told)
 function Core.NewAddon(addonName, addonNs, spec)
 	if not Core.IsCompatible(addonName) then
 		return nil

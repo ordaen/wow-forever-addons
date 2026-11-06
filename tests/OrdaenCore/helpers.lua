@@ -202,10 +202,38 @@ function M.loadAddon(path, ns)
 	return ns
 end
 
---- Load OrdaenCore the way WoW does; returns the Core table. (The dev-mode addon OrdaenCore_Debug and its
---- specs live in the private wow-dev-tools repo, which has its own copy of these helpers.)
+--- A strict debug kit around the Core's stand-in, for specs: a method called with `.` (wrong self) or a method the
+--- kit doesn't have fails the spec instead of passing quietly. Lenient fakes once hid exactly that bug.
+---@param standIn table the kit to check calls against (Core.NewDebug's)
+---@return table kit
+function M.strictDebug(standIn)
+	local kit = {}
+	return setmetatable(kit, {
+		__index = function(_, key)
+			local method = standIn[key]
+			if type(method) ~= "function" then
+				error("the debug kit has no method " .. tostring(key), 2)
+			end
+			return function(self, ...)
+				if self ~= kit then
+					error("debug kit method " .. key .. " called with '.' (use ':')", 2)
+				end
+				return method(standIn, ...)
+			end
+		end,
+	})
+end
+
+--- Load OrdaenCore the way WoW does; returns the Core table. Its debug kit is the strict one (M.strictDebug),
+--- shared by every addon like the real stand-in. (The dev-mode addon OrdaenCore_Debug and its specs live in the
+--- private wow-dev-tools repo, which has its own copy of these helpers.)
 function M.loadCore()
-	return M.loadAddon("OrdaenCore").Core
+	local Core = M.loadAddon("OrdaenCore").Core
+	local kit = M.strictDebug(Core.NewDebug("OrdaenCore"))
+	Core.NewDebug = function()
+		return kit
+	end
+	return Core
 end
 
 return M

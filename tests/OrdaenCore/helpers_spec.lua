@@ -27,3 +27,34 @@ describe("helpers.stubObject", function()
 		end
 	end)
 end)
+
+describe("helpers.loadCore's debug kit", function()
+	local Core
+
+	before_each(function()
+		helpers.stubGlobals()
+		Core = helpers.loadCore()
+	end)
+
+	it("is one strict kit for every addon", function()
+		assert.equals(Core.NewDebug("A"), Core.NewDebug("B"))
+	end)
+
+	it("works like the stand-in when called with ':'", function()
+		local Debug = Core.NewDebug("A")
+		local fn = function() end
+		assert.equals(fn, Debug:Wrap(fn))
+		assert.is_false(Debug:TraceEnabled())
+		Debug:Logf("%d", 1)
+	end)
+
+	it("fails a '.' call and an unknown method", function()
+		local Debug = Core.NewDebug("A")
+		assert.has_error(function()
+			Debug.Logf("%d", 1)
+		end, "debug kit method Logf called with '.' (use ':')")
+		assert.has_error(function()
+			Debug:Nope()
+		end, "the debug kit has no method Nope")
+	end)
+end)

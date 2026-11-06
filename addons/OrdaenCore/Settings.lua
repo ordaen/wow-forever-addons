@@ -14,6 +14,7 @@
 -- Each key needs a value in spec.defaults. Labels and tooltips are locale keys of the addon.
 local _, ns = ...
 
+---@class OrdaenCoreAPI
 local Core = ns.Core
 local SettingsPage = {}
 Core.Settings = SettingsPage

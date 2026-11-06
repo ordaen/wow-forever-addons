@@ -7,6 +7,9 @@
 -- NewAddon checks it with OrdaenCore.IsCompatible.
 local addonName, ns = ...
 
+--- The global OrdaenCore. Other Core files add to it (each declares the class on its `ns.Core` local).
+---@class OrdaenCoreAPI
+---@field UI table OrdaenCore.UI, the UI framework's entry point (UI.lua)
 local Core = {}
 ns.Core = Core
 OrdaenCore = Core
@@ -75,53 +78,105 @@ end
 -- addon these no-ops run.
 Core.debugMode = false
 
-local function noop() end
+local NO_LINES = {} -- shared and never filled; callers only iterate it
 
-local function no()
+-- Real `:` methods with typed parameters (not shared no-op functions), so lua-language-server reports a `.` call on
+-- the kit as a type error, as forever-lint's FL6 does. Unused arguments are fine: the stand-in has no state.
+-- luacheck: push ignore 212
+
+--- The per-addon debug kit (this stand-in, or the real one from OrdaenCore_Debug).
+---@class OrdaenDebug
+local StandIn = {}
+
+---@param db table the addon's SavedVariables (dev settings live in OrdaenCoreDebugDB, not here)
+---@param opts { slash: string?, print: fun(...)?, dump: fun(): table }|nil
+function StandIn:Init(db, opts) end
+
+--- Info level.
+---@param ... any
+function StandIn:Log(...) end
+
+---@param fmt string
+---@param ... any
+function StandIn:Logf(fmt, ...) end
+
+--- Warn level.
+---@param ... any
+function StandIn:Warn(...) end
+
+---@param fmt string
+---@param ... any
+function StandIn:Warnf(fmt, ...) end
+
+--- Debug level.
+---@param ... any
+function StandIn:Verbose(...) end
+
+---@param fmt string
+---@param ... any
+function StandIn:Verbosef(fmt, ...) end
+
+function StandIn:Dump() end
+
+--- For the companion: what happened ("event", "enter", "click", "slash", "setting"...) and its detail.
+---@param what string
+---@param detail any
+function StandIn:Trace(what, detail) end
+
+--- A frame whose OnEnter/OnLeave/OnClick/OnShow/OnHide the dev addon may trace.
+---@param frame table
+function StandIn:TraceFrame(frame) end
+
+---@return boolean
+function StandIn:IsEnabled()
 	return false
 end
 
-local NO_LINES = {} -- shared and never filled; callers only iterate it
+---@return boolean
+function StandIn:TraceEnabled()
+	return false
+end
 
----@class OrdaenDebug
-local StandIn = {
-	Init = noop, -- Init(db, { slash, print, dump })
-	Log = noop, -- info level
-	Logf = noop,
-	Warn = noop, -- warn level
-	Warnf = noop,
-	Verbose = noop, -- debug level
-	Verbosef = noop,
-	Dump = noop,
-	Trace = noop, -- Trace(what, detail): "event", "enter", "click", "slash", "setting"...
-	TraceFrame = noop, -- a frame whose OnEnter/OnLeave/OnClick/OnShow/OnHide the dev addon may trace
-	IsEnabled = no,
-	TraceEnabled = no,
-}
-
--- Methods (called with `:`); the stand-in has no state, so they ignore self.
-function StandIn.Wrap(_, fn)
+--- `fn` itself here (errors take WoW's normal path); the real kit records errors.
+---@generic F
+---@param fn F
+---@return F
+function StandIn:Wrap(fn)
 	return fn
 end
 
-function StandIn.Snapshot(_, value)
+---@generic T
+---@param value T
+---@param depth integer|nil
+---@return T
+function StandIn:Snapshot(value, depth)
 	return value
 end
 
-function StandIn.Call(_, fn, ...)
+---@param fn function
+---@param ... any
+---@return any ...
+function StandIn:Call(fn, ...)
 	return fn(...)
 end
 
-function StandIn.HelpLines()
+---@return string[]
+function StandIn:HelpLines()
 	return NO_LINES
 end
 
-StandIn.HandleSlash = no
+---@param msg string|nil
+---@return boolean handled
+function StandIn:HandleSlash(msg)
+	return false
+end
+-- luacheck: pop
 
 local standIn = setmetatable({}, { __index = StandIn })
 
 --- The debug kit for one addon: the shared no-op stand-in unless the dev addon replaced this.
 ---@return OrdaenDebug
-function Core.NewDebug()
+---@param name string|nil the addon the kit is for (the real kit keeps per-addon logs)
+function Core.NewDebug(name) -- luacheck: ignore 212
 	return standIn
 end

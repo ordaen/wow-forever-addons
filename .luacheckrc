@@ -1,6 +1,8 @@
 -- luacheck config. WoW runs Lua 5.1.
 std = "lua51"
 max_line_length = 120
+-- Object style (`function Obj:Method()`): a method may ignore its implicit self.
+self = false
 exclude_files = { "dist/", "node_modules/", ".release/", ".lua/", ".luarocks/", ".install/", "api/" }
 
 -- Globals the addons are allowed to define (or add entries to).
