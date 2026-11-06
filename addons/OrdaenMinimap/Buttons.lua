@@ -26,8 +26,10 @@ local RETRY_DELAY = 5 -- some Blizzard buttons are created after login
 -- deeper than the dump goes (their mixins exist), so they are looked up and skipped when missing.
 local BLIZZARD = {
 	{ id = "tracking", names = { "MinimapCluster.Tracking" }, skin = true },
-	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame" } },
-	{ id = "craftingOrder", names = { "MinimapCluster.IndicatorFrame.CraftingOrderFrame" } },
+	-- keepParent: these call self:GetParent():Layout() on their events (Blizzard_Minimap Minimap.lua:520), so
+	-- they must stay children of IndicatorFrame. We only anchor them to the minimap.
+	{ id = "mail", names = { "MinimapCluster.IndicatorFrame.MailFrame" }, keepParent = true },
+	{ id = "craftingOrder", names = { "MinimapCluster.IndicatorFrame.CraftingOrderFrame" }, keepParent = true },
 	{ id = "landing", names = { "ExpansionLandingPageMinimapButton" } },
 	-- The Ordaen Dev gear button (dev mode, wow-dev-tools). While `ordaenPlacedBy` is set, it leaves its
 	-- position and dragging to us (agreed with the dev-tools session); clicks and tooltip stay its own.
@@ -54,17 +56,19 @@ local function place(item)
 		return
 	end
 	local frame = item.frame
-	-- Offsets are in the button's own units; it is a child of the minimap, so only its own scale differs.
-	local scale = frame:GetScale() or 1
-	if scale <= 0 then
-		scale = 1
+	-- The ring is computed in minimap units; anchor offsets are in the button's own units. The two differ
+	-- by the ratio of effective scales (the button's own scale, or a different parent's).
+	local mapScale = Minimap:GetEffectiveScale() or 1
+	local k = mapScale / (frame:GetEffectiveScale() or mapScale) -- button units per minimap unit
+	if k <= 0 then
+		k = 1
 	end
-	local half = (frame:GetWidth() or SIZE) * scale / 2
+	local half = (frame:GetWidth() or SIZE) / k / 2
 	local x, y = ns.RingOffset(ns.ButtonAngle(db.buttonAngles, item.id),
 		(Minimap:GetWidth() or 140) / 2, (Minimap:GetHeight() or 140) / 2, outset(), half)
 	applying = true
 	frame:ClearAllPoints()
-	frame:SetPoint("CENTER", Minimap, "CENTER", x / scale, y / scale)
+	frame:SetPoint("CENTER", Minimap, "CENTER", x * k, y * k)
 	applying = false
 end
 
@@ -260,7 +264,9 @@ local function adopt(entry)
 		frame.ordaenPlacedBy = "OrdaenMinimap"
 	end
 	applying = true
-	frame:SetParent(Minimap)
+	if not entry.keepParent then
+		frame:SetParent(Minimap)
+	end
 	local dragFrame
 	if entry.skin then
 		dragFrame = skinTracking(frame)
@@ -272,7 +278,9 @@ local function adopt(entry)
 	target:HookScript("OnDragStart", startDrag)
 	target:HookScript("OnDragStop", stopDrag)
 	hooksecurefunc(frame, "SetPoint", onForeignSetPoint)
-	hooksecurefunc(frame, "SetParent", onForeignSetParent)
+	if not entry.keepParent then
+		hooksecurefunc(frame, "SetParent", onForeignSetParent)
+	end
 	place(items[entry.id])
 	ns.Debug.Logf("buttons: adopted %s (%s)", entry.id, name)
 end

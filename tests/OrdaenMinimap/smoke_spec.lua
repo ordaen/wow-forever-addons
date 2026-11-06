@@ -514,11 +514,15 @@ describe("OrdaenMinimap smoke", function()
 			rawset(_G, "OrdaenDevButton", nil)
 		end)
 
-		it("moves Blizzard's mail indicator off the map too", function()
+		it("moves Blizzard's mail indicator off the map but keeps its parent", function()
 			login()
 			local mail = MinimapCluster.IndicatorFrame.MailFrame
-			assert.same({ Minimap }, mail.calls.SetParent[1])
-			assert.is_true(lastPoint(mail)[4] > 70) -- right side by default
+			-- Blizzard's mail code calls self:GetParent():Layout() (Minimap.lua:520): re-parenting it onto the
+			-- minimap, which has no Layout, errored on every mail update.
+			assert.is_nil(mail.calls.SetParent)
+			local point = lastPoint(mail)
+			assert.equals(Minimap, point[2])
+			assert.is_true(point[4] > 70) -- right side by default
 		end)
 
 		it("places the drawer button on the ring and forgets angles on /om reset", function()
