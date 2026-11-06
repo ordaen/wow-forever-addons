@@ -1006,6 +1006,36 @@ describe("OrdaenCore.UI", function()
 			assert.equals("tab", dress.look.block.style)
 		end)
 
+		-- A Blizzard StatusBar (a damage meter's bar) with its own texture: only methods the dump lists.
+		local function blizzardBar()
+			local bar = fakeFrame("MeterBar", log, _G.UIParent)
+			local texture = fakeTexture("ARTWORK")
+			texture:SetTexture("Interface\\Blizzard\\MeterBar")
+			function texture:GetTexture()
+				return self.file
+			end
+			function bar:GetStatusBarTexture()
+				return texture
+			end
+			bar.barTexture = texture.file
+			return bar
+		end
+
+		it("puts the theme's bar texture on Blizzard's bars with UI.DressBar and keeps it there", function()
+			local bar = blizzardBar()
+			local dress = UI.DressBar(bar)
+			assert.equals("Interface\\TargetingFrame\\UI-StatusBar", bar.barTexture) -- bar.texture "blizzard"
+			bar:SetStatusBarTexture("Interface\\Blizzard\\Thin") -- Blizzard's style change
+			assert.equals("Interface\\TargetingFrame\\UI-StatusBar", bar.barTexture)
+			dress:SetAsset("flat") -- the addon's setting
+			assert.equals("Interface\\Buttons\\WHITE8X8", bar.barTexture)
+			assert.equals(dress, UI.DressBar(bar, "flat"), "once per bar")
+			dress:Undress()
+			assert.equals("Interface\\Blizzard\\MeterBar", bar.barTexture)
+			bar:SetStatusBarTexture("Interface\\Blizzard\\Thin")
+			assert.equals("Interface\\Blizzard\\Thin", bar.barTexture, "undressed: Blizzard's again")
+		end)
+
 		it("put the theme's font on Blizzard's text and keep it there with UI.DressFont", function()
 			local frame = fakeFrame("Tab", log, _G.UIParent)
 			local label = frame:CreateFontString()

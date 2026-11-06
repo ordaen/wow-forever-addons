@@ -361,6 +361,20 @@ function UI.DressFont(target, style)
 	end
 end
 
+--- Put the theme's bar texture (token bar.texture), or the bar asset `asset` names (an addon's look setting that
+--- follows that token), on Blizzard's StatusBar, and keep it there when Blizzard sets its texture again; a theme
+--- change re-applies it. Only the texture: value, colour and text stay Blizzard's. Returns the bar's dress
+--- (:Apply(), :SetAsset(id), :Undress() gives Blizzard's texture back), nil when the framework can't load. Loads it.
+---
+---   local dress = UI.DressBar(entry:GetStatusBar(), A:Get("barTexture"))
+---@param bar table a StatusBar
+---@param asset string|nil
+---@return OrdaenUIBarDress|nil
+function UI.DressBar(bar, asset)
+	local f = framework()
+	return f and f.DressBar(bar, asset)
+end
+
 --- The last tooltip as measured and drawn, for dev-mode dumps (false if the framework isn't loaded). Not for
 --- regular addon code: it builds tables.
 function UI._Describe()

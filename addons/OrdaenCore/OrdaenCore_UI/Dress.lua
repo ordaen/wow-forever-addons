@@ -405,4 +405,87 @@ function Dress.RefreshFonts()
 	end
 end
 
+-- Bars ----------------------------------------------------------------------------------------------------------------
+-- A Blizzard StatusBar (a damage meter's bars) with the theme's bar texture, or the bar asset an addon's look setting
+-- names. Blizzard setting its texture again (a style change) gets ours back; a theme change re-applies every one
+-- (Dress.RefreshBars). Only the texture: the bar's value, colour and text stay Blizzard's.
+
+---@class OrdaenUIBarDress
+---@field bar StatusBar Blizzard's bar
+---@field asset string|nil the bar asset id to use; nil: the theme's (token bar.texture)
+---@field original string|number|nil Blizzard's texture before the first change
+---@field dressed boolean
+local BarDress = {}
+local BarDressMeta = { __index = BarDress }
+
+local barDresses = setmetatable({}, { __mode = "k" }) -- StatusBar -> its dress
+local applyingBar = false
+
+local function barFile(asset)
+	local store = OrdaenCore._SettingsStore
+	local found = asset and store and store.Asset("bar", asset)
+	return found and found.file or Theme.BarTexture()
+end
+
+local function keepBar(bar)
+	local dress = barDresses[bar]
+	if dress and dress.dressed and not applyingBar then
+		dress:Apply()
+	end
+end
+
+--- Put the texture on the bar (again).
+function BarDress:Apply()
+	self.dressed = true
+	applyingBar = true
+	self.bar:SetStatusBarTexture(barFile(self.asset))
+	applyingBar = false
+end
+
+--- Use another bar asset (the addon's setting changed); nil: the theme's.
+---@param asset string|nil
+function BarDress:SetAsset(asset)
+	self.asset = asset
+	if self.dressed then
+		self:Apply()
+	end
+end
+
+--- Give the bar Blizzard's texture back.
+function BarDress:Undress()
+	self.dressed = false
+	if self.original then
+		applyingBar = true
+		self.bar:SetStatusBarTexture(self.original)
+		applyingBar = false
+	end
+end
+
+--- Dress a Blizzard StatusBar (once per bar: dressing it again returns the same dress, with `asset` set).
+---@param bar StatusBar
+---@param asset string|nil a bar asset id (an addon's look setting); nil: the theme's
+---@return OrdaenUIBarDress
+function Dress.Bar(bar, asset)
+	local dress = barDresses[bar]
+	if not dress then
+		local texture = bar:GetStatusBarTexture()
+		dress = setmetatable({ bar = bar, original = texture and texture:GetTexture(), dressed = false },
+			BarDressMeta)
+		barDresses[bar] = dress
+		hooksecurefunc(bar, "SetStatusBarTexture", keepBar)
+	end
+	dress.asset = asset
+	dress:Apply()
+	return dress
+end
+
+--- Re-apply every dressed bar (the theme changed: Tooltip.Restyle).
+function Dress.RefreshBars()
+	for _, dress in pairs(barDresses) do
+		if dress.dressed then
+			dress:Apply()
+		end
+	end
+end
+
 ns.Dress = Dress

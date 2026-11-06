@@ -264,6 +264,22 @@ Puts the theme's font and the global text size of text style `style` (default `b
 FontString, an EditBox or a chat window. Blizzard's font flags stay. When Blizzard sets the font again (the chat
 font size menu), ours comes back, and a theme or text size change re-applies it. Addons never call `SetFont`.
 
+
+### UI.DressBar(bar, asset)
+
+Puts the theme's bar texture (token `bar.texture`) on a Blizzard `StatusBar`, or the bar asset `asset` names (an
+addon's look setting that follows `bar.texture`, e.g. `"barTexture": { "type": "asset", "of": "bar", "default":
+{ "theme": "bar.texture" } }`). Blizzard setting the texture again (a style change) gets ours back, and a theme change
+re-applies it. Only the texture changes: the bar's value, colour and text stay Blizzard's (a damage meter's numbers
+are secret in combat, so they must). One hook per bar; dressing a bar again returns the same dress.
+
+```lua
+local dress = UI.DressBar(entry:GetStatusBar(), A:Get("barTexture"))
+dress:SetAsset("flat")  -- the setting changed
+dress:Undress()         -- Blizzard's texture back
+```
+
+Returns nil when the framework can't load. Loads the framework.
 ### d:SetIcon(icon, atlas)
 
 Changes the icon.
