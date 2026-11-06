@@ -934,28 +934,53 @@ describe("OrdaenMinimap smoke", function()
 			rawset(_G, "Pawn_OnCompartmentClick", nil)
 		end)
 
-		it("dresses collected buttons as squares: only their icon, cropped, in our slot look", function()
-			local border = stubObject("border")
-			local icon = stubObject("icon", {
+		-- A texture of another addon's button: its file, and whether it's a texture.
+		local function texture(file)
+			return stubObject("texture", {
 				IsObjectType = function(_, kind)
 					return kind == "Texture"
 				end,
-				GetNumMaskTextures = function()
-					return 0
+				GetTexture = function()
+					return file
 				end,
 			})
-			local button = addButton("LibDBIcon10_Bartender4", { libdbicon = "Bartender4" })
-			rawset(button, "icon", icon)
-			rawset(button, "GetRegions", function()
-				return border, icon
+		end
+
+		it("draws collected buttons as our slots with their icon; theirs stay on top, invisible", function()
+			-- LibDBIcon (fixed at MEDIUM level 8: was dimmed under our panel) keeps its icon in .icon.
+			local bartender = addButton("LibDBIcon10_Bartender4", { libdbicon = "Bartender4" })
+			rawset(bartender, "icon", texture("Interface\\Icons\\INV_Drink_05"))
+			-- AutoBiographer keeps its icon as a named texture on the background layer, next to a round border.
+			local auto = addButton("AutoBiographer_MinimapButton")
+			local border = texture("Interface\\Minimap\\MiniMap-TrackingBorder")
+			rawset(auto, "GetRegions", function()
+				return border, texture("Interface\\Icons\\inv_misc_note_05")
 			end)
 			login()
-			assert.same({ 0 }, border.calls.SetAlpha[1]) -- its round border is gone
-			assert.is_nil(icon.calls.SetAlpha) -- the icon stays
-			assert.same({ 22, 22 }, icon.calls.SetSize[1])
-			assert.same({ 0.08, 0.92, 0.08, 0.92 }, icon.calls.SetTexCoord[1])
-			assert.same({ 28, 28 }, button.calls.SetSize[1])
-			assert.is_function(button.scripts.OnEnter) -- our hover highlight
+			local icons = ns.Drawer.Describe().icons
+			assert.equals("Interface\\Icons\\INV_Drink_05", icons.LibDBIcon10_Bartender4)
+			assert.equals("Interface\\Icons\\inv_misc_note_05", icons.AutoBiographer_MinimapButton)
+			for _, button in ipairs({ bartender, auto }) do
+				assert.same({ 0 }, button.calls.SetAlpha[#button.calls.SetAlpha]) -- invisible, still clickable
+				assert.is_function(button.scripts.OnEnter) -- lights our slot up
+			end
+			-- Each one sits on its own slot, so the click lands on it.
+			local main = frameNamed("OrdaenMinimapDrawerButton")
+			main.scripts.OnClick(main, "LeftButton") -- open the drawer: lays it out
+			for _, button in ipairs({ bartender, auto }) do
+				local point = button.calls.SetPoint and button.calls.SetPoint[#button.calls.SetPoint]
+				assert.truthy(point, "placed")
+				assert.are_not.equal(frameNamed("OrdaenMinimapDrawer"), point[2]) -- on a slot, not on the panel
+			end
+			-- An addon showing its button again (LibDBIcon on hover) doesn't make it visible.
+			bartender:SetAlpha(1)
+			assert.same({ 0 }, bartender.calls.SetAlpha[#bartender.calls.SetAlpha])
+		end)
+
+		it("leaves a button with no recognisable icon as it is, and says so in the log", function()
+			addButton("MysteryMinimapButton")
+			login()
+			assert.is_false(ns.Drawer.Describe().icons.MysteryMinimapButton)
 		end)
 
 		it("hides Blizzard's compartment button by default and shows it when the option is off", function()

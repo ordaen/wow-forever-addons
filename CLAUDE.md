@@ -72,6 +72,8 @@ would have caught it is half a fix: say which check now catches it, or add one.
    another frame's script in between; catch errors with `xpcall`. `ReloadUI` / `C_UI.Reload` are stricter on
    Forever: blocked from any addon code, even directly in a click (the conflict dialog, 2026-11-06). Reload with a
    `UI.Confirm` button's `macro = "/reload"` (a secure overlay runs it), or tell the player to type `/reload`.
+   A secure button acts only on the press the player's `ActionButtonUseKeyDown` setting names (key down by
+   default): register exactly that half (`RegisterForClicks("LeftButtonDown")` or `"LeftButtonUp"`).
    forever-lint FL8 flags `ReloadUI` passed as a value (`AfterCombat(ReloadUI)`, `C_Timer.After(x, ReloadUI)`);
    specs can't see the rest (fakes have no "hardware event" or secure state), so a protected action gets an in-game
    check.

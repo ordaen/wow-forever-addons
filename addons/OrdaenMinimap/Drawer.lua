@@ -19,6 +19,8 @@ local FALLBACK_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 local db
 local started = false
 local mainButton, container
+local panel -- the drawer's look: a UI block in the theme's "panel" role, behind the slots
+local slotOf = {} -- collected button -> our slot (a UI button drawing its icon), see "Squares"
 local collected = {} -- list of {frame, name, source}
 local collectedSet = {}
 local originals = {} -- frame -> its class methods (SetPoint etc.), which our no-ops on the instance hide
@@ -50,8 +52,14 @@ local layoutQueued = false
 local function shownItems()
 	local items = {}
 	for _, c in ipairs(collected) do
+		local slot = slotOf[c.frame]
 		if c.frame:IsShown() then
-			items[#items + 1] = c.frame
+			items[#items + 1] = slot and slot.frame or c.frame
+			if slot then
+				slot:Show()
+			end
+		elseif slot then
+			slot:Hide()
 		end
 	end
 	for i = 1, #entries do
@@ -98,6 +106,17 @@ function Drawer.Layout()
 		local o = offsets[i]
 		place(frame, "CENTER", container, corner, sx * (PAD + SLOT / 2) + o[1], sy * (PAD + SLOT / 2) + o[2])
 	end
+	-- Each collected button, invisible, exactly over its slot: it still gets the clicks.
+	for _, c in ipairs(collected) do
+		local slot = slotOf[c.frame]
+		if slot and c.frame:IsShown() then
+			place(c.frame, "CENTER", slot.frame, "CENTER", 0, 0)
+		end
+	end
+	if panel then
+		panel.block.width, panel.block.height = container:GetWidth(), container:GetHeight()
+		panel:Refresh()
+	end
 end
 
 local function queueLayout()
@@ -109,15 +128,19 @@ local function queueLayout()
 end
 
 -- Squares ----------------------------------------------------------------------------------------
--- Every entry in the drawer looks the same (the user's decision): the addon's icon in our "slot" look, like the
--- compartment entries. A collected button keeps working as it is (its clicks, menus and tooltips are its
--- own); only its art changes: everything but the icon is made invisible, the icon is cropped and centred, and a
--- UI block under it gives the slot look and the hover highlight.
+-- Every entry in the drawer is one of our slots showing the addon's icon (the user's decision), like the compartment
+-- entries. A collected button stays as it is, but invisible (alpha 0) and exactly over its slot: its clicks, menus,
+-- dragging and tooltips stay its own, while its art (round borders, AutoBiographer's circle) and its frame level
+-- (LibDBIcon fixes its buttons at MEDIUM level 8, under our old drawer backdrop: dimmed, 2026-11-06) no longer show.
+-- Our copy of the icon follows theirs (a hook on their icon's SetTexture).
 
 local ICON_CROP = { 0.08, 0.92, 0.08, 0.92 } -- trims the border most icons have
-local slotOf = {} -- collected button -> its UI slot block
+local iconRegionOf = {} -- collected button -> its icon texture
+local buttonOfIcon = {} -- icon texture -> its button
+local zeroing = false
 
--- The button's icon: LibDBIcon keeps it in .icon, others in .Icon; else the first ARTWORK texture with a file.
+-- The button's icon texture: LibDBIcon keeps it in .icon, AddonFactory in .Icon; else any texture, on any layer,
+-- with a file from Interface\Icons (AutoBiographer keeps its icon as a named texture on the background layer).
 local function iconOf(button)
 	for _, field in ipairs({ "icon", "Icon" }) do
 		local region = rawget(button, field)
@@ -126,11 +149,43 @@ local function iconOf(button)
 		end
 	end
 	for _, region in ipairs({ button:GetRegions() }) do
-		if region:IsObjectType("Texture") and region:GetDrawLayer() == "ARTWORK" and region:GetTexture() then
-			return region
+		if region:IsObjectType("Texture") then
+			local file = region:GetTexture()
+			if type(file) == "string" and file:lower():find("interface[\\/]icons[\\/]") then
+				return region
+			end
 		end
 	end
 	return nil
+end
+
+local function showIcon(button)
+	local slot, region = slotOf[button], iconRegionOf[button]
+	if not (slot and region) then
+		return
+	end
+	local image = slot.block[1]
+	local atlas = region.GetAtlas and region:GetAtlas()
+	image.atlas = atlas or nil
+	image.image = (not atlas) and (region:GetTexture() or FALLBACK_ICON) or nil
+	slot:Refresh()
+end
+
+local function onIconChanged(region)
+	local button = buttonOfIcon[region]
+	if button then
+		showIcon(button)
+	end
+end
+
+-- Addons set their button's alpha (LibDBIcon on hover): it stays 0; only our slot is seen.
+local function keepInvisible(button)
+	if zeroing then
+		return
+	end
+	zeroing = true
+	button:SetAlpha(0)
+	zeroing = false
 end
 
 local function slotHighlightOn(button)
@@ -147,32 +202,31 @@ local function slotHighlightOff(button)
 	end
 end
 
-local function square(button)
-	local icon = iconOf(button)
-	if not icon then
-		return -- nothing we can recognise as its icon: it keeps its own look
+local function dress(button, name)
+	local region = iconOf(button)
+	if not region then
+		debug():Logf("drawer: %s keeps its own look (no icon texture found)", name)
+		return
 	end
-	for _, region in ipairs({ button:GetRegions() }) do
-		if region ~= icon then
-			region:SetAlpha(0)
-		end
+	local slot = UI.Button({
+		parent = container,
+		style = "slot",
+		width = SLOT - 4,
+		height = SLOT - 4,
+		level = container:GetFrameLevel() + 2,
+		{ image = FALLBACK_ICON, size = ENTRY_ICON, texCoord = ICON_CROP, align = "center" },
+	})
+	if not slot then
+		return -- OrdaenCore_UI can't load (the player was told)
 	end
-	for i = icon:GetNumMaskTextures(), 1, -1 do
-		icon:RemoveMaskTexture(icon:GetMaskTexture(i)) -- round masks
-	end
+	slotOf[button], iconRegionOf[button], buttonOfIcon[region] = slot, region, button
+	showIcon(button)
+	hooksecurefunc(region, "SetTexture", onIconChanged)
+	keepInvisible(button)
+	hooksecurefunc(button, "SetAlpha", keepInvisible)
 	button:SetSize(SLOT - 4, SLOT - 4)
-	icon:ClearAllPoints()
-	icon:SetPoint("CENTER", button, "CENTER")
-	icon:SetSize(ENTRY_ICON, ENTRY_ICON)
-	icon:SetTexCoord(ICON_CROP[1], ICON_CROP[2], ICON_CROP[3], ICON_CROP[4])
-	local slot = UI.Block({ parent = button, style = "slot", width = SLOT - 4, height = SLOT - 4 })
-	if slot then
-		slot:SetPoint("CENTER", button, "CENTER")
-		slot:SetFrameLevel(math.max(0, button:GetFrameLevel() - 1))
-		slotOf[button] = slot
-		button:HookScript("OnEnter", slotHighlightOn)
-		button:HookScript("OnLeave", slotHighlightOff)
-	end
+	button:HookScript("OnEnter", slotHighlightOn)
+	button:HookScript("OnLeave", slotHighlightOff)
 end
 
 -- Collecting minimap buttons --------------------------------------------------------------------
@@ -198,7 +252,7 @@ local function collect(button, source)
 		button:SetIgnoreParentScale(false)
 	end
 	button:SetFrameStrata(container:GetFrameStrata())
-	button:SetFrameLevel(container:GetFrameLevel() + 2)
+	button:SetFrameLevel(container:GetFrameLevel() + 4) -- above our slots (LibDBIcon keeps its own fixed level)
 	if button.HasScript and button:HasScript("OnDragStart") then
 		button:SetScript("OnDragStart", nil)
 		button:SetScript("OnDragStop", nil)
@@ -210,9 +264,9 @@ local function collect(button, source)
 	button.SetScale = noop
 	hooksecurefunc(button, "Show", queueLayout)
 	hooksecurefunc(button, "Hide", queueLayout)
-	square(button)
 
 	local name = button.GetName and button:GetName() or "?"
+	dress(button, name)
 	collected[#collected + 1] = { frame = button, name = name, source = source }
 	table.sort(collected, function(a, b)
 		return a.name:lower() < b.name:lower()
@@ -477,18 +531,17 @@ function Drawer.Toggle()
 end
 
 local function createFrames()
-	container = CreateFrame("Frame", "OrdaenMinimapDrawer", UIParent, "BackdropTemplate")
-	container:SetFrameStrata("MEDIUM")
+	-- On the LOW layer: the collected buttons (LibDBIcon fixes its own at MEDIUM) are always above the panel.
+	container = CreateFrame("Frame", "OrdaenMinimapDrawer", UIParent)
+	container:SetFrameStrata("LOW")
 	container:SetFrameLevel(20)
 	container:SetClampedToScreen(true)
-	container:SetBackdrop({
-		bgFile = "Interface\\Tooltips\\UI-Tooltip-Background",
-		edgeFile = "Interface\\Tooltips\\UI-Tooltip-Border",
-		edgeSize = 14,
-		insets = { left = 3, right = 3, top = 3, bottom = 3 },
-	})
-	container:SetBackdropColor(0, 0, 0, 0.85)
 	container:Hide()
+	panel = UI.Block({ parent = container, style = "panel", width = SLOT, height = SLOT })
+	if panel then
+		panel:SetPoint("TOPLEFT", container, "TOPLEFT", 0, 0)
+		panel:SetFrameLevel(container:GetFrameLevel())
+	end
 	table.insert(UISpecialFrames, "OrdaenMinimapDrawer") -- Escape closes it
 
 	-- Close after the mouse has been away from the drawer and its button for a moment.
@@ -606,9 +659,17 @@ function Drawer.Describe()
 	for _, item in ipairs(entries) do
 		entryTitles[#entryTitles + 1] = item.kind .. ": " .. tostring(item.entry.title or item.entry.text)
 	end
+	-- What each collected button's slot shows (its icon copied), or false when it kept its own look.
+	local icons = {}
+	for _, c in ipairs(collected) do
+		local slot = slotOf[c.frame]
+		local image = slot and slot.block[1]
+		icons[c.name] = image and (image.atlas or image.image) or false
+	end
 	return {
 		started = started,
 		collected = names,
+		icons = icons,
 		entries = entryTitles,
 		mainButton = mainButton and mainButton.frame or false,
 		container = container,

@@ -122,6 +122,19 @@ THEMES.ordaen = {
 			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
 		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
+		panel = { -- a box holding other things (the minimap drawer): the tooltip surface, no size of its own
+			padding = 0,
+			fill = {
+				top = { 0.05, 0.04, 0.05, 0.93, accent = 0.07 },
+				bottom = { 0.015, 0.012, 0.015, 0.93, accent = 0.025 },
+			},
+			edges = {
+				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
+				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+			},
+		},
 		dialog = {
 			padding = "xl", gap = "lg",
 			fill = {
@@ -182,6 +195,7 @@ THEMES.blizzard = {
 			highlight = BUTTON_HIGHLIGHT,
 		},
 		slot = { padding = 3, highlight = BUTTON_HIGHLIGHT },
+		panel = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.85 }, border = { 1, 1, 1, 1 } },
 		dialog = {
 			padding = "xl", gap = "lg", backdrop = DIALOG_ART, background = { 1, 1, 1, 1 }, border = { 1, 1, 1, 1 },
 		},
@@ -223,6 +237,7 @@ THEMES.minimal = {
 		button = { padding = 0, gap = 0 },
 		iconButton = { padding = 4, fill = GREY_FILL, edges = GREY_EDGES, highlight = { color = { 1, 1, 1, 0.1 } } },
 		slot = { padding = 3, highlight = { color = { 1, 1, 1, 0.12 } } },
+		panel = { padding = 0, fill = GREY_FILL, edges = GREY_EDGES },
 		dialog = { padding = "xl", gap = "lg", fill = GREY_FILL, edges = GREY_EDGES },
 		pushButton = {
 			padding = { "sm", "lg", "sm", "lg" },

@@ -13,6 +13,7 @@ How themes work: [Themes](/guide/themes).
 | `button` | clickable text without a surface | | | |
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight | tooltip backdrop, Blizzard highlight | flat fill, grey border |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only | Blizzard highlight | highlight only |
+| `panel` | a box holding other things (the minimap drawer) | tooltip surface | tooltip backdrop | flat fill, grey border |
 | `dialog` | confirmation dialogs (`UI.Confirm`) | like `tooltip`, padding `xl` | Blizzard's popup art | like `tooltip`, padding `xl` |
 | `pushButton` | a dialog's buttons | accent band, accent edges, highlight | tooltip backdrop on red, Blizzard highlight | grey fill and border |
 
