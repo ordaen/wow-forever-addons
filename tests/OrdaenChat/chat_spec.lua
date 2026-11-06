@@ -96,6 +96,9 @@ local function chatWindow(i, title, shown)
 	local w = stub("ChatFrame" .. i)
 	w.title, w.open = title, shown
 	w.messageTypeList, w.channelList = {}, {}
+	function w:GetID()
+		return i -- a chat window's number, as the game gives it
+	end
 	function w:RemoveAllMessageGroups()
 		self.messageTypeList = {}
 	end
@@ -235,14 +238,25 @@ describe("Ordaen Chat", function()
 			end,
 			ChatFrameUtil = {
 				AddMessageEventFilter = function(event, fn)
-					filters[event] = fn
+					filters[event] = filters[event] or {}
+					table.insert(filters[event], fn)
 				end,
 				RemoveMessageEventFilter = function(event, fn)
-					if filters[event] == fn then
+					local list = filters[event] or {}
+					for k, f in ipairs(list) do
+						if f == fn then
+							table.remove(list, k)
+							break
+						end
+					end
+					if #list == 0 then
 						filters[event] = nil
 					end
 				end,
 			},
+			FCF_SetWindowName = function(frame, name)
+				frame.title = name
+			end,
 			issecretvalue = function(v)
 				return secrets[v] == true
 			end,
@@ -396,13 +410,24 @@ describe("Ordaen Chat", function()
 	end)
 
 	describe("tabs", function()
-		it("set up General, Guild and Channels at the first login; Combat Log combat only, the last tab", function()
+		it("set up General, Guild, Channels and Journal (Combat Log renamed, the last tab) at the first login", function()
 			login()
 			local general, guild, channels = windows[1], windowTitled("Guild"), windowTitled("Channels")
 			assert.truthy(guild)
 			assert.truthy(channels)
-			assert.same({}, windows[2].messageTypeList) -- loot and "creates" lines belong in General
-			assert.equals(windows[2], dock[#dock], "Combat Log is the last tab")
+			assert.equals("Journal", windows[2].title)
+			assert.equals(windows[2], dock[#dock], "Journal is the last tab")
+			local journal = {}
+			for _, group in ipairs(windows[2].messageTypeList) do
+				journal[group] = true
+			end
+			for _, group in ipairs({ "ERRORS", "AFK", "DND", "COMBAT_MISC_INFO", "PET_INFO", "COLLECTED_APPEARANCE" }) do
+				assert.is_true(journal[group], group .. " in Journal")
+			end
+			for _, group in ipairs(general.messageTypeList) do
+				assert.is_nil(({ WHISPER = 1, BN_WHISPER = 1, ERRORS = 1, AFK = 1, DND = 1 })[group],
+					group .. " isn't in General (whispers have their own tabs, the rest is in Journal)")
+			end
 			assert.same({ "GUILD", "OFFICER", "GUILD_ACHIEVEMENT", "GUILD_DISCORD" }, guild.messageTypeList)
 			assert.same({ "CHANNEL" }, channels.messageTypeList)
 			assert.same({ "General", "LocalDefense", "Trade" }, channels.channelList)
@@ -411,7 +436,7 @@ describe("Ordaen Chat", function()
 				assert.is_not.equals("GUILD", group)
 				assert.is_not.equals("CHANNEL", group)
 			end
-			assert.equals(2, _G.OrdaenChatCharDB.tabLayout)
+			assert.equals(3, _G.OrdaenChatCharDB.tabLayout)
 		end)
 
 		it("open whispers in their own tabs", function()
@@ -421,7 +446,7 @@ describe("Ordaen Chat", function()
 		end)
 
 		it("are set up once: the player's own changes stay at the next login", function()
-			rawset(_G, "OrdaenChatCharDB", { tabLayout = 2 })
+			rawset(_G, "OrdaenChatCharDB", { tabLayout = 3 })
 			login()
 			assert.is_nil(windowTitled("Guild"))
 			assert.same({ "General", "Trade", "LocalDefense" }, windows[1].channelList)
@@ -552,18 +577,37 @@ describe("Ordaen Chat", function()
 		end)
 
 		-- A chat message filter call as Blizzard makes it: message, sender name, ..., the sender's GUID (payload 12).
+		-- A line through every filter of its event, as Blizzard runs them for one chat window: hidden (true) or the
+		-- message shown.
+		local function showIn(window, event, line, name, guid)
+			local message = line
+			for _, f in ipairs(filters[event] or {}) do
+				local hidden, changed = f(window, event, message, name, "", "", "", "", 0, 0, "", 0, 0, guid)
+				if hidden then
+					return true, nil
+				end
+				message = changed or message
+			end
+			return false, message
+		end
 		local function show(event, line, name, guid)
-			return filters[event](windows[1], event, line, name, "", "", "", "", 0, 0, "", 0, 0, guid)
+			return showIn(windows[1], event, line, name, guid)
 		end
 
-		it("mute the crafting log, keeping its links' own colours", function()
+		it("show your crafting in General in Blizzard's colour, other players' only in Journal, muted", function()
 			login()
-			local line = "Regy creates: |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
-			local filtered, shown = show("CHAT_MSG_TRADESKILLS", line, "Regy", "Player-1-0001")
-			assert.is_false(filtered)
-			local open = shown:match("^(|cff%x%x%x%x%x%x)")
-			assert.truthy(open, "the line starts in the muted colour")
-			assert.truthy(shown:find("|r" .. open .. ".", 1, true), "after the link: muted again")
+			local mine = "Regy creates: |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
+			local hidden, shown = show("CHAT_MSG_TRADESKILLS", mine, "Regy", "Player-1-0001")
+			assert.is_false(hidden)
+			assert.equals(mine, shown, "yours: in General, Blizzard's colour")
+			assert.is_true((showIn(windows[2], "CHAT_MSG_TRADESKILLS", mine, "Regy", "Player-1-0001")),
+				"yours: not in Journal too")
+			local theirs = "Thrall creates: |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
+			assert.is_true((show("CHAT_MSG_TRADESKILLS", theirs, "Thrall", "Player-1-0002")), "theirs: not in General")
+			local _, inJournal = showIn(windows[2], "CHAT_MSG_TRADESKILLS", theirs, "Thrall", "Player-1-0002")
+			local open = inJournal:match("^(|cff%x%x%x%x%x%x)")
+			assert.truthy(open, "theirs: in Journal, muted")
+			assert.truthy(inJournal:find("|r" .. open .. ".", 1, true), "after the link: muted again")
 		end)
 
 		it("keep Blizzard's colours for what happens to you, mute other players' loot", function()
@@ -752,6 +796,35 @@ describe("Ordaen Chat", function()
 			assert.same({ "BOTTOM", bar, "BOTTOM", 0, 0 }, bar.Track.point)
 			bar.Back:Show() -- Blizzard shows it again (the bar's layout)
 			assert.is_false(bar.Back:IsShown())
+		end)
+	end)
+
+	describe("whisper tabs", function()
+		it("stay lit with a count of unread messages until opened", function()
+			selectedWindow = windows[1]
+			local whisper = chatWindow(11, "Thrall", true)
+			rawset(_G, "ChatFrame11", whisper)
+			local tab = stub("ChatFrame11Tab", { GetFontString = function()
+				return stub("ChatFrame11TabText", { kind = "FontString", GetFont = function()
+					return "Fonts\\FRIZQT__.TTF", 12, ""
+				end })
+			end })
+			rawset(_G, "ChatFrame11Tab", tab)
+			whisper.isTemporary = true
+			login()
+			FCF_OpenTemporaryWindow("WHISPER", "Thrall") -- Blizzard opened a whisper tab
+			whisper:AddMessage("Thrall whispers: hi")
+			whisper:AddMessage("Thrall whispers: you there?")
+			local look = ns.Look.Describe()
+			assert.equals("flash", look.tabs.ChatFrame11Tab)
+			assert.equals(2, look.unread.ChatFrame11)
+			selectedWindow = whisper
+			FCFTab_UpdateColors(tab, true)
+			look = ns.Look.Describe()
+			assert.equals("selected", look.tabs.ChatFrame11Tab)
+			assert.is_nil(look.unread.ChatFrame11, "read: no badge")
+			rawset(_G, "ChatFrame11", nil)
+			rawset(_G, "ChatFrame11Tab", nil)
 		end)
 	end)
 end)

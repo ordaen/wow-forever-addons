@@ -15,11 +15,11 @@ local UI = OrdaenCore.UI
 
 -- Per event (all documented in api/forever/<CURRENT>, forever-lint FL1): `mine` / `others` true = muted. Events not
 -- listed keep Blizzard's colour (skill, experience, honour, reputation, money, currency, pet info, misc info).
--- Your crafted item also comes as your own loot line ("You create: [item]"), so the crafting log can be muted.
+-- Other players' crafting and openings show in Journal (Route.lua), muted there.
 local RULES = {
 	CHAT_MSG_LOOT = { mine = false, others = true },
 	CHAT_MSG_OPENING = { mine = false, others = true },
-	CHAT_MSG_TRADESKILLS = { mine = true, others = true },
+	CHAT_MSG_TRADESKILLS = { mine = false, others = true },
 }
 local FALLBACK = { 0.6, 0.6, 0.6 }
 

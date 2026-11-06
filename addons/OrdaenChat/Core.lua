@@ -44,6 +44,7 @@ end
 local layout = A:Feature("layout")
 layout:OnEnable(function()
 	ns.Tabs.ApplyOnce(A.charDb)
+	ns.Route.Enable()
 end)
 
 local yielded = false -- another addon owns the chat's look (a conflict): input group and look stay off

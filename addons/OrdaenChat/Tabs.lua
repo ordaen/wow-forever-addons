@@ -90,6 +90,9 @@ function Tabs.Apply(charDb)
 		if not frame then
 			ns.Print(L.NO_FREE_WINDOW:format(_G[tab.title]))
 		else
+			if tab.name then
+				FCF_SetWindowName(frame, L[tab.name])
+			end
 			setGroups(frame, tab.groups)
 			if tab.channels then
 				for _, channel in ipairs(channels) do

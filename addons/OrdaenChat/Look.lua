@@ -28,6 +28,10 @@ local windows = {} -- chat window -> its dress
 local tabs = {} -- tab -> its dress
 local tabOf = {} -- chat window -> its tab
 local flashing = {} -- chat window -> true while its tab flashes
+-- Unread whisper tabs: lit (the flash look) until opened, with a badge counting the messages since. Only whisper
+-- windows (Blizzard's temporary ones): a busy channel tab would count forever.
+local unread = {} -- whisper window -> messages arrived while it wasn't the tab shown
+local badges = {} -- tab -> its badge text element (in the tab's look)
 
 local function selected(frame)
 	return FCFDock_GetSelectedWindow(GeneralDockManager) == frame or not frame.isDocked
@@ -39,12 +43,33 @@ local function showTabState(frame)
 	if not dress then
 		return
 	end
+	local count = unread[frame] or 0
 	if selected(frame) then
+		unread[frame], count = nil, 0
 		dress:SetState("selected")
-	elseif flashing[frame] then
+	elseif count > 0 or flashing[frame] then
 		dress:SetState("flash")
 	else
 		dress:SetState(nil)
+	end
+	local badge = badges[tab]
+	if badge then
+		badge.hidden = count == 0
+		badge.args[1] = count
+		dress.look:Refresh()
+	end
+end
+
+-- A whisper window (Blizzard's temporary windows come after the fixed ones).
+local function isWhisper(frame)
+	return frame.isTemporary or (frame.GetID and frame:GetID() > NUM_CHAT_WINDOWS)
+end
+
+-- A line added to a whisper window: one more unread while it isn't the tab shown.
+local function onMessage(frame)
+	if on and isWhisper(frame) and not selected(frame) then
+		unread[frame] = (unread[frame] or 0) + 1
+		showTabState(frame)
 	end
 end
 
@@ -134,7 +159,15 @@ local function dressWindow(frame)
 	local tab = _G[name .. "Tab"]
 	if tab then
 		tabOf[frame] = tab
-		tabs[tab] = UI.Dress(tab, { style = "tab", size = "frame", states = TAB_STATES })
+		-- The tab's look: its name stays Blizzard's (centred over it); a badge on the right counts unread whispers.
+		---@type OrdaenUIText
+		local badge = { format = "%d", args = { 0 }, style = "value", hidden = true, valign = "center" }
+		badges[tab] = badge
+		tabs[tab] = UI.Dress(tab, { style = "tab", size = "frame", states = TAB_STATES,
+			block = { columns = { "1fr", "auto" }, padding = { 0, "xs", 0, 0 }, {}, badge } })
+		if isWhisper(frame) then
+			hooksecurefunc(frame, "AddMessage", onMessage)
+		end
 		local label = tab:GetFontString()
 		if label then
 			UI.DressFont(label, "label")
@@ -240,5 +273,9 @@ function Look.Describe()
 	for _ in pairs(windows) do
 		n = n + 1
 	end
-	return { on = on, windows = n, tabs = states }
+	local counts = {}
+	for frame, count in pairs(unread) do
+		counts[frame:GetName() or "?"] = count
+	end
+	return { on = on, windows = n, tabs = states, unread = counts }
 end
