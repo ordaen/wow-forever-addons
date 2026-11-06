@@ -25,7 +25,7 @@ ns.BORDER_STYLES = {
 		label = "STYLE_BRONZE_RIM",
 		-- Our own art: art/frame.py bronze-rim
 		backdrop = { edgeFile = "Interface\\AddOns\\OrdaenMinimap\\media\\bronze-rim", edgeSize = 24 },
-		outset = 6,
+		outset = 11,
 	},
 	{
 		id = "tooltip",
