@@ -102,7 +102,7 @@ describe("OrdaenCore", function()
 		end)
 
 		it("answers debug commands with a hint and leaves the rest to the addon", function()
-			assert.is_true(Debug.HandleSlash("errors"))
+			assert.is_true(Debug.HandleSlash("debug"))
 			assert.truthy(printed[1]:find("Ordaen Core - Debug", 1, true))
 			assert.is_false(Debug.HandleSlash("columns 4"))
 			assert.is_false(Debug.HandleSlash(""))

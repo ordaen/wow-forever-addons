@@ -24,7 +24,7 @@ read_globals = {
 	"Settings",
 	"UnitClass",
 	"hooksecurefunc",
-	-- used by OrdaenCore/Debug.lua
+	-- used by OrdaenCore_Debug
 	"BackdropTemplateMixin",
 	"ChatFontNormal",
 	"GetBuildInfo",
@@ -35,6 +35,11 @@ read_globals = {
 	"debuglocals",
 	"debugstack",
 	"geterrorhandler",
+	"seterrorhandler",
+	"BugGrabber",
+	"C_UI",
+	"GameTooltip",
+	"ReloadUI",
 }
 
 -- Globals the addons are allowed to define.
@@ -42,6 +47,9 @@ globals = {
 	"GetMinimapShape", -- Blizzard convention: the minimap addon defines it
 	"OrdaenCore",
 	"StaticPopupDialogs", -- we add our popup to it
+	"OrdaenCoreDebugDB",
+	"OrdaenCoreDebug_OnAddonCompartmentClick",
+	"SLASH_ORDAENDEV1",
 	"OrdaenMinimapDB",
 	"SLASH_ORDAENMINIMAP1",
 	"SLASH_ORDAENMINIMAP2",

@@ -1,19 +1,16 @@
 local helpers = require("tests.OrdaenCore.helpers")
 
--- A fresh Core with the debug module (dev mode), so a fresh debug instance, for every test.
-local function newDebug()
-	return helpers.loadCore(true).NewDebug("TestAddon")
-end
-
-describe("OrdaenCore_Debug (dev mode)", function()
-	local Debug, db, printed
+describe("OrdaenCore_Debug per-addon kit (dev mode)", function()
+	local Core, Store, Debug, printed
 
 	before_each(function()
 		helpers.stubGlobals()
-		Debug = newDebug()
-		db = {}
+		Core = helpers.loadCore(true)
+		Store = helpers.debugNs.Store
+		Store.Load(nil, {})
 		printed = {}
-		Debug.Init(db, {
+		Debug = Core.NewDebug("TestAddon")
+		Debug.Init({}, {
 			slash = "/t",
 			print = function(...)
 				printed[#printed + 1] = table.concat({ ... }, " ")
@@ -21,69 +18,73 @@ describe("OrdaenCore_Debug (dev mode)", function()
 		})
 	end)
 
-	describe("TrimLog", function()
-		it("keeps the newest entries in order", function()
-			local log = { 1, 2, 3, 4, 5 }
-			Debug.TrimLog(log, 3)
-			assert.are.same({ 3, 4, 5 }, log)
-		end)
+	it("replaces the stand-in, one instance per addon", function()
+		assert.is_true(Core.debugMode)
+		assert.are.equal(Debug, Core.NewDebug("TestAddon"))
+		assert.are_not.equal(Debug, Core.NewDebug("OtherAddon"))
+		assert.are.equal(Debug, helpers.debugNs.instances.TestAddon)
+	end)
 
-		it("leaves short logs alone", function()
-			local log = { 1, 2 }
-			Debug.TrimLog(log, 3)
-			assert.are.same({ 1, 2 }, log)
-		end)
+	it("keeps the addon's own SavedVariables clean", function()
+		local db = {}
+		Debug.Init(db, {})
+		Debug.Log("x")
+		Debug.Dump()
+		assert.are.same({}, db)
 	end)
 
 	describe("Log", function()
-		it("is on by default in dev mode", function()
+		it("records timestamped lines, on by default", function()
 			assert.is_true(Debug.IsEnabled())
-		end)
-
-		it("does nothing once switched off", function()
-			Debug.HandleSlash("debug off")
-			local before = #db.debug.log
-			Debug.Log("hello")
-			assert.are.equal(before, #db.debug.log)
-		end)
-
-		it("records timestamped lines", function()
 			Debug.Log("hello", 42, nil)
-			local last = db.debug.log[#db.debug.log]
-			assert.truthy(last:match("^%d%d:%d%d:%d%d%.500 hello 42 nil$"), last)
+			local log = Store.Addon("TestAddon").log
+			assert.truthy(log[#log]:match("^%d%d:%d%d:%d%d%.500 hello 42 nil$"), log[#log])
 		end)
 
-		it("caps the log size", function()
-			Debug.HandleSlash("debug on")
-			local total = Debug.LOG_MAX + Debug.LOG_TRIM_SLACK + 1
-			for i = 1, total do
-				Debug.Log("line", i)
-			end
-			local log = db.debug.log
-			assert.is_true(#log <= Debug.LOG_MAX + Debug.LOG_TRIM_SLACK)
-			assert.truthy(log[#log]:match("line " .. total .. "$"))
+		it("does nothing while switched off, and echoes to chat when asked", function()
+			local addon = Store.Addon("TestAddon")
+			addon.logging = false
+			local before = #addon.log
+			Debug.Log("quiet")
+			Debug.Logf("%s", "quiet")
+			assert.are.equal(before, #addon.log)
+			addon.logging, addon.echo = true, true
+			Debug.Logf("loud %d", 1)
+			assert.truthy(printed[#printed]:find("loud 1", 1, true))
 		end)
 	end)
 
-	describe("Snapshot", function()
-		it("keeps plain values and replaces functions", function()
-			local snap = Debug.Snapshot({ a = 1, b = "x", c = true, f = print })
-			assert.are.same({ a = 1, b = "x", c = true, f = "<function>" }, snap)
+	describe("Call and Wrap", function()
+		it("return results, including nil holes", function()
+			local a, b, c = Debug.Call(function(x)
+				return x, nil, 3
+			end, 1)
+			assert.are.same({ 1, nil, 3 }, { a, b, c })
+			assert.are.equal(5, Debug.Wrap(function(x)
+				return x + 1
+			end)(4))
 		end)
 
-		it("cuts cycles and deep tables", function()
-			local t = { deep = { deeper = { deepest = {} } } }
+		it("record an error once and hand it on once", function()
+			local result = Debug.Call(error, "kaboom", 0)
+			assert.is_nil(result)
+			assert.are.equal("kaboom", Store.Get().errors[1].message)
+			assert.are.same({ "kaboom" }, helpers.forwarded)
+		end)
+	end)
+
+	describe("Snapshot and Dump", function()
+		it("keeps plain values, cuts cycles and deep tables, keeps shared tables", function()
+			local shared = { v = 1 }
+			local t = { a = 1, f = print, deep = { deeper = { deepest = {} } }, s1 = shared, s2 = shared }
 			t.self = t
 			local snap = Debug.Snapshot(t, 2)
+			assert.are.equal(1, snap.a)
+			assert.are.equal("<function>", snap.f)
 			assert.are.equal("<cycle>", snap.self)
 			assert.are.equal("<table>", snap.deep.deeper)
-		end)
-
-		it("keeps tables shared by two branches", function()
-			local shared = { v = 1 }
-			local snap = Debug.Snapshot({ a = shared, b = shared })
-			assert.are.same({ v = 1 }, snap.a)
-			assert.are.same({ v = 1 }, snap.b)
+			assert.are.same({ v = 1 }, snap.s1)
+			assert.are.same({ v = 1 }, snap.s2)
 		end)
 
 		it("describes widgets instead of copying them", function()
@@ -105,9 +106,6 @@ describe("OrdaenCore_Debug (dev mode)", function()
 				GetParent = function()
 					return parent
 				end,
-				IsShown = function()
-					return true
-				end,
 				GetSize = function()
 					return 31.333, 31
 				end,
@@ -123,149 +121,41 @@ describe("OrdaenCore_Debug (dev mode)", function()
 			}
 			local snap = Debug.Snapshot({ button = button })
 			assert.are.equal("Button", snap.button.widget)
-			assert.are.equal("LibDBIcon10_Test", snap.button.name)
 			assert.are.equal("Minimap", snap.button.parent)
 			assert.are.equal("31.33x31", snap.button.size)
 			assert.are.same({ "TOPLEFT Minimap BOTTOMLEFT 1.25 -2" }, snap.button.points)
 			assert.is_nil(snap.button.level)
 		end)
-	end)
 
-	describe("errors", function()
-		it("Call returns results, including nil holes", function()
-			local a, b, c = Debug.Call(function(x)
-				return x, nil, 3
-			end, 1)
-			assert.are.same({ 1, nil, 3 }, { a, b, c })
-		end)
-
-		it("Call records the error, notifies once and passes it on", function()
-			local passedOn = {}
-			rawset(_G, "geterrorhandler", function()
-				return function(err)
-					passedOn[#passedOn + 1] = err
-				end
-			end)
-			local result = Debug.Call(error, "kaboom", 0)
-			Debug.Call(error, "kaboom", 0)
-			assert.is_nil(result)
-			assert.are.equal(1, #db.debug.errors)
-			local entry = db.debug.errors[1]
-			assert.are.equal("kaboom", entry.message)
-			assert.are.equal(2, entry.count)
-			assert.truthy(entry.stack)
-			assert.are.equal("1.2.3", entry.meta.addonVersion)
-			assert.are.equal("1.2.3", entry.meta.core)
-			assert.are.equal(2, #passedOn)
-			local notices = 0
-			for _, line in ipairs(printed) do
-				if line:find("/t errors", 1, true) then
-					notices = notices + 1
-				end
-			end
-			assert.are.equal(1, notices)
-		end)
-
-		it("still passes the error on when recording it fails", function()
-			local passedOn = {}
-			rawset(_G, "geterrorhandler", function()
-				return function(err)
-					passedOn[#passedOn + 1] = err
-				end
-			end)
-			rawset(_G, "date", nil) -- makes RecordError itself fail
-			Debug.Call(error, "original", 0)
-			assert.are.same({ "original" }, passedOn)
-		end)
-
-		it("reads locals one level deeper when the stack starts in C (error called directly)", function()
-			local levels = {}
-			rawset(_G, "debuglocals", function(level)
-				levels[#levels + 1] = level
-				return "level " .. level
-			end)
-			rawset(_G, "debugstack", function()
-				return "[C]: ?\n[Interface/AddOns/TestAddon/Core.lua]:5: in function <...>"
-			end)
-			Debug.Call(error, "from C", 0)
-			rawset(_G, "debugstack", function()
-				return "[Interface/AddOns/TestAddon/Core.lua]:5: in function <...>"
-			end)
-			Debug.Call(error, "from Lua", 0)
-			assert.are.same({ 3, 2 }, levels)
-			assert.are.equal("level 3", db.debug.errors[1].locals)
-		end)
-
-		it("caps the number of stored errors", function()
-			for i = 1, Debug.ERRORS_MAX + 5 do
-				Debug.RecordError("error " .. i)
-			end
-			assert.are.equal(Debug.ERRORS_MAX, #db.debug.errors)
-			assert.are.equal("error 6", db.debug.errors[1].message)
-		end)
-
-		it("keeps errors raised before Init", function()
-			local early = newDebug()
-			early.RecordError("too early")
-			local saved = {}
-			early.Init(saved, { print = function() end })
-			assert.are.equal("too early", saved.debug.errors[1].message)
-		end)
-
-		it("does not double-count when Init runs twice on the same table", function()
-			Debug.RecordError("once")
-			Debug.Init(db, { print = function() end })
-			assert.are.equal(1, db.debug.errors[1].count)
-		end)
-
-		it("formats a report, newest first", function()
-			Debug.RecordError("alpha message", "alpha stack")
-			Debug.RecordError("beta message", "beta stack")
-			local report = Debug.FormatReport()
-			assert.truthy(report:find("Addon: TestAddon 1.2.3 (Ordaen Core 1.2.3)", 1, true))
-			assert.truthy(report:find("interface 16001", 1, true))
-			assert.truthy(report:find("beta message", 1, true) < report:find("alpha message", 1, true))
-			assert.truthy(report:find("alpha stack", 1, true))
-		end)
-
-		it("says so when there are no errors", function()
-			assert.truthy(Debug.FormatReport():find("No errors recorded.", 1, true))
-		end)
-	end)
-
-	it("returns one instance per addon and marks dev mode", function()
-		local Core = rawget(_G, "OrdaenCore")
-		assert.is_true(Core.debugMode)
-		assert.are.equal(Debug, Core.NewDebug("TestAddon"))
-		assert.are_not.equal(Debug, Core.NewDebug("OtherAddon"))
-	end)
-
-	describe("HandleSlash", function()
-		it("toggles debug and leaves other commands to the addon", function()
-			assert.is_true(Debug.HandleSlash("debug"))
-			assert.is_false(Debug.IsEnabled())
-			assert.is_true(Debug.HandleSlash("  DEBUG on "))
-			assert.is_true(Debug.IsEnabled())
-			assert.is_false(Debug.HandleSlash("columns 4"))
-			assert.is_false(Debug.HandleSlash("debug nonsense"))
-		end)
-
-		it("dumps the addon state", function()
-			Debug.Init(db, {
-				print = function() end,
+		it("stores the addon's dump in the dev data", function()
+			Debug.Init({}, {
 				dump = function()
 					return { columns = 4 }
 				end,
 			})
-			assert.is_true(Debug.HandleSlash("dump"))
-			assert.are.same({ columns = 4 }, db.debug.dump.state)
-			assert.are.equal(16001, db.debug.dump.meta.interface)
+			Debug.Dump()
+			local dump = Store.Addon("TestAddon").dump
+			assert.are.same({ columns = 4 }, dump.state)
+			assert.are.equal(Store.Session(), dump.session)
 		end)
 
-		it("clears errors", function()
-			Debug.RecordError("x")
-			assert.is_true(Debug.HandleSlash("errors clear"))
-			assert.are.equal(0, #db.debug.errors)
+		it("records a failing dump instead of raising", function()
+			Debug.Init({}, {
+				dump = function()
+					error("no state", 0)
+				end,
+			})
+			assert.are.equal("dump failed: no state", Debug.Dump().state)
+		end)
+	end)
+
+	describe("HandleSlash", function()
+		it("opens the window on 'debug' and leaves the rest to the addon", function()
+			assert.is_true(Debug.HandleSlash("  DEBUG"))
+			assert.is_true(rawget(_G, "OrdaenDevWindow"):IsShown())
+			assert.is_false(Debug.HandleSlash("reset"))
+			assert.is_false(Debug.HandleSlash(""))
+			assert.truthy(Debug.HelpLines()[1]:find("/t debug", 1, true))
 		end)
 	end)
 end)

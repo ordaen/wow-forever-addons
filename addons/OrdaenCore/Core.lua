@@ -72,7 +72,7 @@ end
 -- loads before the Ordaen addons (they list it in ## OptionalDeps) and replaces Core.NewDebug.
 Core.debugMode = false
 
-local DEBUG_COMMANDS = { debug = true, dump = true, errors = true }
+local DEBUG_COMMANDS = { debug = true }
 local DEBUG_HINT = 'debug mode is off. Enable "Ordaen Core - Debug" in the AddOns list and restart the game.'
 
 local function noop() end

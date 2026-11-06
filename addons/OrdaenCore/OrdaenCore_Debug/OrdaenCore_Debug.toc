@@ -1,6 +1,6 @@
 ## Interface: 16001
 ## Title: Ordaen Core - Debug
-## Notes: Development mode for the Ordaen addons: records errors, a debug log and state dumps. Leave it disabled unless you are developing or reporting a bug.
+## Notes: Development mode for the Ordaen addons: the Ordaen Dev window with an error catcher, debug logs and "Save for Claude". Leave it disabled unless you are developing or reporting a bug.
 ## Category: Libraries
 ## Category-deDE: Bibliotheken
 ## Category-esES: Bibliotecas
@@ -18,6 +18,11 @@
 # x-release-please-end
 ## Dependencies: OrdaenCore
 ## DefaultState: Disabled
+## SavedVariables: OrdaenCoreDebugDB
+## AddonCompartmentFunc: OrdaenCoreDebug_OnAddonCompartmentClick
 ## IconTexture: Interface\Icons\INV_Misc_Gear_01
 
+Store.lua
+Capture.lua
 Debug.lua
+UI.lua
