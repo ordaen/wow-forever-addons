@@ -19,3 +19,5 @@
 ## IconTexture: Interface\Icons\INV_Misc_Gear_01
 
 Core.lua
+UI.lua
+Tooltip.lua

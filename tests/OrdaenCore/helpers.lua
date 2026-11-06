@@ -165,11 +165,17 @@ function M.stubGlobals(overrides)
 	end
 end
 
---- Load OrdaenCore the way WoW does; returns the Core table. (The dev-mode addon OrdaenCore_Debug
---- and its specs live in the private wow-dev-tools repo, which has its own copy of these helpers.)
+--- Load OrdaenCore the way WoW does: every Lua file of its TOC, in order, with one shared namespace;
+--- returns the Core table. (The dev-mode addon OrdaenCore_Debug and its specs live in the private
+--- wow-dev-tools repo, which has its own copy of these helpers.)
 function M.loadCore()
 	local ns = {}
-	assert(loadfile("addons/OrdaenCore/Core.lua"))("OrdaenCore", ns)
+	local toc = assert(io.open("addons/OrdaenCore/OrdaenCore.toc")):read("*a")
+	for file in toc:gmatch("[^\r\n]+") do
+		if file:match("%.lua$") then
+			assert(loadfile("addons/OrdaenCore/" .. file))("OrdaenCore", ns)
+		end
+	end
 	return ns.Core
 end
 

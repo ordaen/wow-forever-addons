@@ -64,7 +64,8 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 
 ```
 addons/<Addon>/                 addon source (.toc, .lua, .pkgmeta)
-addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; no-op debug stand-in)
+addons/OrdaenCore/              shared code every addon depends on (global OrdaenCore; no-op debug stand-in;
+                                OrdaenCore.UI framework: UI.lua, Tooltip.lua)
 tests/<Addon>/*_spec.lua        busted specs (load addon files with loadfile(path)(addonName, ns))
 tests/OrdaenCore/helpers.lua    WoW API stubs + Core loader, for any spec that needs the Core
 scripts/link.ps1                create/remove AddOns junctions
@@ -118,9 +119,16 @@ addon list: OrdaenCore is `Libraries`, feature addons use e.g. `User Interface`.
 - **Cost:** the renderer is chosen when a thing is drawn; the real frames are then used directly (no wrapper per
   call); no per-show copying of content; no timers or `OnUpdate` in the framework (live content is refreshed by the
   caller's own timer, e.g. `OrdaenCore.UI.RefreshTooltip(owner)`).
-- **Tooltips v1** (requested from the Core session): `ShowTooltip(owner, content, opts)`, `HideTooltip(owner)`,
-  `RefreshTooltip(owner)`; slots title, subtitle, row, line, bar, separator, hint. Renderer calls run in `pcall`
-  with a plain-lines fallback, so a broken renderer can't break every addon's tooltips.
+- **Tooltips v1** (in Core: `addons/OrdaenCore/UI.lua` registry, `Tooltip.lua` API + fallback; spec
+  `tests/OrdaenCore/ui_spec.lua`): `OrdaenCore.UI.ShowTooltip(owner, content, opts)`, `HideTooltip(owner)`,
+  `RefreshTooltip(owner)`, `RegisterRenderer("tooltip", { formatVersion, Show(owner, content, opts), Hide(owner),
+  Refresh(owner, content) })`. Content shape: `{ v = 1, title = { text, icon?, color? }, subtitle = { text, color? },
+  { kind = "row", label, value, color? }, { kind = "line", text, color? }, { kind = "bar", label, value, max, color? },
+  { kind = "separator" }, { kind = "hint", text } }` (list items in order). `color = { r, g, b }` is for meaning
+  (e.g. a pending invite), not decoration. `opts = { anchor, x, y }`. Renderer calls run in `pcall`; on an error that
+  tooltip falls back to plain lines and the error goes to `geterrorhandler()`. The Core keeps references to the
+  caller's tables (weak keys), never copies; callers keep their content tables and change fields, then call
+  `RefreshTooltip` from their own timer while shown.
 - **Blizzard's own tooltips** (items, units, spells) and other addons' are a separate matter: the tooltip addon
   restyles them in place, never hides them to draw a lookalike (the cost of PrettyTooltip's approach).
 - **Open:** sizes and layout of buttons and windows (adaptive layout, resizable windows); packaging the framework as an
