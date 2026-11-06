@@ -41,6 +41,7 @@ the text is measured again only when an argument's value changes.
 | `height` | number | `size`, else `width` | |
 | `size` | number | | sets both |
 | `texCoord` | `{ left, right, top, bottom }` | whole texture | e.g. `{ 0.08, 0.92, 0.08, 0.92 }` trims an icon's border |
+| `color` | `{ r, g, b, a? }` or a colour token | untinted | a tint; `"color.icon"` for white glyph icons (`OrdaenCore/media/icon-*`) |
 
 ## Separator
 

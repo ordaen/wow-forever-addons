@@ -355,6 +355,12 @@ local function drawImage(surface, p, el, x, y, w, h)
 	else
 		tex:SetTexCoord(0, 1, 0, 1) -- pooled textures may have been cropped before
 	end
+	local tint = el.color and Theme.Color(el.color, nil)
+	if tint then
+		tex:SetVertexColor(tint[1], tint[2], tint[3], tint[4] or 1)
+	else
+		tex:SetVertexColor(1, 1, 1, 1) -- pooled textures may have been tinted before
+	end
 	tex:SetSize(w, h)
 	tex:ClearAllPoints()
 	tex:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)

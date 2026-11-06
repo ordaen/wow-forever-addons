@@ -416,6 +416,19 @@ describe("OrdaenCore.UI", function()
 				table.insert(frames, f)
 				return f
 			end,
+			-- Blizzard's CallbackRegistry: a callback gets its owner first, then the event's arguments.
+			EventRegistry = {
+				callbacks = {},
+				RegisterCallback = function(self, event, fn, owner)
+					self.callbacks[event] = self.callbacks[event] or {}
+					table.insert(self.callbacks[event], { fn, owner })
+				end,
+				TriggerEvent = function(self, event, ...)
+					for _, c in ipairs(self.callbacks[event] or {}) do
+						c[1](c[2], ...)
+					end
+				end,
+			},
 			-- Blizzard's: runs `fn` after the original, with the same arguments.
 			hooksecurefunc = function(target, method, fn)
 				if type(target) == "string" then

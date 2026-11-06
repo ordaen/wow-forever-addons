@@ -58,6 +58,18 @@ local function moveChannel(channel, target)
 	end
 end
 
+--- Keep Combat Log the last docked tab (new tabs and whisper tabs are added after it).
+function Tabs.CombatLogLast()
+	local combat = ChatFrame2
+	if not (combat and combat.isDocked) then
+		return
+	end
+	local docked = FCFDock_GetChatFrames(GeneralDockManager)
+	if docked and docked[#docked] ~= combat then
+		FCF_DockFrame(combat, #docked, false)
+	end
+end
+
 --- Set up the default tabs now (first login of a character with this layout version, or /ochat tabs).
 ---@param charDb table OrdaenChatCharDB
 function Tabs.Apply(charDb)
@@ -83,6 +95,7 @@ function Tabs.Apply(charDb)
 		end
 	end
 	ns.Whispers.UseTabs()
+	Tabs.CombatLogLast()
 	charDb.tabLayout = ns.TAB_LAYOUT_VERSION
 	FCF_SelectDockFrame(general)
 	debug():Logf("tabs: layout %d applied, channels %s", ns.TAB_LAYOUT_VERSION, table.concat(channels, ", "))
@@ -113,6 +126,7 @@ function Tabs.ForChannel(channel)
 	end
 	setGroups(frame, { "CHANNEL" })
 	moveChannel(channel, frame)
+	Tabs.CombatLogLast()
 	FCF_SelectDockFrame(frame)
 	ns.Print(L.TAB_FOR_CHANNEL:format(channel))
 end
@@ -136,11 +150,20 @@ local function onChannelNotice(_, notice, _, _, _, _, _, _, _, channel)
 	debug():Logf("tabs: channel %s moved to the Channels tab", channel)
 end
 
+local hookedLast = false
+
 --- Set up the default tabs if this character hasn't had this layout version yet (the "layout" feature).
 ---@param charDb table OrdaenChatCharDB
 function Tabs.ApplyOnce(charDb)
 	if (charDb.tabLayout or 0) < ns.TAB_LAYOUT_VERSION then
 		Tabs.Apply(charDb)
+	end
+	Tabs.CombatLogLast()
+	if not hookedLast then
+		hookedLast = true
+		-- A tab the player opens (Blizzard's tab menu) or a whisper tab is added at the end: Combat Log goes after it.
+		hooksecurefunc("FCF_OpenNewWindow", Tabs.CombatLogLast)
+		hooksecurefunc("FCF_OpenTemporaryWindow", Tabs.CombatLogLast)
 	end
 end
 

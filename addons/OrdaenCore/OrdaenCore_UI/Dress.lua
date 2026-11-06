@@ -23,6 +23,7 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@field icon string|number|nil texture path or file ID of the icon
 ---@field atlas string|nil atlas of the icon (instead of `icon`)
 ---@field iconSize number|nil default 20
+---@field iconColor number[]|string|nil the icon's tint: a colour or token ("color.icon" for glyph icons)
 ---@field style string|nil default "iconButton"
 ---@field clickable Frame|nil the frame that gets the mouse: default its `.Button` (modern clients), else the frame
 ---@field size "look"|"frame"|nil "look" (default): Blizzard's frame takes our block's size (buttons); "frame": our
@@ -279,7 +280,7 @@ function Dress.New(frame, opts)
 	local icon
 	if opts.icon or opts.atlas or opts.size ~= "frame" then
 		---@type OrdaenUIImage
-		icon = { image = opts.icon, atlas = opts.atlas, size = opts.iconSize or ICON }
+		icon = { image = opts.icon, atlas = opts.atlas, size = opts.iconSize or ICON, color = opts.iconColor }
 	end
 	local look = Component.Block({ style = opts.style or "iconButton", parent = frame:GetParent(), icon })
 	local self = setmetatable({

@@ -117,6 +117,13 @@ local function chatWindow(i, title, shown)
 	w.editBox = stub("ChatFrame" .. i .. "EditBox", { GetFont = function()
 		return "Fonts\\FRIZQT__.TTF", 14, ""
 	end })
+	w.editBox.insets = { 15, 13, 0, 0 } -- Blizzard's, for its "Say:" header
+	function w.editBox:GetTextInsets()
+		return unpack(self.insets)
+	end
+	function w.editBox:SetTextInsets(l, r, t, b)
+		self.insets = { l, r, t, b }
+	end
 	w.isDocked = true
 	function w:GetFont()
 		return "Fonts\\FRIZQT__.TTF", 14, ""
@@ -125,7 +132,7 @@ local function chatWindow(i, title, shown)
 end
 
 describe("Ordaen Chat", function()
-	local tabsSized
+	local tabsSized, dock, classColored, filters, secrets, social
 	local ns, frames, windows, cvars, menuButton, channelButton, art, loaded, stack, windowArt, selectedWindow
 
 	local function fire(event, ...)
@@ -147,6 +154,8 @@ describe("Ordaen Chat", function()
 
 	before_each(function()
 		frames, windows, cvars, art, loaded, windowArt = {}, {}, {}, {}, {}, {}
+		classColored, filters, secrets = {}, {}, {}
+		social = stub("QuickJoinToastButton")
 		stack = "" -- who calls a claimed method: nobody's addon (Blizzard's own code) unless a test says so
 		rawset(_G, "OrdaenChatDB", nil) -- SavedVariables: each test starts as a new character
 		rawset(_G, "OrdaenChatCharDB", nil)
@@ -184,10 +193,53 @@ describe("Ordaen Chat", function()
 				for _, w in ipairs(windows) do
 					if not w.open then
 						w.title, w.open = title, true
+						table.insert(dock, w) -- a new window docks at the end
 						return w
 					end
 				end
 			end,
+			FCFDock_GetChatFrames = function()
+				return dock
+			end,
+			FCF_DockFrame = function(frame, index)
+				for k, w in ipairs(dock) do
+					if w == frame then
+						table.remove(dock, k)
+						break
+					end
+				end
+				table.insert(dock, math.min(index, #dock + 1), frame)
+			end,
+			ChatTypeGroup = { SAY = { "CHAT_MSG_SAY" }, GUILD = { "CHAT_MSG_GUILD", "CHAT_MSG_GUILD_ACHIEVEMENT" } },
+			SetChatColorNameByClass = function(chatType, on)
+				classColored[chatType] = on
+			end,
+			ChatFrameUtil = {
+				AddMessageEventFilter = function(event, fn)
+					filters[event] = fn
+				end,
+				RemoveMessageEventFilter = function(event, fn)
+					if filters[event] == fn then
+						filters[event] = nil
+					end
+				end,
+			},
+			issecretvalue = function(v)
+				return secrets[v] == true
+			end,
+			EventRegistry = {
+				RegisterCallback = function(self, event, fn, owner)
+					self[event] = { fn, owner }
+				end,
+				TriggerEvent = function(self, event, ...)
+					local c = rawget(self, event)
+					if c then
+						c[1](c[2], ...)
+					end
+				end,
+			},
+			ChatEdit_UpdateHeader = function() end,
+			QuickJoinToastButton = social,
 			FCF_SelectDockFrame = function() end,
 			FCF_OpenTemporaryWindow = function() end,
 			-- Blizzard's tab colours (the selection changed) and alert flashes (a message in a hidden tab).
@@ -237,6 +289,8 @@ describe("Ordaen Chat", function()
 			globals["ChatFrame" .. i .. "Tab"] = tab
 			windows[i].tab = tab
 		end
+		dock = { windows[1], windows[2] }
+		windows[2].messageTypeList = { "LOOT", "TRADESKILLS" } -- shown in Combat Log, not combat
 		-- Blizzard's default: every channel shows in General.
 		windows[1].channelList = { "General", "Trade", "LocalDefense" }
 		windows[1].messageTypeList = { "SAY", "GUILD", "CHANNEL" }
@@ -271,12 +325,13 @@ describe("Ordaen Chat", function()
 	end)
 
 	describe("tabs", function()
-		it("set up General, Guild and Channels at the first login, and leave Combat Log alone", function()
+		it("set up General, Guild and Channels at the first login; Combat Log combat only, the last tab", function()
 			login()
 			local general, guild, channels = windows[1], windowTitled("Guild"), windowTitled("Channels")
 			assert.truthy(guild)
 			assert.truthy(channels)
-			assert.same({}, windows[2].messageTypeList) -- Combat Log untouched
+			assert.same({}, windows[2].messageTypeList) -- loot and "creates" lines belong in General
+			assert.equals(windows[2], dock[#dock], "Combat Log is the last tab")
 			assert.same({ "GUILD", "OFFICER", "GUILD_ACHIEVEMENT", "GUILD_DISCORD" }, guild.messageTypeList)
 			assert.same({ "CHANNEL" }, channels.messageTypeList)
 			assert.same({ "General", "LocalDefense", "Trade" }, channels.channelList)
@@ -285,7 +340,7 @@ describe("Ordaen Chat", function()
 				assert.is_not.equals("GUILD", group)
 				assert.is_not.equals("CHANNEL", group)
 			end
-			assert.equals(1, _G.OrdaenChatCharDB.tabLayout)
+			assert.equals(2, _G.OrdaenChatCharDB.tabLayout)
 		end)
 
 		it("open whispers in their own tabs", function()
@@ -295,7 +350,7 @@ describe("Ordaen Chat", function()
 		end)
 
 		it("are set up once: the player's own changes stay at the next login", function()
-			rawset(_G, "OrdaenChatCharDB", { tabLayout = 1 })
+			rawset(_G, "OrdaenChatCharDB", { tabLayout = 2 })
 			login()
 			assert.is_nil(windowTitled("Guild"))
 			assert.same({ "General", "Trade", "LocalDefense" }, windows[1].channelList)
@@ -316,6 +371,13 @@ describe("Ordaen Chat", function()
 			login()
 			assert.is_nil(windowTitled("Channels"))
 			assert.same({ "General", "Trade", "LocalDefense" }, windows[1].channelList) -- nothing moved
+		end)
+
+		it("keep Combat Log the last tab when a whisper tab opens", function()
+			login()
+			table.insert(dock, windows[9]) -- Blizzard docks the whisper window at the end
+			FCF_OpenTemporaryWindow("WHISPER", "Thrall")
+			assert.equals(windows[2], dock[#dock])
 		end)
 
 		it("give a channel its own tab with /ochat tab", function()
@@ -355,19 +417,27 @@ describe("Ordaen Chat", function()
 	end)
 
 	describe("input group", function()
-		it("puts the chat menu button on the left of the input and hides the input's art", function()
+		it("puts the buttons inside the input's left end, the text after them, and hides the input's art", function()
 			login()
-			assert.equals(windows[1].editBox, menuButton.parent)
-			assert.same({ "RIGHT", windows[1].editBox, "LEFT", -2, 0 }, menuButton.point)
+			local input = windows[1].editBox
+			assert.equals(input, menuButton.parent)
+			assert.same({ "LEFT", input, "LEFT", 2, 0 }, channelButton.point, "the row starts inside the input")
+			assert.same({ "LEFT", channelButton, "RIGHT", 2, 0 }, menuButton.point, "the chat menu next to the text")
+			assert.equals(15 + 26 + 2 + 26 + 2, input.insets[1], "the text starts after the row")
+			-- Blizzard resets the insets for its header: ours go on top again, never twice.
+			input.insets = { 15, 13, 0, 0 }
+			ChatEdit_UpdateHeader(input)
+			assert.equals(15 + 56, input.insets[1])
+			assert.is_false(social.parent:IsShown(), "the social button is hidden until Ordaen Panel takes it")
 			for _, texture in ipairs(art) do
 				assert.equals(0, texture.alpha)
 			end
 		end)
 
-		it("puts the channels button next to the chat menu, in the same group", function()
+		it("draws our own icons on the chat menu and channels buttons, as tall as the input", function()
 			login()
-			assert.equals(windows[1].editBox, channelButton.parent)
-			assert.same({ "RIGHT", menuButton, "LEFT", -2, 0 }, channelButton.point)
+			local described = ns.Input.Describe()
+			assert.equals(56, described.row)
 		end)
 
 		it("follows the input that is shown", function()
@@ -379,7 +449,7 @@ describe("Ordaen Chat", function()
 		it("puts the button back when Blizzard's layout moves it", function()
 			login()
 			menuButton:SetPoint("BOTTOM", windows[1], "TOP", 0, 0)
-			assert.same({ "RIGHT", windows[1].editBox, "LEFT", -2, 0 }, menuButton.point)
+			assert.same({ "LEFT", channelButton, "RIGHT", 2, 0 }, menuButton.point)
 		end)
 
 		it("gives everything back when turned off", function()
@@ -388,6 +458,38 @@ describe("Ordaen Chat", function()
 			ns.Addon:_SettingChanged("inputGroup", false)
 			assert.equals(windows[1], menuButton.parent)
 			assert.equals(1, art[1].alpha)
+			assert.equals(15, windows[1].editBox.insets[1], "Blizzard's text inset back")
+		end)
+	end)
+
+	describe("names and game messages", function()
+		it("colour names by class in every chat type, and stop when turned off", function()
+			login()
+			assert.is_true(classColored.SAY)
+			assert.is_true(classColored.GUILD_ACHIEVEMENT)
+			assert.is_true(classColored.CHANNEL1)
+			ns.Addon.db.classColors = false
+			ns.Addon:_SettingChanged("classColors", false)
+			assert.is_false(classColored.SAY)
+		end)
+
+		it("dim loot and crafting lines, keeping their links' own colours", function()
+			login()
+			local line = "Regy creates: |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
+			local filtered, shown = filters.CHAT_MSG_TRADESKILLS(windows[1], "CHAT_MSG_TRADESKILLS", line)
+			assert.is_false(filtered)
+			local open = shown:match("^(|cff%x%x%x%x%x%x)")
+			assert.truthy(open, "the line starts in the muted colour")
+			assert.truthy(shown:find("|r" .. open .. ".", 1, true), "after the link: muted again")
+			assert.is_nil(filters.CHAT_MSG_SAY, "conversations keep their colour")
+		end)
+
+		it("leave a secret message alone", function()
+			login()
+			local line = "secret"
+			secrets[line] = true
+			local _, shown = filters.CHAT_MSG_LOOT(windows[1], "CHAT_MSG_LOOT", line)
+			assert.equals(line, shown)
 		end)
 	end)
 

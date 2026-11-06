@@ -113,6 +113,8 @@ function Tooltip.Restyle()
 	Theme.Apply()
 	Component.RefreshAll()
 	ns.Dress.RefreshFonts()
+	-- Code colouring Blizzard's text with theme colours (UI.Color) follows on this event, not a timer.
+	EventRegistry:TriggerEvent("OrdaenUI.ThemeChanged")
 	if current.block then
 		Tooltip.Refresh(current.block)
 	end
@@ -134,4 +136,5 @@ OrdaenCore.UI._Provide({
 	Panel = Component.Panel,
 	Dress = ns.Dress.New,
 	DressFont = ns.Dress.Font,
+	Color = Theme.Color,
 })

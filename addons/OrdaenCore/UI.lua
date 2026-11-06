@@ -74,6 +74,7 @@ local unavailable = false
 ---@field height number|nil
 ---@field size number|nil width and height
 ---@field texCoord number[]|nil { left, right, top, bottom }
+---@field color number[]|string|nil a tint, { r, g, b, a? } or a colour token ("color.icon" for glyph icons)
 ---@field hidden boolean|nil as a child: skipped
 ---@field colSpan number|nil as a child: columns it spans
 ---@field align string|nil as a child: "left", "center" or "right" in its cell
@@ -316,6 +317,17 @@ end
 function UI.Dress(frame, opts)
 	local f = framework()
 	return f and f.Dress(frame, opts)
+end
+
+--- A colour of the current theme: a colour token's value ("color.muted"), or `fallback`. For code that colours
+--- Blizzard's own text (a chat line); listen to EventRegistry "OrdaenUI.ThemeChanged" to follow a theme change.
+--- Loads the framework.
+---@param token string
+---@param fallback number[]|nil
+---@return number[]|nil
+function UI.Color(token, fallback)
+	local f = framework()
+	return f and f.Color(token, fallback) or fallback
 end
 
 --- Put the theme's font and the global text size (text style `style`, default "body") on Blizzard's own text: a

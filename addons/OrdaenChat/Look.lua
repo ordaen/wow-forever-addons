@@ -22,6 +22,8 @@ local WINDOW_ART = {
 local TAB_STATES = { selected = "tabSelected", flash = "tabFlash" }
 
 local on = false
+local centering = false
+local labelTab = {} -- tab name FontString -> its tab
 local windows = {} -- chat window -> its dress
 local tabs = {} -- tab -> its dress
 local tabOf = {} -- chat window -> its tab
@@ -44,6 +46,19 @@ local function showTabState(frame)
 	else
 		dress:SetState(nil)
 	end
+end
+
+-- Blizzard places a tab's name low in the tab (room for its old art's top edge): in our look it sits in the middle,
+-- the same space above and below. Blizzard moving it (a selected tab's text shifts) gets it centred again.
+local function centerLabel(label)
+	local tab = labelTab[label]
+	if centering or not (on and tab) then
+		return
+	end
+	centering = true
+	label:ClearAllPoints()
+	label:SetPoint("CENTER", tab, "CENTER", 0, 0)
+	centering = false
 end
 
 local function dressWindow(frame)
@@ -71,6 +86,9 @@ local function dressWindow(frame)
 		local label = tab:GetFontString()
 		if label then
 			UI.DressFont(label, "label")
+			labelTab[label] = tab
+			hooksecurefunc(label, "SetPoint", centerLabel)
+			centerLabel(label)
 		end
 		showTabState(frame)
 	end

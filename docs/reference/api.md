@@ -203,6 +203,7 @@ tab:SetState("selected") -- from a hook on Blizzard's own state change, never by
 | `icon` | | texture path or file ID |
 | `atlas` | | atlas, instead of `icon` |
 | `iconSize` | 20 | |
+| `iconColor` | | the icon's tint: a colour or a colour token (`"color.icon"` for glyph icons) |
 | `style` | `"iconButton"` | |
 | `clickable` | `frame.Button`, else the frame | the frame that gets the mouse |
 | `size` | `"look"` | `"frame"`: cover the frame, keep its size |

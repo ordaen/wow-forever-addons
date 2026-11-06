@@ -3,7 +3,7 @@
 local _, ns = ...
 
 --- Bump when the layout changes: each character gets the new one once at its next login.
-ns.TAB_LAYOUT_VERSION = 1
+ns.TAB_LAYOUT_VERSION = 2 -- 2: Combat Log combat only, and the last tab
 
 -- Message groups (ChatTypeGroup keys, all in api/forever/<CURRENT>) per tab. `window = 1` is the first chat window,
 -- kept with its own name; the others are found by name or opened. `channels = true`: the tab holds the channels.
@@ -21,6 +21,9 @@ ns.TAB_LAYOUT = {
 			"VOICE_TEXT",
 		},
 	},
+	-- Combat Log (Blizzard's second window): combat only. Its own filters show the combat events; message groups
+	-- (loot, "creates", experience) belong in General. Kept the last tab (Tabs.lua).
+	{ id = "combat", window = 2, groups = {} },
 	{ id = "guild", title = "GUILD", groups = { "GUILD", "OFFICER", "GUILD_ACHIEVEMENT", "GUILD_DISCORD" } },
 	{ id = "channels", title = "CHANNELS", groups = { "CHANNEL" }, channels = true },
 }

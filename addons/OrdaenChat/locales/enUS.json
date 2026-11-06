@@ -1,5 +1,9 @@
 {
   "SETTINGS_TITLE": "Ordaen Chat",
+  "CLASS_COLORS": "Names in class colours",
+  "CLASS_COLORS_TOOLTIP": "Show every character name in chat in its class colour.",
+  "DIM_EVENTS": "Dim game messages",
+  "DIM_EVENTS_TOOLTIP": "Show loot, crafting, experience, reputation and money lines in a dimmed colour, so conversations stand out.",
   "CHAT_LOOK_TOOLTIP": "Draw chat windows and tabs in the Ordaen Core theme, with its font and text size.",
   "CHAT_LOOK": "Chat in the theme",
   "INPUT_GROUP": "Chat buttons next to the input",

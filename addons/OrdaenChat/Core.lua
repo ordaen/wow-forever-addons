@@ -12,7 +12,7 @@ local addonName, ns = ...
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	db = "OrdaenChatDB",
 	charDb = "OrdaenChatCharDB",
-	defaults = { chatLook = true, inputGroup = true, sortChannels = true },
+	defaults = { chatLook = true, inputGroup = true, sortChannels = true, classColors = true, dimEvents = true },
 	charDefaults = {},
 	slash = { "/ochat", "/ordaenchat" },
 	conflicts = { "Prat-3.0" },
@@ -25,6 +25,8 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 		{ key = "chatLook", label = "CHAT_LOOK", tooltip = "CHAT_LOOK_TOOLTIP" },
 		{ key = "inputGroup", label = "INPUT_GROUP", tooltip = "INPUT_GROUP_TOOLTIP" },
 		{ key = "sortChannels", label = "SORT_CHANNELS", tooltip = "SORT_CHANNELS_TOOLTIP" },
+		{ key = "classColors", label = "CLASS_COLORS", tooltip = "CLASS_COLORS_TOOLTIP" },
+		{ key = "dimEvents", label = "DIM_EVENTS", tooltip = "DIM_EVENTS_TOOLTIP" },
 	},
 })
 if not A then
@@ -53,6 +55,24 @@ look:OnEnable(function()
 end)
 look:OnDisable(function()
 	ns.Look.Disable()
+end)
+
+-- Character names in their class colour (Blizzard's own per-type setting, Names.lua).
+local classColors = A:Feature("classColors", { setting = "classColors" })
+classColors:OnEnable(function()
+	ns.Names.ClassColors(true)
+end)
+classColors:OnDisable(function()
+	ns.Names.ClassColors(false)
+end)
+
+-- Game events in General (loot, "creates", experience...) dimmed, so the conversation stands out (Dim.lua).
+local dimEvents = A:Feature("dimEvents", { setting = "dimEvents" })
+dimEvents:OnEnable(function()
+	ns.Dim.Enable()
+end)
+dimEvents:OnDisable(function()
+	ns.Dim.Disable()
 end)
 
 local sortChannels = A:Feature("sortChannels", { setting = "sortChannels" })
