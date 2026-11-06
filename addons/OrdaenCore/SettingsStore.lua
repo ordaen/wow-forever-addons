@@ -266,6 +266,20 @@ function StoreMethods:Get(key)
 	return walk(setting and rootFor(self, setting) or self.db, path, #path)
 end
 
+--- A setting's default in the current theme (its theme token's value, else its plain default).
+---@param key string
+function StoreMethods:Default(key)
+	local setting = self.schema.settings[key]
+	return setting and defaultOf(setting, theme)
+end
+
+--- The assets of a kind (`frame`, `font`, `bar`): id -> { label = locale key, ... }, or nil.
+---@param kind string
+---@return table<string, table>|nil
+function Store.Assets(kind)
+	return tokens.assets[kind]
+end
+
 --- Whether the player chose this setting's value (it is saved), rather than the theme's default.
 ---@param key string
 ---@return boolean

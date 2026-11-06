@@ -23,8 +23,8 @@ See [Blocks and elements](/guide/blocks#components) and the [API](/reference/api
 - New elements, because they need WoW's own widgets: **text entry** (EditBox), **checkbox** (CheckButton),
   **slider**.
 - **Dropdowns** are components made of blocks, not elements.
-- **Settings pages** built from UI components, from the `settings = { ... }` spec in `NewAddon` (replacing the
-  Blizzard Settings builder in Ordaen Core): dropdowns, sliders, checkboxes, colour pickers, text input, key
+- **Settings pages** built from UI components, from each addon's `settings.jsonc` (replacing the Blizzard
+  Settings builder in Ordaen Core): dropdowns, sliders, checkboxes, colour pickers, text input, key
   bindings, action buttons, settings that grey out when their parent is off.
 - **Windows** are top-level components with a fixed, saved position and size. The framework remembers them.
 - **Your own components** later: `UI.Component(name, { build = ..., methods = ... })`, so an addon can define a kind

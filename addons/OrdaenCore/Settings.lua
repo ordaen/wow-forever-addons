@@ -1,5 +1,6 @@
--- Ordaen Core: an addon's settings page, from its declaration (spec.settings of OrdaenCore.NewAddon), on
--- Blizzard's Settings API (Options > AddOns). The same declaration keeps the saved values valid.
+-- Ordaen Core: an addon's settings page on Blizzard's Settings API (Options > AddOns), from its settings manifest
+-- (RegisterSchema, below) or from the older declaration in spec.settings of OrdaenCore.NewAddon (Register), which
+-- also keeps the saved values valid.
 --
 --   settings = {
 --   	title = "SETTINGS_TITLE",               -- locale key (default: the addon's TOC title)
@@ -147,6 +148,121 @@ function SettingsPage.Register(addon)
 				Settings.CreateCheckbox(category, setting, tooltip)
 			end
 		end
+	end
+	Settings.RegisterAddOnCategory(category)
+	addon._settingsCategory = category
+end
+
+-- The page of an addon with a settings manifest ------------------------------------------------------------------
+-- Drawn with Blizzard's Settings API for now (a page drawn with OrdaenCore.UI components is on docs/roadmap.md).
+-- Proxy settings: the page reads through the store and writes with store:Set, so only the player's choices are
+-- saved and every change is announced (features, then the addon's onChange).
+
+local VAR_TYPES = { boolean = "boolean", number = "number", choice = "string", asset = "string" }
+
+-- Asset ids of a kind in a fixed order (by id), made once per kind.
+local assetIdsCache = {}
+local function assetIds(kind)
+	local ids = assetIdsCache[kind]
+	if not ids then
+		ids = {}
+		for id in pairs(Core._SettingsStore.Assets(kind) or {}) do
+			ids[#ids + 1] = id
+		end
+		table.sort(ids)
+		assetIdsCache[kind] = ids
+	end
+	return ids
+end
+
+-- A dropdown's options: choices with the addon's labels, or the assets of a kind with Ordaen Core's labels.
+local function optionsOf(addon, setting)
+	return function()
+		local container = Settings.CreateControlTextContainer()
+		if setting.type == "choice" then
+			for i, id in ipairs(setting.choices) do
+				local label = setting.choiceLabels and setting.choiceLabels[i]
+				container:Add(id, label and addon.L[label] or tostring(id))
+			end
+		else
+			local assets = Core._SettingsStore.Assets(setting.of) or {}
+			for _, id in ipairs(assetIds(setting.of)) do
+				local label = assets[id].label
+				container:Add(id, label and ns.L[label] or id)
+			end
+		end
+		return container:GetData()
+	end
+end
+
+local function control(addon, category, key, setting)
+	local store = addon._store --[[@as OrdaenSettingsStore]]
+	local varType = VAR_TYPES[setting.type]
+	if not varType then
+		return nil -- colour, text, keybinding, sound, action, map: not on this page yet
+	end
+	local L = addon.L
+	local proxy = Settings.RegisterProxySetting(category, addon.name .. "_" .. key:gsub("%.", "_"), varType,
+		L[setting.label], store:Default(key), function()
+			return store:Get(key)
+		end, function(value)
+			store:Set(key, value)
+		end)
+	local tooltip = setting.tooltip and L[setting.tooltip]
+	if setting.type == "boolean" then
+		return Settings.CreateCheckbox(category, proxy, tooltip)
+	elseif setting.type == "number" then
+		local options = Settings.CreateSliderOptions(setting.min, setting.max, setting.step or 1)
+		if FORMATS[setting.format] then
+			options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right, FORMATS[setting.format])
+		else
+			options:SetLabelFormatter(MinimalSliderWithSteppersMixin.Label.Right)
+		end
+		return Settings.CreateSlider(category, proxy, options, tooltip)
+	end
+	return Settings.CreateDropdown(category, proxy, optionsOf(addon, setting), tooltip)
+end
+
+--- Register the page of an addon with a settings manifest: its sections in order, settings with `page = false`
+--- left out, `enabledBy` greys a control out while its boolean is off. The framework calls it on ADDON_LOADED,
+--- after the store is bound.
+---@param addon OrdaenAddon
+---@param schema table ns.SETTINGS_SCHEMA
+function SettingsPage.RegisterSchema(addon, schema)
+	if not (addon._store and Settings and Settings.RegisterVerticalLayoutCategory and Settings.RegisterProxySetting) then
+		return
+	end
+	local L, store = addon.L, addon._store --[[@as OrdaenSettingsStore]]
+	local title = schema.title and L[schema.title] or C_AddOns.GetAddOnMetadata(addon.name, "Title") or addon.name
+	local category, layout = Settings.RegisterVerticalLayoutCategory(title)
+	local initializers = {} -- key -> initializer, for enabledBy
+	local shown = 0
+	for _, section in ipairs(schema.sections or {}) do
+		if section.header and layout and CreateSettingsListSectionHeaderInitializer then
+			layout:AddInitializer(CreateSettingsListSectionHeaderInitializer(L[section.header]))
+		end
+		for _, key in ipairs(section.keys) do
+			local setting = schema.settings[key]
+			if setting and setting.page ~= false then
+				local init = control(addon, category, key, setting)
+				if init then
+					shown = shown + 1
+					initializers[key] = init
+					local parentKey = setting.enabledBy
+					local parent = parentKey and initializers[parentKey]
+					if parent and init.SetParentInitializer then
+						init:SetParentInitializer(parent, function()
+							return store:Get(parentKey) == true
+						end)
+					end
+				else
+					addon.Debug:Logf("settings: %s (%s) isn't on the page yet", key, setting.type)
+				end
+			end
+		end
+	end
+	if shown == 0 then
+		return -- nothing to show: no page, no category
 	end
 	Settings.RegisterAddOnCategory(category)
 	addon._settingsCategory = category

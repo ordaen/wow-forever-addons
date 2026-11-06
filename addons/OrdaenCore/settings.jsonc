@@ -1,0 +1,33 @@
+// Ordaen Core's settings: how every Ordaen addon looks (docs/reference/settings.md).
+{
+  "db": "OrdaenCoreDB",
+  "title": "SETTINGS_TITLE",
+  "sections": [
+    {
+      "header": "HEADER_APPEARANCE",
+      "settings": {
+        "ui.theme": {
+          "type": "choice",
+          "choices": [
+            { "id": "ordaen", "label": "THEME_ORDAEN" },
+            { "id": "blizzard", "label": "THEME_BLIZZARD" },
+            { "id": "minimal", "label": "THEME_MINIMAL" }
+          ],
+          "default": "ordaen",
+          "label": "THEME",
+          "tooltip": "THEME_TOOLTIP"
+        },
+        "ui.textSize": {
+          "type": "number", "min": 10, "max": 16, "step": 1, "format": "px", "default": 12,
+          "label": "TEXT_SIZE", "tooltip": "TEXT_SIZE_TOOLTIP"
+        }
+      }
+    },
+    {
+      "settings": {
+        // "<ours>:<theirs>" -> true: the player kept both addons of a conflict (Conflict.lua; at most 50)
+        "keptConflicts": { "type": "map", "of": "boolean", "default": {}, "page": false }
+      }
+    }
+  ]
+}

@@ -252,10 +252,17 @@ player changed).
   Nested tables and maps are raw tables of their own (kept when empty), so writes through them reach the
   player's table. `A:Get("a.b")` reads a dotted key.
 - **Writing:** the page (or `A:Set(key, value)`) writes the player's value, validated against the schema, then
-  calls `A:_SettingChanged(key, value)` and the addon's `onChange`. `A:Reset(key)` removes it; `/<slash> reset`
+  calls `A:_SettingChanged(key, value)` (features) and the addon's `onChange` (`OrdaenCore.NewAddon(…, {
+  onChange = fn(key, value) })`). `A:Reset(key)` removes it; `/<slash> reset`
   removes all (keeping `_schema`, the migration count).
 - **Theme switch:** the fallbacks point at the new theme's defaults; every setting without a player value whose
   value changed is announced through `_SettingChanged`, then `_SyncFeatures()` runs.
 - **Loading:** migrations run on the raw saved table first; then values that the schema refuses (wrong type,
   unknown choice or asset, out of range) are removed, so the default applies.
-- **Page:** drawn with OrdaenCore.UI components from `sections`, under Options > AddOns.
+- **Page:** from `sections`, under Options > AddOns. For now on Blizzard's Settings API (proxy settings that read
+  and write through the store): `boolean` checkboxes, `number` sliders, `choice` and `asset` dropdowns,
+  `enabledBy` greys a control out; the other types aren't on the page yet. A page drawn with OrdaenCore.UI
+  components is planned (roadmap).
+- **Ordaen Core** has a manifest too (`OrdaenCore/settings.jsonc`: `ui.theme`, `ui.textSize`, `keptConflicts`).
+  Its theme is applied when it loads, before the addons that depend on it bind; a theme change from its page
+  moves every addon's untouched settings, then OrdaenCore.UI redraws.

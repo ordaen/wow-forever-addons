@@ -17,6 +17,11 @@
 --   local F = A:Feature("drawer", { setting = "drawerEnabled" }) -- Feature.lua: on/off with its events,
 --                                                                -- tickers and hooks; Timer.lua: A:Every
 --
+-- An addon with a settings.jsonc (ns.SETTINGS_SCHEMA, docs/reference/settings.md) gives no db, defaults or
+-- settings here: the manifest names them, Ordaen Core keeps the values (SettingsStore.lua: only the player's
+-- choices are saved, everything else is the theme's default) and builds the page. It reads `db.key` as usual,
+-- writes with `A:Set(key, value)`, and hears changes in `onChange = fn(key, value)` (features hear first).
+--
 -- Spec fields besides those above: `charDb`/`charDefaults` (per character), `dump` (dev-mode state), and
 -- `migrations`/`charMigrations`: arrays of `function(db)`, each run once, in order, on SavedVariables saved before
 -- it existed (`db._schema` counts the ones done; new SavedVariables start counted). Append only, never reorder.
@@ -52,6 +57,7 @@ local L = ns.L
 ---@field private _printParts string[]
 ---@field _features OrdaenFeature[] Feature.lua
 ---@field _settingsCategory table|nil set by Settings.lua
+---@field _store OrdaenSettingsStore|nil the values, for an addon with a settings manifest (SettingsStore.lua)
 local Addon = {}
 Addon.__index = Addon
 
@@ -339,6 +345,33 @@ function Addon:Compartment(entry)
 	})
 end
 
+--- A setting's value (a dotted key reads a nested table): the player's, else the theme's default.
+---@param key string
+---@return any
+function Addon:Get(key)
+	if self._store then
+		return self._store:Get(key)
+	end
+	local tbl, leaf = Core.Settings.Resolve(self.db or {}, key)
+	return tbl and tbl[leaf]
+end
+
+--- Save the player's value for a setting of the manifest, if valid; features and `onChange` hear of it.
+---@param key string
+---@param value any
+---@return boolean saved false when the value isn't valid for the setting (or the addon has no manifest)
+function Addon:Set(key, value)
+	return self._store ~= nil and self._store:Set(key, value)
+end
+
+--- Forget the player's value for a setting of the manifest: the theme's default applies again.
+---@param key string
+function Addon:Reset(key)
+	if self._store then
+		self._store:Reset(key)
+	end
+end
+
 --- Open the addon's settings page (if it declared one).
 function Addon:OpenSettings()
 	if self._settingsCategory then
@@ -377,12 +410,16 @@ end
 
 local function reset(addon)
 	local db = addon.db
-	local schema = db._schema -- the migrations stay done: the defaults are the newest shape
-	clear(db, addon.spec.defaults or {})
-	copyDefaults(db, addon.spec.defaults or {})
-	db._schema = schema
-	if Core.Settings then
-		Core.Settings.Sanitize(addon)
+	if addon._store then
+		addon._store:ResetAll() -- the player's values go (each change is announced), `_schema` stays
+	else
+		local schema = db._schema -- the migrations stay done: the defaults are the newest shape
+		clear(db, addon.spec.defaults or {})
+		copyDefaults(db, addon.spec.defaults or {})
+		db._schema = schema
+		if Core.Settings then
+			Core.Settings.Sanitize(addon)
+		end
 	end
 	addon:_SyncFeatures()
 	runAs(addon, addon._onReset)
@@ -452,13 +489,54 @@ local function savedVariables(name, defaults, migrations)
 	return copyDefaults(db, defaults or {})
 end
 
+-- A SavedVariables table as saved (created when new), with its migrations run; no defaults filled.
+local function rawSaved(name, migrations)
+	local db = _G[name]
+	if type(db) ~= "table" then
+		db = {}
+		rawset(_G, name, db)
+		if migrations then
+			db._schema = #migrations
+		end
+	elseif migrations then
+		migrate(db, migrations)
+	end
+	return db
+end
+
+-- An addon with a settings manifest: migrations on the raw tables, then the store binds them to the schema (reads
+-- fall back to the theme's defaults, invalid values go). Each change reaches the features, then `spec.onChange`.
+local function bindSettings(addon, schema)
+	local spec = addon.spec
+	local db = rawSaved(schema.db, spec.migrations)
+	local charDb = schema.charDb and rawSaved(schema.charDb, spec.charMigrations) or nil
+	local store = Core._SettingsStore.Bind(schema, db, charDb)
+	local onChange = spec.onChange
+	local Debug = addon.Debug
+	store.onChange = function(key, value)
+		if Debug:TraceEnabled() then
+			Debug:Trace("setting", key .. "=" .. tostring(value))
+		end
+		addon:_SettingChanged(key, value)
+		if onChange then
+			Core._RunAs(addon, onChange, key, value)
+		end
+	end
+	addon._store, addon.db, addon.charDb = store, db, charDb
+end
+
 local function onAddonLoaded(addon)
 	local spec = addon.spec
-	if spec.db then
-		addon.db = savedVariables(spec.db, spec.defaults, spec.migrations)
-	end
-	if spec.charDb then
-		addon.charDb = savedVariables(spec.charDb, spec.charDefaults, spec.charMigrations)
+	local schema = addon.ns.SETTINGS_SCHEMA
+	if schema then
+		bindSettings(addon, schema)
+	else
+		if spec.db then
+			addon.db = savedVariables(spec.db, spec.defaults, spec.migrations)
+		end
+		if spec.charDb then
+			addon.charDb = savedVariables(spec.charDb, spec.charDefaults, spec.charMigrations)
+		end
 	end
 	addon.Debug:Init(addon.db or {}, {
 		slash = addon.spec.slash and addon.spec.slash[1],
@@ -467,7 +545,9 @@ local function onAddonLoaded(addon)
 		end,
 		dump = spec.dump,
 	})
-	if spec.settings and Core.Settings then
+	if schema and Core.Settings then
+		Core.Settings.RegisterSchema(addon, schema)
+	elseif spec.settings and Core.Settings then
 		Core.Settings.Register(addon)
 	end
 	registerSlash(addon)

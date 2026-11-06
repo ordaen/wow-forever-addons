@@ -721,4 +721,87 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			assert.equals(1, #reported)
 		end)
 	end)
+
+	describe("settings from a manifest", function()
+		local Store
+
+		-- ns.SETTINGS_SCHEMA as the build generates it from settings.jsonc
+		local function schema()
+			return {
+				db = "TestAddonDB",
+				sections = { { keys = { "enabled", "columns", "style" } } },
+				settings = {
+					enabled = { type = "boolean", default = true, scope = "account" },
+					columns = { type = "number", min = 2, max = 12, step = 1, default = 6, scope = "account" },
+					style = { type = "asset", of = "frame", theme = "frame.border", scope = "account" },
+				},
+			}
+		end
+
+		-- What WoW writes to the SavedVariables file: raw fields only.
+		local function saved(t)
+			local out = {}
+			for k, v in next, t do
+				out[k] = v
+			end
+			return out
+		end
+
+		before_each(function()
+			Store = Core._SettingsStore
+			Store._Clear()
+		end)
+
+		after_each(function()
+			Store._Clear()
+		end)
+
+		it("saves only the player's values; features hear a change first, then the addon", function()
+			rawset(_G, "TestAddonDB", { columns = 40, _schema = 0 }) -- out of range: dropped, the default applies
+			local heard = {}
+			local A = start({
+				onChange = function(key, value)
+					heard[#heard + 1] = "addon " .. key .. "=" .. tostring(value)
+				end,
+			}, { SETTINGS_SCHEMA = schema() })
+			local F = A:Feature("thing", { setting = "enabled" })
+			F:OnChange(function(key)
+				heard[#heard + 1] = "feature " .. key
+			end)
+			login()
+			assert.equals(6, A.db.columns)
+			assert.equals(Store.TokenIn("ordaen", "frame.border"), A.db.style, "a look setting follows the theme")
+			assert.same({ _schema = 0 }, saved(_G.TestAddonDB))
+			assert.is_true(F.enabled)
+
+			assert.is_true(A:Set("columns", 8))
+			assert.same({ "feature columns", "addon columns=8" }, heard)
+			assert.is_false(A:Set("columns", 99), "out of range")
+			assert.is_false(A:Set("nope", 1), "not in the manifest")
+			assert.same({ _schema = 0, columns = 8 }, saved(_G.TestAddonDB))
+			assert.equals(8, A:Get("columns"))
+
+			A:Set("enabled", false)
+			assert.is_false(F.enabled, "the feature's setting turns it off")
+			A:Reset("enabled")
+			assert.is_true(F.enabled)
+			assert.same({ _schema = 0, columns = 8 }, saved(_G.TestAddonDB))
+		end)
+
+		it("moves untouched look settings with the theme and tells the addon", function()
+			local heard = {}
+			local A = start({
+				onChange = function(key)
+					heard[#heard + 1] = key
+				end,
+			}, { SETTINGS_SCHEMA = schema() })
+			login()
+			local ordaen, minimal = Store.TokenIn("ordaen", "frame.border"), Store.TokenIn("minimal", "frame.border")
+			assert.are_not.equal(ordaen, minimal, "the themes.jsonc this spec relies on has different frames")
+			Store.SetTheme("minimal")
+			assert.equals(minimal, A.db.style)
+			assert.same({ "style" }, heard)
+			assert.same({}, saved(_G.TestAddonDB))
+		end)
+	end)
 end)

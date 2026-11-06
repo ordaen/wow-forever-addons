@@ -21,6 +21,8 @@ return {
 	GetData = "Settings control text container (MinimapButtonButton SettingsMenu.lua)",
 	Add = "Settings control text container (MinimapButtonButton SettingsMenu.lua)",
 	GetID = "Settings category (ForeverQuestTint Options.lua: category:GetID())",
+	-- dump 1.60.1-70790 namespaces.txt: SettingsListElementInitializer.SetParentInitializer
+	SetParentInitializer = "Settings initializer (SettingsListElementInitializer in the dump)",
 
 	-- HybridMinimap.MapCanvas (Map.lua, guarded by `if HybridMinimap`). Blizzard_HybridMinimap is load-on-demand
 	-- on Forever (dump 1.60.1-70790 has HybridMinimap_LoadUI and C_Minimap.ShouldUseHybridMinimap) and wasn't
