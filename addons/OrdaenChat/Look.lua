@@ -28,7 +28,9 @@ local PADDING = { "md", "md", "sm", "md" }
 -- string, stacked by RefreshLayout with the font's spacing as the offset). We keep the font's spacing small for the
 -- lines and re-anchor the messages with a bigger gap after each of Blizzard's layouts (the user's choice, 2026-11-06).
 local LINE_GAP = "xs"
-local MESSAGE_GAP = "sm"
+-- 6 at the default text size (the user's choice, 2026-11-07): no token is 6, so two tokens added, still following
+-- the text size.
+local MESSAGE_GAP = { "sm", "xs" }
 
 local on = false
 local centering = false
@@ -42,7 +44,7 @@ local flashing = {} -- chat window -> true while its tab flashes
 local unread = {} -- whisper window -> messages arrived while it wasn't the tab shown
 local badges = {} -- tab -> its badge text element (in the tab's look)
 local blizzardSpacing = {} -- chat window -> its line spacing before ours (given back when the look goes off)
-local messageGap = 0 -- UI units: MESSAGE_GAP at the current text size
+local messageGap = 0 -- UI units: MESSAGE_GAP's tokens added, at the current text size
 local layoutHooked = {} -- chat window -> true once its RefreshLayout is hooked
 
 -- Blizzard stacked a window's messages (RefreshLayout: on a resize or a font change, not per message): the gap between
@@ -69,7 +71,7 @@ local function spaceLines(frame)
 	if blizzardSpacing[frame] == nil then
 		blizzardSpacing[frame] = frame:GetSpacing() or 0
 	end
-	messageGap = UI.Space(MESSAGE_GAP)
+	messageGap = UI.Space(MESSAGE_GAP[1]) + UI.Space(MESSAGE_GAP[2])
 	frame:SetSpacing(UI.Space(LINE_GAP))
 	if not layoutHooked[frame] then
 		layoutHooked[frame] = true
