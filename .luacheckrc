@@ -8,8 +8,6 @@ local ours = {
 	"GetMinimapShape", -- Blizzard convention: the minimap addon defines it
 	"OrdaenCore",
 	"StaticPopupDialogs", -- we add our popup to it
-	"OrdaenCoreDebugDB",
-	"SLASH_ORDAENDEV1",
 	"OrdaenMinimapDB",
 	"SLASH_ORDAENMINIMAP1",
 	"SLASH_ORDAENMINIMAP2",

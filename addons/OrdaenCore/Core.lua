@@ -69,9 +69,9 @@ end
 -- Debug API for players: one shared, do-nothing table for every addon. No per-addon tables or
 -- closures, nothing recorded, Wrap returns the function itself (so errors take WoW's normal
 -- path), and no help text or slash handling: players don't need to know dev tools exist.
--- Development mode is the optional addon "Ordaen Core - Debug" (OrdaenCore_Debug, disabled by
--- default). When enabled it loads before the Ordaen addons (they list it in ## OptionalDeps) and
--- replaces Core.NewDebug with the real kit; keep this table's API in step with that kit.
+-- Development mode is the dev-only addon "Ordaen Core - Debug" (OrdaenCore_Debug, private repo,
+-- never shipped). When installed it loads before the Ordaen addons (they list it in ## OptionalDeps)
+-- and replaces Core.NewDebug with the real kit; keep this table's API in step with that kit.
 Core.debugMode = false
 
 local function noop() end
@@ -103,7 +103,7 @@ local stub = {
 	end,
 }
 
---- The debug kit for one addon: the shared no-op stand-in unless Ordaen Core - Debug is enabled.
+--- The debug kit for one addon: the shared no-op stand-in unless the dev addon replaced this.
 ---@return table Debug
 function Core.NewDebug()
 	return stub

@@ -2,6 +2,9 @@
 -- while no dump has been imported yet, so specs can mark themselves pending instead of failing.
 local M = {}
 
+-- Folder that contains api/forever/. The private ordaen-companion repo points it at this checkout.
+M.root = "."
+
 local function read(path)
 	local f = io.open(path, "rb")
 	if not f then
@@ -14,13 +17,13 @@ end
 
 --- The folder of the current dump, e.g. "1.60.1-70790", or nil when none is imported.
 function M.Current()
-	local current = read("api/forever/CURRENT")
+	local current = read(M.root .. "/api/forever/CURRENT")
 	return current and current:match("^%s*(.-)%s*$") or nil
 end
 
 local function file(name)
 	local current = M.Current()
-	return current and read("api/forever/" .. current .. "/" .. name) or nil
+	return current and read(M.root .. "/api/forever/" .. current .. "/" .. name) or nil
 end
 
 --- Set of Blizzard global names, or nil.

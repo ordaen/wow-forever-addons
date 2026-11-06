@@ -29,7 +29,7 @@ if (-not (Test-Path $AddOnsPath)) {
 }
 
 # Top-level addon folders, plus addons nested one level down that ship in the same package
-# (e.g. addons/OrdaenCore/OrdaenCore_Debug): any subfolder with a <FolderName>.toc.
+# (any subfolder with a <FolderName>.toc).
 $addons = @(Get-ChildItem $addonsRoot -Directory)
 $addons += @($addons | ForEach-Object { Get-ChildItem $_.FullName -Directory } |
     Where-Object { Test-Path (Join-Path $_.FullName "$($_.Name).toc") })

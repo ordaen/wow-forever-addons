@@ -45,8 +45,7 @@
       "package-name": "OrdaenCore",
       "initial-version": "0.1.0",
       "extra-files": [
-        "OrdaenCore.toc",
-        "OrdaenCore_Debug/OrdaenCore_Debug.toc"
+        "OrdaenCore.toc"
       ]
     },
     "addons/OrdaenMinimap": {

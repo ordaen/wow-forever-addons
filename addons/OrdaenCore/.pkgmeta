@@ -7,7 +7,3 @@ manual-changelog:
 
 ignore:
   - version.txt
-
-# Ship the optional debug module as its own addon folder in the same zip.
-move-folders:
-  OrdaenCore/OrdaenCore_Debug: OrdaenCore_Debug

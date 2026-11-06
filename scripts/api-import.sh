@@ -3,7 +3,8 @@
 #
 #   scripts/api-import.sh [path to SavedVariables/OrdaenCore_Debug.lua]
 #
-# In game first: Ordaen Dev window -> "Dump game API" (it reloads, which writes the file).
+# In game first: Ordaen Dev window -> "Dump game API" (it reloads, which writes the file). The window is
+# part of the dev-only addon OrdaenCore_Debug in the private ordaen-companion repo.
 # Afterwards click "Clear API dump" there; the dump is a few MB of SavedVariables.
 # Linux / CI: needs lua5.1 (or lua) on PATH. Windows (Git Bash): runs it in the WSL "Ubuntu" distro.
 set -euo pipefail
