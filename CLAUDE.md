@@ -157,6 +157,10 @@ hand-written .toc/.pkgmeta/Locale*.lua in addons/). Commands: `ordaen build|watc
 ## Localization
 
 - English and Russian for now; the user's client is ruRU. Every user-facing string goes through `ns.L`.
+- **Writing player-facing text** (user's rules): the skills `text-en` and `text-ru` (`.claude/skills/`), for every
+  string in a locale file, addon.jsonc, popups and CurseForge pages. In short: no fluff, clear instructions, the
+  game's own words; mouse buttons are `Left-click`/`Right-click` in English and `ЛКМ`/`ПКМ` in Russian.
+  `tests/repo/locale_text_spec.lua` fails on the wording the rules forbid.
 - Per addon: `locales/<code>.json` (`{ "KEY": "text" }`, keys UPPER_SNAKE_CASE), one file per language in
   `ordaen.jsonc` `"locales"`. The build generates `Locale.lua` (English base and fallback: an unknown key shows as
   itself; sets `ns.L` and `ns.LOCALE`) and one `Locale_<code>.lua` per other language, which returns at once unless
