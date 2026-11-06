@@ -58,19 +58,27 @@ local function moveChannel(channel, target)
 	end
 end
 
---- Keep Combat Log the last docked tab (new tabs and whisper tabs are added after it).
+local moving = false
+
+--- Keep Journal (Blizzard's Combat Log window) the last docked tab (new tabs and whisper tabs are added after it).
 function Tabs.CombatLogLast()
 	local combat = ChatFrame2
-	if not (combat and combat.isDocked) then
+	if moving or not (combat and combat.isDocked) then
 		return
 	end
 	local docked = FCFDock_GetChatFrames(GeneralDockManager)
 	if docked and docked[#docked] ~= combat then
+		moving = true
 		-- Docking a window that's already docked doesn't move it (Combat Log stayed second, 2026-11-06): take it
-		-- out of the dock, then dock it at the end. FCF_DockFrame also saves its place in the dock for the next login.
+		-- out of the dock, then dock it at the end.
 		FCF_UnDockFrame(combat)
 		FCF_DockFrame(combat, #FCFDock_GetChatFrames(GeneralDockManager) + 1, false)
-		debug():Log("tabs: Combat Log moved to the end of the dock")
+		-- Blizzard re-docks from each window's saved place (at login, renaming a window): save the new order.
+		for i, frame in ipairs(FCFDock_GetChatFrames(GeneralDockManager)) do
+			SetChatWindowDocked(frame:GetID(), i)
+		end
+		moving = false
+		debug():Log("tabs: Journal moved to the end of the dock")
 	end
 end
 
@@ -171,6 +179,8 @@ function Tabs.ApplyOnce(charDb)
 		-- A tab the player opens (Blizzard's tab menu) or a whisper tab is added at the end: Combat Log goes after it.
 		hooksecurefunc("FCF_OpenNewWindow", Tabs.CombatLogLast)
 		hooksecurefunc("FCF_OpenTemporaryWindow", Tabs.CombatLogLast)
+		-- Blizzard laid the tabs out again (a re-dock from saved places, a renamed window): Journal last again.
+		hooksecurefunc("FCFDock_UpdateTabs", Tabs.CombatLogLast)
 	end
 end
 

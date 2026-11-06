@@ -26,24 +26,12 @@ local FALLBACK = { 0.6, 0.6, 0.6 }
 local on = false
 local open = "|cff999999" -- the muted colour's escape, from the theme
 local lastIn, lastOut -- the last message and its recoloured line (shared by the chat windows showing it)
-local myGUID, myName
 
 local function readColor()
 	local c = UI.Color("color.muted", FALLBACK) or FALLBACK
 	open = ("|cff%02x%02x%02x"):format(math.floor(c[1] * 255 + 0.5), math.floor(c[2] * 255 + 0.5),
 		math.floor(c[3] * 255 + 0.5))
 	lastIn, lastOut = nil, nil
-end
-
--- Whether a message is about the player: its sender's GUID (payload 12) or name (payload 2, maybe with a realm).
-local function isMine(name, guid)
-	if type(guid) == "string" and guid ~= "" and not issecretvalue(guid) then
-		return guid == myGUID
-	end
-	if type(name) ~= "string" or issecretvalue(name) or name == "" then
-		return true -- no sender: a line about you ("You receive loot")
-	end
-	return name == myName or name:match("^([^%-]+)") == myName
 end
 
 local function muted(message)
@@ -61,7 +49,7 @@ local function filter(_, event, message, ...)
 	end
 	local name, guid = ..., (select(11, ...))
 	local dim
-	if isMine(name, guid) then
+	if ns.Route.IsMine(event, message, name, guid) then
 		dim = rule.mine
 	else
 		dim = rule.others
@@ -83,7 +71,6 @@ local listening = false
 --- Colour game messages by whose they are: the "dimEvents" feature's OnEnable.
 function Dim.Enable()
 	on = true
-	myGUID, myName = UnitGUID("player"), UnitName("player")
 	readColor()
 	for event in pairs(RULES) do
 		ChatFrameUtil.AddMessageEventFilter(event, filter)

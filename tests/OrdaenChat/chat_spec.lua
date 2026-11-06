@@ -145,7 +145,7 @@ local function chatWindow(i, title, shown)
 end
 
 describe("Ordaen Chat", function()
-	local tabsSized, dock, classColored, filters, secrets, social
+	local tabsSized, dock, classColored, filters, secrets, social, savedDock
 	local ns, frames, windows, cvars, menuButton, channelButton, art, loaded, stack, windowArt, selectedWindow
 
 	local function fire(event, ...)
@@ -167,7 +167,7 @@ describe("Ordaen Chat", function()
 
 	before_each(function()
 		frames, windows, cvars, art, loaded, windowArt = {}, {}, {}, {}, {}, {}
-		classColored, filters, secrets = {}, {}, {}
+		classColored, filters, secrets, savedDock = {}, {}, {}, {}
 		social = stub("QuickJoinToastButton")
 		stack = "" -- who calls a claimed method: nobody's addon (Blizzard's own code) unless a test says so
 		rawset(_G, "OrdaenChatDB", nil) -- SavedVariables: each test starts as a new character
@@ -257,6 +257,14 @@ describe("Ordaen Chat", function()
 			FCF_SetWindowName = function(frame, name)
 				frame.title = name
 			end,
+			SetChatWindowDocked = function(id, index)
+				savedDock[id] = index
+			end,
+			-- Blizzard's own lines (the ruRU client's are positional: "%1$s создает: %2$s.").
+			TRADESKILL_LOG_FIRSTPERSON = "You create %s.",
+			TRADESKILL_LOG_THIRDPERSON = "%1$s creates %2$s.",
+			OPEN_LOCK_SELF = "You perform %s on %s.",
+			OPEN_LOCK_OTHER = "%s performs %s on %s.",
 			issecretvalue = function(v)
 				return secrets[v] == true
 			end,
@@ -417,6 +425,7 @@ describe("Ordaen Chat", function()
 			assert.truthy(channels)
 			assert.equals("Journal", windows[2].title)
 			assert.equals(windows[2], dock[#dock], "Journal is the last tab")
+			assert.equals(#dock, savedDock[2], "saved as the last for the next login (Blizzard re-docks from it)")
 			local journal = {}
 			for _, group in ipairs(windows[2].messageTypeList) do
 				journal[group] = true
@@ -608,6 +617,17 @@ describe("Ordaen Chat", function()
 			local open = inJournal:match("^(|cff%x%x%x%x%x%x)")
 			assert.truthy(open, "theirs: in Journal, muted")
 			assert.truthy(inJournal:find("|r" .. open .. ".", 1, true), "after the link: muted again")
+		end)
+
+		it("tell yours from other players' by the text when the line carries no sender (crafting, openings)", function()
+			login()
+			local mine = "You create |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
+			local theirs = "Hevi Heavenly creates |cffffffff|Hitem:2581|h[Heavy Linen Bandage]|h|r."
+			assert.is_false((show("CHAT_MSG_TRADESKILLS", mine, "", "")), "yours: in General")
+			assert.is_true((show("CHAT_MSG_TRADESKILLS", theirs, "", "")), "theirs: not in General")
+			assert.is_false((showIn(windows[2], "CHAT_MSG_TRADESKILLS", theirs, "", "")), "theirs: in Journal")
+			local gathering = "Ramsey performs Herb Gathering on Peacebloom."
+			assert.is_true((show("CHAT_MSG_OPENING", gathering, "", "")), "their gathering: not in General")
 		end)
 
 		it("keep Blizzard's colours for what happens to you, mute other players' loot", function()
