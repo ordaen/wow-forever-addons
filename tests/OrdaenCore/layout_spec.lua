@@ -150,6 +150,73 @@ describe("OrdaenCore.UI layout", function()
 		assert.equals(40, res.colWidth[1] + res.colWidth[2])
 	end)
 
+	describe("never lets content overflow", function()
+		local function pad(block)
+			local p = block.padding or 0
+			if type(p) == "number" then
+				return p, p, p, p
+			end
+			return p[1], p[2], p[3], p[4]
+		end
+
+		-- Every item inside its block's content box, every text at least as tall as it wraps to at its width,
+		-- recursively through nested blocks.
+		local function check(block, result, path)
+			local top, right, bottom, left = pad(block)
+			for i = 1, result.count do
+				local item = result.items[i]
+				local where = path .. "[" .. i .. "]" .. (item.node.text and (" " .. item.node.text) or "")
+				assert.is_true(item.x >= left and item.x + item.w <= result.width - right + 1e-9,
+					where .. " sticks out sideways")
+				assert.is_true(item.y >= top and item.y + item.h <= result.height - bottom + 1e-9,
+					where .. " sticks out at the bottom")
+				if item.node.text then
+					local _, needed = measure(item.node, item.w)
+					assert.is_true(needed <= item.h, where .. " wraps to more lines than it got room for")
+				elseif not item.node.image then
+					check(item.node, Layout.ResultOf(item.node), where)
+				end
+			end
+		end
+
+		local LONG = "the quick brown fox jumps over the lazy dog again and again"
+
+		local cases = {
+			["a tooltip whose text is wider than its maxWidth"] = {
+				{ maxWidth = 120, padding = 10, gap = 2, { text = "Title" }, { text = LONG }, { text = "hint" } },
+			},
+			["label/value rows in a narrow block"] = {
+				{ width = 90, columns = { "auto", "1fr" }, gap = { 6, 2 }, padding = 4,
+					{ text = "A long label here" }, { text = LONG, align = "right" },
+					{ text = "Mail" }, { text = "3", align = "right" } },
+			},
+			["a spanning title longer than its columns, under a maxWidth"] = {
+				{ maxWidth = 100, columns = { "auto", "auto" }, gap = 4,
+					{ text = LONG, colSpan = 2 }, { text = "a" }, { text = "b" } },
+			},
+			["a nested block with padding in a fr column"] = {
+				{ width = 150, columns = { 20, "1fr" }, gap = 0, padding = 3,
+					{ image = "icon", size = 16 },
+					{ padding = 5, gap = 1, { text = LONG }, { text = "second line of the nested block" } } },
+			},
+			["an image wider than its column"] = {
+				{ width = 60, columns = { "1fr", "1fr" }, gap = 0, { image = "big", width = 50 }, { text = "x" } },
+			},
+			["shrink-to-fit with auto and fr columns and a maxWidth"] = {
+				{ maxWidth = 140, columns = { "auto", "2fr", "1fr" }, gap = 3, padding = { 2, 4, 6, 8 },
+					{ text = "Key" }, { text = LONG }, { text = "end" },
+					{ text = LONG, colSpan = 3 } },
+			},
+		}
+
+		for name, case in pairs(cases) do
+			it(name, function()
+				local block = case[1]
+				check(block, Layout.Run(block, nil, ctx()), "root")
+			end)
+		end
+	end)
+
 	it("reuses its result tables (no garbage per layout)", function()
 		local block = { { text = "a" } }
 		local first = Layout.Run(block, nil, ctx())

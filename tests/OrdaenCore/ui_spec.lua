@@ -4,9 +4,29 @@ local helpers = require("tests.OrdaenCore.helpers")
 
 local CHAR, LINE = 6, 12
 
--- A fake font string: knows its text, font, width, color, points; measures 6 px per char, 12 px per line.
-local function fakeFontString(log)
-	local fs = { shown = true, width = 0, text = "" }
+-- WoW renders fonts at whole-pixel sizes for the frame's effective scale, so the same text is a little wider
+-- in UI units on a scaled frame than on an unscaled one. The fakes model that: 6 px per char at effective
+-- scale 1, 6.6 px at any other scale. Text measured on one frame and drawn on another then disagrees.
+local function charWidth(scale)
+	return scale == 1 and CHAR or CHAR * 1.1
+end
+
+local uiScale = 1 -- UIParent's effective scale in the current test
+
+-- A fake font string: knows its text, font, width, color, points; measures per char and 12 px per line,
+-- wrapping at its width like WoW does.
+local function fakeFontString(log, frame)
+	local fs = { shown = true, width = 0, text = "", frame = frame }
+	local function natural(self)
+		return #self.text * charWidth(self.frame:GetEffectiveScale())
+	end
+	--- Lines this text takes at its current width (what the player sees).
+	function fs:Lines()
+		if self.width and self.width > 0 then
+			return math.max(1, math.ceil(natural(self) / self.width))
+		end
+		return 1
+	end
 	function fs:SetFontObject(font)
 		self.font = font
 	end
@@ -18,13 +38,13 @@ local function fakeFontString(log)
 		log.setText = log.setText + 1
 	end
 	function fs:GetUnboundedStringWidth()
-		return #self.text * CHAR
+		return natural(self)
 	end
 	function fs:GetStringHeight()
-		if self.width and self.width > 0 then
-			return math.max(1, math.ceil(#self.text * CHAR / self.width)) * LINE
-		end
-		return LINE
+		return self:Lines() * LINE
+	end
+	function fs:GetParent()
+		return self.frame
 	end
 	function fs:SetTextColor(r, g, b)
 		self.color = { r, g, b }
@@ -46,10 +66,19 @@ local function fakeFontString(log)
 	end })
 end
 
-local function fakeFrame(name, log)
-	local f = { name = name, shown = true, fonts = {}, scripts = {} }
+local function fakeFrame(name, log, parent)
+	local f = { name = name, shown = true, fonts = {}, scripts = {}, parent = parent or false }
+	--- Frames without a parent have scale 1; UIParent's scale is the UI scale; others inherit their parent's.
+	function f:GetEffectiveScale()
+		if not self.parent then
+			return 1
+		elseif self.parent == _G.UIParent then
+			return uiScale
+		end
+		return self.parent:GetEffectiveScale()
+	end
 	function f:CreateFontString()
-		local fs = fakeFontString(log)
+		local fs = fakeFontString(log, self)
 		self.fonts[#self.fonts + 1] = fs
 		return fs
 	end
@@ -98,13 +127,13 @@ describe("OrdaenCore.UI", function()
 	end
 
 	before_each(function()
-		chat, frames, log, loads, loadResult = {}, {}, { setText = 0 }, 0, true
+		chat, frames, log, loads, loadResult, uiScale = {}, {}, { setText = 0 }, 0, true, 1
 		helpers.stubGlobals({
 			DEFAULT_CHAT_FRAME = { AddMessage = function(_, msg)
 				table.insert(chat, msg)
 			end },
-			CreateFrame = function(_, name)
-				local f = fakeFrame(name, log)
+			CreateFrame = function(_, name, parent)
+				local f = fakeFrame(name, log, parent)
 				table.insert(frames, f)
 				return f
 			end,
@@ -152,7 +181,13 @@ describe("OrdaenCore.UI", function()
 		local s = surface()
 		assert.is_true(s.shown)
 		assert.same({ "Elwynn Forest", "Click: world map" }, shownTexts(s))
-		local title, hint = s.fonts[1], s.fonts[2]
+		local visible = {}
+		for _, fs in ipairs(s.fonts) do
+			if fs.shown then
+				visible[#visible + 1] = fs -- the surface also holds its hidden measuring font string
+			end
+		end
+		local title, hint = visible[1], visible[2]
 		assert.equals("GameTooltipHeaderText", title.font.fontName)
 		assert.same({ 0.5, 0.5, 0.5 }, hint.color)
 		-- widest line (16 chars, +1 px rounding margin) + 2 x padding 10; two lines + gap 2 + padding.
@@ -189,6 +224,43 @@ describe("OrdaenCore.UI", function()
 		local s = surface()
 		assert.equals(300, s.size[1])
 		assert.is_true(s.size[2] > LINE + 20)
+	end)
+
+	describe("at a UI scale other than 1", function()
+		-- Every line the player sees must fit the height the layout gave it, inside the tooltip.
+		local function assertNothingOverflows(s)
+			local layout = UI._Describe().layout
+			local drawn = 0
+			for _, fs in ipairs(s.fonts) do
+				if fs.shown then
+					drawn = drawn + 1
+					local item = layout[drawn]
+					assert.equals(item.text, fs.text)
+					assert.is_true(fs:Lines() * LINE <= item.h,
+						("%q needs %d lines, the layout made room for %d"):format(fs.text, fs:Lines(), item.h / LINE))
+					assert.is_true(item.y + item.h <= s.size[2], fs.text .. " sticks out at the bottom")
+				end
+			end
+			assert.is_true(drawn > 0)
+		end
+
+		it("measures text at the scale it is drawn at, so no line wraps unexpectedly", function()
+			uiScale = 0.64
+			UI.ShowTooltip(owner, {
+				style = "tooltip",
+				{ text = "Elwynn Forest", style = "title" },
+				{ text = "Goldshire" },
+				{ text = "Click: world map", style = "hint" },
+			})
+			assertNothingOverflows(surface())
+		end)
+
+		it("measures again when the UI scale changes", function()
+			UI.ShowTooltip(owner, { style = "tooltip", { text = "Click: calendar" } })
+			uiScale = 0.64
+			UI.RefreshTooltip(owner)
+			assertNothingOverflows(surface())
+		end)
 	end)
 
 	it("measures text once and reuses it while the text doesn't change", function()

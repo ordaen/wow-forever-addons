@@ -2,8 +2,8 @@
 -- block tree onto a surface frame, taking every look from the theme (ns.Theme).
 --
 -- Cost: font strings and textures are pooled per surface and reused on every draw; measurements are cached
--- per element (one small table per element, created once) and redone only when its text, font or width
--- changes. Nothing runs per frame.
+-- per element (one small table per element, created once) and redone only when its text, font, width or the
+-- surface's scale changes. Nothing runs per frame.
 local _, ns = ...
 
 local Render = {}
@@ -22,20 +22,27 @@ end
 
 -- Measuring ------------------------------------------------------------------------------------
 
-local measurer -- a font string on a frame that is never shown
-local naturalCache = setmetatable({}, { __mode = "k" }) -- element -> { text, font, w, h }
-local wrappedCache = setmetatable({}, { __mode = "k" }) -- element -> { text, font, width, h }
+-- Text is measured on the surface it will be drawn on, never elsewhere. WoW rasterizes fonts at whole-pixel
+-- sizes for a frame's effective scale, so the same text has a slightly different width in UI units at another
+-- scale; measured on an unparented frame (scale 1) and drawn under UIParent (the UI scale), lines that "fit"
+-- wrapped onto an extra line and overflowed the tooltip. Each surface has one hidden measuring font string, and
+-- the caches remember the scale they measured at.
+local measurers = setmetatable({}, { __mode = "k" }) -- surface -> its hidden measuring font string
+local measuring, measuringScale -- the surface being drawn and its effective scale (set by Render.Draw)
+local naturalCache = setmetatable({}, { __mode = "k" }) -- element -> { text, font, scale, w, h }
+local wrappedCache = setmetatable({}, { __mode = "k" }) -- element -> { text, font, scale, width, h }
 
 local function measurerFor(style)
-	if not measurer then
-		local frame = CreateFrame("Frame")
-		frame:Hide()
-		measurer = frame:CreateFontString(nil, "OVERLAY")
-		measurer:SetWordWrap(true)
-		measurer:SetNonSpaceWrap(true)
+	local fs = measurers[measuring]
+	if not fs then
+		fs = measuring:CreateFontString(nil, "OVERLAY")
+		fs:SetWordWrap(true)
+		fs:SetNonSpaceWrap(true)
+		fs:Hide()
+		measurers[measuring] = fs
 	end
-	measurer:SetFontObject(fontObject(style))
-	return measurer
+	fs:SetFontObject(fontObject(style))
+	return fs
 end
 
 --- Size of a text element: natural (one line) when width is nil, else wrapped to width. For the layout engine.
@@ -48,12 +55,13 @@ local function measure(el, width)
 			c = {}
 			naturalCache[el] = c
 		end
-		if c.text ~= text or c.font ~= style.font then
+		if c.text ~= text or c.font ~= style.font or c.scale ~= measuringScale then
 			local fs = measurerFor(style)
 			fs:SetWidth(0)
 			fs:SetText(text)
-			-- One pixel more than measured, so rounding never wraps a line that fits.
-			c.text, c.font, c.w, c.h = text, style.font, ceil(fs:GetUnboundedStringWidth()) + 1, ceil(fs:GetStringHeight())
+			-- One unit more than measured, so rounding never wraps a line that fits.
+			c.text, c.font, c.scale = text, style.font, measuringScale
+			c.w, c.h = ceil(fs:GetUnboundedStringWidth()) + 1, ceil(fs:GetStringHeight())
 		end
 		return c.w, c.h
 	end
@@ -62,11 +70,11 @@ local function measure(el, width)
 		c = {}
 		wrappedCache[el] = c
 	end
-	if c.text ~= text or c.font ~= style.font or c.width ~= width then
+	if c.text ~= text or c.font ~= style.font or c.width ~= width or c.scale ~= measuringScale then
 		local fs = measurerFor(style)
 		fs:SetWidth(width)
 		fs:SetText(text)
-		c.text, c.font, c.width, c.h = text, style.font, width, ceil(fs:GetStringHeight())
+		c.text, c.font, c.width, c.scale, c.h = text, style.font, width, measuringScale, ceil(fs:GetStringHeight())
 	end
 	return width, c.h
 end
@@ -150,7 +158,7 @@ function Render.Describe(surface, root)
 	local out = {
 		surfaceSize = { surface:GetWidth(), surface:GetHeight() },
 		surfaceScale = surface:GetEffectiveScale(),
-		measurerScale = measurer and measurer:GetParent():GetEffectiveScale() or false,
+		measuredAtScale = measurers[surface] and measuringScale or false,
 		layout = {},
 		drawn = {},
 	}
@@ -177,6 +185,7 @@ end
 --- Lay out `root` and draw it onto `surface` (a frame; BackdropTemplate if its style has a backdrop).
 --- `width` nil = shrink to fit. Sizes the surface; returns the root's layout result.
 function Render.Draw(surface, root, width)
+	measuring, measuringScale = surface, surface:GetEffectiveScale()
 	local result = Layout.Run(root, width, Render.context)
 	local p = poolOf(surface)
 	p.usedFonts, p.usedTextures = 0, 0
