@@ -48,9 +48,12 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 		return A
 	end
 
-	local function login()
+	local function login(stayLoading)
 		fire("ADDON_LOADED", "TestAddon")
 		fire("PLAYER_LOGIN")
+		if not stayLoading then
+			fire("LOADING_SCREEN_DISABLED") -- the game ends the loading screen after login
+		end
 	end
 
 	before_each(function()
@@ -522,6 +525,22 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			assert.equals(0, #dialogs)
 			assert.same({ { other = "PrettyTooltip", what = "GameTooltip:SetAlpha", handled = true } }, B:Conflicts())
 			rawset(_G, "OrdaenCoreDB", nil)
+		end)
+
+		it("wait with the dialog until the loading screen is gone", function()
+			rawset(_G, "TestFrame", frame())
+			local A = start()
+			login(true)
+			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
+			A:Claim(_G.TestFrame, { "SetAlpha" }, "GameTooltip")
+			_G.TestFrame:SetAlpha(0)
+			advance(5)
+			assert.equals(0, #dialogs, "not under the loading screen")
+			fire("LOADING_SCREEN_DISABLED")
+			advance(0.5)
+			assert.equals(0, #dialogs)
+			advance(1)
+			assert.equals(1, #dialogs)
 		end)
 
 		it("don't ask when an OnConflict function handled it", function()

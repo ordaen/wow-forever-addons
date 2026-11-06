@@ -517,6 +517,33 @@ function Core._IsLoggedIn()
 	return loggedIn
 end
 
+-- The loading screen: addons load under it, so it starts as up. Something shown under it may be gone when it ends
+-- (the conflict dialog after the first login with a newly enabled addon, 2026-11-06).
+local loadingScreen = true
+local afterLoading = {} -- functions waiting for the loading screen to end
+
+local function onLoadingScreen(event)
+	if event == "LOADING_SCREEN_ENABLED" then
+		loadingScreen = true
+		return
+	end
+	loadingScreen = false
+	local queue = afterLoading
+	afterLoading = {}
+	runAll(queue)
+end
+local watchingLoadingScreen = false -- registered with the first addon (NewAddon), under the loading screen
+
+--- Run `fn()` now, or when the loading screen ends if one is up (for anything the player must see).
+---@param fn fun()
+function Core._AfterLoadingScreen(fn)
+	if loadingScreen then
+		afterLoading[#afterLoading + 1] = fn
+	else
+		call(fn)
+	end
+end
+
 --- Create the framework object for an addon. Call it once, at the top level of one of its files.
 ---@param addonName string the first value of `...`
 ---@param addonNs table the addon's namespace (second value of `...`)
@@ -555,6 +582,11 @@ function Core.NewAddon(addonName, addonNs, spec)
 	if not waitingForLoad then
 		waitingForLoad = true
 		addHandler("ADDON_LOADED", onLifecycle)
+	end
+	if not watchingLoadingScreen then
+		watchingLoadingScreen = true
+		addHandler("LOADING_SCREEN_ENABLED", onLoadingScreen)
+		addHandler("LOADING_SCREEN_DISABLED", onLoadingScreen)
 	end
 	if not loggedIn and not waitingForLogin then
 		loggedIn = IsLoggedIn() or false

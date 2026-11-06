@@ -108,8 +108,9 @@ local function turnOff(addon, name)
 	addon.Debug:Logf("conflict: turned off %s; the button's macro reloads", name)
 end
 
-local ASK_DELAY = 1 -- seconds
+local ASK_DELAY = 1 -- seconds after the loading screen
 local MAX_KEPT = 50 -- remembered "keep both" pairs (OrdaenCoreDB.keptConflicts), a hard cap
+
 
 -- The pairs the player chose to keep both of ("OrdaenTooltips:PrettyTooltip" = true), in Ordaen Core's settings.
 local function kept()
@@ -184,9 +185,12 @@ local function ask(addon, other, what)
 			},
 		},
 	})
-	-- A second later: not from inside the other addon's hook, and after login has settled.
-	C_Timer.After(ASK_DELAY, function()
-		dialog:Show()
+	-- A second after the loading screen (Core._AfterLoadingScreen): not from inside the other addon's hook, and only
+	-- once the world shows; one shown under a long loading screen was gone when it ended.
+	Core._AfterLoadingScreen(function()
+		C_Timer.After(ASK_DELAY, function()
+			dialog:Show()
+		end)
 	end)
 end
 
