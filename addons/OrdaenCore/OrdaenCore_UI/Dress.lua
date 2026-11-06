@@ -34,6 +34,8 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@field art table[]|nil the textures to hide; default every texture of the frame and its children (give a list
 --- when the frame's children hold content, e.g. a chat window's message lines)
 ---@field states table<string, string>|nil state -> style role for :SetState (any other state: `style`)
+---@field focus boolean|nil an EditBox: our look shows only while it has the keyboard focus (being typed in), at full
+--- alpha whatever alpha Blizzard gives the frame (Blizzard's IM chat style leaves an inactive input faintly shown)
 ---@field block OrdaenUIBlock|nil our look as a whole block (a row of cells, say) instead of an icon; `style` is its
 --- role. Its cells can be found with dress.look:RectOf(cell) after it's drawn ("render")
 
@@ -153,12 +155,33 @@ local function placeOver(self)
 	end
 end
 
+-- Whether our look shows now: with its frame; with `focus`, only while the frame is being typed in.
+local function wanted(dress)
+	local frame = dress.frame
+	if not frame:IsShown() then
+		return false
+	end
+	if dress.opts.focus then
+		local box = frame --[[@as EditBox]]
+		return box:HasFocus() and true or false
+	end
+	return true
+end
+
 -- Our block is a sibling of Blizzard's frame (so it never covers it): it shows and hides with that frame. Without
 -- this, every hidden chat window, tab and voice button left its look on screen (2026-11-06).
 local function onFrameShown(frame)
 	for _, dress in pairs(byClickable) do
 		if dress.frame == frame and dress.dressed then
-			dress.look:Show()
+			dress.look:SetShown(wanted(dress))
+		end
+	end
+end
+
+local function onFocus(frame)
+	for _, dress in pairs(byClickable) do
+		if dress.frame == frame and dress.dressed and dress.opts.focus then
+			dress.look:SetShown(wanted(dress))
 		end
 	end
 end
@@ -175,7 +198,7 @@ end
 -- input faded out in Blizzard's IM style left our buttons faintly visible, 2026-11-06).
 local function onFrameAlpha(frame, alpha)
 	for _, dress in pairs(byClickable) do
-		if dress.frame == frame and dress.dressed then
+		if dress.frame == frame and dress.dressed and not dress.opts.focus then
 			dress.look:SetAlpha(alpha)
 		end
 	end
@@ -203,19 +226,19 @@ function Dress:Apply()
 	look:SetFrameStrata(frame:GetFrameStrata())
 	if self.opts.size == "frame" then
 		placeOver(self)
-		look:SetShown(frame:IsShown())
+		look:SetShown(wanted(self))
 		resize(self)
 	else
 		look:ClearAllPoints()
 		look:SetPoint("CENTER", frame, "CENTER")
-		look:SetShown(frame:IsShown())
+		look:SetShown(wanted(self))
 		frame:SetSize(look:GetWidth(), look:GetHeight())
 		if self.clickable ~= frame then
 			self.clickable:ClearAllPoints()
 			self.clickable:SetAllPoints(frame)
 		end
 	end
-	look:SetAlpha(frame:GetAlpha())
+	look:SetAlpha(self.opts.focus and 1 or frame:GetAlpha())
 	local level = frame:GetFrameLevel()
 	look:SetFrameLevel(level > 1 and level - 1 or 1)
 	if level < 2 then
@@ -321,6 +344,10 @@ function Dress.New(frame, opts)
 	frame:HookScript("OnShow", onFrameShown)
 	frame:HookScript("OnHide", onFrameHidden)
 	hooksecurefunc(frame, "SetAlpha", onFrameAlpha)
+	if frame:IsObjectType("EditBox") then -- `focus` may be turned on later
+		frame:HookScript("OnEditFocusGained", onFocus)
+		frame:HookScript("OnEditFocusLost", onFocus)
+	end
 	if opts.size == "frame" then
 		look.frame:HookScript("OnSizeChanged", function()
 			resize(self)

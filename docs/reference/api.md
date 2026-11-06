@@ -232,6 +232,7 @@ tab:SetState("selected") -- from a hook on Blizzard's own state change, never by
 | `extend` | | with `size = "frame"`: `{ left, right, top, bottom }` added around `cover` |
 | `art` | every texture of the frame and its children | the textures to hide, when children hold content |
 | `states` | | state -> style role for `d:SetState(state)` |
+| `focus` | false | an EditBox: our look shows only while it's typed in, at full alpha (whatever alpha Blizzard gives it) |
 
 ### Dressing with a whole block
 

@@ -121,8 +121,10 @@ local function chatWindow(i, title, shown)
 			end
 		end
 	end
-	w.editBox = stub("ChatFrame" .. i .. "EditBox", { GetFont = function()
+	w.editBox = stub("ChatFrame" .. i .. "EditBox", { kind = "EditBox", GetFont = function()
 		return "Fonts\\FRIZQT__.TTF", 14, ""
+	end, HasFocus = function(self)
+		return self.focused == true
 	end })
 	w.editBox.insets = { 15, 13, 0, 0 } -- Blizzard's, for its "Say:" header
 	function w.editBox:GetTextInsets()
@@ -713,7 +715,18 @@ describe("Ordaen Chat", function()
 			assert.equals(13, level)
 		end)
 
-				it("goes back over the chat when Blizzard places the input again", function()
+				it("shows its row only while typing", function()
+			login()
+			local input = windows[1].editBox
+			local row = channelButton.point[2] -- the frame our row is drawn on
+			assert.is_false(row:IsShown(), "not typing: nothing of the input shows")
+			input:Show() -- Enter: Blizzard shows the input and gives it the focus
+			input.focused = true
+			input.scripts.OnEditFocusGained(input)
+			assert.is_true(row:IsShown())
+		end)
+
+		it("goes back over the chat when Blizzard places the input again", function()
 			login()
 			windows[1].editBox:SetPoint("TOPLEFT", windows[1], "BOTTOMLEFT", -5, -2)
 			assert.same({ "BOTTOMRIGHT", windowArt[1], "BOTTOMRIGHT", 0, 0 }, windows[1].editBox.point)

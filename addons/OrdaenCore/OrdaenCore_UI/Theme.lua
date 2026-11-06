@@ -141,6 +141,20 @@ THEMES.ordaen = {
 			edges = { top = { 1, { 0, 0, 0, 1, accent = 1 } } },
 			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
 		},
+		-- A text input (the chat input over the chat's lines): opaque, so the text under it never shows through.
+		input = {
+			padding = 0,
+			fill = {
+				top = { 0.05, 0.04, 0.05, 1, accent = 0.07 },
+				bottom = { 0.015, 0.012, 0.015, 1, accent = 0.025 },
+			},
+			edges = {
+				top = { 1, { 0, 0, 0, 1, accent = 0.8 } },
+				right = { 1, { 0, 0, 0, 1, accent = 0.35 } },
+				bottom = { 1, { 0, 0, 0, 1, accent = 0.35 } },
+				left = { 1, { 0, 0, 0, 1, accent = 0.35 } },
+			},
+		},
 		panel = { -- a box holding other things (the minimap drawer): the tooltip surface, no size of its own
 			padding = 0,
 			fill = {
@@ -224,6 +238,7 @@ THEMES.blizzard = {
 		tabFlash = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.35, 0.25, 0, 0.9 },
 			border = { 1, 0.82, 0, 1 }, highlight = BUTTON_HIGHLIGHT },
 		panel = { padding = 0, backdrop = TOOLTIP_ART, background = { 0, 0, 0, 0.85 }, border = { 1, 1, 1, 1 } },
+		input = { padding = 0, backdrop = TOOLTIP_ART, background = { 0.03, 0.03, 0.06, 1 }, border = { 1, 1, 1, 1 } },
 		dialog = {
 			padding = "xl", gap = "lg", backdrop = DIALOG_ART, background = { 1, 1, 1, 1 }, border = { 1, 1, 1, 1 },
 		},
@@ -274,6 +289,8 @@ THEMES.minimal = {
 		tabFlash = { padding = 0, fill = { top = { 0.2, 0.22, 0.26, 0.94 }, bottom = { 0.2, 0.22, 0.26, 0.94 } },
 			edges = { top = { 1, { 0.56, 0.62, 0.72, 1 } } }, highlight = { color = { 1, 1, 1, 0.08 } } },
 		panel = { padding = 0, fill = GREY_FILL, edges = GREY_EDGES },
+		input = { padding = 0, fill = { top = { 0.08, 0.08, 0.09, 1 }, bottom = { 0.08, 0.08, 0.09, 1 } },
+			edges = GREY_EDGES },
 		dialog = { padding = "xl", gap = "lg", fill = GREY_FILL, edges = GREY_EDGES },
 		pushButton = {
 			padding = { "sm", "lg", "sm", "lg" },

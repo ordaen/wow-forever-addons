@@ -186,6 +186,9 @@ local function fakeFrame(name, log, parent)
 	function f:GetChildren()
 		return unpack(self.children)
 	end
+	function f:IsObjectType(kind)
+		return kind == "Frame" or kind == self.objectType
+	end
 	function f:GetRegions()
 		local out = {}
 		for _, t in ipairs(self.textures) do
@@ -960,6 +963,28 @@ describe("OrdaenCore.UI", function()
 			assert.equals(0.2, dress.look.frame:GetAlpha())
 			window:SetAlpha(1)
 			assert.equals(1, dress.look.frame:GetAlpha())
+		end)
+
+				it("show only while being typed in with `focus`, at full alpha (an input over the chat)", function()
+			local input = chatWindow()
+			input:Show()
+			local focused = false
+			input.HasFocus = function()
+				return focused
+			end
+			input.IsObjectType = function(_, kind)
+				return kind == "EditBox" or kind == "Frame"
+			end
+			input:SetAlpha(0.35) -- Blizzard's IM style leaves an inactive input faintly shown
+			local dress = UI.Dress(input, { style = "input", size = "frame", art = {}, focus = true })
+			assert.is_false(dress.look.frame.shown, "not typing: nothing of ours shows")
+			focused = true
+			input.scripts.OnEditFocusGained(input)
+			assert.is_true(dress.look.frame.shown)
+			assert.equals(1, dress.look.frame:GetAlpha(), "solid while typing")
+			focused = false
+			input.scripts.OnEditFocusLost(input)
+			assert.is_false(dress.look.frame.shown)
 		end)
 
 				it("reach past the covered region with `extend` (an input with buttons on its left)", function()

@@ -240,7 +240,8 @@ local function dressInput(input)
 			art[#art + 1] = texture
 		end
 	end
-	local dress = UI.Dress(input, { style = "panel", size = "frame", art = art, block = rowFor(input) })
+	local dress = UI.Dress(input, { style = "input", size = "frame", art = art, block = rowFor(input),
+		focus = overlaid })
 	if not dress then
 		return -- OrdaenCore_UI can't load (the player was told)
 	end
@@ -418,6 +419,12 @@ end
 ---@param on_ boolean
 function Input.SetOverlay(on_)
 	overlaid = on_
+	for _, dress in pairs(inputs) do
+		dress.opts.focus = on_ -- over the chat: seen only while typing
+		if dress.dressed then
+			dress:Apply()
+		end
+	end
 	if on_ then
 		C_CVar.SetCVar("chatStyle", "im")
 		ns.Debug:Logf("input: over the chat, chatStyle now %s", tostring(C_CVar.GetCVar("chatStyle")))
