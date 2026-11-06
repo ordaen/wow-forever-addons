@@ -28,6 +28,7 @@ local barAsset -- the barTexture setting: a bar asset id
 local hookedMeter = false
 local looks = {} -- session window -> its WindowLook
 local bars = {} -- bar frame -> its bar dress, or false (no status bar)
+local edges = {} -- bar frame -> the dress that hides Blizzard's shadow edge over it
 local texts = 0 -- texts dressed (for the dump)
 local windowOf = {} -- a header look or a Blizzard control -> its session window (never a field on theirs)
 
@@ -47,6 +48,12 @@ local function dressBar(bar)
 	if statusBar then
 		dressText(statusBar.Name, "body")
 		dressText(statusBar.Value, "value")
+		-- Blizzard's shadow edge lies over the fill (OVERLAY), darkening every bar's rim whatever its texture; its
+		-- alpha follows the meter's background transparency, so it's kept hidden by a dress, not hidden once.
+		local edge = bar.GetBackgroundEdge and bar:GetBackgroundEdge()
+		if edge then
+			edges[bar] = UI.Dress(statusBar, { style = "none", size = "frame", art = { edge } })
+		end
 	end
 end
 
@@ -190,9 +197,9 @@ function WindowLook:Place()
 			button:SetSize(w, h)
 		end
 	end
-	local x, y, w, h = look:RectOf(self.title)
+	local x, y, w = look:RectOf(self.title)
 	if x then
-		local middle = -(y + h / 2)
+		local middle = -(y + self.size / 2) -- the strip's middle (the title cell is empty: no height of its own)
 		self.timer:ClearAllPoints()
 		self.timer:SetPoint("RIGHT", look.frame, "TOPLEFT", x + w - PAD, middle)
 		self.typeName:ClearAllPoints()
@@ -296,6 +303,9 @@ function Look.Enable(asset)
 			dress:Apply()
 		end
 	end
+	for _, dress in pairs(edges) do
+		dress:Apply()
+	end
 	Look.Hook()
 end
 
@@ -322,6 +332,9 @@ function Look.Disable()
 		if dress then
 			dress:Undress()
 		end
+	end
+	for _, dress in pairs(edges) do
+		dress:Undress()
 	end
 end
 
