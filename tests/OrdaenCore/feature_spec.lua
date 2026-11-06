@@ -467,8 +467,6 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
 			A:Claim(_G.TestFrame, { "SetAlpha" }, "GameTooltip")
 			_G.TestFrame:SetAlpha(0)
-			assert.equals(0, #dialogs, "a second later")
-			advance(1)
 			assert.equals(1, #dialogs)
 			local d = dialogs[1]
 			assert.equals(
@@ -525,22 +523,6 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			assert.equals(0, #dialogs)
 			assert.same({ { other = "PrettyTooltip", what = "GameTooltip:SetAlpha", handled = true } }, B:Conflicts())
 			rawset(_G, "OrdaenCoreDB", nil)
-		end)
-
-		it("wait with the dialog until the loading screen is gone", function()
-			rawset(_G, "TestFrame", frame())
-			local A = start()
-			login(true)
-			stack = WATCHER .. "Interface/AddOns/PrettyTooltip/Hooks.lua:45: in function <x>\n"
-			A:Claim(_G.TestFrame, { "SetAlpha" }, "GameTooltip")
-			_G.TestFrame:SetAlpha(0)
-			advance(5)
-			assert.equals(0, #dialogs, "not under the loading screen")
-			fire("LOADING_SCREEN_DISABLED")
-			advance(0.5)
-			assert.equals(0, #dialogs)
-			advance(1)
-			assert.equals(1, #dialogs)
 		end)
 
 		it("don't ask when an OnConflict function handled it", function()

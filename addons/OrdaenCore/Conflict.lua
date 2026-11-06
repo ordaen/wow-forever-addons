@@ -108,7 +108,6 @@ local function turnOff(addon, name)
 	addon.Debug:Logf("conflict: turned off %s; the button's macro reloads", name)
 end
 
-local ASK_DELAY = 1 -- seconds after the loading screen
 local MAX_KEPT = 50 -- remembered "keep both" pairs (OrdaenCoreDB.keptConflicts), a hard cap
 
 
@@ -185,13 +184,7 @@ local function ask(addon, other, what)
 			},
 		},
 	})
-	-- A second after the loading screen (Core._AfterLoadingScreen): not from inside the other addon's hook, and only
-	-- once the world shows; one shown under a long loading screen was gone when it ended.
-	Core._AfterLoadingScreen(function()
-		C_Timer.After(ASK_DELAY, function()
-			dialog:Show()
-		end)
-	end)
+	dialog:Show() -- UI.Confirm waits for the loading screen by itself
 end
 
 -- A conflict found at login or at runtime, once per (other, what): the addon's OnConflict functions decide what to
