@@ -392,7 +392,23 @@ local PanelMeta = { __index = Panel }
 local covers = {} -- panel -> { edge, thickness }
 local insets = { bottom = 0, top = 0, left = 0, right = 0 }
 
-local function updateInsets()
+local updateInsets
+
+-- A panel's thickness on its edge, from its frame as drawn now. Also on every size change: the panel grows after its
+-- first placement as its content fills in (13 then 40 UI units for Ordaen Panel, 2026-11-06). A faded panel still
+-- covers its edge (fading it doesn't move what sits beside it).
+local function recordCover(self)
+	local cover = covers[self]
+	if not cover then
+		return
+	end
+	local frame = self.frame
+	local horizontal = cover[1] == "bottom" or cover[1] == "top"
+	cover[2] = (horizontal and frame:GetHeight() or frame:GetWidth()) + (cover[3] or 0)
+	updateInsets()
+end
+
+function updateInsets()
 	local changed = false
 	for edge, old in pairs(insets) do
 		local inset = 0
@@ -434,12 +450,10 @@ local function placePanel(self)
 	frame:ClearAllPoints()
 	frame:SetPoint(EDGE_POINT[edge], UIParent, EDGE_POINT[edge], d[1] * offset, d[2] * offset)
 	Render.Draw(frame, block, block.width)
-	-- A faded panel still covers its edge (fading it doesn't move what sits beside it).
 	local cover = covers[self] or {}
 	covers[self] = cover
-	cover[1] = edge
-	cover[2] = (horizontal and frame:GetHeight() or frame:GetWidth()) + offset
-	updateInsets()
+	cover[1], cover[3] = edge, offset
+	recordCover(self)
 end
 
 local function onScreenChanged(self)
@@ -492,6 +506,9 @@ function Component.Panel(spec, opts)
 	instance.fadeAlpha = fade:CreateAnimation("Alpha") --[[@as Alpha]]
 	instance:On("DISPLAY_SIZE_CHANGED", onScreenChanged)
 	instance:On("UI_SCALE_CHANGED", onScreenChanged)
+	instance.frame:HookScript("OnSizeChanged", function()
+		recordCover(instance)
+	end) -- once per panel
 	placePanel(instance)
 	return instance
 end

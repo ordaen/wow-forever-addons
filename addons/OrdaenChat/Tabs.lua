@@ -66,7 +66,11 @@ function Tabs.CombatLogLast()
 	end
 	local docked = FCFDock_GetChatFrames(GeneralDockManager)
 	if docked and docked[#docked] ~= combat then
-		FCF_DockFrame(combat, #docked, false)
+		-- Docking a window that's already docked doesn't move it (Combat Log stayed second, 2026-11-06): take it
+		-- out of the dock, then dock it at the end. FCF_DockFrame also saves its place in the dock for the next login.
+		FCF_UnDockFrame(combat)
+		FCF_DockFrame(combat, #FCFDock_GetChatFrames(GeneralDockManager) + 1, false)
+		debug():Log("tabs: Combat Log moved to the end of the dock")
 	end
 end
 

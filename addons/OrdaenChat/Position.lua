@@ -1,8 +1,10 @@
 -- The chat's place: bottom left, above any Ordaen panel at the bottom of the screen (and right of one on the left),
 -- found from the panels themselves (OrdaenCore.UI ScreenInset), so it follows the panel's size and edge without
 -- numbers of our own. The window keeps the size Edit Mode gives it; with the setting at "Edit Mode" its place is
--- Edit Mode's too. Edit Mode applying its layout puts the chat where Edit Mode keeps it: we put it back after (a
--- hook). We never call Edit Mode's code: it also places protected frames (action bars), and our calls would taint it.
+-- Edit Mode's too. Blizzard places the chat window from several places (Edit Mode's layout, the chat windows'
+-- saved positions): a hook on the window's SetPoint notes Blizzard's new place and puts it back above the panels
+-- (hooking only Edit Mode's ApplySystemAnchor missed the other path: the chat stayed at x 30, 2026-11-06). We never
+-- call Edit Mode's code: it also places protected frames (action bars), and our calls would taint it.
 -- Cost: no events and nothing per frame. A callback when a panel's inset changes, a hook on Edit Mode placing the
 -- chat window.
 local _, ns = ...
@@ -69,9 +71,9 @@ function Position.Enable()
 	on = true
 	if not hooked then
 		hooked = true
-		-- Edit Mode placing the chat (its layout loaded or changed): Edit Mode's new place, then back above the panels.
-		hooksecurefunc(ChatFrame1, "ApplySystemAnchor", function()
-			if not placing then
+		-- Blizzard placing the chat (Edit Mode's layout, the saved chat positions): its new place, then ours again.
+		hooksecurefunc(ChatFrame1, "SetPoint", function()
+			if on and not placing then
 				editModePoints = nil
 				place()
 			end

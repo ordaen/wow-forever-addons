@@ -208,14 +208,22 @@ describe("Ordaen Chat", function()
 			FCFDock_GetChatFrames = function()
 				return dock
 			end,
+			-- Like the game: docking a window that's already docked doesn't move it (seen in game, 2026-11-06).
 			FCF_DockFrame = function(frame, index)
-				for k, w in ipairs(dock) do
+				for _, w in ipairs(dock) do
 					if w == frame then
-						table.remove(dock, k)
-						break
+						return
 					end
 				end
 				table.insert(dock, math.min(index, #dock + 1), frame)
+			end,
+			FCF_UnDockFrame = function(frame)
+				for k, w in ipairs(dock) do
+					if w == frame then
+						table.remove(dock, k)
+						return
+					end
+				end
 			end,
 			ChatTypeGroup = { SAY = { "CHAT_MSG_SAY" }, GUILD = { "CHAT_MSG_GUILD", "CHAT_MSG_GUILD_ACHIEVEMENT" } },
 			SetChatColorNameByClass = function(chatType, on)
@@ -324,8 +332,10 @@ describe("Ordaen Chat", function()
 		function chat:GetBottom()
 			return 100
 		end
+		-- Edit Mode's layout (and Blizzard's saved chat positions) place the window through SetPoint, like the game.
 		function chat:ApplySystemAnchor()
-			self.points = { { "BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95 } } -- Edit Mode's layout
+			self:ClearAllPoints()
+			self:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 32, 95)
 		end
 		windowArt[1].GetLeft = function()
 			return 15
@@ -639,6 +649,12 @@ describe("Ordaen Chat", function()
 			local inset = OrdaenCore.UI.ScreenInset("bottom")
 			assert.is_true(inset > 0)
 			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, inset + 44 } }, windows[1].points)
+		end)
+
+		it("goes back above the panels after Blizzard's chat code places it", function()
+			login()
+			windows[1]:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 30, 40) -- the saved chat positions
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 9, 44 } }, windows[1].points)
 		end)
 
 		it("goes back above the panels after Edit Mode places it", function()
