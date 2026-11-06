@@ -7,3 +7,7 @@ manual-changelog:
 
 ignore:
   - version.txt
+
+# Ship the UI framework module as its own (load-on-demand) addon folder in the same zip.
+move-folders:
+  OrdaenCore/OrdaenCore_UI: OrdaenCore_UI

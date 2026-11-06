@@ -1,222 +1,212 @@
--- OrdaenCore.UI tooltips (addons/OrdaenCore/UI.lua, Tooltip.lua).
+-- OrdaenCore.UI: the always-loaded entry point (addons/OrdaenCore/UI.lua) and the load-on-demand framework
+-- (addons/OrdaenCore/OrdaenCore_UI/), driven with fake frames whose font strings measure like the layout spec's.
 local helpers = require("tests.OrdaenCore.helpers")
 
--- A GameTooltip that records what is drawn on it.
-local function recordingTooltip()
-	local tip = { lines = {}, shown = false, owner = nil, setOwnerCalls = 0 }
-	function tip:SetOwner(owner, anchor, x, y)
-		self.owner, self.anchor, self.x, self.y = owner, anchor, x, y
-		self.lines = {}
-		self.setOwnerCalls = self.setOwnerCalls + 1
+local CHAR, LINE = 6, 12
+
+-- A fake font string: knows its text, font, width, color, points; measures 6 px per char, 12 px per line.
+local function fakeFontString(log)
+	local fs = { shown = true, width = 0, text = "" }
+	function fs:SetFontObject(font)
+		self.font = font
 	end
-	function tip:ClearLines()
-		self.lines = {}
+	function fs:SetWidth(w)
+		self.width = w
 	end
-	function tip:AddLine(text, r, g, b, wrap)
-		self.lines[#self.lines + 1] = { text = text, color = { r, g, b }, wrap = wrap }
+	function fs:SetText(text)
+		self.text = text
+		log.setText = log.setText + 1
 	end
-	function tip:AddDoubleLine(left, right, lr, lg, lb, rr, rg, rb)
-		self.lines[#self.lines + 1] = { text = left .. " | " .. right, color = { lr, lg, lb }, right = { rr, rg, rb } }
+	function fs:GetUnboundedStringWidth()
+		return #self.text * CHAR
 	end
-	function tip:Show()
+	function fs:GetStringHeight()
+		if self.width and self.width > 0 then
+			return math.max(1, math.ceil(#self.text * CHAR / self.width)) * LINE
+		end
+		return LINE
+	end
+	function fs:SetTextColor(r, g, b)
+		self.color = { r, g, b }
+	end
+	function fs:SetJustifyH(j)
+		self.justify = j
+	end
+	function fs:SetPoint(...)
+		self.point = { ... }
+	end
+	function fs:Show()
 		self.shown = true
 	end
-	function tip:Hide()
-		self.shown, self.owner = false, nil
+	function fs:Hide()
+		self.shown = false
 	end
-	function tip:IsOwned(owner)
-		return self.owner == owner
+	return setmetatable(fs, { __index = function()
+		return function() end
+	end })
+end
+
+local function fakeFrame(name, log)
+	local f = { name = name, shown = true, fonts = {}, scripts = {} }
+	function f:CreateFontString()
+		local fs = fakeFontString(log)
+		self.fonts[#self.fonts + 1] = fs
+		return fs
 	end
-	function tip:texts()
+	function f:SetSize(w, h)
+		self.size = { w, h }
+	end
+	function f:SetPoint(...)
+		self.point = { ... }
+	end
+	function f:Show()
+		self.shown = true
+	end
+	function f:Hide()
+		self.shown = false
+	end
+	function f:IsShown()
+		return self.shown
+	end
+	function f:SetBackdrop(b)
+		self.backdrop = b
+	end
+	return setmetatable(f, { __index = function()
+		return function() end
+	end })
+end
+
+describe("OrdaenCore.UI", function()
+	local UI, chat, frames, log, loads, loadResult
+
+	local function shownTexts(surface)
 		local out = {}
-		for i, line in ipairs(self.lines) do
-			out[i] = line.text
+		for _, fs in ipairs(surface.fonts) do
+			if fs.shown then
+				out[#out + 1] = fs.text
+			end
 		end
 		return out
 	end
-	return tip
-end
 
-describe("OrdaenCore.UI tooltips", function()
-	local UI, tip, errors, owner
+	local function surface()
+		for _, f in ipairs(frames) do
+			if f.name == "OrdaenUITooltip" then
+				return f
+			end
+		end
+	end
 
 	before_each(function()
-		tip, errors = recordingTooltip(), {}
+		chat, frames, log, loads, loadResult = {}, {}, { setText = 0 }, 0, true
 		helpers.stubGlobals({
-			GameTooltip = tip,
-			geterrorhandler = function()
-				return function(err)
-					errors[#errors + 1] = tostring(err)
-				end
+			DEFAULT_CHAT_FRAME = { AddMessage = function(_, msg)
+				table.insert(chat, msg)
+			end },
+			CreateFrame = function(_, name)
+				local f = fakeFrame(name, log)
+				table.insert(frames, f)
+				return f
 			end,
 		})
-		UI = helpers.loadCore().UI
-		owner = { name = "Owner" }
-	end)
-
-	local content = {
-		v = 1,
-		title = { text = "Clock", icon = 134400 },
-		subtitle = { text = "Server time" },
-		{ kind = "row", label = "Invites", value = 2, color = { 1, 0.5, 0 } },
-		{ kind = "line", text = "A line" },
-		{ kind = "bar", label = "Rested", value = 3, max = 10 },
-		{ kind = "separator" },
-		{ kind = "hint", text = "Click: open the calendar" },
-	}
-
-	describe("without a renderer (plain GameTooltip lines)", function()
-		it("draws every v1 slot in order, anchored as asked", function()
-			UI.ShowTooltip(owner, content, { anchor = "ANCHOR_LEFT", x = 2, y = -3 })
-			assert.equals(owner, tip.owner)
-			assert.equals("ANCHOR_LEFT", tip.anchor)
-			assert.equals(2, tip.x)
-			assert.is_true(tip.shown)
-			assert.same({
-				"|T134400:0|t Clock",
-				"Server time",
-				"Invites | 2",
-				"A line",
-				"Rested: 3 / 10",
-				" ",
-				"Click: open the calendar",
-			}, tip:texts())
-			assert.same({ 1, 0.5, 0 }, tip.lines[3].right) -- a meaning color reaches the value
-			assert.same({ 0.5, 0.5, 0.5 }, tip.lines[7].color) -- hints are grey
-		end)
-
-		it("skips unknown slots, showing their text when they have one", function()
-			UI.ShowTooltip(owner, {
-				v = 2,
-				{ kind = "sparkline", points = { 1, 2 } },
-				{ kind = "badge", text = "NEW" },
-				{ kind = "line", text = "kept" },
-			})
-			assert.same({ "NEW", "kept" }, tip:texts())
-		end)
-
-		it("redraws in place on refresh, using the changed content table (no copy)", function()
-			local live = { v = 1, title = { text = "12:00" } }
-			UI.ShowTooltip(owner, live)
-			live.title.text = "12:01"
-			UI.RefreshTooltip(owner)
-			assert.same({ "12:01" }, tip:texts())
-			assert.equals(1, tip.setOwnerCalls) -- not re-anchored
-		end)
-
-		it("hides only its own tooltip, and refresh does nothing once hidden", function()
-			UI.ShowTooltip(owner, content)
-			local other = { name = "Other" }
-			UI.HideTooltip(other)
-			assert.is_true(tip.shown)
-			UI.HideTooltip(owner)
-			assert.is_false(tip.shown)
-			UI.RefreshTooltip(owner)
-			assert.is_false(tip.shown)
-		end)
-
-		it("leaves the tooltip alone when someone else took it over", function()
-			UI.ShowTooltip(owner, content)
-			tip:SetOwner({ name = "Blizzard" })
-			UI.HideTooltip(owner)
-			assert.is_nil(tip.lines[1])
-			assert.is_true(tip.owner ~= nil)
-		end)
-	end)
-
-	describe("with a renderer", function()
-		local calls, renderer
-
-		before_each(function()
-			calls = {}
-			renderer = {
-				formatVersion = 1,
-				Show = function(o, c, opts)
-					calls[#calls + 1] = { "Show", o, c, opts }
-				end,
-				Hide = function(o)
-					calls[#calls + 1] = { "Hide", o }
-				end,
-				Refresh = function(o, c)
-					calls[#calls + 1] = { "Refresh", o, c }
-				end,
-			}
-			UI.RegisterRenderer("tooltip", renderer)
-		end)
-
-		it("hands over the caller's own tables, and the Core draws nothing", function()
-			local opts = { anchor = "ANCHOR_TOP" }
-			UI.ShowTooltip(owner, content, opts)
-			UI.RefreshTooltip(owner)
-			UI.HideTooltip(owner)
-			assert.same({ "Show", "Refresh", "Hide" }, { calls[1][1], calls[2][1], calls[3][1] })
-			assert.equals(content, calls[1][3])
-			assert.equals(opts, calls[1][4])
-			assert.equals(content, calls[2][3])
-			assert.is_false(tip.shown)
-		end)
-
-		it("hands over content newer than the renderer knows", function()
-			UI.ShowTooltip(owner, { v = 9 })
-			assert.equals(9, calls[1][3].v)
-		end)
-
-		it("falls back to plain lines when the renderer errors, and reports the error", function()
-			renderer.Show = function()
-				error("renderer bug")
-			end
-			UI.ShowTooltip(owner, content)
-			assert.is_true(tip.shown)
-			assert.equals("|T134400:0|t Clock", tip.lines[1].text)
-			assert.equals(1, #errors)
-			assert.truthy(errors[1]:find("renderer bug", 1, true))
-			-- from then on this tooltip is ours: hide goes to GameTooltip, not the renderer
-			UI.HideTooltip(owner)
-			assert.is_false(tip.shown)
-		end)
-
-		it("falls back on a failing refresh too", function()
-			UI.ShowTooltip(owner, content)
-			renderer.Refresh = function()
-				error("refresh bug")
-			end
-			UI.RefreshTooltip(owner)
-			assert.is_true(tip.shown)
-			assert.equals(1, #errors)
-			assert.equals("Hide", calls[#calls][1]) -- the renderer's half-drawn tooltip is hidden first
-		end)
-
-		it("is replaced by a later registration; a tooltip already shown is hidden by its own renderer", function()
-			UI.ShowTooltip(owner, content)
-			local second = { Show = function() end, Hide = function() end, Refresh = function() end }
-			UI.RegisterRenderer("tooltip", second)
-			UI.HideTooltip(owner)
-			assert.equals("Hide", calls[#calls][1])
-		end)
-	end)
-
-	describe("RegisterRenderer", function()
-		it("rejects a tooltip renderer that lacks a function", function()
-			assert.has_error(function()
-				UI.RegisterRenderer("tooltip", { Show = function() end, Hide = function() end })
-			end, "OrdaenCore.UI.RegisterRenderer: a tooltip renderer needs a Refresh function")
-		end)
-
-		it("rejects bad arguments", function()
-			assert.has_error(function()
-				UI.RegisterRenderer(nil, {})
-			end)
-		end)
-
-		it("accepts kinds this Core doesn't draw yet (a newer renderer addon on an older Core)", function()
-			UI.RegisterRenderer("window", { Open = function() end })
-		end)
-	end)
-
-	it("publishes the API on the global OrdaenCore", function()
-		assert.equals(UI, rawget(_G, "OrdaenCore").UI)
-		for _, name in ipairs({ "ShowTooltip", "HideTooltip", "RefreshTooltip", "RegisterRenderer" }) do
-			assert.is_function(UI[name], name)
+		for _, font in ipairs({ "GameTooltipHeaderText", "GameTooltipText", "GameTooltipTextSmall", "GameFontNormal" }) do
+			rawset(_G, font, { fontName = font })
 		end
+		local core = helpers.loadCore()
+		rawget(_G, "C_AddOns").LoadAddOn = function(name)
+			loads = loads + 1
+			if not loadResult then
+				return false, "DISABLED"
+			end
+			assert.equals("OrdaenCore_UI", name)
+			local ns = {}
+			local toc = assert(io.open("addons/OrdaenCore/OrdaenCore_UI/OrdaenCore_UI.toc")):read("*a")
+			for file in toc:gmatch("[^\r\n]+") do
+				if file:match("%.lua$") then
+					assert(loadfile("addons/OrdaenCore/OrdaenCore_UI/" .. file))("OrdaenCore_UI", ns)
+				end
+			end
+			return true
+		end
+		UI = core.UI
+	end)
+
+	local owner = { name = "owner" }
+
+	it("loads the framework only on the first tooltip, never for Hide or Refresh", function()
+		UI.HideTooltip(owner)
+		UI.RefreshTooltip(owner)
+		assert.equals(0, loads)
+		UI.ShowTooltip(owner, { style = "tooltip", { text = "Hello" } })
+		UI.ShowTooltip(owner, { style = "tooltip", { text = "Again" } })
+		assert.equals(1, loads)
+	end)
+
+	it("draws a tooltip block: theme fonts and colors, shrink-to-fit size with the theme's padding", function()
+		local block = {
+			style = "tooltip",
+			{ text = "Elwynn Forest", style = "title" },
+			{ text = "Click: world map", style = "hint" },
+		}
+		UI.ShowTooltip(owner, block, { side = "below" })
+		local s = surface()
+		assert.is_true(s.shown)
+		assert.same({ "Elwynn Forest", "Click: world map" }, shownTexts(s))
+		local title, hint = s.fonts[1], s.fonts[2]
+		assert.equals("GameTooltipHeaderText", title.font.fontName)
+		assert.same({ 0.5, 0.5, 0.5 }, hint.color)
+		-- widest line (16 chars, +1 px rounding margin) + 2 x padding 10; two lines + gap 2 + padding.
+		assert.same({ 16 * CHAR + 1 + 20, LINE + 2 + LINE + 20 }, s.size)
+		assert.same({ "TOP", owner, "BOTTOM", 0, -4 }, s.point)
+		assert.equals("Interface\\Tooltips\\UI-Tooltip-Border", s.backdrop.edgeFile)
+	end)
+
+	it("redraws a shown tooltip after its block changed, hiding what is no longer drawn", function()
+		local invites = { text = "You have invitations", hidden = true }
+		local block = { style = "tooltip", invites, { text = "Click: calendar", style = "hint" } }
+		UI.ShowTooltip(owner, block)
+		local s = surface()
+		assert.same({ "Click: calendar" }, shownTexts(s))
+		invites.hidden = false
+		UI.RefreshTooltip(owner)
+		assert.same({ "You have invitations", "Click: calendar" }, shownTexts(s))
+		invites.hidden = true
+		UI.RefreshTooltip(owner)
+		assert.same({ "Click: calendar" }, shownTexts(s))
+	end)
+
+	it("hides only the owner's own tooltip", function()
+		UI.ShowTooltip(owner, { style = "tooltip", { text = "Mine" } })
+		UI.HideTooltip({ name = "someone else" })
+		assert.is_true(surface().shown)
+		UI.HideTooltip(owner)
+		assert.is_false(surface().shown)
+	end)
+
+	it("wraps long text at the theme's maximum width instead of growing", function()
+		local long = string.rep("word ", 20) -- 100 chars = 600 px
+		UI.ShowTooltip(owner, { style = "tooltip", { text = long } })
+		local s = surface()
+		assert.equals(300, s.size[1])
+		assert.is_true(s.size[2] > LINE + 20)
+	end)
+
+	it("measures text once and reuses it while the text doesn't change", function()
+		local block = { style = "tooltip", { text = "Steady" } }
+		UI.ShowTooltip(owner, block)
+		local after = log.setText
+		UI.RefreshTooltip(owner)
+		-- Only the drawn font string gets its text again; the measurer is not asked.
+		assert.equals(after + 1, log.setText)
+	end)
+
+	it("says once in chat when the framework can't load, and stays quiet afterwards", function()
+		loadResult = false
+		UI.ShowTooltip(owner, { style = "tooltip", { text = "x" } })
+		UI.ShowTooltip(owner, { style = "tooltip", { text = "y" } })
+		assert.equals(1, loads)
+		assert.equals(1, #chat)
+		assert.truthy(chat[1]:find("OrdaenCore_UI", 1, true))
+		assert.truthy(chat[1]:find("DISABLED", 1, true))
 	end)
 end)

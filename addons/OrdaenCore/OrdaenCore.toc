@@ -20,4 +20,3 @@
 
 Core.lua
 UI.lua
-Tooltip.lua

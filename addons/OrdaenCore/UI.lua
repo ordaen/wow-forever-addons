@@ -1,35 +1,63 @@
--- OrdaenCore.UI: our UI framework. Addons declare what they want (a tooltip; later buttons, windows) in our
--- own format and never learn who draws it. A renderer addon registers for one kind and draws every thing of
--- that kind; without one, the Core draws what Blizzard's own UI can. See CLAUDE.md, "UI framework".
--- Names here are forever (Core API rule): add, never change or remove.
-local _, ns = ...
+-- OrdaenCore.UI: the Ordaen UI framework's entry point, the only part every player loads. Addons declare what
+-- they want (tooltips now; more block roles later) and never learn how it's drawn. The framework itself (layout
+-- engine, theme, the one renderer) is the load-on-demand addon OrdaenCore_UI, loaded on first use.
+-- See CLAUDE.md, "UI framework".
+--
+-- Tooltip content is a block tree (OrdaenCore_UI/Layout.lua documents it):
+--   { style = "tooltip", { text = "Elwynn Forest", style = "title" }, { text = "Click: map", style = "hint" } }
+-- Build it once and change fields (text, hidden, color) on hover; RefreshTooltip redraws a shown one.
+local addonName, ns = ...
 
 local UI = {}
 ns.UI = UI
 ns.Core.UI = UI
 
--- kind -> renderer. Private to the Core; kinds the Core doesn't know yet are still stored, so a newer
--- renderer addon can register on an older Core without errors.
-local renderers = {}
-ns.renderers = renderers
+local MODULE = "OrdaenCore_UI"
 
--- Functions a renderer must have, per kind the Core draws.
-local REQUIRED = {
-	tooltip = { "Show", "Hide", "Refresh" },
-}
+local impl -- the framework's functions, handed over by the module when it loads
+local unavailable = false
 
---- Make `renderer` draw every thing of `kind` from now on (one per kind; registering again replaces it).
----@param kind string e.g. "tooltip"
----@param renderer table for "tooltip": { formatVersion = n, Show = fn(owner, content, opts), Hide = fn(owner),
----  Refresh = fn(owner, content) }
-function UI.RegisterRenderer(kind, renderer)
-	if type(kind) ~= "string" or type(renderer) ~= "table" then
-		error("usage: OrdaenCore.UI.RegisterRenderer(kind, renderer)", 2)
+--- Called by OrdaenCore_UI when it loads. Not for addons.
+function UI._Provide(functions)
+	impl = functions
+end
+
+local function framework()
+	if impl or unavailable then
+		return impl
 	end
-	for _, name in ipairs(REQUIRED[kind] or {}) do
-		if type(renderer[name]) ~= "function" then
-			error("OrdaenCore.UI.RegisterRenderer: a " .. kind .. " renderer needs a " .. name .. " function", 2)
-		end
+	local ok, reason = C_AddOns.LoadAddOn(MODULE)
+	if not ok or not impl then
+		-- Disabled in the AddOns list, missing or out of date: say so once, then stay quiet.
+		unavailable = true
+		DEFAULT_CHAT_FRAME:AddMessage(string.format(
+			"|cff33ff99%s|r: %s could not be loaded (%s); Ordaen tooltips are off. Enable it in the AddOns list.",
+			addonName, MODULE, tostring(reason or "unknown")))
 	end
-	renderers[kind] = renderer
+	return impl
+end
+
+--- Show a tooltip block for `owner` (usually from its OnEnter).
+---@param owner table the frame the tooltip belongs to
+---@param block table a block tree with style = "tooltip"
+---@param opts table|nil { side = "right" | "left" | "below" | "above", x, y }: placement only
+function UI.ShowTooltip(owner, block, opts)
+	local f = framework()
+	if f then
+		f.ShowTooltip(owner, block, opts)
+	end
+end
+
+--- Hide `owner`'s tooltip (usually from its OnLeave). Safe when none is shown; never loads the framework.
+function UI.HideTooltip(owner)
+	if impl then
+		impl.HideTooltip(owner)
+	end
+end
+
+--- Redraw `owner`'s tooltip after its block changed, if it is shown. Never loads the framework.
+function UI.RefreshTooltip(owner)
+	if impl then
+		impl.RefreshTooltip(owner)
+	end
 end
