@@ -4,8 +4,10 @@
 --   api/forever/CURRENT       the folder luacheck checks against (the newest build)
 --   api/forever/CHANGES.md    what each version added/removed compared with the previous one
 --   api/forever/luacheck.lua  read_globals for .luacheckrc, generated from CURRENT
+--   api/forever/<v>/api.json  the same API, structured (for scripts/forever_lint.lua and other tools)
 --
 --   lua scripts/api_import.lua <path to SavedVariables/OrdaenCore_Debug.lua> <repo root>
+--   lua scripts/api_import.lua --rebuild <repo root>   regenerate the derived files from the text files
 -- Usually run through scripts/api-import.sh. Lua 5.1; the functions are also used by specs.
 local M = {}
 
@@ -222,6 +224,75 @@ function M.Luacheck(files, folder)
 	return table.concat(out, "\n") .. "\n"
 end
 
+-- Structured API (api.json) --------------------------------------------------------------------
+
+local scriptDir = (debug.getinfo(1, "S").source:match("^@(.*[/\\])") or "./")
+local json = dofile(scriptDir .. "json.lua")
+
+--- "name:type?, other:type" -> list of {name, type, nilable}.
+local function parseFields(text)
+	local list = json.array({})
+	for field in (text or ""):gmatch("[^,]+") do
+		local name, kind = field:match("^%s*([^:]+):(.-)%s*$")
+		if name then
+			local nilable = kind:sub(-1) == "?"
+			list[#list + 1] = { name = name, type = nilable and kind:sub(1, -2) or kind, nilable = nilable }
+		end
+	end
+	return list
+end
+
+--- The structured API (what api.json holds), built from one version's rendered text files so it can be
+--- rebuilt for any committed version without the in-game dump:
+---   meta {key = value}, globals {name = type}, namespaces {name = {key = type}},
+---   widgets {Type = [methods] | false}, objects {path = {key = type}},
+---   functions {"C_X.Name" = {args = [...], returns = [...]}}, events {NAME = {payload = [...]}}
+--- args/returns/payload are lists of {name, type, nilable}.
+function M.Structured(files)
+	local api = { meta = {}, globals = {}, namespaces = {}, widgets = {}, objects = {}, functions = {}, events = {} }
+	for key, value in (files["meta.txt"] or ""):gmatch("([^=\n]+)=([^\n]*)") do
+		api.meta[key] = tonumber(value) or value
+	end
+	for name, kind in (files["globals.txt"] or ""):gmatch("([^\t\n]+)\t([^\n]+)") do
+		api.globals[name] = kind
+	end
+	for name, key, kind in (files["namespaces.txt"] or ""):gmatch("([^.\t\n]+)%.([^\t\n]+)\t([^\n]+)") do
+		api.namespaces[name] = api.namespaces[name] or {}
+		api.namespaces[name][key] = kind
+	end
+	for line in (files["widgets.txt"] or ""):gmatch("[^\n]+") do
+		local widgetType, method = line:match("^([^:\t]+):(.+)$")
+		if widgetType then
+			api.widgets[widgetType] = api.widgets[widgetType] or json.array({})
+			table.insert(api.widgets[widgetType], method)
+		else
+			local unavailable = line:match("^([^\t]+)\tunavailable$")
+			if unavailable then
+				api.widgets[unavailable] = false
+			end
+		end
+	end
+	for line in (files["objects.txt"] or ""):gmatch("[^\n]+") do
+		local path, key, kind = line:match("^(.+)%.([^.\t]+)\t(.+)$")
+		if path then
+			api.objects[path] = api.objects[path] or {}
+			api.objects[path][key] = kind
+		end
+	end
+	for line in (files["docs.txt"] or ""):gmatch("[^\n]+") do
+		local name, args, returns = line:match("^function ([^(]+)%((.-)%) %-> %((.-)%)$")
+		if name then
+			api.functions[name] = { args = parseFields(args), returns = parseFields(returns) }
+		else
+			local event, payload = line:match("^event ([^(]+)%((.-)%)$")
+			if event then
+				api.events[event] = { payload = parseFields(payload) }
+			end
+		end
+	end
+	return api
+end
+
 -- Command line ----------------------------------------------------------------------------------
 
 local function readFile(path)
@@ -252,6 +323,31 @@ local function listDirs(path)
 	return dirs
 end
 
+--- Regenerate everything derived from the committed text files: each version's api.json, CURRENT,
+--- CHANGES.md and luacheck.lua. Used after an import, and on its own (--rebuild) when the generators
+--- change.
+function M.Rebuild(root)
+	local base = root .. "/api/forever"
+	local folders = M.SortVersions(listDirs(base))
+	if #folders == 0 then
+		io.stderr:write("No versions in " .. base .. "\n")
+		os.exit(1)
+	end
+	local contents = {}
+	for _, f in ipairs(folders) do
+		contents[f] = { ["meta.txt"] = readFile(base .. "/" .. f .. "/meta.txt") }
+		for _, name in ipairs(FILES) do
+			contents[f][name .. ".txt"] = readFile(base .. "/" .. f .. "/" .. name .. ".txt")
+		end
+		writeFile(base .. "/" .. f .. "/api.json", json.encode(M.Structured(contents[f])))
+	end
+	local current = folders[#folders]
+	writeFile(base .. "/CURRENT", current .. "\n")
+	writeFile(base .. "/CHANGES.md", M.Changes(folders, contents))
+	writeFile(base .. "/luacheck.lua", M.Luacheck(contents[current], current))
+	return current, #folders
+end
+
 function M.Main(savedVariablesPath, root)
 	local env = {}
 	local chunk = assert(loadfile(savedVariablesPath))
@@ -269,24 +365,17 @@ function M.Main(savedVariablesPath, root)
 	for name, content in pairs(M.Render(dump)) do
 		writeFile(base .. "/" .. folder .. "/" .. name, content)
 	end
-
-	local folders = M.SortVersions(listDirs(base))
-	local contents = {}
-	for _, f in ipairs(folders) do
-		contents[f] = {}
-		for _, name in ipairs(FILES) do
-			contents[f][name .. ".txt"] = readFile(base .. "/" .. f .. "/" .. name .. ".txt")
-		end
-	end
-	local current = folders[#folders]
-	writeFile(base .. "/CURRENT", current .. "\n")
-	writeFile(base .. "/CHANGES.md", M.Changes(folders, contents))
-	writeFile(base .. "/luacheck.lua", M.Luacheck(contents[current], current))
-	print("Imported " .. folder .. " (current: " .. current .. ", versions: " .. #folders .. ")")
+	local current, count = M.Rebuild(root)
+	print("Imported " .. folder .. " (current: " .. current .. ", versions: " .. count .. ")")
 end
 
 if arg and arg[0] and arg[0]:match("api_import%.lua$") and arg[1] then
-	M.Main(arg[1], arg[2] or ".")
+	if arg[1] == "--rebuild" then
+		local current, count = M.Rebuild(arg[2] or ".")
+		print("Rebuilt " .. count .. " version(s) (current: " .. current .. ")")
+	else
+		M.Main(arg[1], arg[2] or ".")
+	end
 end
 
 return M
