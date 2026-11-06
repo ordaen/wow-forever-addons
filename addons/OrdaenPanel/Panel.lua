@@ -447,7 +447,7 @@ local function build()
 		end
 	end
 	middle = middle or { embed = barHolder, align = "center" }
-	xp.height = math.max(10, size - 4)
+	xp.height = math.max(10, size - 8)
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
 		spec = {

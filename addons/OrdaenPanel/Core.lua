@@ -59,22 +59,18 @@ end
 local microButtons = {}
 ns.MicroButtons = microButtons
 local Micro = A:Feature("micromenu", { setting = "micromenu" })
--- Blizzard's micro buttons by name: on Forever they aren't all children of MicroMenu (the first test found none
--- there), and the API dump doesn't list most of them, so both are looked at; Micro.Order keeps the shown ones.
+-- Forever's micro buttons, by name (the API dump doesn't list most of them). The client also has Achievement,
+-- Housing, PlayerSpells and EJ buttons from the modern code, but Forever doesn't use them: Bartender4's micro bar
+-- takes exactly the ones below and leaves those four on a hidden holder (in-game log, 2026-11-06). Micro.Order
+-- keeps the visible ones (Help comes and goes).
 local MICRO_NAMES = {
-	"CharacterMicroButton", "ProfessionMicroButton", "PlayerSpellsMicroButton", "SpellbookMicroButton",
-	"TalentMicroButton", "AchievementMicroButton", "QuestLogMicroButton", "HousingMicroButton", "GuildMicroButton",
-	"LFDMicroButton", "CollectionsMicroButton", "EJMicroButton", "StoreMicroButton", "MainMenuMicroButton",
-	"HelpMicroButton",
+	"CharacterMicroButton", "ProfessionMicroButton", "SpellbookMicroButton", "TalentMicroButton",
+	"QuestLogMicroButton", "GuildMicroButton", "LFDMicroButton", "CollectionsMicroButton", "StoreMicroButton",
+	"MainMenuMicroButton", "HelpMicroButton",
 }
 
 local function microCandidates()
 	local list, seen = {}, {}
-	if MicroMenu then
-		for _, child in ipairs({ MicroMenu:GetChildren() }) do
-			list[#list + 1], seen[child] = child, true
-		end
-	end
 	for _, name in ipairs(MICRO_NAMES) do
 		local button = _G[name]
 		if type(button) == "table" and button.GetObjectType and not seen[button] then
