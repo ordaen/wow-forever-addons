@@ -4,8 +4,24 @@ local M = {}
 -- metadata[addon][field]; "*" applies to every addon.
 M.metadata = {}
 
---- A stand-in for any WoW frame/texture/font string: unknown methods are no-ops returning nil.
---- Keeps scripts, text, shown state and points so UI code can be driven from tests.
+-- Method names any widget on Forever has (from the API dump), or nil before a dump is imported.
+local foreverMethods = require("tests.repo.forever_api").Methods()
+
+--- Whether a missing key on a stub object should act as a do-nothing method: a method name (CamelCase)
+--- that a real Forever widget has. Anything else reads as nil, like an unset field on a real frame, so a
+--- test can't pass because a fake made up a method or a field.
+function M.isStubMethod(key)
+	if type(key) ~= "string" or not key:match("^%u") then
+		return false
+	end
+	return foreverMethods == nil or foreverMethods[key] == true
+end
+
+local function noop() end
+
+--- A stand-in for any WoW frame/texture/font string: unknown widget methods are no-ops returning nil,
+--- unknown fields are nil (see M.isStubMethod). Keeps scripts, text, shown state and points so UI code
+--- can be driven from tests.
 function M.stubObject(name)
 	local obj = { name = name, scripts = {}, shown = true, text = "" }
 	local methods = {
@@ -56,8 +72,11 @@ function M.stubObject(name)
 		end,
 	}
 	return setmetatable(obj, {
-		__index = function(_, method)
-			return methods[method] or function() end
+		__index = function(_, key)
+			if methods[key] then
+				return methods[key]
+			end
+			return M.isStubMethod(key) and noop or nil
 		end,
 	})
 end
