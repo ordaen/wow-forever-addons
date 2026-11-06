@@ -42,6 +42,30 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   closures per call or event. A method call through `__index` is one table lookup and is fine.
 - **Stateless helpers stay module functions:** pure math and data (`Layout.Run`, `ns.RingOffset`) need no object.
 
+## Preventing bugs (user's decision; applies to every session)
+
+Every bug class we hit gets a **static check** first; tests and in-game checks come after. A fix without a check that
+would have caught it is half a fix: say which check now catches it, or add one.
+
+1. **Typed objects.** Every object kind is a LuaLS `---@class` whose methods are defined with `:`
+   (`function Kit:Logf(fmt, ...)`), never assigned as untyped fields (`Logf = noop`), so a dot call is a type error.
+   LuaLS findings (`param-type-mismatch`, `missing-parameter`, `undefined-field`, ...) fail `ordaen check` like lint.
+   forever-lint FL6 also flags known object methods called with `.`. (Caught by none of these before:
+   `debug().Logf(...)` in the drawer, 2026-11-06.)
+2. **Lint-first refactors.** Before reshaping an API (renames, `.` to `:`, removed functions), add the check that fails
+   on the old form, then convert until it reports nothing. The check decides when the conversion is done, never a
+   regex or a reading of the code.
+3. **Strict, shared fakes.** Specs use the shared fakes in `tests/OrdaenCore/helpers.lua`, generated from the API
+   dump: unknown fields and methods are `nil`, and object fakes check `self` like the real thing. No per-spec stub that
+   is looser than the game (a lenient stub made `frame.Button` look real; the no-op kit made dot calls look fine).
+4. **Merge only when green.** `develop` moves only through `ordaen merge <branch>` (rebase, `ordaen check`,
+   fast-forward only if everything passes). Don't decide "green" from filtered output; read the summary. Check
+   `git status`/`git diff --stat` before each commit (a refused file write once left a stale file in a green build).
+5. **Isolated features.** Each feature of an addon starts in its own lifecycle handler or protected call
+   (`securecallfunction`), so one feature's error is reported and the rest still start (`OrdaenMinimap/Core.lua`).
+6. **Check the game after a merge.** After merging and the user's `/reload`, the merging session reads `wow_errors`
+   (and `wow_log`/`wow_screenshot` for what it changed) before reporting the change as done.
+
 ## Game install
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
