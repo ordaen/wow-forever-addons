@@ -4,18 +4,30 @@ local addonName, ns = ...
 
 local L = ns.L
 
+-- Each feature starts in its own protected call (CLAUDE.md, "Preventing bugs"): an error in one is reported
+-- (BugSack, Blizzard, dev mode) and the others still start. securecallfunction is looked up per call, so
+-- specs can replace it; without it (older clients) errors propagate as before.
+local function isolated(fn, db)
+	local call = securecallfunction
+	if call then
+		call(fn, db)
+	else
+		fn(db)
+	end
+end
+
 local function applyAll()
 	if ns.Guard.blocked then
 		return
 	end
 	local db = OrdaenMinimapDB
-	ns.Map.Apply(db)
+	isolated(ns.Map.Apply, db) -- first: the others only apply while we own the map
 	if not ns.Map.active then
 		return
 	end
-	ns.Buttons.Apply(db)
-	ns.Info.Apply(db)
-	ns.Drawer.Apply(db)
+	isolated(ns.Buttons.Apply, db)
+	isolated(ns.Info.Apply, db)
+	isolated(ns.Drawer.Apply, db)
 end
 
 -- The dev-mode dump ("Save for Claude & reload" in the Ordaen Dev window).

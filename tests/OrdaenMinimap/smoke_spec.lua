@@ -578,6 +578,27 @@ describe("OrdaenMinimap smoke", function()
 		assert.same({ 1.3 }, Minimap.calls.SetScale[#Minimap.calls.SetScale])
 	end)
 
+	it("starts the other features when one of them fails", function()
+		-- In game securecallfunction reports the error and returns; here it records it.
+		local errors = {}
+		rawset(_G, "securecallfunction", function(fn, ...)
+			local ok, err = pcall(fn, ...)
+			if not ok then
+				errors[#errors + 1] = err
+			end
+		end)
+		ns.Drawer.Apply = function()
+			error("drawer broke")
+		end
+		fire("ADDON_LOADED", "OrdaenMinimap")
+		fire("PLAYER_LOGIN")
+		rawset(_G, "securecallfunction", nil)
+		assert.equals(1, #errors)
+		assert.truthy(tostring(errors[1]):find("drawer broke", 1, true))
+		assert.same({ "Interface\\Buttons\\WHITE8X8" }, Minimap.calls.SetMaskTexture[1]) -- the map is square
+		assert.equals("Elwynn Forest", frameNamed("OrdaenMinimapZone").font.text) -- and the texts are there
+	end)
+
 	it("draws a frame style as one tinted texture and switches back to a backdrop", function()
 		table.insert(ns.BORDER_STYLES, {
 			id = "test-frame",
