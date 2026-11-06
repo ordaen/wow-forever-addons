@@ -52,7 +52,7 @@ Read only our own addons' files and BugGrabber's, not other addons' saved data.
 - It doesn't: add logging or dump fields where the gap is and do another round. Don't ship speculative fixes, and say plainly what is still unknown.
 - Once a bug is fixed, keep the useful log lines and remove the noisy ones.
 
-## Kit reference (`OrdaenCore.NewDebug(addonName)`, in `addons/OrdaenCore/Debug.lua`)
+## Kit reference (`OrdaenCore.NewDebug(addonName)`, in `addons/OrdaenCore/OrdaenCore_Debug/Debug.lua`)
 
 | In game | Effect |
 |---|---|
