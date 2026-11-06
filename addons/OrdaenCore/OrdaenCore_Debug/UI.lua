@@ -374,6 +374,20 @@ local function buildWindow()
 	end)
 	f.channelButton = channel
 
+	-- API dump (ApiDump.lua): one click dumps and reloads; once imported into the repo, clear it.
+	local apiButton = newButton(f, "Dump game API", 150)
+	apiButton:SetPoint("RIGHT", channel, "LEFT", -6, 0)
+	apiButton:SetScript("OnClick", function(self)
+		if ns.ApiDump.Exists() then
+			ns.ApiDump.Clear()
+			self:SetText("Dump game API")
+		else
+			ns.ApiDump.Run()
+			UI.SaveForClaude()
+		end
+	end)
+	f.apiButton = apiButton
+
 	local save = newButton(f, "Save for Claude & reload", 220)
 	save:SetPoint("BOTTOMRIGHT", -16, 16)
 	save:SetScript("OnClick", UI.SaveForClaude)
@@ -391,6 +405,7 @@ local function buildWindow()
 	f.note:SetScript("OnEscapePressed", f.note.ClearFocus)
 
 	f:SetScript("OnShow", function()
+		f.apiButton:SetText(ns.ApiDump.Exists() and "Clear API dump" or "Dump game API")
 		f.versions:SetText(versionLine())
 		updateCombat()
 		showTab(currentTab)

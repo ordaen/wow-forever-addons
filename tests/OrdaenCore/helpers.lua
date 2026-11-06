@@ -134,6 +134,12 @@ function M.stubGlobals(overrides)
 	for name, value in pairs(overrides or {}) do
 		stubs[name] = value
 	end
+	-- Never fake an API Forever doesn't have (checked against the in-game dump once imported).
+	local names = {}
+	for name in pairs(stubs) do
+		names[#names + 1] = name
+	end
+	require("tests.repo.forever_api").CheckStubs(names)
 	-- rawset keeps luacheck quiet about defining globals in tests.
 	for name, value in pairs(stubs) do
 		rawset(_G, name, value)

@@ -63,6 +63,14 @@ Code shared by several addons lives in **Ordaen Core** (`addons/OrdaenCore/`), w
 or remove anything that has been released; add a new name instead. An addon that needs a newer Core sets
 `## X-Ordaen-MinCore: <version>` in its TOC (git checkouts skip that check).
 
+### The real Forever API
+
+`api/forever/<version>-<build>/` lists what the game's Lua API actually has, per client version, dumped in game:
+in dev mode, open the Ordaen Dev window and click **Dump game API** (it reloads), then run `bash scripts/api-import.sh`
+and commit the result. `api/forever/CHANGES.md` shows what each Forever patch added or removed. luacheck and the
+specs use the newest dump, so code that calls something Forever doesn't have fails before it reaches the game.
+Dump again after every Forever patch, and click **Clear API dump** once it's imported.
+
 ### Debugging in game
 
 Debugging is an optional **development mode**, so players never have errors collected. To turn it on, enable

@@ -3,52 +3,8 @@ std = "lua51"
 max_line_length = 120
 exclude_files = { "node_modules/", ".release/", ".lua/", ".luarocks/", ".install/" }
 
--- WoW API used by the addons. Add names here as you use them.
-read_globals = {
-	"C_AddOns",
-	"CreateFrame",
-	"DEFAULT_CHAT_FRAME",
-	"Minimap",
-	"UIParent",
-	"InCombatLockdown",
-	"LibStub",
-	-- used by OrdaenMinimap
-	"C_Timer",
-	"GameTooltip",
-	"IsShiftKeyDown",
-	"CreateSettingsListSectionHeaderInitializer",
-	"ReloadUI",
-	"StaticPopup_Show",
-	"issecurevariable",
-	"MinimalSliderWithSteppersMixin",
-	"MinimapCluster",
-	"RAID_CLASS_COLORS",
-	"Settings",
-	"UnitClass",
-	"hooksecurefunc",
-	-- used by OrdaenCore_Debug
-	"BackdropTemplateMixin",
-	"ChatFontNormal",
-	"GetBuildInfo",
-	"GetLocale",
-	"GetTime",
-	"UISpecialFrames",
-	"date",
-	"debuglocals",
-	"debugstack",
-	"geterrorhandler",
-	"seterrorhandler",
-	"BugGrabber",
-	"C_UI",
-	"LoggingChat",
-	"Screenshot",
-	"GetCursorPosition",
-	"GameTooltip",
-	"ReloadUI",
-}
-
--- Globals the addons are allowed to define.
-globals = {
+-- Globals the addons are allowed to define (or add entries to).
+local ours = {
 	"GetMinimapShape", -- Blizzard convention: the minimap addon defines it
 	"OrdaenCore",
 	"StaticPopupDialogs", -- we add our popup to it
@@ -59,5 +15,41 @@ globals = {
 	"SLASH_ORDAENMINIMAP2",
 	"SlashCmdList",
 }
+globals = ours
+
+-- Globals other addons define that we use when they are present (never Blizzard API).
+local fromOtherAddons = {
+	"LibStub",
+	"BugGrabber",
+}
+
+-- The real Forever API, generated from an in-game dump (scripts/api-import.sh, api/forever/CURRENT).
+-- With it, using anything Forever doesn't have (like MouseIsOver) fails luacheck.
+local ok, forever = pcall(dofile, "api/forever/luacheck.lua")
+if ok and type(forever) == "table" then
+	for _, name in ipairs(ours) do
+		forever[name] = nil
+	end
+	for _, name in ipairs(fromOtherAddons) do
+		forever[name] = {}
+	end
+	read_globals = forever
+else
+	-- Fallback until the first dump is imported: hand-checked names (see CLAUDE.md, "Forever lacks
+	-- many retail/classic FrameXML helpers").
+	read_globals = {
+		"C_AddOns", "CreateFrame", "DEFAULT_CHAT_FRAME", "Minimap", "UIParent", "InCombatLockdown",
+		"C_Timer", "GameTooltip", "IsShiftKeyDown", "CreateSettingsListSectionHeaderInitializer", "ReloadUI",
+		"StaticPopup_Show", "issecurevariable", "MinimalSliderWithSteppersMixin", "MinimapCluster",
+		"RAID_CLASS_COLORS", "Settings", "UnitClass", "hooksecurefunc", "BackdropTemplateMixin",
+		"ChatFontNormal", "GetBuildInfo", "GetLocale", "GetTime", "UISpecialFrames", "date", "time",
+		"debuglocals", "debugstack", "geterrorhandler", "seterrorhandler", "C_UI", "GetCursorPosition",
+		"LoggingChat", "Screenshot",
+	}
+	for _, name in ipairs(fromOtherAddons) do
+		read_globals[#read_globals + 1] = name
+	end
+end
 
 files["tests/"] = { std = "+busted" }
+files["scripts/"] = { std = "lua51" }

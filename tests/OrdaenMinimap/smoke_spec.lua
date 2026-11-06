@@ -221,6 +221,11 @@ describe("OrdaenMinimap smoke", function()
 				end,
 			},
 		}
+		local names = {}
+		for k in pairs(stubs) do
+			names[#names + 1] = k
+		end
+		require("tests.repo.forever_api").CheckStubs(names) -- no fakes of APIs Forever lacks
 		for k, v in pairs(stubs) do
 			rawset(_G, k, v)
 		end

@@ -52,10 +52,11 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
 - Versioning: release-please manifest mode (`release-please-config.json`, `.release-please-manifest.json`), one component per addon, tags `<Addon>-vX.Y.Z`. release-please bumps `## Version` in the TOC via `x-release-please-start-version` block markers — never edit it by hand.
 - Quality: luacheck + busted (pure-logic tests only, Lua 5.1) in CI; manual testing in game with dev mode (Ordaen Core - Debug).
 - **Forever lacks many retail/classic FrameXML helpers** (e.g. no global `MouseIsOver`; it errored every frame in the
-  drawer). Before using a WoW global or listing it in `.luacheckrc`/stubbing it in a spec, confirm it exists on Forever:
-  a Forever-specific addon in the AddOns folder uses it (files named `*Camelot*`/`Forever*`, or an addon that runs in the
-  user's game without guarding the call), or the user checks with `/dump` in game. Unconfirmed APIs get a fallback and
-  go in the dev-mode `api:` log line (e.g. `UNCONFIRMED_APIS` in `addons/OrdaenMinimap/Core.lua`).
+  drawer). **The source of truth is the in-game API dump in `api/forever/`** (see "Forever API dump" below): never use,
+  list or stub a WoW global, namespace function or widget method that isn't in `api/forever/$(cat CURRENT)/`. luacheck
+  and the specs enforce this once a dump is imported. Before the first dump (or for things a dump can't see), confirm
+  by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game; unconfirmed APIs get a
+  fallback and go in the dev-mode `api:` log line (`UNCONFIRMED_APIS` in `addons/OrdaenMinimap/Core.lua`).
 - Dev environment is Windows + WSL only (README "Development" describes nothing else). Lua 5.1, luacheck and busted live in the WSL distro `Ubuntu`; `scripts/test.sh` (run from Git Bash) runs luacheck + busted there. From Git Bash, call WSL with `MSYS_NO_PATHCONV=1` and `--exec` (otherwise Git Bash rewrites `/mnt/...` paths and WSL's shell expands `$1` early).
 - Packaging: BigWigs packager (pinned in `scripts/package.sh`). It requires a git repo root as topdir, so the script copies the addon into a temp git repo and tags it. Packager handles CurseForge/Wago uploads; the zip is attached to release-please's GitHub release with `gh release upload` (packager's own GitHub upload would overwrite the release notes). Packager maps interface `16???` to the `forever` flavor (CurseForge game id 88568).
 
@@ -70,6 +71,8 @@ tests/OrdaenCore/helpers.lua    WoW API stubs + Core loader, for any spec that n
 scripts/link.ps1                create/remove AddOns junctions
 scripts/package.sh              package one addon (CI + Git Bash)
 scripts/test.sh                 luacheck + busted (Git Bash -> WSL, or native on Linux/CI)
+scripts/api-import.sh           import the in-game API dump into api/forever/ (api_import.lua does the work)
+api/forever/<version>-<build>/  the real Forever API per client version (generated; history in git)
 .github/ISSUE_TEMPLATE/         bug report form the in-game error report links to
 .claude/skills/debug-in-game/   how Claude debugs in-game behavior (loaded on demand)
 .github/workflows/ci.yml        commitlint, luacheck, busted, packaging dry run
@@ -161,3 +164,23 @@ decided with the user.
 - **Debugging is opt-in development mode.** Players get a no-op stand-in from the Core: nothing is recorded and errors take WoW's normal path (BugSack, Blizzard). The real kit lives in the separate addon `OrdaenCore_Debug` ("Ordaen Core - Debug", `## DefaultState: Disabled`), nested in `addons/OrdaenCore/`. The packager's `move-folders` ships it as its own folder in the Core zip, and `link.ps1` links nested addon folders. Enabling it in the AddOns list turns on dev mode: our own error catcher (global error handler chained to the previous one, or BugGrabber's callback when BugGrabber keeps the handler; plus taint events), per-addon logs and dumps, and the Ordaen Dev window with "Save for Claude & reload". All dev data goes to one SavedVariables table, `OrdaenCoreDebugDB`, never into players' addon settings. Never make players' builds record anything. Plan for the window: Errors (done), then Performance (memory, `C_AddOnProfiler` if present, `Debug.Time`), Log, Inspect (frame picker, outlines). Prefer UI in the window over new slash commands.
 - For anything observed in game (bugs, errors, layout, "check" after a reload), follow the `debug-in-game` skill (`.claude/skills/debug-in-game/SKILL.md`).
 - Addons have no network access, so there is no telemetry. Users report errors with `/<cmd> errors` and the GitHub issue form. Add each new addon to its dropdown.
+
+## Forever API dump (`api/forever/`)
+
+The real Lua API of each Forever client version, dumped in game, so nobody guesses what exists.
+
+- **Make a dump** (user, dev mode on): Ordaen Dev window → **Dump game API**. It walks `_G` once (a short hitch),
+  stores names and types (never values) of Blizzard-defined globals only (`issecurevariable` drops anything other
+  addons added), one level into tables (`C_*`, `Enum`…), the methods of every widget type, the members of key Blizzard
+  objects (`Minimap`, `MinimapCluster`…), and Blizzard's API documentation if the client ships it. It saves to
+  `OrdaenCoreDebugDB.apiDump` and reloads. Afterwards the same button reads **Clear API dump**: click it once imported.
+- **Import it** (Claude, Git Bash): `bash scripts/api-import.sh` → `api/forever/<version>-<build>/` (`meta.txt`,
+  `globals.txt`, `namespaces.txt`, `widgets.txt`, `objects.txt`, `docs.txt` if available: sorted, one entry per line),
+  `api/forever/CURRENT` (newest build), `api/forever/CHANGES.md` (what each version added/removed) and
+  `api/forever/luacheck.lua`. Commit them as `chore(api): import Forever <version>-<build> API dump`. Dump again
+  whenever Forever patches; never edit these files by hand.
+- **Enforced:** `.luacheckrc` uses `api/forever/luacheck.lua` as `read_globals` (exact fields for namespaces and the
+  dumped objects), so any missing global or `C_X.Function` fails the lint. `tests/repo/forever_api_spec.lua` checks
+  every `:Method(` call in `addons/` against the dumped widget/object methods (non-widget methods, e.g. Settings or
+  LibDBIcon objects, need an entry with proof in `tests/repo/method_allowlist.lua`), and specs refuse to stub a global
+  the dump lacks (`tests/repo/forever_api.lua`, used by `helpers.stubGlobals` and the Minimap smoke spec).

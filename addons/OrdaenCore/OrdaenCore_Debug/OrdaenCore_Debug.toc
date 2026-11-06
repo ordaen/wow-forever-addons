@@ -25,4 +25,5 @@ Store.lua
 Capture.lua
 Debug.lua
 Channel.lua
+ApiDump.lua
 UI.lua
