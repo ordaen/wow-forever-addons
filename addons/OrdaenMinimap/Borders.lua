@@ -84,7 +84,7 @@ end
 ---@param id string|nil
 ---@return table
 function ns.GetBorderStyle(id)
-	return byId(ns.BORDER_STYLES, id) or byId(ns.BORDER_STYLES, ns.DEFAULTS.borderStyle)
+	return (byId(ns.BORDER_STYLES, id) or byId(ns.BORDER_STYLES, ns.DEFAULTS.borderStyle)) --[[@as table]]
 end
 
 --- The {r, g, b} to tint a style with, or nil to leave the texture untinted.

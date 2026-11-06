@@ -173,8 +173,14 @@ function Buttons.Style(button)
 	return icon
 end
 
+---@class OrdaenMinimapButton : Button, BackdropTemplate
+---@field icon Texture set by Buttons.Style
+---@field highlight Texture set by Buttons.Style
+
+---@return OrdaenMinimapButton
 local function newStyled(name, frameType)
-	local button = CreateFrame(frameType or "Button", name, Minimap, BackdropTemplateMixin and "BackdropTemplate" or nil)
+	local template = BackdropTemplateMixin and "BackdropTemplate" or nil
+	local button = CreateFrame(frameType or "Button", name, Minimap, template) --[[@as OrdaenMinimapButton]]
 	Buttons.Style(button)
 	button:SetFrameStrata("MEDIUM")
 	button:SetFrameLevel((Minimap:GetFrameLevel() or 1) + 8)

@@ -22,7 +22,9 @@ ns.CompartmentKey = key
 ---@param gap number space between slots in px
 ---@param growLeft boolean columns go right-to-left
 ---@param growUp boolean rows go bottom-to-top
----@return table offsets list of {x, y}, number width, number height
+---@return table offsets list of {x, y}
+---@return number width
+---@return number height
 function ns.DrawerGrid(count, columns, size, gap, growLeft, growUp)
 	local offsets = {}
 	local cols = math.max(1, math.min(columns, count))

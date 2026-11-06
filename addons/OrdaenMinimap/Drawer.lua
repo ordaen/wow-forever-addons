@@ -302,10 +302,13 @@ local function entryOnLeave(self)
 	GameTooltip:Hide() -- the other addon's own hover code usually draws on GameTooltip
 end
 
+---@class OrdaenMinimapEntryButton : Button
+---@field icon Texture
+
 local function entryButton(index)
 	local button = entryButtons[index]
 	if not button then
-		button = CreateFrame("Button", nil, container)
+		button = CreateFrame("Button", nil, container) --[[@as OrdaenMinimapEntryButton]]
 		button:SetSize(SLOT - 4, SLOT - 4)
 		button:RegisterForClicks("AnyUp")
 		button.icon = button:CreateTexture(nil, "ARTWORK")

@@ -101,6 +101,7 @@ local function logApiAvailability()
 	end
 	local parts = {}
 	for _, path in ipairs(UNCONFIRMED_APIS) do
+		---@type any
 		local value = _G
 		for key in path:gmatch("[^.]+") do
 			value = type(value) == "table" and value[key] or nil

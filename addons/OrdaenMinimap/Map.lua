@@ -309,6 +309,8 @@ function Map.StepAside()
 	end
 	ns.Info.Hide()
 	if GetMinimapShape == ourShape then
+		-- Blizzard leaves it undefined; other addons check for nil (the API dump typed it as a function).
+		---@diagnostic disable-next-line: assign-type-mismatch
 		GetMinimapShape = nil
 	end
 	ns.Debug.Log("Map.StepAside")
