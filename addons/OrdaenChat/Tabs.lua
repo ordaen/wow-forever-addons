@@ -98,7 +98,7 @@ function Tabs.CombatLogLast()
 		-- General, whatever its place in the dock: Journal stayed second although the dock had it last (2026-11-06).
 		-- Clearing the flag lets its tab follow the dock order. The user's choice, knowing the cost: a field an addon
 		-- writes is tainted, so Blizzard's tab code runs tainted after reading it (watch for "tainted by OrdaenChat").
-		combat.isStaticDocked = false
+		combat.isStaticDocked = false -- luacheck: ignore 122 (deliberate taint, the user's choice: see above)
 		relayout = true
 	end
 	local docked = FCFDock_GetChatFrames(GeneralDockManager)
