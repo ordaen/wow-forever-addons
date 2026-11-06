@@ -3,7 +3,7 @@
 --
 --   settings = {
 --   	title = "SETTINGS_TITLE",               -- locale key (default: the addon's TOC title)
---   	onChange = function(key, value) end,    -- after any setting changed
+--   	onChange = function(key, value) end,    -- after any setting changed (features hear first: Feature.lua)
 --   	{ header = "HEADER_MAP" },
 --   	{ key = "style", label = "STYLE", tooltip = "STYLE_TOOLTIP", choices = ns.STYLES }, -- { id = ..., label = key }
 --   	{ key = "scale", label = "SCALE", min = 0.8, max = 1.6, step = 0.05, format = "percent" }, -- or "px"
@@ -115,14 +115,16 @@ function SettingsPage.Register(addon)
 			local default = defaultTbl[leaf]
 			local setting = Settings.RegisterAddOnSetting(category, addon.name .. "_" .. key:gsub("%.", "_"), leaf, tbl,
 				type(default), L[entry.label], default)
-			if onChange then
-				setting:SetValueChangedCallback(function(_, value)
-					if Debug:TraceEnabled() then
-						Debug:Trace("setting", key .. "=" .. tostring(value))
-					end
+			-- Features first (Feature.lua: switch the one this setting turns on/off, tell the others), then onChange.
+			setting:SetValueChangedCallback(function(_, value)
+				if Debug:TraceEnabled() then
+					Debug:Trace("setting", key .. "=" .. tostring(value))
+				end
+				addon:_SettingChanged(key, value)
+				if onChange then
 					onChange(key, value)
-				end)
-			end
+				end
+			end)
 			local tooltip = entry.tooltip and L[entry.tooltip]
 			if entry.choices then
 				local choices = entry.choices
