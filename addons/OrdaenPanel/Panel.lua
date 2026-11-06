@@ -1,7 +1,7 @@
 -- Ordaen Panel's drawing: one OrdaenCore.UI panel on a screen edge. Left: the game menu buttons and the social
 -- button; middle: the experience (or reputation) bar; right: gold, the backpack currencies and the bags.
--- Blizzard's buttons stay Blizzard's (clicks, menus, alerts): each sits in a slot of the panel and is dressed in the
--- theme's button look (UI.Dress). We only declare blocks and move Blizzard's frames into slots; OrdaenCore.UI draws.
+-- Blizzard's buttons stay Blizzard's (clicks, menus, alerts): each group is a row of cells drawn in the panel, and
+-- each button sits invisibly over its cell. We only declare blocks and move Blizzard's frames; OrdaenCore.UI draws.
 --
 -- Cost: the block tables are made once (again only when the edge or button size changes, a settings change);
 -- events update fields in place and refresh. Nothing runs per frame; a 0.25 s ticker runs only while the mouse is
@@ -33,7 +33,7 @@ local REP_TOKEN = setmetatable({}, {
 -- Blocks (made by build(), changed in place) ---------------------------------------------------------------------
 
 local panel ---@type OrdaenUIPanel|nil
-local spec, left, middle, right, microGroup, socialGroup, bagGroup
+local spec, left, middle, right, microGroup, socialGroup, bagGroup, bagRow
 local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of its own, for its tooltip
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
@@ -61,12 +61,17 @@ local tipRate = { format = "", args = { 0 }, hidden = true }
 local tipLevel = { format = "", args = { 0, 0 }, hidden = true }
 local tooltip ---@type OrdaenUITooltip|nil
 
--- Slots: an empty block the size of a button, embedded in a group; a Blizzard button is anchored to it.
+-- Cells: each group of buttons is one row of "iconButton" cells drawn in the panel itself, so touching cells share
+-- one border (the engine collapses them). Each Blizzard button is dressed with style "none" (its art hidden,
+-- nothing drawn, its size left alone) and sits invisibly over its cell, placed from the panel's "render" event; while
+-- it's hovered its cell lights.
 local hookSocialTip -- defined with the social tooltip, below
-local slots = {} ---@type OrdaenUIComponent[] pooled
-local slotOf = {} ---@type table<table, OrdaenUIComponent> Blizzard button -> its slot
+local cellOf = {} ---@type table<table, table> Blizzard button -> its cell (a block in the panel)
+local cells = {} ---@type table<table, table> Blizzard button -> its cell, kept to reuse
 local homes = {} ---@type table<table, table> Blizzard button -> { parent, point, relativeTo, relativePoint, x, y }
+local sizes = {} ---@type table<table, number[]> Blizzard button -> its size before
 local dresses = {} ---@type table<table, OrdaenUIDress>
+local portraits = {} ---@type table<table, table> Blizzard button -> the texture of it that stays (the portrait)
 local placing = false
 local size = 24
 
@@ -91,37 +96,75 @@ local function columns(n)
 	return out
 end
 
--- Putting Blizzard's buttons in slots ------------------------------------------------------------------------------
+-- Putting Blizzard's buttons over their cells ----------------------------------------------------------------------
 
 local function place(button)
-	local slot = slotOf[button]
-	if not slot or placing then
+	local cell = cellOf[button]
+	if not cell or placing or not panel then
 		return
 	end
+	local x, y, w, h = panel:RectOf(cell)
+	if not x then
+		return -- the cell isn't drawn (yet)
+	end
 	placing = true
-	button:SetParent(slot.frame)
+	button:SetParent(panel.frame)
 	button:ClearAllPoints()
-	button:SetPoint("CENTER", slot.frame, "CENTER")
+	button:SetPoint("TOPLEFT", panel.frame, "TOPLEFT", x, -y)
+	button:SetSize(w, h)
+	local portrait = portraits[button]
+	if portrait then
+		portrait:ClearAllPoints()
+		portrait:SetPoint("CENTER", button, "CENTER")
+		portrait:SetSize(w - 6, h - 6)
+	end
 	placing = false
+end
+
+-- The panel was drawn: every button over its cell.
+local function onPanelDrawn()
+	for button in pairs(cellOf) do
+		place(button)
+	end
+end
+
+-- Blizzard greys out a button that can't be used yet (talents before level 10): its cell's icon follows, in the
+-- theme's colour for disabled things. Runs on Blizzard's Enable/Disable, rare.
+local function followEnabled(button)
+	local cell = cellOf[button]
+	local icon = cell and cell[1]
+	if not icon then
+		return
+	end
+	local color = (not button:IsEnabled()) and "color.disabled" or nil
+	if icon.color ~= color then
+		icon.color = color
+		if panel then
+			panel:Refresh()
+		end
+	end
+end
+
+-- Its cell lights while Blizzard's (invisible) button is hovered.
+local function lightCell(button, lit)
+	local cell = cellOf[button]
+	if cell and panel and cell.highlight ~= lit then
+		cell.highlight = lit
+		panel:Refresh()
+	end
+end
+
+local function onButtonEnter(button)
+	lightCell(button, true)
+end
+
+local function onButtonLeave(button)
+	lightCell(button, false)
 end
 
 -- Blizzard's layout code moves its buttons (vehicle UI, Edit Mode): put ours back right after. Hooked once per
 -- button; does nothing for a button we gave back.
 local hooked = {}
--- Blizzard greys out a button that can't be used yet (talents before level 10): our icon follows, in the theme's
--- colour for disabled things. Runs on Blizzard's Enable/Disable, rare.
-local function followEnabled(button)
-	local dress = dresses[button]
-	if not dress or not slotOf[button] then
-		return
-	end
-	local color = (not button:IsEnabled()) and "color.disabled" or nil
-	if dress.icon.color ~= color then
-		dress.icon.color = color
-		dress:Refresh()
-	end
-end
-
 local function hookPlacement(button)
 	if hooked[button] then
 		return
@@ -132,11 +175,12 @@ local function hookPlacement(button)
 	hooksecurefunc(button, "Enable", followEnabled)
 	hooksecurefunc(button, "Disable", followEnabled)
 	hooksecurefunc(button, "SetEnabled", followEnabled)
+	button:HookScript("OnEnter", onButtonEnter)
+	button:HookScript("OnLeave", onButtonLeave)
 	-- Found at runtime, so the build can't claim them: another bar addon moving them is a conflict (Conflict.lua).
 	ns.Addon:Claim(button, { "SetPoint", "SetParent" }, button:GetName() or "a Blizzard button")
 end
 
--- Blizzard's icon of a button, for our look of it: its normal texture's atlas or file, else its `icon` region.
 -- Art around an icon, never the icon: hover and highlight frames (the first test picked
 -- "UI-HUD-ActionBar-IconFrame-Mouseover" for the character and social buttons).
 local function decoration(name)
@@ -211,8 +255,8 @@ local function artExcept(frame, keep, out)
 end
 
 -- An atlas icon keeps its proportions (Blizzard's micro icons are taller than wide): fit into the icon square.
-local function fitIcon(dress, atlas)
-	local icon, side = dress.icon, size - 4
+local function fitIcon(icon, atlas)
+	local side = size - 8
 	local info = atlas and C_Texture.GetAtlasInfo(atlas)
 	if info and info.width and info.height and info.width > 0 and info.height > 0 then
 		local ratio = info.width / info.height
@@ -274,19 +318,6 @@ local function showTexts(button)
 	end
 end
 
-local function slotFor(i)
-	local slot = slots[i]
-	if not slot then
-		slot = UI.Block({ width = size, height = size })
-		slots[i] = slot
-	end
-	if slot then
-		slot.block.width, slot.block.height = size, size
-		slot:Refresh()
-	end
-	return slot
-end
-
 -- Our tooltip on the social button instead of Blizzard's (CLAUDE.md: adopted buttons show ours). Hooked once.
 local socialHooked = false
 local function onSocialEnter(button)
@@ -312,96 +343,117 @@ function hookSocialTip(button)
 	button:HookScript("OnLeave", onSocialLeave)
 end
 
-local function take(button, slot, texts)
+-- The cell of `button`: an "iconButton" block the button's size with its icon centred (none for the portrait).
+local function cellFor(button)
+	local name = button:GetName()
+	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
+	portraits[button] = portrait
+	local cell = cells[button] or { style = "iconButton" }
+	cells[button] = cell
+	cell.width, cell.height = size, size
+	cell.highlight = false
+	if portrait then
+		cell[1] = nil
+		return cell
+	end
+	local icon, atlas
+	if name == SOCIAL_BUTTON then
+		icon, atlas = socialIcon()
+	else
+		icon, atlas = iconOf(button)
+	end
+	local el = cell[1] or { align = "center", valign = "center" }
+	el.image, el.atlas = icon, atlas
+	fitIcon(el, atlas)
+	cell[1] = el
+	return cell
+end
+
+-- Another addon already holding the button (Bartender4's micro bar parents them to BT4BarMicroMenu): its frame's
+-- global name was set by that addon, so issecurevariable names it. Recorded, not asked: we take the button anyway, and
+-- a multi-purpose addon can't be turned off for this (the player turns off its bar).
+local function noteHolder(button)
+	local parent = button:GetParent()
+	local name = parent and parent:GetName()
+	if not name then
+		return
+	end
+	local secure, owner = issecurevariable(name)
+	if not secure and owner and not owner:find("^Ordaen") then
+		ns.Addon:Conflict(owner, (button:GetName() or "a button") .. " was on " .. name, true)
+	end
+end
+
+local function take(button, cell, texts)
 	if not homes[button] then
+		noteHolder(button)
 		local home = { button:GetParent() }
 		if button:GetNumPoints() > 0 then
 			home[2], home[3], home[4], home[5], home[6] = button:GetPoint(1)
 		end
 		homes[button] = home
+		sizes[button] = { button:GetWidth(), button:GetHeight() }
 	end
-	slotOf[button] = slot
+	cellOf[button] = cell
 	hookPlacement(button)
-	place(button)
-	local name = button:GetName()
-	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
-	local icon, atlas
-	if name == "QuickJoinToastButton" then
-		icon, atlas = socialIcon()
-	elseif not portrait then
-		icon, atlas = iconOf(button)
-	end
 	local dress = dresses[button]
 	if dress then
-		dress:SetIcon(icon, atlas)
 		dress:Apply()
 	else
-		dress = UI.Dress(button, {
-			icon = icon, atlas = atlas, iconSize = size - 4, art = portrait and artExcept(button, portrait) or nil,
+		local portrait = portraits[button]
+		dresses[button] = UI.Dress(button, {
+			style = "none", size = "frame", art = portrait and artExcept(button, portrait) or nil,
 		})
-		dresses[button] = dress
 	end
-	if dress then
-		fitIcon(dress, atlas)
-		dress:Refresh()
-	end
-	if portrait then
-		portrait:ClearAllPoints()
-		portrait:SetPoint("CENTER", button, "CENTER")
-		portrait:SetSize(size - 6, size - 6)
-	end
-	if name == "QuickJoinToastButton" then
+	if button:GetName() == SOCIAL_BUTTON then
 		hookSocialTip(button)
 	end
 	if texts then
 		hideTexts(button)
 	end
 	followEnabled(button)
-	ns.Addon.Debug:Logf("held %s: icon %s", button:GetName() or "?", tostring(atlas or icon))
+	local el = cell[1]
+	ns.Addon.Debug:Logf("held %s: %s", button:GetName() or "?",
+		el and tostring(el.atlas or el.image) or "its portrait")
 end
 
 local function giveBack(button)
-	if not slotOf[button] then
+	if not cellOf[button] then
 		return
 	end
-	slotOf[button] = nil
+	cellOf[button] = nil
 	showTexts(button)
 	local dress = dresses[button]
 	if dress then
 		dress:Undress()
 	end
-	local home = homes[button]
+	local home, before = homes[button], sizes[button]
+	placing = true
 	if home then
-		placing = true
 		button:SetParent(home[1])
 		button:ClearAllPoints()
 		if home[2] then
 			button:SetPoint(home[2], home[3], home[4], home[5], home[6])
 		end
-		placing = false
 	end
+	if before then
+		button:SetSize(before[1], before[2])
+	end
+	placing = false
 end
 
--- Fill a group block with slots for `buttons` (from slot index `first`); returns the next free slot index.
-local function fillGroup(group, buttons, first, extra, texts)
-	local n = 0
-	for i = #group, 1, -1 do
-		group[i] = nil
+-- Fill a row block with a cell per button (touching: gap 0, padding 0, so the borders collapse).
+local function fillRow(row, buttons, texts)
+	for i = #row, 1, -1 do
+		row[i] = nil
 	end
-	for _, button in ipairs(buttons) do
-		local slot = slotFor(first + n)
-		if slot then
-			n = n + 1
-			group[n] = { embed = slot }
-			take(button, slot, texts)
-		end
+	for i, button in ipairs(buttons) do
+		local cell = cellFor(button)
+		row[i] = cell
+		take(button, cell, texts)
 	end
-	if extra then
-		group[n + 1] = extra
-	end
-	group.columns = columns(n + (extra and 1 or 0))
-	group.hidden = n == 0 and not extra
-	return first + n
+	row.columns = columns(#buttons)
+	row.hidden = #buttons == 0
 end
 
 -- The buttons of each group ----------------------------------------------------------------------------------------
@@ -454,18 +506,15 @@ local socialButtons = {}
 local placedFor = { micromenu = nil, social = nil, bags = nil }
 
 -- Which Blizzard buttons each group holds now, and who gets theirs back (rare: group or layout changes).
+local NONE = {}
+
 local function placeButtons()
 	local s = db()
 	placedFor.micromenu, placedFor.social, placedFor.bags = s.micromenu, s.social, s.bags
-	for button in pairs(slotOf) do
+	for button in pairs(cellOf) do
 		giveBack(button)
 	end
-	local next = 1
-	if s.micromenu then
-		next = fillGroup(microGroup, ns.MicroButtons, next)
-	else
-		fillGroup(microGroup, {}, next)
-	end
+	fillRow(microGroup, s.micromenu and ns.MicroButtons or NONE)
 	for i = #socialButtons, 1, -1 do
 		socialButtons[i] = nil
 	end
@@ -473,13 +522,15 @@ local function placeButtons()
 	if s.social and quickJoin then
 		socialButtons[1] = quickJoin
 	end
-	next = fillGroup(socialGroup, socialButtons, next, nil, true)
+	fillRow(socialGroup, socialButtons, true)
 	if s.bags then
 		readBags()
-		fillGroup(bagGroup, bagButtons, next, bagText, true)
+		fillRow(bagRow, bagButtons, true)
 	else
-		fillGroup(bagGroup, {}, next)
+		fillRow(bagRow, NONE)
 	end
+	bagGroup.hidden = not s.bags
+	bagGroup.columns = columns(2)
 end
 
 -- Building the panel ----------------------------------------------------------------------------------------------
@@ -528,9 +579,11 @@ local function build()
 	local s = db()
 	size = s.buttonSize
 	local across = horizontal()
-	microGroup = microGroup or { gap = 2, rowAlign = "center" }
-	socialGroup = socialGroup or { gap = "xs", rowAlign = "center" }
-	bagGroup = bagGroup or { gap = 2, rowAlign = "center" }
+	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
+	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
+	socialGroup = socialGroup or { gap = 0, padding = 0, rowAlign = "center" }
+	bagRow = bagRow or { gap = 0, padding = 0, rowAlign = "center" }
+	bagGroup = bagGroup or { gap = "xs", rowAlign = "center", bagRow, bagText }
 	left = left or { gap = "md", align = "left", rowAlign = "center", microGroup, socialGroup }
 	left.columns = across and { "auto", "auto" } or { "auto" }
 	right = right or { gap = "md", align = "right", rowAlign = "center", money }
@@ -574,6 +627,7 @@ local function build()
 		panel = UI.Panel(spec, { edge = s.edge, fit = s.fit })
 		if panel then
 			panel:On("enter", onPanelEnter)
+			panel:On("render", onPanelDrawn)
 			hoverTicker = ns.Addon:Every(0.25, checkHover)
 		end
 	end
@@ -705,9 +759,13 @@ end
 function View.Dump()
 	local Debug = ns.Addon.Debug
 	local held = {}
-	for button, slot in pairs(slotOf) do
+	for button, cell in pairs(cellOf) do
+		local x, y, w, h
+		if panel then
+			x, y, w, h = panel:RectOf(cell)
+		end
 		held[#held + 1] = { name = button:GetName(), shown = button:IsShown(), w = button:GetWidth(),
-			h = button:GetHeight(), slotShown = slot.frame:IsShown() }
+			h = button:GetHeight(), cell = x and { x, y, w, h } or "not drawn" }
 	end
 	local bars = {}
 	for _, name in ipairs(STATUS_BARS) do
