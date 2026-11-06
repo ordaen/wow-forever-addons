@@ -140,7 +140,7 @@ Keys are identifiers; a dot makes a nested table (`"buttonVisibility.tracking"` 
 | `maxLength` | `text`, optional | |
 
 An `asset` value is an asset id of its kind; the page lists the kind's assets with their labels (Ordaen Core's
-locales). `color` values are `{ r, g, b }` (0 to 1). `sound` values are names in Blizzard's `SOUNDKIT` table (`"IG_MAINMENU_OPEN"`; `""` is silent), resolved at
+locales). `color` values are arrays `[r, g, b]` or `[r, g, b, a]`, 0 to 1 (`{ r, g, b, a }` in Lua). `sound` values are names in Blizzard's `SOUNDKIT` table (`"IG_MAINMENU_OPEN"`; `""` is silent), resolved at
 runtime; the build checks each name against the API dump (`SOUNDKIT.<name>` in `namespaces.txt`). `keybinding`
 values are binding strings (`"CTRL-M"`). An `action` is a button on the page; its function is registered at runtime
 with `A:Action(key, fn)`.
@@ -166,7 +166,7 @@ Each fails the build with `file:line` and the key path (code B7).
 | enabledBy | `enabledBy "<other>" is not a boolean setting` |
 | scope | `scope "character" but no charDb` |
 | db names | `db/charDb given in settings.jsonc and in NewAddon` (one place only) |
-| typed db | `NewAddon's local needs ---@type <Addon>Addon` |
+| typed db | `NewAddon's result needs --[[@as <Addon>Addon]]` |
 | keys in code | reading a setting that doesn't exist is a LuaLS `undefined-field` on the generated class (below) |
 
 Theme manifest (`themes.jsonc`), same code:
@@ -181,7 +181,7 @@ Theme manifest (`themes.jsonc`), same code:
 ## Generated files
 
 **`dist/OrdaenCore/ThemeTokens.lua`** (always loaded, before `SettingsStore.lua`): `ns.THEME_TOKENS = { assets,
-tokens, themes }`, the theme manifest as data.
+tokens, themes }`, the theme manifest as Lua data.
 
 **`dist/<Addon>/SettingsSchema.lua`** (loaded first, like `Locale.lua`): pure data, no code.
 
@@ -194,7 +194,9 @@ ns.SETTINGS_SCHEMA = {
     { header = "HEADER_DRAWER", keys = { "drawerEnabled", "drawerColumns", "buttonVisibility.tracking" } },
     { keys = { "buttonAngles" } },
   },
-  settings = { -- by key; `theme` = the token its default follows, `default` = a plain default
+  -- by key; `theme` = the token its default follows, or `default` = a plain value; `scope` always set; `page` only
+  -- when false; `of` on asset and map; an action has no default.
+  settings = {
     borderStyle = { type = "asset", of = "frame", theme = "frame.border", label = "BORDER_STYLE",
       tooltip = "BORDER_STYLE_TOOLTIP", scope = "account" },
     scale = { type = "number", min = 0.8, max = 1.6, step = 0.05, format = "percent", default = 1,
@@ -213,8 +215,9 @@ a theme switch), so the generated file has no per-theme data.
 
 **TOC:** `## SavedVariables` / `## SavedVariablesPerCharacter` from `db` / `charDb`.
 
-**LuaLS** (a gitignored types folder that `.luarc.json` includes): one class per addon, nested classes for dotted
-keys, and the addon's own class for `NewAddon`'s local.
+**LuaLS** (`.ordaen/types/<Addon>.lua`, gitignored, included by `.luarc.json`): one class per addon, nested
+classes for dotted keys, and the addon's own class (`db`, `charDb`, an `OnLoad` typed with both). Asset unions come
+from the asset ids in `themes.jsonc`; a number is `integer` when its step and min are whole.
 
 ```lua
 ---@class OrdaenMinimapSettings
@@ -230,8 +233,11 @@ keys, and the addon's own class for `NewAddon`'s local.
 ```
 
 ```lua
-local A = OrdaenCore.NewAddon(addonName, ns) ---@type OrdaenMinimapAddon
+local A = OrdaenCore.NewAddon(addonName, ns, { ... }) --[[@as OrdaenMinimapAddon]]
 ```
+
+The cast goes right after the call: LuaLS ignores a trailing `---@type` after a multi-line call, and `---@type` on
+the line above is an assign-type-mismatch.
 
 So `db.borderStyel` or `db.drawerColumns = "6"` is a finding in `ordaen check`.
 

@@ -6,10 +6,10 @@
 {
   "assets": {
     "frame": {
-      "bronze-rim": { "label": "FRAME_BRONZE_RIM", "file": "Interface\AddOns\OrdaenCore\media\bronze-rim-frame", "outset": 11 },
-      "gold": { "label": "FRAME_GOLD", "edgeFile": "Interface\DialogFrame\UI-DialogBox-Border", "edgeSize": 24, "outset": 7 },
-      "tooltip": { "label": "FRAME_TOOLTIP", "edgeFile": "Interface\Tooltips\UI-Tooltip-Border", "edgeSize": 16, "outset": 4 },
-      "thin": { "label": "FRAME_THIN", "edgeFile": "Interface\Buttons\WHITE8X8", "edgeSize": 2, "outset": 2, "natural": [0, 0, 0] },
+      "bronze-rim": { "label": "FRAME_BRONZE_RIM", "file": "Interface\\AddOns\\OrdaenCore\\media\\bronze-rim-frame", "outset": 11 },
+      "gold": { "label": "FRAME_GOLD", "edgeFile": "Interface\\DialogFrame\\UI-DialogBox-Border", "edgeSize": 24, "outset": 7 },
+      "tooltip": { "label": "FRAME_TOOLTIP", "edgeFile": "Interface\\Tooltips\\UI-Tooltip-Border", "edgeSize": 16, "outset": 4 },
+      "thin": { "label": "FRAME_THIN", "edgeFile": "Interface\\Buttons\\WHITE8X8", "edgeSize": 2, "outset": 2, "natural": [0, 0, 0] },
       "none": { "label": "FRAME_NONE" }
     },
     "font": {
@@ -19,8 +19,8 @@
       "numbers": { "label": "FONT_NUMBERS", "object": "NumberFontNormal" }
     },
     "bar": {
-      "flat": { "label": "BAR_FLAT", "file": "Interface\Buttons\WHITE8X8" },
-      "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\TargetingFrame\UI-StatusBar" }
+      "flat": { "label": "BAR_FLAT", "file": "Interface\\Buttons\\WHITE8X8" },
+      "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\\TargetingFrame\\UI-StatusBar" }
     }
   },
   "tokens": {
