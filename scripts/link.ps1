@@ -1,6 +1,7 @@
 <#
 .SYNOPSIS
-  Link every addon in addons/ into the WoW Forever AddOns folder using directory junctions.
+  Link every addon in addons/ (and addons nested one level down) into the WoW Forever AddOns
+  folder using directory junctions.
 
 .DESCRIPTION
   A junction is Windows' directory link (like a Linux symlink to a directory). Unlike real
@@ -27,7 +28,13 @@ if (-not (Test-Path $AddOnsPath)) {
     throw "AddOns folder not found: $AddOnsPath (pass -AddOnsPath)"
 }
 
-foreach ($addon in Get-ChildItem $addonsRoot -Directory) {
+# Top-level addon folders, plus addons nested one level down that ship in the same package
+# (e.g. addons/OrdaenCore/OrdaenCore_Debug): any subfolder with a <FolderName>.toc.
+$addons = @(Get-ChildItem $addonsRoot -Directory)
+$addons += @($addons | ForEach-Object { Get-ChildItem $_.FullName -Directory } |
+    Where-Object { Test-Path (Join-Path $_.FullName "$($_.Name).toc") })
+
+foreach ($addon in $addons) {
     $link = Join-Path $AddOnsPath $addon.Name
     $existing = Get-Item $link -Force -ErrorAction SilentlyContinue
 
