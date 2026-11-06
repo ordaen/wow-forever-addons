@@ -490,14 +490,18 @@ describe("Ordaen Chat", function()
 			login()
 			local input = windows[1].editBox
 			assert.equals(input, menuButton.parent)
-			assert.same({ "LEFT", input, "LEFT", 2, 0 }, channelButton.point, "the row starts inside the input")
-			assert.same({ "LEFT", channelButton, "RIGHT", 2, 0 }, menuButton.point, "the chat menu next to the text")
-			assert.equals(15 + 26 + 2 + 26 + 2, input.insets[1], "the text starts after the row")
+			-- One row drawn as the input's look: a cell per shown button (squares as tall as the input, 24 here), each
+			-- Blizzard button exactly over its cell, then the text.
+			local row = channelButton.point[2]
+			assert.is_not.equals(input, row, "anchored to the row we draw")
+			assert.same({ "TOPLEFT", row, "TOPLEFT", 0, 0 }, channelButton.point, "the row starts at the input's left")
+			assert.same({ "TOPLEFT", row, "TOPLEFT", 24, 0 }, menuButton.point, "the chat menu next to the text")
+			assert.equals(15 + 24 + 24, input.insets[1], "the text starts after the row")
 			-- Blizzard sets the insets for its header (the input's own UpdateHeader): ours go on top, never twice.
 			input:SetTextInsets(15 + 40, 13, 0, 0) -- "Сказать:" is wider than "Say:"
-			assert.equals(15 + 40 + 56, input.insets[1], "the caret starts after the header, not under it")
+			assert.equals(15 + 40 + 48, input.insets[1], "the caret starts after the header, not under it")
 			input:SetTextInsets(15, 13, 0, 0)
-			assert.equals(15 + 56, input.insets[1])
+			assert.equals(15 + 48, input.insets[1])
 			assert.is_false(social.parent:IsShown(), "the social button is hidden until Ordaen Panel takes it")
 			for _, texture in ipairs(art) do
 				assert.equals(0, texture.alpha)
@@ -507,7 +511,8 @@ describe("Ordaen Chat", function()
 		it("draws our own icons on the chat menu and channels buttons, as tall as the input", function()
 			login()
 			local described = ns.Input.Describe()
-			assert.equals(56, described.row)
+			assert.equals(24, described.cell)
+			assert.equals(48, described.row)
 		end)
 
 		it("follows the input that is shown", function()
@@ -519,7 +524,8 @@ describe("Ordaen Chat", function()
 		it("puts the button back when Blizzard's layout moves it", function()
 			login()
 			menuButton:SetPoint("BOTTOM", windows[1], "TOP", 0, 0)
-			assert.same({ "LEFT", channelButton, "RIGHT", 2, 0 }, menuButton.point)
+			assert.equals("TOPLEFT", menuButton.point[1])
+			assert.equals(24, menuButton.point[4])
 		end)
 
 		it("gives everything back when turned off", function()
@@ -691,7 +697,23 @@ describe("Ordaen Chat", function()
 			assert.equals("im", cvars.chatStyle)
 		end)
 
-		it("goes back over the chat when Blizzard places the input again", function()
+		it("sits above the chat's lines, so its background hides the text under it", function()
+			local lines = stub("ChatFrame1FontStringContainer", { GetFrameLevel = function()
+				return 10
+			end })
+			windows[1].FontStringContainer = lines
+			local level = 3
+			windows[1].editBox.GetFrameLevel = function()
+				return level
+			end
+			windows[1].editBox.SetFrameLevel = function(_, l)
+				level = l
+			end
+			login()
+			assert.equals(13, level)
+		end)
+
+				it("goes back over the chat when Blizzard places the input again", function()
 			login()
 			windows[1].editBox:SetPoint("TOPLEFT", windows[1], "BOTTOMLEFT", -5, -2)
 			assert.same({ "BOTTOMRIGHT", windowArt[1], "BOTTOMRIGHT", 0, 0 }, windows[1].editBox.point)

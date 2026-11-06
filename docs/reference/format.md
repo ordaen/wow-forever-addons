@@ -6,7 +6,7 @@ A table without `text`, `image`, `separator` or `bar`. Its array part holds the 
 
 | Field | Type | Default | |
 |---|---|---|---|
-| `style` | string | none | style role in the theme: `tooltip`, `header`, `button`, `iconButton`, `slot` |
+| `style` | string | none | style role in the theme: `tooltip`, `header`, `button`, `iconButton`, `slot`, `panel`, `tab`; `"none"`: no look |
 | `accent` | `{ r, g, b }` | parent's, else the theme's | tints the surface, lines and accented text; for meaning |
 | `columns` | list of tracks | `{ "1fr" }` | number (fixed), `"auto"`, `"Nfr"` |
 | `gap` | token or number, or `{ column, row }` | theme, else 0 | space between cells |
@@ -77,6 +77,7 @@ with the standings `hated` to `exalted`).
 | Field | Type | Default | |
 |---|---|---|---|
 | `hidden` | boolean | false | skipped: no cell, no gap |
+| `highlight` | boolean | false | a styled child lit in its style's highlight colour (a cell whose Blizzard button is hovered) |
 | `colSpan` | number | 1 | capped at the column count |
 | `align` | `"left"`, `"center"`, `"right"` | left | placement inside the cell (a block with `align` is as wide as its content) |
 | `valign` | `"top"`, `"center"`, `"bottom"` | the parent's `rowAlign` | placement inside the row's height |
@@ -99,3 +100,14 @@ goes down or up.
 | `"1fr"`, `"2.5fr"` | share of the remaining width, by weight |
 
 A column never shrinks below 8 units. See [Layout](/guide/layout) for the full algorithm.
+
+## Borders between blocks
+
+Touching blocks share one border, as with CSS `border-collapse`. A styled child skips the edge it shares with a
+sibling drawn before it (its left edge against that one's right, its top against that one's bottom), and an edge
+that lies on its parent's border when the parent draws an edge there (padding 0). So a row of `iconButton` cells
+with `gap = 0` inside a `panel` with `padding = 0` shows one line between each pair of cells and the panel's own
+outline, never two lines with a gap. With a gap or padding the blocks don't touch, and each keeps its own edges.
+This works for blocks drawn in one surface. Separate frames (embedded components, dressed Blizzard buttons) each
+draw their own edges: draw the row as one block, then put the frames over its cells with `c:RectOf(cell)` (Ordaen
+Chat's input row).

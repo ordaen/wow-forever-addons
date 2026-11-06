@@ -952,7 +952,17 @@ describe("OrdaenCore.UI", function()
 				"dressed while hidden: our look starts hidden")
 		end)
 
-		it("reach past the covered region with `extend` (an input with buttons on its left)", function()
+		it("fade with Blizzard's frame (a chat input faded out in IM style leaves no look)", function()
+			local window = chatWindow()
+			window:Show()
+			local dress = UI.Dress(window, { style = "panel", size = "frame", art = {} })
+			window:SetAlpha(0.2)
+			assert.equals(0.2, dress.look.frame:GetAlpha())
+			window:SetAlpha(1)
+			assert.equals(1, dress.look.frame:GetAlpha())
+		end)
+
+				it("reach past the covered region with `extend` (an input with buttons on its left)", function()
 			local window = chatWindow()
 			local dress = UI.Dress(window, { style = "panel", size = "frame", extend = { 60, 0, 2, 2 }, art = {} })
 			local look = dress.look.frame
@@ -1024,6 +1034,53 @@ describe("OrdaenCore.UI", function()
 				end
 			end
 		end
+
+		-- Vertical edge lines (1 px wide, taller than wide) drawn on `frame`, by their x.
+		local function verticalEdges(frame)
+			local xs = {}
+			for _, t in ipairs(solids(frame, "BORDER")) do
+				local w, h = t.size[1], t.size[2]
+				if w <= 1 and h > 1 then
+					xs[#xs + 1] = t.point[4]
+				end
+			end
+			table.sort(xs)
+			return xs
+		end
+
+		it("collapse the borders of touching blocks: one line between neighbours, none over the parent's", function()
+			local cell = function()
+				return { style = "iconButton", width = 20, height = 20 }
+			end
+			local row = UI.Block({ style = "panel", columns = { "auto", "auto", "auto" }, gap = 0, padding = 0,
+				cell(), cell(), cell() })
+			-- The panel's left and right edges, then one shared line between each pair of cells: x 0, 20, 40, 59.
+			local xs = verticalEdges(row.frame)
+			assert.equals(4, #xs, "not 2 + 2 per cell")
+			assert.equals(0, xs[1])
+			assert.equals(20 - 1, xs[2], "the first cell's right edge, shared with the second")
+			assert.equals(40 - 1, xs[3])
+		end)
+
+		it("keep both borders when blocks don't touch (a gap)", function()
+			local cell = function()
+				return { style = "iconButton", width = 20, height = 20 }
+			end
+			local row = UI.Block({ style = "panel", columns = { "auto", "auto" }, gap = 4, padding = 4, cell(), cell() })
+			assert.equals(2 + 4, #verticalEdges(row.frame))
+		end)
+
+		it("light a cell on request (highlight), under its content", function()
+			local lit = { style = "iconButton", width = 20, height = 20, highlight = true }
+			local row = UI.Block({ style = "panel", columns = { "auto" }, gap = 0, padding = 0, lit })
+			local found = false
+			for _, t in ipairs(solids(row.frame, "ARTWORK")) do
+				found = found or (t.size[1] == 20 and t.size[2] == 20)
+			end
+			assert.is_true(found)
+			local x, y, w, h = row:RectOf(lit)
+			assert.same({ 0, 0, 20, 20 }, { x, y, w, h })
+		end)
 
 		it("scale every text size and spacing step with the global text size", function()
 			rawset(_G, "OrdaenCoreDB", { ui = { theme = "ordaen", textSize = 16 } })

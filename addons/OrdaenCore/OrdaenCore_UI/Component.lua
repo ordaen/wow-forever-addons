@@ -281,6 +281,15 @@ local function draw(instance)
 	end
 end
 
+--- Where an element of this block (a child at any depth) was drawn last: x, y from the frame's top left, width,
+--- height; nil when it isn't drawn (hidden). For putting other frames exactly over a cell (Blizzard's buttons over
+--- the cells of a row we draw).
+---@param element table
+---@return number|nil, number|nil, number|nil, number|nil
+function Base:RectOf(element)
+	return Render.RectOf(self.block, element)
+end
+
 --- Lay out and redraw after the block's fields changed. Fires "render" (width, height) when drawn.
 function Base:Refresh()
 	draw(self)

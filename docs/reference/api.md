@@ -134,6 +134,12 @@ closure made once.
 
 Shows `tip` while the mouse is over the component. The same as `tooltip = tip` in the spec.
 
+### c:RectOf(element)
+
+Where an element of the block (a child at any depth) was drawn last: x and y from the frame's top left, width and
+height; nil when it isn't drawn (hidden). Read it in a `render` listener to put another frame exactly over a cell,
+for example a Blizzard button over the cell drawn for it.
+
 ### c:Refresh()
 
 Lays out and redraws after the block's fields changed. Also refreshes its tooltip.
@@ -226,6 +232,21 @@ tab:SetState("selected") -- from a hook on Blizzard's own state change, never by
 | `extend` | | with `size = "frame"`: `{ left, right, top, bottom }` added around `cover` |
 | `art` | every texture of the frame and its children | the textures to hide, when children hold content |
 | `states` | | state -> style role for `d:SetState(state)` |
+
+### Dressing with a whole block
+
+`block = { ... }` draws our look as that block (a row of cells, say) instead of an icon, in the role `style`.
+`style = "none"` draws nothing: only Blizzard's art is hidden (a button that sits over a cell of another block).
+
+```lua
+local row = { columns = { "auto", "1fr" }, gap = 0, padding = 0, menuCell, {} }
+local dress = UI.Dress(ChatFrame1EditBox, { style = "panel", size = "frame", block = row })
+UI.Dress(ChatFrameMenuButton, { style = "none", size = "frame" })
+dress.look:On("render", function(look)
+	local x, y, w, h = look:RectOf(menuCell)
+	-- put ChatFrameMenuButton over it
+end)
+```
 
 ### d:SetState(state)
 

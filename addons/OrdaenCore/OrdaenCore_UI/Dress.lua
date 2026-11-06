@@ -34,6 +34,8 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@field art table[]|nil the textures to hide; default every texture of the frame and its children (give a list
 --- when the frame's children hold content, e.g. a chat window's message lines)
 ---@field states table<string, string>|nil state -> style role for :SetState (any other state: `style`)
+---@field block OrdaenUIBlock|nil our look as a whole block (a row of cells, say) instead of an icon; `style` is its
+--- role. Its cells can be found with dress.look:RectOf(cell) after it's drawn ("render")
 
 ---@class OrdaenUIDress
 ---@field frame Frame Blizzard's frame
@@ -169,6 +171,16 @@ local function onFrameHidden(frame)
 	end
 end
 
+-- Our block follows Blizzard's fades too: it's a sibling, so the frame's alpha doesn't reach it by itself (the chat
+-- input faded out in Blizzard's IM style left our buttons faintly visible, 2026-11-06).
+local function onFrameAlpha(frame, alpha)
+	for _, dress in pairs(byClickable) do
+		if dress.frame == frame and dress.dressed then
+			dress.look:SetAlpha(alpha)
+		end
+	end
+end
+
 -- With size "frame" our block follows the size it covers (Blizzard's or Edit Mode's): redraw at that size.
 local function resize(self)
 	if not self.dressed then
@@ -203,6 +215,7 @@ function Dress:Apply()
 			self.clickable:SetAllPoints(frame)
 		end
 	end
+	look:SetAlpha(frame:GetAlpha())
 	local level = frame:GetFrameLevel()
 	look:SetFrameLevel(level > 1 and level - 1 or 1)
 	if level < 2 then
@@ -278,11 +291,16 @@ function Dress.New(frame, opts)
 		return existing
 	end
 	local icon
-	if opts.icon or opts.atlas or opts.size ~= "frame" then
-		---@type OrdaenUIImage
-		icon = { image = opts.icon, atlas = opts.atlas, size = opts.iconSize or ICON, color = opts.iconColor }
+	local spec = opts.block --[[@as OrdaenUIComponentSpec|nil]]
+	if not spec then
+		if opts.icon or opts.atlas or opts.size ~= "frame" then
+			---@type OrdaenUIImage
+			icon = { image = opts.icon, atlas = opts.atlas, size = opts.iconSize or ICON, color = opts.iconColor }
+		end
+		spec = { icon }
 	end
-	local look = Component.Block({ style = opts.style or "iconButton", parent = frame:GetParent(), icon })
+	spec.style, spec.parent = opts.style or "iconButton", frame:GetParent()
+	local look = Component.Block(spec)
 	local self = setmetatable({
 		frame = frame,
 		clickable = clickable,
@@ -302,6 +320,7 @@ function Dress.New(frame, opts)
 	-- Once per dress: dressing the same frame again returns this one.
 	frame:HookScript("OnShow", onFrameShown)
 	frame:HookScript("OnHide", onFrameHidden)
+	hooksecurefunc(frame, "SetAlpha", onFrameAlpha)
 	if opts.size == "frame" then
 		look.frame:HookScript("OnSizeChanged", function()
 			resize(self)

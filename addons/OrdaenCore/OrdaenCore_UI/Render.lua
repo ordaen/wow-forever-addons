@@ -219,6 +219,7 @@ local function poolOf(surface)
 		p = {
 			fonts = {}, images = {}, solids = {}, bars = {}, usedFonts = 0, usedImages = 0, usedSolids = 0, usedBars = 0,
 			embeds = {}, placed = {}, -- embedded frames placed in the last draw (set), and in this one
+			siblings = {}, -- depth -> rectangles of the styled children drawn so far (border collapse), reused
 			from = CreateColor(0, 0, 0, 0), to = CreateColor(0, 0, 0, 0),
 		}
 		pools[surface] = p
@@ -270,9 +271,16 @@ end
 
 local BLACK = { 0, 0, 0, 1 }
 
+-- Edges collapsed into a neighbour's (border-collapse): bits of `skip` in drawSurface.
+local TOP, RIGHT, BOTTOM, LEFT = 1, 2, 4, 8
+local function has(mask, bit)
+	return mask % (bit * 2) >= bit
+end
+
 -- A block's own surface (fill, vignette, edges), from its look, on rectangle x, y, w, h. `depth` puts nested
--- surfaces above their parent's.
-local function drawSurface(surface, p, look, accent, x, y, w, h, depth)
+-- surfaces above their parent's. `skip`: edges a neighbour or the parent already draws there (TOP, RIGHT...).
+local function drawSurface(surface, p, look, accent, x, y, w, h, depth, skip)
+	skip = skip or 0
 	local sub = min(6, depth * 2 - 2)
 	local fill = look.fill
 	if fill then
@@ -292,19 +300,19 @@ local function drawSurface(surface, p, look, accent, x, y, w, h, depth)
 		local px = pixel()
 		local level = min(7, depth)
 		local e = edges.top
-		if e then
+		if e and not has(skip, TOP) then
 			solid(surface, p, "BORDER", level, x, y, w, e[1] * px, e[2], e[2], accent)
 		end
 		e = edges.bottom
-		if e then
+		if e and not has(skip, BOTTOM) then
 			solid(surface, p, "BORDER", level, x, y + h - e[1] * px, w, e[1] * px, e[2], e[2], accent)
 		end
 		e = edges.left
-		if e then
+		if e and not has(skip, LEFT) then
 			solid(surface, p, "BORDER", level, x, y, e[1] * px, h, e[2], e[2], accent)
 		end
 		e = edges.right
-		if e then
+		if e and not has(skip, RIGHT) then
 			solid(surface, p, "BORDER", level, x + w - e[1] * px, y, e[1] * px, h, e[2], e[2], accent)
 		end
 	end
@@ -574,7 +582,70 @@ local function hideBars(p)
 	end
 end
 
-local function drawBlock(surface, p, result, ox, oy, accent, depth)
+-- Border collapse (like CSS): touching blocks share one edge. A styled child skips the edge it shares with a sibling
+-- drawn before it (its left against that one's right, its top against that one's bottom), and the edges on its
+-- parent's border when the parent draws an edge there (padding 0). Input buttons in a row showed two borders and a
+-- gap between each pair (2026-11-06). Sibling rectangles live in tables reused per depth: no garbage per draw.
+local NEAR = 0.5
+
+local function collapse(p, depth, n, parentEdges, ox, oy, pw, ph, x, y, w, h)
+	local skip = 0
+	if parentEdges then
+		if parentEdges.top and y - oy < NEAR then
+			skip = skip + TOP
+		end
+		if parentEdges.left and x - ox < NEAR then
+			skip = skip + LEFT
+		end
+		if parentEdges.right and ox + pw - (x + w) < NEAR then
+			skip = skip + RIGHT
+		end
+		if parentEdges.bottom and oy + ph - (y + h) < NEAR then
+			skip = skip + BOTTOM
+		end
+	end
+	local list = p.siblings[depth]
+	for j = 1, n do
+		local r = list[j]
+		local e = r.edges
+		if not has(skip, LEFT) and e.right and math.abs(r.x + r.w - x) < NEAR and r.y < y + h and y < r.y + r.h then
+			skip = skip + LEFT
+		end
+		if not has(skip, TOP) and e.bottom and math.abs(r.y + r.h - y) < NEAR and r.x < x + w and x < r.x + r.w then
+			skip = skip + TOP
+		end
+	end
+	return skip
+end
+
+local function rememberSibling(p, depth, n, edges, x, y, w, h)
+	local list = p.siblings[depth]
+	if not list then
+		list = {}
+		p.siblings[depth] = list
+	end
+	local r = list[n]
+	if not r then
+		r = {}
+		list[n] = r
+	end
+	r.edges, r.x, r.y, r.w, r.h = edges, x, y, w, h
+end
+
+local drawBlock
+
+-- A child's highlight on request (`highlight = true` on the block: a cell lit while the Blizzard button over it is
+-- hovered), in its style's highlight colour, over its fill and under its content.
+local HIGHLIGHT = { 1, 1, 1, 0.12 }
+local function drawCellHighlight(surface, p, look, x, y, w, h, accent)
+	local hl = look.highlight
+	local c = (hl and hl.color) or HIGHLIGHT
+	solid(surface, p, "ARTWORK", -1, x, y, w, h, c, c, accent)
+end
+
+function drawBlock(surface, p, result, ox, oy, accent, depth, parentLook)
+	local parentEdges = parentLook and parentLook.edges
+	local styled = 0
 	for i = 1, result.count do
 		local item = result.items[i]
 		local node = item.node
@@ -606,9 +677,18 @@ local function drawBlock(surface, p, result, ox, oy, accent, depth)
 						sy, sh = sy - result.padTop, sh + result.padTop
 					end
 				end
-				drawSurface(surface, p, look, own, sx, sy, sw, sh, depth + 1)
+				local skip = 0
+				if look.edges then
+					skip = collapse(p, depth, styled, parentEdges, ox, oy, result.width, result.height, sx, sy, sw, sh)
+					styled = styled + 1
+					rememberSibling(p, depth, styled, look.edges, sx, sy, sw, sh)
+				end
+				drawSurface(surface, p, look, own, sx, sy, sw, sh, depth + 1, skip)
+				if node.highlight then
+					drawCellHighlight(surface, p, look, sx, sy, sw, sh, own)
+				end
 			end
-			drawBlock(surface, p, Layout.ResultOf(node), x, y, own, depth + 1)
+			drawBlock(surface, p, Layout.ResultOf(node), x, y, own, depth + 1, look)
 		end
 	end
 end
@@ -706,6 +786,33 @@ function Render.Describe(surface, root)
 	return out
 end
 
+-- Where `node` was drawn in the last layout of `root`: x, y (from the top left), width, height; nil if not drawn.
+local function find(result, node, ox, oy)
+	if not result then
+		return nil
+	end
+	for i = 1, result.count do
+		local item = result.items[i]
+		local x, y = ox + item.x, oy + item.y
+		if item.node == node then
+			return x, y, item.w, item.h
+		end
+		if Layout.IsBlock(item.node) then
+			local fx, fy, fw, fh = find(Layout.ResultOf(item.node), node, x, y)
+			if fx then
+				return fx, fy, fw, fh
+			end
+		end
+	end
+	return nil
+end
+
+--- Where an element of `root` was drawn last: x, y from the surface's top left, width, height (nil: not drawn).
+---@return number|nil, number|nil, number|nil, number|nil
+function Render.RectOf(root, node)
+	return find(Layout.ResultOf(root), node, 0, 0)
+end
+
 --- Lay out `root` and draw it onto `surface` (a frame; BackdropTemplate for themes with art).
 --- `width` nil = shrink to fit. Sizes the surface; returns the root's layout result.
 function Render.Draw(surface, root, width)
@@ -722,7 +829,7 @@ function Render.Draw(surface, root, width)
 	if look then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1)
 	end
-	drawBlock(surface, p, result, 0, 0, accent, 1)
+	drawBlock(surface, p, result, 0, 0, accent, 1, look)
 	hideRest(p.fonts, p.usedFonts)
 	hideRest(p.images, p.usedImages)
 	hideRest(p.solids, p.usedSolids)

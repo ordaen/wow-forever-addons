@@ -81,7 +81,9 @@ local unavailable = false
 ---@field align string|nil as a child: "left", "center" or "right" in its cell
 
 ---@class OrdaenUIBlock
----@field style string|nil style role in the theme (tooltip, header, button, iconButton, slot)
+---@field style string|nil style role in the theme (tooltip, header, button, iconButton, slot); "none": no look
+---@field highlight boolean|nil as a child: lit in its style's highlight colour (a cell whose Blizzard button is
+--- hovered)
 ---@field accent number[]|nil { r, g, b }: tints this block's surface, lines and accented text (an item's quality,
 --- a zone's PvP colour); children inherit it
 ---@field columns (number|string)[]|nil tracks: number = fixed, "auto", "Nfr"; default { "1fr" }

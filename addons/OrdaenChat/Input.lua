@@ -1,14 +1,16 @@
--- The input group: the chat input and Blizzard's chat buttons as one block, the width of the chat window. The
--- input keeps Blizzard's place and size; the buttons sit inside its left end, squares as tall as the input, and its
--- text (with the "Say:" header) starts after them. From the text leftwards: the chat menu (our speech bubble icon),
--- the channels list (our hash icon), and the voice mute and deafen buttons while Blizzard shows them (their own
--- icons). UI.Dress draws the input (style "panel") and each button (style "iconButton"); Blizzard's frames keep
--- their clicks and menus. We place the buttons and put them back when Blizzard's layout moves them (hooks on
--- SetPoint/SetParent, no replaced methods: no taint). We never call Blizzard's chat input code (ChatEdit_*): the
--- input runs secure slash commands, and our calls would taint it. Blizzard's social button is hidden until Ordaen
--- Panel, which takes it, is installed; the column left of the chat where the buttons were is left empty.
--- Cost: no events and nothing per frame; hooks on rarely called functions (an input or a voice button shown, the
--- input's header updated, a window opened, Blizzard re-placing a button).
+-- The input group: the chat input and Blizzard's chat buttons as one block, the width of the chat window. The input
+-- keeps Blizzard's size; its look (UI.Dress, style "panel") is one row we draw: a cell per button, squares as tall as
+-- the input, then the text area. The engine collapses the borders where cells touch each other and the row's edge,
+-- so neighbours share one line (no double borders, no gaps). From the text leftwards: the chat menu (our speech
+-- bubble icon), the channels list (our hash icon), and the voice mute and deafen buttons while Blizzard shows them
+-- (their own icons). Each Blizzard button keeps its clicks and menus: its art is hidden (UI.Dress, style "none") and
+-- it sits invisibly over its cell (placed from the row's "render" event), and while it's hovered its cell lights.
+-- We place the buttons and put them back when Blizzard's layout moves them (hooks on SetPoint/SetParent, no replaced
+-- methods: no taint). We never call Blizzard's chat input code (ChatEdit_*): the input runs secure slash commands,
+-- and our calls would taint it. Blizzard's social button is hidden until Ordaen Panel, which takes it, is
+-- installed; the column left of the chat where the buttons were is left empty.
+-- Cost: no events and nothing per frame; hooks on rarely called functions (an input or a voice button shown, its
+-- insets set, a window opened, Blizzard re-placing a button, a button hovered).
 local _, ns = ...
 
 local Input = {}
@@ -16,7 +18,6 @@ ns.Input = Input
 
 local UI = OrdaenCore.UI
 
-local GAP = 2
 local PADDING = 4 -- the "iconButton" style's padding around the icon (Theme.lua)
 local MEDIA = "Interface\\AddOns\\OrdaenCore\\media\\"
 local ART = { "Left", "Mid", "Right", "FocusLeft", "FocusMid", "FocusRight" } -- <EditBox name> .. part, all dumped
@@ -25,7 +26,7 @@ local BUTTONS = {
 	"ChatFrameMenuButton", "ChatFrameChannelButton", "ChatFrameToggleVoiceMuteButton",
 	"ChatFrameToggleVoiceDeafenButton",
 }
--- The same buttons from the input's left end to its text: the order they're placed in.
+-- The same buttons from the input's left end to its text: the order of the row's cells.
 local ROW = {
 	"ChatFrameToggleVoiceDeafenButton", "ChatFrameToggleVoiceMuteButton", "ChatFrameChannelButton",
 	"ChatFrameMenuButton",
@@ -36,19 +37,21 @@ local OUR_ICONS = { ChatFrameMenuButton = MEDIA .. "icon-chat", ChatFrameChannel
 local on = false
 local yielded = false -- another addon took the input: going off leaves the buttons where that addon put them
 local current ---@type EditBox|nil the input the group sits on (the last one shown)
-local inputs = {} -- input -> its dress
+local inputs = {} -- input -> its dress (its look is the row)
+local cells = {} -- input -> name -> the cell block for that button
 local headers = {} -- input -> { header = FontString, point = Blizzard's point }
 local added = {} -- input -> the left text inset we added on top of Blizzard's
-local buttons = {} -- name -> { frame, dress, home = { parent, point... } }
+local buttons = {} -- name -> { frame, dress, home = { parent, point... }, icon, atlas }
 local placing = false
 local insetting = false -- our own SetTextInsets call (the hook leaves it alone)
 local anchoring = false -- our own SetPoint calls on an input
 local overlaid = false -- the input sits over the chat (setting inputOverlay)
 local blizzardPoints = {} -- input -> its points under the chat window, given back when the overlay goes off
+local size = 32 -- the input's height when the buttons were taken: the cells' size
 local hiddenParent -- holds Blizzard's social button while Ordaen Panel isn't there to take it
 local socialHome
 
--- Blizzard's icon of a button, for our look of it: its normal texture's atlas or file.
+-- Blizzard's icon of a button, for its cell: its normal texture's atlas or file.
 local function iconOf(frame)
 	local texture = frame.GetNormalTexture and frame:GetNormalTexture()
 	if not texture then
@@ -61,19 +64,19 @@ local function iconOf(frame)
 	return texture:GetTexture(), nil
 end
 
--- Width of the button row inside the input: every shown button and its gap.
+-- Width of the button cells shown in the row.
 local function rowWidth()
 	local width = 0
-	for _, name in ipairs(BUTTONS) do
+	for _, name in ipairs(ROW) do
 		local b = buttons[name]
 		if b and b.frame:IsShown() then
-			width = width + b.frame:GetWidth() + GAP
+			width = width + size
 		end
 	end
 	return width
 end
 
--- The input's text and header start after the button row (or where Blizzard put them, when off).
+-- The input's text and header start after the button cells (or where Blizzard put them, when off).
 local function shiftText(input)
 	if not input then
 		return
@@ -127,6 +130,16 @@ local function overlay(input)
 	input:SetPoint("BOTTOMLEFT", background, "BOTTOMLEFT", 0, 0)
 	input:SetPoint("BOTTOMRIGHT", background, "BOTTOMRIGHT", 0, 0)
 	anchoring = false
+	-- Above the chat's lines, with our look between them and the input (the text showed through the input's
+	-- background, 2026-11-06).
+	local lines = window.FontStringContainer
+	if lines and input:GetFrameLevel() <= lines:GetFrameLevel() + 1 then
+		input:SetFrameLevel(lines:GetFrameLevel() + 3)
+		local dress = inputs[input]
+		if dress and dress.dressed then
+			dress:Apply()
+		end
+	end
 end
 
 local function underChat(input)
@@ -151,36 +164,68 @@ local function onInputPlaced(input)
 	overlay(input)
 end
 
--- Put the shown buttons in a row inside the left end of `current`, the text after them.
+-- The row of `input` drawn: each Blizzard button exactly over its cell, invisible, getting the clicks.
+local function onRowDrawn(input)
+	if input ~= current or not on then
+		return
+	end
+	local look = inputs[input].look
+	placing = true
+	for _, name in ipairs(ROW) do
+		local cell = cells[input][name]
+		-- Looked up by name from the literal list, so the build claims these calls (claims.rs).
+		local frame = _G[name]
+		local x, y, w, h = look:RectOf(cell)
+		if frame and buttons[name] and x then
+			frame:SetParent(input)
+			frame:ClearAllPoints()
+			frame:SetPoint("TOPLEFT", look.frame, "TOPLEFT", x, -y)
+			frame:SetSize(w, h)
+		end
+	end
+	placing = false
+end
+
+-- Show the cells of the buttons Blizzard shows on `current`'s row, draw it (the buttons follow), shift the text.
 local function place()
 	if not (on and current) or placing then
 		return
 	end
-	placing = true
-	local anchor, point = current, "LEFT"
+	local row = cells[current]
+	if not row then
+		return
+	end
 	for _, name in ipairs(ROW) do
 		local b = buttons[name]
-		-- Looked up by name from the literal list, so the build claims these calls (claims.rs).
-		local frame = _G[name]
-		if b and frame then
-			frame:SetParent(current)
-			frame:ClearAllPoints()
-			frame:SetPoint("LEFT", anchor, point, GAP, 0)
-			if b.dress then
-				b.dress:Apply() -- our look follows the new parent (shown and hidden with the input)
-			end
-			if frame:IsShown() then
-				anchor, point = frame, "RIGHT"
-			end
-		end
+		row[name].hidden = not (b and b.frame:IsShown())
 	end
+	inputs[current].look:Refresh()
 	shiftText(current)
-	placing = false
 end
 
 local function onInputShown(input)
 	current = input
 	place()
+end
+
+-- The row: a cell per button (hidden until its button is there), then the text area taking the rest.
+local function rowFor(input)
+	local row = { columns = {}, gap = 0, padding = 0 }
+	local mine = {}
+	for i, name in ipairs(ROW) do
+		local b = buttons[name]
+		---@type OrdaenUIImage
+		local icon = { image = b and b.icon, atlas = b and b.atlas, size = math.max(12, size - 2 * PADDING),
+			color = OUR_ICONS[name] and "color.icon" or nil, align = "center", valign = "center" }
+		local cell = { style = "iconButton", width = size, height = size, hidden = true, icon }
+		mine[name] = cell
+		row.columns[i] = "auto"
+		row[i] = cell
+	end
+	row.columns[#ROW + 1] = "1fr"
+	row[#ROW + 1] = {} -- the text area (the input's own text, drawn by Blizzard)
+	cells[input] = mine
+	return row
 end
 
 local function dressInput(input)
@@ -195,11 +240,14 @@ local function dressInput(input)
 			art[#art + 1] = texture
 		end
 	end
-	local dress = UI.Dress(input, { style = "panel", size = "frame", art = art })
+	local dress = UI.Dress(input, { style = "panel", size = "frame", art = art, block = rowFor(input) })
 	if not dress then
 		return -- OrdaenCore_UI can't load (the player was told)
 	end
 	inputs[input] = dress
+	dress.look:On("render", function()
+		onRowDrawn(input)
+	end) -- once per input
 	UI.DressFont(input, "body")
 	local header = name and _G[name .. "Header"]
 	if header then
@@ -231,29 +279,53 @@ local function dressInputs()
 	end
 end
 
-local function takeButtons(height)
-	local iconSize = math.max(12, height - 2 * PADDING)
+-- Its cell lights while Blizzard's button is hovered (the button is invisible over it).
+local function lightCell(frame, lit)
+	local row = current and cells[current]
+	if not (on and row) then
+		return
+	end
+	for name, b in pairs(buttons) do
+		if b.frame == frame then
+			row[name].highlight = lit
+			inputs[current].look:Refresh()
+			return
+		end
+	end
+end
+
+local function onButtonEnter(frame)
+	lightCell(frame, true)
+end
+
+local function onButtonLeave(frame)
+	lightCell(frame, false)
+end
+
+local function takeButtons()
 	for _, name in ipairs(BUTTONS) do
 		local frame = _G[name]
 		if frame and not buttons[name] then
-			---@type string|number|nil, string|nil
-			local icon, atlas = OUR_ICONS[name], nil
-			if not icon then
-				icon, atlas = iconOf(frame)
-			end
 			local b = { frame = frame, home = { frame:GetParent() } }
 			if frame:GetNumPoints() > 0 then
 				local point, relativeTo, relativePoint, x, y = frame:GetPoint(1)
 				b.home[2], b.home[3], b.home[4], b.home[5], b.home[6] = point, relativeTo, relativePoint, x, y
 			end
-			b.dress = UI.Dress(frame, { icon = icon, atlas = atlas, iconSize = iconSize,
-				iconColor = OUR_ICONS[name] and "color.icon" or nil })
+			b.size = { frame:GetWidth(), frame:GetHeight() }
+			b.icon = OUR_ICONS[name]
+			if not b.icon then
+				b.icon, b.atlas = iconOf(frame)
+			end
+			-- Only Blizzard's art hidden: the row draws its cell.
+			b.dress = UI.Dress(frame, { style = "none", size = "frame" })
 			buttons[name] = b
 			hooksecurefunc(frame, "SetPoint", place)
 			hooksecurefunc(frame, "SetParent", place)
 			-- The voice buttons come and go with voice chat: the row closes up.
 			frame:HookScript("OnShow", place)
 			frame:HookScript("OnHide", place)
+			frame:HookScript("OnEnter", onButtonEnter)
+			frame:HookScript("OnLeave", onButtonLeave)
 		elseif buttons[name] and buttons[name].dress then
 			buttons[name].dress:Apply()
 		end
@@ -287,6 +359,11 @@ local hooked = false
 --- Start the input group: the "inputGroup" feature's OnEnable.
 function Input.Enable()
 	on = true
+	current = current or ChatFrame1.editBox --[[@as EditBox]]
+	if not hooked then
+		size = math.floor(current:GetHeight() + 0.5)
+	end
+	takeButtons() -- first: the rows show their icons
 	for _, dress in pairs(inputs) do
 		dress:Apply()
 	end
@@ -299,18 +376,16 @@ function Input.Enable()
 			end
 		end)
 	end
-	current = current or ChatFrame1.editBox --[[@as EditBox]]
 	for input in pairs(inputs) do
 		if overlaid then
 			overlay(input)
 		end
 	end
-	takeButtons(current:GetHeight())
 	hideSocial()
 	place()
 end
 
---- Stop: Blizzard's input art, text insets and the buttons' places and looks come back.
+--- Stop: Blizzard's input art, text insets and the buttons' places, sizes and looks come back.
 function Input.Disable()
 	on = false
 	for input, dress in pairs(inputs) do
@@ -330,6 +405,7 @@ function Input.Disable()
 			if home[2] then
 				b.frame:SetPoint(home[2], home[3], home[4], home[5], home[6])
 			end
+			b.frame:SetSize(b.size[1], b.size[2])
 			placing = false
 		end
 	end
@@ -373,5 +449,5 @@ function Input.Describe()
 		dressed[#dressed + 1] = input:GetName() or "?"
 	end
 	return { on = on, yielded = yielded, current = current and current:GetName() or false, buttons = placed,
-		dressed = dressed, row = rowWidth(), socialHidden = hiddenParent ~= nil and socialHome ~= nil }
+		dressed = dressed, row = rowWidth(), cell = size, socialHidden = hiddenParent ~= nil and socialHome ~= nil }
 end
