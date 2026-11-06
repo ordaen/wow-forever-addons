@@ -119,7 +119,7 @@ function UI.Tooltip(block, opts)
 		block.style = "tooltip"
 	end
 	tooltipOpts[block] = opts
-	return setmetatable(block, TooltipMeta)
+	return setmetatable(block, TooltipMeta) --[[@as OrdaenUITooltip]]
 end
 
 -- Components ---------------------------------------------------------------------------------------

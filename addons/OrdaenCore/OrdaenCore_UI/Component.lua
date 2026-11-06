@@ -32,6 +32,7 @@ local byFrame = setmetatable({}, { __mode = "k" }) -- WoW frame -> instance
 ---@field frame Button the WoW frame this instance draws on (for anchoring other frames to it)
 ---@field block OrdaenUIBlock the instance's block tree (change fields, then :Refresh())
 ---@field tooltip OrdaenUITooltip|nil shown while the mouse is over it
+---@field listeners table<string, function[]> event -> listeners, in the order added (replaced, never changed)
 local Base = {}
 local BaseMeta = { __index = Base }
 
