@@ -40,6 +40,8 @@ read_globals = {
 	"seterrorhandler",
 	"BugGrabber",
 	"C_UI",
+	"LoggingChat",
+	"Screenshot",
 	"GetCursorPosition",
 	"GameTooltip",
 	"ReloadUI",

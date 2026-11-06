@@ -24,4 +24,5 @@
 Store.lua
 Capture.lua
 Debug.lua
+Channel.lua
 UI.lua

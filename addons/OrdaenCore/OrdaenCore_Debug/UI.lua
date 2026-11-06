@@ -364,6 +364,16 @@ local function buildWindow()
 	end
 	buildErrorsTab(f.panels.errors)
 
+	-- Channel test for the Ordaen Companion app (Channel.lua): runs 30 s, then stops by itself.
+	local channel = newButton(f, "Channel test (30 s)", 150)
+	channel:SetPoint("TOPRIGHT", -16, -42)
+	channel:SetScript("OnClick", function()
+		if ns.Channel then
+			ns.Channel.Start()
+		end
+	end)
+	f.channelButton = channel
+
 	local save = newButton(f, "Save for Claude & reload", 220)
 	save:SetPoint("BOTTOMRIGHT", -16, 16)
 	save:SetScript("OnClick", UI.SaveForClaude)

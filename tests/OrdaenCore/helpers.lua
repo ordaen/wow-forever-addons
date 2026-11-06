@@ -100,6 +100,7 @@ function M.stubGlobals(overrides)
 		-- frames and UI globals (the debug module builds frames at load)
 		CreateFrame = function(_, name)
 			local f = M.stubObject(name)
+			table.insert(M.created, f)
 			if name then
 				rawset(_G, name, f)
 			end
@@ -122,6 +123,7 @@ function M.stubGlobals(overrides)
 		end,
 	}
 	M.reloaded = false
+	M.created = {} -- every frame CreateFrame made, in order
 	M.forwarded = {}
 	M.errorHandler = function(err) -- stands in for BugGrabber/Blizzard: remembers what reached it
 		table.insert(M.forwarded, err)
