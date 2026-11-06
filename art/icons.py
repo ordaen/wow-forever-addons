@@ -1,4 +1,4 @@
-"""Draw the addons' small UI icons (white glyphs on transparency, tinted in game by the theme) and bar fills.
+"""Draw the addons' small UI icons procedurally: white glyphs on transparency, tinted in game by the theme.
 
 Usage:
     art/.venv/Scripts/python art/icons.py
@@ -96,41 +96,12 @@ ICONS = {"chat": chat, "channels": channels, "settings": settings, "minimize": m
          "dropdown": dropdown}
 
 
-def bar_ordaen():
-    """The Ordaen theme's status bar fill: white (Blizzard tints it, e.g. class colours), lit from the top with a
-    soft sheen and a darker lower edge, so a bar reads as raised without stripes."""
-    w, h = 256, 32
-    img = Image.new("RGBA", (w, h))
-    px = img.load()
-    for y in range(h):
-        t = y / (h - 1)
-        # 1.0 at the top, easing to 0.62 at the bottom; a thin highlight line on top, a shade line at the bottom.
-        v = 1.0 - 0.38 * (t ** 1.4)
-        if y == 0:
-            v = 1.0
-        elif y == 1:
-            v = min(1.0, v + 0.06)
-        elif y == h - 1:
-            v *= 0.7
-        c = round(255 * v)
-        for x in range(w):
-            px[x, y] = (c, c, c, 255)
-    return img
-
-
-BARS = {"ordaen": bar_ordaen}
-
-
 def main():
     OUT.mkdir(parents=True, exist_ok=True)
     for name, draw in ICONS.items():
         img = draw().resize((SIZE, SIZE), Image.LANCZOS)
         path = OUT / f"icon-{name}.tga"
         img.save(path)
-        print(path.relative_to(ART.parent))
-    for name, draw in BARS.items():
-        path = OUT / f"bar-{name}.tga"
-        draw().save(path)
         print(path.relative_to(ART.parent))
 
 
