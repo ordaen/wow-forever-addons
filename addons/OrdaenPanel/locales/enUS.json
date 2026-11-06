@@ -38,9 +38,11 @@
   "FADED_ALPHA_TOOLTIP": "How visible the panel stays while hidden. Even when visible, a hidden panel can't be clicked.",
   "CONDITION": "Custom condition",
   "CONDITION_TOOLTIP": "A macro condition that decides alone, for example [combat] hide; show. Empty: the settings above decide.",
-  "SOCIAL_FORMAT": "Friends %d   Guild %d",
   "TIP_RESTED": "Rested: %d (%d%%)",
   "TIP_QUESTS": "Completed quests: %d",
   "TIP_RATE": "Per hour: %d",
-  "TIP_LEVEL": "Full in %d min (%d more gains like the last)"
+  "TIP_LEVEL": "Full in %d min (%d more gains like the last)",
+  "TIP_FRIENDS": "Friends online: %d",
+  "TIP_BNET": "Battle.net friends online: %d",
+  "TIP_GUILD": "Guild members online: %d of %d"
 }

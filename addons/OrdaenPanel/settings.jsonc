@@ -28,7 +28,7 @@
           "tooltip": "FIT_TOOLTIP"
         },
         "buttonSize": {
-          "type": "number", "min": 16, "max": 64, "step": 1, "format": "px", "default": 48,
+          "type": "number", "min": 16, "max": 64, "step": 1, "format": "px", "default": 32,
           "label": "BUTTON_SIZE"
         }
       }

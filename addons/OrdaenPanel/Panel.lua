@@ -40,7 +40,11 @@ local xp = {
 	color = "color.xp", questColor = "color.quest", overlayColor = "color.rested",
 	format = "%d%%", args = { 0 }, style = "small", sections = 20,
 }
-local social = { format = "", args = { 0, 0 }, style = "value" }
+-- The social button's tooltip (no title: it's beside the button it describes).
+local tipFriends = { format = "", args = { 0 } }
+local tipBnet = { format = "", args = { 0 } }
+local tipGuild = { format = "", args = { 0, 0 }, hidden = true }
+local socialTip ---@type OrdaenUITooltip|nil
 local money = { format = MONEY_FORMAT, args = { 0, 0, 0 }, style = "value" }
 local currencyTexts = {}
 for i = 1, MAX_CURRENCIES do
@@ -58,6 +62,7 @@ local tipLevel = { format = "", args = { 0, 0 }, hidden = true }
 local tooltip ---@type OrdaenUITooltip|nil
 
 -- Slots: an empty block the size of a button, embedded in a group; a Blizzard button is anchored to it.
+local hookSocialTip -- defined with the social tooltip, below
 local slots = {} ---@type OrdaenUIComponent[] pooled
 local slotOf = {} ---@type table<table, OrdaenUIComponent> Blizzard button -> its slot
 local homes = {} ---@type table<table, table> Blizzard button -> { parent, point, relativeTo, relativePoint, x, y }
@@ -163,8 +168,61 @@ local FALLBACK_ICON = "Interface\\FriendsFrame\\UI-Toast-FriendOnlineIcon"
 
 -- Buttons whose icon Blizzard draws some other way (the character button shows the player's portrait).
 local OWN_ICONS = {
-	CharacterMicroButton = "UI-HUD-MicroMenu-CharacterInfo-Up",
+	CharacterMicroButton = "UI-HUD-MicroMenu-CharacterInfo-Up", -- only when its portrait can't be found
 }
+
+-- The social button: Blizzard's art for it carries its own frame (quickjoin-button-friendslist-up), so a plain
+-- glyph like the other buttons': the first of these atlases the client has, else the friends toast icon file.
+local SOCIAL_ATLASES = { "socialqueuing-icon-group", "groupfinder-icon-friend" }
+local function socialIcon()
+	for _, atlas in ipairs(SOCIAL_ATLASES) do
+		if C_Texture.GetAtlasInfo(atlas) then
+			return nil, atlas
+		end
+	end
+	return FALLBACK_ICON, nil
+end
+
+-- The character button shows the player's face (Blizzard's portrait texture on it): that texture stays, the rest
+-- of its art goes. Found by key or by Blizzard's global name.
+local function portraitOf(button)
+	local portrait = rawget(button, "Portrait")
+	if type(portrait) ~= "table" then
+		portrait = _G.MicroButtonPortrait
+	end
+	if type(portrait) == "table" and portrait.GetObjectType and portrait:GetParent() == button then
+		return portrait
+	end
+	return nil
+end
+
+-- Every texture of a frame and its children except `keep`: what Dress hides when one texture must stay.
+local function artExcept(frame, keep, out)
+	out = out or {}
+	for _, region in ipairs({ frame:GetRegions() }) do
+		if region ~= keep and region:IsObjectType("Texture") then
+			out[#out + 1] = region
+		end
+	end
+	for _, child in ipairs({ frame:GetChildren() }) do
+		artExcept(child, keep, out)
+	end
+	return out
+end
+
+-- An atlas icon keeps its proportions (Blizzard's micro icons are taller than wide): fit into the icon square.
+local function fitIcon(dress, atlas)
+	local icon, side = dress.icon, size - 4
+	local info = atlas and C_Texture.GetAtlasInfo(atlas)
+	if info and info.width and info.height and info.width > 0 and info.height > 0 then
+		local ratio = info.width / info.height
+		icon.size = nil
+		icon.width = ratio < 1 and math.floor(side * ratio + 0.5) or side
+		icon.height = ratio < 1 and side or math.floor(side / ratio + 0.5)
+	else
+		icon.size, icon.width, icon.height = side, nil, nil
+	end
+end
 
 -- Blizzard's icon of a button: its own `icon` (a bag's item), else its normal texture, else the first texture
 -- region with art (QuickJoinToastButton draws its icon on a plain region).
@@ -229,6 +287,31 @@ local function slotFor(i)
 	return slot
 end
 
+-- Our tooltip on the social button instead of Blizzard's (CLAUDE.md: adopted buttons show ours). Hooked once.
+local socialHooked = false
+local function onSocialEnter(button)
+	if socialTip then
+		GameTooltip:Hide()
+		socialTip:Show(button)
+	end
+end
+
+local function onSocialLeave(button)
+	if socialTip then
+		socialTip:Hide(button)
+	end
+end
+
+function hookSocialTip(button)
+	if socialHooked then
+		return
+	end
+	socialHooked = true
+	socialTip = UI.Tooltip({ columns = { "auto" }, gap = "xs", tipFriends, tipBnet, tipGuild }, { side = "above" })
+	button:HookScript("OnEnter", onSocialEnter)
+	button:HookScript("OnLeave", onSocialLeave)
+end
+
 local function take(button, slot, texts)
 	if not homes[button] then
 		local home = { button:GetParent() }
@@ -240,13 +323,35 @@ local function take(button, slot, texts)
 	slotOf[button] = slot
 	hookPlacement(button)
 	place(button)
-	local icon, atlas = iconOf(button)
+	local name = button:GetName()
+	local portrait = name == "CharacterMicroButton" and portraitOf(button) or nil
+	local icon, atlas
+	if name == "QuickJoinToastButton" then
+		icon, atlas = socialIcon()
+	elseif not portrait then
+		icon, atlas = iconOf(button)
+	end
 	local dress = dresses[button]
 	if dress then
 		dress:SetIcon(icon, atlas)
 		dress:Apply()
 	else
-		dresses[button] = UI.Dress(button, { icon = icon, atlas = atlas, iconSize = size - 4 })
+		dress = UI.Dress(button, {
+			icon = icon, atlas = atlas, iconSize = size - 4, art = portrait and artExcept(button, portrait) or nil,
+		})
+		dresses[button] = dress
+	end
+	if dress then
+		fitIcon(dress, atlas)
+		dress:Refresh()
+	end
+	if portrait then
+		portrait:ClearAllPoints()
+		portrait:SetPoint("CENTER", button, "CENTER")
+		portrait:SetSize(size - 6, size - 6)
+	end
+	if name == "QuickJoinToastButton" then
+		hookSocialTip(button)
 	end
 	if texts then
 		hideTexts(button)
@@ -368,7 +473,7 @@ local function placeButtons()
 	if s.social and quickJoin then
 		socialButtons[1] = quickJoin
 	end
-	next = fillGroup(socialGroup, socialButtons, next, s.social and social or nil, true)
+	next = fillGroup(socialGroup, socialButtons, next, nil, true)
 	if s.bags then
 		readBags()
 		fillGroup(bagGroup, bagButtons, next, bagText, true)
@@ -458,7 +563,7 @@ local function build()
 	else
 		spec = { columns = { "auto" }, gap = "md", padding = { "sm", "xs", "sm", "xs" }, left, middle, right }
 	end
-	social.format = L.SOCIAL_FORMAT
+	tipFriends.format, tipBnet.format, tipGuild.format = L.TIP_FRIENDS, L.TIP_BNET, L.TIP_GUILD
 	tipRested.format, tipQuest.format = L.TIP_RESTED, L.TIP_QUESTS
 	tipRate.format, tipLevel.format = L.TIP_RATE, L.TIP_LEVEL
 	if panel then
@@ -556,7 +661,12 @@ end
 
 local function updateSocial()
 	local m = ns.Segments.social.model
-	social.args[1], social.args[2] = m.friends + m.bnet, m.guild
+	tipFriends.args[1], tipBnet.args[1] = m.friends, m.bnet
+	tipGuild.hidden = not m.inGuild
+	tipGuild.args[1], tipGuild.args[2] = m.guild, m.guildTotal
+	if socialTip and socialTip:IsShown() then
+		socialTip:Refresh()
+	end
 end
 
 local function updateCurrencies()
