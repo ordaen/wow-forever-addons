@@ -7,7 +7,7 @@
       "settings": {
         "meterLook": { "type": "boolean", "default": true, "label": "METER_LOOK", "tooltip": "METER_LOOK_TOOLTIP" },
         "barTexture": {
-          "type": "asset", "of": "bar", "default": { "theme": "bar.texture" },
+          "type": "asset", "of": "bar", "default": "flat",
           "label": "BAR_TEXTURE", "tooltip": "BAR_TEXTURE_TOOLTIP", "enabledBy": "meterLook"
         }
       }
