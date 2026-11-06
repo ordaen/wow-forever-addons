@@ -3,6 +3,32 @@
 Monorepo of World of Warcraft addons for the **WoW Forever** flavor (interface `16001`).
 Developed on Windows (the user normally works on Linux — explain Windows specifics when relevant).
 
+## Performance: every KB and every CPU cycle matters (non-negotiable)
+
+The user's rule, set in stone: our addons must cost as close to nothing as possible. "It's only 100 KB" or "it's only
+a few microseconds" is **never** an acceptable argument. Players run dozens of addons and the cost adds up. When
+simpler code and leaner code conflict, choose leaner, or ask the user. A performance regression is a bug.
+
+- **Nothing runs per frame by default.** `OnUpdate` only while its frame is shown and only when an event or timer
+  can't do the job; throttle it, and remove the script (`SetScript("OnUpdate", nil)`) when it isn't needed. Prefer
+  events and one-shot `C_Timer.After` over polling.
+- **Events:** register only what a feature needs, only while it's enabled, and unregister when it's off. Prefer
+  unit-filtered registration (`RegisterUnitEvent`) where it exists on Forever. Avoid high-frequency events
+  (combat log, auras, unit health) unless the feature can't exist without them; bail out early in their handlers.
+- **Load nothing until needed.** Create frames, textures and tables on first use, not at login. Anything not needed
+  for the first screen (big options UIs, data sets, dev tools) goes in a load-on-demand addon (`## LoadOnDemand: 1`,
+  loaded with `C_AddOns.LoadAddOn`; confirmed on Forever). Strings and data for other locales are not kept in memory.
+- **No garbage in hot paths:** no table/closure/string creation (`..`, `format`, `{}`) in per-frame or per-event code;
+  reuse tables; cache globals used in hot code as upvalues.
+- **SavedVariables hold settings only:** no history, no caches that can be rebuilt; anything that can grow has a hard
+  cap. They are parsed at login and written at logout for every character.
+- **Hooks only on rarely called functions,** with cheap bodies. Expensive work in a hook (`debugstack`, re-applying a
+  layout) is rate-limited or cached.
+- **Dependencies:** no library unless Blizzard's API can't do it. OrdaenCore stays small; dev-only code lives in
+  `OrdaenCore_Debug`, which players never load.
+- **Measure, don't guess:** before merging a feature into `develop`, check its memory and CPU in the Ordaen Dev window
+  (Performance tab, once it exists) and wrap hot spots in `Debug.Time`. Mention the numbers when handing work over.
+
 ## Game install
 
 - Forever client: `C:\Program Files (x86)\World of Warcraft\_forever_\`
