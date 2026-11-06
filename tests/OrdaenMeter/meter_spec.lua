@@ -1,6 +1,10 @@
 -- Ordaen Meter: the game's damage meter (Blizzard_DamageMeter) dressed in place. Blizzard keeps drawing it; we only
--- post-hook its windows and bars and put the theme's panel, fonts and bar texture on them.
+-- post-hook its windows and bars, draw the theme's header row and panel under them, put Blizzard's controls over
+-- their cells, and give the bars the theme's texture and fonts.
 local helpers = require("tests.OrdaenCore.helpers")
+
+-- What the stand-ins' getters answer (the meter's header strip is 32 tall, as in Blizzard's XML).
+local DEFAULTS = { GetNumPoints = 0, GetWidth = 100, GetHeight = 32 }
 
 -- A WoW object stand-in that records calls; unknown widget methods are no-ops (see helpers.isStubMethod).
 local function stub(name, extra)
@@ -12,12 +16,20 @@ local function stub(name, extra)
 		local fn = function(_, ...)
 			self.calls[method] = self.calls[method] or {}
 			table.insert(self.calls[method], { ... })
+			return DEFAULTS[method]
 		end
 		rawset(self, method, fn)
 		return fn
 	end })
 	function obj:SetScript(script, fn)
 		self.scripts[script] = fn
+	end
+	function obj:HookScript(script, fn)
+		local before = self.scripts[script]
+		self.scripts[script] = before and function(...)
+			before(...)
+			fn(...)
+		end or fn
 	end
 	function obj:GetRegions()
 		return unpack(self.regions)
@@ -42,40 +54,67 @@ local function texture(name)
 	return stub(name, { kind = "Texture" })
 end
 
--- A bar of the meter: a frame with a status bar, a name and a value.
+-- A bar of the meter: a button with a status bar holding its name and value.
 local function entry(name)
-	local statusBar = stub(name .. ".StatusBar", { kind = "StatusBar" })
-	local bar = stub(name, { kind = "Frame", statusBar = statusBar })
-	bar.children = { statusBar }
-	statusBar.regions = { fontString(name .. ".Name"), fontString(name .. ".Value") }
+	local statusBar = stub(name .. ".StatusBar", { kind = "StatusBar", Name = fontString(name .. ".Name"),
+		Value = fontString(name .. ".Value") })
+	local bar = stub(name, { kind = "Button", statusBar = statusBar })
 	function bar:GetStatusBar()
 		return self.statusBar
 	end
 	return bar
 end
 
--- A session window as on Forever: background and header are textures; the header's texts are the type dropdown's
--- label, the session timer and the "not active" line; then its bars.
+-- A session window as on Forever (Blizzard's DamageMeterSessionWindow.xml): the header strip is a texture; the meter
+-- type dropdown (its label TypeName), the session dropdown (its label), the settings dropdown and the minimize
+-- button sit on it, with the session timer; the bars and the background are in a container that hides when the
+-- window is minimized.
 local function sessionWindow(name)
-	local dropdown = stub(name .. ".DamageMeterTypeDropdown", { kind = "Button" })
-	dropdown.TypeName = fontString(name .. ".TypeName")
-	local window = stub(name, { kind = "Frame", entries = {}, background = texture(name .. ".Background"),
-		header = texture(name .. ".Header"), dropdown = dropdown, timer = fontString(name .. ".SessionTimer"),
+	local typeDropdown = stub(name .. ".DamageMeterTypeDropdown", { kind = "Button",
+		TypeName = fontString(name .. ".TypeName") })
+	local session = stub(name .. ".SessionDropdown", { kind = "Button", SessionName = fontString(name .. ".Session") })
+	local window = stub(name, { kind = "Frame", entries = {}, minimized = false,
+		header = texture(name .. ".Header"), typeDropdown = typeDropdown, session = session,
+		settings = stub(name .. ".SettingsDropdown", { kind = "Button" }),
+		minimize = stub(name .. ".MinimizeButton", { kind = "Button" }),
+		container = stub(name .. ".MinimizeContainer", { kind = "Frame" }),
+		background = texture(name .. ".Background"), timer = fontString(name .. ".SessionTimer"),
 		notActive = fontString(name .. ".NotActive") })
-	function window:GetBackground()
-		return self.background
-	end
 	function window:GetHeader()
 		return self.header
 	end
 	function window:GetDamageMeterTypeDropdown()
-		return self.dropdown
+		return self.typeDropdown
+	end
+	function window:GetSessionDropdown()
+		return self.session
+	end
+	function window:GetSessionName()
+		return self.session.SessionName
+	end
+	function window:GetSettingsDropdown()
+		return self.settings
+	end
+	function window:GetMinimizeButton()
+		return self.minimize
+	end
+	function window:GetMinimizeContainer()
+		return self.container
+	end
+	function window:GetBackground()
+		return self.background
 	end
 	function window:GetSessionTimerFontString()
 		return self.timer
 	end
 	function window:GetNotActiveFontString()
 		return self.notActive
+	end
+	function window:IsMinimized()
+		return self.minimized
+	end
+	function window:SetMinimized(minimized)
+		self.minimized = minimized
 	end
 	function window:ForEachEntryFrame(fn)
 		for _, bar in ipairs(self.entries) do
@@ -114,16 +153,43 @@ describe("Ordaen Meter", function()
 		frames[1].scripts.OnEvent(frames[1], event, arg)
 	end
 
-	-- The theme's dressing, recorded: which frames got the panel, which texts a font, which bars a texture.
+	-- The theme's dressing, recorded: which frames got a look (and with what), which texts a font, which bars a
+	-- texture. A look draws its block's children side by side, 32 wide each, and tells its "render" listeners.
+	local function fakeLook(spec)
+		local look = { frame = stub("look"), listeners = {}, draws = 0 }
+		function look:On(event, fn)
+			assert.equals("render", event)
+			self.listeners[#self.listeners + 1] = fn
+		end
+		function look:RectOf(element)
+			for i, child in ipairs(spec.block or {}) do
+				if child == element then
+					return (i - 1) * 32, 0, 32, 32
+				end
+			end
+		end
+		function look:Draw()
+			self.draws = self.draws + 1
+			for _, fn in ipairs(self.listeners) do
+				fn(self, 160, 32)
+			end
+		end
+		return look
+	end
+
 	local function fakeDressing()
 		local UI = OrdaenCore.UI
 		UI.Dress = function(frame, spec)
-			local dress = { frame = frame, spec = spec, on = true }
+			assert.is_nil(dressed[frame], "a frame is dressed once")
+			local dress = { frame = frame, spec = spec, on = true, look = fakeLook(spec) }
 			function dress:Apply()
 				self.on = true
 			end
 			function dress:Undress()
 				self.on = false
+			end
+			function dress:Refresh()
+				self.look:Draw()
 			end
 			dressed[frame] = dress
 			return dress
@@ -132,10 +198,9 @@ describe("Ordaen Meter", function()
 			fonts[text] = style
 		end
 		UI.DressBar = function(bar, asset)
-			local dress = { bar = bar, asset = asset, on = true, applied = 1 }
+			local dress = { bar = bar, asset = asset, on = true }
 			function dress:Apply()
 				self.on = true
-				self.applied = self.applied + 1
 			end
 			function dress:SetAsset(a)
 				self.asset = a
@@ -173,7 +238,7 @@ describe("Ordaen Meter", function()
 			rawset(_G, "DamageMeter", nil) -- not loaded yet
 		end
 		rawget(_G, "C_AddOns").LoadAddOn = function()
-			error(debug.traceback("LoadAddOn"))
+			error("the real UI framework must not load: the spec fakes its dressing")
 		end
 		helpers.loadCore()
 		fakeDressing()
@@ -181,6 +246,22 @@ describe("Ordaen Meter", function()
 		helpers.loadAddon("OrdaenMeter", ns)
 		fire("ADDON_LOADED", "OrdaenMeter")
 		fire("PLAYER_LOGIN")
+	end
+
+	-- The window's header row and its cells, as given to UI.Dress.
+	local function header(window)
+		local dress = dressed[window]
+		return dress, dress.spec.block
+	end
+
+	-- The last SetPoint call on `frame`, or its last one for `point` ("LEFT").
+	local function lastPoint(frame, point)
+		local points = frame.calls.SetPoint or {}
+		for i = #points, 1, -1 do
+			if not point or points[i][1] == point then
+				return points[i]
+			end
+		end
 	end
 
 	before_each(function()
@@ -193,36 +274,97 @@ describe("Ordaen Meter", function()
 		assert.same({}, helpers.forwarded) -- no error was caught and reported on the way
 	end)
 
-	it("dresses the windows and bars the meter already has at login", function()
+	it("draws one header row over Blizzard's strip: dropdown, title, session, settings, minimize", function()
 		local window = sessionWindow("DamageMeterSessionWindow1")
 		meter:SetupSessionWindow(window)
-		local bar = entry("Bar1")
-		window:InitEntry(bar)
 		load(true)
-		local dress = dressed[window]
-		assert.truthy(dress)
+		local dress, row = header(window)
 		assert.equals("panel", dress.spec.style)
-		assert.same({ window.background, window.header }, dress.spec.art, "Blizzard's background and header strip")
-		assert.equals("label", fonts[window.dropdown.TypeName])
-		assert.equals("label", fonts[window.timer])
-		assert.equals("body", fonts[window.notActive])
-		assert.truthy(bars[bar.statusBar])
-		assert.equals(ns.Addon:Get("barTexture"), bars[bar.statusBar].asset)
-		assert.equals("body", fonts[bar.statusBar.regions[1]])
-		assert.equals("body", fonts[bar.statusBar.regions[2]])
-		local described = ns.Look.Describe()
-		assert.same({ true, true, true, 1, 1 },
-			{ described.on, described.meter, described.available, described.windows, described.bars })
+		assert.equals(window.header, dress.spec.cover)
+		assert.same({ window.header }, dress.spec.art)
+		assert.equals(5, #row)
+		assert.same({ 0, 0 }, { row.gap, row.padding }, "touching cells share one line")
+		for _, i in ipairs({ 1, 3, 4, 5 }) do
+			local cell = row[i]
+			assert.equals("iconButton", cell.style)
+			assert.equals(32, cell.height, "as tall as the strip")
+			assert.same({ top = false, bottom = false }, cell.edges, "the row's lines frame them")
+		end
+		assert.matches("icon%-dropdown$", row[1][1].image)
+		assert.matches("icon%-settings$", row[4][1].image)
+		assert.matches("icon%-minimize$", row[5][1].image)
+		-- The body: the theme's panel under the bars, on the container that hides when minimized.
+		local body = dressed[window.container]
+		assert.equals("panel", body.spec.style)
+		assert.same({ window.background }, body.spec.art)
+		assert.same({ 0, 0, -32, 0 }, body.spec.extend, "below the header")
 	end)
 
-	it("dresses each bar Blizzard shows later, once, through both hooks", function()
+	it("puts Blizzard's controls over their cells, art hidden, and the texts in the title area", function()
 		local window = sessionWindow("DamageMeterSessionWindow1")
 		meter:SetupSessionWindow(window)
 		load(true)
-		local bar = entry("Bar1")
-		window:Show(bar) -- InitEntry and SetupEntry both run; dressing happens once (fakeDressing asserts it)
-		window:SetupEntry(bar) -- reused from the pool
-		assert.truthy(bars[bar.statusBar])
+		local dress = header(window)
+		local look = dress.look
+		local controls = { window.typeDropdown, window.session, window.settings, window.minimize }
+		local columns = { 0, 64, 96, 128 } -- cells 1, 3, 4, 5 of the fake look
+		for i, control in ipairs(controls) do
+			assert.equals("none", dressed[control].spec.style, "its art hidden, nothing drawn")
+			assert.same({ "TOPLEFT", look.frame, "TOPLEFT", columns[i], 0 }, lastPoint(control))
+			assert.same({ 32, 32 }, control.calls.SetSize[#control.calls.SetSize])
+		end
+		local typeName = window.typeDropdown.TypeName
+		assert.same({ "LEFT", look.frame, "TOPLEFT", 32 + 6, -16 }, lastPoint(typeName, "LEFT"))
+		assert.same({ "RIGHT", window.timer, "LEFT", -6, 0 }, lastPoint(typeName, "RIGHT"), "up to the timer")
+		assert.same({ "RIGHT", look.frame, "TOPLEFT", 64 - 6, -16 }, lastPoint(window.timer))
+		assert.equals("label", fonts[window.typeDropdown.TypeName])
+		assert.equals("label", fonts[window.timer])
+		assert.equals("label", fonts[window.session.SessionName])
+		assert.equals("body", fonts[window.notActive])
+	end)
+
+	it("lights a control's cell while Blizzard's button is hovered", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		load(true)
+		local _, row = header(window)
+		window.settings.scripts.OnEnter(window.settings)
+		assert.is_true(row[4].highlight)
+		assert.is_falsy(row[5].highlight)
+		window.settings.scripts.OnLeave(window.settings)
+		assert.is_false(row[4].highlight)
+	end)
+
+	it("follows minimizing: the expand glyph, and the header closes its bottom line", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		load(true)
+		local _, row = header(window)
+		assert.is_false(row.edges.bottom, "the body's top line is the separator")
+		window:SetMinimized(true)
+		assert.matches("icon%-expand$", row[5][1].image)
+		assert.is_true(row.edges.bottom)
+		window:SetMinimized(false)
+		assert.matches("icon%-minimize$", row[5][1].image)
+		assert.is_false(row.edges.bottom)
+	end)
+
+	it("gives the bars the theme's texture and fonts, the windows' bars at login and each one shown later", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		local first = entry("Bar1")
+		window:InitEntry(first)
+		load(true)
+		assert.equals(ns.Addon:Get("barTexture"), bars[first.statusBar].asset)
+		assert.equals("body", fonts[first.statusBar.Name])
+		assert.equals("value", fonts[first.statusBar.Value])
+		local later = entry("Bar2")
+		window:Show(later) -- InitEntry and SetupEntry both run; dressing happens once (fakeDressing asserts it)
+		window:SetupEntry(later) -- reused from the pool
+		assert.truthy(bars[later.statusBar])
+		local described = ns.Look.Describe()
+		assert.same({ true, true, true, 1, 2 },
+			{ described.on, described.meter, described.available, described.windows, described.bars })
 	end)
 
 	it("dresses a window the meter adds later", function()
@@ -254,14 +396,19 @@ describe("Ordaen Meter", function()
 		local bar = entry("Bar1")
 		window:InitEntry(bar)
 		load(true)
+		local placed = #window.settings.calls.SetPoint
 		ns.Addon:Set("meterLook", false)
-		assert.is_false(dressed[window].on)
+		for _, frame in ipairs({ window, window.container, window.settings }) do
+			assert.is_false(dressed[frame].on)
+		end
 		assert.is_false(bars[bar.statusBar].on)
+		assert.equals(1, #window.settings.calls.ClearAllPoints - placed, "back where Blizzard put it")
 		local later = entry("Bar2")
 		window:Show(later)
 		assert.is_nil(bars[later.statusBar], "nothing is dressed while off")
 		ns.Addon:Set("meterLook", true)
 		assert.is_true(dressed[window].on)
+		assert.is_true(dressed[window.settings].on)
 		assert.is_true(bars[bar.statusBar].on)
 		assert.truthy(bars[later.statusBar], "bars shown while off are dressed when it's back on")
 	end)
