@@ -118,6 +118,9 @@ local function attach(native)
 		return
 	end
 	states[native] = { view = view, model = Reader.NewModel(), alpha = nil, settingAlpha = false }
+	-- We set its alpha; another addon doing that too (another tooltip replacement) is a conflict the Core reports.
+	-- The build can't see it (the tooltip is a local here), so it's claimed by hand.
+	ns.Addon:Claim(native, { "SetAlpha" }, native:GetName())
 	feature:Hook(native, "Show", onShown)
 	feature:Hook(native, "SetShown", onSetShown)
 	feature:Hook(native, "SetAlpha", onAlpha)
