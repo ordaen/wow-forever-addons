@@ -294,12 +294,26 @@ describe("Ordaen Chat", function()
 			FCFTab_UpdateColors = function() end,
 			FCF_StartAlertFlash = function() end,
 			FCF_StopAlertFlash = function() end,
-			GeneralDockManager = stub("GeneralDockManager"),
+			-- The dock's scroll frame holds the tabs that aren't static docked; Blizzard anchors it after the last
+			-- static tab (Combat Log's, until we clear its flag).
+			GeneralDockManager = stub("GeneralDockManager", { scrollFrame = stub("GeneralDockManagerScrollFrame", {
+				SetPoint = function(self, point, relative)
+					self.anchors = self.anchors or {}
+					self.anchors[point] = relative
+				end,
+			}) }),
 			FCFDock_GetSelectedWindow = function()
 				return selectedWindow
 			end,
-			FCFDock_UpdateTabs = function()
+			-- Like the game: a tab that goes inside the scroll frame can't be placed while the scroll frame hangs on it.
+			FCFDock_UpdateTabs = function(manager)
 				tabsSized = (tabsSized or 0) + 1
+				local anchors = manager.scrollFrame.anchors or { LEFT = _G.ChatFrame2Tab }
+				for _, w in ipairs(dock) do
+					if not w.isStaticDocked and anchors.LEFT == _G[w.name .. "Tab"] then
+						error("Cannot anchor to a region dependent on it: " .. w.name .. "Tab")
+					end
+				end
 			end,
 			GetChannelName = function()
 				return 0
@@ -467,6 +481,8 @@ describe("Ordaen Chat", function()
 			login()
 			assert.is_false(windows[2].isStaticDocked)
 			assert.is_true(windows[1].isStaticDocked, "General stays first, static")
+			assert.equals(_G.ChatFrame1Tab, GeneralDockManager.scrollFrame.anchors.LEFT,
+				"the other tabs hang on General's tab, not on Journal's")
 		end)
 
 		it("open whispers in their own tabs", function()

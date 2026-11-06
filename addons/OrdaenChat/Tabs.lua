@@ -119,6 +119,11 @@ function Tabs.CombatLogLast()
 	end
 	if relayout then
 		moving = true
+		-- Blizzard's FCFDock_UpdateTabs places the tabs first and anchors the scroll frame of the other tabs to the last
+		-- static tab only afterwards: it is still anchored to Combat Log's tab, which now goes inside it, so placing the
+		-- tab fails ("Cannot anchor to a region dependent on it", 2026-11-06) and the tabs vanish. Anchor it to
+		-- General's tab first, as Blizzard does next.
+		GeneralDockManager.scrollFrame:SetPoint("LEFT", ChatFrame1Tab, "RIGHT", 0, 0)
 		FCFDock_UpdateTabs(GeneralDockManager, true)
 		moving = false
 		noteDock("no longer static docked")
