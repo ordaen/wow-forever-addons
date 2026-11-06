@@ -93,7 +93,7 @@ local function isText(node)
 end
 
 local function isImage(node)
-	return node.image ~= nil or node.atlas ~= nil
+	return node.image ~= nil or node.atlas ~= nil or node.portrait ~= nil
 end
 
 local function isBlock(node)

@@ -1234,6 +1234,18 @@ describe("OrdaenCore.UI", function()
 			assert.equals(track, value.size[1], "the parts fill the track")
 		end)
 
+		it("draw a unit's portrait as an image", function()
+			local drawn
+			rawset(_G, "SetPortraitTexture", function(texture, unit)
+				drawn = { texture, unit }
+			end)
+			UI.Tooltip({ { portrait = "player", size = 30 } }):Show(owner)
+			rawset(_G, "SetPortraitTexture", nil)
+			assert.is_table(drawn, "a portrait-only element is an image (it was laid out as an empty block)")
+			assert.equals("player", drawn[2])
+			assert.same({ 30, 30 }, { drawn[1].size and drawn[1].size[1], drawn[1].size and drawn[1].size[2] })
+		end)
+
 		it("let a block drop or keep each of its style's edges", function()
 			local both = { style = "iconButton", width = 20, height = 20 }
 			local second = { style = "iconButton", width = 20, height = 20 }
