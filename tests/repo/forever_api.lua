@@ -36,9 +36,14 @@ function M.Globals()
 	return set
 end
 
---- Set of method names any widget type or dumped Blizzard object has, or nil.
+-- Templates our frames inherit (CreateFrame's 4th argument) mix in Blizzard methods from these tables.
+M.TEMPLATE_MIXINS = {
+	BackdropTemplate = "BackdropTemplateMixin",
+}
+
+--- Set of method names any widget type, dumped Blizzard object or template mixin we use has, or nil.
 function M.Methods()
-	local widgets, objects = file("widgets.txt"), file("objects.txt")
+	local widgets, objects, namespaces = file("widgets.txt"), file("objects.txt"), file("namespaces.txt")
 	if not widgets then
 		return nil
 	end
@@ -48,6 +53,11 @@ function M.Methods()
 	end
 	for key in (objects or ""):gmatch("%.([%w_]+)\tfunction\n") do
 		set[key] = true
+	end
+	for _, mixin in pairs(M.TEMPLATE_MIXINS) do
+		for key in (namespaces or ""):gmatch("\n" .. mixin .. "%.([%w_]+)\tfunction") do
+			set[key] = true
+		end
 	end
 	return set
 end

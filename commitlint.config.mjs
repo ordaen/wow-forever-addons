@@ -7,7 +7,7 @@ const addons = readdirSync(new URL('./addons/', import.meta.url), { withFileType
   .filter((entry) => entry.isDirectory())
   .map((entry) => entry.name);
 
-const repoScopes = ['repo', 'ci', 'deps', 'scripts', 'tests', 'docs', 'main', 'art'];
+const repoScopes = ['repo', 'ci', 'deps', 'scripts', 'tests', 'docs', 'main', 'art', 'api'];
 
 export default {
   extends: ['@commitlint/config-conventional'],

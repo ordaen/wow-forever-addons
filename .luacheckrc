@@ -1,7 +1,7 @@
 -- luacheck config. WoW runs Lua 5.1.
 std = "lua51"
 max_line_length = 120
-exclude_files = { "node_modules/", ".release/", ".lua/", ".luarocks/", ".install/" }
+exclude_files = { "node_modules/", ".release/", ".lua/", ".luarocks/", ".install/", "api/" }
 
 -- Globals the addons are allowed to define (or add entries to).
 local ours = {
@@ -31,7 +31,7 @@ if ok and type(forever) == "table" then
 		forever[name] = nil
 	end
 	for _, name in ipairs(fromOtherAddons) do
-		forever[name] = {}
+		forever[name] = { other_fields = true } -- their fields are theirs to define
 	end
 	read_globals = forever
 else
@@ -51,5 +51,7 @@ else
 	end
 end
 
-files["tests/"] = { std = "+busted" }
+-- Specs read and set fields on their own WoW fakes (Minimap.calls, _G.OrdaenMinimapDB...): the strict API
+-- fields from the dump apply to addon code, not to tests inspecting fakes.
+files["tests/"] = { std = "+busted", ignore = { "122", "142", "143" } }
 files["scripts/"] = { std = "lua51" }

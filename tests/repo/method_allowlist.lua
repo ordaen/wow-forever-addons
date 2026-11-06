@@ -22,6 +22,11 @@ return {
 	Add = "Settings control text container (MinimapButtonButton SettingsMenu.lua)",
 	GetID = "Settings category (ForeverQuestTint Options.lua: category:GetID())",
 
+	-- HybridMinimap.MapCanvas (Map.lua, guarded by `if HybridMinimap`). Blizzard_HybridMinimap is load-on-demand
+	-- on Forever (dump 1.60.1-70790 has HybridMinimap_LoadUI and C_Minimap.ShouldUseHybridMinimap) and wasn't
+	-- loaded during the dump, so its canvas methods aren't listed. Same call as SexyMap's Shapes.lua.
+	SetUseMaskTexture = "HybridMinimap.MapCanvas (load-on-demand, not in the dump)",
+
 	-- LibDBIcon-1.0 (embedded by other addons), confirmed by its use in MinimapButtonButton Logic/Main.lua.
 	GetButtonList = "LibDBIcon-1.0",
 	GetMinimapButton = "LibDBIcon-1.0",
