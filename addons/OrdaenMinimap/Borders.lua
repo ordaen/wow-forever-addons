@@ -27,8 +27,8 @@ ns.BORDER_STYLES = {
 	{
 		id = "bronze-rim",
 		label = "STYLE_BRONZE_RIM",
-		-- Our own art: art/frame.py bronze-rim
-		backdrop = { edgeFile = "Interface\\AddOns\\OrdaenMinimap\\media\\bronze-rim", edgeSize = 24 },
+		-- Our own art (art/frame.py bronze-rim): one texture, so its chips and scratches don't repeat.
+		frame = { file = "Interface\\AddOns\\OrdaenMinimap\\media\\bronze-rim-frame" },
 		outset = 11,
 	},
 	{
