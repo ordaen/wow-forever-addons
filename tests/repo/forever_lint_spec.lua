@@ -150,6 +150,17 @@ string.format("%d", 1)
 ]]))
 	end)
 
+	it("FL8: flags ReloadUI passed as a value, not ReloadUI() called", function()
+		assert.same({ "FL8@2", "FL8@3", "FL8@4" }, codes([[
+local A = {}
+A:AfterCombat(ReloadUI)
+C_Timer.After(1, ReloadUI)
+local reload = ReloadUI
+ReloadUI()
+if x then ReloadUI() end
+]]))
+	end)
+
 	it("FL7: flags Debug:Time whose results are used, not Time statements", function()
 		assert.same({ "FL7@4", "FL7@5", "FL7@6", "FL7@7", "FL7@8", "FL7@9", "FL7@10" }, codes([[
 local A, fn = {}, nil

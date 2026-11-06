@@ -30,5 +30,6 @@
   "CONFLICT_AREA_TOOLTIPS": "подсказки игры",
   "CONFLICT_AREA_MINIMAP": "миникарту",
   "CONFLICT_AREA_OTHER": "одну и ту же часть интерфейса",
-  "CONFLICT_TURN_OFF_MANUALLY": "Выключите %s в списке модификаций и введите /reload."
+  "CONFLICT_TURN_OFF_MANUALLY": "Выключите %s в списке модификаций и введите /reload.",
+  "CONFLICT_RELOAD_AFTER_COMBAT": "Модификация %s выключена. Введите /reload после боя."
 }

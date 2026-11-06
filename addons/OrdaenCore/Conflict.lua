@@ -90,16 +90,23 @@ local function title(name)
 	return (text:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", ""))
 end
 
--- Turn `name` off and reload (after combat). Without the API, tell the player how.
+-- Turn `name` off and reload. Called straight from the button's click: a reload is a player action, and the game
+-- allows it only in the click's own call (not through securecallfunction, a timer or an event later). In combat it
+-- can't reload at all, so the player is told to type /reload. Without the API, tell the player how.
 local function turnOff(addon, name)
 	local disable = C_AddOns.DisableAddOn
 	if type(disable) ~= "function" then
 		addon:Print(ns.L.CONFLICT_TURN_OFF_MANUALLY:format(title(name)))
 		return
 	end
-	addon.Debug:Logf("conflict: turning off %s and reloading", name)
 	disable(name)
-	addon:AfterCombat(ReloadUI)
+	if InCombatLockdown() then
+		addon.Debug:Logf("conflict: turned off %s; in combat, the player reloads", name)
+		addon:Print(ns.L.CONFLICT_RELOAD_AFTER_COMBAT:format(title(name)))
+		return
+	end
+	addon.Debug:Logf("conflict: turned off %s, reloading", name)
+	ReloadUI()
 end
 
 local ASK_DELAY = 1 -- seconds

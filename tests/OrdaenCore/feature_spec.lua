@@ -480,6 +480,13 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			advance(2)
 			_G.TestFrame:SetAlpha(0) -- the same addon again: no second dialog this session
 			assert.equals(1, #dialogs)
+			-- in combat: turned off, no reload (the game can't), the player is told to /reload
+			helpers.inCombat = true
+			d.buttons[2].onClick()
+			assert.equals("TestAddon", disabled)
+			assert.is_false(helpers.reloaded)
+			-- out of combat: reloads right in the click
+			helpers.inCombat = false
 			d.buttons[1].onClick()
 			assert.equals("PrettyTooltip", disabled)
 			assert.is_true(helpers.reloaded)
