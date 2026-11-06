@@ -329,24 +329,48 @@ end
 
 -- Blizzard's compartment button -----------------------------------------------------------------
 
+-- Blizzard's compartment button (the addon count next to the zone name) is hidden by parenting it to a
+-- frame that is never shown: hooking Show alone isn't enough, Blizzard also shows it through SetShown
+-- and its layout code. Its entries are in our drawer, so it stays visible while the drawer isn't running.
+local hiddenParent
+local compartmentParent -- its own parent, to give it back
+local placingCompartment = false
+
+local function compartmentHidden()
+	return db and db.hideBlizzardCompartment and started
+end
+
+local function keepCompartmentHidden(frame)
+	if placingCompartment or not compartmentHidden() or frame:GetParent() == hiddenParent then
+		return
+	end
+	placingCompartment = true
+	compartmentParent = frame:GetParent()
+	frame:SetParent(hiddenParent)
+	placingCompartment = false
+end
+
 function Drawer.ApplyBlizzardCompartment()
 	local frame = _G.AddonCompartmentFrame
 	if not frame then
 		return
 	end
+	if not hiddenParent then
+		hiddenParent = CreateFrame("Frame")
+		hiddenParent:Hide()
+	end
 	if not blizzardCompartmentHooked then
 		blizzardCompartmentHooked = true
-		hooksecurefunc(frame, "Show", function(self)
-			if db and db.hideBlizzardCompartment and started then
-				self:Hide()
-			end
-		end)
+		hooksecurefunc(frame, "SetParent", keepCompartmentHidden)
 	end
-	if db.hideBlizzardCompartment and started then
-		frame:Hide()
-	else
-		frame:Show()
+	if compartmentHidden() then
+		keepCompartmentHidden(frame)
+	elseif frame:GetParent() == hiddenParent then
+		placingCompartment = true
+		frame:SetParent(compartmentParent or MinimapCluster)
+		placingCompartment = false
 	end
+	debug().Logf("drawer: Blizzard compartment %s", compartmentHidden() and "hidden" or "shown")
 end
 
 -- Main button and drawer frame ------------------------------------------------------------------

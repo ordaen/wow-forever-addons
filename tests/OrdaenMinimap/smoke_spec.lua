@@ -33,6 +33,14 @@ local function stubObject(name, extra)
 	obj.SetScript = function(self, script, fn)
 		self.scripts[script] = fn
 	end
+	obj.SetParent = function(self, parent)
+		self.calls.SetParent = self.calls.SetParent or {}
+		table.insert(self.calls.SetParent, { parent })
+		self.parent = parent
+	end
+	obj.GetParent = function(self)
+		return self.parent
+	end
 	obj.GetScript = function(self, script)
 		return self.scripts[script]
 	end
@@ -753,12 +761,19 @@ describe("OrdaenMinimap smoke", function()
 		end)
 
 		it("hides Blizzard's compartment button by default and shows it when the option is off", function()
+			local compartment = _G.AddonCompartmentFrame
+			compartment.parent = MinimapCluster
 			login()
-			assert.is_false(_G.AddonCompartmentFrame.shown)
-			_G.AddonCompartmentFrame:Show()
-			assert.is_false(_G.AddonCompartmentFrame.shown)
+			-- Parented to a frame that is never shown, so no Show/SetShown can bring it back.
+			local hidden = compartment:GetParent()
+			assert.is_truthy(hidden)
+			assert.are_not.equal(MinimapCluster, hidden)
+			assert.is_false(hidden.shown)
+			-- Blizzard's layout code re-parents it: it goes straight back.
+			compartment:SetParent(MinimapCluster)
+			assert.equals(hidden, compartment:GetParent())
 			settings.hideBlizzardCompartment:Set(false)
-			assert.is_true(_G.AddonCompartmentFrame.shown)
+			assert.equals(MinimapCluster, compartment:GetParent())
 		end)
 
 		it("stays off with a warning while MinimapButtonButton is loaded", function()
