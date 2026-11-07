@@ -79,5 +79,6 @@
   "BACKGROUND_DIALOG": "Dialog",
   "BACKGROUND_INSET": "Inset",
   "BACKGROUND_NONE": "None",
-  "FRAME_METAL_THIN": "Metal, thin"
+  "FRAME_METAL_THIN": "Metal, thin",
+  "CONTROL_BLIZZARD": "Blizzard"
 }

@@ -32,6 +32,75 @@ describe("theme assets", function()
 		assert.is_true(count > 0)
 	end)
 
+	-- A control's art (themes.jsonc, "Controls"): the states each role draws, and the shape of a piece.
+	local CONTROL_STATES = {
+		tab = { "normal", "selected" },
+		sideTab = { "normal", "selected" },
+		pushButton = { "normal" },
+		closeButton = { "normal" },
+		checkbox = { "normal", "checked" },
+		dropdown = { "normal", "arrow" },
+		input = { "normal" },
+		scrollTrack = { "normal" },
+		scrollThumb = { "normal" },
+		scrollStepper = { "back", "forward" },
+		slot = { "background" },
+	}
+	local NOT_STATES = { label = true, size = true }
+	local SLICES = { { "left", "center", "right" }, { "top", "middle", "bottom" } }
+
+	-- nil when `piece` is an atlas name, { atlas | file, ... } or slices of those; else what's wrong
+	local function badPiece(piece, sliced)
+		if type(piece) == "string" then
+			if piece == "" then
+				return "an empty atlas name"
+			end
+			return nil
+		end
+		if type(piece) ~= "table" then
+			return "not an atlas name or a table"
+		end
+		if piece.atlas or piece.file then
+			if piece.atlas and piece.file then
+				return "an atlas or a file, not both"
+			end
+			return nil
+		end
+		if sliced then
+			return "a slice must be an atlas or a file"
+		end
+		for _, names in ipairs(SLICES) do
+			if piece[names[1]] then
+				for _, name in ipairs(names) do
+					local bad = piece[name] == nil and "slice " .. name .. " missing" or badPiece(piece[name], true)
+					if bad then
+						return bad
+					end
+				end
+				return nil
+			end
+		end
+		return "no atlas, file or slices"
+	end
+
+	it("gives every control the states its role draws, each a piece of art", function()
+		for kind, states in pairs(CONTROL_STATES) do
+			local assets = themes.assets[kind]
+			assert.is_table(assets, ("no %s assets"):format(kind))
+			for id, asset in pairs(assets) do
+				for _, state in ipairs(states) do
+					assert.is_not_nil(asset[state], ("%s %q: no %s"):format(kind, id, state))
+				end
+				for key, piece in pairs(asset) do
+					if not NOT_STATES[key] then
+						local bad = badPiece(piece)
+						assert.is_nil(bad, ("%s %q.%s: %s"):format(kind, id, key, tostring(bad)))
+					end
+				end
+			end
+		end
+	end)
+
 	it("gives every background an atlas or a file, or nothing (none)", function()
 		for id, bg in pairs(themes.assets.background) do
 			local n = (bg.atlas and 1 or 0) + (bg.file and 1 or 0)

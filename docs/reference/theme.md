@@ -36,6 +36,16 @@ untinted unless the block has its own `accent` (an item's quality), as Blizzard 
 `frameArt` in `Theme.lua` names the tokens and where the background sits inside the layout's border; only top-level
 blocks draw it. A background that doesn't tile (an atlas) covers the inside at its own aspect, cropped centred at the long sides, never stretched; one with `tile` repeats. Dressed Blizzard frames (`UI.Dress`, `size = "frame"`) get it through their role too.
 
+**Control art.** Each control role has an asset kind of the same name in `themes.jsonc` and a token
+`control.<role>`: `tab`, `sideTab`, `pushButton`, `closeButton`, `checkbox`, `dropdown`, `input`, `scrollTrack`,
+`scrollThumb`, `scrollStepper`, `slot` (Ordaen: `blizzard`, the art Forever's own windows use). An asset has a
+`label`, an optional natural `size` `[width, height]` (0 = stretches) and one *piece* per state: an atlas name,
+`{ atlas | file, alpha?, coords? }`, or slices `{ left, center, right }` / `{ top, middle, bottom }` whose center or
+middle stretches. States: `normal`, `highlight`, `pushed`, `disabled`, `selected`, `checked`, `disabledChecked`, plus
+a role's parts (`dropdown.arrow`, `sideTab.mask`, `scrollStepper.back`/`forward`, `slot.background`/`mask`). A state
+the asset doesn't give is drawn from `normal`. `tests/repo/theme_assets_spec.lua` checks each role's required states
+and every piece's shape. Roles the renderer doesn't draw yet are skipped by dressing addons (`UI.HasStyle`).
+
 Tooltips are 12 to 25 ems wide.
 
 ## Text styles

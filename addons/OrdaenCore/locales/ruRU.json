@@ -79,5 +79,6 @@
   "BACKGROUND_DIALOG": "Диалог",
   "BACKGROUND_INSET": "Внутренняя панель",
   "BACKGROUND_NONE": "Нет",
-  "FRAME_METAL_THIN": "Тонкий металл"
+  "FRAME_METAL_THIN": "Тонкий металл",
+  "CONTROL_BLIZZARD": "Blizzard"
 }

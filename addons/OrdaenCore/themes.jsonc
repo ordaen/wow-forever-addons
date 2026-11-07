@@ -36,6 +36,84 @@
     "bar": {
       "flat": { "label": "BAR_FLAT", "file": "Interface\\Buttons\\WHITE8X8" },
       "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\\TargetingFrame\\UI-StatusBar" }
+    },
+    // Controls (OrdaenCore.UI roles of the same names). Each asset gives a piece per state; a piece is an atlas name,
+    // { "atlas" | "file", "alpha"?, "coords"? }, or slices: { left, center, right } (stretched across) or
+    // { top, middle, bottom } (stretched down), each slice a piece. `size` is the natural [width, height]; slices
+    // stretch the center/middle. The art is Blizzard's own, as Forever's windows use it (the WindowArt dumps of the
+    // character, collections, professions, group finder and game menu windows, 2026-11-07); every state named here
+    // was seen there. States the dumps didn't show (a red button's pushed or disabled art) aren't listed: the
+    // renderer draws those from `normal` (tinted) until they are seen in game.
+    "tab": {
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD",
+        "normal": { "left": "uiframe-tab-left", "center": "_uiframe-tab-center", "right": "uiframe-tab-right" },
+        "selected": { "left": "uiframe-activetab-left", "center": "_uiframe-activetab-center", "right": "uiframe-activetab-right" },
+        "highlight": { "left": { "atlas": "uiframe-tab-left", "alpha": 0.4 }, "center": { "atlas": "_uiframe-tab-center", "alpha": 0.4 }, "right": { "atlas": "uiframe-tab-right", "alpha": 0.4 } }
+      }
+    },
+    "sideTab": {
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD", "size": [55, 60],
+        "normal": "common-sidetab", "selected": "common-sidetab-selected", "highlight": "common-sidetab-hover",
+        "mask": "common-sidetab-mask"
+      }
+    },
+    "pushButton": {
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD",
+        "normal": { "left": "128-RedButton-Left", "center": "_128-RedButton-Center", "right": "128-RedButton-Right" },
+        "highlight": "128-RedButton-Highlight"
+      }
+    },
+    "closeButton": {
+      "blizzard": { "label": "CONTROL_BLIZZARD", "size": [28, 28], "normal": "RedButton-Exit", "highlight": "RedButton-Highlight" }
+    },
+    "checkbox": {
+      // the classic check box (the group finder's): files, all states known
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD", "size": [24, 24],
+        "normal": { "file": "Interface\\Buttons\\UI-CheckBox-Up" },
+        "pushed": { "file": "Interface\\Buttons\\UI-CheckBox-Down" },
+        "highlight": { "file": "Interface\\Buttons\\UI-CheckBox-Highlight" },
+        "checked": { "file": "Interface\\Buttons\\UI-CheckBox-Check" },
+        "disabledChecked": { "file": "Interface\\Buttons\\UI-CheckBox-Check-Disabled" }
+      }
+    },
+    "dropdown": {
+      // the field (its art includes a soft shadow: 41 high around a 26 high field) and the arrow button on its right
+      "blizzard": { "label": "CONTROL_BLIZZARD", "normal": "common-dropdown-textholder", "arrow": "common-dropdown-a-button" }
+    },
+    "input": {
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD", "size": [0, 20],
+        "normal": { "left": "common-search-border-left", "center": "common-search-border-middle", "right": "common-search-border-right" }
+      }
+    },
+    "scrollTrack": {
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD", "size": [8, 0],
+        "normal": { "top": "minimal-scrollbar-track-top", "middle": "!minimal-scrollbar-track-middle", "bottom": "minimal-scrollbar-track-bottom" }
+      }
+    },
+    "scrollThumb": {
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD", "size": [8, 0],
+        "normal": { "top": "minimal-scrollbar-small-thumb-top", "middle": "minimal-scrollbar-small-thumb-middle", "bottom": "minimal-scrollbar-small-thumb-bottom" }
+      }
+    },
+    "scrollStepper": {
+      "blizzard": { "label": "CONTROL_BLIZZARD", "size": [17, 11], "back": "minimal-scrollbar-arrow-top", "forward": "minimal-scrollbar-arrow-bottom" }
+    },
+    "slot": {
+      // an item slot: the character window's ring behind a 37 px icon (the ring is 55: 9 px around), the square
+      // highlight and the icon's rounded mask, as on the character window's slots
+      "blizzard": {
+        "label": "CONTROL_BLIZZARD", "size": [37, 37],
+        "background": { "atlas": "UI-Character-Info-GearSlot", "outset": 9 },
+        "highlight": { "file": "Interface\\Buttons\\ButtonHilight-Square" },
+        "mask": { "file": 2922105 }
+      }
     }
   },
   "tokens": {
@@ -91,7 +169,19 @@
     "tooltip.delay": "number",
     "sound.open": "sound",
     "sound.close": "sound",
-    "sound.click": "sound"
+    "sound.click": "sound",
+    // controls: the art each OrdaenCore.UI control role draws
+    "control.tab": "tab",
+    "control.sideTab": "sideTab",
+    "control.pushButton": "pushButton",
+    "control.closeButton": "closeButton",
+    "control.checkbox": "checkbox",
+    "control.dropdown": "dropdown",
+    "control.input": "input",
+    "control.scrollTrack": "scrollTrack",
+    "control.scrollThumb": "scrollThumb",
+    "control.scrollStepper": "scrollStepper",
+    "control.slot": "slot"
   },
   "themes": {
     "ordaen": {
@@ -124,7 +214,8 @@
       "color.palette.grey": [0.389, 0.389, 0.389], "color.palette.grey.text": [0.743, 0.743, 0.743],
       "icon.crop": 0.08,
       "motion.fade": 0.15, "tooltip.delay": 0,
-      "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON"
+      "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON",
+      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "blizzard", "control.closeButton": "blizzard", "control.checkbox": "blizzard", "control.dropdown": "blizzard", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
     }
     // Planned, not built (user's decision, 2026-11-07): "blizzard" (mostly Blizzard's default look) and "minimal"
     // (little to no textures). Only Ordaen is worked on now; add them back here, with every token, when they are.
