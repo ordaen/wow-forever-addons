@@ -25,6 +25,15 @@ W, ROW, ROWS = 256, 64, 8
 # between buttons is the container's job (a block's gap; Blizzard's layout frames' spacing via Reskin).
 PLATE = ROW
 SS = 4  # supersampling
+# How strongly the rim is lit, 1 = the bronze-rim profile as measured. The window border (Blizzard's metal) is
+# softer: lit peak ~108 against the buttons' ~142 at 1440p (2026-11-07), so 0.75 matches it. --contrast sets it.
+CONTRAST = 0.72  # the user's pick, 2026-11-07 (border.html: "buttons softer")
+# Surface textures (--rim, --fill). The centre slice is stretched across the button, so only patterns running along
+# it survive there (horizontal brushing, grain lying along the button); the caps are only scaled.
+#   rim:  none | brushed (fine streaks along each side) | hammered (soft dents)
+#   fill: none | brushed | wood (a wood image, grain turned along the button: --wood) | vignette (darker towards
+#         the rim) | groove (an engraved line inside the rim, cut in: dark on the side away from the light)
+RIM_TEX, FILL_TEX, WOOD = "brushed", "groove", None  # the user's pick, 2026-11-07 (border.html #5)
 
 
 def rgb(hexstr):
@@ -84,20 +93,46 @@ def plate(name, state):
     rng = np.random.default_rng(7)
     grain = rng.normal(0, 0.012, (ROW * SS, 1, 1))  # fine horizontal brushing, same in every column (the centre stretches)
     fill = fill + grain
+    side = np.minimum(x, W - x) < np.minimum(y, PLATE - y)  # nearest edge is a side (a cap's) rather than top/bottom
+    inside = OUTLINE + RIM + LIP
+    if FILL_TEX == "brushed":
+        fill = fill * (1 + rng.normal(0, 0.14, (ROW * SS, 1, 1)))
+    elif FILL_TEX == "wood" and WOOD is not None:
+        fill = fill * (0.55 + 0.9 * WOOD[..., None])
+    elif FILL_TEX == "vignette":
+        fill = fill * (1 - 0.4 * np.clip(1 - (depth - inside) / 9, 0, 1))[..., None]
     if state == "pushed":
         fill = fill * 0.62
         lit = 1 - lit * 0.6  # the rim reads sunk: light from the other side, weaker
     rim = lerp(lerp(RIM_DARK_SOFT, RIM_DARK, np.clip(depth / (OUTLINE + RIM), 0, 1)),
                lerp(RIM_LIT_SOFT, RIM_LIT, np.clip(depth / (OUTLINE + RIM), 0, 1)), lit)
     ridge_band = (depth > OUTLINE + RIM * 0.25) & (depth < OUTLINE + RIM * 0.6) & (lit > 0.6)
-    rim = np.where(ridge_band[..., None], lerp(rim, RIDGE, np.full(depth.shape, 0.55)), rim)
+    rim = np.where(ridge_band[..., None], lerp(rim, RIDGE, np.full(depth.shape, 0.55 * CONTRAST)), rim)
+    mid = (RIM_LIT_SOFT + RIM_DARK_SOFT) / 2
+    rim = mid + (rim - mid) * CONTRAST  # less contrast: lit and dark sides both move towards the middle
+    if RIM_TEX == "brushed":
+        streak_y = rng.normal(0, 0.16, (ROW * SS, 1))
+        streak_x = rng.normal(0, 0.16, (1, W * SS))
+        rim = rim * (1 + np.where(side, streak_x, streak_y))[..., None]
+    elif RIM_TEX == "hammered":
+        small = rng.normal(0, 1, (ROW // 4, W // 4))
+        from PIL import Image as _I
+        big = np.array(_I.fromarray(small.astype(np.float32), "F").resize((W * SS, ROW * SS), _I.BICUBIC))
+        rim = rim * (1 + 0.16 * np.clip(big, -2, 2))[..., None]
     col = np.where((depth < OUTLINE)[..., None], OUTLINE_C, np.where((depth < OUTLINE + RIM)[..., None], rim,
                    np.where((depth < OUTLINE + RIM + LIP)[..., None], lerp(LIP_C, fill, np.full(depth.shape, 0.35)), fill)))
-    inside = OUTLINE + RIM + LIP
+    if FILL_TEX == "groove":
+        g = inside + 4.0
+        first = (depth >= g) & (depth < g + 1.5)
+        second = (depth >= g + 1.5) & (depth < g + 3.0)
+        towards = facing > 0  # top and left: the groove's outer wall faces away from the light
+        dark, light = np.zeros(3), np.array([0.84, 0.65, 0.42])
+        col = np.where((first & towards)[..., None] | (second & ~towards)[..., None], lerp(col, dark, np.full(depth.shape, 0.55)), col)
+        col = np.where((second & towards)[..., None] | (first & ~towards)[..., None], lerp(col, light, np.full(depth.shape, 0.22 * CONTRAST)), col)
     if state != "pushed":
         # a thin shine just inside the lip along the top: the plate's bevel catching the light
         shine = (y >= inside) & (y < inside + 1.5) & (depth >= inside)
-        col = np.where(shine[..., None], lerp(col, p["shine"], np.full(depth.shape, p["shine_alpha"])), col)
+        col = np.where(shine[..., None], lerp(col, p["shine"], np.full(depth.shape, p["shine_alpha"] * CONTRAST)), col)
     else:
         # an inner shadow under the top lip
         sh = np.clip(1 - (y - inside) / 8, 0, 1) * (depth >= inside)
@@ -133,13 +168,29 @@ def downsample(img):
 
 
 def main():
+    import argparse
+    global CONTRAST, RIM_TEX, FILL_TEX, WOOD
+    ap = argparse.ArgumentParser()
+    ap.add_argument("--contrast", type=float, default=CONTRAST)
+    ap.add_argument("--out", default=None, help="write here instead of addons/OrdaenCore/media/button.tga")
+    ap.add_argument("--rim", default=RIM_TEX)
+    ap.add_argument("--fill", default=FILL_TEX)
+    ap.add_argument("--wood", default=None, help="an image of wood, grain running down it (turned along the button)")
+    args = ap.parse_args()
+    CONTRAST, RIM_TEX, FILL_TEX = args.contrast, args.rim, args.fill
+    if args.wood:
+        from PIL import Image as _I
+        wimg = _I.open(args.wood).convert("L").rotate(90, expand=True).resize((W * SS, ROW * SS), _I.BICUBIC)
+        wa = np.array(wimg).astype(float).mean(axis=1, keepdims=True)  # grain straight along the button: the
+        wa = np.repeat(wa, W * SS, axis=1)  # stretched centre and the caps then match (no seam)
+        WOOD = (wa - wa.min()) / max(wa.max() - wa.min(), 1)
     rows = []
     for name in ("bronze", "red"):
         for state in ("normal", "pushed", "disabled"):
             rows.append(downsample(plate(name, state)))
         rows.append(downsample(highlight(name)))
     img = (np.clip(np.vstack(rows), 0, 1) * 255 + 0.5).astype(np.uint8)
-    out = REPO / "addons" / "OrdaenCore" / "media" / "button.tga"
+    out = Path(args.out) if args.out else REPO / "addons" / "OrdaenCore" / "media" / "button.tga"
     Image.fromarray(img, "RGBA").save(out, compression=None)
     # preview at game size: a 34 px high button, caps 17 wide (aspect 0.5), the centre stretched; normal and
     # pushed and disabled as they are, the highlight over normal; 234 wide, 112 wide and icon-only (34)
