@@ -35,5 +35,13 @@
   "VIEW_CATEGORIES": "Categories",
   "VIEW_BAGS": "Bags in order",
   "TIP_VIEW": "View",
-  "TIP_VIEW_TEXT": "Switch between categories and your bags in order."
+  "TIP_VIEW_TEXT": "Switch between categories and your bags in order.",
+  "TAB_ALL": "All",
+  "HEADER_GROUPING": "Grouping inside tabs",
+  "GROUPING": "Group items",
+  "GROUP_TYPE": "By type",
+  "GROUP_SLOT": "By equipment slot",
+  "GROUP_QUALITY": "By quality",
+  "GROUP_NONE": "No groups",
+  "HIDE_TAB": "Hide this tab"
 }

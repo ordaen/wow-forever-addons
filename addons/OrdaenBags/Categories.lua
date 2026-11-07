@@ -84,12 +84,54 @@ function Categories.SectionOf(classID, subClassID)
 	return (classID or 99) * 1000 + (subClassID or 0)
 end
 
+-- Grouping inside a tab (a setting per tab): by type (class and subclass: the section number, below 100000), by
+-- equipment slot, by quality (the best first), or none (one grid, no caption). Each grouping's keys sort in its order.
+Categories.GROUPINGS = { "type", "slot", "quality", "none" }
+local SLOT_BASE, QUALITY_BASE, NONE_KEY = 100000, 200000, 300000
+local SLOT_ORDER = {
+	"INVTYPE_HEAD", "INVTYPE_NECK", "INVTYPE_SHOULDER", "INVTYPE_CLOAK", "INVTYPE_CHEST", "INVTYPE_BODY",
+	"INVTYPE_TABARD", "INVTYPE_WRIST", "INVTYPE_HAND", "INVTYPE_WAIST", "INVTYPE_LEGS", "INVTYPE_FEET",
+	"INVTYPE_FINGER", "INVTYPE_TRINKET", "INVTYPE_WEAPON", "INVTYPE_2HWEAPON", "INVTYPE_WEAPONMAINHAND",
+	"INVTYPE_WEAPONOFFHAND", "INVTYPE_SHIELD", "INVTYPE_HOLDABLE", "INVTYPE_RANGED", "INVTYPE_RANGEDRIGHT",
+	"INVTYPE_THROWN", "INVTYPE_RELIC", "INVTYPE_PROFESSION_TOOL", "INVTYPE_PROFESSION_GEAR", "INVTYPE_QUIVER",
+	"INVTYPE_BAG", "INVTYPE_AMMO",
+}
+local slotIndex = {}
+for i, name in ipairs(SLOT_ORDER) do
+	slotIndex[name] = i
+end
+slotIndex.INVTYPE_ROBE = slotIndex.INVTYPE_CHEST -- a robe is a chest piece
+local NOT_EQUIPPED = #SLOT_ORDER + 1
+
+--- The group an item goes in for a grouping (a number: groups sort by it).
+---@param item OrdaenBagsItem
+---@param by string|nil "type" (default), "slot", "quality" or "none"
+---@return number
+function Categories.GroupKey(item, by)
+	if by == "slot" then
+		return SLOT_BASE + (item.equipLoc and slotIndex[item.equipLoc] or NOT_EQUIPPED)
+	elseif by == "quality" then
+		return QUALITY_BASE + 10 - (item.quality or 1)
+	elseif by == "none" then
+		return NONE_KEY
+	end
+	return item.section
+end
+
 local labels = {} -- section -> its caption
 --- A section's caption: the subclass's name in the client's language (the class's when the subclass has none).
 ---@param section number
 ---@return string
 function Categories.SectionLabel(section)
 	local label = labels[section]
+	if not label and section >= NONE_KEY then
+		label = "" -- one grid, no caption
+	elseif not label and section >= QUALITY_BASE then
+		label = _G["ITEM_QUALITY" .. (10 - (section - QUALITY_BASE)) .. "_DESC"] or ""
+	elseif not label and section >= SLOT_BASE then
+		local name = SLOT_ORDER[section - SLOT_BASE]
+		label = name and _G[name] or AUCTION_CATEGORY_MISCELLANEOUS -- what isn't worn
+	end
 	if not label then
 		local classID, subClassID = math.floor(section / 1000), section % 1000
 		-- Miscellaneous' first subclass is called "Junk" by the game, though it holds the Hearthstone and such: it

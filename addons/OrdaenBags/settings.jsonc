@@ -49,6 +49,76 @@
         "tabs.junk": { "type": "boolean", "default": true, "label": "TAB_JUNK" },
         "tabs.other": { "type": "boolean", "default": true, "label": "TAB_OTHER" }
       }
+    },
+    {
+      // How each tab groups its items (also on the tab's right-click menu)
+      "header": "HEADER_GROUPING",
+      "settings": {
+        "grouping.all": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_ALL"
+        },
+        "grouping.equipment": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_EQUIPMENT"
+        },
+        "grouping.consumables": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_CONSUMABLES"
+        },
+        "grouping.tradegoods": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_TRADEGOODS"
+        },
+        "grouping.recipes": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_RECIPES"
+        },
+        "grouping.quest": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_QUEST"
+        },
+        "grouping.junk": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_JUNK"
+        },
+        "grouping.other": {
+          "type": "choice",
+          "choices": [
+            { "id": "type", "label": "GROUP_TYPE" }, { "id": "slot", "label": "GROUP_SLOT" },
+            { "id": "quality", "label": "GROUP_QUALITY" }, { "id": "none", "label": "GROUP_NONE" }
+          ],
+          "default": "type", "label": "TAB_OTHER"
+        }
+      }
     }
   ]
 }

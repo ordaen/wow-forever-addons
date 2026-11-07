@@ -54,10 +54,11 @@ local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its bu
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
 local tabCells = {} ---@type table<string, table> tab id -> its cell in the sidebar (hidden when the tab is off)
 
--- Each tab's setting key ("tabs.<id>"), made once (no string per layout).
-local tabKeys = {}
+-- Each tab's setting keys ("tabs.<id>": shown, "grouping.<id>": how its items group), made once (no string per
+-- layout).
+local tabKeys, groupKeys = {}, {}
 for _, tab in ipairs(Categories.TABS) do
-	tabKeys[tab.id] = "tabs." .. tab.id
+	tabKeys[tab.id], groupKeys[tab.id] = "tabs." .. tab.id, "grouping." .. tab.id
 end
 
 -- Whether a tab shows in the sidebar: "All" always; the others while their setting is on, and with "hide empty
@@ -168,12 +169,12 @@ local function scan()
 		for slot = 1, C_Container.GetContainerNumSlots(bag) or 0 do
 			local info = C_Container.GetContainerItemInfo(bag, slot)
 			if info and info.itemID then
-				local _, _, _, _, _, classID, subClassID = C_Item.GetItemInfoInstant(info.itemID)
+				local _, _, _, equipLoc, _, classID, subClassID = C_Item.GetItemInfoInstant(info.itemID)
 				local quest = C_Container.GetContainerItemQuestInfo(bag, slot)
 				local isQuest = quest ~= nil and (quest.isQuestItem == true or quest.questID ~= nil)
 				local item = Data.Add(bag, slot, classID, subClassID, info.quality, isQuest)
 				item.texture, item.count, item.link = info.iconFileID, info.stackCount or 1, info.hyperlink
-				item.name = info.itemName
+				item.name, item.equipLoc = info.itemName, equipLoc
 				item.ilvl = info.hyperlink and C_Item.GetDetailedItemLevelInfo(info.hyperlink) or 0
 				item.bound, item.locked = info.isBound == true, info.isLocked == true
 				item.noValue, item.filtered = info.hasNoValue == true, info.isFiltered == true
@@ -273,7 +274,7 @@ function layoutBags(across)
 			k = k + 1
 			local s = section(k)
 			local label = C_Container.GetBagName(bag) or ""
-			s.caption.text = label
+			s.caption.text, s.caption.hidden = label, false
 			local grid = s.grid
 			local shown = math.min(across, slots)
 			grid.columns = columnsOf(shown)
@@ -321,7 +322,7 @@ local function layout()
 	local bagsView = setting("view", "categories") == "bags"
 	sidebarCell.hidden, sortCell.hidden = bagsView, bagsView
 	local used = 0
-	local n = bagsView and 0 or Data.Group(selected, groups, setting("sort", "bags"))
+	local n = bagsView and 0 or Data.Group(selected, groups, setting("sort", "bags"), ns.Addon:Get(groupKeys[selected]))
 	if bagsView then
 		used = layoutBags(across)
 	end
@@ -329,7 +330,7 @@ local function layout()
 		local group = groups[i]
 		local s = section(i)
 		local label = Categories.SectionLabel(group.section)
-		s.caption.text = label
+		s.caption.text, s.caption.hidden = label, label == ""
 		local grid = s.grid
 		local shown = math.min(across, group.n)
 		grid.columns = columnsOf(shown)
@@ -540,6 +541,34 @@ local function onSortClick(self)
 	MenuUtil.CreateContextMenu(self.frame, sortMenu)
 end
 
+-- A tab's right-click menu: how its items group, and hiding it (not "All"). The tab is a file local while the menu
+-- is open, so the menu's functions are made once.
+local GROUP_LABELS = { type = "GROUP_TYPE", slot = "GROUP_SLOT", quality = "GROUP_QUALITY", none = "GROUP_NONE" }
+local menuTab = "all"
+
+local function isGrouping(by)
+	return (ns.Addon:Get(groupKeys[menuTab]) or "type") == by
+end
+
+local function setGrouping(by)
+	ns.Addon:Set(groupKeys[menuTab], by) -- onChange lays the window out again
+end
+
+local function hideTab()
+	ns.Addon:Set(tabKeys[menuTab], false)
+end
+
+local function tabMenu(_, root)
+	root:CreateTitle(L.GROUPING)
+	for _, by in ipairs(Categories.GROUPINGS) do
+		root:CreateRadio(L[GROUP_LABELS[by]], isGrouping, setGrouping, by)
+	end
+	if menuTab ~= "all" then
+		root:CreateDivider()
+		root:CreateButton(L.HIDE_TAB, hideTab)
+	end
+end
+
 -- Quick actions ----------------------------------------------------------------------------------------------------
 
 local function onArrange()
@@ -697,7 +726,12 @@ local function build()
 		tabTexts[tab.id] = label
 		local id = tab.id
 		local button = UI.Button({ style = "listTab", on = {
-			click = function()
+			click = function(self, mouseButton)
+				if mouseButton == "RightButton" then
+					menuTab = id
+					MenuUtil.CreateContextMenu(self.frame, tabMenu)
+					return
+				end
 				selected = id
 				layout()
 			end,

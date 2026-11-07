@@ -23,6 +23,7 @@ ns.Data = Data
 ---@field link string|nil
 ---@field name string|nil
 ---@field ilvl number item level (0: none)
+---@field equipLoc string|nil where it's worn ("INVTYPE_HEAD"; "" or nil: not worn)
 ---@field bound boolean
 ---@field locked boolean
 ---@field noValue boolean
@@ -177,7 +178,7 @@ Data.ORDERS = ORDERS
 ---@param out OrdaenBagsGroup[] reused by the caller
 ---@param order string|nil "bags" (default), "quality", "name", "ilvl", "count" or "type"
 ---@return number n sections
-function Data.Group(tab, out, order)
+function Data.Group(tab, out, order, by)
 	for key in pairs(bySection) do
 		bySection[key] = nil
 	end
@@ -185,7 +186,8 @@ function Data.Group(tab, out, order)
 	for i = 1, count do
 		local item = items[i]
 		if tab == "all" or item.tab == tab then
-			local group = bySection[item.section]
+			local key = Categories.GroupKey(item, by)
+			local group = bySection[key]
 			if not group then
 				n = n + 1
 				group = pool[n]
@@ -193,8 +195,8 @@ function Data.Group(tab, out, order)
 					group = { section = 0, n = 0 }
 					pool[n] = group
 				end
-				group.section, group.n = item.section, 0
-				bySection[item.section] = group
+				group.section, group.n = key, 0
+				bySection[key] = group
 				out[n] = group
 			end
 			group.n = group.n + 1

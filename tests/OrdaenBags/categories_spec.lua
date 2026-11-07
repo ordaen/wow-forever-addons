@@ -64,4 +64,27 @@ describe("Ordaen Bags categories", function()
 		end
 		assert.same({ "all", "equipment", "consumables", "tradegoods", "recipes", "quest", "junk", "other" }, ids)
 	end)
+
+	it("groups by type, equipment slot, quality or not at all, each in its own order and words", function()
+		rawset(_G, "INVTYPE_HEAD", "Head")
+		rawset(_G, "INVTYPE_CHEST", "Chest")
+		rawset(_G, "ITEM_QUALITY4_DESC", "Epic")
+		rawset(_G, "ITEM_QUALITY2_DESC", "Uncommon")
+		rawset(_G, "AUCTION_CATEGORY_MISCELLANEOUS", "Miscellaneous")
+		local helm = { section = Categories.SectionOf(4, 1), equipLoc = "INVTYPE_HEAD", quality = 2 }
+		local robe = { section = Categories.SectionOf(4, 1), equipLoc = "INVTYPE_ROBE", quality = 4 }
+		local potion = { section = Categories.SectionOf(0, 1), equipLoc = "", quality = 1 }
+		assert.equals(helm.section, Categories.GroupKey(helm, nil), "type by default")
+		local head, chest, other = Categories.GroupKey(helm, "slot"), Categories.GroupKey(robe, "slot"),
+			Categories.GroupKey(potion, "slot")
+		assert.is_true(head < chest and chest < other, "head before chest, what isn't worn last")
+		assert.equals("Head", Categories.SectionLabel(head))
+		assert.equals("Chest", Categories.SectionLabel(chest), "a robe is a chest piece")
+		assert.equals("Miscellaneous", Categories.SectionLabel(other))
+		local epic, uncommon = Categories.GroupKey(robe, "quality"), Categories.GroupKey(helm, "quality")
+		assert.is_true(epic < uncommon, "the best first")
+		assert.equals("Epic", Categories.SectionLabel(epic))
+		assert.equals(Categories.GroupKey(helm, "none"), Categories.GroupKey(potion, "none"), "one group")
+		assert.equals("", Categories.SectionLabel(Categories.GroupKey(helm, "none")), "no caption")
+	end)
 end)
