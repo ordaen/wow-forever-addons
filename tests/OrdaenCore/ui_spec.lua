@@ -114,6 +114,12 @@ local function fakeTexture(layer)
 	function t:SetBlendMode(mode)
 		self.blend = mode
 	end
+	function t:SetHorizTile(on)
+		self.horizTile = on
+	end
+	function t:SetVertTile(on)
+		self.vertTile = on
+	end
 	function t:SetAtlas(name)
 		self.atlas, self.file = name, nil
 	end
@@ -1118,6 +1124,7 @@ describe("OrdaenCore.UI", function()
 			local top = strip.frame.TopEdge
 			assert.equals("!UI-Frame-Metal-EdgeLeft", top.atlas, "the left edge, turned to light from the top-left")
 			assert.same({ 0, 1, 1, 1, 0, 0, 1, 0 }, top.texCoord, "a quarter turn clockwise, within the atlas")
+			assert.is_false(top.horizTile, "stretched: Blizzard's tiling would override the coordinates")
 			-- Mitred: the corner is an invisible square as wide as the rim, the two rims masked over it.
 			assert.same({ 200, 200 }, corner.size, "the left edge's thickness (the fake atlas: 200)")
 			assert.equals(0, corner.alpha)
@@ -1598,7 +1605,7 @@ describe("OrdaenCore.UI", function()
 			local g = gem()
 			assert.is_truthy(g, "the theme's marker (control.newMarker)")
 			assert.equals("LEFT", g.point[1])
-			assert.equals(4, g.point[4], "the asset's inset from the left")
+			assert.equals(12, g.point[4], "the asset's inset from the left")
 			assert.is_true(g.shown)
 			dress:SetNew(false)
 			assert.is_false(g.shown)

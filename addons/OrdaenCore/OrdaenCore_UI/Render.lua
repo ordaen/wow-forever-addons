@@ -1196,6 +1196,10 @@ local function mirrorTop(holder, layoutName)
 	if edge and type(from) == "table" and from.atlas then
 		edge:SetAtlas(from.atlas)
 		edge:SetRotation(0)
+		-- Blizzard's top edge tiles across; tiling overrides our coordinates (the game menu's top drew a sliver of
+		-- the art: a gap in the middle, dev dump 2026-11-07), so the turned edge is stretched instead.
+		edge:SetHorizTile(false)
+		edge:SetVertTile(false)
 		edge:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
 	end
 	mitreCorners(holder, layout)
@@ -1227,6 +1231,7 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 		elseif holder.TopEdge then
 			holder.TopEdge:SetRotation(0) -- the same pieces may have worn a mirrored top before
 			holder.TopEdge:SetTexCoord(0, 1, 0, 1)
+			holder.TopEdge:SetHorizTile(true) -- Blizzard's top edge tiles across again
 			unmitre(holder)
 		end
 		NineSliceUtil.DisableSharpening(holder)
