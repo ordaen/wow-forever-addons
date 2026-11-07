@@ -146,6 +146,8 @@ which needs read access to `wow-dev-tools`.
 
 1. Create `addons/<Name>/` with an `addon.jsonc` (copy one; `"version": "0.0.0"` with its
    `// x-release-please-version` comment), `locales/enUS.json` + `locales/ruRU.json`, and the Lua files.
+   Its `"category"` is one of `addon-categories.json` (the Warcraft Wiki's list); copy that category's translations
+   into `ordaen.jsonc` `"categories"` if it isn't there yet.
 2. Start it with `OrdaenCore.NewAddon` as in `addons/OrdaenMinimap/Core.lua`; set `"minCore"` to the current Core
    version.
 3. Add it to `release-please-config.json` (`packages`, with `"initial-version": "0.1.0"` and

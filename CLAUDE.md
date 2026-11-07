@@ -127,6 +127,7 @@ addons/OrdaenCore/              shared code every addon depends on (global Ordae
                                 Settings.lua; no-op debug stand-in; OrdaenCore.UI framework: UI.lua + OrdaenCore_UI/)
 dist/<Addon>/                   the built addons the game loads (ordaen build / watch; gitignored)
 ordaen.jsonc                    repo-wide build settings: interface version, languages, category names
+addon-categories.json           the in-game AddOn List categories (Warcraft Wiki list, every translation): pick from it
 tests/<Addon>/*_spec.lua        busted specs (helpers.loadAddon loads a built addon from dist/ in TOC order)
 tests/OrdaenCore/helpers.lua    WoW API stubs + Core loader, for any spec that needs the Core
 scripts/package.sh              package one addon from its release build (CI + Git Bash)
@@ -146,8 +147,12 @@ docs/                           OrdaenCore.UI docs site (VitePress, own package.
 
 Every addon is named `Ordaen<Name>` (folder, .toc, globals) with TOC title `Ordaen <Name>`, so CurseForge search
 finds them all. One CurseForge project per addon (no pack). Every addon sets `"category"` in its addon.jsonc; the
-build writes `## Category:` plus the localized `## Category-xxXX:` lines from `ordaen.jsonc` (copied from an installed
-addon that uses the same category, so ours share a group in the addon list): OrdaenCore is `Libraries`, feature
+build writes `## Category:` plus the localized `## Category-xxXX:` lines from `ordaen.jsonc`. Pick the category
+from `addon-categories.json` (the Warcraft Wiki's list with every translation; the user's decision, 2026-11-07: the
+in-game list groups by exact text, so these names share a group with other addons in every language) and copy its
+translations into `ordaen.jsonc` "categories". Never invent a category or a translation; CurseForge's own categories
+are set per project on the website (e.g. "Miscellaneous", "Bags & Inventory"), not in the TOC. OrdaenCore is
+`Libraries`, feature
 addons use e.g. `User Interface`.
 
 ## Build (`ordaen`, private CLI in `../wow-dev-tools/cli`)
