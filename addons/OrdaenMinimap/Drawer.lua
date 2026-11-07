@@ -210,7 +210,7 @@ local function dress(button, name)
 	end
 	local slot = UI.Button({
 		parent = container,
-		style = "slot",
+		style = "iconSlot",
 		width = SLOT - 4,
 		height = SLOT - 4,
 		level = container:GetFrameLevel() + 2,
@@ -431,7 +431,7 @@ local function entryButton(index)
 	if not button then
 		button = UI.Button({
 			parent = container,
-			style = "slot",
+			style = "iconSlot",
 			width = SLOT - 4,
 			height = SLOT - 4,
 			{ image = FALLBACK_ICON, size = ENTRY_ICON, texCoord = ICON_CROP, align = "center" },

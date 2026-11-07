@@ -68,7 +68,9 @@ end
 -- edges = { top, right, bottom, left }, each { width in physical px, colour }, vignette = { size, alpha } (the
 -- rim darkened inwards), highlight (hover: { texture } or { color }), bleed (a nested block's surface reaches
 -- over its parent's padding to the parent's edges), frameArt (Blizzard's window art from theme tokens: frame and
--- background assets, the border's scale, the background's inset in the art's pixels; instead of fill and edges).
+-- background assets, the border's scale, the background's inset in the art's pixels; instead of fill and edges),
+-- controlArt (Blizzard's control art from theme tokens: { kind, base = the normal piece, parts = { name = point },
+-- accent = tint by the block's accent }, drawn in the block's controlState; top-level blocks; instead of fill/edges).
 -- Text looks: font (body, header, ui), size tier, color, shadow, outline, caps.
 
 local THEMES = {}
@@ -117,33 +119,34 @@ THEMES.ordaen = {
 			},
 			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
-		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
+		iconSlot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
 		-- A column of a section of key numbers (a spell's cost, range, cast, cooldown): a hairline on its left.
 		stat = {
 			padding = { "xs", "sm", "xs", "sm" },
 			edges = { left = { 1, { 1, 1, 1, 0.08, accent = 0.25 } } },
 		},
 		-- Chat tabs (UI.Dress with states): unselected, selected, flashing (a new message in a tab not shown).
-		tab = {
+		chatTab = {
 			padding = 0,
 			fill = { top = { 0.05, 0.04, 0.05, 0.6 }, bottom = { 0.02, 0.02, 0.02, 0.6 } },
 			edges = { top = { 1, { 0, 0, 0, 0.8, accent = 0.35 } } },
 			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
 		},
-		tabSelected = {
+		chatTabSelected = {
 			padding = 0,
 			fill = { top = { 0.05, 0.04, 0.05, 0.93, accent = 0.2 }, bottom = { 0.015, 0.012, 0.015, 0.93 } },
 			edges = { top = { 2, { 0, 0, 0, 1, accent = 1 } } },
 			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
 		},
-		tabFlash = {
+		chatTabFlash = {
 			padding = 0,
 			fill = { top = { 0, 0, 0, 0.9, accent = 0.55 }, bottom = { 0, 0, 0, 0.9, accent = 0.2 } },
 			edges = { top = { 1, { 0, 0, 0, 1, accent = 1 } } },
 			highlight = { color = { 1, 0.92, 0.75, 0.12 } },
 		},
-		-- A text input (the chat input over the chat's lines): opaque, so the text under it never shows through.
-		input = {
+		-- Ordaen Chat's tabs and input keep a flat look of their own (the chat input over the chat's lines: opaque, so the
+		-- text under it never shows through).
+		chatInput = {
 			padding = 0,
 			fill = {
 				top = { 0.05, 0.04, 0.05, 1, accent = 0.07 },
@@ -183,17 +186,24 @@ THEMES.ordaen = {
 			padding = "sm", gap = "xs",
 			frameArt = INSET_ART,
 		},
-		pushButton = {
-			padding = { "sm", "lg", "sm", "lg" },
-			fill = { top = { 0, 0, 0, 0.9, accent = 0.32 }, bottom = { 0, 0, 0, 0.9, accent = 0.12 } },
-			edges = {
-				top = { 1, { 0, 0, 0, 1, accent = 0.8 } },
-				right = { 1, { 0, 0, 0, 1, accent = 0.45 } },
-				bottom = { 1, { 0, 0, 0, 1, accent = 0.45 } },
-				left = { 1, { 0, 0, 0, 1, accent = 0.45 } },
-			},
-			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
-		},
+		-- Blizzard's controls (Ordaen Reskin dresses them, UI.Confirm's buttons are push buttons): drawn from the theme's
+		-- control art (themes.jsonc, token control.<kind>) in the state the dress gives (:SetState, `track`): the asset's
+		-- piece for that state (a selected tab, a pushed button), or `normal` darker (pushed) or grey (disabled) when it
+		-- has none; checked and disabledChecked go over `normal` (the box, then its check). `base`: the piece used as
+		-- normal (a scroll stepper's back or forward arrow). `parts` put a part at a side (a dropdown's arrow). `accent`:
+		-- the block's accent tints it (an item's quality on its slot). The asset's highlight shows on hover.
+		pushButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "pushButton" } },
+		closeButton = { padding = 0, controlArt = { kind = "closeButton" } },
+		tab = { padding = 0, controlArt = { kind = "tab" } },
+		sideTab = { padding = 0, controlArt = { kind = "sideTab" } },
+		checkbox = { padding = 0, controlArt = { kind = "checkbox" } },
+		dropdown = { padding = { 0, "md", 0, "md" }, controlArt = { kind = "dropdown", parts = { arrow = "RIGHT" } } },
+		input = { padding = 0, controlArt = { kind = "input" } },
+		scrollTrack = { padding = 0, controlArt = { kind = "scrollTrack" } },
+		scrollThumb = { padding = 0, controlArt = { kind = "scrollThumb" } },
+		scrollStepper = { padding = 0, controlArt = { kind = "scrollStepper", base = "back" } },
+		scrollStepperForward = { padding = 0, controlArt = { kind = "scrollStepper", base = "forward" } },
+		slot = { padding = 0, controlArt = { kind = "slot", base = "background", accent = true } },
 	},
 	text = {
 		-- No capitals: the size step sets the title apart (the user's decision, 2026-11-07).
@@ -284,12 +294,27 @@ local function resolveArt(spec, themeName)
 	}
 end
 
+-- A look's controlArt from the theme's tokens: { asset = the control asset (pieces per state), base, parts, accent },
+-- or nil when the theme has none for that kind.
+local function resolveControl(spec, themeName)
+	local store = OrdaenCore._SettingsStore
+	if not (spec and store) then
+		return nil
+	end
+	local asset = store.Asset(spec.kind, store.TokenIn(themeName, "control." .. spec.kind))
+	if not asset then
+		return nil
+	end
+	return { asset = asset, base = spec.base or "normal", parts = spec.parts, accent = spec.accent }
+end
+
 local function resolveBlock(look, textSize, themeName)
 	local out = {}
 	for key, value in pairs(look) do
 		out[key] = value
 	end
 	out.frameArt = resolveArt(look.frameArt, themeName)
+	out.controlArt = resolveControl(look.controlArt, themeName)
 	out.padding = spaceList(look.padding)
 	out.gap = spaceList(look.gap)
 	out.minWidth = look.minWidth and look.minWidth * textSize

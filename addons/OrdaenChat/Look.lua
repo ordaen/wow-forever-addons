@@ -20,7 +20,7 @@ local WINDOW_ART = {
 	"ButtonFrameTopRightTexture", "ButtonFrameBottomLeftTexture", "ButtonFrameBottomRightTexture",
 	"ButtonFrameTopTexture", "ButtonFrameBottomTexture", "ButtonFrameLeftTexture", "ButtonFrameRightTexture",
 }
-local TAB_STATES = { selected = "tabSelected", flash = "tabFlash" }
+local TAB_STATES = { selected = "chatTabSelected", flash = "chatTabFlash" }
 -- Room around the messages (the user's request, 2026-11-06): our background reaches past Blizzard's by these spacing
 -- tokens (left, right, top, bottom); less at the top, where the tabs sit.
 local PADDING = { "md", "md", "sm", "md" }
@@ -212,7 +212,7 @@ local function dressWindow(frame)
 		---@type OrdaenUIText
 		local badge = { format = "%d", args = { 0 }, style = "value", hidden = true, valign = "center" }
 		badges[tab] = badge
-		tabs[tab] = UI.Dress(tab, { style = "tab", size = "frame", states = TAB_STATES,
+		tabs[tab] = UI.Dress(tab, { style = "chatTab", size = "frame", states = TAB_STATES,
 			block = { columns = { "1fr", "auto" }, padding = { 0, "xs", 0, 0 }, {}, badge } })
 		if isWhisper(frame) then
 			hooksecurefunc(frame, "AddMessage", onMessage)

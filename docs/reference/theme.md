@@ -12,19 +12,27 @@ How themes work: [Themes](/guide/themes).
 | `header` | the first block of a tooltip (`UI.Header`) | no fill of its own (the tooltip's background shows through), its content in line with the text below |
 | `button` | clickable text without a surface | |
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight |
-| `slot` | a cell in a grid of icons (the drawer) | highlight only |
+| `iconSlot` | a cell in a grid of icons (the minimap drawer) | highlight only |
 | `stat` | a column of key numbers (a spell's cost, range, cast, cooldown) | a hairline on its left |
 | `window` | a window the player moves (`UI.Window`) | Blizzard's window art at full size, room for its title bar |
 | `panel` | a box holding other things (the minimap drawer, the chat window) | Blizzard's window art at the small scale |
-| `input` | a text input over other text (the chat input) | opaque tooltip surface |
-| `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge |
-| `tabSelected` | the tab shown | tooltip surface, accent top edge |
-| `tabFlash` | a tab with a new message | accent fill |
+| `chatInput` | Ordaen Chat's input over the chat's lines | opaque tooltip surface |
+| `chatTab` | Ordaen Chat's tab not shown | dark, thin accent top edge |
+| `chatTabSelected` | Ordaen Chat's tab shown | tooltip surface, accent top edge |
+| `chatTabFlash` | Ordaen Chat's tab with a new message | accent fill |
 | `dialog` | confirmation dialogs (`UI.Confirm`) | Blizzard's dialog art, padding `xl` |
 | `portraitWindow` | a window with Blizzard's portrait ring (Ordaen Reskin) | Blizzard's portrait window art at full size |
 | `section` | a tooltip's part after its title (`UI.Stats`, `UI.Rows`, a text block) | the section gap (`lg`) above it, no surface |
 | `inset` | an inner pane of a window (Blizzard's insets, which Ordaen Reskin dresses) | Blizzard's inset art, padding `sm` |
-| `pushButton` | a dialog's buttons | accent band, accent edges, highlight |
+| `pushButton`, `closeButton`, `tab`, `sideTab`, `checkbox`, `dropdown`, `input`, `scrollTrack`, `scrollThumb`, `scrollStepper` (back), `scrollStepperForward`, `slot` | Blizzard's controls (Ordaen Reskin; UI.Confirm's buttons; UI.Input) | Blizzard's control art, see below |
+
+**Control art.** The control roles draw the theme's control asset for their kind (token `control.<kind>`, see
+"Control art" for the data) in the block's `controlState`, which a dress sets with `:SetState` (`track` follows the
+control): the asset's piece for that state (a selected tab, a pushed button), `checked` and `disabledChecked` over
+`normal` (the box, then its check), or `normal` darker (pushed) or grey (disabled) when the asset has no piece for
+it. Slices keep their ends at their aspect and stretch the centre; `outset` reaches past the block (an item slot's
+ring). The asset's `highlight` shows on hover; a dropdown's `arrow` sits on its right; an item slot is tinted by its
+`accent` (quality). Only top-level blocks draw it.
 
 **Window art.** `window`, `portraitWindow`, `tooltip`, `panel`, `dialog` and `inset` wear Blizzard's own window art, picked by theme tokens
 (`addons/OrdaenCore/themes.jsonc`): the frame asset names a `NineSliceLayouts` entry (`frame.border` = metal,

@@ -1106,6 +1106,161 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 	end
 end
 
+-- Blizzard's control art (a look with `controlArt`, from the theme's control assets): pieces drawn on the surface's
+-- own textures, pooled per surface. A piece is an atlas name; { atlas | file, alpha, coords, outset }; three slices
+-- { left, center, right } (the ends keep their aspect at the surface's height, the centre stretches) or
+-- { top, middle, bottom }. Drawn in the block's controlState (from the dress's :SetState): the asset's piece for it,
+-- checked over normal (the box, then its check), or normal darker for pushed and grey for disabled when it has none.
+-- The asset's highlight piece goes on the HIGHLIGHT layer (shown on hover and LockHighlight); `parts` put a part (a
+-- dropdown's arrow) at a side, at its own size.
+local controlPools = setmetatable({}, { __mode = "k" }) -- surface -> { used = n, [i] = texture }
+local FALLBACK_TINT = { pushed = 0.75, disabled = 0.6 }
+local OVER_NORMAL = { checked = true, disabledChecked = true } -- states drawn over the normal piece
+local drawControlPiece
+
+local function controlTexture(surface, pool, layer, sublevel)
+	local n = pool.used + 1
+	pool.used = n
+	local tex = pool[n]
+	if not tex then
+		tex = surface:CreateTexture(nil, layer, nil, sublevel)
+		pool[n] = tex
+	else
+		tex:SetDrawLayer(layer, sublevel)
+	end
+	return tex
+end
+
+-- An atlas's aspect (width / height), or 1 for a file or an atlas the game doesn't know.
+local function aspectOf(piece)
+	local name = type(piece) == "string" and piece or type(piece) == "table" and piece.atlas
+	local atlas = name and atlasOf(name)
+	return atlas and atlas[1] or 1
+end
+
+local function setPiece(tex, piece, tint, grey, accent)
+	local alpha = 1
+	if type(piece) == "string" then
+		tex:SetAtlas(piece)
+	else
+		if piece.atlas then
+			tex:SetAtlas(piece.atlas)
+		else
+			tex:SetTexture(piece.file)
+			tex:SetTexCoord(0, 1, 0, 1)
+		end
+		local c = piece.coords
+		if c then
+			tex:SetTexCoord(c[1], c[2], c[3], c[4])
+		end
+		alpha = piece.alpha or 1
+	end
+	local r, g, b = tint, tint, tint
+	if accent then
+		r, g, b = accent[1] * tint, accent[2] * tint, accent[3] * tint
+	end
+	tex:SetVertexColor(r, g, b)
+	tex:SetDesaturated(grey)
+	tex:SetAlpha(alpha)
+	tex:Show()
+end
+
+local function placePiece(surface, tex, x, y, w, h)
+	tex:ClearAllPoints()
+	tex:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)
+	tex:SetSize(max(w, 0.01), max(h, 0.01))
+end
+
+local function drawPiece(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+	if type(piece) == "table" and piece.left then
+		local lw, rw = h * aspectOf(piece.left), h * aspectOf(piece.right)
+		local scale = (lw + rw > w and w > 0) and w / (lw + rw) or 1
+		lw, rw = lw * scale, rw * scale
+		local parts = { piece.left, piece.center, piece.right }
+		local xs, ws = { x, x + lw, x + w - rw }, { lw, w - lw - rw, rw }
+		for i = 1, 3 do
+			local tex = controlTexture(surface, pool, layer, sublevel)
+			setPiece(tex, parts[i], tint, grey, accent)
+			placePiece(surface, tex, xs[i], y, ws[i], h)
+		end
+		return
+	end
+	if type(piece) == "table" and piece.top then
+		local th, bh = w / aspectOf(piece.top), w / aspectOf(piece.bottom)
+		local scale = (th + bh > h and h > 0) and h / (th + bh) or 1
+		th, bh = th * scale, bh * scale
+		local parts = { piece.top, piece.middle, piece.bottom }
+		local ys, hs = { y, y + th, y + h - bh }, { th, h - th - bh, bh }
+		for i = 1, 3 do
+			local tex = controlTexture(surface, pool, layer, sublevel)
+			setPiece(tex, parts[i], tint, grey, accent)
+			placePiece(surface, tex, x, ys[i], w, hs[i])
+		end
+		return
+	end
+	local o = type(piece) == "table" and piece.outset or 0
+	local tex = controlTexture(surface, pool, layer, sublevel)
+	setPiece(tex, piece, tint, grey, accent)
+	placePiece(surface, tex, x - o, y - o, w + 2 * o, h + 2 * o)
+end
+
+-- One drawn layer of the control (1: its state's piece, 2: a check over it), at the surface's size.
+local controlW, controlH = 0, 0
+function drawControlPiece(surface, pool, piece, order, tint, grey, accent)
+	if piece ~= nil then
+		local sublevel = order == 1 and -8 or -5
+		drawPiece(surface, pool, piece, "BACKGROUND", sublevel, 0, 0, controlW, controlH, tint, grey, accent)
+	end
+end
+
+local function drawControlArt(surface, look, accent, w, h, state)
+	controlW, controlH = w, h
+	local art = look and look.controlArt or nil
+	local pool = controlPools[surface]
+	if not art then
+		if pool then
+			for i = 1, #pool do
+				pool[i]:Hide()
+			end
+			pool.used = 0
+		end
+		return
+	end
+	if issecretvalue(w) or issecretvalue(h) then
+		return -- sized from combat numbers: left as it was
+	end
+	if not pool then
+		pool = { used = 0 }
+		controlPools[surface] = pool
+	end
+	pool.used = 0
+	local asset = art.asset
+	local tintBy = art.accent and accent or nil
+	local base = asset[art.base]
+	if state and OVER_NORMAL[state] then -- the box, then its check
+		drawControlPiece(surface, pool, base, 1, 1, state == "disabledChecked", tintBy)
+		drawControlPiece(surface, pool, asset[state] or asset.checked, 2, 1, false, tintBy)
+	elseif state and state ~= "highlight" and asset[state] ~= nil then
+		drawControlPiece(surface, pool, asset[state], 1, 1, false, tintBy)
+	else
+		drawControlPiece(surface, pool, base, 1, FALLBACK_TINT[state] or 1, state == "disabled", tintBy)
+	end
+	for part, point in pairs(art.parts or {}) do
+		local piece = asset[part]
+		if piece ~= nil then
+			local pw = h * aspectOf(piece)
+			drawPiece(surface, pool, piece, "BORDER", 0, point == "LEFT" and 0 or w - pw, 0, pw, h, 1, false, nil)
+		end
+	end
+	local highlight = asset.highlight
+	if highlight ~= nil then
+		drawPiece(surface, pool, highlight, "HIGHLIGHT", 0, 0, 0, w, h, 1, false, nil)
+	end
+	for i = pool.used + 1, #pool do
+		pool[i]:Hide()
+	end
+end
+
 local function hideRest(list, used)
 	for i = used + 1, #list do
 		list[i]:Hide()
@@ -1237,7 +1392,8 @@ function Render.Draw(surface, root, width)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
 	drawFrameArt(surface, look, root.accent, root.open, result.width, result.height)
-	if look then
+	drawControlArt(surface, look, root.accent, result.width, result.height, root.controlState)
+	if look and not look.controlArt then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end
 	drawBlock(surface, p, result, 0, 0, accent, 1, edgesOf(look, root))

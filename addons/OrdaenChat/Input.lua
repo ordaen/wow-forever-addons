@@ -299,7 +299,7 @@ local function dressInput(input)
 			art[#art + 1] = texture
 		end
 	end
-	local dress = UI.Dress(input, { style = "input", size = "frame", art = art, block = rowFor(input),
+	local dress = UI.Dress(input, { style = "chatInput", size = "frame", art = art, block = rowFor(input),
 		focus = overlaid })
 	if not dress then
 		return -- OrdaenCore_UI can't load (the player was told)

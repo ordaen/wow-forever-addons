@@ -144,6 +144,9 @@ local function fakeTexture(layer)
 	function t:SetShown(shown)
 		self.shown = shown and true or false
 	end
+	function t:SetDesaturated(on)
+		self.desaturated = on
+	end
 	function t:SetAlpha(a)
 		self.alpha = a
 	end
@@ -961,7 +964,87 @@ describe("OrdaenCore.UI", function()
 			assert.is_true(math.abs(l - (1 - r)) < 1e-6, "centred")
 		end)
 
-		it("insets wear Blizzard's inset frame and its background", function()
+		-- The control art drawn on a frame: its shown textures by layer, as { atlas or file, alpha, tint }.
+		local function controlPieces(frame, layer)
+			local out = {}
+			for _, t in ipairs(frame.textures) do
+				if t.shown and t.layer == layer and (t.atlas or t.file) then
+					out[#out + 1] = t
+				end
+			end
+			return out
+		end
+
+		it("draw Blizzard's control art: a selected tab's three slices, the hover piece on the highlight layer", function()
+			local tab = UI.Block({ name = "Tab", style = "tab", controlState = "selected", width = 200, height = 30 })
+			local pieces = controlPieces(tab.frame, "BACKGROUND")
+			assert.same({ "uiframe-activetab-left", "_uiframe-activetab-center", "uiframe-activetab-right" },
+				{ pieces[1].atlas, pieces[2].atlas, pieces[3].atlas })
+			assert.equals(60, pieces[1].size[1], "an end keeps its aspect (2:1 here) at the tab's height")
+			assert.equals(80, pieces[2].size[1], "the centre stretches")
+			local hover = controlPieces(tab.frame, "HIGHLIGHT")
+			assert.equals(3, #hover)
+			assert.equals(0.4, hover[1].alpha)
+		end)
+
+		it("draw a checked box over the box, and a state without art as normal, darker or grey", function()
+			local box = UI.Block({ name = "Box", style = "checkbox", controlState = "checked", width = 24, height = 24 })
+			local files = {}
+			for _, t in ipairs(controlPieces(box.frame, "BACKGROUND")) do
+				files[#files + 1] = t.file
+			end
+			assert.same({ "Interface\\Buttons\\UI-CheckBox-Up", "Interface\\Buttons\\UI-CheckBox-Check" }, files)
+			local button = UI.Block({ name = "Push", style = "pushButton", controlState = "pushed", width = 120,
+				height = 22 })
+			local left = controlPieces(button.frame, "BACKGROUND")[1]
+			assert.equals("128-RedButton-Left", left.atlas, "no pushed art: normal")
+			assert.same({ 0.75, 0.75, 0.75 }, left.vertexColor)
+			button.block.controlState = "disabled"
+			button:Refresh()
+			assert.is_true(controlPieces(button.frame, "BACKGROUND")[1].desaturated)
+		end)
+
+		it("take a tracked control's state into its art, without a states map", function()
+			local b = fakeFrame("PushButton", log, _G.UIParent)
+			local enabled = true
+			function b:IsEnabled()
+				return enabled
+			end
+			function b:GetButtonState()
+				return "NORMAL"
+			end
+			function b:Disable()
+				enabled = false
+			end
+			function b:Enable()
+				enabled = true
+			end
+			function b:SetEnabled(on)
+				enabled = on
+			end
+			function b:SetButtonState() end
+			local dress = UI.Dress(b, { style = "pushButton", size = "frame", art = {}, track = "button" })
+			b:Disable()
+			assert.equals("pushButton", dress.look.block.style)
+			assert.equals("disabled", dress.look.block.controlState)
+		end)
+
+		it("tint an item slot by its accent (quality), its ring reaching past the icon", function()
+			local slot = UI.Block({ name = "Slot", style = "slot", width = 37, height = 37, accent = { 0.6, 0.2, 0.9 } })
+			local ring = controlPieces(slot.frame, "BACKGROUND")[1]
+			assert.equals("UI-Character-Info-GearSlot", ring.atlas)
+			assert.same({ 55, 55 }, ring.size, "9 px around the 37 px icon")
+			assert.same({ 0.6, 0.2, 0.9 }, ring.vertexColor)
+		end)
+
+		it("put a dropdown's arrow on its right at its own aspect", function()
+			local dropdown = UI.Block({ name = "Drop", style = "dropdown", width = 150, height = 26 })
+			local arrow = controlPieces(dropdown.frame, "BORDER")[1]
+			assert.equals("common-dropdown-a-button", arrow.atlas)
+			assert.same({ "TOPLEFT", dropdown.frame, "TOPLEFT", 150 - 52, -0 }, arrow.point)
+		end)
+
+				it("insets wear Blizzard's inset frame and its background", function()
 			local pane = UI.Block({ name = "Pane", style = "inset", { text = "Bags" } })
 			assert.equals("InsetFrameTemplate", pane.frame.layout)
 			local tiled

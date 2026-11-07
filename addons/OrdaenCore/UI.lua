@@ -92,6 +92,8 @@ local unavailable = false
 --- hovered)
 ---@field accent number[]|nil { r, g, b }: tints this block's surface, lines and accented text (an item's quality,
 --- a zone's PvP colour); children inherit it
+---@field controlState string|nil a top-level control's state for its style's control art ("pushed", "checked",
+--- "selected", "disabled"); a dress sets it with :SetState
 ---@field open { top: boolean|nil, right: boolean|nil, bottom: boolean|nil, left: boolean|nil }|nil a top-level
 --- block's window art has no border on these sides (flush with the screen edge or another surface); :SetOpen
 ---@field columns (number|string)[]|nil tracks: number = fixed, "auto", "Nfr"; default { "1fr" }

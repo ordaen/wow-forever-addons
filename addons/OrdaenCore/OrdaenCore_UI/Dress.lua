@@ -42,7 +42,8 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 --- its children (a Blizzard window whose opaque content reaches its edges and would hide it); the fill stays under
 ---@field track "button"|"checkbox"|"tab"|nil follow the control's own state with :SetState (hooked once): "button":
 --- "disabled" while disabled, "pushed" while held down; "checkbox": also "checked"; "tab": "selected" while Blizzard
---- has it selected (PanelTemplates). Map the states to roles with `states`; hover is the look's highlight
+--- has it selected (PanelTemplates). A control style (pushButton, checkbox, tab...) draws its own art for each
+--- state; `states` can still map a state to another role. Hover is the look's highlight
 ---@field focus boolean|nil an EditBox: our look shows only while it has the keyboard focus (being typed in), at full
 --- alpha whatever alpha Blizzard gives the frame (Blizzard's IM chat style leaves an inactive input faintly shown)
 ---@field block OrdaenUIBlock|nil our look as a whole block (a row of cells, say) instead of an icon; `style` is its
@@ -325,7 +326,9 @@ function Dress:SetState(state)
 	end
 	self.state = state
 	local states = self.opts.states
-	self.look.block.style = (states and state and states[state]) or self.opts.style or "iconButton"
+	local block = self.look.block
+	block.style = (states and state and states[state]) or self.opts.style or "iconButton"
+	block.controlState = state -- a control style draws its own art for the state (a pushed button, a checked box)
 	self.look:Refresh()
 end
 
