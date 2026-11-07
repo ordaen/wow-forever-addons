@@ -38,7 +38,7 @@ and the last 20 different items), then click **Send state** in the Ordaen Dev wi
 | 42 | set piece or set bonus (grey when not active) | none | «  Алый пояс», «Комплект (2 \|4предмет:предмета:предметов;): +10 к сопротивлению темной магии.» |
 | 43 | requirement | `requirementType` (5 = level, with `level`; 2 = profession; 9 = weapon, on spells; 10 = stance/form), `usable` (false: red) | «Требуется 40-й уровень», «Требуется: Инженерное дело (140)», «Требуется: Оборонительная стойка» |
 | 44 | «Использование:» effect | **`spellID`** | «Использование: Повышает сопротивление огню на 33…» (13744) |
-| 45 | «Если на персонаже:» as a real equip spell (only some: a quiver's haste) | **`spellID`** | «Если на персонаже: Увеличение скорости дальней атаки на 13%.» (29413) |
+| 45 | «Если на персонаже:» as a real equip spell (procs and auras: a quiver's haste, a shield's damage on block) | **`spellID`** | «Если на персонаже: Увеличение скорости дальней атаки на 13%.» (29413), «Если на персонаже: Наносит 6 - 38 ед. урона от сил природы, когда вы блокируете атаку…» (1324686) |
 | 46 | «Возможный эффект при попадании:» (chance on hit) | **`spellID`** | «Возможный эффект при попадании: Наносит противнику 42 ед. урона от темной магии.» (1292158) |
 
 Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on two-sided lines `rightText` and
@@ -52,7 +52,9 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
 - **Plain text (read with Blizzard's format strings, as SpellStats does):** armor, damage, speed, DPS, durability,
   primary stats, resistances («Устойчивость: +N <school>», not «к сопротивлению»), most «Если на персонаже:» effects
   (white for a bonus stat like «+140 к броне», green for an effect: type 0, **no spell ID**; only real equip spells
-  are type 45 with one), the set's header, «Уникальный использующийся», a bag's or quiver's size.
+  are type 45 with one: stat-like effects (attack power, spell power, defense, hit, regen «восполняет 15 ед. здоровья
+  раз в 5 сек.») are type 0, procs and auras type 45), a shield's block («Вероятность блока: 30», the block value
+  under that label), the set's header, «Уникальный использующийся», a bag's or quiver's size.
 - **Bags, quivers, ammo pouches** have no slot · type line (21): one plain line «Сумка (12 |4ячейка:ячейки:ячеек;)»,
   «Колчан (16 …)», «Подсумок (16 …)» (`CONTAINER_SLOTS`-like, with the plural code).
 - **Not in the tooltip at all:** item level (Forever doesn't print it on gear): read it from the item's info by ID.
@@ -109,4 +111,4 @@ builds them on hover, or wasn't opened before the dump (to check).
 
 ## Still to measure
 
-Class restriction («Классы: …»), reputation requirement, shield (armor + block), ammo, recipes (a nested item), the character tab's stat tooltips.
+Class restriction («Классы: …»), reputation requirement, ammo, recipes (a nested item), the character tab's stat tooltips.
