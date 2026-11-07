@@ -98,9 +98,9 @@ THEMES.ordaen = {
 			frameArt = SMALL_ART,
 		},
 		header = {
-			-- No side padding: the band bleeds over the tooltip's, so its icon and title line up with the text below.
-			padding = { "md", 0, "md", 0 }, gap = { "md", "xs" }, bleed = true,
-			fill = { top = { 0, 0, 0, 0.9, accent = 0.3 }, bottom = { 0, 0, 0, 0.9, accent = 0.06 } },
+			-- No fill of its own: the tooltip's one background shows behind the title too (the user's choice). No side
+			-- padding: its icon and title line up with the text below.
+			padding = { 0, 0, "md", 0 }, gap = { "md", "xs" },
 		},
 		button = { padding = 0, gap = 0 },
 		iconButton = {

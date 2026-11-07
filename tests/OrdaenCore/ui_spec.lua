@@ -1667,21 +1667,14 @@ describe("OrdaenCore.UI", function()
 			assert.is_nil(s.events.MODIFIER_STATE_CHANGED)
 		end)
 
-		it("make headers: icon left, title and subtitle beside it, on a band to the tooltip's edges", function()
+		it("make headers: icon left, title and subtitle beside it, on the tooltip's own background", function()
 			-- (A header without an icon puts its title where the icon would be: the same x.)
 			local header = UI.Header({ title = "Stormwind", subtitle = "Trade District", icon = 134400 })
 			local tip = UI.Tooltip({ header, { text = "Goldshire" } })
 			tip:Show(owner)
 			local s = surface()
 			assert.same({ "Stormwind", "Trade District", "Goldshire" }, shownTexts(s))
-			local band
-			for _, t in ipairs(solids(s, "BACKGROUND")) do
-				if t.sublevel == 2 then
-					band = t
-				end
-			end
-			assert.same({ "TOPLEFT", s, "TOPLEFT", 0, 0 }, band.point) -- bleeds over the tooltip's padding
-			assert.equals(s.size[1], band.size[1])
+			assert.same({}, solids(s, "BACKGROUND"), "no band: the tooltip's one background behind the title too")
 			-- Its content lines up with the text below (the band's bleed adds no margin of its own).
 			local iconX, bodyX
 			for _, t in ipairs(s.textures) do
