@@ -7,8 +7,8 @@ Everything lit from the top-left, like the buttons, the window borders and the t
 addons/OrdaenCore/media/:
 
 - panel-cell.tga (256x256): the panel's cells, our push button's side rims only (its plate is cut out, so the wood
-  shows through and the icons rest on it). Rows of 64: 0 normal, 1 hover (the rims plus the button's highlight glow),
-  2 pushed, 3 empty. Sliced like the button: caps x 0-32 and 224-256 (aspect 0.5), centre 32-224; vertically uniform,
+  shows through and the icons rest on it). Rows of 64: 0 normal, 1 hover (the button's highlight glow alone: drawn
+  over row 0 on the HIGHLIGHT layer), 2 pushed, 3 empty. Sliced like the button: caps x 0-32 and 224-256 (aspect 0.5), centre 32-224; vertically uniform,
   so a cell of any height stretches it.
 - portrait-ring.tga (256x256): the round metal ring around the character's portrait (drawn at 152 UI units at 1440p):
   outer radius 126, inner 104 (the portrait fills the inner circle), and portrait-shadow.tga (256x256), its soft
@@ -83,12 +83,7 @@ def cells():
         return np.repeat(b, 4, axis=0)  # 16 rows -> 64 (vertically uniform anyway)
 
     normal = rims(band(0))
-    hover = rims(band(0))
-    hl = band(3)
-    a = hl[..., 3:]
-    hover = np.dstack([hover[..., :3] * (1 - a) * hover[..., 3:] + hl[..., :3] * a,
-                       hover[..., 3:] + a * (1 - hover[..., 3:])])
-    hover[..., :3] = np.where(hover[..., 3:] > 0, hover[..., :3] / np.maximum(hover[..., 3:], 1e-6), 0)
+    hover = band(3)  # the glow alone: the renderer draws highlight over the normal row (rims would double)
     pushed = rims(band(1), 0.35)
     out[0:64], out[64:128], out[128:192] = stretch(normal), stretch(hover), stretch(pushed)
     save(out, "panel-cell.tga")
