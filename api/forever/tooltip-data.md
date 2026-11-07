@@ -68,7 +68,9 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   guild, level or class data in the lines; read them from the unit (`unitToken`: `UnitLevel`, `UnitClass`,
   `GetGuildInfo`, `UnitFactionGroup`).
 - **NPC:** name (2, in its reaction colour), «Уровень 50», its faction («Штормград»), «PvP» (plain).
-- **Pet:** name (2), owner (16, the owner's `guid`), «Уровень 15».
+- **Pet:** name (2), owner (16, the owner's `guid`: «Прислужник |3-1(…)» for a warlock's, «Питомец |3-1(…)» for a
+  hunter's: the case code again), «Уровень 15».
+- **Kind 4** also covers labels on the world (a building's name, «Аптека Песта»): one gold plain line.
 
 ## What it means for our tooltips
 
