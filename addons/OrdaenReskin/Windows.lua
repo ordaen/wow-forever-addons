@@ -174,6 +174,7 @@ function Window:Apply()
 		self.removed = false
 		for i = 1, #self.dresses do
 			self.dresses[i]:Apply()
+			ns.Kit.Label(self.dresses[i].frame, true)
 		end
 	end
 	ns.Kit.CollectInto(self.collect, ns.Kit.ControlsIn, self.frame, self.skip)
@@ -184,6 +185,7 @@ function Window:Remove()
 	self.removed = true
 	for i = 1, #self.dresses do
 		self.dresses[i]:Undress()
+		ns.Kit.Label(self.dresses[i].frame, false)
 	end
 end
 

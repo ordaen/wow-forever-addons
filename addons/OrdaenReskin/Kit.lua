@@ -139,12 +139,74 @@ function Kit.Tab(tab, side)
 	return Kit.Dress(tab, role, art, { track = "tab" })
 end
 
---- A push button (UIPanelButtonTemplate: three slices).
+-- Our push button's label is gold, white on hover (the user's pick, 2026-11-07, like the classic red buttons):
+-- Blizzard's white button font is swapped for its gold twin of the same size, so nothing else about the text
+-- changes. Only Blizzard's font objects, no Font methods (the dump has no Font type to confirm them).
+local GOLD_TWINS = {
+	GameFontHighlight = "GameFontNormal", GameFontHighlightLarge = "GameFontNormalLarge",
+	GameFontHighlightLarge2 = "GameFontNormalLarge2", GameFontHighlightMed2 = "GameFontNormalMed2",
+	GameFontHighlightSmall = "GameFontNormalSmall", GameFontHighlightSmall2 = "GameFontNormalSmall2",
+	GameFontHighlightHuge = "GameFontNormalHuge", GameFontHighlightHuge2 = "GameFontNormalHuge2",
+	GameFontHighlightOutline = "GameFontNormalOutline", GameFontHighlightLeft = "GameFontNormalLeft",
+}
+local goldOf -- font object -> its gold twin (made on first use)
+local labels = setmetatable({}, { __mode = "k" }) -- button -> { normal, highlight } fonts it had before
+
+local function goldLabel(button)
+	if not goldOf then
+		goldOf = {}
+		for white, gold in pairs(GOLD_TWINS) do
+			local w, g = rawget(_G, white), rawget(_G, gold)
+			if w and g then
+				goldOf[w] = g
+			end
+		end
+	end
+	local before = labels[button]
+	local normal = before and before[1] or button:GetNormalFontObject()
+	local gold = normal and goldOf[normal]
+	if not gold then
+		local Debug = ns.Addon.Debug
+		if Debug:IsEnabled() and not before then
+			Debug:Logf("button %s keeps its label colour: its font has no gold twin", button:GetDebugName())
+		end
+		return
+	end
+	if not before then
+		labels[button] = { normal, button:GetHighlightFontObject() or false }
+	end
+	button:SetNormalFontObject(gold)
+	button:SetHighlightFontObject(normal)
+end
+
+--- A push button (UIPanelButtonTemplate: three slices) with a gold label.
 function Kit.Button(button)
 	local art = {}
 	addKeys(art, button, SLICE_PARTS)
 	addButtonTextures(art, button)
-	return Kit.Dress(button, "pushButton", art, { track = "button" })
+	local dress = Kit.Dress(button, "pushButton", art, { track = "button" })
+	if dress then
+		goldLabel(button)
+	end
+	return dress
+end
+
+--- After a dress is given back (:Undress) or put on again (:Apply): its button's label follows.
+---@param frame table the dressed frame
+---@param on boolean
+function Kit.Label(frame, on)
+	local before = labels[frame]
+	if not before then
+		return
+	end
+	if on then
+		goldLabel(frame)
+	else
+		frame:SetNormalFontObject(before[1])
+		if before[2] then
+			frame:SetHighlightFontObject(before[2])
+		end
+	end
 end
 
 --- A window's close button (the red X).
