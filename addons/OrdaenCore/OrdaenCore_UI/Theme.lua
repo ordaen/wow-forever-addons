@@ -240,10 +240,10 @@ THEMES.ordaen = {
 		-- the block's accent tints it (an item's quality on its slot). The asset's highlight shows on hover.
 		pushButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "pushButton" } },
 		-- The panel's cells (Ordaen Panel): our button's side rims only, the panel's wood showing through, edge to edge
-		-- (two neighbours' rims make the divider). The panel's metal edge starts a few pixels inside its top, so the
-		-- cells start 4 lower, under it: from the panel's top their rims showed as notches above the edge (measured in
-		-- game, 2026-11-07). Hover: the block's `highlight` (its glow), pressed: `controlState = "pushed"`.
-		panelCell = { padding = 0, controlArt = { kind = "panelCell", extend = { top = -4 } } },
+		-- (two neighbours' rims make the divider). The panel pads its metal edge's side, so the cells start just
+		-- under it (from the panel's top their rims showed as notches above the edge, 2026-11-07).
+		-- Hover: the block's `highlight` (its glow), pressed: `controlState = "pushed"`.
+		panelCell = { padding = 0, controlArt = { kind = "panelCell" } },
 		-- An important button (the game menu's exits): the accent plate, the same kind of art under its own token.
 		pushButtonAccent = { padding = { "sm", "lg", "sm", "lg" },
 			controlArt = { kind = "pushButton", token = "control.pushButtonAccent" } },

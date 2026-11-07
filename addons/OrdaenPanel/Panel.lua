@@ -128,6 +128,12 @@ local portraitSpacer = { width = 0, height = 0 }
 -- At the panel's height 72 (scaled with it): the ring 152 across, its centre 50 in from the screen's left and 46 up
 -- from its bottom; the micro menu starts 136 in.
 local PORTRAIT_SIZE, PORTRAIT_X, PORTRAIT_Y, PORTRAIT_ROOM = 152 / 72, 50 / 72, 46 / 72, 136 / 72
+-- The panel's metal edge on the side away from the screen covers its first units: the cells, icons and the bar sit
+-- in the rest, so they're centred in what shows (measured in game 2026-11-07: 8 units; centred on the whole height
+-- the icons and the tube sat 4 too high).
+local EDGE_ROOM = 8
+local inside = 72 -- the panel's height without the metal edge (set by build)
+local PAD_BOTTOM_EDGE, PAD_TOP_EDGE = { EDGE_ROOM, 0, 0, 0 }, { 0, 0, EDGE_ROOM, 0 }
 -- Sizes, all from the panel's height (setting `height`; the user's design, 2026-11-07, at 72): square cells fill
 -- it; an icon's picture is 44/72 of it (iconSide; each atlas box scaled by its CONTENT), a bag's 52/72 (bagSide).
 local size = 72 -- the panel's height
@@ -494,7 +500,7 @@ local function cellFor(button)
 	-- the user's design, 2026-11-07); on a side edge, the plain icon buttons
 	cell.style = horizontal() and "panelCell" or "iconButton"
 	if horizontal() then
-		cell.width, cell.height = cellWidth, size
+		cell.width, cell.height = cellWidth, inside
 	else
 		cell.width, cell.height = size, cellWidth
 	end
@@ -887,6 +893,7 @@ end
 local function build()
 	local s = db()
 	size = s.height
+	inside = horizontal() and size - EDGE_ROOM or size
 	cellWidth = size -- square cells
 	iconSide = math.floor(size * 44 / 72 + 0.5)
 	bagSide = math.floor(size * 52 / 72 + 0.5)
@@ -928,7 +935,7 @@ local function build()
 	-- across a top or bottom edge, the theme's glass tube (its fill the player's pick, setting xpFill)
 	xp.frame = across and "tube" or nil
 	if across then
-		xp.height = size
+		xp.height = inside
 	end
 	-- the portrait in the screen's bottom-left corner (only across the bottom edge, with the micro menu on the left)
 	if not portrait and UI.Portrait then
@@ -942,7 +949,7 @@ local function build()
 		portrait:SetSize(math.floor(PORTRAIT_SIZE * k + 0.5))
 		portrait.frame:ClearAllPoints()
 		portrait.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", PORTRAIT_X * k, PORTRAIT_Y * k)
-		portraitSpacer.width, portraitSpacer.height = math.floor(PORTRAIT_ROOM * k + 0.5), size
+		portraitSpacer.width, portraitSpacer.height = math.floor(PORTRAIT_ROOM * k + 0.5), inside
 	end
 	groupOf.micromenu, groupOf.social, groupOf.experience = microGroup, socialRow, middle
 	groupOf.zone, groupOf.clock, groupOf.currencies, groupOf.bags = zoneEmbed, clockEmbed, currencyGroup, bagRow
@@ -973,7 +980,8 @@ local function build()
 	if across then
 		-- the sides as wide as what they hold, the centre takes the rest (the bar fills it: the user's design,
 		-- 2026-11-07); no gap and no side padding: the cells run edge to edge from one end of the panel to the other
-		spec.columns, spec.gap, spec.padding = { "auto", "1fr", "auto" }, 0, 0
+		spec.columns, spec.gap = { "auto", "1fr", "auto" }, 0
+		spec.padding = s.edge == "top" and PAD_TOP_EDGE or PAD_BOTTOM_EDGE -- the metal edge's side
 		spec.height, spec.rowAlign = size, "center"
 	else
 		spec.columns, spec.gap, spec.padding = { "auto" }, "md", { "sm", "xs", "sm", "xs" }
