@@ -89,6 +89,8 @@ local function draw(native)
 	state.view:SetAlpha(state.alpha or 1)
 	showView(state)
 	setNativeAlpha(native, state, 0)
+	ns.Debug:Verbosef("takeover: %s drawn (%d rows), native alpha now %s", native:GetName() or "?", state.model.count,
+		isSecret(native:GetAlpha()) and "<secret>" or tostring(native:GetAlpha()))
 end
 
 -- Show on a hidden tooltip fires its OnShow inside, then our Show hook: it's drawn twice on that first show. Kept on
@@ -114,7 +116,18 @@ end
 
 local function onAlpha(native, alpha)
 	local state = states[native]
-	if not state or state.settingAlpha or isSecret(alpha) or type(alpha) ~= "number" or alpha == 0 then
+	if not state or state.settingAlpha then
+		return
+	end
+	if isSecret(alpha) or type(alpha) ~= "number" then
+		-- An alpha we can't read (a secret one): ours keeps its own, Blizzard's is hidden again while ours shows.
+		ns.Debug:Verbosef("takeover: %s alpha set to an unreadable value", native:GetName() or "?")
+		if state.view:IsShown() then
+			setNativeAlpha(native, state, 0)
+		end
+		return
+	end
+	if alpha == 0 then
 		return
 	end
 	state.alpha = alpha

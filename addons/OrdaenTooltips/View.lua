@@ -82,7 +82,8 @@ local function fillHeader(self, model, layout, owner)
 	header.titleText.text = text or title
 	self.component.block.hotkey = owner and Owner.Hotkey(owner) or titleKey
 	header.titleText.color = first and first.leftColor or nil
-	local accent = first and first.leftColor or nil
+	-- The title wears its colour (a unit's reaction, an item's quality); only an item's also tints the tooltip.
+	local accent = layout.tint and first and first.leftColor or nil
 	header.accent = accent
 	self.component.block.accent = accent
 	header.subtitleText.text = layout.subtitle or ""

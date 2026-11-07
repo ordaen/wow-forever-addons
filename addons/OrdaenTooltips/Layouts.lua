@@ -18,9 +18,11 @@ ns.Layouts = Layouts
 ---@field icon number|string|false the header's icon
 ---@field subtitle string|false
 ---@field skip table<integer, boolean> rows shown in the header instead
+---@field tint boolean the title's colour also tints the tooltip's border (an item's quality); else only the title
+--- wears it (a unit's reaction: the user's rule, 2026-11-07)
 ---@field extrasFrom integer|false the first row another addon added
 ---@field stats table<string, OrdaenTooltipsStat> a spell's section under the title, by stat (SpellStats.ORDER)
-local result = { icon = false, subtitle = false, skip = {}, extrasFrom = false, stats = {} }
+local result = { icon = false, subtitle = false, skip = {}, extrasFrom = false, stats = {}, tint = false }
 
 ---@class OrdaenTooltipsStat
 ---@field shown boolean
@@ -51,6 +53,7 @@ end
 
 local function item(model)
 	local id = model.id
+	result.tint = true -- its quality on the border too, as Blizzard's item tooltips
 	result.icon = C_Item.GetItemIconByID(id) or false
 	if not ITEM_LEVEL_PATTERN then
 		return
@@ -107,7 +110,7 @@ function Layouts.Decide(model)
 	for k in pairs(skip) do
 		skip[k] = nil
 	end
-	result.icon, result.subtitle = false, false
+	result.icon, result.subtitle, result.tint = false, false, false
 	for _, s in pairs(result.stats) do
 		s.shown = false
 	end
