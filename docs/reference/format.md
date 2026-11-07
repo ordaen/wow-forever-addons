@@ -8,6 +8,8 @@ A table without `text`, `image`, `separator` or `bar`. Its array part holds the 
 |---|---|---|---|
 | `style` | string | none | style role in the theme: `tooltip`, `header`, `button`, `iconButton`, `slot`, `panel`, `tab`; `"none"`: no look |
 | `accent` | `{ r, g, b }` | parent's, else the theme's | tints the surface, lines and accented text; for meaning |
+| `open` | `{ top, right, bottom, left }` (booleans) | none | a top-level block's window art has no border on these sides (flush with the screen edge or another surface); `:SetOpen` |
+| `controlState` | `"pushed"`, `"disabled"`, `"checked"`, `"selected"`... | none | a top-level control's state for its style's control art; a dress sets it with `:SetState` |
 | `columns` | list of tracks | `{ "1fr" }` | number (fixed), `"auto"`, `"Nfr"` |
 | `gap` | token or number, or `{ column, row }` | theme, else 0 | space between cells |
 | `padding` | token or number, or `{ top, right, bottom, left }` | theme, else 0 | space inside the edge |

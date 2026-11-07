@@ -322,14 +322,19 @@ local dress = UI.Dress(CharacterMicroButton, { atlas = "UI-HUD-MicroMenu-Charact
 Puts one of Blizzard's frames in our look without taking it over. Its art (textures only, never its text) goes to
 alpha 0 and stays there when Blizzard fades it back in; our block is drawn under it (style `iconButton` unless
 `style` says otherwise). Blizzard's frame stays on top and keeps its clicks, menus and scripts. While the mouse is
-over Blizzard's frame, ours shows its highlight. A button takes our block's size; with `size = "frame"` our block
-covers the frame instead and its size stays Blizzard's or Edit Mode's (chat windows, inputs, tabs). Dressing the
-same frame again returns the same object.
+over Blizzard's frame, ours shows its highlight. A button takes our block's size, and our look is a sibling right
+under it that follows its visibility, alpha and strata. With `size = "frame"` our block covers the frame instead,
+and its size stays Blizzard's or Edit Mode's (windows, chat windows, inputs, tabs). Our look is then drawn on the
+frame itself: a child at the frame's own level (`SetUsingParentLevel`), so its regions interleave with Blizzard's by
+layer (our fill under the frame's content), and the frame's visibility, alpha, strata and scale reach it by
+themselves. Dressing the same frame again returns the same object.
 
 ```lua
 UI.Dress(ChatFrame1, { style = "panel", size = "frame", cover = ChatFrame1Background, art = { ChatFrame1Background } })
-local tab = UI.Dress(ChatFrame1Tab, { style = "tab", size = "frame", states = { selected = "tabSelected" } })
+local tab = UI.Dress(ChatFrame1Tab, { style = "chatTab", size = "frame", states = { selected = "chatTabSelected" } })
 tab:SetState("selected") -- from a hook on Blizzard's own state change, never by polling
+UI.Dress(CharacterFrame, { style = "portraitWindow", size = "frame", art = windowArt, borderAbove = true })
+UI.Dress(SomeButton, { style = "pushButton", size = "frame", art = buttonArt, track = "button" })
 ```
 
 | Option | Default | |
@@ -344,7 +349,10 @@ tab:SetState("selected") -- from a hook on Blizzard's own state change, never by
 | `cover` | the frame | with `size = "frame"`: the region to cover (a background reaching past the frame) |
 | `extend` | | with `size = "frame"`: `{ left, right, top, bottom }` added around `cover`, each a spacing token (`"md"`, follows the text size) or UI units |
 | `art` | every texture of the frame and its children | the textures to hide, when children hold content |
-| `states` | | state -> style role for `d:SetState(state)` |
+| `states` | | state -> style role for `d:SetState(state)`; control styles draw their own art per state and need none |
+| `track` | | `"button"`, `"checkbox"` or `"tab"`: follow the control's own state (see below) |
+| `borderAbove` | false | a style with window art: its border goes above the frame and its children (a Blizzard window whose opaque content reaches its edges), at the level of the window's own NineSlice (else 500 above it); the fill stays under |
+| `open` | | open sides of the look's window art, `{ bottom = true }`; change with `d:SetOpen(sides)` |
 | `focus` | false | an EditBox: our look shows only while it's typed in, at full alpha (whatever alpha Blizzard gives it) |
 
 A frame sized from secret combat numbers (Blizzard's damage meter bars on Forever) has a secret size. Dressing it
@@ -368,7 +376,8 @@ end)
 
 ### d:SetState(state)
 
-Switches to the style `states[state]`, or back to `style` for any other state (nil).
+Switches to the style `states[state]`, or back to `style` for any other state (nil), and sets the look's
+`controlState`: a control style (`pushButton`, `checkbox`, `tab`...) draws its own art for that state.
 
 ### UI.DressFont(target, style)
 
