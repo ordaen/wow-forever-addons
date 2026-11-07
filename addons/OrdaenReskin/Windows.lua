@@ -11,8 +11,6 @@
 -- frame.
 local _, ns = ...
 
-local UI = OrdaenCore.UI
-
 local Windows = {}
 ns.Windows = Windows
 
@@ -59,34 +57,15 @@ local byName = {} -- name -> Window
 local byFrame = setmetatable({}, { __mode = "k" }) -- frame -> Window
 local enabled = { window = false, dialog = false }
 
-local function isTexture(t)
-	return type(t) == "table" and type(t.IsObjectType) == "function" and t:IsObjectType("Texture")
-end
-
-local function addRegions(art, container)
-	if type(container) ~= "table" or type(container.GetRegions) ~= "function" then
-		return
-	end
-	for _, region in ipairs({ container:GetRegions() }) do
-		if isTexture(region) then
-			art[#art + 1] = region
-		end
-	end
-end
-
 -- A frame's own border and fill: its NineSlice (or a dialog's Border) and its Bg and top streaks.
 local function addFrameArt(frame, art)
 	if type(frame) ~= "table" then
 		return
 	end
-	addRegions(art, rawget(frame, "NineSlice"))
-	addRegions(art, rawget(frame, "Border"))
-	for _, key in ipairs({ "Bg", "TopTileStreaks" }) do
-		local t = rawget(frame, key)
-		if isTexture(t) then
-			art[#art + 1] = t
-		end
-	end
+	ns.Kit.AddRegions(art, rawget(frame, "NineSlice"))
+	ns.Kit.AddRegions(art, rawget(frame, "Border"))
+	ns.Kit.Add(art, rawget(frame, "Bg"))
+	ns.Kit.Add(art, rawget(frame, "TopTileStreaks"))
 end
 
 -- The window's NineSlice, on the frame or in its BorderFrame (the World Map).
@@ -112,9 +91,7 @@ function Window:Art()
 			return art
 		end
 	end
-	if isTexture(bg) then
-		art[#art + 1] = bg
-	end
+	ns.Kit.Add(art, bg)
 	return art
 end
 
@@ -127,7 +104,7 @@ function Window:Style()
 	end
 	local nine = nineSliceOf(self.frame)
 	local corner = type(nine) == "table" and rawget(nine, "TopLeftCorner")
-	local atlas = isTexture(corner) and corner:GetAtlas()
+	local atlas = ns.Kit.IsTexture(corner) and corner:GetAtlas()
 	if type(atlas) == "string" and atlas:find("Portrait", 1, true) then
 		return "portraitWindow"
 	end
@@ -299,7 +276,7 @@ end
 --- For "Send state" (dev mode): each window found, its style, and how many dresses it has.
 ---@return table
 function Windows.Describe()
-	local out = { enabled = enabled, hasStyle = rawget(UI, "HasStyle") ~= nil, windows = {} }
+	local out = { enabled = enabled, windows = {} }
 	for _, pack in ipairs(PACKS) do
 		local window = byName[pack.name]
 		out.windows[pack.name] = window and {

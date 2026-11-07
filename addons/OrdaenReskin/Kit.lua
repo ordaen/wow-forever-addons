@@ -5,8 +5,9 @@
 -- textures); its text, icon, clicks and scripts stay Blizzard's. A control whose state matters (enabled, pushed,
 -- checked, the selected tab) is dressed with `track`, so the renderer follows it.
 --
--- A role the theme doesn't define yet is skipped (the control keeps Blizzard's look), so the kit never leaves a
--- control without art. Prior art: EllesmereUI's window skin engine (ideas only; its licence reserves the code).
+-- A role the theme doesn't define (UI.HasStyle) is skipped: the control keeps Blizzard's look, so the kit
+-- never leaves a control without art. Prior art: EllesmereUI's window skin engine (ideas only; its licence
+-- reserves the code).
 --
 -- Cost: runs when a window is skinned or shows again (a rare event), never per frame. Each control is dressed once
 -- (a weak table remembers it); a scan only looks up controls it has seen.
@@ -20,28 +21,24 @@ ns.Kit = Kit
 local dressed = setmetatable({}, { __mode = "k" }) -- control -> its dress, or false (its role isn't in the theme)
 local collect -- the window being skinned is told of each new dress (Kit.CollectInto), so it can undress them
 
--- Roles every theme had before the renderer could answer UI.HasStyle (the window art, 2026-11-07).
-local KNOWN = { window = true, portraitWindow = true, dialog = true, inset = true }
-
--- Whether the theme draws this role: the renderer answers with UI.HasStyle; without it only the KNOWN roles are, and
--- controls keep Blizzard's look.
+-- Whether the theme draws this role (it loads the framework, which dressing does anyway).
 local function ready(role)
-	local hasStyle = rawget(UI, "HasStyle")
-	if type(hasStyle) ~= "function" then
-		return KNOWN[role] == true
-	end
-	return hasStyle(role) and true or false
+	return UI.HasStyle(role) and true or false
 end
 
-local function isTexture(t)
+--- Whether `t` is a texture region (Blizzard keys can hold frames, font strings or nothing).
+---@return boolean
+function Kit.IsTexture(t)
 	return type(t) == "table" and type(t.IsObjectType) == "function" and t:IsObjectType("Texture")
 end
 
-local function add(art, t)
-	if isTexture(t) then
+--- Add `t` to `art` when it's a texture.
+function Kit.Add(art, t)
+	if Kit.IsTexture(t) then
 		art[#art + 1] = t
 	end
 end
+local add = Kit.Add
 
 local function addKeys(art, obj, keys)
 	for i = 1, #keys do
@@ -57,8 +54,8 @@ local function addButtonTextures(art, button)
 	add(art, button:GetHighlightTexture())
 end
 
--- Every texture region of a frame (a Track's or a Thumb's three pieces, a NineSlice).
-local function addRegions(art, frame)
+--- Add every texture region of a frame (a Track's or a Thumb's three pieces, a NineSlice) to `art`.
+function Kit.AddRegions(art, frame)
 	if type(frame) ~= "table" or type(frame.GetRegions) ~= "function" then
 		return
 	end
@@ -184,13 +181,13 @@ function Kit.ScrollBar(bar)
 	local track, thumb = rawget(bar, "Track"), rawget(bar, "Thumb")
 	if type(track) == "table" then
 		local art = {}
-		addRegions(art, track)
+		Kit.AddRegions(art, track)
 		Kit.Dress(track, "scrollTrack", art)
 		thumb = thumb or rawget(track, "Thumb")
 	end
 	if type(thumb) == "table" then
 		local art = {}
-		addRegions(art, thumb)
+		Kit.AddRegions(art, thumb)
 		if thumb.GetNormalTexture then
 			addButtonTextures(art, thumb)
 		end
@@ -219,7 +216,7 @@ end
 --- An inner pane with its own border (InsetFrameTemplate: a NineSlice and a Bg).
 function Kit.Inset(inset)
 	local art = {}
-	addRegions(art, rawget(inset, "NineSlice"))
+	Kit.AddRegions(art, rawget(inset, "NineSlice"))
 	add(art, rawget(inset, "Bg"))
 	return Kit.Dress(inset, "inset", art, { borderAbove = true })
 end

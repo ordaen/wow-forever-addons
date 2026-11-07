@@ -121,7 +121,7 @@ describe("Ordaen Reskin", function()
 	end
 
 	-- The theme's dressing, recorded: which frame got which style, art and options; Apply/Undress switch it.
-	local function fakeDressing(hasStyle)
+	local function fakeDressing()
 		local UI = OrdaenCore.UI
 		UI.Dress = function(frame, spec)
 			assert.is_nil(dressed[frame], "a frame is dressed once")
@@ -135,13 +135,12 @@ describe("Ordaen Reskin", function()
 			dressed[frame] = dress
 			return dress
 		end
-		rawset(UI, "HasStyle", hasStyle and function(role)
+		UI.HasStyle = function(role)
 			return styles[role] == true
-		end or nil)
+		end
 	end
 
-	local function load(opts)
-		opts = opts or {}
+	local function load()
 		helpers.stubGlobals({
 			CreateFrame = function(_, name)
 				local f = stub(name or "anon")
@@ -156,7 +155,7 @@ describe("Ordaen Reskin", function()
 		end
 		rawset(_G, "OrdaenReskinDB", nil)
 		helpers.loadCore()
-		fakeDressing(opts.hasStyle ~= false)
+		fakeDressing()
 		helpers.errorHandler = function(err)
 			errors[#errors + 1] = tostring(err)
 		end
@@ -293,14 +292,6 @@ describe("Ordaen Reskin", function()
 		load()
 		assert.is_nil(dressed[check])
 		assert.truthy(dressed[windows.CharacterFrame])
-	end)
-
-	it("without UI.HasStyle dresses only the window roles every theme has", function()
-		local button = control("Button", "Button", { "Left", "Middle", "Right" })
-		windows.CharacterFrame.children = { button }
-		load({ hasStyle = false })
-		assert.truthy(dressed[windows.CharacterFrame])
-		assert.is_nil(dressed[button])
 	end)
 
 	it("dresses controls Blizzard made since when the window shows again, each once", function()
