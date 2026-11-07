@@ -104,13 +104,24 @@
       }
     },
     "dropdown": {
-      // the field (its art includes a soft shadow: 41 high around a 26 high field) and the arrow button on its right
+      // Ours (the user's approved bags layout, 2026-11-07): the push button's bronze plate, its states the same rows of
+      // media/button.tga, and a gold arrow (art/arrow.py: 16x16 UI units, the triangle centred) inside the right end.
+      "ordaen": {
+        "label": "CONTROL_ORDAEN",
+        "normal": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0, 0.125], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0, 0.125] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0, 0.125], "aspect": 0.5 } },
+        "pushed": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.125, 0.25], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.125, 0.25] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.125, 0.25], "aspect": 0.5 } },
+        "disabled": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.25, 0.375], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.25, 0.375] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.25, 0.375], "aspect": 0.5 } },
+        "highlight": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.375, 0.5], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.375, 0.5] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.375, 0.5], "aspect": 0.5 } },
+        "arrow": { "file": "Interface\\AddOns\\OrdaenCore\\media\\dropdown-arrow", "size": [16, 16], "inset": 6 }
+      },
+      // Blizzard's: the field (its art includes a soft shadow: 41 high around a 26 high field) and the arrow button
       "blizzard": { "label": "CONTROL_BLIZZARD", "normal": "common-dropdown-textholder", "arrow": "common-dropdown-a-button" }
     },
     "input": {
       "blizzard": {
         "label": "CONTROL_BLIZZARD", "size": [0, 20],
-        "normal": { "left": "common-search-border-left", "center": "common-search-border-middle", "right": "common-search-border-right" }
+        // a nine-slice: its ends at their own width, top and bottom 6 px of the art, so the border stays thin when taller
+        "normal": { "left": "common-search-border-left", "center": "common-search-border-middle", "right": "common-search-border-right", "edges": [6] }
       }
     },
     "scrollTrack": {
@@ -240,7 +251,7 @@
       "icon.crop": 0.08,
       "motion.fade": 0.15, "tooltip.delay": 0,
       "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON",
-      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "ordaen", "control.pushButtonAccent": "ordaen-accent", "control.closeButton": "blizzard", "control.newMarker": "gem", "control.checkbox": "blizzard", "control.dropdown": "blizzard", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
+      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "ordaen", "control.pushButtonAccent": "ordaen-accent", "control.closeButton": "blizzard", "control.newMarker": "gem", "control.checkbox": "blizzard", "control.dropdown": "ordaen", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
     }
     // Planned, not built (user's decision, 2026-11-07): "blizzard" (mostly Blizzard's default look) and "minimal"
     // (little to no textures). Only Ordaen is worked on now; add them back here, with every token, when they are.

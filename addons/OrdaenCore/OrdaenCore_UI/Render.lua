@@ -918,6 +918,7 @@ local function atlasOf(name)
 		local info = C_Texture.GetAtlasInfo(name)
 		cached = info and info.width and info.width > 0 and info.height > 0 and {
 			info.width / info.height, info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord,
+			info.width, info.height,
 		} or false
 		atlasCache[name] = cached
 	end
@@ -1236,7 +1237,42 @@ local function drawSlice(surface, pool, piece, layer, sublevel, x, y, w, h, tint
 	placePiece(surface, tex, x, y, w, h)
 end
 
+-- One column of a nine-slice: the slice cut in three rows within its atlas, the top and bottom `e` high (the art's
+-- own pixels), the middle stretching.
+local function drawColumn(surface, pool, name, layer, sublevel, x, y, w, h, e, v, tint, grey, accent)
+	local rows = { { y, e, 0, v }, { y + e, h - 2 * e, v, 1 - v }, { y + h - e, e, 1 - v, 1 } }
+	for i = 1, 3 do
+		local row = rows[i]
+		local tex = controlTexture(surface, pool, layer, sublevel)
+		setPiece(tex, name, tint, grey, accent)
+		tex:SetTexCoord(0, 1, row[3], row[4]) -- within the atlas (SetAtlas made coordinates atlas-relative)
+		placePiece(surface, tex, x, row[1], w, row[2])
+	end
+end
+
+-- Three slices as a nine-slice (`edges = { px }` on the slices): each end at its atlas's own width, every slice's
+-- top and bottom `px` of the art high whatever the height, so a thin border stays thin on a taller field (the search
+-- box at the buttons' height, 2026-11-07). Built only when a field is drawn, never per frame.
+local function drawNine(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+	local left, right = atlasOf(piece.left), atlasOf(piece.right)
+	local lw, rw = left and left[6] or 8, right and right[6] or 8
+	local height = left and left[7] or h
+	local e = math.min(piece.edges[1], h / 2)
+	local v = math.min(piece.edges[1] / height, 0.5)
+	if lw + rw > w and w > 0 then
+		local scale = w / (lw + rw)
+		lw, rw = lw * scale, rw * scale
+	end
+	drawColumn(surface, pool, piece.left, layer, sublevel, x, y, lw, h, e, v, tint, grey, accent)
+	drawColumn(surface, pool, piece.center, layer, sublevel, x + lw, y, w - lw - rw, h, e, v, tint, grey, accent)
+	drawColumn(surface, pool, piece.right, layer, sublevel, x + w - rw, y, rw, h, e, v, tint, grey, accent)
+end
+
 local function drawPiece(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+	if type(piece) == "table" and piece.left and piece.edges then
+		drawNine(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+		return
+	end
 	if type(piece) == "table" and piece.left then
 		local lw, rw = h * aspectOf(piece.left), h * aspectOf(piece.right)
 		local scale = (lw + rw > w and w > 0) and w / (lw + rw) or 1
@@ -1305,8 +1341,13 @@ local function drawControlArt(surface, look, accent, w, h, state)
 	for part, point in pairs(art.parts or NO_PARTS) do
 		local piece = asset[part]
 		if piece ~= nil then
-			local pw = h * aspectOf(piece)
-			drawPiece(surface, pool, piece, "BORDER", 0, point == "LEFT" and 0 or w - pw, 0, pw, h, 1, false, nil)
+			-- A part with its own size (a small arrow) sits `inset` in from its side, centred vertically; else it's as
+			-- tall as the control (a button cap).
+			local size = type(piece) == "table" and piece.size
+			local pw, ph = size and size[1] or h * aspectOf(piece), size and size[2] or h
+			local inset = type(piece) == "table" and piece.inset or 0
+			local px = point == "LEFT" and inset or w - pw - inset
+			drawPiece(surface, pool, piece, "BORDER", 0, px, (h - ph) / 2, pw, ph, 1, false, nil)
 		end
 	end
 	local highlight = asset.highlight

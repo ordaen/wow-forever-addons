@@ -210,9 +210,11 @@ end
 --- Returns its result: { width, height, items = { { node, x, y, w, h }, ... } }, positions relative to the
 --- block's top-left corner, y growing downwards. Nested blocks' results: Layout.ResultOf(child).
 function layoutBlock(node, width, ctx, height)
-	height = height or node.height -- a parent's "stretch" passes its row's height
-	local r = resultFor(node)
 	local defaults = ctx.defaults(node.style)
+	-- A parent's "stretch" passes its row's height; else the block's own, else its style's (a field at the buttons'
+	-- height).
+	height = height or node.height or defaults.height
+	local r = resultFor(node)
 	local sp = ctx.space or identity
 	local padTop, padRight, padBottom, padLeft = sides(node.padding, defaults.padding, sp)
 	local gapColumn, gapRow = gaps(node.gap, defaults.gap, sp)

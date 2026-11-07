@@ -223,9 +223,10 @@ THEMES.ordaen = {
 		checkbox = { padding = 0, controlArt = { kind = "checkbox" } },
 		-- Its label in the middle of the field, clear of the arrow on the right (the arrow part is as wide as about the
 		-- field's height: 26).
-		dropdown = { padding = { 0, 30, 0, "md" }, rowAlign = "center",
+		dropdown = { padding = { 0, 30, 0, "md" }, rowAlign = "center", height = 34,
 			controlArt = { kind = "dropdown", parts = { arrow = "RIGHT" } } },
-		input = { padding = 0, controlArt = { kind = "input" } },
+		-- (as tall as the buttons: the user's approved bags layout, 2026-11-07)
+		input = { padding = 0, height = 34, controlArt = { kind = "input" } },
 		scrollTrack = { padding = 0, controlArt = { kind = "scrollTrack" } },
 		scrollThumb = { padding = 0, controlArt = { kind = "scrollThumb" } },
 		scrollStepper = { padding = 0, controlArt = { kind = "scrollStepper", base = "back" } },
@@ -244,6 +245,8 @@ THEMES.ordaen = {
 		onBar = { font = "body", size = "body", color = { 1, 1, 1 }, outline = true },
 		onBarValue = { font = "body", size = "body", color = { 1, 1, 1 }, outline = true },
 		hint = { font = "body", size = "small", color = { 0.56, 0.54, 0.50 } },
+		-- A control's label (a dropdown's, a push button's): gold with a dark shadow, the game's button text.
+		control = { font = "ui", size = "body", color = { 0.941, 0.784, 0.376 }, shadow = true },
 		caption = { font = "body", size = "tiny", color = { 0.62, 0.58, 0.51 }, caps = true },
 		-- On the world (labels on the minimap): no surface behind them, so they keep a shadow.
 		normal = { font = "ui", size = "body", color = { 0.96, 0.86, 0.64 }, shadow = true },

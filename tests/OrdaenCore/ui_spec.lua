@@ -1064,11 +1064,15 @@ describe("OrdaenCore.UI", function()
 			assert.is_true(x + w <= 150 - 26, "clear of the arrow")
 		end)
 
-		it("put a dropdown's arrow on its right at its own aspect", function()
-			local dropdown = UI.Block({ name = "Drop", style = "dropdown", width = 150, height = 26 })
+		it("draw a dropdown as the button plate, its gold arrow at its own size inside the right end", function()
+			local dropdown = UI.Block({ name = "Drop", style = "dropdown", width = 150 })
+			assert.equals(34, dropdown.frame.size[2], "the buttons' height, from the role")
+			local plate = controlPieces(dropdown.frame, "BACKGROUND")[1]
+			assert.equals("Interface\\AddOns\\OrdaenCore\\media\\button", plate.file)
 			local arrow = controlPieces(dropdown.frame, "BORDER")[1]
-			assert.equals("common-dropdown-a-button", arrow.atlas)
-			assert.same({ "TOPLEFT", dropdown.frame, "TOPLEFT", 150 - 52, -0 }, arrow.point)
+			assert.equals("Interface\\AddOns\\OrdaenCore\\media\\dropdown-arrow", arrow.file)
+			assert.same({ 16, 16 }, arrow.size)
+			assert.same({ "TOPLEFT", dropdown.frame, "TOPLEFT", 150 - 16 - 6, -(34 - 16) / 2 }, arrow.point)
 		end)
 
 				it("mirror a small surface's top from Blizzard's bottom corners, flipped within their atlas", function()
@@ -1111,6 +1115,27 @@ describe("OrdaenCore.UI", function()
 			end
 		end
 
+		it("stand as tall as the buttons, the search border cut as a nine-slice that stays thin", function()
+			local input = UI.Input({ width = 200 })
+			assert.equals(34, input.frame.size[2], "the input role's height")
+			local look
+			for _, f in ipairs(frames) do
+				if f.parent == input.frame then
+					look = f
+				end
+			end
+			local pieces = {}
+			for _, t in ipairs(look.textures) do
+				if t.shown and t.atlas == "common-search-border-left" then
+					pieces[#pieces + 1] = t
+				end
+			end
+			assert.equals(3, #pieces, "the left end in three rows")
+			assert.same({ 0, 1, 0, 6 / 100 }, pieces[1].texCoord, "its top: 6 px of the (fake) 100 px high art")
+			assert.equals(6, pieces[1].size[2], "6 px high, whatever the field's height")
+			assert.equals(200, pieces[1].size[1], "its own width (the fake atlas is 200 wide: clamped to the field)")
+		end)
+
 		it("wear the theme's input art (Blizzard's search border) around the box", function()
 			local input = UI.Input({ width = 200, placeholder = "Search" })
 			local look
@@ -1120,9 +1145,10 @@ describe("OrdaenCore.UI", function()
 				end
 			end
 			assert.is_truthy(look, "the dress's look, on the box")
-			local atlases = {}
+			local atlases, seen = {}, {}
 			for _, t in ipairs(look.textures) do
-				if t.shown and t.atlas then
+				if t.shown and t.atlas and not seen[t.atlas] then
+					seen[t.atlas] = true
 					atlases[#atlases + 1] = t.atlas
 				end
 			end
