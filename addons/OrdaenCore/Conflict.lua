@@ -40,6 +40,9 @@ end
 ---@param what string what happened, short, for developers (English, not shown to players)
 ---@param handled boolean true when we adapted, false when something is broken
 function Addon:Conflict(other, what, handled)
+	-- counted even when the record itself is dropped (seen before, or the cap): found() asks whether a handler spoke
+	local calls = self._conflictCalls
+	calls[other] = (calls[other] or 0) + 1
 	local key = other .. "\n" .. what
 	local seen = self._conflictSeen
 	if seen[key] or #self._conflicts >= MAX then
@@ -65,16 +68,6 @@ function Addon:OnConflict(fn)
 	self._onConflict[#self._onConflict + 1] = self.Debug:Wrap(fn)
 end
 
--- How many records the addon has about `other`.
-local function records(addon, other)
-	local n = 0
-	for _, c in ipairs(addon._conflicts) do
-		if c.other == other then
-			n = n + 1
-		end
-	end
-	return n
-end
 
 -- The dialog ---------------------------------------------------------------------------------------------------------
 
@@ -110,7 +103,6 @@ local function turnOff(addon, name)
 end
 
 local MAX_KEPT = 50 -- remembered "keep both" pairs (OrdaenCoreDB.keptConflicts), a hard cap
-
 
 -- The pairs the player chose to keep both of ("OrdaenTooltips:PrettyTooltip" = true), in Ordaen Core's settings.
 local function kept()
@@ -189,7 +181,7 @@ local function ask(addon, other, what)
 end
 
 -- A conflict found at login or at runtime, once per (other, what): the addon's OnConflict functions decide what to
--- do and record it (A:Conflict(other, "...", true)). If none recorded anything new about `other`, it is recorded as
+-- do and record it (A:Conflict(other, "...", true)). If none called A:Conflict about `other`, it is recorded as
 -- not handled and the player is asked which addon to keep.
 local function found(addon, other, what)
 	local key = "found\n" .. other .. "\n" .. what
@@ -197,12 +189,13 @@ local function found(addon, other, what)
 		return
 	end
 	addon._conflictSeen[key] = true
-	local before = records(addon, other)
+	local calls = addon._conflictCalls
+	local before = calls[other] or 0
 	for _, fn in ipairs(addon._onConflict) do
 		Core._RunAs(addon, fn, other, what)
 	end
-	if records(addon, other) ~= before then
-		return
+	if (calls[other] or 0) ~= before then
+		return -- a handler recorded what it did (even a record it had made before)
 	end
 	if keptBoth(addon, other) then
 		addon:Conflict(other, what, true) -- the player chose to keep both: accepted, not broken

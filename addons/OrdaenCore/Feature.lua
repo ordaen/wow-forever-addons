@@ -128,10 +128,12 @@ end
 
 -- Switch on or off as the setting and `when` say. Through `call`: an error in `when` or OnEnable is reported and
 -- the addon's other features still start.
+local function syncNow(feature)
+	setEnabled(feature, wanted(feature))
+end
+
 local function sync(feature)
-	call(function()
-		setEnabled(feature, wanted(feature))
-	end)
+	call(syncNow, feature) -- no closure per call: a slider drag syncs on every step
 end
 
 --- Make a feature of this addon. Call it once per feature, at load.
@@ -171,8 +173,12 @@ end
 ---@param key string
 ---@param value any
 function Addon:_SettingChanged(key, value)
+	-- before login (an A:Set in OnLoad) features stay off: they start after OnLogin, which may decide `when`
+	local started = self.loaded and Core._IsLoggedIn()
 	for _, feature in ipairs(self._features) do
-		sync(feature)
+		if started then
+			sync(feature)
+		end
 		if feature.enabled and feature.setting ~= key then
 			runAll(feature, feature._onChange, key, value)
 		end

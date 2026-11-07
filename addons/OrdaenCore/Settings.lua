@@ -238,20 +238,21 @@ local function colorControl(addon, category, key, setting, tooltip)
 	end
 	local store = addon._store --[[@as OrdaenSettingsStore]]
 	local toHex = SettingsPage.ColorToHex
+	local defaultHex = toHex(store:Default(key)) -- the theme is fixed until a reload (themes.jsonc)
 	local proxy = Settings.RegisterProxySetting(category, addon.name .. "_" .. key:gsub("%.", "_"), "string",
 		addon.L[setting.label], toHex(store:Default(key)), function()
 			return toHex(store:Get(key))
 		end, function(value)
 			-- the picker writes on every move and again on Cancel; the theme's colour itself means "not chosen"
-			-- (also what Blizzard's Defaults button writes), so it is forgotten rather than saved
-			local current = store:Get(key)
-			local color = SettingsPage.HexToColor(value, type(current) == "table" and current[4] or nil)
-			if not color then
+			-- (also what Blizzard's Defaults button writes), so it is forgotten rather than saved. Compared as hex
+			-- text (the swatch's own form): no string or table made for a move back to the default.
+			if type(value) == "string" and value:lower():sub(3) == defaultHex:sub(3) then
+				store:Reset(key)
 				return
 			end
-			if toHex(color) == toHex(store:Default(key)) then
-				store:Reset(key)
-			else
+			local current = store:Get(key)
+			local color = SettingsPage.HexToColor(value, type(current) == "table" and current[4] or nil)
+			if color then
 				store:Set(key, color)
 			end
 		end)
@@ -272,7 +273,13 @@ local function control(addon, category, key, setting)
 		L[setting.label], store:Default(key), function()
 			return store:Get(key)
 		end, function(value)
-			store:Set(key, value)
+			-- the default (Blizzard's Defaults button, or picked by hand) isn't a choice: a look setting keeps
+			-- following the theme, and nothing is saved
+			if value == store:Default(key) then
+				store:Reset(key)
+			else
+				store:Set(key, value)
+			end
 		end)
 	local tooltip = setting.tooltip and L[setting.tooltip]
 	if setting.type == "boolean" then

@@ -332,6 +332,23 @@ function StoreMethods:Set(key, value)
 		return false
 	end
 	local before = parent[path[#path]]
+	if setting.type == "map" then
+		-- the saved table stays (it falls back to the default map, and code may hold it): its entries change
+		local map = rawget(parent, path[#path])
+		if type(map) == "table" and map ~= value then
+			local changed = not same(map, value)
+			for k in pairs(map) do
+				map[k] = nil
+			end
+			for k, v in pairs(value) do
+				map[k] = v
+			end
+			if changed then
+				announce(self, key, map)
+			end
+			return true
+		end
+	end
 	rawset(parent, path[#path], value)
 	if not same(before, value) then
 		announce(self, key, value)

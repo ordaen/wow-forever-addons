@@ -56,6 +56,7 @@ local L = ns.L
 ---@field private _wrapped table<function, function>
 ---@field private _printParts string[]
 ---@field _features OrdaenFeature[] Feature.lua
+---@field _conflictCalls table<string, integer> other addon -> A:Conflict calls about it (Conflict.lua)
 ---@field _events OrdaenEventFrame its own event frame (CPU billed to it)
 ---@field _unitEvents table<string, OrdaenEventFrame> unit -> its own frame for that unit's events
 ---@field _clock OrdaenClock its tickers and C_Timer chain (Timer.lua)
@@ -674,6 +675,7 @@ function Core.NewAddon(addonName, addonNs, spec)
 		_features = {},
 		_conflicts = {},
 		_conflictSeen = {},
+		_conflictCalls = {}, -- other addon -> A:Conflict calls about it (Conflict.lua)
 		_onConflict = {},
 		_watching = {},
 		_asked = {},

@@ -38,17 +38,24 @@ function Color:GetRGB()
 	return self.r, self.g, self.b
 end
 
---- "ffRRGGBB", for |c...|r in chat text (kept, made once per change).
+local byte -- below
+
+--- "ffRRGGBB", for |c...|r in chat text (made on first use after a change, then kept).
 ---@return string
 function Color:Hex()
-	return self.hex
+	local hex = self.hex
+	if not hex then
+		hex = string.format("ff%02x%02x%02x", byte(self.r), byte(self.g), byte(self.b))
+		self.hex = hex
+	end
+	return hex
 end
 
 local function newColor()
 	return setmetatable({ 1, 1, 1, r = 1, g = 1, b = 1, hex = "ffffffff" }, ColorMeta)
 end
 
-local function byte(v)
+function byte(v)
 	return math.floor(math.max(0, math.min(1, v)) * 255 + 0.5)
 end
 
@@ -59,7 +66,7 @@ local function assign(color, value)
 	local r, g, b = value[1], value[2], value[3]
 	color[1], color[2], color[3] = r, g, b
 	color.r, color.g, color.b = r, g, b
-	color.hex = string.format("ff%02x%02x%02x", byte(r), byte(g), byte(b))
+	color.hex = nil -- Hex() makes it when asked: a picker drag changes a colour many times a second
 end
 
 ---@class OrdaenColors
