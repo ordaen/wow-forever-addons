@@ -20,8 +20,11 @@ simpler code and leaner code conflict, choose leaner, or ask the user. A perform
   loaded with `C_AddOns.LoadAddOn`; confirmed on Forever). Strings and data for other locales are not kept in memory.
 - **No garbage in hot paths:** no table/closure/string creation (`..`, `format`, `{}`) in per-frame or per-event code;
   reuse tables; cache globals used in hot code as upvalues.
-- **SavedVariables hold settings only:** no history, no caches that can be rebuilt; anything that can grow has a hard
-  cap. They are parsed at login and written at logout for every character.
+- **SavedVariables: be deliberate** (user's decision, 2026-11-07). They may hold more than settings (each character's
+  gold for a realm total, say) when the feature needs it across sessions, but every stored thing is a choice made on
+  purpose: say in the code why it's saved, keep it small, give anything that can grow a hard cap, drop entries that go
+  stale (a deleted character), and don't save what can be rebuilt cheaply. They are parsed at login and written at
+  logout for every character.
 - **Hooks only on rarely called functions,** with cheap bodies. Expensive work in a hook (`debugstack`, re-applying a
   layout) is rate-limited or cached.
 - **Dependencies:** no library unless Blizzard's API can't do it. OrdaenCore stays small; dev-only code lives in
