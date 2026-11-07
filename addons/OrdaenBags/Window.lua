@@ -550,7 +550,7 @@ local function build()
 	local arrange = iconButton("pushButton", "sort", actionTip(L.TIP_SORT, L.TIP_SORT_TEXT), onArrange)
 	local bags = iconButton("pushButton", "bag", actionTip(L.TIP_BAGS, L.TIP_BAGS_TEXT), onToggleBags)
 	local settings = iconButton("pushButton", "settings", actionTip(SETTINGS, L.TIP_SETTINGS_TEXT), onSettings)
-	local close = iconButton("accentButton", "close", nil, onClose)
+	local close = iconButton("pushButtonAccent", "close", nil, onClose)
 	if not (search and sortButton and arrange and bags and settings and close) then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end

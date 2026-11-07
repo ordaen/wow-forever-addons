@@ -26,7 +26,6 @@ How themes work: [Themes](/guide/themes).
 | `listTab` | a tab in a list beside its page (Ordaen Bags' categories) | no surface; hovering darkens it |
 | `listTabSelected` | the list tab shown | a bronze bar on its left over a faint warm fill |
 | `tabPage` | the page beside a list of tabs | a light dark fill, padding `md` |
-| `accentButton` | a push button in our red accent (a window's own close button) | our button art's red rows |
 | `inset` | an inner pane of a window (Blizzard's insets, which Ordaen Reskin dresses) | Blizzard's inset art, padding `sm` |
 | `pushButtonAccent` | an important button (the game menu's exits) | the accent plate (token `control.pushButtonAccent`) |
 | `pushButton`, `closeButton`, `tab`, `sideTab`, `checkbox`, `dropdown`, `input`, `scrollTrack`, `scrollThumb`, `scrollStepper` (back), `scrollStepperForward`, `slot` | Blizzard's controls (Ordaen Reskin; UI.Confirm's buttons; UI.Input) | Blizzard's control art, see below |

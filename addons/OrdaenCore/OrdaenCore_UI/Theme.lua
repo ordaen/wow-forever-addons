@@ -217,8 +217,6 @@ THEMES.ordaen = {
 		-- An important button (the game menu's exits): the accent plate, the same kind of art under its own token.
 		pushButtonAccent = { padding = { "sm", "lg", "sm", "lg" },
 			controlArt = { kind = "pushButton", token = "control.pushButtonAccent" } },
-		-- the push button in our red accent (a window's own close button among bronze ones)
-		accentButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "accentButton" } },
 		closeButton = { padding = 0, controlArt = { kind = "closeButton" } },
 		tab = { padding = 0, controlArt = { kind = "tab" } },
 		sideTab = { padding = 0, controlArt = { kind = "sideTab" } },
