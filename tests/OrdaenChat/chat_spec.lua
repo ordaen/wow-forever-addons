@@ -861,6 +861,9 @@ describe("Ordaen Chat", function()
 			assert.is_false(look.LeftEdge.shown, "flush with the screen's left edge")
 			assert.is_true(look.TopEdge.shown)
 			assert.equals(ns.Input.IsOverlaid(), not look.BottomEdge.shown, "on the panel unless the input is under it")
+			ns.Addon.db.inputGroup = false
+			ns.Addon:_SettingChanged("inputGroup", false)
+			assert.is_true(look.BottomEdge.shown, "the input group off: Blizzard's input is under the chat again")
 			ns.Addon.db.chatAbovePanel = false
 			ns.Addon:_SettingChanged("chatAbovePanel", false)
 			assert.is_true(look.LeftEdge.shown, "Edit Mode's place: closed again")

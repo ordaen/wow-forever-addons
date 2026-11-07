@@ -427,6 +427,7 @@ local function track(self)
 	hooksecurefunc(control, "SetButtonState", retrack)
 	control:HookScript("OnMouseDown", onTrackDown)
 	control:HookScript("OnMouseUp", onTrackUp)
+	control:HookScript("OnHide", onTrackUp) -- hidden mid-press: no mouse-up comes
 	if kind == "checkbox" then
 		hooksecurefunc(control, "SetChecked", retrack)
 		control:HookScript("OnClick", retrack)

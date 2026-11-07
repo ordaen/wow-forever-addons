@@ -484,7 +484,7 @@ end
 --- Whether the input sits over the chat (setting inputOverlay).
 ---@return boolean
 function Input.IsOverlaid()
-	return overlaid
+	return on and overlaid -- off: Blizzard's input is back under the chat
 end
 
 --- The input over the chat, shown only while typing (setting inputOverlay), or under the window (Blizzard's place).

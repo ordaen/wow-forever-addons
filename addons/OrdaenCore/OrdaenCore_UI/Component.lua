@@ -723,7 +723,6 @@ function Component.Input(spec)
 	box:SetSize(spec.width or 160, textStyle.size + 2 * space("sm"))
 	box:SetTextInsets(space("sm"), space("sm"), 0, 0)
 	ns.Dress.Font(box, "body")
-	ns.Dress.New(box, { style = "input", size = "frame", art = {} })
 	local placeholder = box:CreateFontString(nil, "ARTWORK")
 	ns.Dress.Font(placeholder, "hint")
 	local hint = Theme.TextStyle("hint").color
@@ -737,6 +736,7 @@ function Component.Input(spec)
 	box:SetScript("OnEscapePressed", onInputEscape)
 	box:SetScript("OnEditFocusGained", onInputFocus)
 	box:SetScript("OnEditFocusLost", onInputFocus)
+	ns.Dress.New(box, { style = "input", size = "frame", art = {} }) -- after SetScript: it hooks the box's scripts
 	for event, fn in pairs(spec.on or {}) do
 		self:On(event, fn)
 	end

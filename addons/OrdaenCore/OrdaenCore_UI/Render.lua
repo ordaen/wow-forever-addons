@@ -1009,22 +1009,20 @@ local function openSides(holder, bits)
 	be:SetShown(not bottom)
 	le:SetShown(not left)
 	re:SetShown(not right)
-	if left then
-		te:SetPoint("TOPLEFT", tl, "TOPLEFT")
-		be:SetPoint("BOTTOMLEFT", bl, "BOTTOMLEFT")
-	end
-	if right then
-		te:SetPoint("TOPRIGHT", tr, "TOPRIGHT")
-		be:SetPoint("BOTTOMRIGHT", br, "BOTTOMRIGHT")
-	end
-	if top then
-		le:SetPoint("TOPLEFT", tl, "TOPLEFT")
-		re:SetPoint("TOPRIGHT", tr, "TOPRIGHT")
-	end
-	if bottom then
-		le:SetPoint("BOTTOMLEFT", bl, "BOTTOMLEFT")
-		re:SetPoint("BOTTOMRIGHT", br, "BOTTOMRIGHT")
-	end
+	-- Each edge spans its corners: between their inner sides, or to the outer side of a corner on an open side. Both
+	-- anchors are set here (whichever points Blizzard's layout used: a third point would fight them).
+	te:ClearAllPoints()
+	te:SetPoint("TOPLEFT", tl, left and "TOPLEFT" or "TOPRIGHT")
+	te:SetPoint("BOTTOMRIGHT", tr, right and "BOTTOMRIGHT" or "BOTTOMLEFT")
+	be:ClearAllPoints()
+	be:SetPoint("TOPLEFT", bl, left and "TOPLEFT" or "TOPRIGHT")
+	be:SetPoint("BOTTOMRIGHT", br, right and "BOTTOMRIGHT" or "BOTTOMLEFT")
+	le:ClearAllPoints()
+	le:SetPoint("TOPLEFT", tl, top and "TOPLEFT" or "BOTTOMLEFT")
+	le:SetPoint("BOTTOMRIGHT", bl, bottom and "BOTTOMRIGHT" or "TOPRIGHT")
+	re:ClearAllPoints()
+	re:SetPoint("TOPLEFT", tr, top and "TOPLEFT" or "BOTTOMLEFT")
+	re:SetPoint("BOTTOMRIGHT", br, bottom and "BOTTOMRIGHT" or "TOPRIGHT")
 end
 
 local function drawFrameArt(surface, look, accent, open, width, height)
@@ -1073,6 +1071,7 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 			else
 				local wrap = background.tile and "REPEAT" or nil
 				fill:SetTexture(background.file, wrap, wrap)
+				fill:SetTexCoord(0, 1, 0, 1) -- a cover-fit atlas before may have cropped it
 			end
 			fill:SetHorizTile(background.tile and true or false)
 			fill:SetVertTile(background.tile and true or false)
@@ -1116,6 +1115,7 @@ end
 local controlPools = setmetatable({}, { __mode = "k" }) -- surface -> { used = n, [i] = texture }
 local FALLBACK_TINT = { pushed = 0.75, disabled = 0.6 }
 local OVER_NORMAL = { checked = true, disabledChecked = true } -- states drawn over the normal piece
+local NO_PARTS = {}
 local drawControlPiece
 
 local function controlTexture(surface, pool, layer, sublevel)
@@ -1171,31 +1171,29 @@ local function placePiece(surface, tex, x, y, w, h)
 	tex:SetSize(max(w, 0.01), max(h, 0.01))
 end
 
+local function drawSlice(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+	local tex = controlTexture(surface, pool, layer, sublevel)
+	setPiece(tex, piece, tint, grey, accent)
+	placePiece(surface, tex, x, y, w, h)
+end
+
 local function drawPiece(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
 	if type(piece) == "table" and piece.left then
 		local lw, rw = h * aspectOf(piece.left), h * aspectOf(piece.right)
 		local scale = (lw + rw > w and w > 0) and w / (lw + rw) or 1
 		lw, rw = lw * scale, rw * scale
-		local parts = { piece.left, piece.center, piece.right }
-		local xs, ws = { x, x + lw, x + w - rw }, { lw, w - lw - rw, rw }
-		for i = 1, 3 do
-			local tex = controlTexture(surface, pool, layer, sublevel)
-			setPiece(tex, parts[i], tint, grey, accent)
-			placePiece(surface, tex, xs[i], y, ws[i], h)
-		end
+		drawSlice(surface, pool, piece.left, layer, sublevel, x, y, lw, h, tint, grey, accent)
+		drawSlice(surface, pool, piece.center, layer, sublevel, x + lw, y, w - lw - rw, h, tint, grey, accent)
+		drawSlice(surface, pool, piece.right, layer, sublevel, x + w - rw, y, rw, h, tint, grey, accent)
 		return
 	end
 	if type(piece) == "table" and piece.top then
 		local th, bh = w / aspectOf(piece.top), w / aspectOf(piece.bottom)
 		local scale = (th + bh > h and h > 0) and h / (th + bh) or 1
 		th, bh = th * scale, bh * scale
-		local parts = { piece.top, piece.middle, piece.bottom }
-		local ys, hs = { y, y + th, y + h - bh }, { th, h - th - bh, bh }
-		for i = 1, 3 do
-			local tex = controlTexture(surface, pool, layer, sublevel)
-			setPiece(tex, parts[i], tint, grey, accent)
-			placePiece(surface, tex, x, ys[i], w, hs[i])
-		end
+		drawSlice(surface, pool, piece.top, layer, sublevel, x, y, w, th, tint, grey, accent)
+		drawSlice(surface, pool, piece.middle, layer, sublevel, x, y + th, w, h - th - bh, tint, grey, accent)
+		drawSlice(surface, pool, piece.bottom, layer, sublevel, x, y + h - bh, w, bh, tint, grey, accent)
 		return
 	end
 	local o = type(piece) == "table" and piece.outset or 0
@@ -1245,7 +1243,7 @@ local function drawControlArt(surface, look, accent, w, h, state)
 	else
 		drawControlPiece(surface, pool, base, 1, FALLBACK_TINT[state] or 1, state == "disabled", tintBy)
 	end
-	for part, point in pairs(art.parts or {}) do
+	for part, point in pairs(art.parts or NO_PARTS) do
 		local piece = asset[part]
 		if piece ~= nil then
 			local pw = h * aspectOf(piece)
