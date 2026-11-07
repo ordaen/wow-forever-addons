@@ -299,6 +299,8 @@ the surface sets it (Ordaen Chat opens its left side and, on the panel, its bott
 ### w:Place() and w:ResetPosition()
 
 `:Place()` puts it where it was left; `:ResetPosition()` forgets that, back to its first place.
+`:HoldBy(point)` anchors it by a corner (`"TOPLEFT"`, ...) where it is now and remembers that, so a change of size
+grows it away from that corner (call it when a resize starts).
 
 ## UI.Input
 

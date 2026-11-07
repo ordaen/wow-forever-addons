@@ -8,6 +8,7 @@
 --     padding = 8 | { top, right, bottom, left },
 --     width = n, minWidth = n, maxWidth = n,   -- optional; without width a top block shrinks to fit
 --     height = n,                   -- optional fixed height
+--     minHeight = n,                -- optional: at least this tall (a page that keeps its size between tabs)
 --     child, child, ...             -- blocks or elements
 --   }
 -- Every child may have: colSpan = n, hidden = true (skipped), align = "left" | "center" | "right" (default:
@@ -377,7 +378,7 @@ function layoutBlock(node, width, ctx, height)
 	end
 
 	r.width = outer
-	r.height = height or (y + padBottom)
+	r.height = height or max(y + padBottom, node.minHeight or 0)
 
 	-- onTop children: over the content box, after the cells (drawn on top), sized by their content.
 	local boxW = outer - padLeft - padRight

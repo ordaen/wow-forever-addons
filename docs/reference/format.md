@@ -17,6 +17,7 @@ A table without `text`, `image`, `separator` or `bar`. Its array part holds the 
 | `minWidth` | number | theme | |
 | `maxWidth` | number | theme | `tooltip`: 25 ems (300 at text size 12) |
 | `height` | number | from content | forces the height |
+| `minHeight` | number | none | at least this tall: the content sits at the top (a page that keeps its height between tabs) |
 | `edges` | `{ top, right, bottom, left }`: `false`, `true` or `{ width, colour }` | the style's | this block's own edges, side by side: `false` none, `true` the style's, or a width and colour. `{ top = false, bottom = false }` keeps only the side edges (buttons in a bar framed by the bar's lines) |
 | `rowAlign` | `"top"`, `"center"`, `"bottom"`, `"stretch"` | top | children in their rows; with `height`, the rows in that height. `"stretch"`: child blocks as tall as their row, so their surfaces and edges line up; a child's own `rowAlign = "center"` puts its content in the middle of it |
 | `hints` | list of strings | none | on a top-level block (a tooltip): what a click or key does, your own locale strings (`L.LEFT_CLICK_OPEN` = "Left-click: open"). Drawn at the bottom as dimmed lines, the same in every tooltip; never add hint lines as children |

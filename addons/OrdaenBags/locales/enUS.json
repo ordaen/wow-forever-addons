@@ -18,5 +18,7 @@
   "TIP_SETTINGS_TEXT": "Open Ordaen Bags' settings.",
   "TIP_FREE": "Free slot",
   "TIP_FREE_TEXT": "Drop an item here to put it in the first free slot.",
-  "TIP_BAG_TEXT": "Hover: its items light up."
+  "TIP_BAG_TEXT": "Hover: its items light up.",
+  "TIP_RESIZE": "Width",
+  "TIP_RESIZE_TEXT": "Drag: more or fewer slots per row."
 }

@@ -53,7 +53,10 @@ local litBag = nil -- the bag whose items the bag strip lights up (hovered)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
 -- the shown tab's page: rows of sections (packed side by side), the free slot last
-local content = { style = "tabPage", columns = { "auto" }, gap = 20 } -- rows of sections: room above each caption
+-- The page: its rows of sections in `body`, room above each caption. The body is as wide as the slots per row and
+-- the page keeps the tallest height it had while the window is open, so changing tabs never resizes the window.
+local body = { columns = { "auto" }, gap = 20, padding = 0 }
+local content = { style = "tabPage", columns = { "auto" }, body }
 local rows = {} -- pool: { columns, gap, sections... } blocks, one per row of sections
 local sections = {} -- pool: { caption, grid } blocks
 local cells = {} -- pool of slot cells, the first `cellsUsed` in use
@@ -217,7 +220,7 @@ local function place(block, w)
 		closeRow()
 		rowCount = rowCount + 1
 		current, inRow, rowWidth = row(rowCount), 0, 0
-		content[rowCount] = current
+		body[rowCount] = current
 	end
 	inRow = inRow + 1
 	current[inRow] = block
@@ -232,6 +235,7 @@ local function layout()
 	end
 	local across = setting("columns", 10)
 	limit = across * SLOT + (across - 1) * SLOT_GAP
+	body.minWidth = limit
 	current, inRow, rowWidth, rowCount = nil, 0, 0, 0
 	local n = Data.Group(selected, groups, setting("sort", "bags"))
 	Slots.HideAll()
@@ -266,8 +270,8 @@ local function layout()
 		place(freeSection, sectionWidth(1, L.FREE))
 	end
 	closeRow()
-	for i = #content, rowCount + 1, -1 do
-		content[i] = nil
+	for i = #body, rowCount + 1, -1 do
+		body[i] = nil
 	end
 	cellsUsed = used
 	for _, tab in ipairs(Categories.TABS) do
@@ -316,6 +320,10 @@ local function onRender()
 		return
 	end
 	local frame = itemsPane.frame
+	local height = frame:GetHeight()
+	if height > (content.minHeight or 0) then
+		content.minHeight = height -- the next tab keeps it (reset when the window closes or the width changes)
+	end
 	for i = 1, cellsUsed do
 		local cell = cells[i]
 		local item = cellItem[cell]
@@ -495,13 +503,49 @@ local function iconButton(style, icon, tip, onClick)
 	})
 end
 
+-- The resize grip: dragging it sideways changes the slots per row (the "columns" setting; onChange relays out). The
+-- window is held by its top left meanwhile, so it grows to the right, under the cursor. The cursor is read per frame
+-- only while the button is held.
+local GRIP = "Interface\\ChatFrame\\UI-ChatIM-SizeGrabber-Up"
+local MIN_COLUMNS, MAX_COLUMNS = 4, 24 -- settings.jsonc "columns"
+local dragFrom, dragColumns -- cursor x (UI units) and the slots per row when the drag began
+
+local function cursorX()
+	return GetCursorPosition() / UIParent:GetEffectiveScale()
+end
+
+local function onGripUpdate()
+	local columns = dragColumns + math.floor((cursorX() - dragFrom) / (SLOT + SLOT_GAP) + 0.5)
+	columns = math.max(MIN_COLUMNS, math.min(MAX_COLUMNS, columns))
+	if columns ~= setting("columns", 10) then
+		ns.Addon:Set("columns", columns)
+	end
+end
+
+local function onGripDown(self)
+	win:HoldBy("TOPLEFT")
+	dragFrom, dragColumns = cursorX(), setting("columns", 10)
+	self.frame:SetScript("OnUpdate", onGripUpdate)
+end
+
+local function onGripUp(self)
+	self.frame:SetScript("OnUpdate", nil)
+	ns.Debug:Logf("bags: resized to %d slots per row", setting("columns", 10))
+end
+
 -- Building the window (first open) ---------------------------------------------------------------------------------
 
 local function onSearch(_, text)
 	C_Container.SetItemSearch(text or "")
 end
 
+local grip -- the resize grip (bottom right of the window)
+
 local function onHidden()
+	content.minHeight = nil
+	if grip then
+		grip.frame:SetScript("OnUpdate", nil) -- closed mid-drag
+	end
 	listen(false)
 	Slots.HideAll()
 	ns.Takeover.WindowHidden()
@@ -618,6 +662,15 @@ local function build()
 	end
 	itemsPane:On("render", onRender)
 	win.frame:HookScript("OnHide", onHidden)
+	grip = UI.Button({
+		parent = win.frame, width = 16, height = 16, padding = 0,
+		tooltip = actionTip(L.TIP_RESIZE, L.TIP_RESIZE_TEXT),
+		on = { mousedown = onGripDown, mouseup = onGripUp },
+		{ image = GRIP, size = 16 },
+	})
+	if grip then
+		grip:SetPoint("BOTTOMRIGHT", win.frame, "BOTTOMRIGHT", -6, 6)
+	end
 	local Debug = ns.Debug
 	if Debug:IsEnabled() then
 		local probe = itemsPane.frame:CreateTexture()
@@ -660,6 +713,7 @@ end
 --- The settings changed (slots per row, the sort order): lay out again if open.
 function View.Relayout()
 	if win and win:IsShown() then
+		content.minHeight = nil -- a new width: the page's height starts over
 		layout()
 	end
 end
@@ -715,7 +769,7 @@ function View.Dump()
 		counts = Data.counts,
 		free = Data.free,
 		items = Data.Count(),
-		rows = #content,
+		rows = #body,
 		shown = win ~= nil and win:IsShown(),
 		controls = controls,
 	}

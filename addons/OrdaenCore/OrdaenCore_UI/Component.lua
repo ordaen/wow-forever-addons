@@ -600,6 +600,25 @@ function Window:Place()
 	placeWindow(self)
 end
 
+--- Hold it by a corner (`"TOPLEFT"`, `"TOPRIGHT"`, `"BOTTOMLEFT"`, `"BOTTOMRIGHT"`) where it is now, and remember
+--- that: when its size changes, it grows away from that corner (Ordaen Bags' resize grip holds the top left).
+---@param point string
+function Window:HoldBy(point)
+	local frame = self.frame
+	local left, bottom, width, height = frame:GetRect()
+	if not left then
+		return -- never drawn yet
+	end
+	local x = point:find("RIGHT") and left + width - UIParent:GetWidth() or left
+	local y = point:find("TOP") and bottom + height - UIParent:GetHeight() or bottom
+	frame:ClearAllPoints()
+	frame:SetPoint(point, UIParent, point, x, y)
+	local saved = windowPositions()
+	if saved then
+		saved[frame:GetName()] = { point, math.floor(x + 0.5), math.floor(y + 0.5) }
+	end
+end
+
 --- Forget where the player left it: it opens at its first place again.
 function Window:ResetPosition()
 	local saved = windowPositions()
