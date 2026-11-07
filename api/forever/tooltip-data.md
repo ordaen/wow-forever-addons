@@ -35,6 +35,7 @@ items, spells and units; dev mode only), then click **Send state** in the Ordaen
 | 20 | binding | `bonding`: 3 = already soulbound («Персональный предмет»), 7 = binds on equip | «Становится персональным при надевании» |
 | 21 | slot · type | left: slot, right: type (empty for rings, trinkets, shirts…); `isValidInvSlot` (false: the slot is red too, e.g. a weapon type you can't train), `isValidItemType` (false: the type is red, you can't use it) | «Одноручное» \| «Дробящее» |
 | 22 | item name | `quality` | «Медная палица» |
+| 33 | «Пассивная» (a passive spell) | none | «Пассивная» |
 | 34 | spell description | `wrapText` | «Воин издает боевой крик…» |
 | 37 | flavour text (the quote) | `isGameInfo` (false) | «"Так про-100, что даже ваша кошка справится."» |
 | 38 | «Использование:» that teaches (a recipe, a pet) | **`spellID`** (the learned spell) | «Использование: Обучает изготовлению яркоглазых очков.» (12587), «Использование: Учит призывать этого спутника.» |
@@ -46,6 +47,20 @@ items, spells and units; dev mode only), then click **Send state** in the Ordaen
 
 Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on two-sided lines `rightText` and
 `rightColor`.
+
+## Spells and units
+
+- **Spell:** name (13; right side: the rank «Уровень 1», empty when unranked), then plain lines: cost («Ярость: 10»,
+  right side: range «Дистанция ближнего боя» when there is one) or range alone («Радиус действия: 8-25 м.»), cast
+  («Мгновенное действие», «Следующая атака»; right side: «Восстановление: 15 сек.»), requirements (43: 9 = weapon,
+  10 = stance; `usable`), «Пассивная» (33), the description (34, gold). An unranked spell may carry an empty plain
+  line after its name («Атака», racials).
+- **Player:** name (2, `unitToken`), the guild (a plain line, only when in one), «<race> <N>-го уровня (игрок)», the
+  class («Друид», feminine forms for women: «Чернокнижница», «Разбойница»), the faction («Альянс»). All plain: no
+  guild, level or class data in the lines; read them from the unit (`unitToken`: `UnitLevel`, `UnitClass`,
+  `GetGuildInfo`, `UnitFactionGroup`).
+- **NPC:** name (2, in its reaction colour), «Уровень 50», its faction («Штормград»), «PvP» (plain).
+- **Pet:** name (2), owner (16, the owner's `guid`), «Уровень 15».
 
 ## What it means for our tooltips
 
@@ -141,4 +156,5 @@ tooltip for an item's stat computes the same numbers for the item's own amount w
 
 ## Still to measure
 
-Class restriction («Классы: …»), reputation requirement; the character tab's texts for a caster class.
+Class restriction («Классы: …»), reputation requirement; the character tab's texts for a caster class; hostile,
+elite, rare, quest and critter NPCs; talents; buffs and debuffs.
