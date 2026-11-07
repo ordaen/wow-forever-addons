@@ -4,8 +4,8 @@ What `tooltip:GetTooltipData()` (and `C_TooltipInfo.*`) returns on Forever, read
 probe, which is part of its dev dump. The API dump in `1.60.1-70790/` lists `Enum.TooltipDataLineType` without values,
 so the numbers below are what the client actually sent. Client: 1.60.1-70790, ruRU, 2026-11-07.
 
-**Re-measuring:** with OrdaenCore_Debug installed, hover what you need (the probe keeps the last tooltip data per kind,
-and the last 20 different items), then click **Send state** in the Ordaen Dev window. `wow_dump OrdaenTooltips` →
+**Re-measuring:** with OrdaenCore_Debug installed, hover what you need (the probe keeps the last 20 different tooltips per kind:
+items, spells and units; dev mode only), then click **Send state** in the Ordaen Dev window. `wow_dump OrdaenTooltips` →
 `takeover.probe` has one line of text per tooltip line, `takeover.strings` has Blizzard's stat strings, and
 `takeover.paperDoll` has the character tab's stat tooltips. Code: `Reader.lastData`, and `probe()` / `paperDoll()` in
 `addons/OrdaenTooltips/Takeover.lua`.

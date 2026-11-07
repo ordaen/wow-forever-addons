@@ -95,22 +95,42 @@ local function readFont(fs, row, side)
 end
 
 -- What Forever's tooltip data holds (kinds, line types and their fields, measured live): api/forever/tooltip-data.md.
---- The last tooltip data the game gave per kind (Enum.TooltipDataType value -> its table), for the dev dump's probe
---- of what Forever's tooltip lines carry (types, arguments: the base for tooltips inside tooltips, 2026-11-07).
+--- The last tooltip data the game gave, for the dev dump's probe of what Forever's tooltip lines carry (types,
+--- arguments: the base for tooltips inside tooltips, 2026-11-07): the last PROBE_KEEP different ones per kind, keyed
+--- "item<id>", "spell<id>", "unit<guid>" or "kind<type>". Dev mode only: players' builds keep nothing.
 Reader.lastData = {}
-Reader.lastItems = {} -- the last PROBE_ITEMS item ids, newest first
-local PROBE_ITEMS = 20
+local recent = {} -- kind -> keys, newest first
+local PROBE_KEEP = 20
 
---- Whether a probe key ("item<id>") is one of the last items.
----@param key string
----@return boolean
-function Reader.IsRecentItem(key)
-	for _, id in ipairs(Reader.lastItems) do
-		if key == "item" .. id then
-			return true
+local function remember(kind, data)
+	local id, guid = data.id, data.guid
+	local key
+	if (kind == 0 or kind == 1) and type(id) == "number" and not isSecret(id) then
+		key = (kind == 0 and "item" or "spell") .. id
+	elseif kind == 2 and type(guid) == "string" and not isSecret(guid) then
+		key = "unit" .. guid
+	else
+		key = "kind" .. kind
+	end
+	local keys = recent[kind]
+	if not keys then
+		keys = {}
+		recent[kind] = keys
+	end
+	if keys[1] ~= key then
+		for i = #keys, 1, -1 do
+			if keys[i] == key then
+				table.remove(keys, i)
+			end
+		end
+		table.insert(keys, 1, key)
+		local old = keys[PROBE_KEEP + 1]
+		if old then
+			keys[PROBE_KEEP + 1] = nil
+			Reader.lastData[old] = nil
 		end
 	end
-	return false
+	Reader.lastData[key] = data -- the game's own table (no copy)
 end
 
 local function safeNumber(value)
@@ -130,28 +150,8 @@ local function readData(tooltip, model)
 		return
 	end
 	model.kind, model.id = safeNumber(data.type), safeNumber(data.id)
-	if model.kind then
-		-- The game's own table, kept for the dev dump's probe (no copy); items: the last few different ones.
-		local key = model.kind
-		if model.kind == 0 and model.id then
-			local seen = Reader.lastItems
-			if seen[1] ~= model.id then
-				for i = #seen, 1, -1 do
-					if seen[i] == model.id then
-						table.remove(seen, i)
-					end
-				end
-				table.insert(seen, 1, model.id)
-				seen[PROBE_ITEMS + 1] = nil
-			end
-			key = "item" .. model.id
-			for k in pairs(Reader.lastData) do
-				if type(k) == "string" and not Reader.IsRecentItem(k) then
-					Reader.lastData[k] = nil
-				end
-			end
-		end
-		Reader.lastData[key] = data
+	if model.kind and ns.Debug:IsEnabled() then
+		remember(model.kind, data)
 	end
 	local lines = data.lines
 	if isSecret(lines) or type(lines) ~= "table" then

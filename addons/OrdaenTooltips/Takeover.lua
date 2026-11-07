@@ -289,7 +289,7 @@ local function probe()
 				entry[string.format("line%02d", i)] = flatten(line, 1)
 			end
 		end
-		out[type(kind) == "number" and "kind" .. kind or tostring(kind)] = entry
+		out[tostring(kind)] = entry
 	end
 	return out
 end
