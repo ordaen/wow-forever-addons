@@ -282,16 +282,19 @@ end)
 
 Switches to the style `states[state]`, or back to `style` for any other state (nil).
 
-### UI.DressFont(target, style)
+### UI.DressFont(target, style, flags)
 
 ```lua
 UI.DressFont(ChatFrame1, "body")
 UI.DressFont(ChatFrame1Tab:GetFontString(), "label")
+UI.DressFont(entry.StatusBar.Name, "body", "OUTLINE") -- text on a coloured bar
 ```
 
 Puts the theme's font and the global text size of text style `style` (default `body`) on Blizzard's own text: a
-FontString, an EditBox or a chat window. Blizzard's font flags stay. When Blizzard sets the font again (the chat
-font size menu), ours comes back, and a theme or text size change re-applies it. Addons never call `SetFont`.
+FontString, an EditBox or a chat window. Blizzard's font flags stay, unless `flags` gives ours: `"OUTLINE"` for
+white text on a coloured bar (a 1 px outline, and no drop shadow then; with a faint scrim under it, the look the
+user picked for bars). When Blizzard sets the font again (the chat font size menu), ours comes back, and a theme
+or text size change re-applies it. Addons never call `SetFont`.
 
 ### UI.Binding(command)
 

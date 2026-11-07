@@ -387,9 +387,11 @@ end
 -- Fonts --------------------------------------------------------------------------------------------------------------
 -- Blizzard's own text (chat lines, tab names, an input) in the theme's font and the global text size. Anything with
 -- SetFont(file, size, flags): a FontString, an EditBox, a chat window. Blizzard setting its font again (the chat
--- font size menu) gets ours back; a theme or text size change re-applies every one (Dress.RefreshFonts).
+-- font size menu) gets ours back; a theme or text size change re-applies every one (Dress.RefreshFonts). Text on a
+-- coloured bar can ask for an outline (flags "OUTLINE"): then it has no drop shadow, the outline does that work.
 
 local fonts = setmetatable({}, { __mode = "k" }) -- target -> text style name
+local fontFlags = setmetatable({}, { __mode = "k" }) -- target -> our font flags ("OUTLINE"), else Blizzard's stay
 local fontHooked = setmetatable({}, { __mode = "k" })
 local applyingFont = false
 
@@ -399,11 +401,14 @@ local function applyFont(target)
 		return
 	end
 	local look = Theme.TextStyle(style)
+	local own = fontFlags[target]
 	local _, _, flags = target:GetFont()
 	applyingFont = true
-	target:SetFont(look.file, look.size, flags or "")
+	target:SetFont(look.file, look.size, own or flags or "")
 	if target.SetShadowOffset then
-		if look.shadow then
+		if own then
+			target:SetShadowOffset(0, 0)
+		elseif look.shadow then
 			target:SetShadowOffset(1, -1)
 			target:SetShadowColor(0, 0, 0, 1)
 		else
@@ -416,8 +421,10 @@ end
 --- Put the theme's font and size for text style `style` (default "body") on Blizzard's `target`, and keep it there.
 ---@param target table a FontString, EditBox or chat window (anything with SetFont/GetFont)
 ---@param style string|nil a text style name (body, label, value, small, ...)
-function Dress.Font(target, style)
+---@param flags string|nil font flags of ours ("OUTLINE": text on a coloured bar); nil keeps Blizzard's
+function Dress.Font(target, style, flags)
 	fonts[target] = style or "body"
+	fontFlags[target] = flags
 	if not fontHooked[target] then
 		fontHooked[target] = true
 		hooksecurefunc(target, "SetFont", applyFont)
