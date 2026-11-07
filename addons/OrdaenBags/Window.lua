@@ -22,7 +22,8 @@ local selected = "all" -- the tab shown (not saved: the window opens on all item
 -- blocks, made once (build)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
-local content = { columns = { "auto" }, gap = "md" } -- the sections of the shown tab
+-- the sections of the shown tab, in Blizzard's inset pane (as the tabs beside it): the two read as separate parts
+local content = { style = "inset", columns = { "auto" }, gap = "md", padding = "md" }
 local sections = {} -- pool: { caption, grid } blocks
 local cells = {} -- pool of slot cells, the first `cellsUsed` in use
 local cellsUsed = 0
@@ -253,7 +254,7 @@ local function build()
 	if not (search and sort and close) then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end
-	local tabs = { columns = { "auto" }, gap = "xs" }
+	local tabs = { style = "inset", columns = { "auto" }, gap = "xs", padding = "sm" }
 	for i, tab in ipairs(Categories.TABS) do
 		local label = { format = "%s (%d)", args = { _G[tab.label] or tab.id, 0 } }
 		tabTexts[tab.id] = label
@@ -279,7 +280,8 @@ local function build()
 	}
 	local footer = { colSpan = 2, columns = { "1fr", "auto" }, gap = "md", freeText, moneyText }
 	win = UI.Window({
-		name = "OrdaenBagsWindow", columns = { "auto", "auto" }, gap = "md",
+		-- the tabs as wide as their labels, the items pane takes the rest; room inside the window's frame
+		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = "md", padding = { 28, "lg", "lg", "lg" },
 		header, tabs, content, footer,
 	}, { point = "BOTTOMRIGHT", x = -80, y = 120 })
 	if not win then
