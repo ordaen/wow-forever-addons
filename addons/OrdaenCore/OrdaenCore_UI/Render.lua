@@ -484,12 +484,7 @@ local function newBar(surface)
 	b.label:SetWordWrap(false)
 	b.ticks = {} -- the section lines, made on first use
 	b.glints = {} -- the faint light line beside each (engraved sections), made on first use
-	-- The scrim under the label: a faint dark gradient from the middle out, over the parts and under the text.
-	b.scrimLeft = b.value:CreateTexture(nil, "ARTWORK", nil, 6)
-	b.scrimLeft:SetTexture(WHITE)
-	b.scrimRight = b.value:CreateTexture(nil, "ARTWORK", nil, 6)
-	b.scrimRight:SetTexture(WHITE)
-	b.scrimDark, b.scrimClear = CreateColor(0, 0, 0, 0), CreateColor(0, 0, 0, 0)
+	-- b.scrimLeft, b.scrimRight, b.scrimDark, b.scrimClear: the scrim under the label, made on first use
 	-- After a wrap ran to the end: start again from the bottom (made once per bar, not per draw).
 	b.wrap = function()
 		if b.wrapTo then
@@ -674,11 +669,18 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 		b.label:ClearAllPoints()
 		b.label:SetPoint("CENTER", b.value, "CENTER", 0, 0)
 		b.label:Show()
-		-- The scrim: over the middle 60 % of the bar, darkest under the text, so white outlined text reads on any
-		-- colour (the look the user picked for text on bars).
+		-- The scrim: a faint dark gradient from the middle out over the theme's share of the bar, darkest under the
+		-- text, so white outlined text reads on any colour (the look the user picked for text on bars).
 		local scrim = look.scrim
 		if scrim and scrim > 0 then
-			local half = floor(w * 0.3 / px + 0.5) * px
+			if not b.scrimLeft then
+				b.scrimLeft = b.value:CreateTexture(nil, "ARTWORK", nil, 6)
+				b.scrimLeft:SetTexture(WHITE)
+				b.scrimRight = b.value:CreateTexture(nil, "ARTWORK", nil, 6)
+				b.scrimRight:SetTexture(WHITE)
+				b.scrimDark, b.scrimClear = CreateColor(0, 0, 0, 0), CreateColor(0, 0, 0, 0)
+			end
+			local half = floor(w * (look.scrimWidth or 0.6) / 2 / px + 0.5) * px
 			b.scrimDark:SetRGBA(0, 0, 0, scrim)
 			b.scrimLeft:ClearAllPoints()
 			b.scrimLeft:SetPoint("TOPRIGHT", b.value, "TOP", 0, 0)
@@ -690,14 +692,16 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 			b.scrimRight:SetGradient("HORIZONTAL", b.scrimDark, b.scrimClear)
 			b.scrimLeft:Show()
 			b.scrimRight:Show()
-		else
+		elseif b.scrimLeft then
 			b.scrimLeft:Hide()
 			b.scrimRight:Hide()
 		end
 	else
 		b.label:Hide()
-		b.scrimLeft:Hide()
-		b.scrimRight:Hide()
+		if b.scrimLeft then
+			b.scrimLeft:Hide()
+			b.scrimRight:Hide()
+		end
 	end
 end
 

@@ -37,7 +37,7 @@ local Theme = {
 	blocks = {}, ---@type table<string, table> style role -> resolved look (numbers, no tokens)
 	text = {}, ---@type table<string, OrdaenUIResolvedText> text style -> resolved look
 	separators = {}, ---@type table<string, OrdaenUISeparatorLook> rule, divider, caption
-	bar = {}, -- { height, track, trackBottom, edge, fill, frames, frame, recessed, shade, tick, scrim, ahead }
+	bar = {}, -- { height, track, trackBottom, edge, fill, frames, frame, recessed, shade, tick, scrim, scrimWidth, ahead }
 	accent = nil, ---@type number[]|nil the theme's accent, for blocks without their own
 }
 ns.Theme = Theme
@@ -222,6 +222,7 @@ THEMES.ordaen = {
 		shade = { 0, 0, 0, 0.45 }, -- the inner shadow under the track's top edge, fading over 3 px
 		tick = { { 0, 0, 0, 0.47 }, { 1, 0.94, 0.82, 0.11 } }, -- engraved sections: a dark line, a faint light one
 		scrim = 0.38, -- the faint dark gradient under a bar's text (its middle), so white outlined text reads
+		scrimWidth = 0.6, -- the share of the bar's width it spreads over, from the middle out
 		ahead = 0.5, -- how strong the part ahead of the value (rested) is drawn: the value's colour, fainter
 	},
 }
@@ -340,6 +341,7 @@ function Theme.Apply(name, textSize)
 	Theme.bar = {
 		height = space(bar.height), track = bar.track, trackBottom = bar.trackBottom, edge = bar.edge, fill = bar.fill,
 		frames = bar.frames, recessed = bar.recessed, shade = bar.shade, tick = bar.tick, scrim = bar.scrim,
+		scrimWidth = bar.scrimWidth,
 		ahead = bar.ahead,
 		-- The construction (ui.barFrame, while the player compares them): a key of `frames`, else the plain edge.
 		frame = bar.frames and bar.frames[chosen or "bezel"] and (chosen or "bezel") or nil,
