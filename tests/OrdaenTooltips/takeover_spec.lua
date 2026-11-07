@@ -196,6 +196,56 @@ describe("Ordaen Tooltips", function()
 		assert.same({ "BOTTOMRIGHT", tooltip, "BOTTOMRIGHT" }, view.calls.SetPoint[#view.calls.SetPoint])
 	end)
 
+	it("puts a comparison tooltip edge to edge with ours, on the side Blizzard chose, whatever its offsets", function()
+		local shopping = stub("ShoppingTooltip1", {
+			NumLines = function()
+				return 1
+			end,
+			GetLeftLine = function()
+				return line("Fishing Pole")
+			end,
+			GetRightLine = function()
+				return line("")
+			end,
+			-- Blizzard's anchor: left of GameTooltip, its offset from the natives' widths
+			GetPoint = function()
+				return "TOPRIGHT", tooltip, "TOPLEFT", -37, -12
+			end,
+			GetCenter = function()
+				return 100, 500
+			end,
+			IsForbidden = function()
+				return false
+			end,
+			FadeOut = function() end,
+		})
+		tooltip.GetCenter = function()
+			return 300, 500
+		end
+		rawset(_G, "ShoppingTooltip1", shopping)
+		ns = {}
+		helpers.loadAddon("OrdaenTooltips", ns)
+		fire("ADDON_LOADED", "OrdaenTooltips")
+		fire("PLAYER_LOGIN")
+		show({ { "Blacksmith Hammer" } })
+		shopping:Show()
+		local view = frameNamed("OrdaenTooltipsShoppingTooltip1")
+		local main
+		for _, f in ipairs(frames) do
+			if f.name == "OrdaenTooltipsGameTooltip" then
+				main = f -- the newest GameTooltip view (the addon was loaded twice)
+			end
+		end
+		assert.is_truthy(view, "a view for the comparison tooltip")
+		local point = view.calls.SetPoint[#view.calls.SetPoint]
+		assert.equals("TOPRIGHT", point[1])
+		assert.equals("TOPLEFT", point[3])
+		assert.equals(0, point[4])
+		assert.equals(0, point[5])
+		assert.is_truthy(point[2] == main or (type(point[2]) == "table" and point[2] ~= shopping),
+			"anchored to our GameTooltip view, not the native")
+	end)
+
 	it("hides ours with the native one", function()
 		show({ { "Hogger" } })
 		tooltip:Hide()

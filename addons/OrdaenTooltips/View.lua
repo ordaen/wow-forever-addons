@@ -151,7 +151,7 @@ function ViewMethods:Fill(model, owner)
 end
 
 --- Put the view where the native tooltip is. A native anchored to another native we draw (the comparison tooltips
---- next to GameTooltip) is anchored to that one's view, so the pair lines up with our sizes; otherwise the view
+--- next to GameTooltip) goes edge to edge with that one's view, on the same side; otherwise the view
 --- takes the native's own corner, so it grows the same way.
 --- With `beside` (a micro or action button, setting "beside buttons"), it goes next to that button instead: above it
 --- in the lower half of the screen, below it in the upper half.
@@ -179,7 +179,17 @@ function ViewMethods:Follow(native, viewOf, beside)
 	end
 	local other = relativeTo and viewOf(relativeTo)
 	if type(point) == "string" and other and other ~= self then
-		c:SetPoint(point, other.component.frame, relativePoint, x, y)
+		-- A comparison tooltip: Blizzard's offsets come from the natives' widths (ours differ, and the view it hangs
+		-- from may sit beside a button instead), so copying them overlapped the views (the user, 2026-11-07). Ours
+		-- goes edge to edge with that view, tops aligned, on the side Blizzard chose (from the natives' centres).
+		local myX = native:GetCenter()
+		local otherX = relativeTo:GetCenter()
+		local left = not (isSecret(myX) or isSecret(otherX)) and myX and otherX and myX < otherX
+		if left then
+			c:SetPoint("TOPRIGHT", other.component.frame, "TOPLEFT", 0, 0)
+		else
+			c:SetPoint("TOPLEFT", other.component.frame, "TOPRIGHT", 0, 0)
+		end
 	elseif type(point) == "string" then
 		c:SetPoint(point, native, point)
 	else
