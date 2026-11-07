@@ -1,5 +1,13 @@
 {
   "SETTINGS_TITLE": "Ordaen Tooltips",
   "BESIDE_BUTTONS": "Tooltips beside their buttons",
-  "BESIDE_BUTTONS_TOOLTIP": "Micro menu and action bar tooltips show next to the button. Off: where Blizzard puts them."
+  "BESIDE_BUTTONS_TOOLTIP": "Micro menu and action bar tooltips show next to the button. Off: where Blizzard puts them.",
+  "STAT_RANGE": "Range",
+  "STAT_CAST": "Cast",
+  "STAT_COOLDOWN": "Cooldown",
+  "STAT_YARDS": "%s yd",
+  "STAT_SECONDS": "%s sec",
+  "STAT_MINUTES": "%s min",
+  "STAT_HOURS": "%s h",
+  "STAT_DAYS": "%s d"
 }

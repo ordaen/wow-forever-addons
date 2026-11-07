@@ -2,6 +2,7 @@
 -- Reader's model and the Layouts' decisions on each show.
 --   header   the theme's header band: an icon when the kind has one (items, spells), the title (the first line, in
 --            its colour: an item's quality, a unit's reaction, which is also the tooltip's accent), a subtitle
+--   stats    a spell's cost, range, cast time and cooldown in columns, a value over its caption (Layouts)
 --   rows     the other lines: left text, and right text when there is one; a blank line is a small gap; a divider
 --            before the lines other addons added
 --   bar      the unit health bar
@@ -11,7 +12,17 @@ local View = {}
 ns.View = View
 
 local UI = OrdaenCore.UI
-local Reader, Layouts, Owner = ns.Reader, ns.Layouts, ns.Owner
+local Reader, Layouts, Owner, SpellStats = ns.Reader, ns.Layouts, ns.Owner, ns.SpellStats
+
+-- The section's tracks for 1..4 columns (made once).
+local STAT_COLUMNS = {}
+for n = 1, #SpellStats.ORDER do
+	STAT_COLUMNS[n] = {}
+	for i = 1, n do
+		STAT_COLUMNS[n][i] = "1fr"
+	end
+end
+local FIRST_CELL = { left = false } -- the first shown column has no line on its left
 
 local isSecret = issecretvalue or function()
 	return false
@@ -32,6 +43,8 @@ local NO_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 ---@field header OrdaenUIHeader
 ---@field rows OrdaenTooltipsRowView[]
 ---@field bar OrdaenUIBar
+---@field stats OrdaenUIBlock the spell section
+---@field statCells table<string, { cell: OrdaenUIBlock, value: OrdaenUIText, caption: OrdaenUIText }>
 local ViewMethods = {}
 local ViewMeta = { __index = ViewMethods }
 
@@ -41,6 +54,16 @@ local ViewMeta = { __index = ViewMethods }
 function View.New(name)
 	local header = UI.Header({ title = "", subtitle = "", icon = NO_ICON, iconSize = ICON_SIZE, texCoord = ICON_CROP })
 	local spec = { name = name, parent = UIParent, strata = "TOOLTIP", style = "tooltip", header }
+	local stats = { columns = STAT_COLUMNS[#SpellStats.ORDER], padding = { "sm", 0, 0, 0 }, hidden = true }
+	local statCells = {}
+	for i, stat in ipairs(SpellStats.ORDER) do
+		local value = { format = "%s", args = { "" }, style = "value", align = "center" }
+		local caption = { text = "", style = "caption", align = "center" }
+		local cell = { style = "stat", hidden = true, value, caption }
+		stats[i] = cell
+		statCells[stat] = { cell = cell, value = value, caption = caption }
+	end
+	spec[#spec + 1] = stats
 	local rows = {}
 	for i = 2, Reader.MAX_ROWS do
 		local divider = { separator = "divider", colSpan = 2, hidden = true }
@@ -58,7 +81,8 @@ function View.New(name)
 	end
 	component:SetClampedToScreen(true)
 	component:Hide()
-	return setmetatable({ component = component, header = header, rows = rows, bar = bar }, ViewMeta)
+	return setmetatable({ component = component, header = header, rows = rows, bar = bar, stats = stats,
+		statCells = statCells }, ViewMeta)
 end
 
 -- Spacing before a row that follows a blank line (other addons separate their sections with one).
@@ -93,6 +117,18 @@ end
 function ViewMethods:Fill(model, owner)
 	local layout = Layouts.Decide(model)
 	fillHeader(self, model, layout, owner)
+	local n = 0
+	for _, stat in ipairs(SpellStats.ORDER) do
+		local s, c = layout.stats[stat], self.statCells[stat]
+		c.cell.hidden = not s.shown
+		if s.shown then
+			n = n + 1
+			c.value.format, c.value.args[1], c.caption.text = s.format, s.arg, s.caption
+			c.cell.edges = n == 1 and FIRST_CELL or nil
+		end
+	end
+	self.stats.hidden = n == 0
+	self.stats.columns = STAT_COLUMNS[math.max(n, 1)]
 	local gap = false
 	for i = 2, Reader.MAX_ROWS do
 		local view = self.rows[i]

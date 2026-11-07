@@ -14,6 +14,7 @@ How themes work: [Themes](/guide/themes).
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only |
 | `keycap` | a tooltip's hotkey (`hotkey` on the block) | small dark key with accent edges |
+| `stat` | a column of key numbers (a spell's cost, range, cast, cooldown) | a hairline on its left |
 | `panel` | a box holding other things (the minimap drawer) | tooltip surface |
 | `input` | a text input over other text (the chat input) | opaque tooltip surface |
 | `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge |

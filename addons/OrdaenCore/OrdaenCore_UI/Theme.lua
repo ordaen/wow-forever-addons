@@ -105,6 +105,11 @@ THEMES.ordaen = {
 			highlight = { color = { 1, 0.92, 0.75, 0.14 } },
 		},
 		slot = { padding = 3, highlight = { color = { 1, 0.92, 0.75, 0.16 } } },
+		-- A column of a section of key numbers (a spell's cost, range, cast, cooldown): a hairline on its left.
+		stat = {
+			padding = { "xs", "sm", "xs", "sm" },
+			edges = { left = { 1, { 1, 1, 1, 0.08, accent = 0.25 } } },
+		},
 		-- A key binding at the bottom of a tooltip (`hotkey` on the block): a small key cap.
 		keycap = {
 			padding = { 1, "sm", 1, "sm" },

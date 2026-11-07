@@ -1,5 +1,13 @@
 {
   "SETTINGS_TITLE": "Ordaen Tooltips",
   "BESIDE_BUTTONS": "Подсказки у кнопок",
-  "BESIDE_BUTTONS_TOOLTIP": "Подсказки микроменю и панелей команд появляются у кнопки. Выключено: там, где их показывает Blizzard."
+  "BESIDE_BUTTONS_TOOLTIP": "Подсказки микроменю и панелей команд появляются у кнопки. Выключено: там, где их показывает Blizzard.",
+  "STAT_RANGE": "Дальность",
+  "STAT_CAST": "Применение",
+  "STAT_COOLDOWN": "Восстановление",
+  "STAT_YARDS": "%s м",
+  "STAT_SECONDS": "%s сек.",
+  "STAT_MINUTES": "%s мин.",
+  "STAT_HOURS": "%s ч",
+  "STAT_DAYS": "%s дн."
 }

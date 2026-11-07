@@ -150,6 +150,11 @@ describe("Ordaen Tooltips", function()
 			issecretvalue = function(v)
 				return secrets[v] == true
 			end,
+			-- Blizzard's spell lines (enUS).
+			MANA = "Mana", MANA_COST = "%d Mana", RAGE = "Rage", RAGE_COST = "%d Rage",
+			SPELL_RANGE = "%s yd range", MELEE_RANGE = "Melee Range", MELEE = "Melee",
+			SPELL_CAST_TIME_SEC = "%.3g sec cast", SPELL_CAST_TIME_INSTANT = "Instant", SPELL_ON_NEXT_SWING = "Next melee",
+			SPELL_RECAST_TIME_SEC = "%.3g sec cooldown",
 			-- The player's key bindings: command -> key.
 			GetBindingKey = function(command)
 				return bindings[command]
@@ -226,6 +231,30 @@ describe("Ordaen Tooltips", function()
 		assert.equals(135349, d.icon)
 		assert.equals("25000c", d.price)
 		assert.equals(5, d.dividerAt)
+	end)
+
+	it("puts a spell's cost, range, cast and cooldown in columns under the title, out of its lines", function()
+		data = { type = 1, id = 133, lines = { {}, {}, {}, {} } }
+		show({
+			{ "Fireball" },
+			{ "30 Mana", "35 yd range" },
+			{ "3.5 sec cast", "6 sec cooldown" },
+			{ "Hurls a fiery ball that causes 50 Fire damage." },
+		})
+		local d = ns.Takeover.Describe().GameTooltip
+		assert.same({ "30 / Mana", "35 yd / Range", "3.5 sec / Cast", "6 sec / Cooldown" }, d.stats)
+		assert.equals(1, d.shownRows, "only the description is left as a line")
+	end)
+
+	it("shows only the stats a spell has, wordy ones as Blizzard writes them", function()
+		data = { type = 1, id = 78, lines = { {}, {}, {}, {} } }
+		show({ { "Heroic Strike" }, { "15 Rage", "Melee Range" }, { "Next melee" }, { "A strong attack." } })
+		local d = ns.Takeover.Describe().GameTooltip
+		assert.same({ "15 / Rage", "Melee / Range", "Next melee / Cast" }, d.stats)
+		data = { type = 0, id = 19019, lines = { {}, {} } }
+		tooltip:Hide()
+		show({ { "Thunderfury" }, { "Item Level 80" } })
+		assert.is_false(ns.Takeover.Describe().GameTooltip.stats, "no section on an item")
 	end)
 
 	it("shows a unit's level line as its subtitle and no icon", function()

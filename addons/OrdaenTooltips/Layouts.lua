@@ -2,7 +2,8 @@
 -- view draws the result; the rows stay the native tooltip's own lines, in their order.
 --
 --   items   the item's icon; its name in the quality colour (the accent); the item level as the subtitle
---   spells  the spell's icon
+--   spells  the spell's icon; cost, range, cast time and cooldown in a section under the title (SpellStats.lua),
+--           out of the rows
 --   units   the name in its reaction or class colour; the level/race/class line as the subtitle
 --   other   the first line as the title
 -- For every kind, the lines other addons added (after the game's own, per the tooltip data) start after a divider.
@@ -18,7 +19,20 @@ ns.Layouts = Layouts
 ---@field subtitle string|false
 ---@field skip table<integer, boolean> rows shown in the header instead
 ---@field extrasFrom integer|false the first row another addon added
-local result = { icon = false, subtitle = false, skip = {}, extrasFrom = false }
+---@field stats table<string, OrdaenTooltipsStat> a spell's section under the title, by stat (SpellStats.ORDER)
+local result = { icon = false, subtitle = false, skip = {}, extrasFrom = false, stats = {} }
+
+---@class OrdaenTooltipsStat
+---@field shown boolean
+---@field format string the value's format ("%s yd")
+---@field arg string the number in it
+---@field caption string
+for _, stat in ipairs(ns.SpellStats.ORDER) do
+	result.stats[stat] = { shown = false, format = "%s", arg = "", caption = "" }
+end
+
+-- A spell's stats sit in its first lines, both sides ("30 Mana" | "30 yd range", "1.5 sec cast" | "6 sec cooldown").
+local STAT_ROWS = 5
 
 -- "Item Level %d" -> "^Item Level (%d+)$", once per client language.
 local function patternOf(format)
@@ -53,8 +67,29 @@ local function item(model)
 	end
 end
 
+local function stat(text)
+	local rule, number = ns.SpellStats.Parse(text)
+	if not rule then
+		return false
+	end
+	local s = result.stats[rule.stat]
+	if not s.shown then -- the first line naming a stat wins
+		s.shown, s.format, s.arg, s.caption = true, rule.format, number, rule.caption
+	end
+	return true
+end
+
 local function spell(model)
 	result.icon = C_Spell.GetSpellTexture(model.id) or false
+	for i = 2, math.min(STAT_ROWS, model.count) do
+		local row = model.rows[i]
+		local left = row.left ~= "" and stat(row.left)
+		local right = row.right ~= "" and stat(row.right)
+		-- The row moves to the section only when everything in it is a stat.
+		if (left or right) and (row.left == "" or left) and (row.right == "" or right) then
+			result.skip[i] = true
+		end
+	end
 end
 
 local function unit(model)
@@ -74,6 +109,9 @@ function Layouts.Decide(model)
 		skip[k] = nil
 	end
 	result.icon, result.subtitle = false, false
+	for _, s in pairs(result.stats) do
+		s.shown = false
+	end
 	local T = types()
 	local kind = model.kind
 	if T and kind and model.id then

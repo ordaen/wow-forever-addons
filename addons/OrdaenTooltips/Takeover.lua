@@ -173,6 +173,16 @@ function Takeover.Describe()
 	for native, state in pairs(states) do
 		local view, model = state.view, state.model
 		local header = view.header
+		local stats, shownRows = {}, 0
+		for _, stat in ipairs(ns.SpellStats.ORDER) do
+			local c = view.statCells[stat]
+			if not c.cell.hidden then
+				stats[#stats + 1] = c.value.format:format(c.value.args[1]) .. " / " .. c.caption.text
+			end
+		end
+		for _, row in pairs(view.rows) do
+			shownRows = shownRows + (row.block.hidden and 0 or 1)
+		end
 		local divider = false
 		for i, row in pairs(view.rows) do
 			if not row.block.hidden and not row.divider.hidden then
@@ -185,6 +195,7 @@ function Takeover.Describe()
 			icon = not header[1].hidden and header.iconImage.image or false, dividerAt = divider,
 			price = model.priceRow and model.rows[model.priceRow].right or false,
 			hotkey = view.component.block.hotkey or false,
+			stats = not view.stats.hidden and stats or false, shownRows = shownRows,
 		}
 	end
 	return out
