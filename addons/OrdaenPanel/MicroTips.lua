@@ -193,6 +193,36 @@ local function talents()
 		end
 		Debug:Logf("micro tip talents: config %s, tree %s, %d nodes, %d sub-trees, %d ranks outside them; currencies %s",
 			tostring(configID), tostring(treeID), #nodes, #subTreeOrder, loose, table.concat(currencies, "; "))
+		-- where Forever keeps Arms / Fury / Protection: node groups, or columns of one tree (dev probe)
+		local function fields(t)
+			local out = {}
+			for k, v in pairs(type(t) == "table" and t or {}) do
+				out[#out + 1] = tostring(k) .. "=" .. (type(v) == "table" and ("{" .. table.concat(v, ",") .. "}")
+					or tostring(v))
+			end
+			table.sort(out)
+			return table.concat(out, " ")
+		end
+		for i, group in ipairs(treeID and C_Traits.GetGroupDisplayInfoByTreeID(treeID) or {}) do
+			Debug:Logf("micro tip talents: group %d: %s", i, fields(group))
+		end
+		for _, nodeID in ipairs(nodes) do
+			local node = C_Traits.GetNodeInfo(configID, nodeID)
+			if node and (node.ranksPurchased or 0) > 0 then
+				Debug:Logf("micro tip talents: node %d ranks %d posX %s posY %s groups {%s} subTree %s", nodeID,
+					node.ranksPurchased, tostring(node.posX), tostring(node.posY),
+					table.concat(node.groupIDs or {}, ","), tostring(node.subTreeID))
+			end
+		end
+		local xs = {}
+		for _, nodeID in ipairs(nodes) do
+			local node = C_Traits.GetNodeInfo(configID, nodeID)
+			if node and node.posX then
+				xs[#xs + 1] = node.posX
+			end
+		end
+		table.sort(xs)
+		Debug:Logf("micro tip talents: node posX from %s to %s", tostring(xs[1]), tostring(xs[#xs]))
 	end
 	return finish()
 end
