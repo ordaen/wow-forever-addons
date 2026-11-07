@@ -317,6 +317,20 @@ describe("Ordaen Reskin", function()
 		rawset(_G, "PawnButton", nil)
 	end)
 
+	it("dresses Forever's push buttons, whose middle slice is Center (the game menu's, AddOn List's), and hides it",
+		function()
+			local button = control("Menu.Button", "Button", { "Left", "Center", "Right" })
+			windows.CharacterFrame.children = { button }
+			load()
+			assert.equals("pushButton", dressed[button].spec.style)
+			assert.truthy(names(dressed[button].spec.art)[1])
+			local hidden = {}
+			for _, name in ipairs(names(dressed[button].spec.art)) do
+				hidden[name] = true
+			end
+			assert.truthy(hidden["Menu.Button.Center"], "the Center slice is Blizzard art the dress hides")
+		end)
+
 	it("leaves a control alone while the theme has no role for it", function()
 		styles.checkbox = nil
 		local check = control("Check", "CheckButton")

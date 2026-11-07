@@ -66,7 +66,7 @@ function Kit.AddRegions(art, frame)
 	end
 end
 
-local SLICE_PARTS = { "Left", "Middle", "Right" }
+local SLICE_PARTS = { "Left", "Middle", "Center", "Right" } -- Forever's push buttons (game menu, AddOn List) name the middle Center
 local TAB_PARTS = {
 	"Left", "Middle", "Right", "LeftActive", "MiddleActive", "RightActive", "LeftHighlight", "MiddleHighlight",
 	"RightHighlight", "LeftDisabled", "MiddleDisabled", "RightDisabled",
@@ -246,7 +246,7 @@ function Kit.Classify(frame)
 			return "Dropdown"
 		elseif rawget(frame, "LeftActive") or rawget(frame, "MiddleActive") then
 			return "Tab"
-		elseif rawget(frame, "Left") and rawget(frame, "Middle") and rawget(frame, "Right") then
+		elseif rawget(frame, "Left") and (rawget(frame, "Middle") or rawget(frame, "Center")) and rawget(frame, "Right") then
 			return "Button"
 		end
 	elseif kind == "Frame" and rawget(frame, "NineSlice") and rawget(frame, "Bg") then
