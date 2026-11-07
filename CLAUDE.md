@@ -149,10 +149,34 @@ docs/                           OrdaenCore.UI docs site (VitePress, own package.
 .github/workflows/release.yml   release-please, then package + upload per released addon
 ```
 
+## Ordaen: one addon, modules (user's decision, 2026-11-07)
+
+Like EllesmereUI, but the modules load on demand. Reference (the approved look and the inventory): the preview
+`%LOCALAPPDATA%\OrdaenCompanion\preview\settings\index.html` (served by the companion at `/preview/settings/`).
+
+- **Ordaen** (today's `OrdaenCore`, folder name unchanged) is the one addon the player installs: always loaded and
+  small. It holds the shared code, the **global settings** and the one **Ordaen settings window** (`/ordaen`; each
+  module's slash command and gear open it on that module's page). Blizzard's Settings → AddOns keeps one short Ordaen
+  page with a button that opens our window.
+- Every other addon (`OrdaenBags`, `OrdaenPanel`, ...) is a **module**: `LoadOnDemand: 1`, depends on OrdaenCore,
+  its SavedVariables load with it. At startup Ordaen loads the modules that are on (`C_AddOns.LoadAddOn`, each in
+  its own protected call) from its own ADDON_LOADED, so before PLAYER_LOGIN: modules that take over Blizzard frames
+  (Panel, Reskin, Minimap, Chat) must be in place before Edit Mode and other addons lay things out. Turning a module on loads it at once; turning one off needs a /reload (code can't be
+  unloaded; the reload goes through a secure button, rule 7). A module that is off costs nothing.
+- No module calls another's code; links go through Ordaen (Shared.lua items, EventRegistry events), so any module
+  can be off while the others run (inventory 2026-11-07: true for every module today). Keep it that way.
+- Modules follow the **globals** (theme, fonts, text size, scale, spacing, colours, bar textures, animations, ...):
+  a module's look setting defaults to "as in the globals" and may be overridden for that module only.
+- **Themes:** Ordaen, Blizzard and Minimalism are all listed from the start; the last two show as "in development"
+  and can't be picked until built (this replaces "only Ordaen is offered").
+- **Release:** one CurseForge project and one zip with every module folder (packaging: TODO in the CLI).
+- Open: module on/off per account or per character (with profiles); which new globals to add.
+
 ## Branding
 
 Every addon is named `Ordaen<Name>` (folder, .toc, globals) with TOC title `Ordaen <Name>`, so CurseForge search
-finds them all. One CurseForge project per addon (no pack). Every addon sets `"category"` in its addon.jsonc; the
+finds them all. One CurseForge project, **Ordaen**, ships every module in one zip (the user's decision, 2026-11-07;
+see "Ordaen: one addon, modules"). Every addon sets `"category"` in its addon.jsonc; the
 build writes `## Category:` plus the localized `## Category-xxXX:` lines from `ordaen.jsonc`. Pick the category
 from `addon-categories.json` (the Warcraft Wiki's list with every translation; the user's decision, 2026-11-07: the
 in-game list groups by exact text, so these names share a group with other addons in every language) and copy its
@@ -233,7 +257,8 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   pending invite), not decoration; `accent = { r, g, b }` on a block tints it for meaning (quality, PvP).
 - **Themes** (user's decision, 2026-11-07): three are planned: `ordaen` (Blizzard's classic look with a nicer style,
   the default), `blizzard` (mostly Blizzard's default) and `minimal` (little to no textures). **Only Ordaen is built
-  now**; the other two are unimplemented: not in themes.jsonc, not offered in settings, no work spent on their looks.
+  now**; the other two are listed in the settings as "in development" and can't be picked (user's decision,
+  2026-11-07); they're not in themes.jsonc and no work is spent on their looks yet.
   The earlier rule, kept for when they come back: our own `ordaen` look is the default (flat surfaces
   drawn without art, tinted by an accent; approach credited to PrettyTooltip, values our own), `blizzard` (Blizzard's
   art and shadowed text) is an option, and `minimal` (flat, hairlines, no effects) is the third. Every theme defines
