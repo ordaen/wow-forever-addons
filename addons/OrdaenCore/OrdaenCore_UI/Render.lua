@@ -886,6 +886,51 @@ local BORDER_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "
 local artShown = setmetatable({}, { __mode = "k" }) -- surface -> the frameArt it shows
 local artOpen = setmetatable({}, { __mode = "k" }) -- surface -> the open sides it was drawn with (bits)
 local artFills = setmetatable({}, { __mode = "k" }) -- surface -> its fill texture
+-- surface -> how its fill covers it, for a background that doesn't tile: { atlas, x, y (the insets, together), w, h
+-- (the size last fitted) }
+local artFits = setmetatable({}, { __mode = "k" })
+
+-- An atlas's size and texture coordinates (C_Texture.GetAtlasInfo), once per atlas; false when the game has none.
+local atlasCache = {}
+local function atlasOf(name)
+	local cached = atlasCache[name]
+	if cached == nil then
+		local info = C_Texture.GetAtlasInfo(name)
+		cached = info and info.width and info.width > 0 and info.height > 0 and {
+			info.width / info.height, info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord,
+		} or false
+		atlasCache[name] = cached
+	end
+	return cached
+end
+
+-- Cover-fit: a background that doesn't tile fills the surface at its own aspect, cropped at the long sides (centred),
+-- never stretched. Redone only when the size changes; a secret size (combat numbers) is left as it was.
+local function fitFill(surface, width, height)
+	local fit = artFits[surface]
+	if not fit or issecretvalue(width) or issecretvalue(height) then
+		return
+	end
+	local w, h = width - fit.x, height - fit.y
+	if w <= 0 or h <= 0 or (w == fit.w and h == fit.h) then
+		return
+	end
+	fit.w, fit.h = w, h
+	local atlas = atlasOf(fit.atlas)
+	if not atlas then
+		return
+	end
+	local aspect, l, r, t, b = atlas[1], atlas[2], atlas[3], atlas[4], atlas[5]
+	local surfaceAspect = w / h
+	if surfaceAspect > aspect then -- wider than the art: its full width, a band of its height
+		local cut = (b - t) * (1 - aspect / surfaceAspect) / 2
+		t, b = t + cut, b - cut
+	else -- taller: its full height, a band of its width
+		local cut = (r - l) * (1 - surfaceAspect / aspect) / 2
+		l, r = l + cut, r - cut
+	end
+	artFills[surface]:SetTexCoord(l, r, t, b)
+end
 local artAbove = setmetatable({}, { __mode = "k" }) -- surface -> the frame its border goes above (a dressed window)
 local artOverlays = setmetatable({}, { __mode = "k" }) -- surface -> the overlay frame holding its border
 
@@ -982,7 +1027,7 @@ local function openSides(holder, bits)
 	end
 end
 
-local function drawFrameArt(surface, look, accent, open)
+local function drawFrameArt(surface, look, accent, open, width, height)
 	local art = look and look.frameArt or nil
 	local shown = artShown[surface]
 	local holder = borderHolder(surface)
@@ -1039,11 +1084,16 @@ local function drawFrameArt(surface, look, accent, open)
 			fill:SetPoint("TOPLEFT", surface, "TOPLEFT", l, -t)
 			fill:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -r, b)
 			fill:Show()
+			artFits[surface] = background.atlas and not background.tile
+				and { atlas = background.atlas, x = l + r, y = t + b } or nil
+		else
+			artFits[surface] = nil
 		end
 	end
 	if not art then
 		return
 	end
+	fitFill(surface, width, height)
 	local r, g, b = 1, 1, 1
 	if accent then
 		r, g, b = accent[1], accent[2], accent[3]
@@ -1186,7 +1236,7 @@ function Render.Draw(surface, root, width)
 	local look = Theme.BlockStyle(root.style)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
-	drawFrameArt(surface, look, root.accent, root.open)
+	drawFrameArt(surface, look, root.accent, root.open, result.width, result.height)
 	if look then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end

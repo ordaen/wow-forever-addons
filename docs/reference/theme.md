@@ -34,7 +34,7 @@ the inside (`frame.background` = `UI-Character-Info-General-BG`, `frame.dialogBa
 `frame.scale.window` (1) on windows and dialogs and at `frame.scale.small` (0.5) on tooltips and panels. It's
 untinted unless the block has its own `accent` (an item's quality), as Blizzard tints its tooltips. A role's
 `frameArt` in `Theme.lua` names the tokens and where the background sits inside the layout's border; only top-level
-blocks draw it. Dressed Blizzard frames (`UI.Dress`, `size = "frame"`) get it through their role too.
+blocks draw it. A background that doesn't tile (an atlas) covers the inside at its own aspect, cropped centred at the long sides, never stretched; one with `tile` repeats. Dressed Blizzard frames (`UI.Dress`, `size = "frame"`) get it through their role too.
 
 Tooltips are 12 to 25 ems wide.
 

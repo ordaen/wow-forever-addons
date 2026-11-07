@@ -165,6 +165,9 @@ function M.fire(event, ...)
 	M.fireOn(M.created, event, ...)
 end
 
+-- What C_Texture.GetAtlasInfo answers for any atlas.
+M.atlasInfo = { width = 200, height = 100, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1 }
+
 -- The pieces Blizzard's NineSliceUtil puts on a frame.
 M.NINE_SLICE_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner", "TopEdge",
 	"BottomEdge", "LeftEdge", "RightEdge", "Center" }
@@ -232,6 +235,14 @@ function M.stubGlobals(overrides)
 		end,
 		PixelUtil = { GetPixelToUIUnitFactor = function()
 			return 1
+		end },
+		-- Forever's secret values: none in a spec unless it says so (ui_spec overrides this).
+		issecretvalue = function()
+			return false
+		end,
+		-- Atlas sizes (cover-fit backgrounds): every atlas is M.atlasInfo, a 2:1 one over its whole texture by default.
+		C_Texture = { GetAtlasInfo = function()
+			return M.atlasInfo
 		end },
 		-- Blizzard's NineSlice layouts (window art): puts the named layout's pieces on the frame as its own textures
 		-- (fields named as Blizzard's), records the layout and that sharpening is off.

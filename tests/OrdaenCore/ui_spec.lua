@@ -946,6 +946,21 @@ describe("OrdaenCore.UI", function()
 			assert.is_true(f.BottomLeftCorner.shown)
 		end)
 
+		it("fit a background that doesn't tile to the surface's shape: cropped centred, never stretched", function()
+			-- The shared fake atlas (helpers.atlasInfo): 200 x 100 over the whole texture.
+			local win = UI.Window({ name = "Fitted", width = 300, height = 400, { text = "Bags" } })
+			win:Show()
+			local fill
+			for _, t in ipairs(win.frame.textures) do
+				fill = fill or (t.atlas == "UI-Character-Info-General-BG" and t)
+			end
+			-- Inside the border (2 + 2 wide, 21 + 2 tall): 296 x 377, taller than 2:1, so a band of the art's width.
+			local l, r, t, b = unpack(fill.texCoord)
+			assert.same({ 0, 1 }, { t, b }, "its full height")
+			assert.is_true(math.abs((r - l) - (296 / 377) / 2) < 1e-6, "the share of its width the aspect allows")
+			assert.is_true(math.abs(l - (1 - r)) < 1e-6, "centred")
+		end)
+
 		it("insets wear Blizzard's inset frame and its background", function()
 			local pane = UI.Block({ name = "Pane", style = "inset", { text = "Bags" } })
 			assert.equals("InsetFrameTemplate", pane.frame.layout)
