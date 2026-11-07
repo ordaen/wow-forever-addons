@@ -71,5 +71,6 @@
   "MT_MOUNTS": "Mounts",
   "MT_PETS": "Pets",
   "MT_TOYS": "Toys",
-  "MT_UNSPENT": "Unspent points"
+  "MT_UNSPENT": "Unspent points",
+  "XP_TEXTURE": "XP bar texture"
 }

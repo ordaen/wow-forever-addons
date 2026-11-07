@@ -45,7 +45,7 @@ local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of 
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
 	color = Colors:Get("blue"), questColor = Colors:Get("blue"), overlayColor = Colors:Get("blue"),
-	format = "%d%%", args = { 0 }, style = "onBar", sections = 20,
+	format = "%d%%", args = { 0 }, style = "onBar", sections = 10,
 }
 -- The social button's tooltip (no title: it's beside the button it describes).
 local tipFriends = { format = "", args = { 0 } }
@@ -119,11 +119,12 @@ local homes = {} ---@type table<table, table> Blizzard button -> { parent, point
 local sizes = {} ---@type table<table, number[]> Blizzard button -> its size before
 local dresses = {} ---@type table<table, OrdaenUIDress>
 local placing = false
--- Sizes, all from the panel's height (setting `height`): square cells fill it; an icon's picture shows at half the
--- cell (iconSide; each atlas box scaled by its CONTENT), bag icons fill the cell; the bar is 60 %.
-local size = 60 -- the panel's height
-local cellWidth = 48
-local iconSide = 36
+-- Sizes, all from the panel's height (setting `height`; the user's design, 2026-11-07, at 72): square cells fill
+-- it; an icon's picture is 44/72 of it (iconSide; each atlas box scaled by its CONTENT), a bag's 52/72 (bagSide).
+local size = 72 -- the panel's height
+local cellWidth = 72
+local iconSide = 44
+local bagSide = 52
 
 local function db()
 	return ns.Addon.db
@@ -207,11 +208,30 @@ local function onPortraitChanged()
 	end
 end
 
--- The panel was drawn: every button over its cell.
+-- The bar takes the centre column's width (its column is "1fr"; an embedded component keeps its own width, so it's
+-- set here after the panel is drawn). Only its own frame redraws; the panel's layout doesn't depend on it.
+local BAR_MARGIN = 4
+local function fitBar()
+	if not (panel and barHolder and middle and not middle.hidden and horizontal()) then
+		return
+	end
+	local _, _, w = panel:RectOf(zones.center)
+	if not w then
+		return
+	end
+	w = math.max(120, math.floor(w - 2 * BAR_MARGIN))
+	if barHolder.block.width ~= w then
+		barHolder.block.width = w
+		barHolder:Refresh()
+	end
+end
+
+-- The panel was drawn: every button over its cell, the bar across the centre.
 local function onPanelDrawn()
 	for button in pairs(cellOf) do
 		place(button)
 	end
+	fitBar()
 end
 
 -- Blizzard greys out a button that can't be used yet (talents before level 10): its cell's icon follows, in the
@@ -349,7 +369,7 @@ end
 local function fitIcon(icon, atlas, name)
 	local side = boxFor(name, iconSide)
 	if icon.crop then
-		side = size - 4 -- an item icon (a bag) fills its cell, inside the panel's lines
+		side = bagSide -- an item icon (a bag), a little bigger than the menu's icons
 	end
 	local info = atlas and C_Texture.GetAtlasInfo(atlas)
 	if info and info.width and info.height and info.width > 0 and info.height > 0 then
@@ -781,7 +801,8 @@ local function build()
 	local s = db()
 	size = s.height
 	cellWidth = size -- square cells
-	iconSide = math.floor(size * 0.5 + 0.5)
+	iconSide = math.floor(size * 44 / 72 + 0.5)
+	bagSide = math.floor(size * 52 / 72 + 0.5)
 	local across = horizontal()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
 	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
@@ -821,7 +842,9 @@ local function build()
 	groupOf.zone, groupOf.clock, groupOf.currencies, groupOf.bags = zoneEmbed, clockEmbed, currencyGroup, bagRow
 	-- Each zone holds its items in ITEMS order; the social button joins the micro buttons' row when they share one.
 	for _, id in ipairs(ZONES) do
-		local zone = zones[id] or { gap = "md", rowAlign = "center", align = id }
+		-- the side zones shrink to their content at their edge; the centre one stretches over its column (the bar
+		-- takes its width)
+		local zone = zones[id] or { gap = "md", rowAlign = "center", align = id ~= "center" and id or nil }
 		zones[id] = zone
 		for i = #zone, 1, -1 do
 			zone[i] = nil
@@ -839,9 +862,9 @@ local function build()
 	spec = spec or { style = "panel" }
 	spec[1], spec[2], spec[3] = zones.left, zones.center, zones.right
 	if across then
-		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
-		-- no side padding: the left zone starts at the panel's left edge, the right one ends at its right edge
-		spec.columns, spec.gap, spec.padding = { "1fr", "auto", "1fr" }, "lg", 0
+		-- the sides as wide as what they hold, the centre takes the rest (the bar fills it: the user's design,
+		-- 2026-11-07); no gap and no side padding: the cells run edge to edge from one end of the panel to the other
+		spec.columns, spec.gap, spec.padding = { "auto", "1fr", "auto" }, 0, 0
 		spec.height, spec.rowAlign = size, "center"
 	else
 		spec.columns, spec.gap, spec.padding = { "auto" }, "md", { "sm", "xs", "sm", "xs" }
@@ -955,8 +978,10 @@ local function updateExperience()
 	tipLevel.hidden = seconds == nil
 	tipLevel.args[1], tipLevel.args[2] = seconds and math.ceil(seconds / 60) or 0, gains or 0
 	if barHolder then
-		barHolder.block.width = horizontal() and math.max(120, math.floor(UIParent:GetWidth() * 0.3)) or 4 * size
-		barHolder:Refresh()
+		if not horizontal() then
+			barHolder.block.width = 4 * size
+		end
+		barHolder:Refresh() -- across a bottom or top edge, fitBar sets its width once the panel is drawn
 	end
 	if tooltip and tooltip:IsShown() then
 		tooltip:Refresh()

@@ -28,8 +28,13 @@
           "tooltip": "FIT_TOOLTIP"
         },
         "height": {
-          "type": "number", "min": 24, "max": 96, "step": 1, "format": "px", "default": 60,
+          "type": "number", "min": 24, "max": 96, "step": 1, "format": "px", "default": 72,
           "label": "PANEL_HEIGHT", "tooltip": "PANEL_HEIGHT_TOOLTIP"
+        },
+        // the experience bar's fill (a look setting: it follows the theme unless the player picks one)
+        "xpFill": {
+          "type": "asset", "of": "xpFill", "default": { "theme": "bar.xpFill" },
+          "label": "XP_TEXTURE"
         }
       }
     },
