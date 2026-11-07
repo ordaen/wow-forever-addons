@@ -444,6 +444,15 @@ function UI.Window(spec, opts)
 	return f and f.Window(spec, opts)
 end
 
+--- Whether the theme has style role `role` ("closeButton", "checkbox"): a dressing addon dresses a Blizzard control
+--- only once its role exists, so the control keeps Blizzard's art until then. Loads the framework (dressing does).
+---@param role string
+---@return boolean
+function UI.HasStyle(role)
+	local f = framework()
+	return f and f.HasStyle(role) or false
+end
+
 --- A text box in the theme's look and font (Blizzard's EditBox): put it in a block with `{ embed = input }`.
 --- Events: "change" (the player typed; gets the text), "enter", "escape". Loads the framework.
 ---

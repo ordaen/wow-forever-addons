@@ -245,6 +245,12 @@ edge plus its offset, in UI units, 0 when there is none. A faded panel still cov
 the panels (Ordaen Chat above a bottom panel) read it and follow `OrdaenUI.InsetsChanged`, which fires when an inset
 changes (a panel placed, resized, moved to another edge). Loads nothing.
 
+## UI.HasStyle
+
+`UI.HasStyle(role)` is true when the theme has that style role. An addon dressing Blizzard's controls (Ordaen
+Reskin) dresses one only once its role exists, so the control keeps Blizzard's art until then. It loads the
+framework, as dressing does.
+
 ## UI.Stats and UI.Rows
 
 ```lua

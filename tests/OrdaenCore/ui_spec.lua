@@ -1683,6 +1683,12 @@ describe("OrdaenCore.UI", function()
 		end)
 	end)
 
+	it("says which style roles the theme has, for addons that dress Blizzard's controls", function()
+		assert.is_true(UI.HasStyle("window"))
+		assert.is_true(UI.HasStyle("inset"))
+		assert.is_false(UI.HasStyle("noSuchRole"))
+	end)
+
 	describe("sections", function()
 		it("stats fill columns in order, value over caption, the first without a line on its left", function()
 			local stats = UI.Stats(4)

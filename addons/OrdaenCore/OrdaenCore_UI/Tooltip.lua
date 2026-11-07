@@ -140,6 +140,9 @@ OrdaenCore.UI._Provide({
 	Button = Component.Button,
 	Panel = Component.Panel,
 	Window = Component.Window,
+	HasStyle = function(role)
+		return ns.Theme.BlockStyle(role) ~= nil
+	end,
 	Input = Component.Input,
 	Dress = ns.Dress.New,
 	DressFont = ns.Dress.Font,
