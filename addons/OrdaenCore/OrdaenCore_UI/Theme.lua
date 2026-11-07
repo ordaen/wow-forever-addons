@@ -88,8 +88,10 @@ local SMALL_ART = { border = "frame.borderSmall", background = "frame.background
 -- Windows with a portrait ring in the top-left corner (Blizzard's own windows that Ordaen Reskin dresses).
 local PORTRAIT_ART = { border = "frame.portrait", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
+-- Dialogs: the window's art (the user: everything uses the same art), its top mirrored from its bottom: a dialog has
+-- no title bar.
 local DIALOG_ART = { border = "frame.dialog", background = "frame.dialogBackground", scale = "frame.scale.window",
-	inset = { 7, 7, 7, 7 } }
+	inset = { 2, 2, 2, 2 }, mirrorTop = true }
 local INSET_ART = { border = "frame.inset", background = "frame.insetBackground", scale = "frame.scale.window",
 	inset = { 2, 2, 2, 2 } }
 

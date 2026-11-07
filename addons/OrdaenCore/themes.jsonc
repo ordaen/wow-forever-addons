@@ -187,7 +187,7 @@
     "ordaen": {
       "frame.border": "metal", "frame.background": "general", "frame.portrait": "metal-portrait",
       "frame.borderSmall": "metal",
-      "frame.dialog": "dialog", "frame.dialogBackground": "dialog",
+      "frame.dialog": "metal", "frame.dialogBackground": "general",
       "frame.inset": "inset", "frame.insetBackground": "inset",
       "frame.scale.window": 1, "frame.scale.small": 0.5,
       "font.body": "body", "font.header": "header", "font.numbers": "numbers", "font.world": "ui",
