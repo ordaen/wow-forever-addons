@@ -1,0 +1,7 @@
+{
+  "SETTINGS_TITLE": "Ordaen Reskin",
+  "RESKIN_WINDOWS": "Windows",
+  "RESKIN_WINDOWS_TOOLTIP": "Draw Blizzard's windows (Character, Spellbook, World Map and others) with the theme's window border and background. Their contents stay as they are.",
+  "RESKIN_DIALOGS": "Dialogs",
+  "RESKIN_DIALOGS_TOOLTIP": "Draw Blizzard's dialogs (Game Menu, Add Friend, Chat Settings) with the theme's dialog border and background."
+}

@@ -15,6 +15,7 @@ body:
         - OrdaenMeter
         - OrdaenQoL
         - OrdaenBags
+        - OrdaenReskin
         - OrdaenCore
         - Not sure
     validations:

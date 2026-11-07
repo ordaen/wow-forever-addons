@@ -1,0 +1,14 @@
+// What the code can't say about Ordaen Reskin; `ordaen build` derives the rest (file list, dependencies,
+// SavedVariables from settings.jsonc) from the code.
+{
+  "title": "Ordaen Reskin",
+  "notes": {
+    "enUS": "Blizzard's windows and dialogs in the Ordaen look.",
+    "ruRU": "Окна и диалоги Blizzard в стиле Ordaen."
+  },
+  "category": "User Interface",
+  "icon": "Interface\\Icons\\INV_Misc_Note_01",
+  "version": "0.0.0", // x-release-please-version
+  "minCore": "0.1.0",
+  "package": { "slug": "ordaen-reskin" }
+}
