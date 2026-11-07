@@ -165,8 +165,10 @@ function M.fire(event, ...)
 	M.fireOn(M.created, event, ...)
 end
 
--- What C_Texture.GetAtlasInfo answers for any atlas.
-M.atlasInfo = { width = 200, height = 100, leftTexCoord = 0, rightTexCoord = 1, topTexCoord = 0, bottomTexCoord = 1 }
+-- What C_Texture.GetAtlasInfo answers for any atlas: a 2:1 region inside its file, as real atlases are (after
+-- SetAtlas a texture's coordinates count within that region, so code must never pass these file coordinates on).
+M.atlasInfo = { width = 200, height = 100, leftTexCoord = 0.25, rightTexCoord = 0.75, topTexCoord = 0.5,
+	bottomTexCoord = 0.75 }
 
 -- The pieces Blizzard's NineSliceUtil puts on a frame.
 M.NINE_SLICE_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner", "TopEdge",

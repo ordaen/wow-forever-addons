@@ -953,7 +953,8 @@ describe("OrdaenCore.UI", function()
 		end)
 
 		it("fit a background that doesn't tile to the surface's shape: cropped centred, never stretched", function()
-			-- The shared fake atlas (helpers.atlasInfo): 200 x 100 over the whole texture.
+			-- The shared fake atlas (helpers.atlasInfo): 200 x 100, a region inside its file. The crop counts within the
+			-- atlas (0..1), never in the file's coordinates.
 			local win = UI.Window({ name = "Fitted", width = 300, height = 400, { text = "Bags" } })
 			win:Show()
 			local fill
@@ -1047,7 +1048,21 @@ describe("OrdaenCore.UI", function()
 			assert.same({ "TOPLEFT", dropdown.frame, "TOPLEFT", 150 - 52, -0 }, arrow.point)
 		end)
 
-				it("insets wear Blizzard's inset frame and its background", function()
+				it("mirror a small surface's top from Blizzard's bottom corners, flipped within their atlas", function()
+			rawset(_G, "NineSliceLayouts", { ButtonFrameTemplateNoPortrait = {
+				BottomLeftCorner = { atlas = "UI-Frame-Metal-CornerBottomLeft", x = -8, y = -8 },
+				BottomRightCorner = { atlas = "UI-Frame-Metal-CornerBottomRight", x = 2, y = -8 },
+				BottomEdge = { atlas = "_UI-Frame-Metal-EdgeBottom" },
+			} })
+			local strip = UI.Block({ name = "Small", style = "panel", { text = "Gold" } })
+			local corner = strip.frame.TopRightCorner
+			assert.equals("UI-Frame-Metal-CornerBottomRight", corner.atlas)
+			assert.same({ 0, 1, 1, 0 }, corner.texCoord, "flipped within the atlas, not in its file")
+			assert.same({ "TOPRIGHT", strip.frame, "TOPRIGHT", 2, 8 }, corner.point, "the bottom offset turned up")
+			rawset(_G, "NineSliceLayouts", nil)
+		end)
+
+		it("insets wear Blizzard's inset frame and its background", function()
 			local pane = UI.Block({ name = "Pane", style = "inset", { text = "Bags" } })
 			assert.equals("InsetFrameTemplate", pane.frame.layout)
 			local tiled

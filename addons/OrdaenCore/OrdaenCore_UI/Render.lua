@@ -926,7 +926,9 @@ local function fitFill(surface, width, height)
 	if not atlas then
 		return
 	end
-	local aspect, l, r, t, b = atlas[1], atlas[2], atlas[3], atlas[4], atlas[5]
+	-- After SetAtlas, texture coordinates count within the atlas's own region (0..1), not its file: a texture reports
+	-- 0,0 .. 1,1 right after SetAtlas on Forever (dev dump, 2026-11-07). Only the atlas's aspect comes from its info.
+	local aspect, l, r, t, b = atlas[1], 0, 1, 0, 1
 	local surfaceAspect = w / h
 	if surfaceAspect > aspect then -- wider than the art: its full width, a band of its height
 		local cut = (b - t) * (1 - aspect / surfaceAspect) / 2
@@ -1043,10 +1045,11 @@ local function mirrorTop(holder, layoutName)
 	for _, pair in ipairs(MIRRORED_CORNERS) do
 		local piece, from = holder[pair[1]], layout[pair[2]]
 		local atlas = type(from) == "table" and from.atlas
-		local coords = atlas and atlasOf(atlas)
-		if piece and coords then
+		if piece and atlas then
 			piece:SetAtlas(atlas, true)
-			piece:SetTexCoord(coords[2], coords[3], coords[5], coords[4])
+			-- Flipped top to bottom within the atlas: after SetAtlas the coordinates are the atlas's own (0..1), not
+			-- its file's (the file's drew a transparent slice: the chat's top-right corner was empty, 2026-11-07).
+			piece:SetTexCoord(0, 1, 1, 0)
 			piece:ClearAllPoints()
 			piece:SetPoint(pair[3], holder, pair[3], from.x or 0, -(from.y or 0))
 		end
