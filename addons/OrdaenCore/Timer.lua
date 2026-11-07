@@ -1,7 +1,8 @@
 -- Ordaen Core: a clock per Ordaen addon. `A:Every(seconds, fn)` (or a feature's `F:Every`) makes a ticker; an
 -- addon's running tickers share one C_Timer.After chain, always set for the next one due, so nothing runs per frame
 -- and idle tickers cost nothing. Each addon's chain is its own, its callback made by NewAddon while the addon's file
--- runs, so the profiler can bill the ticks to the addon (as with its event frame, Addon.lua).
+-- runs. UNVERIFIED: whether the profiler bills the ticks to the addon. Billing follows the frame a handler runs on
+-- (EllesmereUI's probe; Addon.lua, event frames), and a C_Timer callback has none; not probed in game yet.
 --
 --   local clock = A:Every(1, updateClock)      -- runs every second from now on
 --   local fast = F:Every(0.1, updateCoords)     -- runs while the feature is on (Feature.lua)

@@ -685,7 +685,8 @@ function Core.NewAddon(addonName, addonNs, spec)
 	Core._addons[#Core._addons + 1] = addon
 	-- Its own event frame and clock, made now: this runs in the addon's own file, so WoW bills them to the addon.
 	frameOf(addon._events)
-	-- its clock (Timer.lua): the C_Timer callback is made here, in the addon's context; Timer.lua does the ticking
+	-- its clock (Timer.lua): the C_Timer callback is made here; whether that bills the ticks to the addon is
+	-- unverified (no frame carries it; see Timer.lua)
 	local clock = { list = {}, pendingAt = math.huge }
 	clock.tick = function()
 		Core._Tick(clock)
