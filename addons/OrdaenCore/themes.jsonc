@@ -105,9 +105,9 @@
       // panel's wood showing through. Rows of media/panel-cell.tga: 0 normal, 1 the hover glow alone, 2 pushed.
       "ordaen": {
         "label": "CONTROL_ORDAEN",
-        "normal": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0, 0.125, 0, 0.25], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.125, 0.875, 0, 0.25] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.875, 1, 0, 0.25], "aspect": 0.5 } },
-        "highlight": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0, 0.125, 0.25, 0.5], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.125, 0.875, 0.25, 0.5] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.875, 1, 0.25, 0.5], "aspect": 0.5 } },
-        "pushed": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0, 0.125, 0.5, 0.75], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.125, 0.875, 0.5, 0.75] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.875, 1, 0.5, 0.75], "aspect": 0.5 } }
+        "normal": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0, 0.125, 0, 0.25], "aspect": 0.2 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.125, 0.875, 0, 0.25] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.875, 1, 0, 0.25], "aspect": 0.2 } },
+        "highlight": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0, 0.125, 0.25, 0.5], "aspect": 0.2 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.125, 0.875, 0.25, 0.5] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.875, 1, 0.25, 0.5], "aspect": 0.2 } },
+        "pushed": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0, 0.125, 0.5, 0.75], "aspect": 0.2 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.125, 0.875, 0.5, 0.75] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\panel-cell", "coords": [0.875, 1, 0.5, 0.75], "aspect": 0.2 } }
       }
     },
     "closeButton": {

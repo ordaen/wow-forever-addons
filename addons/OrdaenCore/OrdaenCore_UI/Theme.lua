@@ -45,7 +45,7 @@ local Theme = {
 		ring = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube",
 		trough = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-trough",
 		shine = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-shine",
-		height = 40, inset = 10 / 64,
+		height = 30, inset = 10 / 64,
 		white = { 1, 1, 1 }, rested = { 0.43, 0.59, 0.82, 0.16 },
 	},
 	-- A unit's round portrait (UI.Portrait: the bottom panel's character button; art/panel.py): the ring and its

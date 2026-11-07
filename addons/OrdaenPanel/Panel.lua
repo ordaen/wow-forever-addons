@@ -233,7 +233,7 @@ end
 
 -- The bar takes the centre column's width (its column is "1fr"; an embedded component keeps its own width, so it's
 -- set here after the panel is drawn). Only its own frame redraws; the panel's layout doesn't depend on it.
-local BAR_MARGIN = 4
+local BAR_MARGIN = 14 -- room between the tube's ends and the neighbouring cells' rims
 local function fitBar()
 	if not (panel and barHolder and middle and not middle.hidden and horizontal()) then
 		return
@@ -942,7 +942,6 @@ local function build()
 		portrait:SetSize(math.floor(PORTRAIT_SIZE * k + 0.5))
 		portrait.frame:ClearAllPoints()
 		portrait.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", PORTRAIT_X * k, PORTRAIT_Y * k)
-		portrait.frame:SetFrameStrata("MEDIUM")
 		portraitSpacer.width, portraitSpacer.height = math.floor(PORTRAIT_ROOM * k + 0.5), size
 	end
 	groupOf.micromenu, groupOf.social, groupOf.experience = microGroup, socialRow, middle
@@ -1010,6 +1009,11 @@ local function build()
 			hoverTicker = ns.Addon:Every(0.25, checkHover)
 			hoverTicker:Stop() -- Every starts at once: this one runs only while the mouse is over the panel
 		end
+	end
+	-- the portrait stands over the panel, its metal edge too (the panel's border overlay sits far above its frame)
+	if portrait and panel then
+		portrait.frame:SetFrameStrata(panel.frame:GetFrameStrata())
+		portrait.frame:SetFrameLevel(math.min(panel.frame:GetFrameLevel() + 700, 9000))
 	end
 end
 
