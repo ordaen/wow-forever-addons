@@ -88,6 +88,7 @@ function Tabs.CombatLogLast()
 	if moving then
 		return
 	end
+	local t = ns.Debug:TimeStart()
 	if not (combat and combat.isDocked) then
 		if ns.Debug:IsEnabled() then -- a hooked path: no string unless it's logged
 			noteDock("not docked (isDocked " .. tostring(combat and combat.isDocked) .. ")")
@@ -130,6 +131,7 @@ function Tabs.CombatLogLast()
 		moving = false
 		noteDock("no longer static docked")
 	end
+	ns.Debug:TimeEnd(t, "chat: journal last")
 end
 
 --- Set up the default tabs now (first login of a character with this layout version, or /ochat tabs).

@@ -792,6 +792,8 @@ describe("Ordaen Chat", function()
 			FCF_StartAlertFlash(windows[2])
 			assert.equals("flash", ns.Look.Describe().tabs.ChatFrame2Tab)
 			selectedWindow = windows[2]
+			-- Blizzard's dock updates every tab's colours on a switch (FCFDock_UpdateTabs), one call per tab.
+			FCFTab_UpdateColors(windows[1].tab, false)
 			FCFTab_UpdateColors(windows[2].tab, true)
 			assert.equals("selected", ns.Look.Describe().tabs.ChatFrame2Tab)
 			assert.equals("normal", ns.Look.Describe().tabs.ChatFrame1Tab)

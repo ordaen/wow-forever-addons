@@ -37,6 +37,7 @@ local labelTab = {} -- tab name FontString -> its tab
 local windows = {} -- chat window -> its dress
 local tabs = {} -- tab -> its dress
 local tabOf = {} -- chat window -> its tab
+local frameOf = {} -- tab -> its chat window
 local flashing = {} -- chat window -> true while its tab flashes
 -- Unread whisper tabs: lit (the flash look) until opened, with a badge counting the messages since. Only whisper
 -- windows (Blizzard's temporary ones): a busy channel tab would count forever.
@@ -53,6 +54,7 @@ local function spaceMessages(frame)
 	if not lines then
 		return
 	end
+	local t = ns.Debug:TimeStart()
 	if frame:GetInsertMode() == SCROLLING_MESSAGE_FRAME_INSERT_MODE_TOP then
 		for i = 2, #lines do
 			lines[i]:SetPoint("TOPLEFT", lines[i - 1], "BOTTOMLEFT", 0, -messageGap)
@@ -62,6 +64,7 @@ local function spaceMessages(frame)
 			lines[i]:SetPoint("BOTTOMLEFT", lines[i - 1], "TOPLEFT", 0, messageGap)
 		end
 	end
+	ns.Debug:TimeEnd(t, "chat: message gaps")
 end
 
 -- The theme's gaps on a chat window: between the lines of a message (the font's spacing; Blizzard's is kept to give
@@ -98,8 +101,10 @@ local function showTabState(frame)
 	else
 		dress:SetState(nil)
 	end
+	-- The badge redraws only when its count changes: Blizzard updates every tab's colours several times per tab
+	-- switch, and redrawing each tab's look each time made switching tabs lag (2026-11-07).
 	local badge = badges[tab]
-	if badge then
+	if badge and (badge.hidden ~= (count == 0) or badge.args[1] ~= count) then
 		badge.hidden = count == 0
 		badge.args[1] = count
 		dress.look:Refresh()
@@ -208,6 +213,7 @@ local function dressWindow(frame)
 	local tab = _G[name .. "Tab"]
 	if tab then
 		tabOf[frame] = tab
+		frameOf[tab] = frame
 		-- The tab's look: its name stays Blizzard's (centred over it); a badge on the right counts unread whispers.
 		---@type OrdaenUIText
 		local badge = { format = "%d", args = { 0 }, style = "value", hidden = true, valign = "center" }
@@ -229,13 +235,22 @@ local function dressWindow(frame)
 end
 
 -- Blizzard recolours a tab when the selection changes: follow it for every window (the old and the new selection).
-local function onTabColors()
+-- Blizzard's FCFTab_UpdateColors(tab, selected) runs for each tab on a switch: only that tab's state is checked
+-- (every tab for each call was tabs x tabs updates per switch). Called without a tab (ours): all of them.
+local function onTabColors(tab)
 	if not on then
 		return
 	end
-	for frame in pairs(tabOf) do
+	local t = ns.Debug:TimeStart()
+	local frame = tab and frameOf[tab]
+	if frame then
 		showTabState(frame)
+	else
+		for each in pairs(tabOf) do
+			showTabState(each)
+		end
 	end
+	ns.Debug:TimeEnd(t, "chat: tab colours")
 end
 
 local function onFlash(frame)
