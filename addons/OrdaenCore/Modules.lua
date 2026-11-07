@@ -66,6 +66,7 @@ local function load(name)
 		failed[name] = reason or "?"
 	else
 		failed[name] = nil
+		Core._Loaded(name) -- its own ADDON_LOADED doesn't reach it when loaded from ours: start it now
 	end
 	local Debug = ns.CoreAddon and ns.CoreAddon.Debug
 	if Debug then

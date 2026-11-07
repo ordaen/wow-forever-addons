@@ -606,6 +606,19 @@ end
 
 Core._addons = {}
 
+--- An Ordaen addon loaded by Ordaen from inside its own ADDON_LOADED (Modules.lua): the game doesn't deliver the
+--- loaded addon's ADDON_LOADED to the frame it registered while loading (seen 2026-11-07: every module loaded, none
+--- started), so Ordaen starts it here. Nothing when it already started (the event came after all).
+---@param name string
+function Core._Loaded(name)
+	for _, addon in ipairs(Core._addons) do
+		if addon.name == name and not addon.loaded and addon._lifecycle then
+			removeHandler("ADDON_LOADED", addon._lifecycle, addon._events)
+			Core._RunAs(addon, onAddonLoaded, addon)
+		end
+	end
+end
+
 ---@return boolean
 function Core._IsLoggedIn()
 	return loggedIn
@@ -693,6 +706,7 @@ function Core.NewAddon(addonName, addonNs, spec)
 	end
 	addon._clock = clock
 	local onLifecycle = lifecycle(addon)
+	addon._lifecycle = onLifecycle
 	addHandler("ADDON_LOADED", onLifecycle, addon, addon._events)
 	if not watchingLoadingScreen then
 		watchingLoadingScreen = true
