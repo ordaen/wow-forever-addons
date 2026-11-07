@@ -294,8 +294,46 @@ local function probe()
 	return out
 end
 
+-- Blizzard's strings the character tab's stat tooltips use (their client language), for tooltips inside tooltips.
+local PROBE_STRINGS = { "SPELL_STAT1_NAME", "SPELL_STAT2_NAME", "SPELL_STAT3_NAME", "SPELL_STAT4_NAME",
+	"SPELL_STAT5_NAME", "DEFAULT_STAT2_TOOLTIP", "DEFAULT_STAT3_TOOLTIP", "DEFAULT_STAT4_TOOLTIP", "STAT_ARMOR_TOOLTIP",
+	"ARMOR_TOOLTIP", "STAT_ARMOR_TARGET_TOOLTIP", "STAT_ARMOR_TOTAL_TOOLTIP", "MELEE_ATTACK_POWER_TOOLTIP",
+	"RANGED_ATTACK_POWER_TOOLTIP", "ATTACK_SPEED_TOOLTIP1", "STAT_ATTACK_SPEED_BASE_TOOLTIP", "DAMAGE_PER_SECOND",
+	"DAMAGE_TOOLTIP", "STAT_BLOCK_TOOLTIP", "CR_BLOCK_TOOLTIP", "CR_CRIT_MELEE_TOOLTIP", "CR_DODGE_TOOLTIP",
+	"STAT_HEALTH_TOOLTIP", "STAT_MANA_TOOLTIP", "RESISTANCE_TOOLTIP_SUBTEXT", "RESISTANCE0_NAME", "RESISTANCE1_NAME",
+	"RESISTANCE2_NAME", "RESISTANCE3_NAME", "RESISTANCE4_NAME", "RESISTANCE5_NAME", "RESISTANCE6_NAME",
+	"PAPERDOLLFRAME_TOOLTIP_FORMAT", "STAT_TOOLTIP_BONUS_AP", "STAT_NO_BENEFIT_TOOLTIP", "STAT_USELESS_TOOLTIP",
+	"STAT_AVERAGE_ITEM_LEVEL_TOOLTIP", "ITEM_BIND_ON_PICKUP", "ITEM_BIND_ON_EQUIP", "ITEM_UNIQUE", "DURABILITY",
+	"ITEM_LEVEL", "STAT_ATTACK_POWER", "STAT_MOVEMENT_GROUND_TOOLTIP" }
+
+-- The character tab's stat frames as Blizzard filled them (`tooltip`, `tooltip2`: its logic's own text for this
+-- character), found under PaperDollFrame and CharacterFrame; only after the character tab was open once.
+local function paperDoll()
+	local out, seen = {}, {}
+	local function scan(frame, depth)
+		if type(frame) ~= "table" or seen[frame] or depth > 6 or type(frame.GetChildren) ~= "function" then
+			return
+		end
+		seen[frame] = true
+		local t1, t2 = rawget(frame, "tooltip"), rawget(frame, "tooltip2")
+		if type(t1) == "string" or type(t2) == "string" then
+			out[frame:GetDebugName()] = tostring(t1) .. " || " .. tostring(t2)
+		end
+		for _, child in ipairs({ frame:GetChildren() }) do
+			scan(child, depth + 1)
+		end
+	end
+	scan(rawget(_G, "CharacterFrame"), 1)
+	return out
+end
+
 function Takeover.Describe()
-	local out = { probe = probe() }
+	local strings = {}
+	for _, name in ipairs(PROBE_STRINGS) do
+		local v = rawget(_G, name)
+		strings[name] = v == nil and false or tostring(v)
+	end
+	local out = { probe = probe(), strings = strings, paperDoll = paperDoll() }
 	for native, state in pairs(states) do
 		local view, model = state.view, state.model
 		local header = view.header
