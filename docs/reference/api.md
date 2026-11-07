@@ -374,6 +374,12 @@ dress.look:On("render", function(look)
 end)
 ```
 
+### d:Restrip()
+
+Hides art Blizzard re-created since dressing (a new texture, a re-shown NineSlice), without drawing again: call it
+from a hook on whatever makes Blizzard repaint the frame. A dress that fails (a frame Blizzard changed under us) is
+reported to the error handler and `UI.Dress` returns nil, so the caller's other dresses go on.
+
 ### d:SetState(state)
 
 Switches to the style `states[state]`, or back to `style` for any other state (nil), and sets the look's

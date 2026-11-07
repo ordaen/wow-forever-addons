@@ -855,18 +855,20 @@ local function drawHighlight(surface, p, look, result)
 	tex:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -result.padRight, result.padBottom)
 end
 
+local backdrops = setmetatable({}, { __mode = "k" }) -- surface -> the backdrop it shows (no keys on frames)
+
 local function drawBackdrop(surface, look)
 	if not surface.SetBackdrop then
 		return
 	end
 	local backdrop = look and look.backdrop or nil
-	if surface.ordaenBackdrop ~= backdrop then
+	if backdrops[surface] ~= backdrop then
 		if backdrop then
 			surface:SetBackdrop(backdrop)
 		else
 			surface:ClearBackdrop() -- the theme changed to one drawn without art
 		end
-		surface.ordaenBackdrop = backdrop
+		backdrops[surface] = backdrop
 	end
 	if backdrop then
 		local bg, border = look.background, look.border

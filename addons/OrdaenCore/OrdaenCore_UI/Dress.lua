@@ -62,8 +62,12 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 local Dress = {}
 local DressMeta = { __index = Dress }
 
-local byClickable = {} -- Blizzard's clickable frame -> its dress
-local hooked = {} -- clickable frames whose OnEnter/OnLeave carry our hooks (HookScript can't be undone)
+-- Safety rules (as EllesmereUI's skin engine keeps them): our state about Blizzard's frames lives in weak tables
+-- here, never as keys on those frames; their art is hidden by alpha only (never Hide/SetParent/SetScript); their
+-- scripts are hooked, never replaced; one failing dress is reported and returns nil (Dress.New), so the caller's
+-- other dresses go on; art Blizzard re-creates is hidden again with :Restrip, without a redraw.
+local byClickable = setmetatable({}, { __mode = "k" }) -- Blizzard's clickable frame -> its dress
+local hooked = setmetatable({}, { __mode = "k" }) -- clickables whose OnEnter/OnLeave carry our hooks (permanent)
 local ownerOf = setmetatable({}, { __mode = "k" }) -- hidden texture -> its dress (for the SetAlpha hook)
 local alphaHooked = setmetatable({}, { __mode = "k" }) -- textures whose SetAlpha carries our hook
 local zeroing = false
@@ -296,6 +300,14 @@ function Dress:SetOpen(sides)
 	self.look:SetOpen(sides)
 end
 
+--- Hide art Blizzard added since dressing (a new texture, a re-created child), without drawing again: call it from
+--- a hook on whatever makes Blizzard repaint the frame. Allocates nothing.
+function Dress:Restrip()
+	if self.dressed then
+		hideArt(self)
+	end
+end
+
 --- Hide art Blizzard added since dressing (a new texture, a re-created child) and redraw our look.
 function Dress:Refresh()
 	if not self.dressed then
@@ -434,11 +446,22 @@ local function track(self)
 	end
 end
 
---- Dress one of Blizzard's frames in our look. The same frame dressed twice returns the first dress.
+local create
+
+--- Dress one of Blizzard's frames in our look. The same frame dressed twice returns the first dress. A dress that
+--- fails (a frame Blizzard changed under us) is reported to the error handler and returns nil.
 ---@param frame Frame
 ---@param opts OrdaenUIDressOpts|nil
----@return OrdaenUIDress
+---@return OrdaenUIDress|nil
 function Dress.New(frame, opts)
+	-- A closure per dress (setup time, never per event): Lua 5.1's xpcall passes no arguments.
+	local ok, dress = xpcall(function()
+		return create(frame, opts)
+	end, geterrorhandler())
+	return ok and dress or nil
+end
+
+function create(frame, opts)
 	opts = opts or {}
 	local clickable = opts.clickable or childButton(frame) or frame
 	local existing = byClickable[clickable]

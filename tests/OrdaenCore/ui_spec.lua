@@ -1288,6 +1288,28 @@ describe("OrdaenCore.UI", function()
 			return window, background, border, line
 		end
 
+		it("report a dress that fails and return nothing, so the caller's other dresses go on", function()
+			local window = chatWindow()
+			function window:GetRegions()
+				error("a frame Blizzard broke")
+			end
+			assert.is_nil(UI.Dress(window, { style = "panel", size = "frame" }))
+			assert.equals(1, #helpers.forwarded, "reported to the error handler (BugSack)")
+			assert.is_truthy(tostring(helpers.forwarded[1]):find("a frame Blizzard broke", 1, true))
+			assert.is_truthy(UI.Dress(chatWindow(), { style = "panel", size = "frame", art = {} }), "the next one works")
+		end)
+
+		it("hide art Blizzard re-created with :Restrip, without drawing again", function()
+			local window, background = chatWindow()
+			local dress = UI.Dress(window, { style = "panel", size = "frame" })
+			assert.equals(0, background.alpha)
+			local glow = window:CreateTexture(nil, "ARTWORK") -- Blizzard added art after we dressed it
+			local drawn = dress.look.frame.size
+			dress:Restrip()
+			assert.equals(0, glow.alpha)
+			assert.equals(drawn, dress.look.frame.size, "not drawn again")
+		end)
+
 		it("cover a frame at its own size with size = \"frame\", hiding only the art listed", function()
 			local window, background, border, line = chatWindow()
 			local dress = UI.Dress(window, { style = "panel", size = "frame", cover = background,
