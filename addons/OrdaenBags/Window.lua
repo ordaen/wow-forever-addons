@@ -53,6 +53,23 @@ local litBag = nil -- the bag whose items the bag strip lights up (hovered)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
 local tabCells = {} ---@type table<string, table> tab id -> its cell in the sidebar (hidden when the tab is off)
+local tabList = { columns = { "auto" }, gap = 0, padding = 0 } -- the sidebar's block: the tabs' cells in their order
+local cellTab = {} ---@type table<table, string> a tab's cell -> its id
+local buttonTab = {} ---@type table<table, string> a tab's button -> its id
+local tabPos = {} ---@type table<string, number> tab id -> its place in the sidebar
+
+-- The tabs in the player's order (the "tabOrder" setting, made by dragging them), else Categories.TABS'; "All" first.
+local function byPos(a, b)
+	return tabPos[cellTab[a]] < tabPos[cellTab[b]]
+end
+
+local function orderTabs()
+	local saved = ns.Addon:Get("tabOrder") or {}
+	for i, tab in ipairs(Categories.TABS) do
+		tabPos[tab.id] = tab.id == "all" and 0 or (tonumber(saved[tab.id]) or i)
+	end
+	table.sort(tabList, byPos)
+end
 
 -- Each tab's setting keys ("tabs.<id>": shown, "grouping.<id>": how its items group), made once (no string per
 -- layout).
@@ -228,6 +245,8 @@ local function sectionWidth(n, caption)
 end
 
 local layoutBags -- the bags view (below)
+
+local onTabDragStart, onTabDragStop -- dragging the tabs (below)
 
 -- packing state for one layout (file locals: no closure per layout)
 local current, inRow, rowWidth, rowCount, limit
@@ -541,6 +560,57 @@ local function onSortClick(self)
 	MenuUtil.CreateContextMenu(self.frame, sortMenu)
 end
 
+-- Dragging a tab up or down the sidebar moves it there ("All" stays first). Where it lands: the tab under the
+-- cursor when it's dropped, else above the first or below the last. The new order is saved as positions.
+local dragged ---@type string|nil
+
+function onTabDragStart(self)
+	dragged = buttonTab[self]
+end
+
+function onTabDragStop()
+	local id = dragged
+	dragged = nil
+	if not id then
+		return
+	end
+	local y = select(2, GetCursorPosition()) / UIParent:GetEffectiveScale()
+	local order, target, first, last = {}, nil, nil, nil
+	for i = 1, #tabList do
+		local other = cellTab[tabList[i]]
+		local frame = tabButtons[other].frame
+		if other ~= "all" and not tabList[i].hidden and frame:IsShown() then
+			first, last = first or other, other
+			if y <= (frame:GetTop() or 0) and y >= (frame:GetBottom() or 0) then
+				target = other
+			end
+		end
+		if other ~= "all" and other ~= id then
+			order[#order + 1] = other
+		end
+	end
+	if not target and first then
+		local top = tabButtons[first].frame:GetTop() or 0
+		target = y > top and first or last
+	end
+	if not target or target == id then
+		return
+	end
+	local movingDown = tabPos[id] < tabPos[target]
+	for i, other in ipairs(order) do
+		if other == target then
+			table.insert(order, movingDown and i + 1 or i, id)
+			break
+		end
+	end
+	local positions = {} -- a player's action: one small table per drag
+	for i, other in ipairs(order) do
+		positions[other] = i
+	end
+	ns.Addon:Set("tabOrder", positions) -- onChange lays the window out again (Relayout orders the tabs)
+	ns.Debug:Logf("bags: tab %s moved to %s's place", id, target)
+end
+
 -- A tab's right-click menu: how its items group, and hiding it (not "All"). The tab is a file local while the menu
 -- is open, so the menu's functions are made once.
 local GROUP_LABELS = { type = "GROUP_TYPE", slot = "GROUP_SLOT", quality = "GROUP_QUALITY", none = "GROUP_NONE" }
@@ -720,7 +790,7 @@ local function build()
 	quickButtons.arrange, quickButtons.bags, quickButtons.settings, quickButtons.close = arrange, bags, settings, close
 	quickButtons.sort, quickButtons.view = sortButton, view
 	-- the sidebar: a tab per category (Blizzard's words, first letter up, with its count)
-	local tabs = { columns = { "auto" }, gap = 0, padding = 0 }
+	local tabs = tabList
 	for _, tab in ipairs(Categories.TABS) do
 		local label = { format = "%s (%d)", args = { capitalized(_G[tab.label] or tab.id), 0 } }
 		tabTexts[tab.id] = label
@@ -740,8 +810,13 @@ local function build()
 			return false
 		end
 		tabButtons[tab.id] = button
+		buttonTab[button] = id
+		if id ~= "all" then
+			button:On("dragstart", onTabDragStart)
+			button:On("dragstop", onTabDragStop)
+		end
 		local cell = { embed = button }
-		tabCells[tab.id] = cell
+		tabCells[tab.id], cellTab[cell] = cell, id
 		tabs[#tabs + 1] = cell
 	end
 	-- One width for every tab, the widest label's with a three-digit count: each tab is its own frame (it takes clicks),
@@ -757,6 +832,7 @@ local function build()
 	for _, tab in ipairs(Categories.TABS) do
 		tabButtons[tab.id].block.width = widest
 	end
+	orderTabs()
 	local strip = buildBagStrip()
 	sidebar, itemsPane = UI.Block(tabs), UI.Block(content)
 	bagStrip = strip and UI.Block(strip)
@@ -840,6 +916,9 @@ end
 
 --- The settings changed (slots per row, the sort order): lay out again if open.
 function View.Relayout()
+	if sidebar then
+		orderTabs() -- the order may have changed (a drag, a reset)
+	end
 	if win and win:IsShown() then
 		content.minHeight = nil -- a new width: the page's height starts over
 		layout()
