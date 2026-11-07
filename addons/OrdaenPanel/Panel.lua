@@ -241,7 +241,7 @@ end
 
 -- The bar takes the centre column's width (its column is "1fr"; an embedded component keeps its own width, so it's
 -- set here after the panel is drawn). Only its own frame redraws; the panel's layout doesn't depend on it.
-local BAR_MARGIN = 14 -- room between the tube's ends and the neighbouring cells' rims
+local BAR_MARGIN = 32 -- room between the tube's ends and the neighbouring cells' rims (14 looked stuck to them)
 local function fitBar()
 	if not (panel and barHolder and middle and not middle.hidden and horizontal()) then
 		return
