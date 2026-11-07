@@ -20,6 +20,7 @@ local Kit = {}
 ns.Kit = Kit
 
 local dressed = setmetatable({}, { __mode = "k" }) -- control -> its dress, or false (its role isn't in the theme)
+local probe -- dev mode: below
 local collect -- the window being skinned is told of each new dress (Kit.CollectInto), so it can undress them
 
 -- Whether the theme draws this role (it loads the framework, which dressing does anyway).
@@ -256,6 +257,25 @@ end
 
 local MAX_DEPTH = 6
 
+-- Dev mode: a button with text that no kind matched is logged once with the parts Classify looks for, so a
+-- template the kit doesn't know (the game menu's pooled buttons) shows up in the log instead of being guessed.
+local probed = setmetatable({}, { __mode = "k" })
+probe = function(button)
+	if probed[button] or button:GetObjectType() ~= "Button" then
+		return
+	end
+	local text = button.GetText and button:GetText()
+	if type(text) ~= "string" or text == "" or issecretvalue(text) then
+		return
+	end
+	probed[button] = true
+	local normal = button:GetNormalTexture()
+	ns.Addon.Debug:Logf("unclassified button %q (%s): Left %s Middle %s Right %s Center %s, normal atlas %s",
+		text, button:GetDebugName(), tostring(rawget(button, "Left") ~= nil), tostring(rawget(button, "Middle") ~= nil),
+		tostring(rawget(button, "Right") ~= nil), tostring(rawget(button, "Center") ~= nil),
+		tostring(normal and normal:GetAtlas()))
+end
+
 -- Frames made by an addon, not by Blizzard (another addon's button on the character window, or our own): the scan
 -- leaves them and everything under them alone. Blizzard's code leaves secure references (its global name, or the key
 -- on its parent) and an addon's code tainted ones; issecurevariable reads that without spreading taint. A frame with
@@ -318,6 +338,10 @@ function Kit.ControlsIn(frame, skip, depth)
 					Kit.ControlsIn(child, skip, depth + 1)
 				end
 			else
+				local Debug = ns.Addon.Debug
+				if Debug:IsEnabled() then
+					probe(child)
+				end
 				Kit.ControlsIn(child, skip, depth + 1)
 			end
 		end
