@@ -1563,19 +1563,20 @@ function Render.DescribeArt(surface)
 	local function round(v)
 		return (type(v) == "number" and not issecretvalue(v)) and math.floor(v * 100 + 0.5) / 100 or tostring(v)
 	end
+	-- One line per region: the dump keeps only two levels of tables.
 	local function region(tex)
 		local point, rel, relPoint, x, y = tex:GetPoint(1)
 		local coords = { tex:GetTexCoord() }
 		for i = 1, #coords do
-			coords[i] = round(coords[i])
+			coords[i] = tostring(round(coords[i]))
 		end
-		return {
-			shown = tex:IsShown(), visible = tex:IsVisible(), alpha = round(tex:GetAlpha()), atlas = tex:GetAtlas(),
-			coords = coords, horizTile = tex:GetHorizTile(), vertTile = tex:GetVertTile(),
-			size = { round(tex:GetWidth()), round(tex:GetHeight()) }, layer = tex:GetDrawLayer(),
-			point = point and { point, rel == holder and "holder" or tostring(rel and rel.GetDebugName and
-				rel:GetDebugName() or rel), relPoint, round(x), round(y) } or false,
-		}
+		local relName = rel == holder and "holder" or tostring(rel and rel.GetDebugName and rel:GetDebugName() or rel)
+		return string.format("%s%s a=%s %s tc=[%s] tile=%s/%s %sx%s %s @%s", tex:IsShown() and "shown" or "hidden",
+			tex:IsVisible() and "" or "(invisible)", tostring(round(tex:GetAlpha())), tostring(tex:GetAtlas()),
+			table.concat(coords, ","), tostring(tex:GetHorizTile()), tostring(tex:GetVertTile()),
+			tostring(round(tex:GetWidth())), tostring(round(tex:GetHeight())), tostring(tex:GetDrawLayer()),
+			point and string.format("%s>%s:%s %s,%s", point, relName, tostring(relPoint), tostring(round(x)),
+				tostring(round(y))) or "-")
 	end
 	local out = { level = holder:GetFrameLevel(), strata = holder:GetFrameStrata(), pieces = {}, mitres = {} }
 	for i = 1, #BORDER_PIECES do
@@ -1583,7 +1584,8 @@ function Render.DescribeArt(surface)
 		out.pieces[BORDER_PIECES[i]] = tex and region(tex) or false
 	end
 	for name, pair in pairs(mitres[holder] or {}) do
-		out.mitres[name] = { side = region(pair.side), top = region(pair.top) }
+		out.mitres[name .. ".side"] = region(pair.side)
+		out.mitres[name .. ".top"] = region(pair.top)
 	end
 	return out
 end
