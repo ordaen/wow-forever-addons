@@ -20,6 +20,8 @@ ns.Windows = Windows
 -- edge to edge, so the space between them is the container's (the user's rule, 2026-11-07: no margin in textures).
 -- `newLabels`: keys of Blizzard's floating «new» labels, which it anchors to a control while that control holds
 -- something new: hidden, and the control's dress shows the theme's new marker instead (the user's pick: a gem).
+-- `accent`: Blizzard's global strings whose buttons wear the accent push button (the user's pick, 2026-11-07: the
+-- game menu's exit buttons in red). Matched by text, since the menu's pooled buttons have no names.
 local PACKS = {
 	{ name = "CharacterFrame", kind = "window", tabs = "sideTab" },
 	{ name = "PlayerSpellsFrame", kind = "window", tabs = "tab" },
@@ -38,7 +40,8 @@ local PACKS = {
 	{ name = "AddonList", kind = "window" },
 	{ name = "MacroFrame", kind = "window", tabs = "tab" },
 	{ name = "GameMenuFrame", kind = "dialog", spacing = "xs",
-		newLabels = { "NewOptionsFrame", "NewExternalEventFrame" } },
+		newLabels = { "NewOptionsFrame", "NewExternalEventFrame" },
+		accent = { "LOG_OUT", "LOGOUT", "EXIT_GAME", "QUIT" } },
 	{ name = "AddFriendFrame", kind = "dialog" },
 	{ name = "ChatConfigFrame", kind = "dialog", tabs = "tab" },
 	{ name = "StaticPopup1", kind = "dialog" },
@@ -209,6 +212,7 @@ function Window:Apply()
 		ns.Kit.CollectInto(self.collect, self.SkinAll, self)
 		self:Space(true)
 		self.skinned = true
+		self:Accent()
 		self:MarkNew()
 		return
 	end
@@ -221,6 +225,7 @@ function Window:Apply()
 		self:Space(true)
 	end
 	ns.Kit.CollectInto(self.collect, ns.Kit.ControlsIn, self.frame, self.skip)
+	self:Accent()
 	self:MarkNew()
 end
 
@@ -240,6 +245,37 @@ function Window:Remove()
 		local label = rawget(self.frame, key)
 		if type(label) == "table" then
 			label:SetAlpha(1)
+		end
+	end
+end
+
+local accentTexts -- pack -> { [text] = true }, made on first use
+local ACCENTABLE = { pushButton = true, pushButtonAccent = true }
+
+--- Dress the pack's accent buttons (by their text) in the accent role and every other dressed button in the plain
+--- one; a pooled button can change its text between shows. Runs after each skin and show.
+function Window:Accent()
+	local names = self.pack.accent
+	if not names then
+		return
+	end
+	accentTexts = accentTexts or setmetatable({}, { __mode = "k" })
+	local texts = accentTexts[self.pack]
+	if not texts then
+		texts = {}
+		for i = 1, #names do
+			local text = rawget(_G, names[i])
+			if type(text) == "string" then
+				texts[text] = true
+			end
+		end
+		accentTexts[self.pack] = texts
+	end
+	for _, child in ipairs({ self.frame:GetChildren() }) do
+		local dress = ns.Kit.DressOf(child)
+		if dress and ACCENTABLE[dress.opts.style] then
+			local text = child.GetText and child:GetText()
+			dress:SetStyle(type(text) == "string" and texts[text] and "pushButtonAccent" or "pushButton")
 		end
 	end
 end
