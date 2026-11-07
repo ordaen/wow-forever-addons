@@ -58,11 +58,7 @@
   "TIME_TOOLTIP_CALENDAR": "ЛКМ: календарь",
   "TIME_TOOLTIP_CLOCK": "ПКМ: настройки часов",
   "CALENDAR_PENDING": "У вас новые приглашения в календаре",
-  "MT_FREE_SLOTS": "Свободно",
   "MT_MOST_WORN": "Сильнее всего изношен: %s (%d%%)",
-  "MT_SPEC": "Специализация",
-  "MT_CLASS_POINTS": "Очки класса",
-  "MT_SPEC_POINTS": "Очки специализации",
   "MT_QUESTS": "Задания",
   "MT_READY": "Готовы",
   "MT_TRACKED": "Отслеживаются",
@@ -75,9 +71,5 @@
   "MT_MOUNTS": "Транспорт",
   "MT_PETS": "Питомцы",
   "MT_TOYS": "Игрушки",
-  "MT_FPS": "Кадр/с",
-  "MT_MS": "%d мс",
-  "MT_HOME": "Дом",
-  "MT_WORLD": "Мир",
-  "MT_MEMORY": "Модификации Ordaen: %.1f МБ памяти"
+  "MT_UNSPENT": "Свободные очки"
 }

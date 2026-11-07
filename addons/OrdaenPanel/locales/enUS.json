@@ -58,11 +58,7 @@
   "TIME_TOOLTIP_CALENDAR": "Left-click: calendar",
   "TIME_TOOLTIP_CLOCK": "Right-click: clock settings",
   "CALENDAR_PENDING": "You have new calendar invites",
-  "MT_FREE_SLOTS": "Free slots",
   "MT_MOST_WORN": "Most worn: %s (%d%%)",
-  "MT_SPEC": "Specialization",
-  "MT_CLASS_POINTS": "Class points",
-  "MT_SPEC_POINTS": "Spec points",
   "MT_QUESTS": "Quests",
   "MT_READY": "Ready",
   "MT_TRACKED": "Tracked",
@@ -75,9 +71,5 @@
   "MT_MOUNTS": "Mounts",
   "MT_PETS": "Pets",
   "MT_TOYS": "Toys",
-  "MT_FPS": "FPS",
-  "MT_MS": "%d ms",
-  "MT_HOME": "Home",
-  "MT_WORLD": "World",
-  "MT_MEMORY": "Ordaen addons: %.1f MB of memory"
+  "MT_UNSPENT": "Unspent points"
 }

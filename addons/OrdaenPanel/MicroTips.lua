@@ -1,10 +1,10 @@
 -- Ordaen Panel: richer tooltips for the game menu buttons the panel holds. Like a spell tooltip in Ordaen Tooltips:
--- the title, up to three key numbers in columns (value over caption), up to three lines of text, the key at the
--- bottom. Buttons without anything to add (Spellbook, Legacy, Shop, Help) keep Blizzard's tooltip, and so does any
--- button while it is greyed out or has nothing to show (no guild, not in a queue).
+-- the title, up to three key numbers in columns (value over caption), rows of "name: value" (attributes, points per
+-- talent tree), up to three lines of text, the key at the bottom. Buttons without anything to add (Spellbook, Legacy,
+-- Shop, Help, the game menu) keep Blizzard's tooltip, and so does any button while it is greyed out or has nothing
+-- to show (no guild, not in a queue).
 --
--- Cost: nothing until a button is hovered; then one read of the game's state. Only the game menu's numbers (FPS,
--- latency) refresh while its tooltip is open, once a second; addon memory is read once per hover.
+-- Cost: nothing until a button is hovered; then one read of the game's state.
 local _, ns = ...
 
 local UI = OrdaenCore.UI
@@ -24,23 +24,45 @@ for i = 1, 3 do
 	cells[i] = { columns = { "auto" }, gap = 0, align = "center", values[i], captions[i] }
 	stats[i] = cells[i]
 end
+-- Rows: a name on the left, its value on the right (Strength 120; Fury 21).
+local MAX_ROWS = 6
+local rows = { columns = { "1fr", "auto" }, gap = { "lg", 0 }, hidden = true }
+local rowNames, rowValues = {}, {}
+for i = 1, MAX_ROWS do
+	rowNames[i] = { text = "", style = "label", hidden = true }
+	rowValues[i] = { text = "", style = "value", align = "right", hidden = true }
+	rows[2 * i - 1], rows[2 * i] = rowNames[i], rowValues[i]
+end
 local lines = {}
 for i = 1, 3 do
 	lines[i] = { text = "", hidden = true }
 end
-local tip = UI.Tooltip({ columns = { "auto" }, gap = "xs", title, stats, lines[1], lines[2], lines[3] },
+local tip = UI.Tooltip({ columns = { "auto" }, gap = "xs", title, stats, rows, lines[1], lines[2], lines[3] },
 	{ side = "above" })
 
 local COLUMNS = { { "1fr" }, { "1fr", "1fr" }, { "1fr", "1fr", "1fr" } }
 local shown = 0 -- stat columns filled so far
 local textLines = 0
+local rowCount = 0
 
 local function reset()
-	shown, textLines = 0, 0
+	shown, textLines, rowCount = 0, 0, 0
 	for i = 1, 3 do
 		cells[i].hidden = true
 		lines[i].hidden = true
 	end
+	for i = 1, MAX_ROWS do
+		rowNames[i].hidden, rowValues[i].hidden = true, true
+	end
+end
+
+local function row(name, value)
+	if rowCount >= MAX_ROWS or not name then
+		return
+	end
+	rowCount = rowCount + 1
+	rowNames[rowCount].text, rowValues[rowCount].text = name, tostring(value)
+	rowNames[rowCount].hidden, rowValues[rowCount].hidden = false, false
 end
 
 -- One number column: value over its caption. Plain strings: built only on a hover, not per frame.
@@ -65,7 +87,8 @@ end
 local function finish()
 	stats.hidden = shown == 0
 	stats.columns = COLUMNS[math.max(shown, 1)]
-	return shown > 0 or textLines > 0
+	rows.hidden = rowCount == 0
+	return shown > 0 or textLines > 0 or rowCount > 0
 end
 
 -- Per button: fill the tooltip; false = nothing to add (Blizzard's tooltip stays). ---------------------------------
@@ -88,8 +111,12 @@ local function character()
 	if lowest then
 		stat(string.format("%d%%", math.floor(lowest + 0.5)), DURABILITY)
 	end
-	local bags = ns.Segments.bags.model
-	stat(bags.free, L.MT_FREE_SLOTS)
+	-- the attributes, as the character sheet shows them (with buffs)
+	row(SPELL_STAT1_NAME, select(2, UnitStat("player", 1)))
+	row(SPELL_STAT2_NAME, select(2, UnitStat("player", 2)))
+	row(SPELL_STAT3_NAME, select(2, UnitStat("player", 3)))
+	row(SPELL_STAT4_NAME, select(2, UnitStat("player", 4)))
+	row(SPELL_STAT5_NAME, select(2, UnitStat("player", 5)))
 	if lowest and lowest < 50 then
 		local link = GetInventoryItemLink("player", worstSlot)
 		line(link and L.MT_MOST_WORN:format(link, math.floor(lowest + 0.5)))
@@ -111,15 +138,21 @@ local function professions()
 	return finish()
 end
 
+-- Forever's talents are trees (Arms, Fury, Protection): the points in each, as rows; unspent points above. The
+-- "specialization" Blizzard reports is the class until one is chosen, so it isn't shown.
 local function talents()
 	local _, classPoints, specPoints = C_ClassTalents.HasUnspentTalentPoints()
-	local spec = C_SpecializationInfo.GetSpecialization()
-	local specName = spec and select(2, C_SpecializationInfo.GetSpecializationInfo(spec))
-	if specName then
-		stat(specName, L.MT_SPEC)
+	stat((classPoints or 0) + (specPoints or 0), L.MT_UNSPENT)
+	local classID = select(3, UnitClass("player"))
+	local count = classID and C_SpecializationInfo.GetNumSpecializationsForClassID(classID) or 0
+	for i = 1, count do
+		local _, name, _, _, _, _, pointsSpent = C_SpecializationInfo.GetSpecializationInfo(i)
+		row(name, pointsSpent or 0)
 	end
-	stat(classPoints or 0, L.MT_CLASS_POINTS)
-	stat(specPoints or 0, L.MT_SPEC_POINTS)
+	if ns.Addon.Debug:IsEnabled() then
+		ns.Addon.Debug:Logf("micro tip talents: class %s, %d trees, unspent %s + %s", tostring(classID), count,
+			tostring(classPoints), tostring(specPoints))
+	end
 	return finish()
 end
 
@@ -189,28 +222,6 @@ local function collections()
 	return finish()
 end
 
--- The game menu: FPS and latency (refreshed while open), and how much memory the Ordaen addons use (once per hover).
-local memoryKB = 0
-local function readMemory()
-	UpdateAddOnMemoryUsage()
-	memoryKB = 0
-	for i = 1, C_AddOns.GetNumAddOns() do
-		local name = C_AddOns.GetAddOnInfo(i)
-		if name and name:find("^Ordaen") and C_AddOns.IsAddOnLoaded(i) then
-			memoryKB = memoryKB + (GetAddOnMemoryUsage(i) or 0)
-		end
-	end
-end
-
-local function gameMenu()
-	local _, _, home, world = GetNetStats()
-	stat(math.floor(GetFramerate() + 0.5), L.MT_FPS)
-	stat(L.MT_MS:format(home or 0), L.MT_HOME)
-	stat(L.MT_MS:format(world or 0), L.MT_WORLD)
-	line(L.MT_MEMORY:format(memoryKB / 1024))
-	return finish()
-end
-
 local PROVIDERS = {
 	CharacterMicroButton = character,
 	ProfessionMicroButton = professions,
@@ -219,13 +230,11 @@ local PROVIDERS = {
 	GuildMicroButton = guild,
 	LFDMicroButton = groupFinder,
 	CollectionsMicroButton = collections,
-	MainMenuMicroButton = gameMenu,
 }
 
 -- Showing and hiding ----------------------------------------------------------------------------------------------
 
 local current ---@type table|nil the button whose tooltip is ours now
-local ticker ---@type OrdaenTicker|nil the game menu's once-a-second refresh, only while its tooltip is open
 
 -- Blizzard's title without its key ("Quest Log |cffffd200(L)|r" -> "Quest Log"); the key goes to the bottom.
 local function titleOf(button)
@@ -242,12 +251,6 @@ local function fill(button)
 	return provider and provider() or false
 end
 
-local function refresh()
-	if current and fill(current) then
-		tip:Refresh()
-	end
-end
-
 local function onEnter(button)
 	local view = ns.View
 	if not (view and view.Holds(button)) then
@@ -257,9 +260,6 @@ local function onEnter(button)
 		return -- greyed out: Blizzard's tooltip says why (level, locked)
 	end
 	local name = button:GetName() or ""
-	if name == "MainMenuMicroButton" then
-		readMemory()
-	end
 	local ok, filled = pcall(fill, button)
 	if not ok then
 		ns.Addon.Debug:Warnf("micro tip %s: %s", name, tostring(filled))
@@ -274,19 +274,12 @@ local function onEnter(button)
 	GameTooltip:Hide()
 	current = button
 	tip:Show(button)
-	if name == "MainMenuMicroButton" then
-		ticker = ticker or ns.Addon:Every(1, refresh)
-		ticker:Start()
-	end
 end
 
 local function onLeave(button)
 	if current == button then
 		current = nil
 		tip:Hide(button)
-		if ticker then
-			ticker:Stop()
-		end
 	end
 end
 
