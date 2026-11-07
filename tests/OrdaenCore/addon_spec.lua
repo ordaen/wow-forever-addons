@@ -57,6 +57,26 @@ describe("OrdaenCore.NewAddon", function()
 			assert.same({ "A", "B" }, got)
 		end)
 
+	it("warns in dev mode when a unit event is registered for every unit (OnUnit takes the units)", function()
+		local A = newAddon()
+		local warned = {}
+		local dev = setmetatable({}, { __index = A.Debug })
+		function dev:IsEnabled()
+			return true
+		end
+		function dev:Warnf(fmt, ...)
+			warned[#warned + 1] = fmt:format(...)
+		end
+		function dev:Wrap(fn)
+			return fn
+		end
+		A.Debug = dev
+		A:On("UNIT_AURA", function() end)
+		A:On("BAG_UPDATE", function() end)
+		A:OnUnit("UNIT_HEALTH", "player", function() end)
+		assert.same({ "UNIT_AURA registered for every unit: use OnUnit with the units you need" }, warned)
+	end)
+
 	it("fills the SavedVariables with defaults on its ADDON_LOADED, keeping saved values", function()
 		rawset(_G, "TestAddonDB", { scale = 2 })
 		local A = newAddon({ db = "TestAddonDB", defaults = { scale = 1, list = { a = 1 }, on = true } })

@@ -14,6 +14,9 @@
 --                  be a statement (time a value with t = Debug:TimeStart() ... Debug:TimeEnd(t, "label"))
 --   FL8 reload     any ReloadUI / C_UI.Reload in addon code: Forever blocks a reload from addon code even inside
 --                  a click; a secure /reload macro button reloads (UI.Confirm `macro`), or the player types /reload
+--   FL9 unit event a unit event (its first argument is the unit, per Blizzard's documentation) registered for every
+--                  unit: :RegisterEvent("UNIT_AURA") or :On("UNIT_AURA", ...) also runs for every nameplate and
+--                  raider; register it for the units you need (RegisterUnitEvent, A:OnUnit / F:OnUnit)
 -- It only reports what it's sure of: a variable assigned anything it can't type is no longer checked.
 -- Silence one line with a trailing comment:  -- forever-lint: ignore FL2
 --
@@ -40,6 +43,20 @@ local CREATORS = {
 local EVENT_METHODS = {
 	RegisterEvent = true, RegisterUnitEvent = true, UnregisterEvent = true, IsEventRegistered = true,
 }
+
+-- Registering an event for every unit: the frame's own method, and the framework's (Addon/Feature/UI component :On).
+local ALL_UNITS_METHODS = { RegisterEvent = true, On = true }
+
+--- Whether Blizzard documents `event` with the unit as its first argument (UNIT_AURA: unitTarget), so it can be
+--- registered per unit.
+---@param api table
+---@param event string
+---@return boolean
+function M.IsUnitEvent(api, event)
+	local doc = api.events[event]
+	local first = type(doc) == "table" and type(doc.payload) == "table" and doc.payload[1] or nil
+	return type(first) == "table" and type(first.type) == "string" and first.type:find("^UnitToken") ~= nil
+end
 
 -- Documented argument types we can compare literals against; anything else is not checked.
 -- (uiAddon is a name or an index, so it is neither.)
@@ -325,6 +342,13 @@ function M.LintSource(api, source)
 			if kind == "string" and not api.events[event] then
 				report(node[3], "FL1", "event '" .. event .. "' is not in Forever " .. tostring(api.version)
 					.. "'s API documentation")
+			end
+		end
+		if ALL_UNITS_METHODS[method] then
+			local kind, event = literal(node[3])
+			if kind == "string" and M.IsUnitEvent(api, event) then
+				report(node[3], "FL9", "'" .. event .. "' is a unit event: registered this way it runs for every unit "
+					.. "(nameplates, raiders); use RegisterUnitEvent or A:OnUnit / F:OnUnit with the units you need")
 			end
 		end
 		local objectPath = path(node[1])

@@ -150,6 +150,18 @@ string.format("%d", 1)
 ]]))
 	end)
 
+	it("FL9: flags a unit event registered for every unit, not per unit or an ordinary event", function()
+		assert.same({ "FL9@3", "FL9@4", "FL9@5" }, codes([[
+local f, A = CreateFrame("Frame"), {}
+f:RegisterUnitEvent("UNIT_AURA", "player")
+f:RegisterEvent("UNIT_AURA")
+A:On("UNIT_PORTRAIT_UPDATE", function() end)
+A:On("UNIT_ENTERED_VEHICLE", function() end)
+A:OnUnit("UNIT_ENTERED_VEHICLE", "player", function() end)
+A:On("PLAYER_LOGIN", function() end)
+]]))
+	end)
+
 	it("FL8: flags every reload from addon code", function()
 		assert.same({ "FL8@2", "FL8@3", "FL8@4", "FL8@5", "FL8@6", "FL8@7" }, codes([[
 local A = {}

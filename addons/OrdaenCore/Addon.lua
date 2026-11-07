@@ -253,7 +253,14 @@ end
 ---@param event WowEvent
 ---@param fn fun(event: string, ...)
 function Addon:On(event, fn)
-	local wrapped = self._wrapped[fn] or self.Debug:Wrap(fn)
+	local Debug = self.Debug
+	if Debug:IsEnabled() then
+		-- forever-lint FL9 catches a literal name; this one, a name from a variable (an event list)
+		if event:find("^UNIT_") then
+			Debug:Warnf("%s registered for every unit: use OnUnit with the units you need", event)
+		end
+	end
+	local wrapped = self._wrapped[fn] or Debug:Wrap(fn)
 	self._wrapped[fn] = wrapped
 	addHandler(event, wrapped, self, self._events)
 end

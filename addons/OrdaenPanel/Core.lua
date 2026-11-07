@@ -156,13 +156,26 @@ local function onState(event)
 	ns.Changed("visibility")
 end
 
+-- Unit events (entering a vehicle) matter for the player only: the game filters the other units.
+local function isUnitEvent(event)
+	return event:find("^UNIT_") ~= nil
+end
+
 local function registerEvents()
 	for _, event in ipairs(registered) do
-		Visible:Off(event, onState)
+		if isUnitEvent(event) then
+			Visible:OffUnit(event, "player", onState)
+		else
+			Visible:Off(event, onState)
+		end
 	end
 	ns.Visibility.Events(settings(), wanted)
 	for i, event in ipairs(wanted) do
-		Visible:On(event, onState)
+		if isUnitEvent(event) then
+			Visible:OnUnit(event, "player", onState)
+		else
+			Visible:On(event, onState)
+		end
 		registered[i] = event
 	end
 	for i = #registered, #wanted + 1, -1 do

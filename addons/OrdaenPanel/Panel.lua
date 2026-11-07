@@ -201,8 +201,8 @@ local function place(button)
 end
 
 -- The player's portrait changed (gear, form, a new look): the character cell draws it again.
-local function onPortraitChanged(_, unit)
-	if unit == "player" and panel then
+local function onPortraitChanged()
+	if panel then
 		panel:Refresh()
 	end
 end
@@ -248,8 +248,11 @@ local function lightCell(button, lit)
 	end
 end
 
+local setHover -- forward (below)
+
 local function onButtonEnter(button)
 	lightCell(button, true)
+	setHover(true) -- the mouse may come in over a button: the panel itself never hears "enter" then
 end
 
 local function onButtonLeave(button)
@@ -449,7 +452,6 @@ local function cellFor(button)
 	else
 		cell.width, cell.height = size, cellWidth
 	end
-	cell.highlight = false
 	if name == PORTRAIT_BUTTON then
 		local face = cell[1] or { portrait = "player", crop = true, align = "center", valign = "center" }
 		face.size = size - 4 -- the whole cell, inside the panel's lines, like a bag
@@ -744,8 +746,13 @@ end
 
 local hoverTicker ---@type OrdaenTicker|nil
 
-local function setHover(on)
+-- The mouse is over the panel (or left it). Only a "show on mouseover" panel cares, so only it runs the ticker that
+-- notices the mouse leaving through a Blizzard button.
+function setHover(on)
 	local State = ns.State
+	if on and db().visibility.show ~= "mouseover" then
+		return
+	end
 	if State.hover == on then
 		return
 	end
@@ -865,8 +872,10 @@ local function build()
 		if panel then
 			panel:On("enter", onPanelEnter)
 			panel:On("render", onPanelDrawn)
-			panel:On("UNIT_PORTRAIT_UPDATE", onPortraitChanged)
+			-- the player's portrait only (the game filters the other units)
+			ns.Addon:OnUnit("UNIT_PORTRAIT_UPDATE", "player", onPortraitChanged)
 			hoverTicker = ns.Addon:Every(0.25, checkHover)
+			hoverTicker:Stop() -- Every starts at once: this one runs only while the mouse is over the panel
 		end
 	end
 end
@@ -878,7 +887,7 @@ end
 -- must not bring Blizzard's back). Not in the API dump on Forever, so looked up by name and logged.
 local STATUS_BARS = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
 local parking ---@type Frame|nil
-local parked = {} ---@type table<table, table|false> bar -> its parent before (false: not parked)
+local parked = {} ---@type table<table, boolean> bars parked
 
 local function park(bar)
 	if parked[bar] and bar:GetParent() ~= parking then
@@ -886,19 +895,16 @@ local function park(bar)
 	end
 end
 
-local function parkBlizzardBars(on)
+local function parkBlizzardBars()
 	for _, name in ipairs(STATUS_BARS) do
 		local bar = _G[name]
 		if type(bar) == "table" and bar.GetObjectType then
-			if on and not parked[bar] then
+			if not parked[bar] then
 				if not parking then
 					parking = CreateFrame("Frame")
 					parking:Hide()
 				end
-				parked[bar] = bar:GetParent()
-				if parked[bar] == nil then
-					parked[bar] = UIParent
-				end
+				parked[bar] = true
 				bar:SetParent(parking)
 				if not hooked[bar] then
 					hooked[bar] = true
@@ -906,12 +912,8 @@ local function parkBlizzardBars(on)
 					ns.Addon:Claim(bar, { "SetParent" }, name)
 				end
 				ns.Addon.Debug:Logf("experience: Blizzard's %s hidden", name)
-			elseif not on and parked[bar] then
-				local home = parked[bar]
-				parked[bar] = false
-				bar:SetParent(home)
 			end
-		elseif on then
+		else
 			ns.Addon.Debug:Logf("experience: no %s on this client", name)
 		end
 	end
@@ -927,7 +929,7 @@ Colors:On("change", onPalette)
 
 local function updateExperience()
 	local s = db()
-	parkBlizzardBars(true)
+	parkBlizzardBars()
 	local model = ns.Segments.experience.model
 	local shown = s.experience ~= "off" and model.kind ~= nil
 	middle.hidden = not shown
@@ -1112,17 +1114,25 @@ function View.Update(segment)
 		updateClock()
 	elseif segment == "micromenu" or segment == "social" or segment == "bags" then
 		local s = db()
-		if placedFor[segment] ~= s[segment] or segment == "micromenu" then
+		local placedNow = placedFor[segment] ~= s[segment] or segment == "micromenu"
+		if placedNow then
 			placeButtons() -- the group went on or off (the micro menu also on a re-read of Blizzard's buttons)
 		end
 		if segment == "social" then
 			updateSocial()
+			if not placedNow then
+				return -- the counts are the tooltip's: nothing on the panel changed
+			end
 		elseif segment == "bags" then
 			updateBags()
-			-- a bag equipped or taken off: its slot's icon changed
-			for _, button in ipairs(bagButtons) do
-				if cellOf[button] then
-					cellFor(button)
+			local bags = ns.Segments.bags.model
+			if bags.containersChanged then
+				bags.containersChanged = false
+				-- a bag equipped or taken off: its slot's icon changed
+				for _, button in ipairs(bagButtons) do
+					if cellOf[button] then
+						cellFor(button)
+					end
 				end
 			end
 		end

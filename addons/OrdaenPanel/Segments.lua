@@ -143,11 +143,15 @@ Segments.currencies = {
 
 -- freeOf[bag] / sizeOf[bag]: per bag id (0 = backpack, 1..NUM_BAG_SLOTS, then the reagent bag); size 0 = no bag in
 -- that slot. Reused tables.
-local bags = { free = 0, reagentFree = 0, freeOf = {}, sizeOf = {} }
+-- containersChanged: a bag was equipped or taken off since the panel last looked (set here, cleared there).
+local bags = { free = 0, reagentFree = 0, freeOf = {}, sizeOf = {}, containersChanged = true }
 Segments.bags = {
 	model = bags,
 	events = { "BAG_UPDATE_DELAYED", "BAG_CONTAINER_UPDATE" }, -- the second: a bag equipped or taken off
-	update = function()
+	update = function(event)
+		if event ~= "BAG_UPDATE_DELAYED" then
+			bags.containersChanged = true -- BAG_CONTAINER_UPDATE, or a first read
+		end
 		local freeOf, sizeOf = bags.freeOf, bags.sizeOf
 		local free, reagent = 0, 0
 		for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS + (NUM_REAGENTBAG_SLOTS or 0) do
