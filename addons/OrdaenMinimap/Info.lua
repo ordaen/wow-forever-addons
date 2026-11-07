@@ -313,9 +313,18 @@ function Info.Apply(savedDb)
 		return
 	end
 	layout()
-	zone:Show()
+	-- The zone name and the clock each have a setting (shown here or by Ordaen Panel); the coordinates stay.
+	if db.showZone == false then
+		zone:Hide()
+	else
+		zone:Show()
+	end
 	coords:Show()
-	clock:Show()
+	if db.showClock == false then
+		clock:Hide()
+	else
+		clock:Show()
+	end
 end
 
 --- Remove the texts: the feature's OnDisable (another minimap addon owns the map). Its events and tickers stop

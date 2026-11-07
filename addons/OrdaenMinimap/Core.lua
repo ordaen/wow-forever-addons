@@ -16,6 +16,27 @@ local function dumpState()
 	}
 end
 
+-- The zone name and the clock are shown by the minimap or by Ordaen Panel, one at a time (the user's decision,
+-- 2026-11-07; Core's A:Shared): turning one on in either addon turns the other's off. The holds are made below.
+local zoneHold, clockHold
+local sharing = false -- the other addon took or gave back an item: our own setting changes, no Claim/Release
+local HOLDS = { showZone = function()
+	return zoneHold
+end, showClock = function()
+	return clockHold
+end }
+
+local function onSettingChanged(key, value)
+	local hold = HOLDS[key] and HOLDS[key]()
+	if hold and not sharing then
+		if value then
+			hold:Claim()
+		else
+			hold:Release()
+		end
+	end
+end
+
 local A = OrdaenCore.NewAddon(addonName, ns, {
 	db = "OrdaenMinimapDB",
 	defaults = ns.DEFAULTS,
@@ -28,6 +49,7 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 	},
 	settings = {
 		title = "SETTINGS_TITLE",
+		onChange = onSettingChanged,
 		{ header = "HEADER_BORDER" },
 		{ key = "borderStyle", label = "BORDER_STYLE", tooltip = "BORDER_STYLE_TOOLTIP", choices = ns.BORDER_STYLES },
 		{ key = "borderColor", label = "BORDER_COLOR", tooltip = "BORDER_COLOR_TOOLTIP", choices = ns.BORDER_COLORS },
@@ -41,6 +63,8 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 			step = ns.SCALE_STEP,
 			format = "percent",
 		},
+		{ key = "showZone", label = "SHOW_ZONE", tooltip = "SHOW_ZONE_TOOLTIP" },
+		{ key = "showClock", label = "SHOW_CLOCK", tooltip = "SHOW_CLOCK_TOOLTIP" },
 		{ header = "HEADER_DRAWER" },
 		{ key = "drawerEnabled", label = "DRAWER_ENABLED", tooltip = "DRAWER_ENABLED_TOOLTIP" },
 		{
@@ -63,6 +87,34 @@ if not A then
 end
 ns.Addon = A
 ns.Debug = A.Debug
+
+-- Our own setting, as if the player changed it on the page (the page reads the saved value when shown).
+local function setShared(key, value)
+	sharing = true
+	OrdaenMinimapDB[key] = value
+	A:_SettingChanged(key, value)
+	sharing = false
+end
+
+-- Ordaen Panel shows it now: ours off. Its owner isn't loaded any more (fallback): ours back on.
+zoneHold = A:Shared("zone", {
+	lost = function()
+		setShared("showZone", false)
+	end,
+	regained = function()
+		setShared("showZone", true)
+	end,
+	fallback = true,
+})
+clockHold = A:Shared("clock", {
+	lost = function()
+		setShared("showClock", false)
+	end,
+	regained = function()
+		setShared("showClock", true)
+	end,
+	fallback = true,
+})
 function ns.Print(...)
 	A:Print(...)
 end
@@ -186,6 +238,8 @@ A:OnLogin(function()
 	A.Debug:Log("PLAYER_LOGIN")
 	logApiAvailability()
 	ns.Guard.Start(refreshFeatures) -- decides Guard.blocked; the features start right after OnLogin
+	zoneHold:Sync(OrdaenMinimapDB.showZone)
+	clockHold:Sync(OrdaenMinimapDB.showClock)
 	if OrdaenMinimapDB.drawerEnabled and C_AddOns.IsAddOnLoaded("MinimapButtonButton") then
 		A:Print(L.DRAWER_MBB_WARNING)
 	end

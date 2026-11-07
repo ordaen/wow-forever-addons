@@ -475,6 +475,26 @@ describe("OrdaenMinimap smoke", function()
 			assert.is_false(_G.GameTimeFrame.shown)
 		end)
 
+		it("hands the zone name and the clock to Ordaen Panel and takes them back, one at a time", function()
+			rawset(_G, "OrdaenCoreDB", {}) -- Ordaen Core's SavedVariables, there by login in the game
+			login()
+			local panel = OrdaenCore.NewAddon("OrdaenPanel", {}, {})
+			local panelZone = true
+			local hold = panel:Shared("zone", { lost = function()
+				panelZone = false
+			end })
+			hold:Claim() -- the player shows the zone name in the panel
+			assert.is_false(OrdaenMinimapDB.showZone, "the minimap's own setting goes off")
+			assert.is_false(frameNamed("OrdaenMinimapZone").shown)
+			assert.is_true(frameNamed("OrdaenMinimapCoords").shown, "the coordinates stay")
+			assert.is_true(frameNamed("OrdaenMinimapClock").shown, "and so does the clock")
+			settings.showZone:Set(true) -- and turns the minimap's back on
+			assert.is_false(panelZone, "the panel's goes off")
+			assert.is_true(frameNamed("OrdaenMinimapZone").shown)
+			settings.showClock:Set(false)
+			assert.is_false(frameNamed("OrdaenMinimapClock").shown)
+		end)
+
 		it("shows the zone above, coordinates and the clock below, outside the border, as UI components", function()
 			login()
 			local zone = frameNamed("OrdaenMinimapZone")

@@ -66,6 +66,9 @@ ns.DEFAULTS = {
 	drawerEnabled = true,
 	hideBlizzardCompartment = true,
 	drawerColumns = 6,
+	-- The zone name above the map and the clock below it: shown by the minimap or by Ordaen Panel, one at a time.
+	showZone = true,
+	showClock = true,
 }
 
 ns.SCALE_MIN, ns.SCALE_MAX, ns.SCALE_STEP = 0.8, 1.6, 0.05
@@ -120,7 +123,7 @@ function ns.ApplyDefaults(db)
 	else
 		db.scale = math.min(ns.SCALE_MAX, math.max(ns.SCALE_MIN, scale))
 	end
-	for _, flag in ipairs({ "drawerEnabled", "hideBlizzardCompartment" }) do
+	for _, flag in ipairs({ "drawerEnabled", "hideBlizzardCompartment", "showZone", "showClock" }) do
 		if type(db[flag]) ~= "boolean" then
 			db[flag] = ns.DEFAULTS[flag]
 		end

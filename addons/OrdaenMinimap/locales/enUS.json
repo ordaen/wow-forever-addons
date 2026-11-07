@@ -44,5 +44,9 @@
   "TIME_TOOLTIP_CALENDAR": "Left-click: calendar",
   "TIME_TOOLTIP_CLOCK": "Right-click: clock settings",
   "CALENDAR_PENDING": "You have new calendar invitations",
-  "TRACKING_TOOLTIP_MENU": "Left-click: choose what to track"
+  "TRACKING_TOOLTIP_MENU": "Left-click: choose what to track",
+  "SHOW_ZONE": "Zone name",
+  "SHOW_ZONE_TOOLTIP": "Shows the zone name above the minimap. Ordaen Panel can show it instead: turning it on in one turns it off in the other.",
+  "SHOW_CLOCK": "Clock",
+  "SHOW_CLOCK_TOOLTIP": "Shows the clock below the minimap. Ordaen Panel can show it instead: turning it on in one turns it off in the other."
 }
