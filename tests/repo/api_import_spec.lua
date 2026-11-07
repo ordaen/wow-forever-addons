@@ -39,6 +39,15 @@ describe("api_import", function()
 		assert.equals("1.60.1-70790", Import.FolderName(fakeDump(70790).meta))
 	end)
 
+	it("merges a new dump of the same build into the imported one; the new value wins", function()
+		-- the dump keeps only what Blizzard set: a field an addon wrote (Ordaen Chat's isStaticDocked) drops out
+		local old = "ChatFrame2.isDocked\tnumber\nChatFrame2.isStaticDocked\tboolean\nFrame:Hide\n"
+		local new = "ChatFrame2.isDocked\tboolean\nItemButton:SetItem\nFrame:Hide\n"
+		assert.equals("ChatFrame2.isDocked\tboolean\nChatFrame2.isStaticDocked\tboolean\nFrame:Hide\nItemButton:SetItem\n",
+			Import.Merge(old, new))
+		assert.equals("A\tx\n", Import.Merge(nil, "A\tx\n")) -- the first import of a build
+	end)
+
 	it("renders sorted, one-entry-per-line files", function()
 		local files = Import.Render(fakeDump(70790))
 		assert.truthy(files["globals.txt"]:find("CreateFrame\tfunction\n", 1, true))

@@ -30,6 +30,37 @@ local function lines(list)
 	return table.concat(list, "\n") .. (#list > 0 and "\n" or "")
 end
 
+--- Merge a new dump's text file into the one already imported for the same client build: every entry either
+--- saw, the new one winning for an entry both have (an entry is a line; its key is the text before the first tab,
+--- or the whole line). The dump only keeps what Blizzard set, so a field one of our addons writes
+--- (ChatFrame2.isStaticDocked, written by Ordaen Chat) drops out of later dumps; the build still has it.
+--- Pure.
+---@param old string|nil the imported file
+---@param new string the new dump's file
+---@return string
+function M.Merge(old, new)
+	local byKey, keys = {}, {}
+	local function add(text)
+		for line in (text or ""):gmatch("[^\n]+") do
+			local key = line:match("^([^\t]*)\t") or line
+			if byKey[key] == nil then
+				keys[#keys + 1] = key
+			end
+			byKey[key] = line
+		end
+	end
+	add(old)
+	add(new)
+	local list = {}
+	for i, key in ipairs(keys) do
+		list[i] = byKey[key]
+	end
+	return lines(list)
+end
+
+-- The files merged with an earlier import of the same build (the rest are replaced: meta, docs).
+local MERGED = { ["globals.txt"] = true, ["namespaces.txt"] = true, ["widgets.txt"] = true, ["objects.txt"] = true }
+
 --- Folder name for a dump: "<version>-<build>", e.g. "1.60.1-70790".
 function M.FolderName(meta)
 	return tostring(meta.version) .. "-" .. tostring(meta.build)
@@ -438,7 +469,11 @@ function M.Main(savedVariablesPath, root)
 	local folder = M.FolderName(dump.meta)
 	fs.MakeDirs(base .. "/" .. folder)
 	for name, content in pairs(M.Render(dump)) do
-		writeFile(base .. "/" .. folder .. "/" .. name, content)
+		local path = base .. "/" .. folder .. "/" .. name
+		if MERGED[name] then
+			content = M.Merge(readFile(path), content) -- same build dumped again: keep what earlier dumps saw
+		end
+		writeFile(path, content)
 	end
 	local current, count = M.Rebuild(root)
 	print("Imported " .. folder .. " (current: " .. current .. ", versions: " .. count .. ")")

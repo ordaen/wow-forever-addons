@@ -411,7 +411,8 @@ The real Lua API of each Forever client version, dumped in game, so nobody guess
   `globals.txt`, `namespaces.txt`, `widgets.txt`, `objects.txt`, `docs.txt` if available: sorted, one entry per line),
   `api/forever/CURRENT` (newest build), `api/forever/CHANGES.md` (what each version added/removed) and
   `api/forever/luacheck.lua`. Commit them as `chore(api): import Forever <version>-<build> API dump`. Dump again
-  whenever Forever patches; never edit these files by hand.
+  whenever Forever patches; never edit these files by hand. A new dump of a build already imported is merged into it
+  (globals, namespaces, widgets, objects: what any dump saw stays; the dump drops fields our addons wrote).
 - **Enforced:** `.luacheckrc` uses `api/forever/luacheck.lua` as `read_globals` (exact fields for namespaces and the
   dumped objects), so any missing global or `C_X.Function` fails the lint. `tests/repo/forever_api_spec.lua` checks
   every `:Method(` call in `addons/` against the dumped widget/object methods (non-widget methods, e.g. Settings or
