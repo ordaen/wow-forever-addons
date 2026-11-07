@@ -7,6 +7,12 @@ World of Warcraft addons for the **WoW Forever** flavor (interface `16001`).
 | [Ordaen Core](addons/OrdaenCore) | Shared code every Ordaen addon depends on (debug log, error reports). Does nothing on its own. |
 | [Ordaen Minimap](addons/OrdaenMinimap) | Our own SexyMap-style minimap with little configuration; collects minimap buttons and addon compartment entries into one drawer. |
 
+## Works with other addons
+
+- **Altoholic** is the addon for what your other characters own. Ordaen addons support it: its item counts stay in
+  tooltips as Altoholic writes them (Ordaen Tooltips shows them as their own block, after the game's lines), and no
+  Ordaen addon tracks other characters' items. Ordaen Bags shows only the current character's bags.
+
 ## Development
 
 Development happens on Windows: the game runs there and the repo lives on the Windows drive. The checks (luacheck,
