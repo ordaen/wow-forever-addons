@@ -34,6 +34,8 @@ Tooltips are 12 to 25 ems wide.
 | `label` | `small` | the left side of a label/value row |
 | `value` | `body` | the right side |
 | `hint` | `small` | what a click or key does: a tooltip's `hints` and `hotkey` |
+| `onBar` | `body` | white text on a coloured bar (a meter's names, the XP bar's label): outlined, no shadow |
+| `onBarValue` | `body` | the numbers on a coloured bar: outlined, no shadow |
 | `caption` | `tiny` | a section name; capitals |
 | `normal` | `body` | names on the world (the minimap's zone), with a shadow |
 | `small` | `small` | small readouts on the world (coordinates, clock), with a shadow |

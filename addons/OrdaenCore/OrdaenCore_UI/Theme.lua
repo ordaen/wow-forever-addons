@@ -20,6 +20,7 @@ local _, ns = ...
 ---@field size number px
 ---@field color number[]
 ---@field shadow boolean
+---@field outline boolean a 1 px outline (and no drop shadow): text on a coloured bar
 ---@field caps boolean
 
 ---@class OrdaenUISeparatorLook
@@ -67,7 +68,7 @@ end
 -- edges = { top, right, bottom, left }, each { width in physical px, colour }, vignette = { size, alpha } (the
 -- rim darkened inwards), highlight (hover: { texture } or { color }), bleed (a nested block's surface reaches
 -- over its parent's padding to the parent's edges).
--- Text looks: font (body, header, ui), size tier, color, shadow, caps.
+-- Text looks: font (body, header, ui), size tier, color, shadow, outline, caps.
 
 local THEMES = {}
 
@@ -189,6 +190,10 @@ THEMES.ordaen = {
 		body = { font = "body", size = "body", color = { 0.89, 0.85, 0.77 } },
 		label = { font = "body", size = "small", color = { 0.70, 0.65, 0.56 } },
 		value = { font = "body", size = "body", color = { 0.96, 0.93, 0.86 } },
+		-- White text on a coloured bar (a meter's names and numbers, the XP bar's label): a 1 px outline instead of a
+		-- shadow, over a faint scrim (the user's choice, 2026-11-07).
+		onBar = { font = "body", size = "body", color = { 1, 1, 1 }, outline = true },
+		onBarValue = { font = "body", size = "body", color = { 1, 1, 1 }, outline = true },
 		hint = { font = "body", size = "small", color = { 0.56, 0.54, 0.50 } },
 		caption = { font = "body", size = "tiny", color = { 0.62, 0.58, 0.51 }, caps = true },
 		-- On the world (labels on the minimap): no surface behind them, so they keep a shadow.
@@ -302,6 +307,7 @@ function Theme.Apply(name, textSize)
 			size = Theme.size[look.size] or textSize,
 			color = look.color,
 			shadow = look.shadow or false,
+			outline = look.outline or false,
 			caps = look.caps or false,
 		}
 	end

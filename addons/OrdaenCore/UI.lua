@@ -389,14 +389,13 @@ end
 ---
 ---   UI.DressFont(ChatFrame1, "body")
 ---   UI.DressFont(ChatFrame1Tab:GetFontString(), "label")
----   UI.DressFont(bar.Name, "body", "OUTLINE")  -- text on a coloured bar: a 1 px outline instead of the shadow
+---   UI.DressFont(bar.Name, "onBar")  -- text on a coloured bar: the theme gives it an outline instead of a shadow
 ---@param target table anything with SetFont(file, size, flags) and GetFont()
 ---@param style string|nil
----@param flags string|nil font flags of ours ("OUTLINE"); nil keeps Blizzard's
-function UI.DressFont(target, style, flags)
+function UI.DressFont(target, style)
 	local f = framework()
 	if f then
-		f.DressFont(target, style, flags)
+		f.DressFont(target, style)
 	end
 end
 

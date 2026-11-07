@@ -387,11 +387,11 @@ end
 -- Fonts --------------------------------------------------------------------------------------------------------------
 -- Blizzard's own text (chat lines, tab names, an input) in the theme's font and the global text size. Anything with
 -- SetFont(file, size, flags): a FontString, an EditBox, a chat window. Blizzard setting its font again (the chat
--- font size menu) gets ours back; a theme or text size change re-applies every one (Dress.RefreshFonts). Text on a
--- coloured bar can ask for an outline (flags "OUTLINE"): then it has no drop shadow, the outline does that work.
+-- font size menu) gets ours back; a theme or text size change re-applies every one (Dress.RefreshFonts). A style
+-- with an outline (onBar, onBarValue: text on a coloured bar) gets OUTLINE flags and no drop shadow, the outline does
+-- that work; other styles keep Blizzard's flags.
 
 local fonts = setmetatable({}, { __mode = "k" }) -- target -> text style name
-local fontFlags = setmetatable({}, { __mode = "k" }) -- target -> our font flags ("OUTLINE"), else Blizzard's stay
 local fontHooked = setmetatable({}, { __mode = "k" })
 local applyingFont = false
 
@@ -401,7 +401,7 @@ local function applyFont(target)
 		return
 	end
 	local look = Theme.TextStyle(style)
-	local own = fontFlags[target]
+	local own = look.outline and "OUTLINE" or nil
 	local _, _, flags = target:GetFont()
 	applyingFont = true
 	target:SetFont(look.file, look.size, own or flags or "")
@@ -421,10 +421,8 @@ end
 --- Put the theme's font and size for text style `style` (default "body") on Blizzard's `target`, and keep it there.
 ---@param target table a FontString, EditBox or chat window (anything with SetFont/GetFont)
 ---@param style string|nil a text style name (body, label, value, small, ...)
----@param flags string|nil font flags of ours ("OUTLINE": text on a coloured bar); nil keeps Blizzard's
-function Dress.Font(target, style, flags)
+function Dress.Font(target, style)
 	fonts[target] = style or "body"
-	fontFlags[target] = flags
 	if not fontHooked[target] then
 		fontHooked[target] = true
 		hooksecurefunc(target, "SetFont", applyFont)
