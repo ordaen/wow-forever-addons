@@ -16,65 +16,34 @@ ns.MicroTips = MicroTips
 -- The tooltip: built once, fields change per hover. ---------------------------------------------------------------
 
 local title = { text = "", style = "title" }
-local stats = { columns = { "1fr" }, gap = { "lg", 0 }, hidden = true }
-local values, captions, cells = {}, {}, {}
-for i = 1, 3 do
-	values[i] = { text = "", style = "value", align = "center" }
-	captions[i] = { text = "", style = "label", align = "center" }
-	cells[i] = { columns = { "auto" }, gap = 0, align = "center", values[i], captions[i] }
-	stats[i] = cells[i]
-end
--- Rows: a name on the left, its value on the right (Strength 120; Fury 21).
-local MAX_ROWS = 6
-local rows = { columns = { "1fr", "auto" }, gap = { "lg", 0 }, hidden = true }
-local rowNames, rowValues = {}, {}
-for i = 1, MAX_ROWS do
-	rowNames[i] = { text = "", style = "label", hidden = true }
-	rowValues[i] = { text = "", style = "value", align = "right", hidden = true }
-	rows[2 * i - 1], rows[2 * i] = rowNames[i], rowValues[i]
-end
+-- The same sections as a spell tooltip in Ordaen Tooltips (OrdaenCore.UI): key numbers in columns (value over
+-- caption), rows of name and value (Strength 120; Fury 21), then a few lines of text. Each sits the theme's section
+-- gap below the one before.
+local stats = UI.Stats(3)
+local rows = UI.Rows(6)
 local lines = {}
 for i = 1, 3 do
 	lines[i] = { text = "", hidden = true }
 end
--- the text lines close together, as one section
-local textBlock = { columns = { "auto" }, gap = "xs", hidden = true, lines[1], lines[2], lines[3] }
--- sections (title, numbers, rows, text) clearly apart
-local tip = UI.Tooltip({ columns = { "auto" }, gap = "md", title, stats, rows, textBlock }, { side = "above" })
+local textBlock = { style = "section", columns = { "auto" }, gap = "xs", hidden = true, lines[1], lines[2], lines[3] }
+local tip = UI.Tooltip({ columns = { "auto" }, gap = 0, title, stats, rows, textBlock }, { side = "above" })
 
-local COLUMNS = { { "1fr" }, { "1fr", "1fr" }, { "1fr", "1fr", "1fr" } }
-local shown = 0 -- stat columns filled so far
 local textLines = 0
-local rowCount = 0
 
 local function reset()
-	shown, textLines, rowCount = 0, 0, 0
+	stats:Clear()
+	rows:Clear()
+	textLines = 0
 	for i = 1, 3 do
-		cells[i].hidden = true
 		lines[i].hidden = true
 	end
-	for i = 1, MAX_ROWS do
-		rowNames[i].hidden, rowValues[i].hidden = true, true
-	end
+	textBlock.hidden = true
 end
 
 local function row(name, value)
-	if rowCount >= MAX_ROWS or not name then
-		return
+	if name then
+		rows:Add(name, value)
 	end
-	rowCount = rowCount + 1
-	rowNames[rowCount].text, rowValues[rowCount].text = name, tostring(value)
-	rowNames[rowCount].hidden, rowValues[rowCount].hidden = false, false
-end
-
--- One number column: value over its caption. Plain strings: built only on a hover, not per frame.
-local function stat(value, caption)
-	if shown >= 3 then
-		return
-	end
-	shown = shown + 1
-	values[shown].text, captions[shown].text = tostring(value), caption
-	cells[shown].hidden = false
 end
 
 local function line(text)
@@ -84,14 +53,11 @@ local function line(text)
 	textLines = textLines + 1
 	lines[textLines].text = text
 	lines[textLines].hidden = false
+	textBlock.hidden = false
 end
 
 local function finish()
-	stats.hidden = shown == 0
-	stats.columns = COLUMNS[math.max(shown, 1)]
-	rows.hidden = rowCount == 0
-	textBlock.hidden = textLines == 0
-	return shown > 0 or textLines > 0 or rowCount > 0
+	return stats.shown > 0 or rows.shown > 0 or textLines > 0
 end
 
 -- Per button: fill the tooltip; false = nothing to add (Blizzard's tooltip stays). ---------------------------------
@@ -99,7 +65,7 @@ end
 local function character()
 	local _, equipped = GetAverageItemLevel()
 	if equipped and equipped > 0 then
-		stat(string.format("%.1f", equipped), STAT_AVERAGE_ITEM_LEVEL)
+		stats:Add(equipped, STAT_AVERAGE_ITEM_LEVEL, "%.1f")
 	end
 	local lowest, worstSlot = nil, nil
 	for slot = INVSLOT_FIRST_EQUIPPED, INVSLOT_LAST_EQUIPPED do
@@ -112,7 +78,7 @@ local function character()
 		end
 	end
 	if lowest then
-		stat(string.format("%d%%", math.floor(lowest + 0.5)), DURABILITY)
+		stats:Add(math.floor(lowest + 0.5), DURABILITY, "%d%%")
 	end
 	-- the attributes, as the character sheet shows them (with buffs)
 	row(SPELL_STAT1_NAME, select(2, UnitStat("player", 1)))
@@ -134,7 +100,7 @@ local function professions()
 		if index then
 			local name, _, rank, maxRank = GetProfessionInfo(index)
 			if name then
-				stat(string.format("%d/%d", rank or 0, maxRank or 0), name)
+				stats:Add(string.format("%d/%d", rank or 0, maxRank or 0), name)
 			end
 		end
 	end
@@ -149,7 +115,7 @@ local spentBySubTree, subTreeOrder = {}, {}
 
 local function talents()
 	local _, classPoints, specPoints = C_ClassTalents.HasUnspentTalentPoints()
-	stat((classPoints or 0) + (specPoints or 0), L.MT_UNSPENT)
+	stats:Add((classPoints or 0) + (specPoints or 0), L.MT_UNSPENT)
 	local configID = C_ClassTalents.GetActiveConfigID()
 	if not configID then
 		return finish() -- no talents yet (below level 10)
@@ -237,9 +203,9 @@ local function questLog()
 			line(L.MT_READY_QUEST:format(info.title or ""))
 		end
 	end
-	stat(string.format("%d/%d", quests or 0, C_QuestLog.GetMaxNumQuestsCanAccept() or 0), L.MT_QUESTS)
-	stat(ready, L.MT_READY)
-	stat(C_QuestLog.GetNumQuestWatches() or 0, L.MT_TRACKED)
+	stats:Add(string.format("%d/%d", quests or 0, C_QuestLog.GetMaxNumQuestsCanAccept() or 0), L.MT_QUESTS)
+	stats:Add(ready, L.MT_READY)
+	stats:Add(C_QuestLog.GetNumQuestWatches() or 0, L.MT_TRACKED)
 	return finish()
 end
 
@@ -249,10 +215,10 @@ local function guild()
 	end
 	local total, online = GetNumGuildMembers()
 	local _, rankName = GetGuildInfo("player")
-	stat(online or 0, L.MT_ONLINE)
-	stat(total or 0, L.MT_MEMBERS)
+	stats:Add(online or 0, L.MT_ONLINE)
+	stats:Add(total or 0, L.MT_MEMBERS)
 	if rankName then
-		stat(rankName, L.MT_RANK)
+		stats:Add(rankName, L.MT_RANK)
 	end
 	line(GetGuildRosterMOTD())
 	return finish()
@@ -271,9 +237,9 @@ local function groupFinder()
 	-- (hasData, ..., instanceName [11], averageWait [12], ..., myWait [16], queuedTime [17])
 	local instanceName = select(11, GetLFGQueueStats(category))
 	local myWait, queuedTime = select(16, GetLFGQueueStats(category))
-	stat(minutes(queuedTime and (GetTime() - queuedTime)), L.MT_IN_QUEUE)
+	stats:Add(minutes(queuedTime and (GetTime() - queuedTime)), L.MT_IN_QUEUE)
 	if myWait and myWait > 0 then
-		stat(minutes(myWait), L.MT_WAIT)
+		stats:Add(minutes(myWait), L.MT_WAIT)
 	end
 	line(instanceName)
 	return finish()
@@ -286,10 +252,10 @@ local function collections()
 			mounts = mounts + 1
 		end
 	end
-	stat(mounts, L.MT_MOUNTS)
+	stats:Add(mounts, L.MT_MOUNTS)
 	local _, pets = C_PetJournal.GetNumPets()
-	stat(pets or 0, L.MT_PETS)
-	stat(C_ToyBox.GetNumLearnedDisplayedToys() or 0, L.MT_TOYS)
+	stats:Add(pets or 0, L.MT_PETS)
+	stats:Add(C_ToyBox.GetNumLearnedDisplayedToys() or 0, L.MT_TOYS)
 	return finish()
 end
 
