@@ -180,7 +180,7 @@ describe("Ordaen Reskin", function()
 		helpers.inCombat = false
 		styles = { window = true, portraitWindow = true, dialog = true, inset = true, tab = true, sideTab = true,
 			pushButton = true, closeButton = true, checkbox = true, dropdown = true, input = true, scrollTrack = true,
-			scrollThumb = true, scrollStepper = true, slot = true }
+			scrollThumb = true, scrollStepper = true, scrollStepperForward = true, slot = true }
 		windows = { CharacterFrame = window("CharacterFrame", true), GameMenuFrame = dialog("GameMenuFrame") }
 	end)
 
@@ -238,7 +238,7 @@ describe("Ordaen Reskin", function()
 		local dress = dressed[tab1]
 		assert.equals("sideTab", dress.spec.style)
 		assert.equals("tab", dress.spec.track)
-		assert.same({ selected = "sideTabSelected" }, dress.spec.states)
+		assert.is_nil(dress.spec.states, "the role draws the selected state from its own art")
 		assert.same({ "CharacterFrameTab1.Disabled", "CharacterFrameTab1.Highlight", "CharacterFrameTab1.Left",
 			"CharacterFrameTab1.LeftActive", "CharacterFrameTab1.Middle", "CharacterFrameTab1.Normal",
 			"CharacterFrameTab1.Pushed", "CharacterFrameTab1.Right" }, names(dress.spec.art))
@@ -248,7 +248,7 @@ describe("Ordaen Reskin", function()
 		rawset(_G, "MailFrame", mail)
 		fire("ADDON_LOADED", "Blizzard_MailFrame")
 		assert.equals("tab", dressed[mailTab].spec.style)
-		assert.same({ selected = "tabSelected" }, dressed[mailTab].spec.states)
+		assert.equals("tab", dressed[mailTab].spec.track)
 	end)
 
 	it("dresses the close button, and every standard control inside the window, but not list rows or content",
@@ -266,7 +266,8 @@ describe("Ordaen Reskin", function()
 			track.regions = { texture("Bar.Track.Begin"), texture("Bar.Track.End") }
 			local thumb = control("Bar.Thumb", "Button")
 			local back = control("Bar.Back", "Button")
-			local bar = stub("Bar", { Track = track, Thumb = thumb, Back = back })
+			local forward = control("Bar.Forward", "Button")
+			local bar = stub("Bar", { Track = track, Thumb = thumb, Back = back, Forward = forward })
 			local row = control("Row", "Button") -- a list row: no template parts
 			local inset = stub("Inset", { NineSlice = stub("Inset.NineSlice"), Bg = texture("Inset.Bg") })
 			local nested = control("Nested", "Button", { "Left", "Middle", "Right" })
@@ -276,7 +277,7 @@ describe("Ordaen Reskin", function()
 			c.children = { pane, inset }
 			load()
 			assert.equals("closeButton", dressed[close].spec.style)
-			assert.same({ pushed = "pushButtonPushed", disabled = "pushButtonDisabled" }, dressed[button].spec.states)
+			assert.equals("pushButton", dressed[button].spec.style)
 			assert.equals("button", dressed[button].spec.track)
 			assert.equals("checkbox", dressed[check].spec.style)
 			assert.equals("checkbox", dressed[check].spec.track)
@@ -289,6 +290,7 @@ describe("Ordaen Reskin", function()
 			assert.equals("scrollTrack", dressed[track].spec.style)
 			assert.equals("scrollThumb", dressed[thumb].spec.style)
 			assert.equals("scrollStepper", dressed[back].spec.style)
+			assert.equals("scrollStepperForward", dressed[forward].spec.style, "the forward arrow is its own role")
 			assert.is_nil(dressed[row], "a list row isn't a control")
 			assert.equals("inset", dressed[inset].spec.style)
 			assert.equals("pushButton", dressed[nested].spec.style, "controls inside an inset too")

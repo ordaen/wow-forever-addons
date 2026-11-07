@@ -3,7 +3,8 @@
 -- checkboxes, dropdowns, input boxes, scroll bars (track, thumb, steppers), item slots and insets. Only a control's
 -- art is handed over to be hidden (its Left/Middle/Right pieces and its Normal/Pushed/Disabled/Highlight
 -- textures); its text, icon, clicks and scripts stay Blizzard's. A control whose state matters (enabled, pushed,
--- checked, the selected tab) is dressed with `track`, so the renderer follows it.
+-- checked, the selected tab) is dressed with `track`: the renderer follows it and the role draws that state from
+-- its theme art.
 --
 -- A role the theme doesn't define (UI.HasStyle) is skipped: the control keeps Blizzard's look, so the kit
 -- never leaves a control without art. Prior art: EllesmereUI's window skin engine (ideas only; its licence
@@ -72,13 +73,16 @@ local TAB_PARTS = {
 local INPUT_PARTS = { "Left", "Middle", "Right", "Mid" }
 local DROPDOWN_PARTS = { "Background", "Left", "Middle", "Right", "Arrow" }
 local SLOT_PARTS = { "IconBorder", "SlotBackground" }
+-- A scroll bar's two arrows by template key: back (up) and forward (down) are separate roles (a direction).
+local STEPPERS = { Back = "scrollStepper", ScrollUpButton = "scrollStepper", Forward = "scrollStepperForward",
+	ScrollDownButton = "scrollStepperForward" }
 
 --- Dress `control` in `role` with these art textures hidden; once per control. Returns its dress, or nil when the
 --- theme has no such role (or the framework can't load).
 ---@param control table
 ---@param role string
 ---@param art Texture[]
----@param opts table|nil more UI.Dress options (track, states)
+---@param opts table|nil more UI.Dress options (track, borderAbove)
 ---@return OrdaenUIDress|nil
 function Kit.Dress(control, role, art, opts)
 	local known = dressed[control]
@@ -131,7 +135,7 @@ function Kit.Tab(tab, side)
 	addKeys(art, tab, TAB_PARTS)
 	addButtonTextures(art, tab)
 	local role = side and "sideTab" or "tab"
-	return Kit.Dress(tab, role, art, { track = "tab", states = { selected = role .. "Selected" } })
+	return Kit.Dress(tab, role, art, { track = "tab" })
 end
 
 --- A push button (UIPanelButtonTemplate: three slices).
@@ -139,8 +143,7 @@ function Kit.Button(button)
 	local art = {}
 	addKeys(art, button, SLICE_PARTS)
 	addButtonTextures(art, button)
-	return Kit.Dress(button, "pushButton", art, { track = "button",
-		states = { pushed = "pushButtonPushed", disabled = "pushButtonDisabled" } })
+	return Kit.Dress(button, "pushButton", art, { track = "button" })
 end
 
 --- A window's close button (the red X).
@@ -148,8 +151,7 @@ function Kit.CloseButton(button)
 	local art = {}
 	addButtonTextures(art, button)
 	add(art, rawget(button, "Border"))
-	return Kit.Dress(button, "closeButton", art, { track = "button",
-		states = { pushed = "closeButtonPushed", disabled = "closeButtonDisabled" } })
+	return Kit.Dress(button, "closeButton", art, { track = "button" })
 end
 
 --- A checkbox; its tick is part of its state (checked), drawn by the theme.
@@ -158,7 +160,7 @@ function Kit.Checkbox(check)
 	addButtonTextures(art, check)
 	add(art, check:GetCheckedTexture())
 	add(art, check:GetDisabledCheckedTexture())
-	return Kit.Dress(check, "checkbox", art, { track = "checkbox", states = { checked = "checkboxChecked" } })
+	return Kit.Dress(check, "checkbox", art, { track = "checkbox" })
 end
 
 --- A dropdown (WowStyle1DropdownTemplate and the older three-slice one).
@@ -193,13 +195,12 @@ function Kit.ScrollBar(bar)
 		end
 		Kit.Dress(thumb, "scrollThumb", art, { track = "button" })
 	end
-	for _, key in ipairs({ "Back", "Forward", "ScrollUpButton", "ScrollDownButton" }) do
+	for key, role in pairs(STEPPERS) do
 		local stepper = rawget(bar, key)
 		if type(stepper) == "table" and stepper.GetNormalTexture then
 			local art = {}
 			addButtonTextures(art, stepper)
-			Kit.Dress(stepper, "scrollStepper", art, { track = "button",
-				states = { disabled = "scrollStepperDisabled" } })
+			Kit.Dress(stepper, role, art, { track = "button" })
 		end
 	end
 end
