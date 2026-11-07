@@ -74,7 +74,9 @@
     {
       "settings": {
         // "<ours>:<theirs>" -> true: the player kept both addons of a conflict (Conflict.lua; at most 50)
-        "keptConflicts": { "type": "map", "of": "boolean", "default": {}, "page": false }
+        "keptConflicts": { "type": "map", "of": "boolean", "default": {}, "page": false },
+        // shared item ("zone", "clock") -> the Ordaen addon that shows it (Shared.lua; a few entries at most)
+        "sharedOwners": { "type": "map", "of": "string", "default": {}, "page": false }
       }
     }
   ]

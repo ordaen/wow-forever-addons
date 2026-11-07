@@ -28,6 +28,26 @@ balanced for dark backgrounds and weak monitors). A colour is `{ r, g, b }` with
 when the player picks again, so keep them; listen to `"change"` (`:On(event, fn)` / `:Off(event, fn)`) to redraw.
 Unknown names and classes give nil.
 
+## A:Shared(item, opts)
+
+```lua
+local zone = A:Shared("zone", {
+	lost = function() A:Set("zoneText", false) end,     -- another Ordaen addon shows it now: switch ours off
+	regained = function() A:Set("zoneText", true) end,  -- its owner isn't loaded any more: show it again
+	fallback = true,                                    -- take it back then (the minimap; not the panel)
+})
+A:OnLogin(function() zone:Sync(A:Get("zoneText")) end) -- line the saved setting up with the owner
+-- when the player changes that setting: if value then zone:Claim() else zone:Release() end
+```
+
+Things several Ordaen addons can show, one at a time: `"zone"` (the zone name) and `"clock"` (the time). The addon
+whose setting the player turned on last shows it: `:Claim()` makes every other addon taking part run its `lost`,
+where it switches its own setting off (addons never change each other's settings). `:Release()` when the setting
+goes off; then nobody shows it. The owners are saved (`OrdaenCoreDB.sharedOwners`). At login `:Sync(on)` keeps the
+item when this addon is the recorded owner, there is none, or the owner isn't loaded, and runs `lost` otherwise; a
+`fallback` addon whose setting is off takes it back (`regained`) when the owner isn't loaded any more. `:Owner()`
+names the addon showing it. Costs a lookup per call; nothing per frame.
+
 ## UI.Tooltip
 
 ```lua
