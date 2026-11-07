@@ -18,6 +18,7 @@ items, spells and units; dev mode only), then click **Send state** in the Ordaen
 | 1 | spell | `id` |
 | 2 | unit | `guid`, `healthGUID` |
 | 4 | (frame text, e.g. a button) | none |
+| 7 | aura (a buff or debuff) | `id` (its spell) |
 | 21 | (empty) | none |
 | 25 | macro / action | `id` |
 
@@ -55,6 +56,13 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   («Мгновенное действие», «Следующая атака»; right side: «Восстановление: 15 сек.»), requirements (43: 9 = weapon,
   10 = stance; `usable`), «Пассивная» (33), the description (34, gold). An unranked spell may carry an empty plain
   line after its name («Атака», racials).
+- **Talent** (in the talent tree): a spell tooltip (kind 1, `id` = the talent's spell for the shown rank) whose
+  data **starts at line 3**: the talent frame writes the first lines itself (name, «Уровень N/M», next rank), and they
+  are not in the data. Then an empty plain line, «Пассивная» (33) or cost and cast for an active talent, and the
+  description (34). Learned or not is not in the data: read it from the talent API.
+- **Aura** (kind 7, `id` = its spell): all plain lines: the name (gold; right side: the dispel type «Магия»), «ID
+  заклинания: 19834» (Forever's own line), the description (white), «Осталось 34 |4минута:минуты:минут;» (gold, the
+  plural code again).
 - **Player:** name (2, `unitToken`), the guild (a plain line, only when in one), «<race> <N>-го уровня (игрок)», the
   class («Друид», feminine forms for women: «Чернокнижница», «Разбойница»), the faction («Альянс»). All plain: no
   guild, level or class data in the lines; read them from the unit (`unitToken`: `UnitLevel`, `UnitClass`,
@@ -157,4 +165,4 @@ tooltip for an item's stat computes the same numbers for the item's own amount w
 ## Still to measure
 
 Class restriction («Классы: …»), reputation requirement; the character tab's texts for a caster class; hostile,
-elite, rare, quest and critter NPCs; talents; buffs and debuffs.
+elite, rare, quest and critter NPCs.
