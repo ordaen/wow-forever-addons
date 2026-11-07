@@ -891,8 +891,22 @@ local artOverlays = setmetatable({}, { __mode = "k" }) -- surface -> the overlay
 
 -- Where the border pieces go: the surface itself, or (a dressed Blizzard window, whose opaque content reaches its
 -- edges) an overlay over the surface placed above that window and its children, as Blizzard draws its own NineSlice.
--- The overlay takes no mouse. Its strata and level follow the window on each draw.
-local ABOVE_LEVELS = 50
+-- The overlay takes no mouse. Its strata and level follow the window on each draw: the level of the window's own
+-- NineSlice (Blizzard's templates put it 500 levels above the window, over every content child; at +50 the
+-- character window's panes covered our border, 2026-11-07), else the window's level + 500 like Blizzard's.
+local ABOVE_LEVELS = 500
+
+local function aboveLevel(target)
+	local nine = rawget(target, "NineSlice")
+	local borderFrame = rawget(target, "BorderFrame")
+	if not nine and type(borderFrame) == "table" then
+		nine = rawget(borderFrame, "NineSlice")
+	end
+	if type(nine) == "table" and nine.GetFrameLevel then
+		return nine:GetFrameLevel()
+	end
+	return target:GetFrameLevel() + ABOVE_LEVELS
+end
 
 local function borderHolder(surface)
 	local target = artAbove[surface]
@@ -907,7 +921,7 @@ local function borderHolder(surface)
 		artOverlays[surface] = overlay
 	end
 	overlay:SetFrameStrata(target:GetFrameStrata())
-	overlay:SetFrameLevel(min(10000, target:GetFrameLevel() + ABOVE_LEVELS))
+	overlay:SetFrameLevel(min(10000, aboveLevel(target)))
 	return overlay
 end
 

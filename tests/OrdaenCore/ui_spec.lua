@@ -1209,13 +1209,24 @@ describe("OrdaenCore.UI", function()
 			assert.is_nil(rawget(look, "layout"), "no border under the window")
 			assert.same({ "ALL", look }, overlay.point)
 			assert.equals("HIGH", overlay.strata)
-			assert.equals(60, overlay.level)
+			assert.equals(510, overlay.level, "500 above the window, as Blizzard's templates put their NineSlice")
 			assert.is_false(overlay.mouse)
 			local fill
 			for _, t in ipairs(look.textures) do
 				fill = fill or (t.atlas == "UI-Character-Info-General-BG" and t)
 			end
 			assert.is_truthy(fill, "the fill stays on the look, under the window")
+		end)
+
+		it("put the border at the level of the window's own NineSlice, above every content child", function()
+			local window = chatWindow()
+			window:SetFrameLevel(2)
+			rawset(window, "NineSlice", { GetFrameLevel = function()
+				return 501
+			end })
+			local dress = UI.Dress(window, { style = "portraitWindow", size = "frame", art = {}, borderAbove = true })
+			local look = dress.look.frame
+			assert.equals(501, look.children[#look.children].level)
 		end)
 
 		it("show and hide with Blizzard's frame (a hidden chat window, tab or voice button leaves no look)", function()
