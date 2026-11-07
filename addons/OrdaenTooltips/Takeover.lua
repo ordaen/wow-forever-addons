@@ -194,6 +194,7 @@ function Takeover.Describe()
 			title = header.titleText.text, subtitle = not header.subtitleText.hidden and header.subtitleText.text or false,
 			icon = not header[1].hidden and header.iconImage.image or false, dividerAt = divider,
 			price = model.priceRow and model.rows[model.priceRow].right or false,
+			priceLabel = model.priceRow and model.rows[model.priceRow].left or false,
 			hotkey = view.component.block.hotkey or false,
 			stats = not view.stats.hidden and stats or false, shownRows = shownRows,
 		}

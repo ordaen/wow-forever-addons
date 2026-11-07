@@ -233,6 +233,14 @@ describe("Ordaen Tooltips", function()
 		assert.equals(5, d.dividerAt)
 	end)
 
+	it("shows a sell price once: label left, money right (Forever writes the coins into the line too)", function()
+		data = { type = 0, id = 118, lines = { {}, { price = 10 } } }
+		show({ { "Minor Healing Potion" }, { "Sell Price: 10c" } })
+		local d = ns.Takeover.Describe().GameTooltip
+		assert.equals("10c", d.price)
+		assert.equals("Sell Price:", d.priceLabel)
+	end)
+
 	it("puts a spell's cost, range, cast and cooldown in columns under the title, out of its lines", function()
 		data = { type = 1, id = 133, lines = { {}, {}, {}, {} } }
 		show({

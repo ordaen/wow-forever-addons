@@ -121,9 +121,9 @@ local function readData(tooltip, model)
 		local row = model.rows[i]
 		if price and price > 0 and row and i <= model.count and GetMoneyString then
 			row.right = GetMoneyString(price)
-			if row.left == "" then
-				row.left = SELL_PRICE or ""
-			end
+			-- The label only: on Forever the game's line also writes the coins into its text ("Sell Price: 10c"),
+			-- which showed the price twice (2026-11-07).
+			row.left = SELL_PRICE or row.left
 			row.blank = false
 			model.priceRow = i
 		end
