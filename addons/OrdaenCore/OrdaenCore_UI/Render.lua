@@ -853,31 +853,53 @@ end
 
 --- Lay out `root` and draw it onto `surface` (a frame; BackdropTemplate for themes with art).
 --- `width` nil = shrink to fit. Sizes the surface; returns the root's layout result.
--- A top-level block's `hotkey`, drawn the same way in every tooltip: its last row, a key cap. The row is added to the
--- block once (when it first has a hotkey) and only its fields change after; it spans the block's columns.
-local FOOTER = "_hotkeyRow"
-local function hotkeyRow(root)
-	local key = root.hotkey
-	local row = rawget(root, FOOTER)
-	if not row then
-		if key == nil or key == "" then
+-- A top-level block's `hints` (what a click or a key does: the addon's own lines, "Left-click: open") and `hotkey`
+-- (the key bound to it), drawn the same way in every tooltip (the user's decision, 2026-11-07): dimmed lines at the
+-- bottom, the hotkey last ("Key: C", Ordaen Core's words). The rows are added to the block once and grow only when it
+-- gets more hints than before; after that only their fields change. They span the block's columns.
+Render.strings = { hotkey = "%s" } -- Ordaen Core's, handed over when the module loads (UI._Provide)
+local FOOTER = "_hintRows"
+local function hintRows(root)
+	local hints, key = root.hints, root.hotkey
+	local n = type(hints) == "table" and #hints or 0
+	local hasKey = key ~= nil and key ~= ""
+	local footer = rawget(root, FOOTER)
+	if not footer then
+		if n == 0 and not hasKey then
 			return
 		end
-		row = { padding = { "sm", 0, 0, 0 }, { style = "keycap", align = "left", { text = "", style = "keycap" } } }
-		root[#root + 1] = row
-		rawset(root, FOOTER, row)
+		local keyLine = { format = "%s", args = { "" }, style = "hint" }
+		footer = { padding = { "sm", 0, 0, 0 }, keyLine = keyLine, keyLine }
+		root[#root + 1] = footer
+		rawset(root, FOOTER, footer)
 	end
-	local shown = key ~= nil and key ~= ""
-	row.hidden = not shown
-	row.colSpan = root.columns and #root.columns or 1
-	if shown then
-		row[1][1].text = key
+	local keyLine = footer.keyLine
+	local made = #footer - 1 -- hint lines so far; the key line is always the last
+	if n > made then
+		for i = made + 1, n do
+			footer[i] = { text = "", style = "hint" }
+		end
+		footer[n + 1] = keyLine
 	end
+	for i = 1, #footer - 1 do
+		local line = footer[i]
+		line.hidden = i > n
+		if i <= n then
+			line.text = hints[i]
+		end
+	end
+	keyLine.hidden = not hasKey
+	keyLine.format = Render.strings.hotkey
+	if hasKey then
+		keyLine.args[1] = key
+	end
+	footer.hidden = n == 0 and not hasKey
+	footer.colSpan = root.columns and #root.columns or 1
 end
 
 function Render.Draw(surface, root, width)
 	Theme.Ensure()
-	hotkeyRow(root)
+	hintRows(root)
 	measuring, measuringScale = surface, surface:GetEffectiveScale()
 	local ctx = Render.context
 	ctx.shift = IsShiftKeyDown() and true or false

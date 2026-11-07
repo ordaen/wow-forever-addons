@@ -110,17 +110,6 @@ THEMES.ordaen = {
 			padding = { "xs", "sm", "xs", "sm" },
 			edges = { left = { 1, { 1, 1, 1, 0.08, accent = 0.25 } } },
 		},
-		-- A key binding at the bottom of a tooltip (`hotkey` on the block): a small key cap.
-		keycap = {
-			padding = { 1, "sm", 1, "sm" },
-			fill = { top = { 0.12, 0.11, 0.11, 0.95 }, bottom = { 0.05, 0.05, 0.05, 0.95 } },
-			edges = {
-				top = { 1, { 0, 0, 0, 1, accent = 0.6 } },
-				right = { 1, { 0, 0, 0, 1, accent = 0.35 } },
-				bottom = { 1, { 0, 0, 0, 1, accent = 0.25 } },
-				left = { 1, { 0, 0, 0, 1, accent = 0.35 } },
-			},
-		},
 		-- Chat tabs (UI.Dress with states): unselected, selected, flashing (a new message in a tab not shown).
 		tab = {
 			padding = 0,
@@ -201,7 +190,6 @@ THEMES.ordaen = {
 		label = { font = "body", size = "small", color = { 0.70, 0.65, 0.56 } },
 		value = { font = "body", size = "body", color = { 0.96, 0.93, 0.86 } },
 		hint = { font = "body", size = "small", color = { 0.56, 0.54, 0.50 } },
-		keycap = { font = "body", size = "small", color = { 0.93, 0.88, 0.78 } },
 		caption = { font = "body", size = "tiny", color = { 0.62, 0.58, 0.51 }, caps = true },
 		-- On the world (labels on the minimap): no surface behind them, so they keep a shadow.
 		normal = { font = "ui", size = "body", color = { 0.96, 0.86, 0.64 }, shadow = true },

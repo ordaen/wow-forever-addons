@@ -103,7 +103,9 @@ local unavailable = false
 --- "stretch": child blocks as tall as their row (with their own rowAlign "center", content in its middle)
 ---@field edges table|nil per side (top, right, bottom, left): false = none, true = the style's, { width, colour }
 ---@field shift boolean|nil as a child: true = only while Shift is held, false = only while it isn't
----@field hotkey string|nil on a top-level block: the key binding ("C", "Shift-M"), drawn as a key cap at the bottom
+---@field hints string[]|nil on a top-level block: what a click or key does ("Left-click: open"), the addon's own
+--- locale strings; drawn at the bottom as dimmed lines, the same in every tooltip
+---@field hotkey string|nil on a top-level block: the key bound to it ("C", "Shift-M"), the last line ("Key: C")
 
 ---@class OrdaenUITooltipOpts
 ---@field side string|nil "right" (default), "left", "below", "above", or "default" (Edit Mode's HUD Tooltip spot)
@@ -113,6 +115,8 @@ local unavailable = false
 --- Called by OrdaenCore_UI when it loads. Not for addons.
 function UI._Provide(functions)
 	impl = functions
+	-- Ordaen Core's words the framework draws (the module has no locales of its own).
+	functions.SetStrings({ hotkey = ns.L.TOOLTIP_HOTKEY })
 end
 
 --- Called by Ordaen Core when the global UI settings (theme, text size) change: every Ordaen addon's UI on

@@ -534,20 +534,24 @@ describe("OrdaenCore.UI", function()
 			assert.same({ "Elwynn Forest" }, shownTexts(s)) -- titles keep their case
 		end)
 
-		it("show a block's hotkey last, as a key cap, the same way in every tooltip", function()
-			local tip = { { text = "Character Info", style = "title" }, { text = "Left-click: open", style = "hint" } }
+		it("show a block's hints and hotkey at the bottom, dimmed, the key last, the same in every tooltip", function()
+			local tip = { { text = "Character Info", style = "title" }, hints = { "Left-click: open" } }
 			UI.Tooltip(tip)
 			tip.hotkey = "C"
 			tip:Show(owner)
 			local s = surface()
-			assert.same({ "Character Info", "Left-click: open", "C" }, shownTexts(s), "the key last")
+			assert.same({ "Character Info", "Left-click: open", "Key: C" }, shownTexts(s), "Ordaen Core's words")
 			tip.hotkey = nil -- unbound
 			tip:Refresh()
 			assert.same({ "Character Info", "Left-click: open" }, shownTexts(s))
+			tip.hints[2] = "Right-click: settings"
 			tip.hotkey = "Shift-M"
 			tip:Refresh()
-			assert.same({ "Character Info", "Left-click: open", "Shift-M" }, shownTexts(s))
-			assert.equals(3, #tip, "one row added, once")
+			assert.same({ "Character Info", "Left-click: open", "Right-click: settings", "Key: Shift-M" }, shownTexts(s))
+			tip.hints[2] = nil
+			tip:Refresh()
+			assert.same({ "Character Info", "Left-click: open", "Key: Shift-M" }, shownTexts(s))
+			assert.equals(2, #tip, "the bottom rows added once")
 		end)
 
 		it("redraw after their fields changed, hiding what is no longer drawn", function()

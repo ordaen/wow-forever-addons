@@ -124,6 +124,9 @@ end
 
 -- Hand the implementation to Ordaen Core's always-loaded entry point (addons/OrdaenCore/UI.lua).
 OrdaenCore.UI._Provide({
+	SetStrings = function(strings)
+		ns.Render.strings = strings
+	end,
 	Describe = Tooltip.Describe,
 	ShowTooltip = Tooltip.Show,
 	HideTooltip = Tooltip.Hide,

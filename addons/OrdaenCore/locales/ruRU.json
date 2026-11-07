@@ -29,5 +29,6 @@
   "CONFLICT_AREA_OTHER": "одну и ту же часть интерфейса",
   "CONFLICT_TURN_OFF_MANUALLY": "Выключите %s в списке модификаций и введите /reload.",
   "CONFLICT_RELOAD_AFTER_COMBAT": "Модификация %s выключена. Введите /reload после боя.",
-  "SIZE_UNITS": "%d (%d пикс.)"
+  "SIZE_UNITS": "%d (%d пикс.)",
+  "TOOLTIP_HOTKEY": "Клавиша: %s"
 }
