@@ -925,7 +925,17 @@ describe("OrdaenCore.UI", function()
 			assert.same({ 0.6, 0.2, 0.9 }, f.TopLeftCorner.vertexColor)
 		end)
 
-		it("need a name", function()
+		it("insets wear Blizzard's inset frame and its background", function()
+			local pane = UI.Block({ name = "Pane", style = "inset", { text = "Bags" } })
+			assert.equals("InsetFrameTemplate", pane.frame.layout)
+			local tiled
+			for _, t in ipairs(pane.frame.textures) do
+				tiled = tiled or t.file == 374154
+			end
+			assert.is_true(tiled, "the inset background (a file that tiles)")
+		end)
+
+				it("need a name", function()
 			assert.has_error(function()
 				UI.Window({ { text = "Bags" } })
 			end)

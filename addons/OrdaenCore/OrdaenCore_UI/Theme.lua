@@ -83,6 +83,8 @@ local SMALL_ART = { border = "frame.border", background = "frame.background", sc
 	inset = { 21, 2, 2, 2 } }
 local DIALOG_ART = { border = "frame.dialog", background = "frame.dialogBackground", scale = "frame.scale.window",
 	inset = { 7, 7, 7, 7 } }
+local INSET_ART = { border = "frame.inset", background = "frame.insetBackground", scale = "frame.scale.window",
+	inset = { 2, 2, 2, 2 } }
 
 THEMES.ordaen = {
 	accent = { 0.72, 0.56, 0.34 }, -- bronze, as the minimap's rim
@@ -161,6 +163,12 @@ THEMES.ordaen = {
 		dialog = {
 			padding = "xl", gap = "lg",
 			frameArt = DIALOG_ART,
+		},
+		-- An inner pane of a window (Blizzard's inset: a sunken frame inside the metal one), e.g. a list behind its own
+		-- border. Ordaen Reskin dresses Blizzard's own insets (frame.Inset) with it.
+		inset = {
+			padding = "sm", gap = "xs",
+			frameArt = INSET_ART,
 		},
 		pushButton = {
 			padding = { "sm", "lg", "sm", "lg" },
