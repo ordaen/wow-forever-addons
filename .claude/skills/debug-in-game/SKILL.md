@@ -31,7 +31,8 @@ chat, never from guesses about what the game showed.
   catches errors globally and blocked actions (taint), so wrapping is about clean stacks, not coverage.
 - Time code you suspect is slow: `local t = Debug:TimeStart()` ... `Debug:TimeEnd(t, "drawer.collect")`, or the
   statement `Debug:Time("drawer.layout", fn, ...)`. Release builds strip both, so never use Time's results (FL7).
-- `ordaen check` green before handing over.
+- No `ordaen check` before handing over (CLAUDE.md rule 4): `ordaen watch` keeps `dist/` current, and errors in
+  game (`wow_errors`) decide when a check runs, for the area involved.
 
 ## 2. Hand over
 
