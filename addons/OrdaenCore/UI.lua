@@ -32,6 +32,8 @@ local unavailable = false
 ---@field hidden boolean|nil as a child: skipped
 ---@field colSpan number|nil as a child: columns it spans
 ---@field align string|nil as a child: "left", "center" or "right" in its cell
+---@field onTop boolean|nil as a child: no cell; lies over the block's content, placed by align/valign (a count on
+--- an icon)
 
 ---@class OrdaenUISeparator
 ---@field separator string "rule" (a hairline), "divider" (a stronger break), "caption" (text between lines)
@@ -81,6 +83,8 @@ local unavailable = false
 ---@field hidden boolean|nil as a child: skipped
 ---@field colSpan number|nil as a child: columns it spans
 ---@field align string|nil as a child: "left", "center" or "right" in its cell
+---@field onTop boolean|nil as a child: no cell; lies over the block's content, placed by align/valign (a count on
+--- an icon)
 
 ---@class OrdaenUIBlock
 ---@field style string|nil style role in the theme (tooltip, header, button, iconButton, slot); "none": no look

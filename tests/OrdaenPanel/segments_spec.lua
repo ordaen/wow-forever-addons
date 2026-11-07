@@ -50,6 +50,9 @@ describe("Ordaen Panel segments", function()
 				GetContainerNumFreeSlots = function(bag)
 					return ({ [0] = 5, 2, 0, 3, 1, 7 })[bag] or 0
 				end,
+				GetContainerNumSlots = function(bag)
+					return ({ [0] = 16, 10, 0, 12, 8, 20 })[bag] or 0
+				end,
 			},
 			UnitLevel = function()
 				return 42
@@ -113,7 +116,14 @@ describe("Ordaen Panel segments", function()
 
 	it("counts free slots in the bags and the reagent bag", function()
 		ns.Segments.bags.update()
-		assert.same({ 11, 7 }, { ns.Segments.bags.model.free, ns.Segments.bags.model.reagentFree })
+		local m = ns.Segments.bags.model
+		assert.same({ 11, 7 }, { m.free, m.reagentFree })
+		-- per bag, for the count on each bag's cell; an empty slot has size 0
+		assert.same({ [0] = 5, 2, 0, 3, 1, 7 }, m.freeOf)
+		assert.same({ [0] = 16, 10, 0, 12, 8, 20 }, m.sizeOf)
+		local freeOf = m.freeOf
+		ns.Segments.bags.update()
+		assert.equals(freeOf, m.freeOf, "no new table per update")
 	end)
 
 	it("shows experience with quest XP, and counts the quest log once per burst", function()

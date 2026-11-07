@@ -87,6 +87,7 @@ with the standings `hated` to `exalted`).
 | `align` | `"left"`, `"center"`, `"right"` | left | placement inside the cell (a block with `align` is as wide as its content) |
 | `valign` | `"top"`, `"center"`, `"bottom"` | the parent's `rowAlign` | placement inside the row's height |
 | `shift` | boolean | none | `true`: only while Shift is held; `false`: only while it isn't (a "Hold Shift" hint) |
+| `onTop` | boolean | false | takes no cell: lies over the block's content (inside its padding), placed by `align` and `valign` (default top left), drawn on top of the cells (a count on an icon) |
 
 A tooltip with `shift` rows listens to `MODIFIER_STATE_CHANGED` only while it is shown and redraws when Shift
 goes down or up.

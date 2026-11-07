@@ -33,7 +33,7 @@ local REP_TOKEN = setmetatable({}, {
 -- Blocks (made by build(), changed in place) ---------------------------------------------------------------------
 
 local panel ---@type OrdaenUIPanel|nil
-local spec, left, middle, right, microGroup, bagGroup, bagRow
+local spec, left, middle, right, microGroup, bagRow
 local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of its own, for its tooltip
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
@@ -54,7 +54,9 @@ local currencyTexts = {}
 for i = 1, MAX_CURRENCIES do
 	currencyTexts[i] = { format = CURRENCY_FORMAT, args = { 0, "" }, style = "value", hidden = true }
 end
-local bagText = { format = "%d", args = { 0 }, style = "value" }
+-- Each bag's free slots, over its icon's bottom-right corner (an onTop text in the bag's cell).
+local bagCounts = {} ---@type table<table, table> bag button -> its count element
+local bagIds = {} ---@type table<table, integer> bag button -> its bag id
 
 -- The bar's tooltip: experience in numbers, rested and quest XP, the session's rate and time to level.
 local tipName = { text = "", style = "title", hidden = true }
@@ -493,14 +495,21 @@ local function giveBack(button)
 end
 
 -- Fill a row block with a cell per button (touching: gap 0, padding 0, so the borders collapse).
-local function fillRow(row, buttons, texts)
+-- `atRight`: the row ends at the panel's right edge (the bags): its last cell has no line on its right. Otherwise it
+-- starts at the left edge (the micro menu): its first cell has none on its left. Nothing to separate them from there.
+local function fillRow(row, buttons, texts, atRight)
 	for i = #row, 1, -1 do
 		row[i] = nil
 	end
 	for i, button in ipairs(buttons) do
 		local cell = cellFor(button)
-		-- the row's first cell: no line on its left (nothing to separate it from there)
-		cell.edges.left = i > 1 and nil or false
+		if atRight then
+			cell.edges.left = nil
+			cell.edges.right = i < #buttons and nil or false
+		else
+			cell.edges.left = i > 1 and nil or false
+			cell.edges.right = nil
+		end
 		row[i] = cell
 		take(button, cell, texts)
 	end
@@ -511,6 +520,25 @@ end
 -- The buttons of each group ----------------------------------------------------------------------------------------
 
 local bagButtons = {}
+
+-- A bag button's bag id, from Blizzard's fixed names (the dump lists no bag-id method on them): the backpack is 0,
+-- CharacterBag<n>Slot is n + 1, the reagent bag comes after the bags. nil for anything else.
+local function bagIdOf(button)
+	local name = button:GetName() or ""
+	if name == "MainMenuBarBackpackButton" then
+		return BACKPACK_CONTAINER
+	end
+	local n = name:match("^CharacterBag(%d+)Slot$")
+	if n then
+		return tonumber(n) + 1
+	end
+	n = name:match("^CharacterReagentBag(%d+)Slot$")
+	if n then
+		return NUM_BAG_SLOTS + tonumber(n) + 1
+	end
+	return nil
+end
+
 local BAG_NAMES = {
 	"MainMenuBarBackpackButton", "CharacterBag0Slot", "CharacterBag1Slot", "CharacterBag2Slot", "CharacterBag3Slot",
 	"CharacterReagentBag0Slot",
@@ -582,12 +610,21 @@ local function placeButtons()
 	fillRow(microGroup, leftButtons)
 	if s.bags then
 		readBags()
-		fillRow(bagRow, bagButtons, true)
+		fillRow(bagRow, bagButtons, true, true)
+		for _, button in ipairs(bagButtons) do
+			local id = bagIdOf(button)
+			bagIds[button] = id
+			local count = bagCounts[button]
+			if not count then
+				count = { format = "%d", args = { 0 }, style = "small", onTop = true, align = "right", valign = "bottom" }
+				bagCounts[button] = count
+			end
+			count.hidden = id == nil
+			cells[button][2] = count
+		end
 	else
 		fillRow(bagRow, NONE)
 	end
-	bagGroup.hidden = not s.bags
-	bagGroup.columns = columns(2)
 end
 
 -- Building the panel ----------------------------------------------------------------------------------------------
@@ -641,14 +678,13 @@ local function build()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
 	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
 	bagRow = bagRow or { gap = 0, padding = 0, rowAlign = "center" }
-	bagGroup = bagGroup or { gap = "xs", rowAlign = "center", bagRow, bagText }
 	left = left or { gap = 0, align = "left", rowAlign = "center", microGroup }
 	left.columns = { "auto" }
 	right = right or { gap = "md", align = "right", rowAlign = "center", money }
 	for i = 1, MAX_CURRENCIES do
 		right[1 + i] = currencyTexts[i]
 	end
-	right[MAX_CURRENCIES + 2] = bagGroup
+	right[MAX_CURRENCIES + 2] = bagRow
 	right.columns = columns(MAX_CURRENCIES + 2)
 	if not barHolder then
 		tooltip = UI.Tooltip({
@@ -670,7 +706,8 @@ local function build()
 	spec[1], spec[2], spec[3] = left, middle, right
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
-		spec.columns, spec.gap, spec.padding = { "1fr", "auto", "1fr" }, "lg", { 0, "sm", 0, "sm" }
+		-- no side padding: the micro menu starts at the left edge, the bags end at the right one
+		spec.columns, spec.gap, spec.padding = { "1fr", "auto", "1fr" }, "lg", 0
 		spec.height, spec.rowAlign = size, "center"
 	else
 		spec.columns, spec.gap, spec.padding = { "auto" }, "md", { "sm", "xs", "sm", "xs" }
@@ -803,8 +840,13 @@ end
 
 local function updateBags()
 	local m = ns.Segments.bags.model
-	bagText.format = m.reagentFree > 0 and "%d (%d)" or "%d"
-	bagText.args[1], bagText.args[2] = m.free, m.reagentFree
+	for _, button in ipairs(bagButtons) do
+		local count, id = bagCounts[button], bagIds[button]
+		if count and id then
+			count.args[1] = m.freeOf[id] or 0
+			count.hidden = (m.sizeOf[id] or 0) == 0 -- an empty bag slot: no count
+		end
+	end
 end
 
 local function updateVisibility()

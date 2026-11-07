@@ -43,6 +43,27 @@ describe("OrdaenCore.UI layout", function()
 		Layout = load()
 	end)
 
+	it("lays an onTop child over the content, without a cell of its own (a count on an icon)", function()
+		local count = { text = "23", onTop = true, align = "right", valign = "bottom" }
+		local block = { padding = 2, columns = { "auto" }, { image = "bag", size = 40 }, count }
+		local r = Layout.Run(block, nil, ctx())
+		assert.equals(2 + 40 + 2, r.width) -- the count adds no column or row
+		assert.equals(2 + 40 + 2, r.height)
+		assert.equals(2, r.count) -- the icon, then the count (drawn after: on top)
+		local item = r.items[2]
+		assert.equals(count, item.node)
+		assert.equals(2 + 40 - 2 * CHAR, item.x)
+		assert.equals(2 + 40 - LINE, item.y)
+		-- default placement: top left of the content
+		count.align, count.valign = nil, nil
+		r = Layout.Run(block, nil, ctx())
+		assert.equals(2, r.items[2].x)
+		assert.equals(2, r.items[2].y)
+		-- hidden: nothing
+		count.hidden = true
+		assert.equals(1, Layout.Run(block, nil, ctx()).count)
+	end)
+
 	it("shrinks a single-column block to its widest line, with padding and row gaps", function()
 		local block = { padding = 8, gap = 2, { text = "Elwynn Forest" }, { text = "Goldshire" } }
 		local r = Layout.Run(block, nil, ctx())

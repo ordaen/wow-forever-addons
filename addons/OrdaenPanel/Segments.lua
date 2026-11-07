@@ -139,23 +139,27 @@ Segments.currencies = {
 	end,
 }
 
--- Bags: free slots in the backpack, the bags and the reagent bag ------------------------------------------------
+-- Bags: free slots in the backpack, each bag and the reagent bag -------------------------------------------------
 
-local bags = { free = 0, reagentFree = 0 }
+-- freeOf[bag] / sizeOf[bag]: per bag id (0 = backpack, 1..NUM_BAG_SLOTS, then the reagent bag); size 0 = no bag in
+-- that slot. Reused tables.
+local bags = { free = 0, reagentFree = 0, freeOf = {}, sizeOf = {} }
 Segments.bags = {
 	model = bags,
 	events = { "BAG_UPDATE_DELAYED", "BAG_CONTAINER_UPDATE" }, -- the second: a bag equipped or taken off
 	update = function()
-		local free = 0
-		for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
-			free = free + (C_Container.GetContainerNumFreeSlots(bag) or 0)
+		local freeOf, sizeOf = bags.freeOf, bags.sizeOf
+		local free, reagent = 0, 0
+		for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS + (NUM_REAGENTBAG_SLOTS or 0) do
+			local n = C_Container.GetContainerNumFreeSlots(bag) or 0
+			freeOf[bag], sizeOf[bag] = n, C_Container.GetContainerNumSlots(bag) or 0
+			if bag > NUM_BAG_SLOTS then
+				reagent = reagent + n
+			else
+				free = free + n
+			end
 		end
-		bags.free = free
-		local reagent = 0
-		for i = 1, NUM_REAGENTBAG_SLOTS or 0 do
-			reagent = reagent + (C_Container.GetContainerNumFreeSlots(NUM_BAG_SLOTS + i) or 0)
-		end
-		bags.reagentFree = reagent
+		bags.free, bags.reagentFree = free, reagent
 	end,
 }
 

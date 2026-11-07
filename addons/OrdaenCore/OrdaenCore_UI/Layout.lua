@@ -14,6 +14,8 @@
 -- text left, blocks and images stretch/left; a block with `align` shrinks to its content, then is placed),
 -- valign = "top" | "center" | "bottom" (in its row; default: the block's rowAlign, else top), shift = true (only
 -- while Shift is held) or false (only while it isn't): secondary rows a player asks for.
+-- onTop = true: the child takes no cell; it lies over the block's content (inside its padding), placed by its
+-- align and valign (default top left), drawn after the cells, so on top of them (a count on an icon).
 -- A block's rowAlign = "center" | "bottom" places its children that way in their rows and, when the block has a
 -- fixed height, its rows in that height (a bar in the middle of a panel's height). rowAlign = "stretch" makes its
 -- child blocks as tall as their row (their surfaces and edges line up); a child's own rowAlign = "center" then puts
@@ -223,7 +225,7 @@ function layoutBlock(node, width, ctx, height)
 	local count, col, row = 0, 1, 1
 	for i = 1, #node do
 		local child = node[i]
-		if not child.hidden and (child.shift == nil or child.shift == (ctx.shift or false)) then
+		if not child.hidden and not child.onTop and (child.shift == nil or child.shift == (ctx.shift or false)) then
 			local span = min(max(1, child.colSpan or 1), n)
 			if col + span - 1 > n then
 				col, row = 1, row + 1
@@ -373,6 +375,41 @@ function layoutBlock(node, width, ctx, height)
 
 	r.width = outer
 	r.height = height or (y + padBottom)
+
+	-- onTop children: over the content box, after the cells (drawn on top), sized by their content.
+	local boxW = outer - padLeft - padRight
+	local boxH = r.height - padTop - padBottom
+	for i = 1, #node do
+		local child = node[i]
+		if child.onTop and not child.hidden and (child.shift == nil or child.shift == (ctx.shift or false)) then
+			count = count + 1
+			local item = items[count]
+			if not item then
+				item = {}
+				items[count] = item
+			end
+			local natural = naturalWidth(child, ctx)
+			item.node, item.col, item.row, item.span, item.natural = child, 0, 0, 1, natural
+			item.cellWidth = boxW
+			item.w, item.h = sizeIn(child, boxW, natural, ctx)
+			local left, top = padLeft, padTop
+			if child.align == "right" then
+				left = left + boxW - item.w
+			elseif child.align == "center" then
+				left = left + floor((boxW - item.w) / 2 + 0.5)
+			end
+			if child.valign == "bottom" then
+				top = top + boxH - item.h
+			elseif child.valign == "center" then
+				top = top + floor((boxH - item.h) / 2 + 0.5)
+			end
+			item.x, item.y = left, top
+		end
+	end
+	for i = count + 1, #items do
+		items[i] = nil
+	end
+	r.count = count
 	return r
 end
 
