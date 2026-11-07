@@ -159,6 +159,20 @@ describe("Ordaen Reskin", function()
 			art(windows.GameMenuFrame))
 	end)
 
+	it("finds the border of a window that keeps it in a BorderFrame, and a fill named only as a global", function()
+		load()
+		local map = stub("WorldMapFrame", { kind = "Frame", BorderFrame = window("WorldMapFrame.BorderFrame") })
+		rawset(_G, "WorldMapFrame", map)
+		rawset(_G, "WorldMapFrameBg", texture("WorldMapFrameBg"))
+		fire("ADDON_LOADED", "Blizzard_WorldMap")
+		show(map)
+		assert.same({ "WorldMapFrame.BorderFrame.Bg", "WorldMapFrame.BorderFrame.TopEdge",
+			"WorldMapFrame.BorderFrame.TopLeftCorner", "WorldMapFrame.BorderFrame.TopTileStreaks", "WorldMapFrameBg" },
+			art(map))
+		rawset(_G, "WorldMapFrame", nil)
+		rawset(_G, "WorldMapFrameBg", nil)
+	end)
+
 	it("dresses a window that is already open when it starts", function()
 		windows.CharacterFrame.shown = true
 		load()

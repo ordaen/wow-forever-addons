@@ -45,14 +45,31 @@ local function addTexture(texture, art)
 	end
 end
 
---- The window's frame art (border and fill), never its content.
----@return Texture[]
-function Skin:Art()
-	local frame, art = self.frame, {}
+-- A frame's own border and fill: its NineSlice (or a dialog's Border) and its Bg and top streaks.
+local function addFrameArt(frame, art)
+	if type(frame) ~= "table" then
+		return
+	end
 	addRegions(rawget(frame, "NineSlice"), art)
 	addRegions(rawget(frame, "Border"), art)
 	addTexture(rawget(frame, "Bg"), art)
 	addTexture(rawget(frame, "TopTileStreaks"), art)
+end
+
+--- The window's frame art (border and fill), never its content. Some windows keep it in a BorderFrame (the World
+--- Map), and some name their fill only as a global (`<name>Bg`).
+---@return Texture[]
+function Skin:Art()
+	local frame, art = self.frame, {}
+	addFrameArt(frame, art)
+	addFrameArt(rawget(frame, "BorderFrame"), art)
+	local bg = _G[self.name .. "Bg"]
+	for i = 1, #art do
+		if art[i] == bg then
+			return art
+		end
+	end
+	addTexture(bg, art)
 	return art
 end
 
