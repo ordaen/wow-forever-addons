@@ -1147,7 +1147,7 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 end
 
 -- Blizzard's control art (a look with `controlArt`, from the theme's control assets): pieces drawn on the surface's
--- own textures, pooled per surface. A piece is an atlas name; { atlas | file, alpha, coords, outset }; three slices
+-- own textures, pooled per surface. A piece is an atlas name; { atlas | file, alpha, coords, outset, aspect }; three slices
 -- { left, center, right } (the ends keep their aspect at the surface's height, the centre stretches) or
 -- { top, middle, bottom }. Drawn in the block's controlState (from the dress's :SetState): the asset's piece for it,
 -- checked over normal (the box, then its check), or normal darker for pushed and grey for disabled when it has none.
@@ -1172,8 +1172,11 @@ local function controlTexture(surface, pool, layer, sublevel)
 	return tex
 end
 
--- An atlas's aspect (width / height), or 1 for a file or an atlas the game doesn't know.
+-- A piece's aspect (width / height): its own `aspect`, its atlas's, or 1 for a file or an atlas the game doesn't know.
 local function aspectOf(piece)
+	if type(piece) == "table" and piece.aspect then
+		return piece.aspect
+	end
 	local name = type(piece) == "string" and piece or type(piece) == "table" and piece.atlas
 	local atlas = name and atlasOf(name)
 	return atlas and atlas[1] or 1

@@ -80,5 +80,6 @@
   "BACKGROUND_INSET": "Inset",
   "BACKGROUND_NONE": "None",
   "FRAME_METAL_THIN": "Metal, thin",
-  "CONTROL_BLIZZARD": "Blizzard"
+  "CONTROL_BLIZZARD": "Blizzard",
+  "CONTROL_ORDAEN": "Ordaen"
 }

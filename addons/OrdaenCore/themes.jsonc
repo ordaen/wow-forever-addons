@@ -60,6 +60,15 @@
       }
     },
     "pushButton": {
+      // Our own (art/button.py, media/button.tga; the user's pick 2026-11-07: the bronze plate): a dark plate in the
+      // windows' bronze rim. Each state is a row of the file; the caps are half as wide as the button is high.
+      "ordaen": {
+        "label": "CONTROL_ORDAEN",
+        "normal": { "left": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0, 0.125, 0, 0.125], "aspect": 0.5 }, "center": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.125, 0.875, 0, 0.125] }, "right": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.875, 1, 0, 0.125], "aspect": 0.5 } },
+        "pushed": { "left": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0, 0.125, 0.125, 0.25], "aspect": 0.5 }, "center": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.125, 0.875, 0.125, 0.25] }, "right": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.875, 1, 0.125, 0.25], "aspect": 0.5 } },
+        "disabled": { "left": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0, 0.125, 0.25, 0.375], "aspect": 0.5 }, "center": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.125, 0.875, 0.25, 0.375] }, "right": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.875, 1, 0.25, 0.375], "aspect": 0.5 } },
+        "highlight": { "left": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0, 0.125, 0.375, 0.5], "aspect": 0.5 }, "center": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.125, 0.875, 0.375, 0.5] }, "right": { "file": "Interface\AddOns\OrdaenCore\media\button", "coords": [0.875, 1, 0.375, 0.5], "aspect": 0.5 } }
+      },
       "blizzard": {
         "label": "CONTROL_BLIZZARD",
         "normal": { "left": "128-RedButton-Left", "center": "_128-RedButton-Center", "right": "128-RedButton-Right" },
@@ -215,7 +224,7 @@
       "icon.crop": 0.08,
       "motion.fade": 0.15, "tooltip.delay": 0,
       "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON",
-      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "blizzard", "control.closeButton": "blizzard", "control.checkbox": "blizzard", "control.dropdown": "blizzard", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
+      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "ordaen", "control.closeButton": "blizzard", "control.checkbox": "blizzard", "control.dropdown": "blizzard", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
     }
     // Planned, not built (user's decision, 2026-11-07): "blizzard" (mostly Blizzard's default look) and "minimal"
     // (little to no textures). Only Ordaen is worked on now; add them back here, with every token, when they are.
