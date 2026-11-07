@@ -151,8 +151,9 @@ docs/                           OrdaenCore.UI docs site (VitePress, own package.
 
 ## Ordaen: one addon, modules (user's decision, 2026-11-07)
 
-Like EllesmereUI, but the modules load on demand. Reference (the approved look and the inventory): the preview
-`%LOCALAPPDATA%\OrdaenCompanion\preview\settings\index.html` (served by the companion at `/preview/settings/`).
+Like EllesmereUI, but the modules load on demand. Reference (the approved look and the inventory): the design site's
+`reference/settings/` (http://127.0.0.1:47860/preview/design/reference/settings/; source
+`../wow-dev-tools/design/public/reference/settings/overview-view.html`).
 
 - **Ordaen** (today's `OrdaenCore`, folder name unchanged) is the one addon the player installs: always loaded and
   small. It holds the shared code, the **global settings** and the one **Ordaen settings window** (`/ordaen`; each
