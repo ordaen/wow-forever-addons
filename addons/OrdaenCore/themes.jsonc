@@ -186,7 +186,7 @@
   "themes": {
     "ordaen": {
       "frame.border": "metal", "frame.background": "general", "frame.portrait": "metal-portrait",
-      "frame.borderSmall": "metal-thin",
+      "frame.borderSmall": "metal",
       "frame.dialog": "dialog", "frame.dialogBackground": "dialog",
       "frame.inset": "inset", "frame.insetBackground": "inset",
       "frame.scale.window": 1, "frame.scale.small": 0.5,
