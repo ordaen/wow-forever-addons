@@ -83,6 +83,11 @@ Core._call = call
 ---@field handlers table<string, table[]>
 ---@field unit string|nil
 
+-- Dev mode records (the dev addon's state sync: what the framework did for each addon; Claude reads it with
+-- wow_dump). The framework calls Core._DevEventTime, _DevHook and _DevTicker only inside `if <x>.Debug:IsEnabled()
+-- then ... end` blocks, which release builds strip; the dev addon OrdaenCore_Debug defines them (its Sync.lua), and
+-- IsEnabled is true only with it loaded. So players' builds carry none of this code.
+
 local function dispatch(self, event, ...)
 	local list = self.events.handlers[event]
 	if list then
@@ -92,11 +97,19 @@ local function dispatch(self, event, ...)
 			if entry.Debug:TraceEnabled() then
 				entry.Debug:Trace("event", event)
 			end
+			-- Dev builds: each handler's time per addon and event (Core._dev). Release builds strip both blocks; the
+			-- start time lives on the entry, so nothing is left behind in release code.
+			if entry.Debug:IsEnabled() then
+				entry.started = debugprofilestop()
+			end
 			-- Core._running: which Ordaen addon's code runs (Conflict.lua tells our own calls from others' by it)
 			local previous = Core._running
 			Core._running = entry.addon
 			call(entry.fn, event, ...)
 			Core._running = previous
+			if entry.Debug:IsEnabled() then
+				Core._DevEventTime(entry, event)
+			end
 		end
 	end
 end

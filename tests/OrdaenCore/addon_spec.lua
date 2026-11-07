@@ -77,6 +77,56 @@ describe("OrdaenCore.NewAddon", function()
 		assert.same({ "UNIT_AURA registered for every unit: use OnUnit with the units you need" }, warned)
 	end)
 
+	it("reports hooks, tickers and each handler's time per event to the dev addon, in dev mode only", function()
+		-- The dev addon (OrdaenCore_Debug) defines these; here they only record what the framework hands them.
+		local got = { events = {}, hooks = {}, tickers = {} }
+		Core._DevEventTime = function(entry, event)
+			got.events[#got.events + 1] = { addon = entry.addon.name, event = event, timed = entry.started ~= nil }
+		end
+		Core._DevHook = function(addon, target, method)
+			got.hooks[#got.hooks + 1] = { addon = addon.name, target = target.GetName(), method = method }
+		end
+		Core._DevTicker = function(addon, ticker)
+			got.tickers[#got.tickers + 1] = { addon = addon.name, ticker = ticker }
+		end
+		local A = newAddon()
+		A:On("BAG_UPDATE", function() end)
+		fire("BAG_UPDATE")
+		assert.same({}, got.events, "nothing without the dev addon")
+
+		local dev = setmetatable({}, { __index = A.Debug })
+		function dev:IsEnabled()
+			return true
+		end
+		function dev:Wrap(fn)
+			return fn
+		end
+		function dev:TraceEnabled()
+			return false
+		end
+		A.Debug = dev
+		rawset(_G, "debugprofilestop", function()
+			return os.clock() * 1000
+		end)
+		rawset(_G, "hooksecurefunc", function() end)
+		rawset(_G, "C_Timer", { After = function() end })
+		A:On("BAG_UPDATE_DELAYED", function() end)
+		fire("BAG_UPDATE_DELAYED")
+		fire("BAG_UPDATE_DELAYED")
+		local target = {
+			GetName = function()
+				return "SomeFrame"
+			end,
+			Show = function() end,
+		}
+		A:Hook(target, "Show", function() end)
+		local ticker = A:Every(5, function() end)
+		local delayed = { addon = "TestAddon", event = "BAG_UPDATE_DELAYED", timed = true }
+		assert.same({ delayed, delayed }, got.events)
+		assert.same({ { addon = "TestAddon", target = "SomeFrame", method = "Show" } }, got.hooks)
+		assert.same({ { addon = "TestAddon", ticker = ticker } }, got.tickers)
+	end)
+
 	it("fills the SavedVariables with defaults on its ADDON_LOADED, keeping saved values", function()
 		rawset(_G, "TestAddonDB", { scale = 2 })
 		local A = newAddon({ db = "TestAddonDB", defaults = { scale = 1, list = { a = 1 }, on = true } })

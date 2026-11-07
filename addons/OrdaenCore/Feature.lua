@@ -323,6 +323,10 @@ local function hook(addon, target, method, fn, feature)
 	else
 		hooksecurefunc(method, body)
 	end
+	-- Dev builds: the hook in the addon's dev record (the dev addon's state sync, Addon.lua). Stripped in release.
+	if addon.Debug:IsEnabled() then
+		Core._DevHook(addon, target, method, feature)
+	end
 	return true
 end
 

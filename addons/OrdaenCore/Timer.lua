@@ -143,6 +143,10 @@ function Core._NewTicker(owner, interval, fn, feature)
 		owner = owner,
 	}, Ticker)
 	sync(t)
+	-- Dev builds: the ticker in its addon's dev record (the dev addon's state sync, Addon.lua). Stripped in release.
+	if owner.Debug:IsEnabled() then
+		Core._DevTicker(owner, t)
+	end
 	return t
 end
 

@@ -9,6 +9,9 @@ local addonName, ns = ...
 
 --- The global OrdaenCore. Other Core files add to it (each declares the class on its `ns.Core` local).
 ---@class OrdaenCoreAPI
+---@field _DevEventTime fun(entry: table, event: string) dev mode only: defined by OrdaenCore_Debug (Addon.lua)
+---@field _DevHook fun(addon: OrdaenAddon, target: table|nil, method: string, feature: OrdaenFeature|nil) dev only
+---@field _DevTicker fun(addon: OrdaenAddon, ticker: OrdaenTicker) dev mode only: defined by OrdaenCore_Debug
 ---@field UI table OrdaenCore.UI, the UI framework's entry point (UI.lua)
 local Core = {}
 ns.Core = Core
