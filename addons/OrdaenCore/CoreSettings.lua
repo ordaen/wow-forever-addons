@@ -22,22 +22,24 @@ local function get(key)
 	return A:Get(key)
 end
 
--- The palette follows its settings: a tone, a class's colour, or the theme (which moves the tones the player
--- didn't change; each of those is announced here too).
+-- The whole palette (at load and on a theme switch).
 local function refreshColors()
 	Colors:_Refresh(get)
 end
 
 -- A theme switch first moves every addon's untouched look settings (each addon hears its changes, features
--- first), then OrdaenCore.UI redraws.
+-- first), then OrdaenCore.UI redraws. A tone or a class's colour updates just that in the palette (a colour picker
+-- writes several times a second while dragged); only `ui.*` settings make OrdaenCore.UI restyle.
 local function coreSettingChanged(key, value)
 	if key == "ui.theme" then
 		Core._SettingsStore.SetTheme(value)
-	end
-	if key == "ui.theme" or key:find("^palette%.") or key:find("^class%.") then
 		refreshColors()
+	elseif key:find("^palette%.") or key:find("^class%.") then
+		Colors:_Changed(key, get)
 	end
-	uiSettingsChanged()
+	if key:find("^ui%.") then
+		uiSettingsChanged()
+	end
 end
 
 -- No slash command: /ordaen belongs to the dev addon. The page is under Options > AddOns > Ordaen Core.

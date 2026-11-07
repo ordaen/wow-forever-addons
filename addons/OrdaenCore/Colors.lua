@@ -145,8 +145,56 @@ function Colors:Off(event, fn)
 	end
 end
 
---- Read the palette from Ordaen Core's settings (CoreSettings.lua: at load and after every change of a colour,
---- a class's colour or the theme) and tell the listeners.
+local function tell(self)
+	local list = self.listeners
+	for i = 1, #list do
+		Core._call(list[i])
+	end
+end
+
+-- A setting key -> what it holds: { tones, name } for "palette.<name>" / "palette.<name>Text", { "class", file } for
+-- "class.<CLASS>", false for anything else. Parsed once per key: a colour picker writes several times a second.
+local parsed = {}
+
+local function parse(self, key)
+	local entry = parsed[key]
+	if entry == nil then
+		entry = false
+		if key:find("^palette%.") then
+			local rest = key:sub(9)
+			if rest:sub(-4) == "Text" and self.text[rest:sub(1, -5)] then
+				entry = { self.text, rest:sub(1, -5) }
+			elseif self.bar[rest] then
+				entry = { self.bar, rest }
+			end
+		elseif key:find("^class%.") then
+			entry = { "class", key:sub(7) }
+		end
+		parsed[key] = entry
+	end
+	return entry
+end
+
+--- One of Ordaen Core's settings changed (CoreSettings.lua): update just what it holds, a tone or a class's colour,
+--- and tell the listeners. Cheap: a picker being dragged calls it several times a second.
+---@param key string
+---@param get fun(key: string): any the settings' reader (A:Get of Ordaen Core)
+function Colors:_Changed(key, get)
+	local entry = parse(self, key)
+	if not entry then
+		return
+	end
+	if entry[1] == "class" then
+		local name = get(key)
+		self.classOf[entry[2]] = self.bar[name] and name or nil
+	else
+		assign(entry[1][entry[2]], get(key))
+	end
+	tell(self)
+end
+
+--- Read the whole palette from Ordaen Core's settings (CoreSettings.lua: at load and on a theme switch) and tell
+--- the listeners.
 ---@param get fun(key: string): any the settings' reader (A:Get of Ordaen Core)
 function Colors:_Refresh(get)
 	for _, name in ipairs(NAMES) do
@@ -157,10 +205,7 @@ function Colors:_Refresh(get)
 		local name = get("class." .. classFile)
 		self.classOf[classFile] = self.bar[name] and name or nil
 	end
-	local list = self.listeners
-	for i = 1, #list do
-		Core._call(list[i])
-	end
+	tell(self)
 end
 
 ns.Colors = colors

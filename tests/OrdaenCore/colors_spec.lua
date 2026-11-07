@@ -95,6 +95,44 @@ describe("OrdaenCore.Colors", function()
 		assert.equals(3, heard, "not after Off")
 	end)
 
+	it("changes only the tone the player picked (a picker drag writes several times a second)", function()
+		load(nil)
+		local before = {}
+		for _, name in ipairs(Colors:Names()) do
+			local bar, text = Colors:Get(name), Colors:Text(name)
+			before[name] = { bar[1], bar[2], bar[3], text[1], text[2], text[3], bar:Hex(), text:Hex() }
+		end
+		local A = coreAddon()
+		A:Set("palette.greenText", { 0.2, 0.9, 0.2 })
+		for _, name in ipairs(Colors:Names()) do
+			local bar, text = Colors:Get(name), Colors:Text(name)
+			local now = { bar[1], bar[2], bar[3], text[1], text[2], text[3], bar:Hex(), text:Hex() }
+			if name == "green" then
+				assert.same(before[name][1], now[1], "green's bar tone stays")
+				assert.same({ 0.2, 0.9, 0.2 }, { now[4], now[5], now[6] })
+			else
+				assert.same(before[name], now, name)
+			end
+		end
+		A:Set("class.DRUID", "red")
+		assert.equals("red", Colors:ClassName("DRUID"))
+		assert.equals("yellow", Colors:ClassName("ROGUE"), "the other classes stay")
+	end)
+
+	it("doesn't restyle every Ordaen surface for a colour (only ui.* settings do)", function()
+		load(nil)
+		local restyled = 0
+		Core.UI._SettingsChanged = function()
+			restyled = restyled + 1
+		end
+		local A = coreAddon()
+		A:Set("palette.blue", { 0.1, 0.2, 0.9 })
+		A:Set("class.MAGE", "blue")
+		assert.equals(0, restyled)
+		A:Set("ui.textSize", 14)
+		assert.equals(1, restyled)
+	end)
+
 	it("refuses a class colour that isn't in the palette (the default applies)", function()
 		load({ class = { ROGUE = "magenta" } })
 		assert.equals("yellow", Colors:ClassName("ROGUE"))
