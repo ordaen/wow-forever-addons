@@ -543,3 +543,225 @@ function Component.Panel(spec, opts)
 	placePanel(instance)
 	return instance
 end
+
+-- Windows: a block the player drags around, closed by Escape, its position remembered by the framework ------------
+-- (OrdaenCoreDB.ui.windows[name]: the addon keeps nothing). It needs a global name: that's what Escape closes and what
+-- the position is saved under. Hidden until the owner shows it.
+
+---@class OrdaenUIWindowOpts
+---@field point string|nil where it opens the first time (default "CENTER" of the screen)
+---@field x number|nil
+---@field y number|nil
+
+---@class OrdaenUIWindow : OrdaenUIComponent
+---@field window OrdaenUIWindowOpts
+
+---@class OrdaenUIWindow
+local Window = setmetatable({}, { __index = Base })
+local WindowMeta = { __index = Window }
+
+-- The saved window positions (name -> { point, x, y }), in Ordaen Core's SavedVariables; nil before they load.
+local function windowPositions()
+	local db = rawget(_G, "OrdaenCoreDB")
+	if type(db) ~= "table" then
+		return nil
+	end
+	db.ui = type(db.ui) == "table" and db.ui or {}
+	db.ui.windows = type(db.ui.windows) == "table" and db.ui.windows or {}
+	return db.ui.windows
+end
+
+local function placeWindow(self)
+	local frame, opts = self.frame, self.window
+	local saved = windowPositions()
+	saved = saved and saved[frame:GetName()]
+	frame:ClearAllPoints()
+	if type(saved) == "table" and type(saved[1]) == "string" then
+		frame:SetPoint(saved[1], UIParent, saved[1], saved[2] or 0, saved[3] or 0)
+	else
+		local point = opts.point or "CENTER"
+		frame:SetPoint(point, UIParent, point, opts.x or 0, opts.y or 0)
+	end
+end
+
+local function onWindowDragStart(self)
+	self.frame:StartMoving()
+end
+
+-- Dropped: remember where (one small table per drag, a player's action).
+local function onWindowDragStop(self)
+	local frame = self.frame
+	frame:StopMovingOrSizing()
+	local point, _, _, x, y = frame:GetPoint(1)
+	local saved = windowPositions()
+	if saved and point then
+		saved[frame:GetName()] = { point, math.floor(x + 0.5), math.floor(y + 0.5) }
+	end
+end
+
+--- Place it where it was left again (or where it opens the first time).
+function Window:Place()
+	placeWindow(self)
+end
+
+--- Forget where the player left it: it opens at its first place again.
+function Window:ResetPosition()
+	local saved = windowPositions()
+	if saved then
+		saved[self.frame:GetName()] = nil
+	end
+	placeWindow(self)
+end
+
+--- A window (style "window" unless the spec names one): dragged by any spot that isn't a child taking the mouse,
+--- closed by Escape, its position remembered. Hidden until shown.
+---@param spec OrdaenUIComponentSpec needs `name`
+---@param opts OrdaenUIWindowOpts|nil
+---@return OrdaenUIWindow
+function Component.Window(spec, opts)
+	assert(type(spec.name) == "string", "a window needs a name: its position is saved under it")
+	local instance = create(spec, "window") --[[@as OrdaenUIWindow]]
+	setmetatable(instance, WindowMeta)
+	instance.window = opts or {}
+	local frame = instance.frame
+	frame:SetMovable(true)
+	frame:SetClampedToScreen(true)
+	instance:On("dragstart", onWindowDragStart)
+	instance:On("dragstop", onWindowDragStop)
+	table.insert(UISpecialFrames, spec.name) -- Escape closes it, as Blizzard's windows
+	frame:Hide()
+	placeWindow(instance)
+	return instance
+end
+
+-- Inputs: a text box (Blizzard's EditBox) in the theme's look and font -------------------------------------------
+-- Put it in a block with { embed = input }. Events: "change" (the player typed: text), "enter", "escape" (it gives up
+-- the keyboard first). A placeholder in the hint style shows while it's empty and not being typed in.
+
+---@class OrdaenUIInputSpec
+---@field name string|nil global name of the EditBox
+---@field parent Frame|nil default UIParent
+---@field width number|nil UI units (default 160)
+---@field placeholder string|nil shown while empty ("Search")
+---@field on table<string, fun(self: OrdaenUIInput, ...)>|nil listeners, as with :On
+
+---@class OrdaenUIInput
+---@field frame EditBox
+---@field listeners table<string, function[]>
+---@field placeholder FontString
+local Input = {}
+local InputMeta = { __index = Input }
+
+local INPUT_EVENTS = { change = true, enter = true, escape = true }
+local inputs = setmetatable({}, { __mode = "k" }) -- EditBox -> its input
+
+--- Listen to "change" (text), "enter" or "escape". Plain functions; they get the input first.
+---@param event string
+---@param fn function
+function Input:On(event, fn)
+	assert(INPUT_EVENTS[event], "an input's events are change, enter and escape")
+	local list = self.listeners[event]
+	if not list then
+		list = {}
+		self.listeners[event] = list
+	end
+	list[#list + 1] = fn
+end
+
+---@param event string
+---@param fn function
+function Input:Off(event, fn)
+	local list = self.listeners[event]
+	for i = list and #list or 0, 1, -1 do
+		if list[i] == fn then
+			table.remove(list, i)
+		end
+	end
+end
+
+local function showPlaceholder(self)
+	local box = self.frame
+	self.placeholder:SetShown(box:GetText() == "" and not box:HasFocus())
+end
+
+---@return string
+function Input:GetText()
+	return self.frame:GetText()
+end
+
+--- Set the text (no "change" event: only the player's typing fires it).
+---@param text string
+function Input:SetText(text)
+	self.frame:SetText(text or "")
+	showPlaceholder(self)
+end
+
+function Input:ClearFocus()
+	self.frame:ClearFocus()
+end
+
+local function onInputTextChanged(box, userInput)
+	local self = inputs[box]
+	if not self then
+		return
+	end
+	showPlaceholder(self)
+	if userInput then
+		run(self.listeners.change, self, box:GetText())
+	end
+end
+
+local function onInputEnter(box)
+	local self = inputs[box]
+	if self then
+		run(self.listeners.enter, self)
+	end
+end
+
+local function onInputEscape(box)
+	box:ClearFocus()
+	local self = inputs[box]
+	if self then
+		run(self.listeners.escape, self)
+	end
+end
+
+local function onInputFocus(box)
+	local self = inputs[box]
+	if self then
+		showPlaceholder(self)
+	end
+end
+
+--- A text box. Its size: `width` and the theme's body text height plus room around it.
+---@param spec OrdaenUIInputSpec
+---@return OrdaenUIInput
+function Component.Input(spec)
+	local box = CreateFrame("EditBox", spec.name, spec.parent or UIParent) --[[@as EditBox]]
+	local Theme = ns.Theme
+	box:SetAutoFocus(false)
+	local space = Theme.Space
+	local textStyle = Theme.TextStyle("body")
+	box:SetSize(spec.width or 160, textStyle.size + 2 * space("sm"))
+	box:SetTextInsets(space("sm"), space("sm"), 0, 0)
+	ns.Dress.Font(box, "body")
+	ns.Dress.New(box, { style = "input", size = "frame", art = {} })
+	local placeholder = box:CreateFontString(nil, "ARTWORK")
+	ns.Dress.Font(placeholder, "hint")
+	local hint = Theme.TextStyle("hint").color
+	placeholder:SetTextColor(hint[1], hint[2], hint[3], hint[4] or 1)
+	placeholder:SetPoint("LEFT", box, "LEFT", space("sm"), 0)
+	placeholder:SetText(spec.placeholder or "")
+	local self = setmetatable({ frame = box, listeners = {}, placeholder = placeholder }, InputMeta)
+	inputs[box] = self
+	box:SetScript("OnTextChanged", onInputTextChanged)
+	box:SetScript("OnEnterPressed", onInputEnter)
+	box:SetScript("OnEscapePressed", onInputEscape)
+	box:SetScript("OnEditFocusGained", onInputFocus)
+	box:SetScript("OnEditFocusLost", onInputFocus)
+	for event, fn in pairs(spec.on or {}) do
+		self:On(event, fn)
+	end
+	showPlaceholder(self)
+	return self
+end

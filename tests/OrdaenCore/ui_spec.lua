@@ -24,6 +24,9 @@ end }
 -- wrapping at its width like WoW does.
 local function fakeFontString(log, frame)
 	local fs = { shown = true, width = 0, text = "", frame = frame }
+	function fs:SetShown(shown)
+		self.shown = shown and true or false
+	end
 	function fs:SetAlpha(a)
 		self.alpha = a
 	end
@@ -157,6 +160,53 @@ local function fakeTexture(layer)
 	return setmetatable(t, STRICT)
 end
 
+local function fakeEditBox(f)
+	f.text, f.focus = "", false
+	function f:SetAutoFocus(on)
+		self.autoFocus = on
+	end
+	function f:SetTextInsets(...)
+		self.insets = { ... }
+	end
+	function f:SetText(text)
+		self.text = text
+		if self.scripts.OnTextChanged then
+			self.scripts.OnTextChanged(self, false)
+		end
+	end
+	function f:GetText()
+		return self.text
+	end
+	function f:HasFocus()
+		return self.focus
+	end
+	function f:ClearFocus()
+		self.focus = false
+		if self.scripts.OnEditFocusLost then
+			self.scripts.OnEditFocusLost(self)
+		end
+	end
+	function f:SetFont(file, size, flags)
+		self.fontFile, self.fontSize, self.fontFlags = file, size, flags
+	end
+	function f:GetFont()
+		return self.fontFile, self.fontSize, self.fontFlags
+	end
+	function f:SetShadowOffset(x, y)
+		self.shadow = { x, y }
+	end
+	function f:SetShadowColor() end
+	function f:SetTextColor(...)
+		self.color = { ... }
+	end
+	-- The player types (userInput true), as the game calls the script.
+	function f:Type(text)
+		self.text = text
+		self.scripts.OnTextChanged(self, true)
+	end
+	return f
+end
+
 local function fakeFrame(name, log, parent)
 	local f = {
 		name = name, shown = true, fonts = {}, textures = {}, scripts = {}, parent = parent or false,
@@ -166,6 +216,25 @@ local function fakeFrame(name, log, parent)
 		parent.children[#parent.children + 1] = f
 	end
 	-- Parent, children and art (regions: textures, then font strings), as dressing walks them.
+	function f:GetPoint() -- point, relative frame, relative point, x, y
+		local p = self.point
+		return p[1], p[2], p[3], p[4], p[5]
+	end
+	function f:GetName()
+		return self.name
+	end
+	function f:SetMovable(on)
+		self.movable = on
+	end
+	function f:SetClampedToScreen(on)
+		self.clamped = on
+	end
+	function f:StartMoving()
+		self.moving = true
+	end
+	function f:StopMovingOrSizing()
+		self.moving = false
+	end
 	function f:SetParent(p)
 		if self.parent and self.parent.children then
 			for i, child in ipairs(self.parent.children) do
@@ -420,8 +489,12 @@ describe("OrdaenCore.UI", function()
 			DEFAULT_CHAT_FRAME = { AddMessage = function(_, msg)
 				table.insert(chat, msg)
 			end },
-			CreateFrame = function(_, name, parent)
+			CreateFrame = function(kind, name, parent)
 				local f = fakeFrame(name, log, parent)
+				if kind == "EditBox" then
+					rawset(f, "kind", kind)
+					fakeEditBox(f)
+				end
 				table.insert(frames, f)
 				return f
 			end,
@@ -796,6 +869,103 @@ describe("OrdaenCore.UI", function()
 			coords:Refresh()
 			assert.same({ "42.6, 61.0" }, shownTexts(coords.frame))
 			assert.is_true(log.setFormatted > before + 2) -- measured again, then drawn
+		end)
+	end)
+
+	describe("windows", function()
+		it("open where the owner says the first time, hidden, movable, closed by Escape", function()
+			local win = UI.Window({ name = "MyWindow", { text = "Bags" } }, { point = "RIGHT", x = -40 })
+			local f = win.frame
+			assert.equals("window", win.block.style)
+			assert.is_false(f.shown)
+			assert.is_true(f.movable)
+			assert.is_true(f.clamped)
+			assert.same({ "RIGHT", _G.UIParent, "RIGHT", -40, 0 }, f.point)
+			assert.same({ "MyWindow" }, _G.UISpecialFrames)
+			assert.same({ "LeftButton" }, f.drag)
+		end)
+
+		it("remember where the player drops them, and forget it on ResetPosition", function()
+			rawset(_G, "OrdaenCoreDB", {})
+			local win = UI.Window({ name = "Dragged", { text = "Bags" } })
+			local f = win.frame
+			f.scripts.OnDragStart(f)
+			assert.is_true(f.moving)
+			f:SetPoint("TOPLEFT", _G.UIParent, "TOPLEFT", 100.4, -200.6) -- where the game left it
+			f.scripts.OnDragStop(f)
+			assert.is_false(f.moving)
+			assert.same({ "TOPLEFT", 100, -201 }, _G.OrdaenCoreDB.ui.windows.Dragged)
+			local again = UI.Window({ name = "Dragged", { text = "Bags" } }) -- next session
+			assert.same({ "TOPLEFT", _G.UIParent, "TOPLEFT", 100, -201 }, again.frame.point)
+			again:ResetPosition()
+			assert.is_nil(_G.OrdaenCoreDB.ui.windows.Dragged)
+			assert.same({ "CENTER", _G.UIParent, "CENTER", 0, 0 }, again.frame.point)
+		end)
+
+		it("need a name", function()
+			assert.has_error(function()
+				UI.Window({ { text = "Bags" } })
+			end)
+		end)
+	end)
+
+	describe("inputs", function()
+		local function editBox()
+			for i = #frames, 1, -1 do
+				if frames[i].kind == "EditBox" then
+					return frames[i]
+				end
+			end
+		end
+
+		it("tell listeners what the player typed, not what code set", function()
+			local seen = {}
+			local input = UI.Input({ width = 180, on = { change = function(self, text)
+				seen[#seen + 1] = { self, text }
+			end } })
+			local box = editBox()
+			assert.equals(box, input.frame)
+			assert.is_false(box.autoFocus)
+			assert.equals(180, box.size[1])
+			box:Type("lin")
+			input:SetText("")
+			assert.same({ { input, "lin" } }, seen)
+			assert.equals("", input:GetText())
+		end)
+
+		it("show the placeholder only while empty and not being typed in", function()
+			local input = UI.Input({ placeholder = "Search" })
+			local box = input.frame
+			assert.equals("Search", input.placeholder.text)
+			assert.is_true(input.placeholder.shown)
+			box.focus = true
+			box.scripts.OnEditFocusGained(box)
+			assert.is_false(input.placeholder.shown)
+			box:Type("x")
+			box:ClearFocus()
+			assert.is_false(input.placeholder.shown, "it has text")
+			input:SetText("")
+			assert.is_true(input.placeholder.shown)
+		end)
+
+		it("give up the keyboard on Escape, then tell listeners; Enter too", function()
+			local heard = {}
+			local input = UI.Input({})
+			input:On("escape", function()
+				heard[#heard + 1] = "escape"
+			end)
+			input:On("enter", function()
+				heard[#heard + 1] = "enter"
+			end)
+			local box = input.frame
+			box.focus = true
+			box.scripts.OnEscapePressed(box)
+			assert.is_false(box.focus)
+			box.scripts.OnEnterPressed(box)
+			assert.same({ "escape", "enter" }, heard)
+			assert.has_error(function()
+				input:On("click", function() end)
+			end)
 		end)
 	end)
 

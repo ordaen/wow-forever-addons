@@ -144,6 +144,21 @@ THEMES.ordaen = {
 				left = { 1, { 0, 0, 0, 1, accent = 0.35 } },
 			},
 		},
+		-- A window the player moves (UI.Window): the panel's surface with room inside. Blizzard's window art comes later.
+		window = {
+			padding = "md",
+			gap = "sm",
+			fill = {
+				top = { 0.05, 0.04, 0.05, 0.96, accent = 0.07 },
+				bottom = { 0.015, 0.012, 0.015, 0.96, accent = 0.025 },
+			},
+			edges = {
+				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
+				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
+			},
+		},
 		panel = { -- a box holding other things (the minimap drawer): the tooltip surface, no size of its own
 			padding = 0,
 			fill = {

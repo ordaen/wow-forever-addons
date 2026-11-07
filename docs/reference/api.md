@@ -245,6 +245,35 @@ edge plus its offset, in UI units, 0 when there is none. A faded panel still cov
 the panels (Ordaen Chat above a bottom panel) read it and follow `OrdaenUI.InsetsChanged`, which fires when an inset
 changes (a panel placed, resized, moved to another edge). Loads nothing.
 
+## UI.Window
+
+```lua
+local win = UI.Window({ name = "OrdaenBagsWindow", header, content }, { point = "RIGHT", x = -40 })
+win:Show()
+```
+
+A component the player drags by any spot that isn't a child taking the mouse (style `window` unless the spec names
+one), with the methods of `UI.Block`. It needs a global `name`: Escape closes it (as Blizzard's windows) and its
+position is remembered under that name by the framework (`OrdaenCoreDB.ui.windows`), so the addon saves nothing.
+It's hidden until shown. `opts` = `{ point, x, y }`: where it opens the first time (default the screen's centre).
+
+### w:Place() and w:ResetPosition()
+
+`:Place()` puts it where it was left; `:ResetPosition()` forgets that, back to its first place.
+
+## UI.Input
+
+```lua
+local search = UI.Input({ width = 180, placeholder = SEARCH, on = { change = function(_, text) ... end } })
+local row = { columns = { "1fr", "auto" }, { embed = search }, closeButtonCell }
+```
+
+A text box in the theme's look (style `input`) and font: Blizzard's EditBox. Put it in a block with
+`{ embed = input }`. Its height is the body text's plus room around it; `width` in UI units (default 160). A
+`placeholder` in the hint style shows while it's empty and not being typed in. Events (`:On`, `:Off`, or `on` in the
+spec): `"change"` when the player types (gets the text; `:SetText` doesn't fire it), `"enter"`, `"escape"` (it gives
+up the keyboard first). `:GetText()`, `:SetText(text)`, `:ClearFocus()`; `input.frame` is the EditBox.
+
 ## UI.Dress
 
 ```lua

@@ -319,6 +319,31 @@ function UI.Panel(spec, opts)
 	return f and f.Panel(spec, opts)
 end
 
+--- A window (style "window" unless given): dragged by any spot that isn't a child taking the mouse, closed by
+--- Escape, its position remembered by the framework under its `name` (required). Hidden until shown; events as any
+--- component. `:ResetPosition()` puts it back at its first place. Loads the framework.
+---
+---   local win = UI.Window({ name = "MyAddonWindow", header, content }, { point = "RIGHT", x = -40 })
+---   win:Show()
+---@param spec OrdaenUIComponentSpec
+---@param opts table|nil { point, x, y }: where it opens the first time
+---@return OrdaenUIWindow|nil nil when the framework can't load (the player was told)
+function UI.Window(spec, opts)
+	local f = framework()
+	return f and f.Window(spec, opts)
+end
+
+--- A text box in the theme's look and font (Blizzard's EditBox): put it in a block with `{ embed = input }`.
+--- Events: "change" (the player typed; gets the text), "enter", "escape". Loads the framework.
+---
+---   local search = UI.Input({ width = 180, placeholder = SEARCH, on = { change = onSearch } })
+---@param spec table { name, parent, width, placeholder, on }
+---@return OrdaenUIInput|nil nil when the framework can't load (the player was told)
+function UI.Input(spec)
+	local f = framework()
+	return f and f.Input(spec)
+end
+
 --- Dress one of Blizzard's buttons in our look (style "iconButton" unless given): its art goes to alpha 0 and our
 --- block sits under it; Blizzard's frame stays on top and keeps its clicks, menus and scripts. Returns an object
 --- with `:SetIcon(icon, atlas)`, `:Refresh()` (hides art Blizzard added later), `:Undress()` and `:Apply()`.
