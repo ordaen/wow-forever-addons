@@ -14,16 +14,6 @@ ns.View = View
 local UI = OrdaenCore.UI
 local Reader, Layouts, Owner, SpellStats = ns.Reader, ns.Layouts, ns.Owner, ns.SpellStats
 
--- The section's tracks for 1..4 columns (made once).
-local STAT_COLUMNS = {}
-for n = 1, #SpellStats.ORDER do
-	STAT_COLUMNS[n] = {}
-	for i = 1, n do
-		STAT_COLUMNS[n][i] = "1fr"
-	end
-end
-local FIRST_CELL = { left = false } -- the first shown column has no line on its left
-
 local isSecret = issecretvalue or function()
 	return false
 end
@@ -43,8 +33,7 @@ local NO_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 ---@field header OrdaenUIHeader
 ---@field rows OrdaenTooltipsRowView[]
 ---@field bar OrdaenUIBar
----@field stats OrdaenUIBlock the spell section
----@field statCells table<string, { cell: OrdaenUIBlock, value: OrdaenUIText }>
+---@field stats OrdaenUIStats the spell section
 local ViewMethods = {}
 local ViewMeta = { __index = ViewMethods }
 
@@ -56,15 +45,7 @@ function View.New(name)
 	local spec = { name = name, parent = UIParent, strata = "TOOLTIP", style = "tooltip", header }
 	-- The columns as tall as the section (their lines the same height), each value in its middle: one value may
 	-- wrap to two lines (a long cost).
-	local stats = { columns = STAT_COLUMNS[#SpellStats.ORDER], padding = { "sm", 0, 0, 0 }, rowAlign = "stretch",
-		hidden = true }
-	local statCells = {}
-	for i, stat in ipairs(SpellStats.ORDER) do
-		local value = { format = "%s", args = { "" }, style = "value", align = "center" }
-		local cell = { style = "stat", rowAlign = "center", hidden = true, value }
-		stats[i] = cell
-		statCells[stat] = { cell = cell, value = value }
-	end
+	local stats = UI.Stats(#SpellStats.ORDER)
 	spec[#spec + 1] = stats
 	local rows = {}
 	for i = 2, Reader.MAX_ROWS do
@@ -83,12 +64,14 @@ function View.New(name)
 	end
 	component:SetClampedToScreen(true)
 	component:Hide()
-	return setmetatable({ component = component, header = header, rows = rows, bar = bar, stats = stats,
-		statCells = statCells }, ViewMeta)
+	return setmetatable({ component = component, header = header, rows = rows, bar = bar, stats = stats },
+		ViewMeta)
 end
 
 -- Spacing before a row that follows a blank line (other addons separate their sections with one).
 local GAP_BEFORE = { "sm", 0, 0, 0 }
+-- The theme's section gap before the first row of text (as a "section" block has).
+local SECTION_GAP = { "lg", 0, 0, 0 }
 
 local function fillHeader(self, model, layout, owner)
 	local first = model.rows[1]
@@ -119,19 +102,16 @@ end
 function ViewMethods:Fill(model, owner)
 	local layout = Layouts.Decide(model)
 	fillHeader(self, model, layout, owner)
-	local n = 0
+	local stats = self.stats
+	stats:Clear()
 	for _, stat in ipairs(SpellStats.ORDER) do
-		local s, c = layout.stats[stat], self.statCells[stat]
-		c.cell.hidden = not s.shown
+		local s = layout.stats[stat]
 		if s.shown then
-			n = n + 1
-			c.value.format, c.value.args[1] = s.format, s.arg
-			c.cell.edges = n == 1 and FIRST_CELL or nil
+			stats:Add(s.arg, nil, s.format)
 		end
 	end
-	self.stats.hidden = n == 0
-	self.stats.columns = STAT_COLUMNS[math.max(n, 1)]
 	local gap = false
+	local first = true -- the first text row after the title (and numbers) starts a section
 	for i = 2, Reader.MAX_ROWS do
 		local view = self.rows[i]
 		local row = i <= model.count and model.rows[i]
@@ -141,8 +121,8 @@ function ViewMethods:Fill(model, owner)
 		else
 			view.block.hidden = false
 			view.divider.hidden = i ~= layout.extrasFrom
-			view.block.padding = gap and i ~= layout.extrasFrom and GAP_BEFORE or nil
-			gap = false
+			view.block.padding = (first and SECTION_GAP) or (gap and i ~= layout.extrasFrom and GAP_BEFORE) or nil
+			gap, first = false, false
 			local hasRight = row.right ~= ""
 			view.left.text = row.left
 			view.left.color = row.leftColor or nil

@@ -245,6 +245,32 @@ edge plus its offset, in UI units, 0 when there is none. A faded panel still cov
 the panels (Ordaen Chat above a bottom panel) read it and follow `OrdaenUI.InsetsChanged`, which fires when an inset
 changes (a panel placed, resized, moved to another edge). Loads nothing.
 
+## UI.Stats and UI.Rows
+
+```lua
+local stats = UI.Stats(4)          -- up to 4 columns
+local rows = UI.Rows(6)            -- up to 6 rows
+local tip = UI.Tooltip({ { text = "", style = "title" }, stats, rows, { style = "section", text = "" } })
+-- per show:
+stats:Clear(); stats:Add("8-25 m", RANGE); stats:Add(15, nil, "%d sec")
+rows:Clear(); rows:Add(SPELL_STAT1_NAME, 120)
+tip:Show(owner)
+```
+
+Sections of a tooltip after its title, the same in every addon (spell tooltips, the game menu's buttons). They are
+data, like any block, made once.
+
+`UI.Stats(max)` is a row of up to `max` key numbers, in columns of equal width that are as tall as the tallest. Each
+column is a value centred over an optional caption, with a hairline between columns (style `stat`).
+`:Add(value, caption, format)` fills the next column (`format` defaults to `"%s"`), and `:Clear()` empties them all.
+
+`UI.Rows(max)` is up to `max` rows of a name on the left and its value on the right, with the same `:Add(name,
+value, format)` and `:Clear()`. A section is hidden while empty.
+
+Both have style `section`: the theme's section gap (`lg`) sits above them. Give your own text block
+`style = "section"` too, so every part of a tooltip sits the same distance from the next. The header adds no gap
+below itself, because the section after it brings one.
+
 ## UI.Window
 
 ```lua

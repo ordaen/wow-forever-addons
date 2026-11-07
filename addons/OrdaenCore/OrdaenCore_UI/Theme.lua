@@ -100,8 +100,11 @@ THEMES.ordaen = {
 		header = {
 			-- No fill of its own: the tooltip's one background shows behind the title too (the user's choice). No side
 			-- padding: its icon and title line up with the text below.
-			padding = { 0, 0, "md", 0 }, gap = { "md", "xs" },
+			-- Nothing below it: the section after it brings the gap.
+			padding = 0, gap = { "md", "xs" },
 		},
+		-- A tooltip's part after its title (UI.Stats, UI.Rows, a text block): the section gap above it, no surface.
+		section = { padding = { "lg", 0, 0, 0 } },
 		button = { padding = 0, gap = 0 },
 		iconButton = {
 			padding = 4,

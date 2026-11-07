@@ -19,7 +19,14 @@ local NATIVES = { "GameTooltip", "ItemRefTooltip", "ShoppingTooltip1", "Shopping
 local CHECK_INTERVAL = 0.25
 
 local feature -- the "takeover" feature (Core.lua)
-local states = {} -- native tooltip -> { view, model, alpha = native's wanted alpha, settingAlpha }
+---@class OrdaenTooltipsState
+---@field view OrdaenTooltipsView
+---@field model OrdaenTooltipsModel
+---@field alpha number|nil the native's wanted alpha
+---@field settingAlpha boolean
+
+---@type table<table, OrdaenTooltipsState> native tooltip -> its state (typed, so a removed view field is an error)
+local states = {}
 local shownCount = 0
 local ticker
 
@@ -174,16 +181,14 @@ function Takeover.Describe()
 		local view, model = state.view, state.model
 		local header = view.header
 		local stats, shownRows = {}, 0
-		for _, stat in ipairs(ns.SpellStats.ORDER) do
-			local c = view.statCells[stat]
-			if not c.cell.hidden then
-				stats[#stats + 1] = c.value.format:format(c.value.args[1])
-			end
+		for i = 1, view.stats.shown do
+			local value = view.stats.values[i]
+			stats[i] = value.format:format(value.args[1])
 		end
 		for _, row in pairs(view.rows) do
 			shownRows = shownRows + (row.block.hidden and 0 or 1)
 		end
-		local divider = false
+		local divider = false ---@type integer|false the row with the divider
 		for i, row in pairs(view.rows) do
 			if not row.block.hidden and not row.divider.hidden then
 				divider = i

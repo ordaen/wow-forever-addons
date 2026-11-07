@@ -22,6 +22,7 @@ How themes work: [Themes](/guide/themes).
 | `tabFlash` | a tab with a new message | accent fill |
 | `dialog` | confirmation dialogs (`UI.Confirm`) | Blizzard's dialog art, padding `xl` |
 | `portraitWindow` | a window with Blizzard's portrait ring (Ordaen Reskin) | Blizzard's portrait window art at full size |
+| `section` | a tooltip's part after its title (`UI.Stats`, `UI.Rows`, a text block) | the section gap (`lg`) above it, no surface |
 | `inset` | an inner pane of a window (Blizzard's insets, which Ordaen Reskin dresses) | Blizzard's inset art, padding `sm` |
 | `pushButton` | a dialog's buttons | accent band, accent edges, highlight |
 

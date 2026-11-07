@@ -238,6 +238,115 @@ function UI.Header(spec)
 	return header --[[@as OrdaenUIHeader]]
 end
 
+-- Sections: a tooltip's parts after its title (key numbers, rows, text) sit the theme's section gap apart (style
+-- "section": that gap above it). UI.Stats and UI.Rows are sections; give your own text block style = "section".
+
+local EQUAL_COLUMNS = {}
+for n = 1, 6 do
+	local columns = {}
+	for i = 1, n do
+		columns[i] = "1fr"
+	end
+	EQUAL_COLUMNS[n] = columns
+end
+local FIRST_STAT = { left = false } -- the first shown column has no line on its left
+
+---@class OrdaenUIStats : OrdaenUIBlock
+---@field shown integer columns filled since the last :Clear
+---@field values OrdaenUIText[]
+---@field captions OrdaenUIText[]
+local StatsMethods = {}
+local StatsMeta = { __index = StatsMethods }
+
+--- Fill the next column: `value` (any value `format` takes; default "%s") over an optional caption. Ignored past
+--- the last column.
+---@param value any
+---@param caption string|nil
+---@param format string|nil
+function StatsMethods:Add(value, caption, format)
+	local i = self.shown + 1
+	local cell = self[i]
+	if not cell then
+		return
+	end
+	self.shown = i
+	cell.hidden = false
+	cell.edges = i == 1 and FIRST_STAT or nil
+	local v, c = self.values[i], self.captions[i]
+	v.format, v.args[1] = format or "%s", value
+	c.text, c.hidden = caption or "", not caption
+	self.hidden = false
+	self.columns = EQUAL_COLUMNS[i]
+end
+
+--- Empty every column (hidden until the next :Add).
+function StatsMethods:Clear()
+	self.shown, self.hidden = 0, true
+	for i = 1, #self do
+		self[i].hidden = true
+	end
+end
+
+--- A section of key numbers in columns (a spell's cost, range, cast time; a guild's members online): up to `max`
+--- columns of equal width, as tall as the tallest, each a value over an optional caption, centred, a hairline
+--- between them (style "stat"). Data, like any block: put it in a tooltip, then :Clear() and :Add() per show.
+--- Creates its tables once; loads nothing.
+---@param max integer columns, 1-6
+---@return OrdaenUIStats
+function UI.Stats(max)
+	local stats = { style = "section", columns = EQUAL_COLUMNS[1], rowAlign = "stretch", hidden = true, shown = 0,
+		values = {}, captions = {} }
+	for i = 1, max do
+		local value = { format = "%s", args = { "" }, style = "value", align = "center" }
+		local caption = { text = "", style = "label", align = "center", hidden = true }
+		stats.values[i], stats.captions[i] = value, caption
+		stats[i] = { style = "stat", rowAlign = "center", gap = 0, hidden = true, value, caption }
+	end
+	return setmetatable(stats, StatsMeta)
+end
+
+---@class OrdaenUIRows : OrdaenUIBlock
+---@field shown integer rows filled since the last :Clear
+local RowsMethods = {}
+local RowsMeta = { __index = RowsMethods }
+
+--- Fill the next row: a name on the left, its value on the right (`format`, default "%s"). Ignored past the last.
+---@param name string
+---@param value any
+---@param format string|nil
+function RowsMethods:Add(name, value, format)
+	local i = self.shown + 1
+	local left, right = self[2 * i - 1], self[2 * i]
+	if not left then
+		return
+	end
+	self.shown = i
+	left.text, left.hidden = name, false
+	right.format, right.args[1], right.hidden = format or "%s", value, false
+	self.hidden = false
+end
+
+--- Empty every row (hidden until the next :Add).
+function RowsMethods:Clear()
+	self.shown, self.hidden = 0, true
+	for i = 1, #self do
+		self[i].hidden = true
+	end
+end
+
+--- A section of rows, a name on the left and its value on the right (Strength 120; Arms 21/51), up to `max`.
+--- Data, like any block: :Clear() and :Add() per show. Creates its tables once; loads nothing.
+---@param max integer
+---@return OrdaenUIRows
+function UI.Rows(max)
+	local rows = { style = "section", columns = { "1fr", "auto" }, gap = { "lg", "xs" }, hidden = true, shown = 0 }
+	for i = 1, max do
+		rows[2 * i - 1] = { text = "", style = "label", hidden = true }
+		rows[2 * i] = { format = "%s", args = { "" }, style = "value", align = "right", hidden = true }
+	end
+	return setmetatable(rows, RowsMeta)
+end
+
 -- Confirmation dialogs -------------------------------------------------------------------------------
 
 ---@class OrdaenUIConfirmButton
