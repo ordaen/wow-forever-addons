@@ -73,10 +73,26 @@ local function restore(native, state)
 	setNativeAlpha(native, state, state.alpha or 1)
 end
 
+-- The shown native whose view is drawn, between `native` (centre x) and `anchor` (centre anchorX) and nearest to
+-- `native`: the one its view hangs from. Nil when none is. Allocates nothing.
+local function nearest(native, anchor, x, anchorX)
+	local best, bestX
+	for other, state in pairs(states) do
+		if other ~= native and other ~= anchor and state.view:IsShown() then
+			local ox = other:GetCenter()
+			if ox and not isSecret(ox) and (ox - x) * (anchorX - ox) > 0 and (not bestX
+				or math.abs(ox - x) < math.abs(bestX - x)) then
+				best, bestX = other, ox
+			end
+		end
+	end
+	return best
+end
+
 -- Put the view where the native is, or beside the button it's for ("beside buttons").
 local function place(native, state, owner)
 	local beside = owner and ns.Addon.db.anchorToButtons and Owner.IsButton(owner) and owner or nil
-	state.view:Follow(native, viewOf, beside)
+	state.view:Follow(native, viewOf, beside, nearest)
 end
 
 local function draw(native)

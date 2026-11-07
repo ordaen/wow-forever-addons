@@ -223,10 +223,33 @@ describe("Ordaen Tooltips", function()
 			end,
 			FadeOut = function() end,
 		})
+		-- The second one: also anchored to GameTooltip by Blizzard, further left (past the first)
+		local shopping2 = stub("ShoppingTooltip2", {
+			NumLines = function()
+				return 1
+			end,
+			GetLeftLine = function()
+				return line("Mudfish")
+			end,
+			GetRightLine = function()
+				return line("")
+			end,
+			GetPoint = function()
+				return "TOPRIGHT", tooltip, "TOPLEFT", -250, -12
+			end,
+			GetCenter = function()
+				return -100, 500
+			end,
+			IsForbidden = function()
+				return false
+			end,
+			FadeOut = function() end,
+		})
 		tooltip.GetCenter = function()
 			return 300, 500
 		end
 		rawset(_G, "ShoppingTooltip1", shopping)
+		rawset(_G, "ShoppingTooltip2", shopping2)
 		ns = {}
 		helpers.loadAddon("OrdaenTooltips", ns)
 		fire("ADDON_LOADED", "OrdaenTooltips")
@@ -250,6 +273,14 @@ describe("Ordaen Tooltips", function()
 		assert.equals(0, point[5])
 		assert.is_truthy(point[2] == main or (type(point[2]) == "table" and point[2] ~= shopping),
 			"anchored to our GameTooltip view, not the native")
+		-- The second hangs from the first's view, not beside the main one.
+		shopping2:Show()
+		shopping2:SetPoint("TOPRIGHT", tooltip, "TOPLEFT", -250, -12)
+		local view2 = frameNamed("OrdaenTooltipsShoppingTooltip2")
+		local point2 = view2.calls.SetPoint[#view2.calls.SetPoint]
+		assert.equals("TOPRIGHT", point2[1])
+		assert.equals(view, point2[2], "beside the first comparison view")
+		assert.equals("TOPLEFT", point2[3])
 	end)
 
 	it("hides ours with the native one", function()

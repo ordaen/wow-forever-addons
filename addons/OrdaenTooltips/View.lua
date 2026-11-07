@@ -158,7 +158,8 @@ end
 ---@param native GameTooltip
 ---@param viewOf fun(native: table): OrdaenTooltipsView|nil
 ---@param beside table|nil
-function ViewMethods:Follow(native, viewOf, beside)
+---@param nearest fun(native: table, anchor: table, x: number, anchorX: number): table|nil the shown native between
+function ViewMethods:Follow(native, viewOf, beside, nearest)
 	local point, relativeTo, _, x, y = native:GetPoint(1)
 	local c = self.component
 	c:ClearAllPoints()
@@ -185,6 +186,12 @@ function ViewMethods:Follow(native, viewOf, beside)
 		local myX = native:GetCenter()
 		local otherX = relativeTo:GetCenter()
 		local left = not (isSecret(myX) or isSecret(otherX)) and myX and otherX and myX < otherX
+		-- Blizzard anchors both comparison tooltips to GameTooltip, the second one past the first (both views went
+		-- beside the main one, 2026-11-07): ours hangs from the nearest shown tooltip between it and its anchor.
+		local between = left ~= nil and myX and otherX and nearest and nearest(native, relativeTo, myX, otherX)
+		if between then
+			other, relativeTo = viewOf(between), between
+		end
 		ns.Debug:Verbosef("takeover: %s beside %s's view, on the %s (native at %s, %s)", native:GetName() or "?",
 			relativeTo:GetName() or "?", left and "left" or "right", tostring(myX), tostring(otherX))
 		if left then
