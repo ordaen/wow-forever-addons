@@ -83,5 +83,11 @@
   "CONTROL_BLIZZARD": "Blizzard",
   "CONTROL_ORDAEN": "Ordaen",
   "CONTROL_ORDAEN_ACCENT": "Ordaen, акцент",
-  "MARKER_GEM": "Камень"
+  "MARKER_GEM": "Камень",
+  "XP_FILL_DEEP": "Тёмное стекло",
+  "XP_FILL_GRAIN": "Мелкое зерно",
+  "XP_FILL_BRUSHED": "Шлифовка",
+  "XP_FILL_POTION": "Зелье",
+  "XP_FILL_CLOUDS": "Облака маны",
+  "XP_FILL_STEEL": "Сталь"
 }

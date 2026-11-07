@@ -83,5 +83,11 @@
   "CONTROL_BLIZZARD": "Blizzard",
   "CONTROL_ORDAEN": "Ordaen",
   "CONTROL_ORDAEN_ACCENT": "Ordaen accent",
-  "MARKER_GEM": "Gem"
+  "MARKER_GEM": "Gem",
+  "XP_FILL_DEEP": "Deep glass",
+  "XP_FILL_GRAIN": "Fine grain",
+  "XP_FILL_BRUSHED": "Brushed",
+  "XP_FILL_POTION": "Potion",
+  "XP_FILL_CLOUDS": "Mana clouds",
+  "XP_FILL_STEEL": "Steel blue"
 }
