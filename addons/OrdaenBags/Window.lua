@@ -67,7 +67,7 @@ local freeSection = { columns = { "auto" }, gap = "xs", { text = "", style = "la
 	freeCell } }
 local freeText = { format = NUM_FREE_SLOTS, args = { 0 }, style = "label" }
 local moneyText = { text = "", align = "right" }
-local sortText = { text = "" }
+local sortText = { text = "", style = "control" }
 local bagButtons = {} ---@type table<number, OrdaenUIComponent> bag -> its button in the bag strip
 local bagIcons = {} ---@type table<number, table> bag -> its image element
 local bagCounts = {} ---@type table<number, table> bag -> its count element
@@ -546,7 +546,7 @@ end
 local function build()
 	local search = UI.Input({ name = "OrdaenBagsSearch", width = 200, placeholder = SEARCH, on = { change = onSearch } })
 	-- the dropdown's art is a 26 px field with a shadow (82, 2026-11-07): give it its height
-	sortButton = UI.Button({ style = "dropdown", height = 26, on = { click = onSortClick }, sortText })
+	sortButton = UI.Button({ style = "dropdown", on = { click = onSortClick }, sortText })
 	local arrange = iconButton("pushButton", "sort", actionTip(L.TIP_SORT, L.TIP_SORT_TEXT), onArrange)
 	local bags = iconButton("pushButton", "bag", actionTip(L.TIP_BAGS, L.TIP_BAGS_TEXT), onToggleBags)
 	local settings = iconButton("pushButton", "settings", actionTip(SETTINGS, L.TIP_SETTINGS_TEXT), onSettings)
