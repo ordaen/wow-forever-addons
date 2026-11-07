@@ -42,6 +42,8 @@ local win ---@type OrdaenUIWindow|nil
 local sidebar ---@type OrdaenUIComponent|nil
 local itemsPane ---@type OrdaenUIComponent|nil
 local sortButton ---@type OrdaenUIComponent|nil
+local searchBox ---@type OrdaenUIInput|nil
+local quickButtons = {} ---@type table<string, OrdaenUIComponent> name -> a quick action (dev dump)
 local bagStrip ---@type OrdaenUIComponent|nil
 local bagStripCell = { colSpan = 2, hidden = true } -- the bag strip's cell in the window: hidden until asked for
 local selected = "all" -- the tab shown (not saved: the window opens on all items)
@@ -543,7 +545,8 @@ end
 
 local function build()
 	local search = UI.Input({ name = "OrdaenBagsSearch", width = 200, placeholder = SEARCH, on = { change = onSearch } })
-	sortButton = UI.Button({ style = "dropdown", on = { click = onSortClick }, sortText })
+	-- the dropdown's art is a 26 px field with a shadow (82, 2026-11-07): give it its height
+	sortButton = UI.Button({ style = "dropdown", height = 26, on = { click = onSortClick }, sortText })
 	local arrange = iconButton("pushButton", "sort", actionTip(L.TIP_SORT, L.TIP_SORT_TEXT), onArrange)
 	local bags = iconButton("pushButton", "bag", actionTip(L.TIP_BAGS, L.TIP_BAGS_TEXT), onToggleBags)
 	local settings = iconButton("pushButton", "settings", actionTip(SETTINGS, L.TIP_SETTINGS_TEXT), onSettings)
@@ -551,6 +554,9 @@ local function build()
 	if not (search and sortButton and arrange and bags and settings and close) then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end
+	searchBox = search
+	quickButtons.arrange, quickButtons.bags, quickButtons.settings, quickButtons.close = arrange, bags, settings, close
+	quickButtons.sort = sortButton
 	-- the sidebar: a tab per category (Blizzard's words, first letter up, with its count)
 	local tabs = { columns = { "auto" }, gap = 0, padding = 0 }
 	for _, tab in ipairs(Categories.TABS) do
@@ -644,9 +650,52 @@ function View.Relayout()
 	end
 end
 
---- Dev-mode state (Send state): the tab, the counts, the window's place.
+-- Dev dump of one frame and what it draws: its size, level, visibility and alpha, each texture (atlas or file, layer,
+-- size, shown, colour), and its child frames the same way, two levels deep. Made only on Send state.
+local function round(v)
+	return v and math.floor(v * 10 + 0.5) / 10 or nil
+end
+
+local function describe(frame, depth)
+	local w, h = frame:GetSize()
+	local out = {
+		type = frame:GetObjectType(), name = frame:GetName(), size = { round(w), round(h) },
+		level = frame.GetFrameLevel and frame:GetFrameLevel() or nil, shown = frame:IsShown(),
+		visible = frame:IsVisible(), alpha = round(frame:GetEffectiveAlpha()), points = frame:GetNumPoints(),
+		textures = {},
+	}
+	for _, region in ipairs({ frame:GetRegions() }) do
+		if region:GetObjectType() == "Texture" then
+			local tw, th = region:GetSize()
+			local r, g, b, a = region:GetVertexColor()
+			local layer, sub = region:GetDrawLayer()
+			out.textures[#out.textures + 1] = {
+				atlas = region:GetAtlas(), file = region:GetTextureFilePath(), layer = layer, sublevel = sub,
+				size = { round(tw), round(th) }, shown = region:IsShown(), alpha = round(region:GetAlpha()),
+				color = { round(r), round(g), round(b), round(a) },
+			}
+		end
+	end
+	if depth > 0 then
+		out.children = {}
+		for _, child in ipairs({ frame:GetChildren() }) do
+			out.children[#out.children + 1] = describe(child, depth - 1)
+		end
+	end
+	return out
+end
+
+--- Dev-mode state (Send state): the tab, the counts, the window's place, and how the search box and the quick
+--- actions draw (for the renderer owner: their art didn't show in game, 2026-11-07).
 ---@return table
 function View.Dump()
+	local controls = {}
+	if searchBox then
+		controls.search = describe(searchBox.frame, 2)
+	end
+	for name, button in pairs(quickButtons) do
+		controls[name] = describe(button.frame, 2)
+	end
 	return {
 		selected = selected,
 		counts = Data.counts,
@@ -654,5 +703,6 @@ function View.Dump()
 		items = Data.Count(),
 		rows = #content,
 		shown = win ~= nil and win:IsShown(),
+		controls = controls,
 	}
 end
