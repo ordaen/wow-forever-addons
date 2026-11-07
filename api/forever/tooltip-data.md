@@ -116,9 +116,29 @@ Functions behind the numbers (all in the API dump): `GetAttackPowerForStat`, `Pa
 | `ITEM_LEVEL` | Уровень предмета: %d |
 | `ITEM_BIND_ON_EQUIP`, `ITEM_BIND_ON_PICKUP`, `ITEM_UNIQUE`, `DURABILITY` | Становится персональным при надевании; Становится персональным при поднятии; Уникальный; Прочность |
 
-The character tab's own stat frames had no `tooltip` / `tooltip2` fields when probed: Forever's character tab
-builds them on hover, or wasn't opened before the dump (to check).
+## The character tab's stat tooltips (this character)
+
+Blizzard's own output for the character, on the stat frames under `CharacterStatsPane` (and its
+`CharacterStatsPaneScrollBox`): `.tooltip` (the header) and `.tooltip2` (the text). They exist only after the
+character tab was opened once. Measured on a level 10 warrior:
+
+| `.tooltip` | `.tooltip2` |
+|---|---|
+| Сила 35 | Повышает силу атаки на 70 · Повышает вероятность блокирования на 1 |
+| Ловкость 22 | Повышает вероятность критического удара на 4.2% · Повышает силу атаки в дальнем бою на 44 · Укрепляет броню на 44 · Повышает вероятность уклонения на 4.2% |
+| Выносливость 37 (34+3) | Увеличивает запас здоровья на 190 |
+| Интеллект 20 | Повышает скорость развития навыка владения оружием (a warrior: no mana) |
+| Дух 22 | Повышает скорость восполнения здоровья вне боя на 27 ед. раз в 5 сек. · Восстановление здоровья ускоряется на 33%, пока персонаж сидит… |
+| Броня: 452 | Уменьшает получаемый физический урон на 26.56% · Бонус от ловкости |
+| Здоровье: 291 | `STAT_HEALTH_TOOLTIP` |
+| Ярость: 100 | Ресурс для применения способностей … Вне боя вы теряете 1,25 ед. ярости раз в 1 сек. |
+| Сила атаки: 105 (80+25) | Увеличивает урон в секунду от оружия ближнего боя на 7,5 … (`MELEE_ATTACK_POWER_TOOLTIP`) |
+| Сила атаки дальнего боя:: 34 | Увеличивает урон в секунду от оружия дальнего боя на 2,4 … |
+
+The texts depend on the class (intellect for a warrior; agility gives attack power only to some classes). A nested
+tooltip for an item's stat computes the same numbers for the item's own amount with the API above and these strings
+(e.g. «+7 к силе»: +14 к силе атаки, +1 к блоку for this warrior), rather than reading the frames.
 
 ## Still to measure
 
-Class restriction («Классы: …»), reputation requirement, the character tab's stat tooltips.
+Class restriction («Классы: …»), reputation requirement; the character tab's texts for a caster class.
