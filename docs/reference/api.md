@@ -308,7 +308,8 @@ local row = { columns = { "1fr", "auto" }, { embed = search }, closeButtonCell }
 ```
 
 A text box in the theme's look (style `input`) and font: Blizzard's EditBox. Put it in a block with
-`{ embed = input }`. Its height is the body text's plus room around it; `width` in UI units (default 160). A
+`{ embed = input }` (an embedded component's frame becomes a child of the block it sits in, so it hides with it).
+Its height is the body text's plus room around it; `width` in UI units (default 160). A
 `placeholder` in the hint style shows while it's empty and not being typed in. Events (`:On`, `:Off`, or `on` in the
 spec): `"change"` when the player types (gets the text; `:SetText` doesn't fire it), `"enter"`, `"escape"` (it gives
 up the keyboard first). `:GetText()`, `:SetText(text)`, `:ClearFocus()`; `input.frame` is the EditBox.

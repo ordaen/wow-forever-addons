@@ -785,6 +785,20 @@ function drawBlock(surface, p, result, ox, oy, accent, depth, parentEdges)
 		local own = node.accent or accent
 		if Layout.IsEmbed(node) then
 			local frame = node.embed.frame
+			-- the surface it sits on is its parent too, so hiding the holder hides it (a window and its panes) and it
+			-- draws above the holder's art; SetParent resets strata and level, so a spec's own ones are set again
+			if frame:GetParent() ~= surface then
+				frame:SetParent(surface)
+				local spec = node.embed.block
+				if spec then
+					if spec.strata then
+						frame:SetFrameStrata(spec.strata)
+					end
+					if spec.level then
+						frame:SetFrameLevel(spec.level)
+					end
+				end
+			end
 			frame:ClearAllPoints()
 			frame:SetPoint("TOPLEFT", surface, "TOPLEFT", x, -y)
 			frame:Show()

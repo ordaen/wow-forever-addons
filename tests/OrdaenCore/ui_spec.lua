@@ -257,6 +257,7 @@ local function fakeFrame(name, log, parent)
 		if p and p.children then
 			p.children[#p.children + 1] = self
 		end
+		self.level = nil -- as in the game: the level becomes the new parent's + 1 again
 	end
 	function f:GetParent()
 		return self.parent or nil
@@ -886,6 +887,19 @@ describe("OrdaenCore.UI", function()
 	end)
 
 	describe("windows", function()
+		it("are the parent of what's embedded in them, so closing one hides its panes and buttons too", function()
+			local close = UI.Button({ name = "PaneClose", { text = "x" } })
+			local pane = UI.Block({ name = "Pane", { embed = close } })
+			local raised = UI.Button({ name = "Raised", strata = "DIALOG", level = 30, { text = "!" } })
+			local win = UI.Window({ name = "PaneWindow", { embed = pane }, { embed = raised } })
+			win:Refresh()
+			assert.equals(win.frame, pane.frame:GetParent())
+			assert.equals(pane.frame, close.frame:GetParent(), "nested: the pane's own button is the pane's child")
+			assert.equals(win.frame, raised.frame:GetParent())
+			assert.equals("DIALOG", raised.frame:GetFrameStrata(), "a spec's own strata survives the new parent")
+			assert.equals(30, raised.frame:GetFrameLevel(), "and its own level")
+		end)
+
 		it("open where the owner says the first time, hidden, movable, closed by Escape", function()
 			local win = UI.Window({ name = "MyWindow", { text = "Bags" } }, { point = "RIGHT", x = -40 })
 			local f = win.frame
