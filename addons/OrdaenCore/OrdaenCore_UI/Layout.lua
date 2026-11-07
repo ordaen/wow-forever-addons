@@ -339,8 +339,9 @@ function layoutBlock(node, width, ctx, height)
 		r.rowY[rr] = y
 		y = y + r.rowHeight[rr] + (rr < rows and gapRow or 0)
 	end
-	-- A fixed height with rowAlign: the rows sit in the middle (or at the bottom) of it.
-	local rowAlign = node.rowAlign
+	-- A fixed height with rowAlign: the rows sit in the middle (or at the bottom) of it. A style may give the default
+	-- (a dropdown's label in the middle of its field).
+	local rowAlign = node.rowAlign or defaults.rowAlign
 	local shift = 0
 	if height and rowAlign and rowAlign ~= "top" and rowAlign ~= "stretch" then
 		local free = height - (y + padBottom)

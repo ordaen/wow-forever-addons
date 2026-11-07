@@ -36,7 +36,7 @@ control): the asset's piece for that state (a selected tab, a pushed button), `c
 `normal` (the box, then its check), or `normal` darker (pushed) or grey (disabled) when the asset has no piece for
 it. Slices keep their ends at their aspect and stretch the centre; `outset` reaches past the block (an item slot's
 ring). The asset's `highlight` shows on hover; a dropdown's `arrow` sits on its right; an item slot is tinted by its
-`accent` (quality). Only top-level blocks draw it.
+`accent` (quality). Only top-level blocks draw it. A dropdown's label sits in the middle of its field (the role's `rowAlign = "center"`, which any role may give as its children's default), clear of the arrow.
 
 **Window art.** `window`, `portraitWindow`, `tooltip`, `panel`, `dialog` and `inset` wear Blizzard's own window art, picked by theme tokens
 (`addons/OrdaenCore/themes.jsonc`): the frame asset names a `NineSliceLayouts` entry (`frame.border` = metal,

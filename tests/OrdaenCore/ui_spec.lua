@@ -1056,6 +1056,14 @@ describe("OrdaenCore.UI", function()
 			assert.same({ 0.6, 0.2, 0.9 }, ring.vertexColor)
 		end)
 
+		it("put a dropdown's label in the middle of its field, clear of the arrow", function()
+			local label = { text = "Sort" }
+			local dropdown = UI.Block({ name = "DropLabel", style = "dropdown", width = 150, height = 26, label })
+			local x, y, w, h = dropdown:RectOf(label)
+			assert.equals(math.floor((26 - h) / 2 + 0.5), y, "centred on the field")
+			assert.is_true(x + w <= 150 - 26, "clear of the arrow")
+		end)
+
 		it("put a dropdown's arrow on its right at its own aspect", function()
 			local dropdown = UI.Block({ name = "Drop", style = "dropdown", width = 150, height = 26 })
 			local arrow = controlPieces(dropdown.frame, "BORDER")[1]

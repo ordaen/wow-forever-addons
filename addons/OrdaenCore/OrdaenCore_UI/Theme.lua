@@ -221,7 +221,10 @@ THEMES.ordaen = {
 		tab = { padding = 0, controlArt = { kind = "tab" } },
 		sideTab = { padding = 0, controlArt = { kind = "sideTab" } },
 		checkbox = { padding = 0, controlArt = { kind = "checkbox" } },
-		dropdown = { padding = { 0, "md", 0, "md" }, controlArt = { kind = "dropdown", parts = { arrow = "RIGHT" } } },
+		-- Its label in the middle of the field, clear of the arrow on the right (the arrow part is as wide as about the
+		-- field's height: 26).
+		dropdown = { padding = { 0, 30, 0, "md" }, rowAlign = "center",
+			controlArt = { kind = "dropdown", parts = { arrow = "RIGHT" } } },
 		input = { padding = 0, controlArt = { kind = "input" } },
 		scrollTrack = { padding = 0, controlArt = { kind = "scrollTrack" } },
 		scrollThumb = { padding = 0, controlArt = { kind = "scrollThumb" } },
