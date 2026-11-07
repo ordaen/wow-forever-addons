@@ -251,8 +251,9 @@ end
 local function draw(instance)
 	local frame = instance.frame
 	Render.Draw(frame, instance.block, instance.block.width)
-	if Render.HasHover(frame) and not frame:GetScript("OnEnter") then
-		-- its style hovers under the content: it needs the mouse and enter/leave even without listeners
+	if Render.HasHover(frame) and not instance.block.passive and not frame:GetScript("OnEnter") then
+		-- its style hovers under the content: it needs the mouse and enter/leave even without listeners (not a
+		-- passive look, such as a dress: the frame under it keeps the mouse and drives the hover)
 		frame:EnableMouse(true)
 		frame:SetScript("OnEnter", dispatchers.enter)
 		frame:SetScript("OnLeave", dispatchers.leave)
@@ -331,6 +332,7 @@ local BACKDROP_TEMPLATE = BackdropTemplateMixin and "BackdropTemplate" or nil
 ---@field level number|nil frame level
 ---@field tooltip OrdaenUITooltip|nil shown while the mouse is over it
 ---@field on table<string, fun(self: OrdaenUIComponent, ...)>|nil listeners, as with :On
+---@field passive boolean|nil never takes the mouse for its style's hover (a dress's look: Blizzard's frame has it)
 
 local function create(spec, defaultStyle)
 	if spec.style == nil then

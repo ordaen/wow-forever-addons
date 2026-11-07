@@ -1383,6 +1383,24 @@ describe("OrdaenCore.UI", function()
 			assert.is_false(dress.look.frame.highlightLocked)
 		end)
 
+		it("a style hovering under its content stays passive: Blizzard's button keeps the mouse and drives it", function()
+			local frame = blizzardButton()
+			local dress = UI.Dress(frame, { style = "listTab", icon = 136243 })
+			local look = dress.look.frame
+			assert.is_false(look.mouse, "ours takes no mouse, though its style hovers under the content")
+			local hover
+			for _, t in ipairs(look.textures) do
+				if t.layer == "BACKGROUND" and t.blend == "BLEND" then
+					hover = t
+				end
+			end
+			assert.is_truthy(hover)
+			frame.Button.scripts.OnEnter(frame.Button)
+			assert.is_true(hover.shown)
+			frame.Button.scripts.OnLeave(frame.Button)
+			assert.is_false(hover.shown)
+		end)
+
 		it("gives the art and size back on :Undress, and dresses the same frame only once", function()
 			local frame, art, glow = blizzardButton()
 			local dress = UI.Dress(frame, { icon = 136243 })

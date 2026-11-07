@@ -80,6 +80,7 @@ local function onEnter(clickable)
 	local dress = byClickable[clickable]
 	if dress and dress.dressed then
 		dress.look:LockHighlight()
+		ns.Render.Hover(dress.look.frame, true)
 	end
 end
 
@@ -87,6 +88,7 @@ local function onLeave(clickable)
 	local dress = byClickable[clickable]
 	if dress and dress.dressed then
 		dress.look:UnlockHighlight()
+		ns.Render.Hover(dress.look.frame, false)
 	end
 end
 
@@ -594,6 +596,7 @@ function create(frame, opts)
 	spec.style = opts.style or "iconButton"
 	spec.parent = opts.size == "frame" and frame or frame:GetParent()
 	spec.open = opts.open
+	spec.passive = true -- Blizzard's frame keeps the mouse; its enter and leave drive our hover (above)
 	local look = Component.Block(spec)
 	if opts.borderAbove then
 		ns.Render.BorderAbove(look.frame, frame)
