@@ -86,8 +86,9 @@
     },
     "marker": {
       // Marks a control that holds something new (Blizzard's floating «new» label): drawn at the control's left
-      // end, `inset` UI units in from its inner edge, at `size` (art/gem.py; the user's pick 2026-11-07).
-      "gem": { "label": "MARKER_GEM", "file": "Interface\\AddOns\\OrdaenCore\\media\\new-gem", "size": [16, 16], "inset": 4 }
+      // end, `inset` UI units in from its left side (clear of the rim: 4 touched it, the user 2026-11-07), at `size`
+      // (art/gem.py; the user's pick 2026-11-07).
+      "gem": { "label": "MARKER_GEM", "file": "Interface\\AddOns\\OrdaenCore\\media\\new-gem", "size": [16, 16], "inset": 12 }
     },
     "closeButton": {
       "blizzard": { "label": "CONTROL_BLIZZARD", "size": [28, 28], "normal": "RedButton-Exit", "highlight": "RedButton-Highlight" }

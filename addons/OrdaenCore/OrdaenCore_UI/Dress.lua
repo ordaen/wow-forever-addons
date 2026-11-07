@@ -311,6 +311,12 @@ function Dress:SetOpen(sides)
 	self.look:SetOpen(sides)
 end
 
+--- The look's window art as drawn (dev-mode dumps only, see Render.DescribeArt); nil without art.
+---@return table|nil
+function Dress:DescribeArt()
+	return ns.Render.DescribeArt(self.look.frame)
+end
+
 --- Hide art Blizzard added since dressing (a new texture, a re-created child), without drawing again: call it from
 --- a hook on whatever makes Blizzard repaint the frame. Allocates nothing.
 function Dress:Restrip()

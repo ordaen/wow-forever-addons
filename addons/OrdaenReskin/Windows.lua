@@ -510,6 +510,7 @@ function Windows.Describe()
 		if first and window.frame:IsShown() and type(first.look) == "table" then
 			local look = first.look.frame
 			entry.look = frameState(look)
+			entry.art = first:DescribeArt() -- the border pieces as drawn (a broken edge, 2026-11-07)
 			entry.lookChildren = {}
 			for _, child in ipairs({ look:GetChildren() }) do
 				entry.lookChildren[#entry.lookChildren + 1] = frameState(child)
