@@ -34,13 +34,93 @@
       }
     },
     {
+      // Where each item sits: a zone of the panel, or off. In a zone, items keep this order.
       "header": "HEADER_GROUPS",
       "settings": {
-        "micromenu": { "type": "boolean", "default": true, "label": "MICROMENU", "tooltip": "MICROMENU_TOOLTIP" },
-        "social": { "type": "boolean", "default": true, "label": "SOCIAL", "tooltip": "SOCIAL_TOOLTIP" },
-        "experience": { "type": "boolean", "default": true, "label": "EXPERIENCE", "tooltip": "EXPERIENCE_TOOLTIP" },
-        "currencies": { "type": "boolean", "default": true, "label": "CURRENCIES", "tooltip": "CURRENCIES_TOOLTIP" },
-        "bags": { "type": "boolean", "default": true, "label": "BAGS", "tooltip": "BAGS_TOOLTIP" }
+        "micromenu": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "left",
+          "label": "MICROMENU",
+          "tooltip": "MICROMENU_TOOLTIP"
+        },
+        "social": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "left",
+          "label": "SOCIAL",
+          "tooltip": "SOCIAL_TOOLTIP"
+        },
+        "experience": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "center",
+          "label": "EXPERIENCE",
+          "tooltip": "EXPERIENCE_TOOLTIP"
+        },
+        "zone": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "off",
+          "label": "ZONE_NAME",
+          "tooltip": "ZONE_NAME_TOOLTIP"
+        },
+        "clock": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "off",
+          "label": "CLOCK",
+          "tooltip": "CLOCK_TOOLTIP"
+        },
+        "currencies": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "right",
+          "label": "CURRENCIES",
+          "tooltip": "CURRENCIES_TOOLTIP"
+        },
+        "bags": {
+          "type": "choice",
+          "choices": [
+            { "id": "left", "label": "PLACE_LEFT" },
+            { "id": "center", "label": "PLACE_CENTER" },
+            { "id": "right", "label": "PLACE_RIGHT" },
+            { "id": "off", "label": "PLACE_OFF" }
+          ],
+          "default": "right",
+          "label": "BAGS",
+          "tooltip": "BAGS_TOOLTIP"
+        }
       }
     },
     {

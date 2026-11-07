@@ -12,7 +12,7 @@
   "FIT_CENTER": "Fit to buttons",
   "PANEL_HEIGHT": "Height",
   "PANEL_HEIGHT_TOOLTIP": "The panel's height; its buttons, icons and bar grow with it.",
-  "HEADER_GROUPS": "Groups",
+  "HEADER_GROUPS": "Items",
   "MICROMENU": "Game menu buttons",
   "MICROMENU_TOOLTIP": "Character, spellbook, talents, achievements, quest log and the other game menu buttons.",
   "SOCIAL": "Friends and guild",
@@ -45,5 +45,17 @@
   "TIP_LEVEL": "Full in %d min (%d more gains like the last)",
   "TIP_FRIENDS": "Friends online: %d",
   "TIP_BNET": "Battle.net friends online: %d",
-  "TIP_GUILD": "Guild members online: %d of %d"
+  "TIP_GUILD": "Guild members online: %d of %d",
+  "PLACE_LEFT": "Left",
+  "PLACE_CENTER": "Middle",
+  "PLACE_RIGHT": "Right",
+  "PLACE_OFF": "Off",
+  "ZONE_NAME": "Zone name",
+  "ZONE_NAME_TOOLTIP": "The zone you're in. One place shows it: putting it here turns it off on the minimap.",
+  "CLOCK": "Time",
+  "CLOCK_TOOLTIP": "The clock, orange with new calendar invites. One place shows it: putting it here turns it off on the minimap.",
+  "ZONE_TOOLTIP_MAP": "Left-click: world map",
+  "TIME_TOOLTIP_CALENDAR": "Left-click: calendar",
+  "TIME_TOOLTIP_CLOCK": "Right-click: clock settings",
+  "CALENDAR_PENDING": "You have new calendar invites"
 }

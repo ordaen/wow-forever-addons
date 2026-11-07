@@ -1,5 +1,6 @@
--- Ordaen Panel's drawing: one OrdaenCore.UI panel on a screen edge. Left: the game menu buttons and the social
--- button; middle: the experience (or reputation) bar; right: gold, the backpack currencies and the bags.
+-- Ordaen Panel's drawing: one OrdaenCore.UI panel on a screen edge, in three zones: left, center and right. Each
+-- item (game menu buttons, social button, experience bar, zone name, time, gold and currencies, bags) sits in the
+-- zone its setting names, or is off; in a zone, items keep the order of ITEMS.
 -- Blizzard's buttons stay Blizzard's (clicks, menus, alerts): each group is a row of cells drawn in the panel, and
 -- each button sits invisibly over its cell. We only declare blocks and move Blizzard's frames; OrdaenCore.UI draws.
 --
@@ -32,7 +33,14 @@ local STANDING_COLOR = {
 -- Blocks (made by build(), changed in place) ---------------------------------------------------------------------
 
 local panel ---@type OrdaenUIPanel|nil
-local spec, left, middle, right, microGroup, bagRow
+local spec, middle, microGroup, socialRow, bagRow, currencyGroup
+-- Items in their order within a zone; each one's setting is its zone ("left", "center", "right") or "off".
+local ITEMS = { "micromenu", "social", "experience", "zone", "clock", "currencies", "bags" }
+local ZONES = { "left", "center", "right" }
+local zones = {} ---@type table<string, table> zone -> its block (the panel's three columns)
+local groupOf = {} ---@type table<string, table> item -> its block in a zone
+local zoneHolder, clockHolder ---@type OrdaenUIComponent|nil, OrdaenUIComponent|nil the zone name and the time
+local zoneEmbed, clockEmbed ---@type table, table their cells in a zone
 local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of its own, for its tooltip
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
@@ -56,6 +64,39 @@ end
 -- Each bag's free slots, over its icon's bottom-right corner (an onTop text in the bag's cell).
 local bagCounts = {} ---@type table<table, table> bag button -> its count element
 local bagIds = {} ---@type table<table, integer> bag button -> its bag id
+
+-- The zone name (in its PvP colour) and the time: the same as the minimap's, which shows them when the panel doesn't
+-- (Ordaen Core's shared items: one of the two at a time). Tooltips beside what they describe have no title.
+local PVP_COLORS = {
+	sanctuary = { 0.41, 0.8, 0.94 },
+	arena = { 1, 0.1, 0.1 },
+	combat = { 1, 0.1, 0.1 },
+	hostile = { 1, 0.1, 0.1 },
+	friendly = { 0.1, 1, 0.1 },
+	contested = { 1, 0.7, 0 },
+}
+local INVITES_COLOR = { 1, 0.5, 0.1 }
+local zoneLabel = { text = "", style = "value" }
+local zoneName = { text = "", style = "value" }
+local subzoneName = { text = "", style = "label" }
+local zoneTip = UI and UI.Tooltip({ zoneName, subzoneName, hints = { L.ZONE_TOOLTIP_MAP } }, { side = "above" })
+local CLOCK_24, CLOCK_12 = "%02d:%02d", "%d:%02d %s"
+local clockValue = { format = CLOCK_24, args = { 0, 0, "" }, style = "value" }
+local localTime = { format = CLOCK_24, args = { 0, 0, "" }, style = "value", align = "right" }
+local realmTime = { format = CLOCK_24, args = { 0, 0, "" }, style = "value", align = "right" }
+local invitesLine = { text = L.CALENDAR_PENDING, color = INVITES_COLOR, colSpan = 2, hidden = true }
+local clockTip = UI and UI.Tooltip({
+	{
+		columns = { "auto", "1fr" },
+		gap = { "lg", "xs" },
+		{ text = TIMEMANAGER_TOOLTIP_LOCALTIME, style = "label" },
+		localTime,
+		{ text = TIMEMANAGER_TOOLTIP_REALMTIME, style = "label" },
+		realmTime,
+		invitesLine,
+	},
+	hints = { L.TIME_TOOLTIP_CALENDAR, L.TIME_TOOLTIP_CLOCK },
+}, { side = "above" })
 
 -- The bar's tooltip: experience in numbers, rested and quest XP, the session's rate and time to level.
 local tipName = { text = "", style = "title", hidden = true }
@@ -105,32 +146,39 @@ local function columns(n)
 	return out
 end
 
--- The right side's columns: one per shown child. A column per possible child (6 currencies) left the empty ones'
--- gaps after the bags, so they didn't reach the right edge (2026-11-07). One table per count, made once: currencies
--- change on events.
-local rightTracks = {}
-local function fitRight()
-	if not right then
+-- A zone's (or the currencies') columns: one per shown child. A column per possible child left the empty ones' gaps
+-- at the end, so the bags didn't reach the right edge (2026-11-07). One table per count, made once: children show
+-- and hide on events.
+local tracksByCount = {}
+local ONE_COLUMN = { "auto" }
+local function fit(block)
+	if not block then
 		return
 	end
 	if not horizontal() then
-		right.columns = columns(1)
+		block.columns = ONE_COLUMN
 		return
 	end
 	local n = 0
-	for i = 1, MAX_CURRENCIES + 2 do
-		local child = right[i]
-		if child and not child.hidden then
+	for i = 1, #block do
+		if not block[i].hidden then
 			n = n + 1
 		end
 	end
 	n = math.max(n, 1)
-	local tracks = rightTracks[n]
+	local tracks = tracksByCount[n]
 	if not tracks then
 		tracks = columns(n)
-		rightTracks[n] = tracks
+		tracksByCount[n] = tracks
 	end
-	right.columns = tracks
+	block.columns = tracks
+end
+
+local function fitAll()
+	fit(currencyGroup)
+	for _, id in ipairs(ZONES) do
+		fit(zones[id])
+	end
 end
 
 -- Putting Blizzard's buttons over their cells ----------------------------------------------------------------------
@@ -521,22 +569,20 @@ local function giveBack(button)
 	placing = false
 end
 
--- Fill a row block with a cell per button (touching: gap 0, padding 0, so the borders collapse).
--- `atRight`: the row ends at the panel's right edge (the bags): its last cell has no line on its right. Otherwise it
--- starts at the left edge (the micro menu): its first cell has none on its left. Nothing to separate them from there.
-local function fillRow(row, buttons, texts, atRight)
+-- Fill a row block with a cell per button (touching: gap 0, padding 0, so the borders collapse). A row that starts
+-- the left zone has no line on its first cell's left; one that ends the right zone none on its last cell's right:
+-- nothing to separate them from at the panel's edge.
+local function fillRow(row, buttons, texts)
 	for i = #row, 1, -1 do
 		row[i] = nil
 	end
+	local leftZone, rightZone = zones.left, zones.right
+	local atLeft = horizontal() and leftZone ~= nil and leftZone[1] == row
+	local atRight = horizontal() and rightZone ~= nil and rightZone[#rightZone] == row
 	for i, button in ipairs(buttons) do
 		local cell = cellFor(button)
-		if atRight then
-			cell.edges.left = nil
-			cell.edges.right = i < #buttons and nil or false
-		else
-			cell.edges.left = i > 1 and nil or false
-			cell.edges.right = nil
-		end
+		cell.edges.left = (atLeft and i == 1) and false or nil
+		cell.edges.right = (atRight and i == #buttons) and false or nil
 		row[i] = cell
 		take(button, cell, texts)
 	end
@@ -606,7 +652,8 @@ local function readBags()
 	end
 end
 
-local leftButtons = {} -- the micro buttons, then the social button
+local microButtonsShown = {} -- the micro buttons, then the social button when it shares their zone
+local socialButtons = {} -- the social button alone, in another zone
 
 -- The group settings the buttons were last placed for: data events of a group don't move buttons, only turning a
 -- group on or off does.
@@ -621,23 +668,29 @@ local function placeButtons()
 	for button in pairs(cellOf) do
 		giveBack(button)
 	end
-	-- the micro buttons and the social button in one row: neighbours share one line, no gap between groups
-	for i = #leftButtons, 1, -1 do
-		leftButtons[i] = nil
+	-- the micro buttons and the social button in one row when they share a zone: neighbours share one line
+	for i = #microButtonsShown, 1, -1 do
+		microButtonsShown[i] = nil
 	end
-	if s.micromenu then
+	socialButtons[1] = nil
+	if s.micromenu ~= "off" then
 		for i, button in ipairs(ns.MicroButtons) do
-			leftButtons[i] = button
+			microButtonsShown[i] = button
 		end
 	end
 	local quickJoin = _G[SOCIAL_BUTTON]
-	if s.social and quickJoin then
-		leftButtons[#leftButtons + 1] = quickJoin
+	if s.social ~= "off" and quickJoin then
+		if s.social == s.micromenu then
+			microButtonsShown[#microButtonsShown + 1] = quickJoin
+		else
+			socialButtons[1] = quickJoin
+		end
 	end
-	fillRow(microGroup, leftButtons)
-	if s.bags then
+	fillRow(microGroup, microButtonsShown)
+	fillRow(socialRow, socialButtons)
+	if s.bags ~= "off" then
 		readBags()
-		fillRow(bagRow, bagButtons, true, true)
+		fillRow(bagRow, bagButtons, true)
 		for _, button in ipairs(bagButtons) do
 			local id = bagIdOf(button)
 			bagIds[button] = id
@@ -652,7 +705,7 @@ local function placeButtons()
 	else
 		fillRow(bagRow, NONE)
 	end
-	fitRight()
+	fitAll()
 end
 
 -- Building the panel ----------------------------------------------------------------------------------------------
@@ -666,6 +719,25 @@ end
 local function onBarLeave(self)
 	if tooltip then
 		tooltip:Hide(self.frame)
+	end
+end
+
+local function onZoneClick()
+	ToggleWorldMap()
+end
+
+local function onClockClick(_, mouseButton)
+	if mouseButton == "RightButton" then
+		TimeManager_Toggle()
+	else
+		ToggleCalendar()
+	end
+end
+
+-- The zone name opens the world map: its key binding at the bottom of the tooltip.
+local function updateHotkeys()
+	if zoneTip then
+		zoneTip.hotkey = UI.Binding("TOGGLEWORLDMAP")
 	end
 end
 
@@ -705,15 +777,24 @@ local function build()
 	local across = horizontal()
 	-- rows of touching cells (gap 0, padding 0): one border line between two buttons
 	microGroup = microGroup or { gap = 0, padding = 0, rowAlign = "center" }
+	socialRow = socialRow or { gap = 0, padding = 0, rowAlign = "center" }
 	bagRow = bagRow or { gap = 0, padding = 0, rowAlign = "center" }
-	left = left or { gap = 0, align = "left", rowAlign = "center", microGroup }
-	left.columns = { "auto" }
-	right = right or { gap = "md", align = "right", rowAlign = "center", money }
-	for i = 1, MAX_CURRENCIES do
-		right[1 + i] = currencyTexts[i]
+	if not currencyGroup then
+		currencyGroup = { gap = "md", rowAlign = "center", money }
+		for i = 1, MAX_CURRENCIES do
+			currencyGroup[1 + i] = currencyTexts[i]
+		end
 	end
-	right[MAX_CURRENCIES + 2] = bagRow
-	fitRight()
+	if not zoneHolder then
+		zoneHolder = UI.Button({ padding = 0, tooltip = zoneTip, zoneLabel })
+		clockHolder = UI.Button({ padding = 0, tooltip = clockTip, clockValue })
+		if zoneHolder and clockHolder then
+			zoneHolder:On("click", onZoneClick)
+			clockHolder:On("click", onClockClick)
+		end
+		zoneEmbed, clockEmbed = { embed = zoneHolder }, { embed = clockHolder }
+		updateHotkeys()
+	end
 	if not barHolder then
 		tooltip = UI.Tooltip({
 			columns = { "auto" },
@@ -728,13 +809,30 @@ local function build()
 	end
 	middle = middle or { embed = barHolder, align = "center" }
 	xp.height = math.floor(size * 0.6 + 0.5)
+	groupOf.micromenu, groupOf.social, groupOf.experience = microGroup, socialRow, middle
+	groupOf.zone, groupOf.clock, groupOf.currencies, groupOf.bags = zoneEmbed, clockEmbed, currencyGroup, bagRow
+	-- Each zone holds its items in ITEMS order; the social button joins the micro buttons' row when they share one.
+	for _, id in ipairs(ZONES) do
+		local zone = zones[id] or { gap = "md", rowAlign = "center", align = id }
+		zones[id] = zone
+		for i = #zone, 1, -1 do
+			zone[i] = nil
+		end
+		for _, item in ipairs(ITEMS) do
+			local group = groupOf[item]
+			local joined = item == "social" and s.micromenu == id
+			if s[item] == id and group and not joined then
+				zone[#zone + 1] = group
+			end
+		end
+	end
 	-- One top block for the panel's life, changed in place (a new table lost the panel's look: a transparent
 	-- background after moving the height slider, 2026-11-06).
 	spec = spec or { style = "panel" }
-	spec[1], spec[2], spec[3] = left, middle, right
+	spec[1], spec[2], spec[3] = zones.left, zones.center, zones.right
 	if across then
 		-- equal side columns: the bar stays in the middle of the screen whatever the sides hold
-		-- no side padding: the micro menu starts at the left edge, the bags end at the right one
+		-- no side padding: the left zone starts at the panel's left edge, the right one ends at its right edge
 		spec.columns, spec.gap, spec.padding = { "1fr", "auto", "1fr" }, "lg", 0
 		spec.height, spec.rowAlign = size, "center"
 	else
@@ -814,9 +912,9 @@ Colors:On("change", onPalette)
 
 local function updateExperience()
 	local s = db()
-	parkBlizzardBars(s.experience)
+	parkBlizzardBars(s.experience ~= "off")
 	local model = ns.Segments.experience.model
-	local shown = s.experience and model.kind ~= nil
+	local shown = s.experience ~= "off" and model.kind ~= nil
 	middle.hidden = not shown
 	if not shown then
 		return
@@ -861,19 +959,63 @@ end
 local function updateCurrencies()
 	local s = db()
 	local m = ns.Segments.currencies.model
-	money.hidden = not s.currencies
+	currencyGroup.hidden = s.currencies == "off"
 	gold.args[1], silver.args[1], copper.args[1] = m.gold, m.silver, m.copper
 	gold.hidden = m.gold == 0
 	silver.hidden = m.silver == 0
 	copper.hidden = m.copper == 0 and (m.gold > 0 or m.silver > 0)
 	for i = 1, MAX_CURRENCIES do
 		local entry, text = m.list[i], currencyTexts[i]
-		text.hidden = not s.currencies or i > m.count
+		text.hidden = i > m.count
 		if entry and not text.hidden then
 			text.args[1], text.args[2] = entry.quantity, entry.icon
 		end
 	end
-	fitRight()
+end
+
+local function updateZone()
+	updateHotkeys()
+	local m = ns.Segments.zone.model
+	local color = m.pvp and PVP_COLORS[m.pvp] or nil
+	zoneLabel.text, zoneLabel.color = m.text, color -- nil: the style's colour
+	zoneName.text, zoneName.color = m.zone, color
+	subzoneName.text = m.subzone
+	subzoneName.hidden = m.subzone == "" or m.subzone == m.zone
+	if zoneHolder then
+		zoneHolder:Refresh()
+	end
+	if zoneTip and zoneTip:IsShown() then
+		zoneTip:Refresh()
+	end
+end
+
+-- Hour and minute into a time element, 24-hour or AM/PM as Blizzard's clock settings say.
+local function setTime(value, hour, minute, military)
+	local args = value.args
+	if military then
+		value.format = CLOCK_24
+		args[1], args[2], args[3] = hour, minute, ""
+	else
+		local h12 = hour % 12
+		value.format = CLOCK_12
+		args[1], args[2], args[3] = h12 == 0 and 12 or h12, minute, hour >= 12 and TIMEMANAGER_PM or TIMEMANAGER_AM
+	end
+end
+
+local function updateClock()
+	local m = ns.Segments.clock.model
+	setTime(localTime, m.localHour, m.localMinute, m.military)
+	setTime(realmTime, m.realmHour, m.realmMinute, m.military)
+	if m.useLocal then
+		setTime(clockValue, m.localHour, m.localMinute, m.military)
+	else
+		setTime(clockValue, m.realmHour, m.realmMinute, m.military)
+	end
+	clockValue.color = m.invites and INVITES_COLOR or nil
+	invitesLine.hidden = not m.invites
+	if clockHolder then
+		clockHolder:Refresh() -- also redraws its tooltip, if shown
+	end
 end
 
 local function updateBags()
@@ -944,6 +1086,8 @@ function View.Update(segment)
 		updateSocial()
 		updateCurrencies()
 		updateBags()
+		updateZone()
+		updateClock()
 	elseif segment == "micromenu" or segment == "social" or segment == "bags" then
 		local s = db()
 		if placedFor[segment] ~= s[segment] or segment == "micromenu" then
@@ -968,10 +1112,15 @@ function View.Update(segment)
 		end
 	elseif segment == "currencies" then
 		updateCurrencies()
+	elseif segment == "zone" then
+		updateZone()
+	elseif segment == "clock" then
+		updateClock()
 	elseif segment == "visibility" then
 		updateVisibility()
 		return
 	end
+	fitAll()
 	panel:Refresh()
 	updateVisibility()
 end

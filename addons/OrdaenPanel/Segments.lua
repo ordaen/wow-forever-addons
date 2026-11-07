@@ -163,6 +163,61 @@ Segments.bags = {
 	end,
 }
 
+-- Zone name: the minimap's zone text (the subzone when there is one), the zone, the subzone, the PvP status ------
+
+local place = { text = "", zone = "", subzone = "", pvp = nil }
+Segments.zone = {
+	model = place,
+	-- UPDATE_BINDINGS: the world map's key in the tooltip
+	events = {
+		"ZONE_CHANGED", "ZONE_CHANGED_INDOORS", "ZONE_CHANGED_NEW_AREA", "PLAYER_ENTERING_WORLD", "UPDATE_BINDINGS",
+	},
+	update = function()
+		place.text = GetMinimapZoneText() or ""
+		place.zone = GetRealZoneText() or ""
+		place.subzone = GetSubZoneText() or ""
+		place.pvp = C_PvP.GetZonePVPInfo()
+	end,
+}
+
+-- Time: local and realm hour and minute, Blizzard's clock settings, pending calendar invites. Ticks every second
+-- while shown; redraws only when a minute (or the invites) changed. -----------------------------------------------
+
+local clock = {
+	localHour = 0, localMinute = 0, realmHour = 0, realmMinute = 0, military = true, useLocal = false,
+	invites = false,
+}
+local shownLocal, shownRealm -- the minutes shown, to redraw only on a change
+Segments.clock = {
+	model = clock,
+	events = { "CALENDAR_UPDATE_PENDING_INVITES" },
+	every = 1,
+	start = function()
+		shownLocal, shownRealm = nil, nil
+	end,
+	---@return boolean|nil false: nothing to redraw
+	update = function(event)
+		if event == "CALENDAR_UPDATE_PENDING_INVITES" then
+			clock.invites = C_Calendar.GetNumPendingInvites() > 0
+			return
+		end
+		local now = time()
+		local realmHour, realmMinute = GetGameTime()
+		local localKey, realmKey = math.floor(now / 60), realmHour * 60 + realmMinute
+		if event == "tick" and localKey == shownLocal and realmKey == shownRealm then
+			return false
+		end
+		shownLocal, shownRealm = localKey, realmKey
+		clock.localHour, clock.localMinute = tonumber(date("%H", now)), tonumber(date("%M", now))
+		clock.realmHour, clock.realmMinute = realmHour, realmMinute
+		clock.military = C_CVar.GetCVarBool("timeMgrUseMilitaryTime") ~= false
+		clock.useLocal = C_CVar.GetCVarBool("timeMgrUseLocalTime") == true
+		if event == nil then -- a start: the invites too
+			clock.invites = C_Calendar.GetNumPendingInvites() > 0
+		end
+	end,
+}
+
 -- Micro menu: Blizzard's own buttons, in Blizzard's order ---------------------------------------------------------
 
 local Micro = {}

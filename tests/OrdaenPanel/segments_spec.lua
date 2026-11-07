@@ -4,9 +4,15 @@ local helpers = require("tests.OrdaenCore.helpers")
 
 describe("Ordaen Panel segments", function()
 	local ns, changed, now, timers
+	-- the game's clocks and Blizzard's clock settings, as the time segment reads them
+	local clockState
 
 	before_each(function()
 		now, timers, changed = 100, {}, {}
+		clockState = {
+			now = 13 * 3600 + 5 * 60, realmHour = 21, realmMinute = 7, invites = 0,
+			cvars = { timeMgrUseMilitaryTime = true, timeMgrUseLocalTime = false },
+		}
 		helpers.stubGlobals({
 			GetTime = function()
 				return now
@@ -87,6 +93,39 @@ describe("Ordaen Panel segments", function()
 			GetQuestLogRewardXP = function()
 				return 500
 			end,
+			GetMinimapZoneText = function()
+				return "Goldshire"
+			end,
+			GetRealZoneText = function()
+				return "Elwynn Forest"
+			end,
+			GetSubZoneText = function()
+				return "Goldshire"
+			end,
+			C_PvP = {
+				GetZonePVPInfo = function()
+					return "friendly"
+				end,
+			},
+			GetGameTime = function()
+				return clockState.realmHour, clockState.realmMinute
+			end,
+			time = function()
+				return clockState.now
+			end,
+			date = function(fmt, t)
+				return os.date("!" .. fmt, t) -- UTC, so the spec doesn't depend on the machine's zone
+			end,
+			C_CVar = {
+				GetCVarBool = function(name)
+					return clockState.cvars[name]
+				end,
+			},
+			C_Calendar = {
+				GetNumPendingInvites = function()
+					return clockState.invites
+				end,
+			},
 		})
 		ns = {}
 		for _, file in ipairs({ "Data.lua", "Segments.lua" }) do
@@ -112,6 +151,32 @@ describe("Ordaen Panel segments", function()
 		seg.update()
 		assert.equals(first, m.list[1], "no new table per update")
 		assert.equals("Marks", m.list[2].name)
+	end)
+
+	it("reads the zone name, the zone, the subzone and the PvP status", function()
+		ns.Segments.zone.update()
+		local m = ns.Segments.zone.model
+		assert.same({ "Goldshire", "Elwynn Forest", "Goldshire", "friendly" }, { m.text, m.zone, m.subzone, m.pvp })
+	end)
+
+	it("reads local and realm time, redrawing only when a minute or the invites changed", function()
+		local seg = ns.Segments.clock
+		seg.start()
+		assert.is_nil(seg.update()) -- the start: everything, invites too
+		local m = seg.model
+		assert.same({ 13, 5, 21, 7, true, false, false },
+			{ m.localHour, m.localMinute, m.realmHour, m.realmMinute, m.military, m.useLocal, m.invites })
+		assert.is_false(seg.update("tick")) -- the same minute: nothing to redraw
+		clockState.now = clockState.now + 60
+		assert.is_nil(seg.update("tick"))
+		assert.equals(6, m.localMinute)
+		clockState.invites = 2
+		assert.is_nil(seg.update("CALENDAR_UPDATE_PENDING_INVITES"))
+		assert.is_true(m.invites)
+		clockState.cvars.timeMgrUseMilitaryTime = false
+		clockState.realmMinute = 8
+		seg.update("tick")
+		assert.is_false(m.military)
 	end)
 
 	it("counts free slots in the bags and the reagent bag", function()
