@@ -47,10 +47,13 @@ A = ns.NewAddon(addonName, ns, { onChange = coreSettingChanged }) --[[@as Ordaen
 if not A then
 	return
 end
+ns.CoreAddon = A -- for Core's other files that read its settings (Modules.lua)
 
 -- Ordaen Core loads before every addon that depends on it, so the theme and the palette are set before their
 -- settings bind.
 A:OnLoad(function(db)
 	Core._SettingsStore.SetTheme(db.ui.theme)
 	refreshColors()
+	-- the modules that are on, now: before PLAYER_LOGIN, with the theme and palette already set
+	Core.Modules.LoadEnabled()
 end)

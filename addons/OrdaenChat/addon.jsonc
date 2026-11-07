@@ -7,6 +7,7 @@
     "ruRU": "Вкладки чата для общего, гильдии и каналов, личные сообщения в своих вкладках, меню чата у поля ввода."
   },
   "category": "Chat",
+  "loadOnDemand": true, // a module: Ordaen loads it while it is on (OrdaenCore/Modules.lua)
   "icon": "Interface\\Icons\\INV_Letter_15",
   "version": "0.0.0", // x-release-please-version
   "minCore": "0.1.0",
