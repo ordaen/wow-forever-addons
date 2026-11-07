@@ -430,6 +430,19 @@ Hides art Blizzard added after dressing (a badge, a re-created child) and redraw
 
 `:Undress()` gives the art back its alpha and the frame its size, and hides our block. `:Apply()` dresses it again.
 
+
+### Tracking a control's state
+
+`track = "button" | "checkbox" | "tab"` in the options makes the dress follow the control's own state with
+`:SetState`, through hooks set once per control (enable, disable, a press, a check, Blizzard selecting a tab):
+
+- `"button"`: `"disabled"` while it's disabled, `"pushed"` while it's held down, else none.
+- `"checkbox"`: the same, plus `"checked"`.
+- `"tab"`: `"selected"` while Blizzard has it selected (`PanelTemplates_SelectTab`; a tab already selected when
+  dressed counts too).
+
+Map the states to style roles with `states` (`{ pushed = "pushButtonPushed", disabled = "pushButtonDisabled" }`).
+Hover is the look's own highlight.
 ## Internal
 
 Not for addon code.

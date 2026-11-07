@@ -40,6 +40,9 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@field open table|nil open sides of the look's window art ({ bottom = true }): see :SetOpen
 ---@field borderAbove boolean|nil with a style that wears Blizzard's window art: its border goes above the frame and
 --- its children (a Blizzard window whose opaque content reaches its edges and would hide it); the fill stays under
+---@field track "button"|"checkbox"|"tab"|nil follow the control's own state with :SetState (hooked once): "button":
+--- "disabled" while disabled, "pushed" while held down; "checkbox": also "checked"; "tab": "selected" while Blizzard
+--- has it selected (PanelTemplates). Map the states to roles with `states`; hover is the look's highlight
 ---@field focus boolean|nil an EditBox: our look shows only while it has the keyboard focus (being typed in), at full
 --- alpha whatever alpha Blizzard gives the frame (Blizzard's IM chat style leaves an inactive input faintly shown)
 ---@field block OrdaenUIBlock|nil our look as a whole block (a row of cells, say) instead of an icon; `style` is its
@@ -344,6 +347,89 @@ function Dress:Undress()
 	end
 end
 
+-- Tracking a control's state (opts.track) ----------------------------------------------------------------------------
+-- Hooks set once per control (rarely called methods: enable, disable, check, a press), each recomputing the state and
+-- passing it to :SetState, which redraws only when it changed.
+
+local tracked = setmetatable({}, { __mode = "k" }) -- control -> its tracking dress
+local held = setmetatable({}, { __mode = "k" }) -- control -> true while the mouse holds it down
+local selectedTabs = setmetatable({}, { __mode = "k" }) -- tab -> true while Blizzard has it selected
+
+local function trackedState(self)
+	local control = self.clickable --[[@as Button]]
+	local kind = self.opts.track
+	if kind == "tab" then
+		return selectedTabs[control] and "selected" or nil
+	end
+	if not control:IsEnabled() then
+		return "disabled"
+	end
+	if held[control] or control:GetButtonState() == "PUSHED" then
+		return "pushed"
+	end
+	if kind == "checkbox" and (control --[[@as CheckButton]]):GetChecked() then
+		return "checked"
+	end
+	return nil
+end
+
+local function retrack(control)
+	local self = tracked[control]
+	if self and self.dressed then
+		self:SetState(trackedState(self))
+	end
+end
+
+local function onTrackDown(control)
+	held[control] = true
+	retrack(control)
+end
+
+local function onTrackUp(control)
+	held[control] = nil
+	retrack(control)
+end
+
+local tabsHooked = false
+local function onTabSelected(tab)
+	selectedTabs[tab] = true
+	retrack(tab)
+end
+local function onTabDeselected(tab)
+	selectedTabs[tab] = nil
+	retrack(tab)
+end
+
+local function track(self)
+	local control = self.clickable
+	if tracked[control] then
+		tracked[control] = self
+		return
+	end
+	tracked[control] = self
+	local kind = self.opts.track
+	if kind == "tab" then
+		if not tabsHooked then
+			tabsHooked = true
+			hooksecurefunc("PanelTemplates_SelectTab", onTabSelected)
+			hooksecurefunc("PanelTemplates_DeselectTab", onTabDeselected)
+		end
+		-- Already selected before we came: Blizzard's selected panel tab is disabled.
+		selectedTabs[control] = not control:IsEnabled() or nil
+		return
+	end
+	hooksecurefunc(control, "Enable", retrack)
+	hooksecurefunc(control, "Disable", retrack)
+	hooksecurefunc(control, "SetEnabled", retrack)
+	hooksecurefunc(control, "SetButtonState", retrack)
+	control:HookScript("OnMouseDown", onTrackDown)
+	control:HookScript("OnMouseUp", onTrackUp)
+	if kind == "checkbox" then
+		hooksecurefunc(control, "SetChecked", retrack)
+		control:HookScript("OnClick", retrack)
+	end
+end
+
 --- Dress one of Blizzard's frames in our look. The same frame dressed twice returns the first dress.
 ---@param frame Frame
 ---@param opts OrdaenUIDressOpts|nil
@@ -409,6 +495,10 @@ function Dress.New(frame, opts)
 		end)
 	end
 	self:Apply()
+	if opts.track then
+		track(self)
+		self:SetState(trackedState(self))
+	end
 	return self
 end
 

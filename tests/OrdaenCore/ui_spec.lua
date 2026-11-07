@@ -1332,6 +1332,85 @@ describe("OrdaenCore.UI", function()
 			assert.equals("tab", dress.look.block.style)
 		end)
 
+		-- A Blizzard push button or checkbox: enabled state, button state, checked state, as the game keeps them.
+		local function blizzardControl()
+			local b = chatWindow()
+			local enabled, state, checked = true, "NORMAL", false
+			function b:IsEnabled()
+				return enabled
+			end
+			function b:Enable()
+				enabled = true
+			end
+			function b:Disable()
+				enabled = false
+			end
+			function b:SetEnabled(on)
+				enabled = on and true or false
+			end
+			function b:GetButtonState()
+				return state
+			end
+			function b:SetButtonState(s)
+				state = s
+			end
+			function b:SetChecked(on)
+				checked = on and true or false
+			end
+			function b:GetChecked()
+				return checked
+			end
+			return b
+		end
+
+		it("track a button's own state: disabled, pushed while held, back to normal", function()
+			local b = blizzardControl()
+			local dress = UI.Dress(b, { style = "pushButton", size = "frame", art = {}, track = "button",
+				states = { pushed = "pushButtonPushed", disabled = "pushButtonDisabled" } })
+			assert.equals("pushButton", dress.look.block.style)
+			b.scripts.OnMouseDown(b)
+			assert.equals("pushButtonPushed", dress.look.block.style)
+			b.scripts.OnMouseUp(b)
+			assert.equals("pushButton", dress.look.block.style)
+			b:Disable()
+			assert.equals("pushButtonDisabled", dress.look.block.style)
+			b:Enable()
+			b:SetButtonState("PUSHED")
+			assert.equals("pushButtonPushed", dress.look.block.style)
+		end)
+
+		it("track a checkbox's checked state", function()
+			local b = blizzardControl()
+			local dress = UI.Dress(b, { style = "checkbox", size = "frame", art = {}, track = "checkbox",
+				states = { checked = "checkboxChecked" } })
+			b:SetChecked(true)
+			assert.equals("checkboxChecked", dress.look.block.style)
+			b:SetChecked(false)
+			assert.equals("checkbox", dress.look.block.style)
+		end)
+
+		it("track a panel tab selected by Blizzard (PanelTemplates), also one selected before dressing", function()
+			rawset(_G, "PanelTemplates_SelectTab", function(tab)
+				tab:Disable()
+			end)
+			rawset(_G, "PanelTemplates_DeselectTab", function(tab)
+				tab:Enable()
+			end)
+			local first, second = blizzardControl(), blizzardControl()
+			first:Disable() -- Blizzard's selected tab is disabled
+			local a = UI.Dress(first, { style = "tab", size = "frame", art = {}, track = "tab",
+				states = { selected = "tabSelected" } })
+			local b = UI.Dress(second, { style = "tab", size = "frame", art = {}, track = "tab",
+				states = { selected = "tabSelected" } })
+			assert.equals("tabSelected", a.look.block.style)
+			assert.equals("tab", b.look.block.style)
+			_G.PanelTemplates_DeselectTab(first)
+			_G.PanelTemplates_SelectTab(second)
+			assert.same({ "tab", "tabSelected" }, { a.look.block.style, b.look.block.style })
+			rawset(_G, "PanelTemplates_SelectTab", nil)
+			rawset(_G, "PanelTemplates_DeselectTab", nil)
+		end)
+
 		-- A Blizzard StatusBar (a damage meter's bar) with its own texture: only methods the dump lists.
 		local function blizzardBar()
 			local bar = fakeFrame("MeterBar", log, _G.UIParent)
