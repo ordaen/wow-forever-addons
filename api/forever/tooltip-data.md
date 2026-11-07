@@ -53,7 +53,13 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   for a bonus stat like «+140 к броне», green for an effect; **no spell ID**), the set's header, «Уникальный
   использующийся».
 - **Not in the tooltip at all:** item level (Forever doesn't print it on gear): read it from the item's info by ID.
-- **Set bonus lines carry WoW's plural code** (`|4one:few:many;`): render it before showing the text anywhere of our own.
+- **Grammar codes in the text:** set bonus lines carry the plural code (`|4one:few:many;`), wand damage the case code
+  (`|3-6(природа)`): render them before showing the text anywhere of our own.
+- **School damage (wands, elemental weapons)** has no «Урон:» prefix: «36 - 67 ед. |3-6(природа)» \| «Скорость 1,90»
+  (`DAMAGE_TEMPLATE_WITH_SCHOOL`, `SINGLE_DAMAGE_TEMPLATE_WITH_SCHOOL`, the school from `DAMAGE_SCHOOL2`…`7`); plain
+  physical damage is «Урон: 7-13» (`DAMAGE_TEMPLATE`).
+- **«Уникальный»** and «Уникальный использующийся» are plain lines after the binding (`ITEM_UNIQUE`,
+  `ITEM_UNIQUE_EQUIPPABLE`).
 - **Nested tooltips:** a spell tooltip for types 44 and 46 (their `spellID`); the owner for type 16 (`guid`); set pieces have no
   IDs (look them up by name); stats and «Если на персонаже:» have nothing behind them: our own text or Blizzard's stat
   strings below.
@@ -100,5 +106,4 @@ builds them on hover, or wasn't opened before the dump (to check).
 
 ## Still to measure
 
-Class restriction («Классы: …»), reputation requirement, shield (armor + block), wand or elemental weapon damage,
-bags, quivers and ammo, recipes (a nested item), the character tab's stat tooltips.
+Class restriction («Классы: …»), reputation requirement, shield (armor + block), bags, quivers and ammo, recipes (a nested item), the character tab's stat tooltips.
