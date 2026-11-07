@@ -137,6 +137,29 @@ local function onAlpha(native, alpha)
 	end
 end
 
+-- Blizzard fades a unit's tooltip out when the mouse leaves the unit (FadeOut, run inside the game: no SetAlpha we
+-- see). Dev probe: what the native's alpha does during that fade, while ours is still shown (2026-11-07: both
+-- showed for a moment on mouse leave).
+local function alphaText(native)
+	local a = native:GetAlpha()
+	return isSecret(a) and "<secret>" or string.format("%.2f", a)
+end
+
+local function onFadeOut(native)
+	if ns.Debug:IsEnabled() then
+		local state = states[native]
+		ns.Debug:Logf("takeover: %s FadeOut, native alpha %s, ours shown %s", native:GetName() or "?",
+			alphaText(native), tostring(state and state.view:IsShown()))
+		for _, delay in ipairs({ 0.1, 0.3 }) do
+			C_Timer.After(delay, function()
+				ns.Debug:Logf("takeover: %s +%.1fs after FadeOut: native alpha %s, shown %s, ours shown %s",
+					native:GetName() or "?", delay, alphaText(native), tostring(native:IsShown()),
+					tostring(state and state.view:IsShown()))
+			end)
+		end
+	end
+end
+
 -- Lines rewritten in place, without a new Show (talent and quest windows do that).
 local function check()
 	for native, state in pairs(states) do
@@ -158,6 +181,9 @@ local function attach(native)
 	feature:Hook(native, "Show", onShown)
 	feature:Hook(native, "SetShown", onSetShown)
 	feature:Hook(native, "SetAlpha", onAlpha)
+	if native.FadeOut then
+		feature:Hook(native, "FadeOut", onFadeOut)
+	end
 	native:HookScript("OnShow", onShown)
 	native:HookScript("OnHide", onHidden)
 	native:HookScript("OnTooltipCleared", onHidden)
