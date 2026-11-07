@@ -261,6 +261,13 @@ function Window:MarkNew()
 	end
 	for i = 1, #keys do
 		local label = rawget(self.frame, keys[i])
+		local Debug = ns.Addon.Debug
+		if Debug:IsEnabled() and type(label) == "table" then
+			local _, to = label:GetPoint(1)
+			Debug:Logf("new label %s shown %s anchored to %s, dressed %s", keys[i], tostring(label:IsShown()),
+				type(to) == "table" and to.GetDebugName and to:GetDebugName() or tostring(to),
+				tostring(type(to) == "table" and ns.Kit.DressOf(to) ~= nil))
+		end
 		if type(label) == "table" and label:IsShown() then
 			local _, control = label:GetPoint(1)
 			local dress = type(control) == "table" and ns.Kit.DressOf(control)
