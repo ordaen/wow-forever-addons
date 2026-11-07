@@ -534,6 +534,7 @@ local function take(button, cell, texts)
 	if button:GetName() == SOCIAL_BUTTON then
 		hookSocialTip(button)
 	end
+	ns.MicroTips.Attach(button) -- richer tooltips on the game menu buttons (MicroTips.lua)
 	if texts then
 		hideTexts(button)
 	end
@@ -1040,6 +1041,13 @@ local function updateVisibility()
 	if panel.targetAlpha ~= target then
 		panel:FadeTo(target)
 	end
+end
+
+--- Whether the panel holds this Blizzard button now (MicroTips: our tooltip only then).
+---@param button table
+---@return boolean
+function View.Holds(button)
+	return cellOf[button] ~= nil
 end
 
 --- What the dev window's "Send state" records: the buttons we hold and where, Blizzard's bars, the panel.
