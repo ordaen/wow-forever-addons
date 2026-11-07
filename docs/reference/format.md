@@ -16,7 +16,7 @@ A table without `text`, `image`, `separator` or `bar`. Its array part holds the 
 | `maxWidth` | number | theme | `tooltip`: 25 ems (300 at text size 12) |
 | `height` | number | from content | forces the height |
 | `edges` | `{ top, right, bottom, left }`: `false`, `true` or `{ width, colour }` | the style's | this block's own edges, side by side: `false` none, `true` the style's, or a width and colour. `{ top = false, bottom = false }` keeps only the side edges (buttons in a bar framed by the bar's lines) |
-| `rowAlign` | `"top"`, `"center"`, `"bottom"` | top | children in their rows; with `height`, the rows in that height |
+| `rowAlign` | `"top"`, `"center"`, `"bottom"`, `"stretch"` | top | children in their rows; with `height`, the rows in that height. `"stretch"`: child blocks as tall as their row, so their surfaces and edges line up; a child's own `rowAlign = "center"` puts its content in the middle of it |
 | `hotkey` | string | none | on a top-level block (a tooltip): the key binding (`"C"`, `"Shift-M"`), drawn as a key cap in the last row. The framework adds that row once, so append children before the first hotkey; `nil` or `""` hides it. Every tooltip that shows a binding uses this, never text of its own |
 | `[1..n]` | nodes | | the children, in order |
 

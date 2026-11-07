@@ -15,7 +15,9 @@
 -- valign = "top" | "center" | "bottom" (in its row; default: the block's rowAlign, else top), shift = true (only
 -- while Shift is held) or false (only while it isn't): secondary rows a player asks for.
 -- A block's rowAlign = "center" | "bottom" places its children that way in their rows and, when the block has a
--- fixed height, its rows in that height (a bar in the middle of a panel's height).
+-- fixed height, its rows in that height (a bar in the middle of a panel's height). rowAlign = "stretch" makes its
+-- child blocks as tall as their row (their surfaces and edges line up); a child's own rowAlign = "center" then puts
+-- its content in the middle of that height (columns of a spell's numbers).
 -- padding and gap take spacing tokens ("xs", "sm", "md", "lg", "xl") or numbers; tokens come from the theme's
 -- design scale (ctx.space), so they grow with the player's text size.
 -- Elements: { text = "...", style = "body" } or { format = "%d:%02d", args = { h, m } } (text drawn with WoW's
@@ -205,7 +207,8 @@ end
 --- Lay out `node` (a block). `width` nil = shrink to fit its content (clamped by minWidth/maxWidth).
 --- Returns its result: { width, height, items = { { node, x, y, w, h }, ... } }, positions relative to the
 --- block's top-left corner, y growing downwards. Nested blocks' results: Layout.ResultOf(child).
-function layoutBlock(node, width, ctx)
+function layoutBlock(node, width, ctx, height)
+	height = height or node.height -- a parent's "stretch" passes its row's height
 	local r = resultFor(node)
 	local defaults = ctx.defaults(node.style)
 	local sp = ctx.space or identity
@@ -337,8 +340,8 @@ function layoutBlock(node, width, ctx)
 	-- A fixed height with rowAlign: the rows sit in the middle (or at the bottom) of it.
 	local rowAlign = node.rowAlign
 	local shift = 0
-	if node.height and rowAlign and rowAlign ~= "top" then
-		local free = node.height - (y + padBottom)
+	if height and rowAlign and rowAlign ~= "top" and rowAlign ~= "stretch" then
+		local free = height - (y + padBottom)
 		if free > 0 then
 			shift = rowAlign == "center" and floor(free / 2 + 0.5) or free
 		end
@@ -355,6 +358,11 @@ function layoutBlock(node, width, ctx)
 		local top = r.rowY[item.row] + shift
 		local valign = item.node.valign or rowAlign
 		local free = r.rowHeight[item.row] - item.h
+		if valign == "stretch" and free > 0 and isBlock(item.node) then
+			-- Laid out again at its row's height (only the shorter ones, so this costs nothing for equal rows).
+			local stretched = layoutBlock(item.node, item.w, ctx, r.rowHeight[item.row])
+			item.h, free = stretched.height, 0
+		end
 		if free > 0 and valign == "center" then
 			top = top + floor(free / 2 + 0.5)
 		elseif free > 0 and valign == "bottom" then
@@ -364,7 +372,7 @@ function layoutBlock(node, width, ctx)
 	end
 
 	r.width = outer
-	r.height = node.height or (y + padBottom)
+	r.height = height or (y + padBottom)
 	return r
 end
 

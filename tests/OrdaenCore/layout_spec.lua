@@ -143,6 +143,19 @@ describe("OrdaenCore.UI layout", function()
 		assert.equals(50, r.height)
 	end)
 
+	it("stretches child blocks to their row's height (rowAlign stretch), their content centred in it", function()
+		local cost = { text = "30 Mana cost" } -- wraps to two lines in its 60 px column
+		local range = { text = "35 yd" }
+		local a = { rowAlign = "center", padding = 0, cost }
+		local b = { rowAlign = "center", padding = 0, range }
+		local root = { columns = { 60, 60 }, rowAlign = "stretch", padding = 0, gap = 0, a, b }
+		local r = Layout.Run(root, nil, ctx())
+		assert.same({ 2 * LINE, 2 * LINE }, { r.items[1].h, r.items[2].h }, "both as tall as the row")
+		assert.equals(2 * LINE, Layout.ResultOf(b).height, "the short one's own box too (its edges are full height)")
+		assert.equals(LINE / 2, Layout.ResultOf(b).items[1].y, "its text in the middle")
+		assert.equals(0, Layout.ResultOf(a).items[1].y)
+	end)
+
 	it("skips hidden children without leaving a gap", function()
 		local invites = { text = "invites!", hidden = true }
 		local block = { gap = 5, invites, { text = "Click: calendar" } }
