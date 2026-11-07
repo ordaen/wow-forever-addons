@@ -10,7 +10,20 @@
       "gold": { "label": "FRAME_GOLD", "edgeFile": "Interface\\DialogFrame\\UI-DialogBox-Border", "edgeSize": 24, "outset": 7 },
       "tooltip": { "label": "FRAME_TOOLTIP", "edgeFile": "Interface\\Tooltips\\UI-Tooltip-Border", "edgeSize": 16, "outset": 4 },
       "thin": { "label": "FRAME_THIN", "edgeFile": "Interface\\Buttons\\WHITE8X8", "edgeSize": 2, "outset": 2, "natural": [0, 0, 0] },
-      "none": { "label": "FRAME_NONE" }
+      "none": { "label": "FRAME_NONE" },
+      // Blizzard's window art (inventory of 35 windows, 2026-11-07): `layout` names a NineSliceLayouts entry, drawn with
+      // NineSliceUtil.ApplyLayoutByName, so the pieces and offsets are Blizzard's own.
+      "metal": { "label": "FRAME_METAL", "layout": "ButtonFrameTemplateNoPortrait" },
+      "metal-portrait": { "label": "FRAME_METAL_PORTRAIT", "layout": "PortraitFrameTemplate" },
+      "dialog": { "label": "FRAME_DIALOG", "layout": "Dialog" },
+      "inset": { "label": "FRAME_INSET", "layout": "InsetFrameTemplate" }
+    },
+    // A surface's fill: an atlas, or a file (number = file ID) with `tile` (repeats instead of stretching).
+    "background": {
+      "general": { "label": "BACKGROUND_GENERAL", "atlas": "UI-Character-Info-General-BG" },
+      "dialog": { "label": "BACKGROUND_DIALOG", "file": 131071, "tile": true },
+      "inset": { "label": "BACKGROUND_INSET", "file": 374154, "tile": true },
+      "none": { "label": "BACKGROUND_NONE" }
     },
     "font": {
       "body": { "label": "FONT_BODY", "object": "GameTooltipText" },
@@ -25,6 +38,15 @@
   },
   "tokens": {
     "frame.border": "frame",
+    // window, dialog and inset (panes inside a window): border and fill each
+    "frame.background": "background",
+    "frame.dialog": "frame",
+    "frame.dialogBackground": "background",
+    "frame.inset": "frame",
+    "frame.insetBackground": "background",
+    // the window border's scale: windows, and small surfaces (tooltip, panel strip, chat window)
+    "frame.scale.window": "number",
+    "frame.scale.small": "number",
     "font.body": "font",
     "font.header": "font",
     "font.numbers": "font",
@@ -69,7 +91,10 @@
   },
   "themes": {
     "ordaen": {
-      "frame.border": "bronze-rim",
+      "frame.border": "metal", "frame.background": "general",
+      "frame.dialog": "dialog", "frame.dialogBackground": "dialog",
+      "frame.inset": "inset", "frame.insetBackground": "inset",
+      "frame.scale.window": 1, "frame.scale.small": 0.5,
       "font.body": "body", "font.header": "header", "font.numbers": "numbers", "font.world": "ui",
       "color.accent": [0.72, 0.56, 0.34],
       "color.positive": [0.45, 0.80, 0.40], "color.negative": [1, 0.34, 0.28], "color.warning": [1, 0.62, 0.25],

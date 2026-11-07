@@ -70,5 +70,13 @@
   "BAR_FRAME": "Bar look (trying out)",
   "BAR_FRAME_BEZEL": "Bronze bezel",
   "BAR_FRAME_GROOVE": "Carved groove",
-  "BAR_FRAME_TOOLTIP": "How bars sit in the panel (the experience bar). Two to compare; the one picked stays."
+  "BAR_FRAME_TOOLTIP": "How bars sit in the panel (the experience bar). Two to compare; the one picked stays.",
+  "FRAME_METAL": "Metal",
+  "FRAME_METAL_PORTRAIT": "Metal with portrait",
+  "FRAME_DIALOG": "Dialog",
+  "FRAME_INSET": "Inset",
+  "BACKGROUND_GENERAL": "Character window",
+  "BACKGROUND_DIALOG": "Dialog",
+  "BACKGROUND_INSET": "Inset",
+  "BACKGROUND_NONE": "None"
 }

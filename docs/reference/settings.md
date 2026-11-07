@@ -44,11 +44,18 @@ settings and never declares, validates or fills them.
     "bar": {
       "flat": { "label": "BAR_FLAT", "file": "Interface\\Buttons\\WHITE8X8" },
       "blizzard": { "label": "BAR_BLIZZARD", "file": "Interface\\TargetingFrame\\UI-StatusBar" }
+    },
+    // Window art: a frame may name one of Blizzard's NineSliceLayouts ("metal": ButtonFrameTemplateNoPortrait,
+    // drawn with NineSliceUtil); a background is an atlas, or a file (a number is a file ID) with `tile`.
+    "background": {
+      "general": { "label": "BACKGROUND_GENERAL", "atlas": "UI-Character-Info-General-BG" },
+      "dialog": { "label": "BACKGROUND_DIALOG", "file": 131071, "tile": true }
     }
   },
   // Tokens: what addons follow, each with a type (an asset kind, or color, number, sound).
   "tokens": {
-    "frame.border": "frame",
+    "frame.border": "frame", "frame.background": "background", // also frame.dialog/.inset and their backgrounds
+    "frame.scale.window": "number", "frame.scale.small": "number", // the border's scale: windows, small surfaces
     "font.body": "font", "font.header": "font", "font.numbers": "font", "font.world": "font",
     "color.accent": "color", "color.positive": "color", "color.negative": "color", "color.warning": "color",
     "color.disabled": "color",
@@ -59,7 +66,7 @@ settings and never declares, validates or fills them.
   },
   // Every theme gives every token a value: an asset id, a colour, a number, a SOUNDKIT name ("" = silent).
   "themes": {
-    "ordaen": { "frame.border": "bronze-rim", "color.accent": [0.72, 0.56, 0.34], "motion.fade": 0.15, "...": "..." },
+    "ordaen": { "frame.border": "metal", "frame.background": "general", "color.accent": [0.72, 0.56, 0.34], "motion.fade": 0.15, "...": "..." },
     "blizzard": { "frame.border": "gold", "color.accent": [1, 0.82, 0], "motion.fade": 0.2, "...": "..." },
     "minimal": { "frame.border": "thin", "color.accent": [0.56, 0.62, 0.72], "motion.fade": 0, "...": "..." }
   }

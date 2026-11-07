@@ -70,5 +70,13 @@
   "BAR_FRAME": "Вид полос (пробуем)",
   "BAR_FRAME_BEZEL": "Бронзовая рамка",
   "BAR_FRAME_GROOVE": "Вырезанный паз",
-  "BAR_FRAME_TOOLTIP": "Как полосы встроены в панель (полоса опыта). Два варианта для сравнения; выбранный останется."
+  "BAR_FRAME_TOOLTIP": "Как полосы встроены в панель (полоса опыта). Два варианта для сравнения; выбранный останется.",
+  "FRAME_METAL": "Металл",
+  "FRAME_METAL_PORTRAIT": "Металл с портретом",
+  "FRAME_DIALOG": "Диалог",
+  "FRAME_INSET": "Внутренняя панель",
+  "BACKGROUND_GENERAL": "Окно персонажа",
+  "BACKGROUND_DIALOG": "Диалог",
+  "BACKGROUND_INSET": "Внутренняя панель",
+  "BACKGROUND_NONE": "Нет"
 }
