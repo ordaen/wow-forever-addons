@@ -276,18 +276,46 @@ function Windows.Disable(kind)
 	end
 end
 
---- For "Send state" (dev mode): each window found, its style, and how many dresses it has.
+-- Where a frame is and whether it can be seen (dev dumps only): visible, effective alpha, strata, level, rectangle,
+-- and its own textures and children counted.
+local function frameState(frame)
+	if type(frame) ~= "table" or type(frame.IsVisible) ~= "function" then
+		return nil
+	end
+	local function plain(v)
+		return (type(v) == "number" and not issecretvalue(v)) and math.floor(v * 10 + 0.5) / 10 or tostring(v)
+	end
+	return {
+		visible = frame:IsVisible(), alpha = plain(frame:GetEffectiveAlpha()), strata = frame:GetFrameStrata(),
+		level = frame:GetFrameLevel(), rect = { plain(frame:GetLeft()), plain(frame:GetBottom()),
+			plain(frame:GetWidth()), plain(frame:GetHeight()) },
+		regions = select("#", frame:GetRegions()), children = select("#", frame:GetChildren()),
+	}
+end
+
+--- For "Send state" (dev mode): each window found, its style, how many dresses it has, and for an open window where
+--- its own look and that look's children (the border overlay) are and whether they can be seen.
 ---@return table
 function Windows.Describe()
 	local out = { enabled = enabled, windows = {} }
 	for _, pack in ipairs(PACKS) do
 		local window = byName[pack.name]
-		out.windows[pack.name] = window and {
+		local entry = window and {
 			kind = pack.kind,
 			skinned = window.skinned or false,
 			style = window:Style(),
 			dresses = #window.dresses,
 		} or "not loaded"
+		local first = window and window.dresses[1]
+		if first and window.frame:IsShown() and type(first.look) == "table" then
+			local look = first.look.frame
+			entry.look = frameState(look)
+			entry.lookChildren = {}
+			for _, child in ipairs({ look:GetChildren() }) do
+				entry.lookChildren[#entry.lookChildren + 1] = frameState(child)
+			end
+		end
+		out.windows[pack.name] = entry
 	end
 	return out
 end
