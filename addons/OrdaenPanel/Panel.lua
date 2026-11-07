@@ -1202,7 +1202,7 @@ end
 ---@param button table
 ---@return boolean
 function View.Holds(button)
-	return cellOf[button] ~= nil
+	return cellOf[button] ~= nil or (button ~= nil and button == portraitButton)
 end
 
 --- What the dev window's "Send state" records: the buttons we hold and where, Blizzard's bars, the panel.

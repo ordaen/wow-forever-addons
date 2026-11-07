@@ -205,6 +205,16 @@ for _, item in ipairs({ "zone", "clock" }) do
 		end,
 	})
 end
+-- Another bar addon moving a button we hold (Bartender4's micro bar re-anchors the character button): our SetPoint
+-- hook puts it straight back over its cell or the portrait, so it's handled, not asked about. Anything else is left
+-- to the Core's dialog.
+A:OnConflict(function(other, what)
+	local name = type(what) == "string" and what:match("^([%w_]+):Set")
+	if name and ns.View.Holds(_G[name]) then
+		A:Conflict(other, what, true)
+	end
+end)
+
 A:OnLogin(function()
 	for item, hold in pairs(shared) do
 		hold:Sync(A:Get(item) ~= "off")
