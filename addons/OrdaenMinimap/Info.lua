@@ -335,6 +335,7 @@ function Info.Hide()
 	end
 	active = false
 	moving = false
+	fast:Stop()
 	zone:Hide()
 	coords:Hide()
 	clock:Hide()

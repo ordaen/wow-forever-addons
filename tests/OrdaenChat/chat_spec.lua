@@ -665,6 +665,12 @@ describe("Ordaen Chat", function()
 			assert.is_false(classColored.SAY)
 		end)
 
+		it("set class colours only when the setting changes, so a player's own per-type choices stay", function()
+			rawset(_G, "OrdaenChatCharDB", { classColors = true }) -- applied at an earlier login
+			login()
+			assert.is_nil(classColored.SAY, "not forced again at this login")
+		end)
+
 		-- A chat message filter call as Blizzard makes it: message, sender name, ..., the sender's GUID (payload 12).
 		-- A line through every filter of its event, as Blizzard runs them for one chat window: hidden (true) or the
 		-- message shown.
@@ -977,6 +983,24 @@ describe("Ordaen Chat", function()
 			login()
 			windows[1].editBox:SetPoint("TOPLEFT", windows[1], "BOTTOMLEFT", -5, -2)
 			assert.same({ "BOTTOMRIGHT", windowArt[1], "BOTTOMRIGHT", 0, 0 }, windows[1].editBox.point)
+		end)
+
+		it("leaves Blizzard's buttons seen and clickable after the input group is turned off", function()
+			login()
+			local input = windows[1].editBox
+			ns.Addon.db.inputGroup = false
+			ns.Addon:_SettingChanged("inputGroup", false)
+			input.focused = false
+			input.scripts.OnEditFocusLost(input) -- its hook stays: it must do nothing now
+			local calls = menuButton.calls.EnableMouse
+			assert.equals(1, menuButton.alpha)
+			assert.is_true(calls[#calls][1])
+		end)
+
+		it("sets Blizzard's IM chat style once per character, so a player's own change stays", function()
+			rawset(_G, "OrdaenChatCharDB", { imStyle = true }) -- set at an earlier login
+			login()
+			assert.is_nil(cvars.chatStyle)
 		end)
 
 		it("stays under the window with the setting off", function()

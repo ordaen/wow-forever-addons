@@ -68,10 +68,10 @@ end)
 -- Character names in their class colour (Blizzard's own per-type setting, Names.lua).
 local classColors = A:Feature("classColors", { setting = "classColors" })
 classColors:OnEnable(function()
-	ns.Names.ClassColors(true)
+	ns.Names.Apply(A.charDb, true)
 end)
 classColors:OnDisable(function()
-	ns.Names.ClassColors(false)
+	ns.Names.Apply(A.charDb, false)
 end)
 
 -- Game events in General (loot, "creates", experience...) dimmed, so the conversation stands out (Dim.lua).
@@ -118,12 +118,19 @@ end
 local inputGroup = A:Feature("inputGroup", { setting = "inputGroup", when = ownLook })
 inputGroup:OnEnable(function()
 	ns.Input.SetOverlay(A.db.inputOverlay)
+	if A.db.inputOverlay and not A.charDb.imStyle then -- once per character: the player may change it afterwards
+		A.charDb.imStyle = true
+		ns.Input.UseIMStyle()
+	end
 	ns.Input.Enable()
 	ns.Position.Refresh() -- the chat's bottom: the input over or under it
 end)
 inputGroup:OnChange(function(key, value)
 	if key == "inputOverlay" then
 		ns.Input.SetOverlay(value)
+		if value then
+			ns.Input.UseIMStyle() -- the player asked for the overlay just now
+		end
 		ns.Position.Refresh()
 	end
 end)

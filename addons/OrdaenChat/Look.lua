@@ -276,6 +276,14 @@ local function onTemporaryWindow()
 	end
 end
 
+-- Blizzard closes a whisper window and reuses it for the next conversation: its old unread count goes with it.
+local function onWindowClosed(frame)
+	if unread[frame] or flashing[frame] then
+		unread[frame], flashing[frame] = nil, nil
+		showTabState(frame)
+	end
+end
+
 local hooked = false
 
 -- Blizzard hangs the tab dock on the chat window (FCFDock_SetPrimary: BOTTOMLEFT to its TOPLEFT, 3 up), but our
@@ -321,6 +329,7 @@ function Look.Enable()
 		hooksecurefunc("FCF_StartAlertFlash", onFlash)
 		hooksecurefunc("FCF_StopAlertFlash", onFlashStop)
 		hooksecurefunc("FCF_OpenTemporaryWindow", onTemporaryWindow)
+		hooksecurefunc("FCF_Close", onWindowClosed)
 		EventRegistry:RegisterCallback("OrdaenUI.ThemeChanged", onThemeChanged, Look)
 		-- Blizzard anchors the dock again (a new primary window, a reset): our edge again.
 		hooksecurefunc("FCFDock_SetPrimary", alignTabs)

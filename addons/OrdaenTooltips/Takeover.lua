@@ -91,6 +91,9 @@ local function draw(native)
 	setNativeAlpha(native, state, 0)
 end
 
+-- Show on a hidden tooltip fires its OnShow inside, then our Show hook: it's drawn twice on that first show. Kept on
+-- purpose: addons add lines and call Show again in the same frame, and that second draw must not be skipped (a
+-- same-frame stamp dropped their lines, 2026-11-07). Draws happen per show, never per frame.
 local function onShown(native)
 	draw(native)
 end
@@ -104,6 +107,7 @@ end
 local function onHidden(native)
 	local state = states[native]
 	if state then
+		state.alpha = nil -- another addon's fade lasts one show (the game resets the native's alpha on Show)
 		hideView(state)
 	end
 end

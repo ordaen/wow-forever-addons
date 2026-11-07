@@ -100,14 +100,21 @@ local function logLayers(input)
 	end
 end
 
+-- The hooks stay on the inputs (they can't be removed): while the input group is off they do nothing, or Blizzard's
+-- buttons would go invisible and unclickable on every focus change.
 local function onFocusGained(input)
+	if not on then
+		return
+	end
 	current = input
 	showButtons()
 	logLayers(input)
 end
 
 local function onFocusLost()
-	showButtons()
+	if on then
+		showButtons()
+	end
 end
 
 -- Blizzard's icon of a button, for its cell: its normal texture's atlas or file.
@@ -487,9 +494,15 @@ function Input.IsOverlaid()
 	return on and overlaid -- off: Blizzard's input is back under the chat
 end
 
+--- Blizzard's own chat style option to "IM" (the input shows on Enter), which the overlay needs. Called once per
+--- character (Core: charDb.imStyle) and when the player turns the overlay on; the player can change it back in
+--- Blizzard's settings and it stays so.
+function Input.UseIMStyle()
+	C_CVar.SetCVar("chatStyle", "im")
+	ns.Debug:Logf("input: chatStyle now %s", tostring(C_CVar.GetCVar("chatStyle")))
+end
+
 --- The input over the chat, shown only while typing (setting inputOverlay), or under the window (Blizzard's place).
---- Sets Blizzard's own chat style option ("IM": the input shows on Enter) when turned on; the player can change that
---- option in Blizzard's settings.
 ---@param on_ boolean
 function Input.SetOverlay(on_)
 	overlaid = on_
@@ -498,10 +511,6 @@ function Input.SetOverlay(on_)
 		if dress.dressed then
 			dress:Apply()
 		end
-	end
-	if on_ then
-		C_CVar.SetCVar("chatStyle", "im")
-		ns.Debug:Logf("input: over the chat, chatStyle now %s", tostring(C_CVar.GetCVar("chatStyle")))
 	end
 	for input in pairs(inputs) do
 		if on and on_ then

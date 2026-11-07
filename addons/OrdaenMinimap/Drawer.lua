@@ -25,6 +25,9 @@ local collected = {} -- list of {frame, name, source}
 local collectedSet = {}
 local originals = {} -- frame -> its class methods (SetPoint etc.), which our no-ops on the instance hide
 local pendingCombat = {}
+-- Combat's end, for buttons that couldn't be collected in combat: registered only while one waits. Made when the
+-- drawer first starts (nothing is collected before).
+local eventFrame
 local entryButtons = {} -- pool of our compartment entry buttons
 local entries = {} -- current merged compartment entries
 local blizzardCompartmentHooked = false
@@ -237,6 +240,7 @@ local function collect(button, source)
 	end
 	if button.IsProtected and button:IsProtected() and InCombatLockdown() then
 		pendingCombat[button] = source
+		eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED") -- only while something waits for the combat's end
 		return
 	end
 	collectedSet[button] = true
@@ -588,12 +592,18 @@ end
 
 -- Start / settings ------------------------------------------------------------------------------
 
-local eventFrame
-
 local function onCombatEnd()
+	eventFrame:UnregisterEvent("PLAYER_REGEN_ENABLED")
 	for button, source in pairs(pendingCombat) do
 		pendingCombat[button] = nil
 		collect(button, source)
+	end
+end
+
+-- Addons create buttons late: the drawer looks again a few times after it starts, only while it's on.
+local function rescan()
+	if drawerOn then
+		collectAll()
 	end
 end
 
@@ -607,6 +617,8 @@ function Drawer.Enable(savedDb)
 			return
 		end
 		started = true
+		eventFrame = CreateFrame("Frame")
+		eventFrame:SetScript("OnEvent", ns.Debug:Wrap(onCombatEnd))
 		collectAll()
 		local icon = libDBIcon()
 		if icon and icon.RegisterCallback then
@@ -616,11 +628,8 @@ function Drawer.Enable(savedDb)
 		end
 		-- Addons create buttons late (after login, after loading data); look again a few times.
 		for _, delay in ipairs(RESCAN_DELAYS) do
-			C_Timer.After(delay, ns.Debug:Wrap(collectAll))
+			C_Timer.After(delay, ns.Debug:Wrap(rescan))
 		end
-		eventFrame = CreateFrame("Frame")
-		eventFrame:RegisterEvent("PLAYER_REGEN_ENABLED")
-		eventFrame:SetScript("OnEvent", ns.Debug:Wrap(onCombatEnd))
 	end
 	drawerOn = true
 	mainButton:Show()

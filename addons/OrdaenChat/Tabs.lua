@@ -89,7 +89,9 @@ function Tabs.CombatLogLast()
 		return
 	end
 	if not (combat and combat.isDocked) then
-		noteDock("not docked (isDocked " .. tostring(combat and combat.isDocked) .. ")")
+		if ns.Debug:IsEnabled() then -- a hooked path: no string unless it's logged
+			noteDock("not docked (isDocked " .. tostring(combat and combat.isDocked) .. ")")
+		end
 		return
 	end
 	local relayout = false
