@@ -859,8 +859,9 @@ end
 
 -- Updates (from ns.Changed) ---------------------------------------------------------------------------------------
 
--- Blizzard's experience and reputation bars (StatusTrackingBarManager's containers): parked on a hidden frame
--- while ours shows, given back when it goes. Not in the API dump on Forever, so looked up by name and logged.
+-- Blizzard's experience and reputation bars (StatusTrackingBarManager's containers): parked on a hidden frame for
+-- as long as Ordaen Panel runs, also while our own bar is off (the user's decision, 2026-11-07: turning ours off
+-- must not bring Blizzard's back). Not in the API dump on Forever, so looked up by name and logged.
 local STATUS_BARS = { "MainStatusTrackingBarContainer", "SecondaryStatusTrackingBarContainer" }
 local parking ---@type Frame|nil
 local parked = {} ---@type table<table, table|false> bar -> its parent before (false: not parked)
@@ -912,7 +913,7 @@ Colors:On("change", onPalette)
 
 local function updateExperience()
 	local s = db()
-	parkBlizzardBars(s.experience ~= "off")
+	parkBlizzardBars(true)
 	local model = ns.Segments.experience.model
 	local shown = s.experience ~= "off" and model.kind ~= nil
 	middle.hidden = not shown
