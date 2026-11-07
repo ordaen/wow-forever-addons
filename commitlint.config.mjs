@@ -17,6 +17,8 @@ export default {
     'scope-case': [0],
     // Subjects may start with a capital (the user's decision): code names like `UI.DressBar` or `Blizzard_*`.
     'subject-case': [0],
+    // A long subject is a warning, not an error (the user's decision): keep them short, but a precise one may run long.
+    'header-max-length': [1, 'always', 100],
     // Bot-written bodies (release-please, dependabot) contain long URLs.
     'body-max-line-length': [0],
     'footer-max-line-length': [0],
