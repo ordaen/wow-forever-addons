@@ -375,6 +375,57 @@ function Look.Cover(frame)
 end
 
 --- What the dev-mode dump records.
+-- Dev dump: the chat window's border corners as drawn, Blizzard's layout entries, and how texture coordinates behave
+-- after SetAtlas on this client (absolute in the file, or relative to the atlas): the mirrored top corner drew
+-- nothing (2026-11-07). Runs only on "Send state".
+local probeTexture
+local function pieceState(piece)
+	if not piece then
+		return false
+	end
+	local point, _, relPoint, x, y = piece:GetPoint(1)
+	return { atlas = piece:GetAtlas() or false, coords = { piece:GetTexCoord() }, shown = piece:IsShown(),
+		alpha = piece:GetAlpha(), width = piece:GetWidth(), height = piece:GetHeight(), scale = piece:GetScale(),
+		point = { point or false, relPoint or false, x or false, y or false } }
+end
+
+local function describeCorners()
+	local look = Look.Cover(ChatFrame1)
+	local out = { look = look ~= nil } ---@type table<string, any>
+	if look then
+		for _, name in ipairs({ "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner", "TopEdge" }) do
+			out[name] = pieceState(look[name])
+		end
+	end
+	local layout = NineSliceLayouts and NineSliceLayouts.ButtonFrameTemplateNoPortrait
+	if type(layout) == "table" then
+		local entries = {}
+		for key, entry in pairs(layout) do
+			if type(entry) == "table" then
+				local e = {}
+				for k, v in pairs(entry) do
+					e[k] = type(v) == "table" and "<table>" or v
+				end
+				entries[key] = e
+			else
+				entries[key] = tostring(entry)
+			end
+		end
+		out.layout = entries
+		local bottomRight = type(layout.BottomRightCorner) == "table" and layout.BottomRightCorner.atlas
+		if bottomRight then
+			local info = C_Texture.GetAtlasInfo(bottomRight)
+			out.atlasInfo = info and { info.leftTexCoord, info.rightTexCoord, info.topTexCoord, info.bottomTexCoord,
+				info.width, info.height, info.file or false } or false
+			probeTexture = probeTexture or UIParent:CreateTexture()
+			probeTexture:SetAtlas(bottomRight)
+			out.afterSetAtlas = { probeTexture:GetTexCoord() }
+			probeTexture:Hide()
+		end
+	end
+	return out
+end
+
 function Look.Describe()
 	local states = {}
 	for tab, dress in pairs(tabs) do
@@ -388,5 +439,5 @@ function Look.Describe()
 	for frame, count in pairs(unread) do
 		counts[frame:GetName() or "?"] = count
 	end
-	return { on = on, windows = n, tabs = states, unread = counts }
+	return { on = on, windows = n, tabs = states, unread = counts, corners = describeCorners() }
 end
