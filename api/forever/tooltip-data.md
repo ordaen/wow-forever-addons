@@ -73,6 +73,9 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
 - **Pet:** name (2), owner (16, the owner's `guid`: «Прислужник |3-1(…)» for a warlock's, «Питомец |3-1(…)» for a
   hunter's: the case code again), «Уровень 15».
 - **Kind 4** also covers labels on the world (a building's name, «Аптека Песта»): one gold plain line.
+- **Gathering node** (kind 4 too, no ID): «Медная жила» (gold), then the profession «Горное дело» (plain, coloured:
+  yellow seen; presumably the gathering difficulty for this character, as Blizzard colours it: to confirm with other
+  colours). No skill level in the lines.
 
 ## What it means for our tooltips
 
