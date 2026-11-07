@@ -209,9 +209,21 @@ local function placeOnPortrait(button)
 	placing = false
 end
 
+-- Micro buttons the panel takes off the screen (the user's decision, 2026-11-07: no shop button). Another bar addon
+-- (Bartender4) would otherwise show it alone, so it goes on a hidden holder, back there when anyone moves it.
+local OFF_BUTTONS = { StoreMicroButton = true }
+local stashed = {} ---@type table<table, boolean>
+local stash ---@type Frame|nil
+
 local function place(button)
 	if button == portraitButton and portrait and not placing then
 		placeOnPortrait(button)
+		return
+	end
+	if stashed[button] and not placing then
+		placing = true
+		button:SetParent(stash)
+		placing = false
 		return
 	end
 	local cell = cellOf[button]
@@ -780,6 +792,19 @@ local function placeButtons()
 		giveBack(button)
 	end
 	givePortraitBack()
+	for button in pairs(stashed) do
+		stashed[button] = nil
+		local home = homes[button]
+		if home then
+			placing = true
+			button:SetParent(home[1])
+			button:ClearAllPoints()
+			if home[2] then
+				button:SetPoint(home[2], home[3], home[4], home[5], home[6])
+			end
+			placing = false
+		end
+	end
 	-- the micro buttons and the social button in one row when they share a zone: neighbours share one line
 	for i = #microButtonsShown, 1, -1 do
 		microButtonsShown[i] = nil
@@ -788,7 +813,22 @@ local function placeButtons()
 	local onPortrait = portrait ~= nil and s.edge == "bottom" and s.micromenu == "left"
 	if s.micromenu ~= "off" then
 		for _, button in ipairs(ns.MicroButtons) do
-			if onPortrait and button:GetName() == PORTRAIT_BUTTON then
+			if OFF_BUTTONS[button:GetName() or ""] then
+				if not homes[button] then
+					local home = { button:GetParent() }
+					if button:GetNumPoints() > 0 then
+						home[2], home[3], home[4], home[5], home[6] = button:GetPoint(1)
+					end
+					homes[button] = home
+				end
+				if not stash then
+					stash = CreateFrame("Frame")
+					stash:Hide()
+				end
+				stashed[button] = true
+				hookPlacement(button)
+				place(button)
+			elseif onPortrait and button:GetName() == PORTRAIT_BUTTON then
 				takePortrait(button)
 			else
 				microButtonsShown[#microButtonsShown + 1] = button
