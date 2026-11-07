@@ -64,6 +64,21 @@ describe("OrdaenCore.UI layout", function()
 		assert.equals(1, Layout.Run(block, nil, ctx()).count)
 	end)
 
+	it("puts an onTop child in its block's final box when a stretching row makes the block taller", function()
+		-- a 10 px icon cell beside a 40 px one in a row that stretches: the small cell becomes 40 high, and its
+		-- count sits in the bottom-right corner of those 40, not of the 10 it had before
+		local count = { text = "3", onTop = true, align = "right", valign = "bottom" }
+		local small = { columns = { "auto" }, { image = "bag", size = 10 }, count }
+		local row = { rowAlign = "stretch", columns = { "auto", "auto" }, small, { image = "big", size = 40 } }
+		Layout.Run(row, nil, ctx())
+		local r = Layout.ResultOf(small)
+		assert.equals(40, r.height)
+		local item = r.items[r.count]
+		assert.equals(count, item.node)
+		assert.equals(10 - CHAR, item.x)
+		assert.equals(40 - LINE, item.y)
+	end)
+
 	it("shrinks a single-column block to its widest line, with padding and row gaps", function()
 		local block = { padding = 8, gap = 2, { text = "Elwynn Forest" }, { text = "Goldshire" } }
 		local r = Layout.Run(block, nil, ctx())
