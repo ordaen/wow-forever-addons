@@ -6,6 +6,16 @@
     {
       "header": "HEADER_WINDOW",
       "settings": {
+        // categories (tabs and sections) or each bag's slots in order; the window's grid button switches it too
+        "view": {
+          "type": "choice",
+          "choices": [
+            { "id": "categories", "label": "VIEW_CATEGORIES" },
+            { "id": "bags", "label": "VIEW_BAGS" }
+          ],
+          "default": "categories",
+          "label": "VIEW"
+        },
         "columns": {
           "type": "number", "min": 4, "max": 24, "step": 1, "default": 10,
           "label": "COLUMNS", "tooltip": "COLUMNS_TOOLTIP"

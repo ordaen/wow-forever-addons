@@ -30,5 +30,10 @@
   "TAB_RECIPES": "Recipes",
   "TAB_QUEST": "Quest items",
   "TAB_JUNK": "Junk",
-  "TAB_OTHER": "Miscellaneous"
+  "TAB_OTHER": "Miscellaneous",
+  "VIEW": "View",
+  "VIEW_CATEGORIES": "Categories",
+  "VIEW_BAGS": "Bags in order",
+  "TIP_VIEW": "View",
+  "TIP_VIEW_TEXT": "Switch between categories and your bags in order."
 }
