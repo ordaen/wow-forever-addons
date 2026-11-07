@@ -272,10 +272,13 @@ function Dress:Apply()
 	if self.opts.size == "frame" then
 		-- On the frame itself: a child at the frame's own level, so our regions interleave with Blizzard's by layer
 		-- (our fill under its content) and its visibility, alpha, strata and scale reach ours by themselves.
+		-- It stays shown: its parent decides. Dressed while the frame is closed (Ordaen Reskin dresses at login), it
+		-- would otherwise stay hidden for good, since nothing shows a child again (2026-11-07). An input with `focus`
+		-- still shows only while typed in (its focus hooks).
 		look:SetParent(frame)
 		look.frame:SetUsingParentLevel(true)
 		placeOver(self)
-		look:SetShown(wanted(self))
+		look:SetShown(not self.opts.focus or wanted(self))
 		resize(self)
 		return
 	end

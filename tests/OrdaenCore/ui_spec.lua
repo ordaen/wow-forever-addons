@@ -1355,6 +1355,13 @@ describe("OrdaenCore.UI", function()
 			assert.equals(501, look.children[#look.children].level)
 		end)
 
+		it("stay shown when dressed on a closed frame with size = \"frame\" (its parent decides)", function()
+			local window, background = chatWindow()
+			window:Hide() -- Ordaen Reskin dresses windows at login, while they're closed
+			local dress = UI.Dress(window, { style = "window", size = "frame", cover = background, art = {} })
+			assert.is_true(dress.look.frame.shown, "shown as a child: it appears when the window opens")
+		end)
+
 		it("draw on the frame with size = \"frame\": a child at its level, so it shows, hides, fades with it", function()
 			local window, background = chatWindow()
 			window:Show()
