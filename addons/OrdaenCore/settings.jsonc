@@ -18,6 +18,12 @@
         "ui.textSize": {
           "type": "number", "min": 10, "max": 16, "step": 1, "format": "px", "default": 12,
           "label": "TEXT_SIZE", "tooltip": "TEXT_SIZE_TOOLTIP"
+        },
+        // The panel's bar construction, while the player compares the two (then the theme keeps the one picked).
+        "ui.barFrame": {
+          "type": "choice",
+          "choices": [ { "id": "bezel", "label": "BAR_FRAME_BEZEL" }, { "id": "groove", "label": "BAR_FRAME_GROOVE" } ],
+          "default": "bezel", "label": "BAR_FRAME", "tooltip": "BAR_FRAME_TOOLTIP"
         }
       }
     },

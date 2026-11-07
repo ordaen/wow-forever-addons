@@ -231,8 +231,9 @@ local function fakeFrame(name, log, parent)
 		self.fonts[#self.fonts + 1] = fs
 		return fs
 	end
-	function f:CreateTexture(_, layer)
+	function f:CreateTexture(_, layer, _, sublevel)
 		local t = fakeTexture(layer)
+		t.sublevel = sublevel
 		self.textures[#self.textures + 1] = t
 		return t
 	end
@@ -1295,10 +1296,11 @@ describe("OrdaenCore.UI", function()
 			assert.equals(inner, layout[2].w)
 			assert.equals(inner, layout[3].w)
 			local lines = solids(s, "ARTWORK")
-			-- two caption lines, the bar's edge (four sides, corners left out) and its track; the fill is a status bar
-			assert.equals(7, #lines)
-			local track = lines[7].size[1]
-			assert.is_true(track < inner and track > inner - 4, "the track sits inside the one-pixel edge")
+			-- two caption lines, the bar's bronze bezel (four sides, then a dark line inside: four more), its recessed
+			-- track and the shadow under the track's top; the fill is a status bar
+			assert.equals(12, #lines)
+			local track = lines[11].size[1]
+			assert.is_true(track < inner and track > inner - 10, "the track sits inside the bezel")
 			local value = barsOf(s)[3]
 			assert.same({ 0, 1 }, value.range)
 			assert.equals(0.25, value.value)
@@ -1341,9 +1343,37 @@ describe("OrdaenCore.UI", function()
 			assert.same({ 3000, 4500, 6500 }, { value.value, quest.value, overlay.value })
 			assert.same({ 0.58, 0.12, 0.66, 1 }, value.barColor) -- color.xp of the ordaen theme
 			assert.same({ 0.58, 0.12, 0.66, 0.7 }, quest.barColor) -- the value's colour, lighter
-			assert.same({ 0.1, 0.42, 0.9, 0.45 }, overlay.barColor) -- color.rested, dimmed
+			assert.same({ 0.1, 0.42, 0.9, 0.5 }, overlay.barColor) -- color.rested, fainter (the theme's bar.ahead)
 			assert.equals("Interface\\Buttons\\WHITE8X8", value.barTexture) -- bar.texture "flat"
 			assert.same({ "42%" }, shownTexts(value))
+		end)
+
+		it("build a bar into the panel as a groove when the player picks it, with engraved sections and a scrim", function()
+			rawset(_G, "OrdaenCoreDB", { ui = { barFrame = "groove" } })
+			UI._SettingsChanged()
+			UI.Tooltip({ { bar = 0.5, sections = 4, text = "50%" } }):Show(owner)
+			local s = surface()
+			-- the groove (shadow above in two lines, left, lip below, right side), the recessed track, its shadow
+			assert.equals(7, #solids(s, "ARTWORK"))
+			local value = barsOf(s)[3]
+			local made = value.textures
+			local ticks, glints, scrims = 0, 0, 0
+			for _, t in ipairs(made) do
+				if t.shown ~= false and t.sublevel == 7 then
+					local c = t.vertexColor
+					if c and c[1] == 0 then
+						ticks = ticks + 1
+					elseif c then
+						glints = glints + 1
+					end
+				elseif t.sublevel == 6 and t.shown ~= false then
+					scrims = scrims + 1
+				end
+			end
+			assert.same({ 3, 3 }, { ticks, glints }, "each section line engraved: a dark line, a light one beside")
+			assert.equals(2, scrims, "the scrim's two halves under the label")
+			rawset(_G, "OrdaenCoreDB", nil)
+			UI._SettingsChanged()
 		end)
 
 		it("animate a bar's changes: glide, flash the gain, wrap around on a drop", function()

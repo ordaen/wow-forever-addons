@@ -37,7 +37,7 @@ local Theme = {
 	blocks = {}, ---@type table<string, table> style role -> resolved look (numbers, no tokens)
 	text = {}, ---@type table<string, OrdaenUIResolvedText> text style -> resolved look
 	separators = {}, ---@type table<string, OrdaenUISeparatorLook> rule, divider, caption
-	bar = {}, -- { height, track, trackBottom, edge, fill }
+	bar = {}, -- { height, track, trackBottom, edge, fill, frames, frame, recessed, shade, tick, scrim, ahead }
 	accent = nil, ---@type number[]|nil the theme's accent, for blocks without their own
 }
 ns.Theme = Theme
@@ -208,6 +208,21 @@ THEMES.ordaen = {
 	bar = {
 		height = "md", track = { 0.08, 0.08, 0.09, 0.9 }, trackBottom = { 0.02, 0.02, 0.02, 0.9 },
 		edge = { 0.36, 0.31, 0.24, 1 }, fill = { 0, 0, 0, 1, accent = 1 },
+		-- A bar built into the panel (the user: "a skeuomorphic part of the panel"), two constructions to try in game
+		-- (Ordaen Core's setting ui.barFrame) until one is picked. All in whole physical pixels.
+		frames = {
+			-- A bronze bezel like the panel's rim: lit top and left, shaded bottom and right, a dark line inside it.
+			bezel = { width = 3, light = { 0.80, 0.64, 0.40, 1 }, mid = { 0.56, 0.43, 0.26, 1 },
+				dark = { 0.24, 0.17, 0.10, 1 }, inner = { 0.03, 0.02, 0.015, 1 } },
+			-- Cut into the panel: shadow above and left, a light bronze lip below.
+			groove = { shadow = { 0, 0, 0, 0.95 }, softShadow = { 0, 0, 0, 0.6 }, lip = { 0.80, 0.64, 0.40, 0.7 },
+				side = { 0.56, 0.43, 0.26, 0.55 } },
+		},
+		recessed = { top = { 0.03, 0.025, 0.02, 1 }, bottom = { 0.09, 0.075, 0.06, 1 } }, -- the track inside a frame
+		shade = { 0, 0, 0, 0.45 }, -- the inner shadow under the track's top edge, fading over 3 px
+		tick = { { 0, 0, 0, 0.47 }, { 1, 0.94, 0.82, 0.11 } }, -- engraved sections: a dark line, a faint light one
+		scrim = 0.38, -- the faint dark gradient under a bar's text (its middle), so white outlined text reads
+		ahead = 0.5, -- how strong the part ahead of the value (rested) is drawn: the value's colour, fainter
 	},
 }
 
@@ -320,8 +335,14 @@ function Theme.Apply(name, textSize)
 	Theme.name = THEMES[name] and name or Theme.DEFAULT_THEME
 	Theme.blocks, Theme.text, Theme.separators = blocks, text, separators
 	local bar = source.bar
+	local db = rawget(_G, "OrdaenCoreDB")
+	local chosen = type(db) == "table" and type(db.ui) == "table" and db.ui.barFrame or nil
 	Theme.bar = {
 		height = space(bar.height), track = bar.track, trackBottom = bar.trackBottom, edge = bar.edge, fill = bar.fill,
+		frames = bar.frames, recessed = bar.recessed, shade = bar.shade, tick = bar.tick, scrim = bar.scrim,
+		ahead = bar.ahead,
+		-- The construction (ui.barFrame, while the player compares them): a key of `frames`, else the plain edge.
+		frame = bar.frames and bar.frames[chosen or "bezel"] and (chosen or "bezel") or nil,
 	}
 	Theme.accent = source.accent
 	Theme.version = Theme.version + 1

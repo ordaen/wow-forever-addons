@@ -21,14 +21,13 @@ local CURRENCY_FORMAT = "%d|T%s:0:0:2:0|t"
 local MAX_CURRENCIES = 6
 local SOCIAL_BUTTON = "QuickJoinToastButton" -- in the API dump (1.60.1-70790)
 
--- "friendly" -> "color.reputation.friendly", made once per standing
-local REP_TOKEN = setmetatable({}, {
-	__index = function(t, standing)
-		local token = "color.reputation." .. standing
-		t[standing] = token
-		return token
-	end,
-})
+-- The bar's colours come from the palette (OrdaenCore.Colors, the player's pick in Ordaen Core's settings): XP in
+-- blue, rested and quest XP that blue fainter; a reputation in its standing's palette colour.
+local Colors = OrdaenCore.Colors
+local STANDING_COLOR = {
+	hated = "red", hostile = "red", unfriendly = "orange", neutral = "yellow",
+	friendly = "green", honored = "green", revered = "green", exalted = "green",
+}
 
 -- Blocks (made by build(), changed in place) ---------------------------------------------------------------------
 
@@ -37,8 +36,8 @@ local spec, left, middle, right, microGroup, bagRow
 local barHolder ---@type OrdaenUIComponent|nil the middle group: a component of its own, for its tooltip
 local xp = {
 	bar = 0, min = 0, max = 1, quest = 0, overlay = 0, animate = true,
-	color = "color.xp", questColor = "color.quest", overlayColor = "color.rested",
-	format = "%d%%", args = { 0 }, style = "small", sections = 20,
+	color = Colors:Get("blue"), questColor = Colors:Get("blue"), overlayColor = Colors:Get("blue"),
+	format = "%d%%", args = { 0 }, style = "onBar", sections = 20,
 }
 -- The social button's tooltip (no title: it's beside the button it describes).
 local tipFriends = { format = "", args = { 0 } }
@@ -776,6 +775,14 @@ local function parkBlizzardBars(on)
 	end
 end
 
+-- The player picked another palette colour (Ordaen Core's settings): the bar's tables already changed in place.
+local function onPalette()
+	if barHolder then
+		barHolder:Refresh()
+	end
+end
+Colors:On("change", onPalette)
+
 local function updateExperience()
 	local s = db()
 	parkBlizzardBars(s.experience)
@@ -786,7 +793,8 @@ local function updateExperience()
 		return
 	end
 	xp.bar, xp.max, xp.quest, xp.overlay = model.value, model.max, model.quest, model.overlay
-	xp.color = model.kind == "reputation" and REP_TOKEN[model.standing] or "color.xp"
+	local colour = Colors:Get(model.kind == "reputation" and STANDING_COLOR[model.standing] or "blue")
+	xp.color, xp.questColor, xp.overlayColor = colour, colour, colour
 	xp.args[1] = model.percent
 	tipName.hidden = model.kind ~= "reputation"
 	tipName.text = model.name or ""

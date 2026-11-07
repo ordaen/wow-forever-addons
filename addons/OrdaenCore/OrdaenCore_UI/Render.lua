@@ -483,6 +483,13 @@ local function newBar(surface)
 	b.label = b.value:CreateFontString(nil, "OVERLAY")
 	b.label:SetWordWrap(false)
 	b.ticks = {} -- the section lines, made on first use
+	b.glints = {} -- the faint light line beside each (engraved sections), made on first use
+	-- The scrim under the label: a faint dark gradient from the middle out, over the parts and under the text.
+	b.scrimLeft = b.value:CreateTexture(nil, "ARTWORK", nil, 6)
+	b.scrimLeft:SetTexture(WHITE)
+	b.scrimRight = b.value:CreateTexture(nil, "ARTWORK", nil, 6)
+	b.scrimRight:SetTexture(WHITE)
+	b.scrimDark, b.scrimClear = CreateColor(0, 0, 0, 0), CreateColor(0, 0, 0, 0)
 	-- After a wrap ran to the end: start again from the bottom (made once per bar, not per draw).
 	b.wrap = function()
 		if b.wrapTo then
@@ -508,20 +515,62 @@ local function place(bar, surface, x, y, w, h)
 	bar:Show()
 end
 
+-- A bronze bezel around the bar, `n` UI units wide (whole pixels): lit top and left, shaded bottom and right, then
+-- a dark line inside it. Returns the rectangle inside.
+local function bezel(surface, p, f, x, y, w, h, accent)
+	local px = pixel()
+	local n = f.width * px
+	solid(surface, p, "ARTWORK", 1, x, y, w, n, f.light, f.mid, accent)
+	solid(surface, p, "ARTWORK", 1, x, y + n, n, h - n, f.light, f.mid, accent, true)
+	solid(surface, p, "ARTWORK", 1, x + n, y + h - n, w - n, n, f.mid, f.dark, accent)
+	solid(surface, p, "ARTWORK", 1, x + w - n, y + n, n, h - 2 * n, f.mid, f.dark, accent, true)
+	x, y, w, h = x + n, y + n, w - 2 * n, h - 2 * n
+	solid(surface, p, "ARTWORK", 1, x, y, w, px, f.inner, f.inner, accent)
+	solid(surface, p, "ARTWORK", 1, x, y + h - px, w, px, f.inner, f.inner, accent)
+	solid(surface, p, "ARTWORK", 1, x, y + px, px, h - 2 * px, f.inner, f.inner, accent)
+	solid(surface, p, "ARTWORK", 1, x + w - px, y + px, px, h - 2 * px, f.inner, f.inner, accent)
+	return x + px, y + px, w - 2 * px, h - 2 * px
+end
+
+-- A groove cut into the panel: two pixels of shadow above, one on the left, a light bronze lip below and a softer
+-- side on the right. Returns the rectangle inside.
+local function groove(surface, p, f, x, y, w, h, accent)
+	local px = pixel()
+	solid(surface, p, "ARTWORK", 1, x, y, w, px, f.shadow, f.shadow, accent)
+	solid(surface, p, "ARTWORK", 1, x, y + px, w, px, f.softShadow, f.softShadow, accent)
+	solid(surface, p, "ARTWORK", 1, x, y + 2 * px, px, h - 3 * px, f.shadow, f.shadow, accent)
+	solid(surface, p, "ARTWORK", 1, x, y + h - px, w, px, f.lip, f.lip, accent)
+	solid(surface, p, "ARTWORK", 1, x + w - px, y + 2 * px, px, h - 3 * px, f.side, f.side, accent)
+	return x + px, y + 2 * px, w - 2 * px, h - 3 * px
+end
+
+local CONSTRUCTIONS = { bezel = bezel, groove = groove }
+
 local function drawBar(surface, p, el, x, y, w, h, accent)
 	local look = Theme.bar
-	-- The theme's edge: one pixel around the bar, its corners left out (a one-pixel radius, Blizzard's bars without
-	-- their curves); the track and the parts sit inside it.
 	local edge = look.edge
-	if edge then
-		local px = pixel()
-		solid(surface, p, "ARTWORK", 1, x + px, y, w - 2 * px, px, edge, edge, accent)
-		solid(surface, p, "ARTWORK", 1, x + px, y + h - px, w - 2 * px, px, edge, edge, accent)
-		solid(surface, p, "ARTWORK", 1, x, y + px, px, h - 2 * px, edge, edge, accent)
-		solid(surface, p, "ARTWORK", 1, x + w - px, y + px, px, h - 2 * px, edge, edge, accent)
-		x, y, w, h = x + px, y + px, w - 2 * px, h - 2 * px
+	local build = look.frame and CONSTRUCTIONS[look.frame]
+	if build then
+		-- Built into the panel: a frame (the bezel or the groove), then a recessed track with a soft shadow under
+		-- its top edge; the parts sit in it.
+		x, y, w, h = build(surface, p, look.frames[look.frame], x, y, w, h, accent)
+		local recessed = look.recessed
+		solid(surface, p, "ARTWORK", 0, x, y, w, h, recessed.top, recessed.bottom, accent)
+		local shade = look.shade
+		solid(surface, p, "ARTWORK", 2, x, y, w, min(h, 3 * pixel()), shade, shade, accent, false, shade[4], 0)
+	else
+		-- The theme's edge: one pixel around the bar, its corners left out (a one-pixel radius, Blizzard's bars
+		-- without their curves); the track and the parts sit inside it.
+		if edge then
+			local px = pixel()
+			solid(surface, p, "ARTWORK", 1, x + px, y, w - 2 * px, px, edge, edge, accent)
+			solid(surface, p, "ARTWORK", 1, x + px, y + h - px, w - 2 * px, px, edge, edge, accent)
+			solid(surface, p, "ARTWORK", 1, x, y + px, px, h - 2 * px, edge, edge, accent)
+			solid(surface, p, "ARTWORK", 1, x + w - px, y + px, px, h - 2 * px, edge, edge, accent)
+			x, y, w, h = x + px, y + px, w - 2 * px, h - 2 * px
+		end
+		solid(surface, p, "ARTWORK", 0, x, y, w, h, look.track, look.trackBottom or look.track, accent)
 	end
-	solid(surface, p, "ARTWORK", 0, x, y, w, h, look.track, look.trackBottom or look.track, accent)
 	p.usedBars = p.usedBars + 1
 	local b = p.bars[p.usedBars]
 	if not b then
@@ -540,7 +589,7 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 	local fill = Theme.Color(el.color, look.fill)
 	paint(b.value, texture, fill, 1, accent, lo, hi)
 	paint(b.quest, texture, Theme.Color(el.questColor, fill), QUEST_ALPHA, accent, lo, hi)
-	paint(b.overlay, texture, Theme.Color(el.overlayColor, fill), OVERLAY_ALPHA, accent, lo, hi)
+	paint(b.overlay, texture, Theme.Color(el.overlayColor, fill), look.ahead or OVERLAY_ALPHA, accent, lo, hi)
 	place(b.value, surface, x, y, w, h)
 	place(b.quest, surface, x, y, w, h)
 	place(b.overlay, surface, x, y, w, h)
@@ -569,10 +618,12 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 		b.fade:Play()
 	end
 	b.element, b.lo, b.hi, b.last = el, lo, hi, value
-	-- Sections, as on Blizzard's bars: lines in the edge's colour over the parts, one pixel wide.
+	-- Sections, as on Blizzard's bars: lines over the parts, one pixel wide; engraved when the theme says so (a dark
+	-- line with a faint light one beside it), else in the edge's colour.
 	local sections = tonumber(el.sections) or 0
-	local ticks = b.ticks
-	local tickColor = edge or NO_EDGE
+	local ticks, glints = b.ticks, b.glints
+	local engraved = look.tick
+	local tickColor = engraved and engraved[1] or edge or NO_EDGE
 	local px = pixel()
 	for i = 1, sections - 1 do
 		local t = ticks[i]
@@ -581,14 +632,33 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 			t:SetTexture(WHITE)
 			ticks[i] = t
 		end
+		local at = floor(w * i / sections / px + 0.5) * px
 		t:SetVertexColor(rgba(tickColor, accent))
 		t:ClearAllPoints()
-		t:SetPoint("TOPLEFT", b.value, "TOPLEFT", floor(w * i / sections / px + 0.5) * px, 0)
+		t:SetPoint("TOPLEFT", b.value, "TOPLEFT", at, 0)
 		t:SetSize(px, max(h, 0.01))
 		t:Show()
+		local g = glints[i]
+		if engraved then
+			if not g then
+				g = b.value:CreateTexture(nil, "ARTWORK", nil, 7)
+				g:SetTexture(WHITE)
+				glints[i] = g
+			end
+			g:SetVertexColor(rgba(engraved[2], accent))
+			g:ClearAllPoints()
+			g:SetPoint("TOPLEFT", b.value, "TOPLEFT", at + px, 0)
+			g:SetSize(px, max(h, 0.01))
+			g:Show()
+		elseif g then
+			g:Hide()
+		end
 	end
 	for i = max(sections, 1), #ticks do
 		ticks[i]:Hide()
+	end
+	for i = max(sections, 1), #glints do
+		glints[i]:Hide()
 	end
 	-- Text on the bar, centred.
 	if el.text or el.format then
@@ -604,8 +674,30 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 		b.label:ClearAllPoints()
 		b.label:SetPoint("CENTER", b.value, "CENTER", 0, 0)
 		b.label:Show()
+		-- The scrim: over the middle 60 % of the bar, darkest under the text, so white outlined text reads on any
+		-- colour (the look the user picked for text on bars).
+		local scrim = look.scrim
+		if scrim and scrim > 0 then
+			local half = floor(w * 0.3 / px + 0.5) * px
+			b.scrimDark:SetRGBA(0, 0, 0, scrim)
+			b.scrimLeft:ClearAllPoints()
+			b.scrimLeft:SetPoint("TOPRIGHT", b.value, "TOP", 0, 0)
+			b.scrimLeft:SetSize(max(half, 0.01), max(h, 0.01))
+			b.scrimLeft:SetGradient("HORIZONTAL", b.scrimClear, b.scrimDark)
+			b.scrimRight:ClearAllPoints()
+			b.scrimRight:SetPoint("TOPLEFT", b.value, "TOP", 0, 0)
+			b.scrimRight:SetSize(max(half, 0.01), max(h, 0.01))
+			b.scrimRight:SetGradient("HORIZONTAL", b.scrimDark, b.scrimClear)
+			b.scrimLeft:Show()
+			b.scrimRight:Show()
+		else
+			b.scrimLeft:Hide()
+			b.scrimRight:Hide()
+		end
 	else
 		b.label:Hide()
+		b.scrimLeft:Hide()
+		b.scrimRight:Hide()
 	end
 end
 

@@ -66,5 +66,9 @@
   "CLASS_SHAMAN": "Shaman",
   "CLASS_MAGE": "Mage",
   "CLASS_WARLOCK": "Warlock",
-  "CLASS_DRUID": "Druid"
+  "CLASS_DRUID": "Druid",
+  "BAR_FRAME": "Bar look (trying out)",
+  "BAR_FRAME_BEZEL": "Bronze bezel",
+  "BAR_FRAME_GROOVE": "Carved groove",
+  "BAR_FRAME_TOOLTIP": "How bars sit in the panel (the experience bar). Two to compare; the one picked stays."
 }
