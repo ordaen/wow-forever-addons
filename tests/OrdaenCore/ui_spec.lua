@@ -147,6 +147,10 @@ local function fakeTexture(layer)
 	function t:SetDesaturated(on)
 		self.desaturated = on
 	end
+	function t:AddMaskTexture(mask)
+		self.masks = self.masks or {}
+		self.masks[#self.masks + 1] = mask
+	end
 	function t:SetAlpha(a)
 		self.alpha = a
 	end
@@ -309,6 +313,9 @@ local function fakeFrame(name, log, parent)
 		local fs = fakeFontString(log, self)
 		self.fonts[#self.fonts + 1] = fs
 		return fs
+	end
+	function f:CreateMaskTexture()
+		return fakeTexture("ARTWORK")
 	end
 	function f:CreateTexture(_, layer, _, sublevel)
 		local t = fakeTexture(layer)
@@ -1081,6 +1088,7 @@ describe("OrdaenCore.UI", function()
 				BottomRightCorner = { atlas = "UI-Frame-Metal-CornerBottomRight", x = 2, y = -8 },
 				BottomEdge = { atlas = "_UI-Frame-Metal-EdgeBottom" },
 				LeftEdge = { atlas = "!UI-Frame-Metal-EdgeLeft" },
+				RightEdge = { atlas = "!UI-Frame-Metal-EdgeRight" },
 			} })
 			local strip = UI.Block({ name = "Small", style = "panel", { text = "Gold" } })
 			local corner = strip.frame.TopRightCorner
@@ -1088,6 +1096,16 @@ describe("OrdaenCore.UI", function()
 			local top = strip.frame.TopEdge
 			assert.equals("!UI-Frame-Metal-EdgeLeft", top.atlas, "the left edge, turned to light from the top-left")
 			assert.same({ 0, 1, 1, 1, 0, 0, 1, 0 }, top.texCoord, "a quarter turn clockwise, within the atlas")
+			-- Mitred: the corner is an invisible square as wide as the rim, the two rims masked over it.
+			assert.same({ 200, 200 }, corner.size, "the left edge's thickness (the fake atlas: 200)")
+			assert.equals(0, corner.alpha)
+			local masked = {}
+			for _, t in ipairs(strip.frame.textures) do
+				if t.masks and t.shown then
+					masked[#masked + 1] = t.masks[1].file
+				end
+			end
+			assert.is_true(#masked >= 4, "two masked rims per top corner")
 			assert.same({ 0, 1, 1, 0 }, corner.texCoord, "flipped within the atlas, not in its file")
 			assert.same({ "TOPRIGHT", strip.frame, "TOPRIGHT", 2, 8 }, corner.point, "the bottom offset turned up")
 			rawset(_G, "NineSliceLayouts", nil)

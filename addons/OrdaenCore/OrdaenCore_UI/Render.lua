@@ -902,6 +902,7 @@ local BORDER_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "
 	"BottomEdge", "LeftEdge", "RightEdge" }
 local artShown = setmetatable({}, { __mode = "k" }) -- surface -> the frameArt it shows
 local artOpen = setmetatable({}, { __mode = "k" }) -- surface -> the open sides it was drawn with (bits)
+local mitres = setmetatable({}, { __mode = "k" }) -- holder -> corner name -> mitred rims { side, top } (made once)
 local artFills = setmetatable({}, { __mode = "k" }) -- surface -> its fill texture
 -- surface -> how its fill covers it, for a background that doesn't tile: { atlas, x, y (the insets, together), w, h
 -- (the size last fitted) }
@@ -1027,6 +1028,14 @@ local function openSides(holder, bits)
 	local te, be, le, re = holder.TopEdge, holder.BottomEdge, holder.LeftEdge, holder.RightEdge
 	tl:SetShown(not (top or left))
 	tr:SetShown(not (top or right))
+	local made = mitres[holder]
+	if made then
+		for name, pair in pairs(made) do
+			local shown = holder[name]:IsShown()
+			pair.side:SetShown(shown)
+			pair.top:SetShown(shown)
+		end
+	end
 	bl:SetShown(not (bottom or left))
 	br:SetShown(not (bottom or right))
 	te:SetShown(not top)
@@ -1053,6 +1062,78 @@ end
 -- atlases flipped upside down (their atlas coordinates, top and bottom swapped) at the bottom corners' offsets turned
 -- upwards, and the top edge takes the bottom edge's atlas turned half a circle (a repeating strip: the same as a flip,
 -- and it keeps tiling). A window's own top edge carries its title bar; on a strip that read as two borders stacked.
+-- Mitred top corners (art/mitre.py masks, 2026-11-07): each top corner piece shrinks to a square as wide as the rim
+-- (T, the left edge's thickness) and turns invisible, so Blizzard's and our edge anchors meet it; over the square,
+-- the side rim (the top T rows of the left/right edge) through a mask below the diagonal and the turned top rim
+-- through one above it, so the two rims join on the diagonal with Blizzard's own art at any scale.
+local MITRE_MEDIA = "Interface\\AddOns\\OrdaenCore\\media\\"
+local MITRES = {
+	{ corner = "TopLeftCorner", side = "LeftEdge", sideMask = "mitre-tl-side", topMask = "mitre-tl-top" },
+	{ corner = "TopRightCorner", side = "RightEdge", sideMask = "mitre-tr-side", topMask = "mitre-tr-top" },
+}
+
+local function maskedTexture(holder, maskFile)
+	local tex = holder:CreateTexture(nil, "OVERLAY", nil, 1)
+	local mask = holder:CreateMaskTexture()
+	mask:SetTexture(MITRE_MEDIA .. maskFile, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	tex:AddMaskTexture(mask)
+	return tex, mask
+end
+
+local function mitreCorners(holder, layout)
+	local leftEdge = layout.LeftEdge
+	local left = type(leftEdge) == "table" and leftEdge.atlas and atlasOf(leftEdge.atlas)
+	if not left then
+		return
+	end
+	local T, s = left[6], math.min(1, left[6] / left[7])
+	local made = mitres[holder]
+	if not made then
+		made = {}
+		mitres[holder] = made
+	end
+	for _, m in ipairs(MITRES) do
+		local piece, sideEdge = holder[m.corner], layout[m.side]
+		if piece and type(sideEdge) == "table" and sideEdge.atlas then
+			piece:SetSize(T, T)
+			piece:SetAlpha(0) -- still the anchor the edges hang from
+			local pair = made[m.corner]
+			if not pair then
+				local side, sideMask = maskedTexture(holder, m.sideMask)
+				local top, topMask = maskedTexture(holder, m.topMask)
+				pair = { side = side, top = top, sideMask = sideMask, topMask = topMask }
+				made[m.corner] = pair
+			end
+			local sideInfo = atlasOf(sideEdge.atlas)
+			pair.side:SetAtlas(sideEdge.atlas)
+			pair.side:SetTexCoord(0, 1, 0, sideInfo and math.min(1, T / sideInfo[7]) or s) -- its top T rows
+			pair.top:SetAtlas(leftEdge.atlas)
+			pair.top:SetTexCoord(0, s, 1, s, 0, 0, 1, 0) -- the left edge's first T rows, turned a quarter clockwise
+			for _, region in ipairs({ pair.side, pair.top, pair.sideMask, pair.topMask }) do
+				region:ClearAllPoints()
+				region:SetAllPoints(piece)
+			end
+			pair.side:Show()
+			pair.top:Show()
+		end
+	end
+end
+
+-- No mitre on this surface now (a theme or layout without a mirrored top): Blizzard's corners show again.
+local function unmitre(holder)
+	local made = mitres[holder]
+	if not made then
+		return
+	end
+	for name, pair in pairs(made) do
+		pair.side:Hide()
+		pair.top:Hide()
+		if holder[name] then
+			holder[name]:SetAlpha(1)
+		end
+	end
+end
+
 local function mirrorTop(holder, layoutName)
 	local layout = NineSliceLayouts and NineSliceLayouts[layoutName]
 	if type(layout) ~= "table" then
@@ -1079,6 +1160,7 @@ local function mirrorTop(holder, layoutName)
 		edge:SetRotation(0)
 		edge:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
 	end
+	mitreCorners(holder, layout)
 end
 
 local function drawFrameArt(surface, look, accent, open, width, height)
@@ -1107,6 +1189,7 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 		elseif holder.TopEdge then
 			holder.TopEdge:SetRotation(0) -- the same pieces may have worn a mirrored top before
 			holder.TopEdge:SetTexCoord(0, 1, 0, 1)
+			unmitre(holder)
 		end
 		NineSliceUtil.DisableSharpening(holder)
 		NineSliceUtil.ShowLayout(holder)
@@ -1163,6 +1246,13 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 		local piece = holder[BORDER_PIECES[i]]
 		if piece then
 			piece:SetVertexColor(r, g, b)
+		end
+	end
+	local made = mitres[holder]
+	if made then
+		for _, pair in pairs(made) do
+			pair.side:SetVertexColor(r, g, b)
+			pair.top:SetVertexColor(r, g, b)
 		end
 	end
 end
