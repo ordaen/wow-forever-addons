@@ -40,6 +40,12 @@ local function stub(name, extra)
 	function obj:IsForbidden()
 		return false
 	end
+	function obj:GetName()
+		return rawget(self, "globalName")
+	end
+	function obj:GetParent()
+		return rawget(self, "parent")
+	end
 	function obj:GetObjectType()
 		return self.kind
 	end
@@ -115,6 +121,7 @@ end
 
 describe("Ordaen Reskin", function()
 	local ns, frames, dressed, windows, styles, errors
+	local insecure -- keys (global names, parent keys) an addon wrote: issecurevariable says false for them
 
 	local function fire(event, arg)
 		helpers.fireOn(frames, event, arg)
@@ -149,6 +156,9 @@ describe("Ordaen Reskin", function()
 			end,
 			CharacterFrame = windows.CharacterFrame,
 			GameMenuFrame = windows.GameMenuFrame,
+			issecurevariable = function(_, key)
+				return not insecure[key]
+			end,
 		})
 		rawget(_G, "C_AddOns").LoadAddOn = function()
 			error("the real UI framework must not load: the spec fakes its dressing")
@@ -166,7 +176,7 @@ describe("Ordaen Reskin", function()
 	end
 
 	before_each(function()
-		frames, dressed, errors = {}, {}, {}
+		frames, dressed, errors, insecure = {}, {}, {}, {}
 		helpers.inCombat = false
 		styles = { window = true, portraitWindow = true, dialog = true, inset = true, tab = true, sideTab = true,
 			pushButton = true, closeButton = true, checkbox = true, dropdown = true, input = true, scrollTrack = true,
@@ -284,6 +294,26 @@ describe("Ordaen Reskin", function()
 			assert.equals("pushButton", dressed[nested].spec.style, "controls inside an inset too")
 			assert.is_nil(dressed[pane], "a plain frame holding controls isn't dressed itself")
 		end)
+
+	it("leaves other addons' frames and everything under them alone (named, or keyed on their parent)", function()
+		local c = windows.CharacterFrame
+		local pawn = control("PawnButton", "Button", { "Left", "Middle", "Right" }, { globalName = "PawnButton" })
+		rawset(_G, "PawnButton", pawn)
+		insecure.PawnButton = true
+		local panel = stub("AddonPanel")
+		local inside = control("AddonPanel.Button", "Button", { "Left", "Middle", "Right" })
+		panel.children = { inside }
+		rawset(c, "AddonPanel", panel)
+		insecure.AddonPanel = true
+		local blizzard = control("Blizzard", "Button", { "Left", "Middle", "Right" })
+		rawset(c, "ReputationButton", blizzard)
+		c.children = { pawn, panel, blizzard }
+		load()
+		assert.is_nil(dressed[pawn], "a named addon frame keeps its look")
+		assert.is_nil(dressed[inside], "and so does everything under an addon's frame")
+		assert.equals("pushButton", dressed[blizzard].spec.style)
+		rawset(_G, "PawnButton", nil)
+	end)
 
 	it("leaves a control alone while the theme has no role for it", function()
 		styles.checkbox = nil

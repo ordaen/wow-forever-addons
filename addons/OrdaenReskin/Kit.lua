@@ -255,8 +255,49 @@ end
 
 local MAX_DEPTH = 6
 
+-- Frames made by an addon, not by Blizzard (another addon's button on the character window, or our own): the scan
+-- leaves them and everything under them alone. Blizzard's code leaves secure references (its global name, or the key
+-- on its parent) and an addon's code tainted ones; issecurevariable reads that without spreading taint. A frame with
+-- neither (a pooled list row) counts as Blizzard's. Only "foreign" verdicts are kept: a key can appear later.
+local foreign = setmetatable({}, { __mode = "k" })
+
+--- Whether an addon made `frame` (it keeps its own look).
+---@param frame table
+---@param parent table|nil its parent, when the caller has it
+---@return boolean
+function Kit.IsForeign(frame, parent)
+	if foreign[frame] then
+		return true
+	end
+	local name = frame:GetName()
+	if type(name) == "string" and rawget(_G, name) == frame then
+		if issecurevariable(_G, name) then
+			return false
+		end
+		foreign[frame] = true
+		return true
+	end
+	parent = parent or frame:GetParent()
+	if type(parent) ~= "table" then
+		return false
+	end
+	local tainted = false
+	for key, value in pairs(parent) do
+		if type(key) == "string" and not issecretvalue(value) and value == frame then
+			if issecurevariable(parent, key) then
+				return false
+			end
+			tainted = true
+		end
+	end
+	if tainted then
+		foreign[frame] = true
+	end
+	return tainted
+end
+
 --- Dress every standard control under `frame` (to MAX_DEPTH levels), skipping the children in `skip` (a window's
---- content that holds no controls, such as the World Map's canvas).
+--- content that holds no controls, such as the World Map's canvas) and other addons' frames (Kit.IsForeign).
 ---@param frame table
 ---@param skip table<table, boolean>|nil
 ---@param depth integer|nil
@@ -266,7 +307,7 @@ function Kit.ControlsIn(frame, skip, depth)
 		return
 	end
 	for _, child in ipairs({ frame:GetChildren() }) do
-		if not (skip and skip[child]) and not child:IsForbidden() then
+		if not (skip and skip[child]) and not child:IsForbidden() and not Kit.IsForeign(child, frame) then
 			local kind = Kit.Classify(child)
 			if kind then
 				if dressed[child] == nil then
