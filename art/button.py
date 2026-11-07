@@ -21,6 +21,10 @@ from PIL import Image
 ART = Path(__file__).resolve().parent
 REPO = ART.parent
 W, ROW, ROWS = 256, 64, 8
+# Transparent rows above and below the plate, like Blizzard's red button art has: buttons stacked with no
+# spacing (the game menu's groups) keep a small gap (~1.6 screen px each side on a 34 px button).
+PAD_Y = 3
+PLATE = ROW - 2 * PAD_Y
 SS = 4  # supersampling
 
 
@@ -71,9 +75,10 @@ def lerp(a, b, t):
 def plate(name, state):
     p = PLATES[name]
     x, y = grid(ROW)
-    depth, facing = rounded_depth(x, y, W, ROW, RADIUS)
+    y = y - PAD_Y
+    depth, facing = rounded_depth(x, y, W, PLATE, RADIUS)
     lit = (facing + 1) / 2  # 1 lit, 0 dark, 0.5 the corners that turn
-    t = y / ROW
+    t = np.clip(y / PLATE, 0, 1)
     if "mid" in p:
         fill = np.where((t < 0.55)[..., None], lerp(p["top"], p["mid"], t / 0.55), lerp(p["mid"], p["bottom"], (t - 0.55) / 0.45))
     else:
@@ -109,11 +114,12 @@ def plate(name, state):
 def highlight(name):
     """Drawn over the plate on hover: a warm glow inside, brighter at the rim. Its alpha does the work."""
     x, y = grid(ROW)
-    depth, _ = rounded_depth(x, y, W, ROW, RADIUS)
+    y = y - PAD_Y
+    depth, _ = rounded_depth(x, y, W, PLATE, RADIUS)
     inside = OUTLINE + RIM + LIP
     col = np.broadcast_to(rgb("ffd27a"), depth.shape + (3,)).copy()
     rim_glow = np.clip(1 - np.abs(depth - (OUTLINE + RIM * 0.5)) / RIM, 0, 1) * 0.5
-    body = np.where(depth >= inside, 0.10 + 0.08 * (1 - y / ROW), 0)
+    body = np.where(depth >= inside, 0.10 + 0.08 * (1 - y / PLATE), 0)
     a = np.clip(np.maximum(rim_glow, body), 0, 1) * (depth > 0)
     if name == "red":
         a = a * 1.2
