@@ -98,7 +98,7 @@ end
 --- of what Forever's tooltip lines carry (types, arguments: the base for tooltips inside tooltips, 2026-11-07).
 Reader.lastData = {}
 Reader.lastItems = {} -- the last PROBE_ITEMS item ids, newest first
-local PROBE_ITEMS = 6
+local PROBE_ITEMS = 20
 
 --- Whether a probe key ("item<id>") is one of the last items.
 ---@param key string
