@@ -244,6 +244,37 @@ function Window:Remove()
 	end
 end
 
+--- The dress of the control a floating label marks: the control it's anchored to when that's a dressed control,
+--- else (Blizzard anchors the game menu's labels to the menu itself, with an offset) the dressed button among the
+--- window's children whose vertical centre is nearest the label's. Never the window's own dress.
+---@param label table
+---@return OrdaenUIDress|nil
+function Window:ControlUnder(label)
+	local _, to = label:GetPoint(1)
+	if type(to) == "table" and to ~= self.frame then
+		local dress = ns.Kit.DressOf(to)
+		if dress then
+			return dress
+		end
+	end
+	local _, labelY = label:GetCenter()
+	if not labelY then
+		return nil
+	end
+	local best, bestDistance
+	for _, child in ipairs({ self.frame:GetChildren() }) do
+		local dress = child:IsShown() and ns.Kit.DressOf(child)
+		if dress then
+			local _, y = child:GetCenter()
+			local distance = y and math.abs(y - labelY)
+			if distance and (not bestDistance or distance < bestDistance) then
+				best, bestDistance = dress, distance
+			end
+		end
+	end
+	return best
+end
+
 --- Follow Blizzard's «new» labels (pack.newLabels): each one shown and anchored to a control we dressed is hidden
 --- (alpha 0) and that control's dress shows the new marker; controls marked last time and not now lose it (the game
 --- menu reuses its pooled buttons). Runs after each skin and show, when Blizzard has placed its labels.
@@ -269,8 +300,7 @@ function Window:MarkNew()
 				tostring(type(to) == "table" and ns.Kit.DressOf(to) ~= nil))
 		end
 		if type(label) == "table" and label:IsShown() then
-			local _, control = label:GetPoint(1)
-			local dress = type(control) == "table" and ns.Kit.DressOf(control)
+			local dress = self:ControlUnder(label)
 			if dress then
 				label:SetAlpha(0)
 				dress:SetNew(true)
