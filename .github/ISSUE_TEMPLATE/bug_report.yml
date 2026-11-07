@@ -13,6 +13,7 @@ body:
         - OrdaenChat
         - OrdaenPanel
         - OrdaenMeter
+        - OrdaenBags
         - OrdaenCore
         - Not sure
     validations:

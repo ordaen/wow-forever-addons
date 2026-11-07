@@ -74,6 +74,15 @@
       "extra-files": [
         "addon.jsonc"
       ]
+    },
+    "addons/OrdaenBags": {
+      "release-type": "simple",
+      "component": "OrdaenBags",
+      "package-name": "OrdaenBags",
+      "initial-version": "0.1.0",
+      "extra-files": [
+        "addon.jsonc"
+      ]
     }
   }
 }

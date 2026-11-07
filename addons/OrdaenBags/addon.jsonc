@@ -1,0 +1,14 @@
+// What the code can't say about Ordaen Bags; `ordaen build` derives the rest (file list, dependencies) from the
+// code.
+{
+  "title": "Ordaen Bags",
+  "notes": {
+    "enUS": "All your bags in one window, sorted into category tabs, with search.",
+    "ruRU": "Все сумки в одном окне, предметы по вкладкам категорий, с поиском."
+  },
+  "category": "Inventory",
+  "icon": "Interface\\Icons\\INV_Misc_Bag_10",
+  "version": "0.0.0", // x-release-please-version
+  "minCore": "0.1.0",
+  "package": { "slug": "ordaen-bags" }
+}

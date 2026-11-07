@@ -35,6 +35,18 @@
       "zhCN": "函数库",
       "zhTW": "函式庫"
     },
+    "Inventory": {
+      "deDE": "Inventar",
+      "esES": "Inventario",
+      "esMX": "Inventario",
+      "frFR": "Inventaire",
+      "itIT": "Inventario",
+      "koKR": "소지품",
+      "ptBR": "Inventário",
+      "ruRU": "Инвентарь",
+      "zhCN": "物品栏",
+      "zhTW": "物品欄"
+    },
     "User Interface": {
       "deDE": "Benutzerinterface",
       "esES": "Interfaz de usuario",
