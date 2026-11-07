@@ -12,13 +12,15 @@ addons/OrdaenCore/media/:
   so a cell of any height stretches it.
 - portrait-ring.tga (256x256): the round metal ring around the character's portrait (drawn at 152 UI units at 1440p):
   outer radius 126, inner 104 (the portrait fills the inner circle), and portrait-shadow.tga (256x256), its soft
-  shadow, drawn offset down-right under it.
+  shadow, drawn offset down-right under it; circle-mask.tga (256x256), a white disc, the portrait's round mask.
 - level-badge.tga (64x64): the small round plate for the level, a bronze rim around a dark disc (drawn at 36).
-- xp-tube.tga (256x64): the glass tube's bronze setting and dark trough, sliced like a button: caps x 0-64 and
-  192-256 (aspect 1: a cap is as wide as the tube is high), centre 64-192. The trough (where the fill goes) is
-  inset 10 px from the top and bottom of the file (16% of its height) and from the outer ends of the caps.
+- xp-tube.tga (256x64): the glass tube's bronze setting, its middle clear (drawn over the fill, so the fill's
+  square ends hide under the rounded caps), sliced like a button: caps x 0-64 and 192-256 (aspect 1: a cap is as
+  wide as the tube is high), centre 64-192. xp-tube-trough.tga: the dark trough, same slicing, drawn under the fill.
+  The trough (where the fill goes) is inset 10 px from the top and bottom of the file (16% of its height) and from
+  the outer ends of the caps.
 - xp-tube-shine.tga (256x64): the glass's highlight, same slicing, drawn over the fill.
-- xp-fill-<name>.tga (256x32 each, tiling horizontally): the six fills the player chooses from; deep blue, darker to
+- xp-fill-<name>.tga (1024x32 each, about 1:1 across the bar; their ends match, so they also tile): the six fills the player chooses from; deep blue, darker to
   sit with the brown wood. deep (plain), grain, brushed (the default), potion (small bubbles), clouds, steel (muted,
   grain; with it the shine is warmed amber).
 """
@@ -116,6 +118,9 @@ def portrait():
     dist = np.hypot((xs + 0.5) / SS - 128, (ys + 0.5) / SS - 128)
     a = np.clip((122 - dist) / 14, 0, 1) ** 1.5 * 0.65  # soft-edged disc; the renderer offsets it down-right
     save(down(np.dstack([np.zeros((n, n, 3)), a]), 256, 256), "portrait-shadow.tga")
+    # the round mask for the live portrait: a white disc filling the file (anti-aliased edge)
+    m = np.clip(128 - dist + 0.5, 0, 1)
+    save(down(np.dstack([np.ones((n, n, 3)), m]), 256, 256), "circle-mask.tga")
     # level badge: a dark disc in a thin bronze rim
     badge, dist = ring(64, 31, 0, (1.5, 2.6, 1.0, 1.6), c=0.9)
     disc = np.clip(31 - 6.7 - dist + 0.5, 0, 1)
@@ -165,8 +170,12 @@ def tube():
                     [OUTL + 0 * outer, outer, ridge, inner], trough)
     col = soften(col, 0.9)
     alpha = np.clip(d + 0.5, 0, 1)
-    arr = down(np.dstack([col * alpha[..., None], alpha]), TW, TH)
-    save(arr, "xp-tube.tga")
+    # the ring is drawn over the fill (it hides the fill's square ends in the rounded caps), so its middle is clear;
+    # the trough is its own file, drawn under the fill
+    ring_a = alpha * np.clip(edge - d + 0.5, 0, 1)
+    save(down(np.dstack([col * ring_a[..., None], ring_a]), TW, TH), "xp-tube.tga")
+    trough_a = np.clip(d - edge + 1.5, 0, 1)
+    save(down(np.dstack([trough * trough_a[..., None], trough_a]), TW, TH), "xp-tube-trough.tga")
     # the shine: a soft white band across the upper part of the trough, rounded with it
     inner_d = d - edge
     band = np.clip(1 - np.abs(y - (INSET + 7)) / 4.5, 0, 1) * np.clip(inner_d / 3, 0, 1) * np.clip((x - 12) / 6, 0, 1) \
@@ -187,7 +196,7 @@ def periodic_noise(h, w, scale_x, scale_y, seed):
 
 
 def fills():
-    w, h = 256, 32
+    w, h = 1024, 32
     y = (np.arange(h) + 0.5) / h
     deep = np.stack([np.interp(y, [0, .45, .8, 1], [c0, c1, c2, c3]) for c0, c1, c2, c3 in
                      zip(rgb("3a6db4"), rgb("1d4a8e"), rgb("0f2c5c"), rgb("0a1f44"))], -1)[:, None, :]
@@ -208,7 +217,7 @@ def fills():
     pot = base * (1 + 0.06 * grain)
     rng = np.random.default_rng(4)
     yy, xx = np.mgrid[0:h, 0:w].astype(float)
-    for _ in range(26):
+    for _ in range(100):
         bx, by, br = rng.uniform(0, w), rng.uniform(5, h - 5), rng.uniform(0.8, 1.8)
         dx = np.minimum(np.abs(xx - bx), w - np.abs(xx - bx))
         v = np.clip(br + 0.5 - np.hypot(dx, yy - by), 0, 1)[..., None] * rng.uniform(0.35, 0.6)

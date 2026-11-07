@@ -144,6 +144,7 @@ OrdaenCore.UI._Provide({
 		return ns.Theme.BlockStyle(role) ~= nil
 	end,
 	Input = Component.Input,
+	Portrait = Component.Portrait,
 	Dress = ns.Dress.New,
 	DressFont = ns.Dress.Font,
 	DressBar = ns.Dress.Bar,

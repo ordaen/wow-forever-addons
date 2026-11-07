@@ -748,6 +748,71 @@ local function onInputFocus(box)
 	end
 end
 
+-- Portraits ---------------------------------------------------------------------------------------------------------
+
+---@class OrdaenUIPortrait
+---@field frame Frame
+---@field unit string
+local Portrait = {}
+local PortraitMeta = { __index = Portrait }
+
+--- Draw the unit's face again (its look changed: UNIT_PORTRAIT_UPDATE) and its level.
+function Portrait:Refresh()
+	SetPortraitTexture(self.face, self.unit)
+	local level = UnitLevel(self.unit)
+	self.level:SetText(level and level > 0 and level or "??")
+end
+
+--- Its size in UI units (the ring's outer diameter).
+---@param size number
+function Portrait:SetSize(size)
+	local art = ns.Theme.portrait
+	local f = self.frame
+	f:SetSize(size, size)
+	local face = size * art.face
+	self.face:SetSize(face, face)
+	local off = size * art.shadowOffset
+	self.shadow:ClearAllPoints()
+	self.shadow:SetPoint("TOPLEFT", f, "TOPLEFT", off, -off)
+	self.shadow:SetSize(size, size)
+	local badge = size * art.badgeSize
+	local r = size / 2 * art.badgeAt * 0.7071
+	self.badge:SetSize(badge, badge)
+	self.badge:ClearAllPoints()
+	self.badge:SetPoint("CENTER", f, "CENTER", r, r)
+end
+
+--- A unit's round portrait: its live face (SetPortraitTexture) in a round mask, a metal ring, a soft shadow, and its
+--- level on a small badge at the ring's top-right; lit from the top-left like the rest of the theme. A plain frame:
+--- the caller places it (anchors, strata) and puts whatever takes clicks over it.
+---@param spec table { unit = "player", size, parent, name }
+---@return OrdaenUIPortrait
+function Component.Portrait(spec)
+	local art = ns.Theme.portrait
+	local f = CreateFrame("Frame", spec.name, spec.parent or UIParent)
+	local self = setmetatable({ frame = f, unit = spec.unit or "player" }, PortraitMeta)
+	self.shadow = f:CreateTexture(nil, "BACKGROUND", nil, -8)
+	self.shadow:SetTexture(art.shadow)
+	self.face = f:CreateTexture(nil, "BACKGROUND", nil, 0)
+	self.face:SetPoint("CENTER")
+	local mask = f:CreateMaskTexture()
+	mask:SetTexture(art.mask, "CLAMPTOBLACKADDITIVE", "CLAMPTOBLACKADDITIVE")
+	mask:SetAllPoints(self.face)
+	self.face:AddMaskTexture(mask)
+	self.ring = f:CreateTexture(nil, "ARTWORK")
+	self.ring:SetTexture(art.ring)
+	self.ring:SetAllPoints(f)
+	self.badge = f:CreateTexture(nil, "OVERLAY", nil, 0)
+	self.badge:SetTexture(art.badge)
+	self.level = f:CreateFontString(nil, "OVERLAY")
+	ns.Dress.Font(self.level, "value")
+	self.level:SetTextColor(art.level[1], art.level[2], art.level[3])
+	self.level:SetPoint("CENTER", self.badge, "CENTER", 0, 0)
+	self:SetSize(spec.size or 152)
+	self:Refresh()
+	return self
+end
+
 --- A text box. Its size: `width` and the theme's body text height plus room around it.
 ---@param spec OrdaenUIInputSpec
 ---@return OrdaenUIInput

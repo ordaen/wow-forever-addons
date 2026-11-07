@@ -467,6 +467,18 @@ function UI.Input(spec)
 	return f and f.Input(spec)
 end
 
+--- A unit's round portrait (the bottom panel's character button): its live face in a metal ring with a soft shadow,
+--- its level on a badge at the top-right. A plain frame for the caller to place, with `:Refresh()` (the face changed:
+--- UNIT_PORTRAIT_UPDATE, or the level) and `:SetSize(size)`. Loads the framework.
+---
+---   local portrait = UI.Portrait({ unit = "player", size = 152 })
+---@param spec table { unit, size, parent, name }
+---@return OrdaenUIPortrait|nil nil when the framework can't load (the player was told)
+function UI.Portrait(spec)
+	local f = framework()
+	return f and f.Portrait(spec)
+end
+
 --- Dress one of Blizzard's buttons in our look (style "iconButton" unless given): its art goes to alpha 0 and our
 --- block sits under it; Blizzard's frame stays on top and keeps its clicks, menus and scripts. Returns an object
 --- with `:SetIcon(icon, atlas)`, `:Refresh()` (hides art Blizzard added later), `:Undress()` and `:Apply()`.

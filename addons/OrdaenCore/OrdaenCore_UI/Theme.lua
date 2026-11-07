@@ -38,6 +38,28 @@ local Theme = {
 	text = {}, ---@type table<string, OrdaenUIResolvedText> text style -> resolved look
 	separators = {}, ---@type table<string, OrdaenUISeparatorLook> rule, divider, caption
 	bar = {}, -- { height, track, trackBottom, edge, fill, frames, frame, recessed, shade, tick, scrim, scrimWidth, ahead }
+	-- The glass tube a bar element asks for with `frame = "tube"` (the bottom panel's experience bar; art/panel.py):
+	-- its art (three-slices), its height in UI units (centred in the element's), the trough's inset as a share of
+	-- the height, the fill's tint (its texture is the xpFill asset's own blue) and the rested/quest part past it.
+	tube = {
+		ring = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube",
+		trough = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-trough",
+		shine = "Interface\\AddOns\\OrdaenCore\\media\\xp-tube-shine",
+		height = 40, inset = 10 / 64,
+		white = { 1, 1, 1 }, rested = { 0.43, 0.59, 0.82, 0.16 },
+	},
+	-- A unit's round portrait (UI.Portrait: the bottom panel's character button; art/panel.py): the ring and its
+	-- shadow, the round mask for the live face, the level's badge; sizes as shares of the portrait's size.
+	portrait = {
+		ring = "Interface\\AddOns\\OrdaenCore\\media\\portrait-ring",
+		shadow = "Interface\\AddOns\\OrdaenCore\\media\\portrait-shadow",
+		mask = "Interface\\AddOns\\OrdaenCore\\media\\circle-mask",
+		badge = "Interface\\AddOns\\OrdaenCore\\media\\level-badge",
+		face = 104 / 128, -- the face's diameter (the ring's inner circle)
+		shadowOffset = 5 / 152, -- down and right
+		badgeSize = 36 / 152, badgeAt = 0.94, -- the badge's size, and how far out along the 45 degree line its centre sits
+		level = { 1, 0.82, 0 }, -- the level's colour (Blizzard's gold)
+	},
 	accent = nil, ---@type number[]|nil the theme's accent, for blocks without their own
 }
 ns.Theme = Theme
@@ -217,6 +239,10 @@ THEMES.ordaen = {
 		-- normal (a scroll stepper's back or forward arrow). `parts` put a part at a side (a dropdown's arrow). `accent`:
 		-- the block's accent tints it (an item's quality on its slot). The asset's highlight shows on hover.
 		pushButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "pushButton" } },
+		-- The panel's cells (Ordaen Panel): our button's side rims only, the panel's wood showing through, edge to edge
+		-- (two neighbours' rims make the divider); run 6 up under the panel's metal top edge so no dark lip shows
+		-- between them. Hover: the block's `highlight` (its glow), pressed: `controlState = "pushed"`.
+		panelCell = { padding = 0, controlArt = { kind = "panelCell", extend = { top = 6 } } },
 		-- An important button (the game menu's exits): the accent plate, the same kind of art under its own token.
 		pushButtonAccent = { padding = { "sm", "lg", "sm", "lg" },
 			controlArt = { kind = "pushButton", token = "control.pushButtonAccent" } },
@@ -339,7 +365,7 @@ local function resolveControl(spec, themeName)
 	if not asset then
 		return nil
 	end
-	return { asset = asset, base = spec.base or "normal", parts = spec.parts, accent = spec.accent }
+	return { asset = asset, base = spec.base or "normal", parts = spec.parts, accent = spec.accent, extend = spec.extend }
 end
 
 local function resolveBlock(look, textSize, themeName)

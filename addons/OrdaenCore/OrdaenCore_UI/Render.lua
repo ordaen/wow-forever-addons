@@ -541,11 +541,79 @@ end
 
 local CONSTRUCTIONS = { bezel = bezel, groove = groove }
 
+-- The glass tube (a bar element's `frame = "tube"`: the bottom panel's experience bar, the user's design 2026-11-07):
+-- Theme.tube's art in four layers: the dark trough under the bar (BACKGROUND of its lowest status bar), the fill (the
+-- status bars), the engraved sections over it, then the bronze ring and the glass's shine on a frame above the bars
+-- (the ring hides the fill's square ends in its rounded caps). Each piece is a three-slice: caps as wide as the tube
+-- is high, the middle stretched. Textures made once per pooled bar.
+local SLICES = { { 0, 0.25 }, { 0.25, 0.75 }, { 0.75, 1 } }
+
+local function threeSlice(list, parent, layer, sublevel, file, x, y, w, h, r, g, b, a)
+	local cap = min(h, w / 2)
+	local xs, ws = { x, x + cap, x + w - cap }, { cap, w - 2 * cap, cap }
+	for i = 1, 3 do
+		local t = list[i]
+		if not t then
+			t = parent:CreateTexture(nil, layer, nil, sublevel)
+			list[i] = t
+		end
+		t:SetTexture(file)
+		t:SetTexCoord(SLICES[i][1], SLICES[i][2], 0, 1)
+		t:SetVertexColor(r or 1, g or 1, b or 1, a or 1)
+		t:ClearAllPoints()
+		t:SetPoint("TOPLEFT", parent:GetParent(), "TOPLEFT", xs[i], -y)
+		t:SetSize(max(ws[i], 0.01), max(h, 0.01))
+		t:Show()
+	end
+end
+
+local function hideList(list)
+	for i = 1, #list do
+		list[i]:Hide()
+	end
+end
+
+-- The tube's art around the bar `b` on x, y, w, h (the tube's own height, centred in the element's); returns the
+-- rectangle inside the trough, where the fill goes. `fill` is the xpFill asset (its `shine` tints the glass).
+local function drawTube(surface, b, tube, fill, x, y, w, h)
+	if not b.top then
+		b.top = CreateFrame("Frame", nil, surface)
+		b.top:SetFrameLevel(surface:GetFrameLevel() + 4)
+		b.top:SetAllPoints(surface)
+		b.trough, b.ring, b.shine = {}, {}, {}
+	end
+	b.top:Show()
+	threeSlice(b.trough, b.overlay, "BACKGROUND", -8, tube.trough, x, y, w, h)
+	threeSlice(b.ring, b.top, "ARTWORK", 0, tube.ring, x, y, w, h)
+	local sh = fill and fill.shine
+	threeSlice(b.shine, b.top, "ARTWORK", -1, tube.shine, x, y, w, h, sh and sh[1], sh and sh[2], sh and sh[3])
+	local inset = h * tube.inset
+	return x + inset, y + inset, w - 2 * inset, h - 2 * inset
+end
+
+local function hideTube(b)
+	if b.top then
+		b.top:Hide()
+		hideList(b.trough)
+	end
+end
+
 local function drawBar(surface, p, el, x, y, w, h, accent)
 	local look = Theme.bar
 	local edge = look.edge
-	local build = look.frame and CONSTRUCTIONS[look.frame]
-	if build then
+	local tube = el.frame == "tube" and Theme.tube or nil
+	local fillAsset
+	local build = not tube and look.frame and CONSTRUCTIONS[look.frame]
+	if tube then
+		-- the glass tube: its art is drawn once the pooled bar is known (below); here only its size
+		local th = min(h, tube.height)
+		y, h = y + (h - th) / 2, th
+		fillAsset = Theme.AssetOf("xpFill", "bar.xpFill")
+		if el.fill then
+			local store = OrdaenCore._SettingsStore
+			fillAsset = store and store.Asset("xpFill", el.fill) or fillAsset
+		end
+	elseif build then
 		-- Built into the panel: a frame (the bezel or the groove), then a recessed track with a soft shadow under
 		-- its top edge; the parts sit in it.
 		x, y, w, h = build(surface, p, look.frames[look.frame], x, y, w, h, accent)
@@ -572,6 +640,11 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 		b = newBar(surface)
 		p.bars[p.usedBars] = b
 	end
+	if tube then
+		x, y, w, h = drawTube(surface, b, tube, fillAsset, x, y, w, h)
+	else
+		hideTube(b)
+	end
 	local lo = tonumber(el.min) or 0
 	local hi = tonumber(el.max) or 1
 	if hi <= lo then
@@ -582,9 +655,17 @@ local function drawBar(surface, p, el, x, y, w, h, accent)
 	local overlay = max(quest, min(hi, tonumber(el.overlay) or quest))
 	local texture = Theme.BarTexture()
 	local fill = Theme.Color(el.color, look.fill)
-	paint(b.value, texture, fill, 1, accent, lo, hi)
-	paint(b.quest, texture, Theme.Color(el.questColor, fill), QUEST_ALPHA, accent, lo, hi)
-	paint(b.overlay, texture, Theme.Color(el.overlayColor, fill), look.ahead or OVERLAY_ALPHA, accent, lo, hi)
+	if tube and fillAsset then
+		-- the tube's fill is its texture's own blue; quest and rested XP past it in the tube's pale blue
+		local tint = el.tint or tube.white -- a reputation's standing colour over the blue texture
+		paint(b.value, fillAsset.file, tint, 1, nil, lo, hi)
+		paint(b.quest, fillAsset.file, tint, QUEST_ALPHA, nil, lo, hi)
+		paint(b.overlay, texture, tube.rested, tube.rested[4], nil, lo, hi)
+	else
+		paint(b.value, texture, fill, 1, accent, lo, hi)
+		paint(b.quest, texture, Theme.Color(el.questColor, fill), QUEST_ALPHA, accent, lo, hi)
+		paint(b.overlay, texture, Theme.Color(el.overlayColor, fill), look.ahead or OVERLAY_ALPHA, accent, lo, hi)
+	end
 	place(b.value, surface, x, y, w, h)
 	place(b.quest, surface, x, y, w, h)
 	place(b.overlay, surface, x, y, w, h)
@@ -711,6 +792,7 @@ local function hideBars(p)
 		b.value:Hide()
 		b.quest:Hide()
 		b.overlay:Hide()
+		hideTube(b)
 		b.element = nil
 	end
 end
@@ -766,6 +848,7 @@ local function rememberSibling(p, depth, n, edges, x, y, w, h)
 end
 
 local drawBlock
+local drawNestedControl -- below drawControlArt: a nested block's control art (the panel's cells)
 
 -- A child's highlight on request (`highlight = true` on the block: a cell lit while the Blizzard button over it is
 -- hovered), in its style's highlight colour, over its fill and under its content.
@@ -831,9 +914,13 @@ function drawBlock(surface, p, result, ox, oy, accent, depth, parentEdges)
 					styled = styled + 1
 					rememberSibling(p, depth, styled, edges, sx, sy, sw, sh)
 				end
-				drawSurface(surface, p, look, own, sx, sy, sw, sh, depth + 1, skip, edges)
-				if node.highlight then
-					drawCellHighlight(surface, p, look, sx, sy, sw, sh, own)
+				if look.controlArt then
+					drawNestedControl(surface, look, node.accent, sx, sy, sw, sh, node.controlState, node.highlight)
+				else
+					drawSurface(surface, p, look, own, sx, sy, sw, sh, depth + 1, skip, edges)
+					if node.highlight then
+						drawCellHighlight(surface, p, look, sx, sy, sw, sh, own)
+					end
 				end
 			end
 			drawBlock(surface, p, Layout.ResultOf(node), x, y, own, depth + 1, edges)
@@ -1444,36 +1531,60 @@ local function drawPiece(surface, pool, piece, layer, sublevel, x, y, w, h, tint
 	placePiece(surface, tex, x - o, y - o, w + 2 * o, h + 2 * o)
 end
 
--- One drawn layer of the control (1: its state's piece, 2: a check over it), at the surface's size.
-local controlW, controlH = 0, 0
+-- One drawn layer of the control (1: its state's piece, 2: a check over it), on the control's rectangle (the
+-- surface's for a top-level control, the block's own for a nested one, grown by the art's `extend`).
+local controlX, controlY, controlW, controlH = 0, 0, 0, 0
 function drawControlPiece(surface, pool, piece, order, tint, grey, accent)
 	if piece ~= nil then
 		local sublevel = order == 1 and -8 or -5
-		drawPiece(surface, pool, piece, "BACKGROUND", sublevel, 0, 0, controlW, controlH, tint, grey, accent)
+		drawPiece(surface, pool, piece, "BACKGROUND", sublevel, controlX, controlY, controlW, controlH, tint, grey, accent)
+	end
+end
+
+local NO_EXTEND = {}
+local function setControlRect(art, x, y, w, h)
+	local e = art.extend or NO_EXTEND
+	local top, bottom, left, right = e.top or 0, e.bottom or 0, e.left or 0, e.right or 0
+	controlX, controlY, controlW, controlH = x - left, y - top, w + left + right, h + top + bottom
+end
+
+-- The surface's control textures for one draw: begin (count from 0), the top-level and nested controls take
+-- textures in turn, end (hide the ones not used this time).
+local function controlPool(surface)
+	local pool = controlPools[surface]
+	if not pool then
+		pool = { used = 0 }
+		controlPools[surface] = pool
+	end
+	return pool
+end
+
+local function controlBegin(surface)
+	local pool = controlPools[surface]
+	if pool then
+		pool.used = 0
+	end
+end
+
+local function controlEnd(surface)
+	local pool = controlPools[surface]
+	if pool then
+		for i = pool.used + 1, #pool do
+			pool[i]:Hide()
+		end
 	end
 end
 
 local function drawControlArt(surface, look, accent, w, h, state)
-	controlW, controlH = w, h
 	local art = look and look.controlArt or nil
-	local pool = controlPools[surface]
 	if not art then
-		if pool then
-			for i = 1, #pool do
-				pool[i]:Hide()
-			end
-			pool.used = 0
-		end
 		return
 	end
 	if issecretvalue(w) or issecretvalue(h) then
 		return -- sized from combat numbers: left as it was
 	end
-	if not pool then
-		pool = { used = 0 }
-		controlPools[surface] = pool
-	end
-	pool.used = 0
+	setControlRect(art, 0, 0, w, h)
+	local pool = controlPool(surface)
 	local asset = art.asset
 	local tintBy = art.accent and accent or nil
 	local base = asset[art.base]
@@ -1499,10 +1610,27 @@ local function drawControlArt(surface, look, accent, w, h, state)
 	end
 	local highlight = asset.highlight
 	if highlight ~= nil then
-		drawPiece(surface, pool, highlight, "HIGHLIGHT", 0, 0, 0, w, h, 1, false, nil)
+		drawPiece(surface, pool, highlight, "HIGHLIGHT", 0, controlX, controlY, controlW, controlH, 1, false, nil)
 	end
-	for i = pool.used + 1, #pool do
-		pool[i]:Hide()
+end
+
+-- A nested block's control art (the panel's cells): its state's piece on its rectangle, and its highlight piece
+-- while `lit` (the block's `highlight`, set by its owner on hover: the HIGHLIGHT layer would light every cell of the
+-- surface at once). Under the block's content, above the parent's fill.
+function drawNestedControl(surface, look, accent, x, y, w, h, state, lit)
+	local art = look.controlArt
+	if issecretvalue(w) or issecretvalue(h) then
+		return
+	end
+	setControlRect(art, x, y, w, h)
+	local pool = controlPool(surface)
+	local asset = art.asset
+	local tintBy = art.accent and accent or nil
+	local piece = (state and state ~= "highlight" and asset[state]) or asset[art.base]
+	drawControlPiece(surface, pool, piece, 1, piece == asset[art.base] and (FALLBACK_TINT[state] or 1) or 1,
+		state == "disabled" and asset.disabled == nil, tintBy)
+	if lit and asset.highlight ~= nil then
+		drawPiece(surface, pool, asset.highlight, "ARTWORK", -2, controlX, controlY, controlW, controlH, 1, false, nil)
 	end
 end
 
@@ -1720,12 +1848,14 @@ function Render.Draw(surface, root, width)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
 	drawFrameArt(surface, look, root.accent, root.open, result.width, result.height)
+	controlBegin(surface)
 	drawControlArt(surface, look, root.accent, result.width, result.height, root.controlState)
 	drawNewMarker(surface, root.newMarker, result.height)
 	if look and not look.controlArt then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end
 	drawBlock(surface, p, result, 0, 0, accent, 1, edgesOf(look, root))
+	controlEnd(surface)
 	hideRest(p.fonts, p.usedFonts)
 	hideRest(p.images, p.usedImages)
 	hideRest(p.solids, p.usedSolids)
