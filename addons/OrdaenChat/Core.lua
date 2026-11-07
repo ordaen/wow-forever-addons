@@ -119,14 +119,17 @@ local inputGroup = A:Feature("inputGroup", { setting = "inputGroup", when = ownL
 inputGroup:OnEnable(function()
 	ns.Input.SetOverlay(A.db.inputOverlay)
 	ns.Input.Enable()
+	ns.Position.Refresh() -- the chat's bottom: the input over or under it
 end)
 inputGroup:OnChange(function(key, value)
 	if key == "inputOverlay" then
 		ns.Input.SetOverlay(value)
+		ns.Position.Refresh()
 	end
 end)
 inputGroup:OnDisable(function()
 	ns.Input.Disable()
+	ns.Position.Refresh()
 end)
 
 -- Step aside for the other addon, and leave the Core to record and ask (nothing recorded here: unhandled until

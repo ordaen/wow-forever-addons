@@ -845,14 +845,25 @@ describe("Ordaen Chat", function()
 				return 50 -- 50 below it (the input: 40)
 			end
 			EventRegistry:TriggerEvent("OrdaenUI.ThemeChanged") -- the text size changed, and with it the padding
-			assert.same({ "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 13, 54 }, windows[1].points[#windows[1].points])
+			assert.same({ "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 13, 50 }, windows[1].points[#windows[1].points])
 		end)
 
 		it("puts the chat bottom left, its background and input clear of the screen edge", function()
 			login()
-			-- reach: background 5 left of the frame, input 40 below it; flush left, 4 above the panel
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 44 } }, windows[1].points)
+			-- reach: background 5 left of the frame, input 40 below it; flush left and on the panel
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 40 } }, windows[1].points)
 			assert.same({ -5, 35, 26, -50 }, windows[1].clamp, "no room left for Blizzard's empty button column")
+		end)
+
+		it("opens the window art's sides it's docked to: left, and the bottom while the input sits over it", function()
+			login()
+			local look = ns.Look.Cover(windows[1])
+			assert.is_false(look.LeftEdge.shown, "flush with the screen's left edge")
+			assert.is_true(look.TopEdge.shown)
+			assert.equals(ns.Input.IsOverlaid(), not look.BottomEdge.shown, "on the panel unless the input is under it")
+			ns.Addon.db.chatAbovePanel = false
+			ns.Addon:_SettingChanged("chatAbovePanel", false)
+			assert.is_true(look.LeftEdge.shown, "Edit Mode's place: closed again")
 		end)
 
 		it("moves above a panel at the bottom as soon as one is placed", function()
@@ -860,19 +871,19 @@ describe("Ordaen Chat", function()
 			OrdaenCore.UI.Panel({ { text = "Gold" } })
 			local inset = OrdaenCore.UI.ScreenInset("bottom")
 			assert.is_true(inset > 0)
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, inset + 44 } }, windows[1].points)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, inset + 40 } }, windows[1].points)
 		end)
 
 		it("goes back above the panels after Blizzard's chat code places it", function()
 			login()
 			windows[1]:SetPoint("BOTTOMLEFT", "UIParent", "BOTTOMLEFT", 30, 40) -- the saved chat positions
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 44 } }, windows[1].points)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 40 } }, windows[1].points)
 		end)
 
 		it("goes back above the panels after Edit Mode places it", function()
 			login()
 			windows[1]:ApplySystemAnchor()
-			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 44 } }, windows[1].points)
+			assert.same({ { "BOTTOMLEFT", _G.UIParent, "BOTTOMLEFT", 5, 40 } }, windows[1].points)
 		end)
 
 		it("gives the place back to Edit Mode when turned off", function()

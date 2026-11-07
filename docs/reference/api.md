@@ -257,6 +257,13 @@ one), with the methods of `UI.Block`. It needs a global `name`: Escape closes it
 position is remembered under that name by the framework (`OrdaenCoreDB.ui.windows`), so the addon saves nothing.
 It's hidden until shown. `opts` = `{ point, x, y }`: where it opens the first time (default the screen's centre).
 
+### c:SetOpen(sides)
+
+Any component, and a dress (`dress:SetOpen`), or `open = { bottom = true }` in its spec: its window art has no border
+on those sides, as if the metal ran on past the screen edge or into the surface beside it. The side's edge and its
+two corners hide, the edges beside it reach to that side's line, and the fill reaches the side. The addon that docks
+the surface sets it (Ordaen Chat opens its left side and, on the panel, its bottom); `nil` closes them all.
+
 ### w:Place() and w:ResetPosition()
 
 `:Place()` puts it where it was left; `:ResetPosition()` forgets that, back to its first place.

@@ -141,6 +141,9 @@ local function fakeTexture(layer)
 	function t:Hide()
 		self.shown = false
 	end
+	function t:SetShown(shown)
+		self.shown = shown and true or false
+	end
 	function t:SetAlpha(a)
 		self.alpha = a
 	end
@@ -923,6 +926,21 @@ describe("OrdaenCore.UI", function()
 			win.block.accent = { 0.6, 0.2, 0.9 }
 			win:Refresh()
 			assert.same({ 0.6, 0.2, 0.9 }, f.TopLeftCorner.vertexColor)
+		end)
+
+		it("leave open sides without border: that edge and its corners hide, the edges beside it run on", function()
+			local strip = UI.Block({ name = "Strip", style = "panel", open = { bottom = true }, { text = "Gold" } })
+			local f = strip.frame
+			assert.is_false(f.BottomEdge.shown)
+			assert.is_false(f.BottomLeftCorner.shown)
+			assert.is_false(f.BottomRightCorner.shown)
+			assert.is_true(f.TopEdge.shown)
+			assert.is_true(f.TopLeftCorner.shown)
+			assert.same({ "BOTTOMLEFT", f.BottomLeftCorner, "BOTTOMLEFT" }, f.LeftEdge.point)
+			assert.same({ "BOTTOMRIGHT", f.BottomRightCorner, "BOTTOMRIGHT" }, f.RightEdge.point)
+			strip:SetOpen(nil)
+			assert.is_true(f.BottomEdge.shown, "closed again: Blizzard's layout as it was")
+			assert.is_true(f.BottomLeftCorner.shown)
 		end)
 
 		it("insets wear Blizzard's inset frame and its background", function()

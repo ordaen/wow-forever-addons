@@ -290,6 +290,15 @@ function Base:RectOf(element)
 	return Render.RectOf(self.block, element)
 end
 
+--- Open sides of its window art: none there, as if it ran on past the screen edge or into the surface beside it
+--- (a panel on the bottom edge: { bottom = true }; the chat on that panel: { bottom = true }, the panel:
+--- { top = true }). Set by the addon that docks it; nil closes them all. Redraws.
+---@param sides { top: boolean|nil, right: boolean|nil, bottom: boolean|nil, left: boolean|nil }|nil
+function Base:SetOpen(sides)
+	self.block.open = sides
+	self:Refresh()
+end
+
 --- Lay out and redraw after the block's fields changed. Fires "render" (width, height) when drawn.
 function Base:Refresh()
 	draw(self)

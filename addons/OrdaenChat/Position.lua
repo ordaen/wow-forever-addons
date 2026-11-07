@@ -15,7 +15,12 @@ ns.Position = Position
 local UI = OrdaenCore.UI
 
 -- Between the chat's background and the screen edge (none: flush, the user's choice, 2026-11-07) and the panel.
-local MARGIN_LEFT, MARGIN_BOTTOM = 0, 4
+local MARGIN_LEFT, MARGIN_BOTTOM = 0, 0
+-- Flush with the screen's left edge and sitting on the panel (or the bottom edge): no border on those sides, as if the
+-- metal ran on (a7's and the user's open sides). The bottom only while the input sits over the chat; below it, the
+-- input is the chat's bottom.
+local OPEN_DOCKED = { left = true, bottom = true }
+local OPEN_LEFT = { left = true }
 
 local on = false
 local placing = false
@@ -69,6 +74,7 @@ local function place()
 	local y = UI.ScreenInset("bottom") + MARGIN_BOTTOM + outBottom
 	chat:ClearAllPoints()
 	chat:SetPoint("BOTTOMLEFT", UIParent, "BOTTOMLEFT", x, y)
+	ns.Look.SetOpen(chat, ns.Input.IsOverlaid() and OPEN_DOCKED or OPEN_LEFT)
 	placing = false
 	ns.Debug:Logf("position: chat at %d, %d (panel insets bottom %d, left %d)", x, y, UI.ScreenInset("bottom"),
 		UI.ScreenInset("left"))
@@ -104,10 +110,16 @@ function Position.Enable()
 	place()
 end
 
+--- Place it again (the input moved over or under the chat: its bottom changed).
+function Position.Refresh()
+	place()
+end
+
 --- Leave the place to Edit Mode again.
 function Position.Disable()
 	on = false
 	local chat = ChatFrame1
+	ns.Look.SetOpen(chat, nil)
 	placing = true
 	if blizzardClamp then
 		chat:SetClampRectInsets(blizzardClamp[1], blizzardClamp[2], blizzardClamp[3], blizzardClamp[4])

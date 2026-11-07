@@ -481,6 +481,12 @@ function Input.Disable()
 	showSocial()
 end
 
+--- Whether the input sits over the chat (setting inputOverlay).
+---@return boolean
+function Input.IsOverlaid()
+	return overlaid
+end
+
 --- The input over the chat, shown only while typing (setting inputOverlay), or under the window (Blizzard's place).
 --- Sets Blizzard's own chat style option ("IM": the input shows on Enter) when turned on; the player can change that
 --- option in Blizzard's settings.

@@ -347,6 +347,17 @@ function Look.Disable()
 end
 
 --- Our background of a chat window (it reaches past Blizzard's by the padding), or nil when it has none.
+--- Open sides of a chat window's look (Position: the edges it's docked to), or nil to close them. No-op while the
+--- window isn't dressed.
+---@param frame Frame
+---@param sides table|nil
+function Look.SetOpen(frame, sides)
+	local dress = windows[frame]
+	if dress and dress.opts.open ~= sides then
+		dress:SetOpen(sides)
+	end
+end
+
 ---@param frame Frame
 ---@return Frame|nil
 function Look.Cover(frame)

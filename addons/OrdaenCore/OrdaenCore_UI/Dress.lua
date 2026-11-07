@@ -35,6 +35,7 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@field art table[]|nil the textures to hide; default every texture of the frame and its children (give a list
 --- when the frame's children hold content, e.g. a chat window's message lines)
 ---@field states table<string, string>|nil state -> style role for :SetState (any other state: `style`)
+---@field open table|nil open sides of the look's window art ({ bottom = true }): see :SetOpen
 ---@field borderAbove boolean|nil with a style that wears Blizzard's window art: its border goes above the frame and
 --- its children (a Blizzard window whose opaque content reaches its edges and would hide it); the fill stays under
 ---@field focus boolean|nil an EditBox: our look shows only while it has the keyboard focus (being typed in), at full
@@ -276,6 +277,13 @@ function Dress:Apply()
 end
 
 --- Hide art Blizzard added since dressing (a new texture, a re-created child) and redraw our look.
+--- Open sides of the look's window art (see the component's :SetOpen), e.g. the chat window on a panel.
+---@param sides { top: boolean|nil, right: boolean|nil, bottom: boolean|nil, left: boolean|nil }|nil
+function Dress:SetOpen(sides)
+	self.opts.open = sides
+	self.look:SetOpen(sides)
+end
+
 function Dress:Refresh()
 	if not self.dressed then
 		return
@@ -351,6 +359,7 @@ function Dress.New(frame, opts)
 		spec = { icon }
 	end
 	spec.style, spec.parent = opts.style or "iconButton", frame:GetParent()
+	spec.open = opts.open
 	local look = Component.Block(spec)
 	if opts.borderAbove then
 		ns.Render.BorderAbove(look.frame, frame)

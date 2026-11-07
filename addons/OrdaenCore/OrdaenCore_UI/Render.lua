@@ -884,6 +884,7 @@ end
 local BORDER_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner", "TopEdge",
 	"BottomEdge", "LeftEdge", "RightEdge" }
 local artShown = setmetatable({}, { __mode = "k" }) -- surface -> the frameArt it shows
+local artOpen = setmetatable({}, { __mode = "k" }) -- surface -> the open sides it was drawn with (bits)
 local artFills = setmetatable({}, { __mode = "k" }) -- surface -> its fill texture
 local artAbove = setmetatable({}, { __mode = "k" }) -- surface -> the frame its border goes above (a dressed window)
 local artOverlays = setmetatable({}, { __mode = "k" }) -- surface -> the overlay frame holding its border
@@ -922,10 +923,59 @@ function Render.BorderAbove(surface, target)
 	artAbove[surface] = target
 end
 
-local function drawFrameArt(surface, look, accent)
+-- Open sides (a block's `open`): no border there, as if the metal ran on past the screen edge or into the surface
+-- next to it. The side's edge and its two corners hide; the neighbouring edges reach to the outer line of those
+-- corners; the fill reaches the side. Blizzard's NineSliceUtil anchors each edge between its corners' inner sides,
+-- so an open end moves to the corner's outer side (hidden regions still anchor).
+local OPEN_TOP, OPEN_RIGHT, OPEN_BOTTOM, OPEN_LEFT = 1, 2, 4, 8
+
+local function openBits(open)
+	if type(open) ~= "table" then
+		return 0
+	end
+	return (open.top and OPEN_TOP or 0) + (open.right and OPEN_RIGHT or 0) + (open.bottom and OPEN_BOTTOM or 0)
+		+ (open.left and OPEN_LEFT or 0)
+end
+
+local function openSides(holder, bits)
+	local top, right, bottom, left = has(bits, OPEN_TOP), has(bits, OPEN_RIGHT), has(bits, OPEN_BOTTOM),
+		has(bits, OPEN_LEFT)
+	local tl, tr, bl, br = holder.TopLeftCorner, holder.TopRightCorner, holder.BottomLeftCorner, holder.BottomRightCorner
+	local te, be, le, re = holder.TopEdge, holder.BottomEdge, holder.LeftEdge, holder.RightEdge
+	tl:SetShown(not (top or left))
+	tr:SetShown(not (top or right))
+	bl:SetShown(not (bottom or left))
+	br:SetShown(not (bottom or right))
+	te:SetShown(not top)
+	be:SetShown(not bottom)
+	le:SetShown(not left)
+	re:SetShown(not right)
+	if left then
+		te:SetPoint("TOPLEFT", tl, "TOPLEFT")
+		be:SetPoint("BOTTOMLEFT", bl, "BOTTOMLEFT")
+	end
+	if right then
+		te:SetPoint("TOPRIGHT", tr, "TOPRIGHT")
+		be:SetPoint("BOTTOMRIGHT", br, "BOTTOMRIGHT")
+	end
+	if top then
+		le:SetPoint("TOPLEFT", tl, "TOPLEFT")
+		re:SetPoint("TOPRIGHT", tr, "TOPRIGHT")
+	end
+	if bottom then
+		le:SetPoint("BOTTOMLEFT", bl, "BOTTOMLEFT")
+		re:SetPoint("BOTTOMRIGHT", br, "BOTTOMRIGHT")
+	end
+end
+
+local function drawFrameArt(surface, look, accent, open)
 	local art = look and look.frameArt or nil
 	local shown = artShown[surface]
 	local holder = borderHolder(surface)
+	local bits = art and openBits(open) or 0
+	if art and art == shown and artOpen[surface] ~= bits then
+		shown = nil -- sides opened or closed: lay Blizzard's pieces out again, then open them
+	end
 	if art ~= shown then
 		local fill = artFills[surface]
 		if shown then
@@ -941,6 +991,10 @@ local function drawFrameArt(surface, look, accent)
 		NineSliceUtil.ApplyLayoutByName(holder, art.layout)
 		NineSliceUtil.DisableSharpening(holder)
 		NineSliceUtil.ShowLayout(holder)
+		artOpen[surface] = bits
+		if bits ~= 0 then
+			openSides(holder, bits)
+		end
 		local scale = art.scale or 1
 		for i = 1, #BORDER_PIECES do
 			local piece = holder[BORDER_PIECES[i]]
@@ -964,8 +1018,12 @@ local function drawFrameArt(surface, look, accent)
 			fill:SetHorizTile(background.tile and true or false)
 			fill:SetVertTile(background.tile and true or false)
 			fill:ClearAllPoints()
-			fill:SetPoint("TOPLEFT", surface, "TOPLEFT", inset[4] * scale, -inset[1] * scale)
-			fill:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -inset[2] * scale, inset[3] * scale)
+			local t = has(bits, OPEN_TOP) and 0 or inset[1] * scale
+			local r = has(bits, OPEN_RIGHT) and 0 or inset[2] * scale
+			local b = has(bits, OPEN_BOTTOM) and 0 or inset[3] * scale
+			local l = has(bits, OPEN_LEFT) and 0 or inset[4] * scale
+			fill:SetPoint("TOPLEFT", surface, "TOPLEFT", l, -t)
+			fill:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -r, b)
 			fill:Show()
 		end
 	end
@@ -1114,7 +1172,7 @@ function Render.Draw(surface, root, width)
 	local look = Theme.BlockStyle(root.style)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
-	drawFrameArt(surface, look, root.accent)
+	drawFrameArt(surface, look, root.accent, root.open)
 	if look then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end
