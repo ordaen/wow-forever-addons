@@ -31,6 +31,9 @@ exact and natural Russian, never a word-for-word translation of the English.
    the sentence so case endings work for any value (`Модификация %s` rather than `%s модификации`).
 9. **NPC stays NPC** (user's rule, 2026-11-07): write the English abbreviation `NPC` in Russian text, never «НПЦ»
    (`Подсказки NPC`).
+10. **CD in compact places** (user's rule, 2026-11-07): where room is short (a tooltip line, a label, a bar) a
+    cooldown reads `CD 15 сек.`, the English abbreviation; in sentences it stays «восстановление»
+    (`Время восстановления сбрасывается при смерти`).
 
 ## Examples
 
@@ -41,3 +44,4 @@ exact and natural Russian, never a word-for-word translation of the English.
 | Эта опция позволяет вам скрыть кнопку модификаций | Скрыть кнопку модификаций Blizzard |
 | Пожалуйста, перезагрузите интерфейс! | Введите /reload. |
 | Подсказки НПЦ | Подсказки NPC |
+| Восст.: 15 сек. (в строке подсказки) | CD 15 сек. |
