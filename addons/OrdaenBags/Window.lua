@@ -17,12 +17,16 @@ ns.View = View
 local SLOT = 37 -- Blizzard's item button
 
 local win ---@type OrdaenUIWindow|nil
+-- The tabs and the items each on their own surface (embedded in the window): only a surface's root block wears
+-- Blizzard's art, so a nested inset would draw nothing. The slots sit on the items pane's frame.
+local sidebar ---@type OrdaenUIComponent|nil
+local itemsPane ---@type OrdaenUIComponent|nil
 local selected = "all" -- the tab shown (not saved: the window opens on all items)
 
 -- blocks, made once (build)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
--- the sections of the shown tab, in Blizzard's inset pane (as the tabs beside it): the two read as separate parts
+-- the sections of the shown tab: the items pane's block, in Blizzard's inset (as the tabs beside it)
 local content = { style = "inset", columns = { "auto" }, gap = "md", padding = "md" }
 local sections = {} -- pool: { caption, grid } blocks
 local cells = {} -- pool of slot cells, the first `cellsUsed` in use
@@ -130,21 +134,23 @@ local function layout()
 	for _, tab in ipairs(Categories.TABS) do
 		tabButtons[tab.id]:Refresh()
 	end
-	win:Refresh()
+	sidebar:Refresh()
+	itemsPane:Refresh() -- draws the cells: its render places the buttons
+	win:Refresh() -- the panes' new sizes
 end
 
 local waitingForCombat = false
 
 -- Drawn: Blizzard's button over each cell (made now if new; in combat a new one waits for it to end).
 local function onRender()
-	if not win then
+	if not itemsPane then
 		return
 	end
-	local frame = win.frame
+	local frame = itemsPane.frame
 	for i = 1, cellsUsed do
 		local cell = cells[i]
 		local item = cellItem[cell]
-		local x, y = win:RectOf(cell)
+		local x, y = itemsPane:RectOf(cell)
 		if item and x then
 			local button = Slots.Get(item.bag, item.slot)
 			if button then
@@ -254,7 +260,7 @@ local function build()
 	if not (search and sort and close) then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end
-	local tabs = { style = "inset", columns = { "auto" }, gap = "xs", padding = "sm" }
+	local tabs = { style = "inset", columns = { "auto" }, gap = "xs", padding = "sm" } -- the sidebar's block
 	for i, tab in ipairs(Categories.TABS) do
 		local label = { format = "%s (%d)", args = { _G[tab.label] or tab.id, 0 } }
 		tabTexts[tab.id] = label
@@ -271,6 +277,10 @@ local function build()
 		tabButtons[tab.id] = button
 		tabs[i] = { embed = button }
 	end
+	sidebar, itemsPane = UI.Block(tabs), UI.Block(content)
+	if not (sidebar and itemsPane) then
+		return false
+	end
 	local header = {
 		colSpan = 2, columns = { "auto", "1fr", "auto", "auto" }, gap = "sm", rowAlign = "center",
 		{ text = INVENTORY_TOOLTIP, style = "title" },
@@ -282,14 +292,14 @@ local function build()
 	win = UI.Window({
 		-- the tabs as wide as their labels, the items pane takes the rest; room inside the window's frame
 		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = "md", padding = { 28, "lg", "lg", "lg" },
-		header, tabs, content, footer,
+		header, { embed = sidebar }, { embed = itemsPane }, footer,
 	}, { point = "BOTTOMRIGHT", x = -80, y = 120 })
 	if not win then
 		return false
 	end
-	win:On("render", onRender)
+	itemsPane:On("render", onRender)
 	win.frame:HookScript("OnHide", onHidden)
-	Slots.SetHost(win.frame)
+	Slots.SetHost(itemsPane.frame)
 	return true
 end
 
