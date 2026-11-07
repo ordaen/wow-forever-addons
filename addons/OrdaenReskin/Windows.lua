@@ -15,7 +15,9 @@ local Windows = {}
 ns.Windows = Windows
 
 -- The packs: global name, kind ("window" or "dialog"), the style of its tabs ("tab" along an edge, "sideTab" for
--- the square icon tabs), and the keys of children that hold content only (not scanned for controls).
+-- the square icon tabs), the keys of children that hold content only (not scanned for controls), and `spacing`: a
+-- spacing token (the theme's scale) for a window Blizzard lays out with a layout frame. Our controls' art fills them
+-- edge to edge, so the space between them is the container's (the user's rule, 2026-11-07: no margin in textures).
 local PACKS = {
 	{ name = "CharacterFrame", kind = "window", tabs = "sideTab" },
 	{ name = "PlayerSpellsFrame", kind = "window", tabs = "tab" },
@@ -33,7 +35,7 @@ local PACKS = {
 	{ name = "SettingsPanel", kind = "window", tabs = "tab" },
 	{ name = "AddonList", kind = "window" },
 	{ name = "MacroFrame", kind = "window", tabs = "tab" },
-	{ name = "GameMenuFrame", kind = "dialog" },
+	{ name = "GameMenuFrame", kind = "dialog", spacing = "xs" },
 	{ name = "AddFriendFrame", kind = "dialog" },
 	{ name = "ChatConfigFrame", kind = "dialog", tabs = "tab" },
 	{ name = "StaticPopup1", kind = "dialog" },
@@ -180,6 +182,7 @@ end
 function Window:Apply()
 	if not self.skinned then
 		ns.Kit.CollectInto(self.collect, self.SkinAll, self)
+		self:Space(true)
 		self.skinned = true
 		return
 	end
@@ -189,6 +192,7 @@ function Window:Apply()
 			self.dresses[i]:Apply()
 			ns.Kit.Label(self.dresses[i].frame, true)
 		end
+		self:Space(true)
 	end
 	ns.Kit.CollectInto(self.collect, ns.Kit.ControlsIn, self.frame, self.skip)
 end
@@ -199,6 +203,33 @@ function Window:Remove()
 	for i = 1, #self.dresses do
 		self.dresses[i]:Undress()
 		ns.Kit.Label(self.dresses[i].frame, false)
+	end
+	self:Space(false)
+end
+
+local spacingBefore = setmetatable({}, { __mode = "k" }) -- frame -> Blizzard's spacing, while ours is set
+
+--- The pack's spacing on a layout frame's `spacing` (the gap Blizzard's layout puts between its children), or
+--- Blizzard's own back; the frame lays itself out again. Only frames that have that field (the game menu).
+---@param on boolean
+function Window:Space(on)
+	local token, frame = self.pack.spacing, self.frame
+	if not token or type(rawget(frame, "spacing")) ~= "number" then
+		return
+	end
+	if on then
+		if spacingBefore[frame] == nil then
+			spacingBefore[frame] = rawget(frame, "spacing")
+		end
+		frame.spacing = OrdaenCore.UI.Space(token)
+	elseif spacingBefore[frame] ~= nil then
+		frame.spacing = spacingBefore[frame]
+		spacingBefore[frame] = nil
+	else
+		return
+	end
+	if type(frame.MarkDirty) == "function" then
+		frame:MarkDirty()
 	end
 end
 

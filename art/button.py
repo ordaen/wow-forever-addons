@@ -21,10 +21,9 @@ from PIL import Image
 ART = Path(__file__).resolve().parent
 REPO = ART.parent
 W, ROW, ROWS = 256, 64, 8
-# Transparent rows above and below the plate, like Blizzard's red button art has: buttons stacked with no
-# spacing (the game menu's groups) keep a small gap (~1.6 screen px each side on a 34 px button).
-PAD_Y = 3
-PLATE = ROW - 2 * PAD_Y
+# The plate fills its row edge to edge: no transparent margin in the art (the user's rule, 2026-11-07). Space
+# between buttons is the container's job (a block's gap; Blizzard's layout frames' spacing via Reskin).
+PLATE = ROW
 SS = 4  # supersampling
 
 
@@ -75,7 +74,6 @@ def lerp(a, b, t):
 def plate(name, state):
     p = PLATES[name]
     x, y = grid(ROW)
-    y = y - PAD_Y
     depth, facing = rounded_depth(x, y, W, PLATE, RADIUS)
     lit = (facing + 1) / 2  # 1 lit, 0 dark, 0.5 the corners that turn
     t = np.clip(y / PLATE, 0, 1)
@@ -114,7 +112,6 @@ def plate(name, state):
 def highlight(name):
     """Drawn over the plate on hover: a warm glow inside, brighter at the rim. Its alpha does the work."""
     x, y = grid(ROW)
-    y = y - PAD_Y
     depth, _ = rounded_depth(x, y, W, PLATE, RADIUS)
     inside = OUTLINE + RIM + LIP
     col = np.broadcast_to(rgb("ffd27a"), depth.shape + (3,)).copy()
