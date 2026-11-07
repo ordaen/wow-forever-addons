@@ -141,20 +141,58 @@ local function professions()
 	return finish()
 end
 
--- Forever's talents are trees (Arms, Fury, Protection): the points in each, as rows; unspent points above. The
--- "specialization" Blizzard reports is the class until one is chosen, so it isn't shown.
+-- Forever's talents: the class has one "specialization" (the class itself), so the trees (Arms, Fury, Protection) come
+-- from the trait system: the active config's tree, its nodes, the points bought in each, summed per sub-tree. The
+-- game's documentation doesn't list these structures' fields, so they're read defensively and logged (dev mode):
+-- what Forever really gives decides the next step.
+local spentBySubTree, subTreeOrder = {}, {}
+
 local function talents()
 	local _, classPoints, specPoints = C_ClassTalents.HasUnspentTalentPoints()
 	stat((classPoints or 0) + (specPoints or 0), L.MT_UNSPENT)
-	local classID = select(3, UnitClass("player"))
-	local count = classID and C_SpecializationInfo.GetNumSpecializationsForClassID(classID) or 0
-	for i = 1, count do
-		local _, name, _, _, _, _, pointsSpent = C_SpecializationInfo.GetSpecializationInfo(i)
-		row(name, pointsSpent or 0)
+	local configID = C_ClassTalents.GetActiveConfigID()
+	if not configID then
+		return finish() -- no talents yet (below level 10)
 	end
-	if ns.Addon.Debug:IsEnabled() then
-		ns.Addon.Debug:Logf("micro tip talents: class %s, %d trees, unspent %s + %s", tostring(classID), count,
-			tostring(classPoints), tostring(specPoints))
+	local config = C_Traits.GetConfigInfo(configID)
+	local treeID = config and config.treeIDs and config.treeIDs[1]
+	for k in pairs(spentBySubTree) do
+		spentBySubTree[k] = nil
+	end
+	for i = #subTreeOrder, 1, -1 do
+		subTreeOrder[i] = nil
+	end
+	local nodes, loose = treeID and C_Traits.GetTreeNodes(treeID) or {}, 0
+	for _, nodeID in ipairs(nodes) do
+		local node = C_Traits.GetNodeInfo(configID, nodeID)
+		local ranks = node and (node.ranksPurchased or node.currentRank) or 0
+		if ranks > 0 then
+			local sub = node.subTreeID
+			if sub then
+				if not spentBySubTree[sub] then
+					spentBySubTree[sub] = 0
+					subTreeOrder[#subTreeOrder + 1] = sub
+				end
+				spentBySubTree[sub] = spentBySubTree[sub] + ranks
+			else
+				loose = loose + ranks
+			end
+		end
+	end
+	table.sort(subTreeOrder)
+	for _, sub in ipairs(subTreeOrder) do
+		local info = C_Traits.GetSubTreeInfo(configID, sub)
+		row(info and info.name or tostring(sub), spentBySubTree[sub])
+	end
+	local Debug = ns.Addon.Debug
+	if Debug:IsEnabled() then
+		local currencies = {}
+		for _, c in ipairs(treeID and C_Traits.GetTreeCurrencyInfo(configID, treeID, false) or {}) do
+			currencies[#currencies + 1] = string.format("%s: %s spent of %s", tostring(c.traitCurrencyID),
+				tostring(c.spent), tostring(c.maxQuantity))
+		end
+		Debug:Logf("micro tip talents: config %s, tree %s, %d nodes, %d sub-trees, %d ranks outside them; currencies %s",
+			tostring(configID), tostring(treeID), #nodes, #subTreeOrder, loose, table.concat(currencies, "; "))
 	end
 	return finish()
 end
