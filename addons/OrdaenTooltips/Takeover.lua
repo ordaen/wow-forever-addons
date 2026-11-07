@@ -137,26 +137,14 @@ local function onAlpha(native, alpha)
 	end
 end
 
--- Blizzard fades a unit's tooltip out when the mouse leaves the unit (FadeOut, run inside the game: no SetAlpha we
--- see). Dev probe: what the native's alpha does during that fade, while ours is still shown (2026-11-07: both
--- showed for a moment on mouse leave).
-local function alphaText(native)
-	local a = native:GetAlpha()
-	return isSecret(a) and "<secret>" or string.format("%.2f", a)
-end
-
+-- Blizzard fades a unit's tooltip out when the mouse leaves the unit (FadeOut, run inside the game): the fade sets
+-- the native back to full alpha every frame, where our hooks can't see it, so Blizzard's tooltip showed beside ours
+-- for the fade (dev probe, 2026-11-07: alpha 0 at FadeOut, 1.00 after 0.1 s and 0.3 s). While ours is drawn, the
+-- native is hidden at once instead (as addons' OnLeave handlers do); its OnHide takes ours with it.
 local function onFadeOut(native)
-	if ns.Debug:IsEnabled() then
-		local state = states[native]
-		ns.Debug:Logf("takeover: %s FadeOut, native alpha %s, ours shown %s", native:GetName() or "?",
-			alphaText(native), tostring(state and state.view:IsShown()))
-		for _, delay in ipairs({ 0.1, 0.3 }) do
-			C_Timer.After(delay, function()
-				ns.Debug:Logf("takeover: %s +%.1fs after FadeOut: native alpha %s, shown %s, ours shown %s",
-					native:GetName() or "?", delay, alphaText(native), tostring(native:IsShown()),
-					tostring(state and state.view:IsShown()))
-			end)
-		end
+	local state = states[native]
+	if state and state.view:IsShown() then
+		native:Hide()
 	end
 end
 

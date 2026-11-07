@@ -116,6 +116,7 @@ describe("Ordaen Tooltips", function()
 			GetTooltipData = function()
 				return data
 			end,
+			FadeOut = function() end, -- Blizzard's fade on mouse leave (inside the game: no SetAlpha)
 		})
 		helpers.stubGlobals({
 			CreateFrame = function(_, name)
@@ -198,6 +199,14 @@ describe("Ordaen Tooltips", function()
 	it("hides ours with the native one", function()
 		show({ { "Hogger" } })
 		tooltip:Hide()
+		assert.is_false(frameNamed("OrdaenTooltipsGameTooltip").shown)
+	end)
+
+	it("hides both at once when Blizzard fades a unit's tooltip out (its fade would show the native again)", function()
+		show({ { "Hogger" } })
+		assert.is_true(frameNamed("OrdaenTooltipsGameTooltip").shown)
+		tooltip:FadeOut()
+		assert.is_false(tooltip.shown)
 		assert.is_false(frameNamed("OrdaenTooltipsGameTooltip").shown)
 	end)
 
