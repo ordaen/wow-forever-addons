@@ -47,6 +47,18 @@
       "zhCN": "物品栏",
       "zhTW": "物品欄"
     },
+    "Other": {
+      "deDE": "Anderes",
+      "esES": "Otros",
+      "esMX": "Otros",
+      "frFR": "Autre",
+      "itIT": "Altro",
+      "koKR": "기타",
+      "ptBR": "Outro",
+      "ruRU": "Другое",
+      "zhCN": "其它",
+      "zhTW": "其他"
+    },
     "User Interface": {
       "deDE": "Benutzerinterface",
       "esES": "Interfaz de usuario",

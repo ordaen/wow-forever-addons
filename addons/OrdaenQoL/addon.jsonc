@@ -1,0 +1,14 @@
+// What the code can't say about Ordaen QoL; `ordaen build` derives the rest (file list, dependencies) from the
+// code.
+{
+  "title": "Ordaen QoL",
+  "notes": {
+    "enUS": "Sells junk and repairs your gear when you visit a vendor.",
+    "ruRU": "Продаёт хлам и чинит снаряжение у торговца."
+  },
+  "category": "Other",
+  "icon": "Interface\\Icons\\INV_Misc_Coin_01",
+  "version": "0.0.0", // x-release-please-version
+  "minCore": "0.1.0",
+  "package": { "slug": "ordaen-qol" }
+}

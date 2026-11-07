@@ -83,6 +83,15 @@
       "extra-files": [
         "addon.jsonc"
       ]
+    },
+    "addons/OrdaenQoL": {
+      "release-type": "simple",
+      "component": "OrdaenQoL",
+      "package-name": "OrdaenQoL",
+      "initial-version": "0.1.0",
+      "extra-files": [
+        "addon.jsonc"
+      ]
     }
   }
 }
