@@ -79,7 +79,11 @@ local THEMES = {}
 -- small scale (the user's choice: half); dialogs in Blizzard's dialog frame.
 local WINDOW_ART = { border = "frame.border", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
-local SMALL_ART = { border = "frame.border", background = "frame.background", scale = "frame.scale.small",
+-- Small surfaces: Blizzard's even metal without a title bar (GenericMetal), at the small scale.
+local SMALL_ART = { border = "frame.borderSmall", background = "frame.background", scale = "frame.scale.small",
+	inset = { 6, 6, 6, 6 } }
+-- Windows with a portrait ring in the top-left corner (Blizzard's own windows that Ordaen Reskin dresses).
+local PORTRAIT_ART = { border = "frame.portrait", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
 local DIALOG_ART = { border = "frame.dialog", background = "frame.dialogBackground", scale = "frame.scale.window",
 	inset = { 7, 7, 7, 7 } }
@@ -155,6 +159,12 @@ THEMES.ordaen = {
 			padding = { 28, "md", "md", "md" },
 			gap = "sm",
 			frameArt = WINDOW_ART,
+		},
+		-- A window with Blizzard's portrait ring (the portrait itself stays the window's own).
+		portraitWindow = {
+			padding = { 28, "md", "md", "md" },
+			gap = "sm",
+			frameArt = PORTRAIT_ART,
 		},
 		panel = { -- a box holding other things (the minimap drawer): the tooltip surface, no size of its own
 			padding = 0,

@@ -21,12 +21,13 @@ How themes work: [Themes](/guide/themes).
 | `tabSelected` | the tab shown | tooltip surface, accent top edge |
 | `tabFlash` | a tab with a new message | accent fill |
 | `dialog` | confirmation dialogs (`UI.Confirm`) | Blizzard's dialog art, padding `xl` |
+| `portraitWindow` | a window with Blizzard's portrait ring (Ordaen Reskin) | Blizzard's portrait window art at full size |
 | `inset` | an inner pane of a window (Blizzard's insets, which Ordaen Reskin dresses) | Blizzard's inset art, padding `sm` |
 | `pushButton` | a dialog's buttons | accent band, accent edges, highlight |
 
-**Window art.** `window`, `tooltip`, `panel`, `dialog` and `inset` wear Blizzard's own window art, picked by theme tokens
+**Window art.** `window`, `portraitWindow`, `tooltip`, `panel`, `dialog` and `inset` wear Blizzard's own window art, picked by theme tokens
 (`addons/OrdaenCore/themes.jsonc`): the frame asset names a `NineSliceLayouts` entry (`frame.border` = metal,
-`ButtonFrameTemplateNoPortrait`; `frame.dialog` = `Dialog`, `frame.inset` = `InsetFrameTemplate`), which the renderer puts on the surface with
+`ButtonFrameTemplateNoPortrait`; `frame.portrait` = `PortraitFrameTemplate`, `frame.borderSmall` = `GenericMetal` (no title bar, for tooltips and panels), `frame.dialog` = `Dialog`, `frame.inset` = `InsetFrameTemplate`), which the renderer puts on the surface with
 `NineSliceUtil.ApplyLayoutByName` (Blizzard's pieces and offsets, sharpening off), and the background asset fills
 the inside (`frame.background` = `UI-Character-Info-General-BG`, `frame.dialogBackground`). The border is drawn at
 `frame.scale.window` (1) on windows and dialogs and at `frame.scale.small` (0.5) on tooltips and panels. It's

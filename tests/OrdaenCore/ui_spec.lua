@@ -1489,7 +1489,7 @@ describe("OrdaenCore.UI", function()
 			local tip = UI.Tooltip({ { text = "Hogger" } })
 			tip:Show(owner)
 			local s = surface()
-			assert.equals("ButtonFrameTemplateNoPortrait", s.layout)
+			assert.equals("GenericMetal", s.layout, "small surfaces: the metal without a title bar")
 			assert.equals(0.5, s.TopEdge.scale, "small surfaces: the border at half size")
 			assert.same({ 1, 1, 1 }, s.TopEdge.vertexColor)
 			tip.accent = { 1, 0, 0 }
