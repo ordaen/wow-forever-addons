@@ -23,7 +23,7 @@ local function classes()
 		CLASS = {
 			consumable = E.Consumable, weapon = E.Weapon, armor = E.Armor, gem = E.Gem, reagent = E.Reagent,
 			tradegoods = E.Tradegoods, enhancement = E.ItemEnhancement, recipe = E.Recipe, quest = E.Questitem,
-			profession = E.Profession,
+			profession = E.Profession, miscellaneous = E.Miscellaneous,
 		}
 	end
 	return CLASS
@@ -92,7 +92,12 @@ function Categories.SectionLabel(section)
 	local label = labels[section]
 	if not label then
 		local classID, subClassID = math.floor(section / 1000), section % 1000
-		label = C_Item.GetItemSubClassInfo(classID, subClassID) or C_Item.GetItemClassInfo(classID) or ""
+		-- Miscellaneous' first subclass is called "Junk" by the game, though it holds the Hearthstone and such: it
+		-- takes the class's name ("Junk" is the grey items' tab)
+		if classID ~= classes().miscellaneous or subClassID ~= 0 then
+			label = C_Item.GetItemSubClassInfo(classID, subClassID)
+		end
+		label = label or C_Item.GetItemClassInfo(classID) or ""
 		labels[section] = label
 	end
 	return label

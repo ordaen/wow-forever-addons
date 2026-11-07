@@ -11,7 +11,8 @@ describe("Ordaen Bags categories", function()
 		} })
 		rawset(_G, "C_Item", {
 			GetItemSubClassInfo = function(classID, subClassID)
-				return ({ ["0:1"] = "Potion", ["4:2"] = "Leather" })[classID .. ":" .. subClassID]
+				-- as in the game: Miscellaneous' first subclass is called "Junk" (the Hearthstone is one)
+				return ({ ["0:1"] = "Potion", ["4:2"] = "Leather", ["15:0"] = "Junk" })[classID .. ":" .. subClassID]
 			end,
 			GetItemClassInfo = function(classID)
 				return ({ [15] = "Miscellaneous" })[classID]
@@ -51,7 +52,8 @@ describe("Ordaen Bags categories", function()
 		assert.is_true(potion < leather)
 		assert.equals("Potion", Categories.SectionLabel(potion))
 		assert.equals("Leather", Categories.SectionLabel(leather))
-		assert.equals("Miscellaneous", Categories.SectionLabel(Categories.SectionOf(15, 0)), "the class's name")
+		assert.equals("Miscellaneous", Categories.SectionLabel(Categories.SectionOf(15, 0)),
+			"the class's name: Blizzard's \"Junk\" subclass holds the Hearthstone, and junk is the grey items' tab")
 	end)
 
 	it("lists the tabs in their order, each with a Blizzard label", function()
