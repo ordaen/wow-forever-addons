@@ -105,6 +105,34 @@ local function columns(n)
 	return out
 end
 
+-- The right side's columns: one per shown child. A column per possible child (6 currencies) left the empty ones'
+-- gaps after the bags, so they didn't reach the right edge (2026-11-07). One table per count, made once: currencies
+-- change on events.
+local rightTracks = {}
+local function fitRight()
+	if not right then
+		return
+	end
+	if not horizontal() then
+		right.columns = columns(1)
+		return
+	end
+	local n = 0
+	for i = 1, MAX_CURRENCIES + 2 do
+		local child = right[i]
+		if child and not child.hidden then
+			n = n + 1
+		end
+	end
+	n = math.max(n, 1)
+	local tracks = rightTracks[n]
+	if not tracks then
+		tracks = columns(n)
+		rightTracks[n] = tracks
+	end
+	right.columns = tracks
+end
+
 -- Putting Blizzard's buttons over their cells ----------------------------------------------------------------------
 
 local function place(button)
@@ -624,6 +652,7 @@ local function placeButtons()
 	else
 		fillRow(bagRow, NONE)
 	end
+	fitRight()
 end
 
 -- Building the panel ----------------------------------------------------------------------------------------------
@@ -684,7 +713,7 @@ local function build()
 		right[1 + i] = currencyTexts[i]
 	end
 	right[MAX_CURRENCIES + 2] = bagRow
-	right.columns = columns(MAX_CURRENCIES + 2)
+	fitRight()
 	if not barHolder then
 		tooltip = UI.Tooltip({
 			columns = { "auto" },
@@ -844,6 +873,7 @@ local function updateCurrencies()
 			text.args[1], text.args[2] = entry.quantity, entry.icon
 		end
 	end
+	fitRight()
 end
 
 local function updateBags()
