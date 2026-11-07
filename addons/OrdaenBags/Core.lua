@@ -10,7 +10,8 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 		return ns.View and ns.View.Dump()
 	end,
 	onChange = function(key)
-		if (key == "columns" or key == "sort") and ns.View then
+		-- the slots per row, the order, and which tabs show: all change the window's layout
+		if ns.View and (key == "columns" or key == "sort" or key == "hideEmpty" or key:find("^tabs%.")) then
 			ns.View.Relayout()
 		end
 	end,

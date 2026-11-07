@@ -52,6 +52,26 @@ local litBag = nil -- the bag whose items the bag strip lights up (hovered)
 -- blocks, made once (build)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
+local tabCells = {} ---@type table<string, table> tab id -> its cell in the sidebar (hidden when the tab is off)
+
+-- Each tab's setting key ("tabs.<id>"), made once (no string per layout).
+local tabKeys = {}
+for _, tab in ipairs(Categories.TABS) do
+	tabKeys[tab.id] = "tabs." .. tab.id
+end
+
+-- Whether a tab shows in the sidebar: "All" always; the others while their setting is on, and with "hide empty
+-- tabs" only while they hold something.
+local function tabShown(id, count)
+	if id == "all" then
+		return true
+	end
+	local A = ns.Addon
+	if A:Get(tabKeys[id]) == false then
+		return false
+	end
+	return not (A:Get("hideEmpty") and (count or 0) == 0)
+end
 -- the shown tab's page: rows of sections (packed side by side), the free slot last
 -- The page: its rows of sections in `body`, room above each caption. The body is as wide as the slots per row and
 -- the page keeps the tallest height it had while the window is open, so changing tabs never resizes the window.
@@ -233,6 +253,9 @@ local function layout()
 	if not (win and sidebar and itemsPane and sortButton) then
 		return
 	end
+	if selected ~= "all" and not tabShown(selected, Data.counts[selected]) then
+		selected = "all" -- the tab shown was turned off (or emptied, with empty tabs hidden)
+	end
 	local across = setting("columns", 10)
 	limit = across * SLOT + (across - 1) * SLOT_GAP
 	body.minWidth = limit
@@ -275,7 +298,9 @@ local function layout()
 	end
 	cellsUsed = used
 	for _, tab in ipairs(Categories.TABS) do
-		tabTexts[tab.id].args[2] = Data.counts[tab.id]
+		local count = Data.counts[tab.id]
+		tabTexts[tab.id].args[2] = count
+		tabCells[tab.id].hidden = not tabShown(tab.id, count)
 		local button = tabButtons[tab.id]
 		button.block.style = tab.id == selected and "listTabSelected" or "listTab"
 		button:Refresh()
@@ -617,7 +642,9 @@ local function build()
 			return false
 		end
 		tabButtons[tab.id] = button
-		tabs[#tabs + 1] = { embed = button }
+		local cell = { embed = button }
+		tabCells[tab.id] = cell
+		tabs[#tabs + 1] = cell
 	end
 	-- One width for every tab, the widest label's with a three-digit count: each tab is its own frame (it takes clicks),
 	-- so its hover and selected fill span the sidebar only when they share a width. Measured once, here.

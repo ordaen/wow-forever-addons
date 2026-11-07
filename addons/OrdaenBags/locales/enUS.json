@@ -20,5 +20,15 @@
   "TIP_FREE_TEXT": "Drop an item here to put it in the first free slot.",
   "TIP_BAG_TEXT": "Hover: its items light up.",
   "TIP_RESIZE": "Width",
-  "TIP_RESIZE_TEXT": "Drag: more or fewer slots per row."
+  "TIP_RESIZE_TEXT": "Drag: more or fewer slots per row.",
+  "HEADER_TABS": "Tabs",
+  "HIDE_EMPTY": "Hide empty tabs",
+  "HIDE_EMPTY_TOOLTIP": "Tabs with no items leave the list until something goes in them.",
+  "TAB_EQUIPMENT": "Equipment",
+  "TAB_CONSUMABLES": "Consumables",
+  "TAB_TRADEGOODS": "Trade goods",
+  "TAB_RECIPES": "Recipes",
+  "TAB_QUEST": "Quest items",
+  "TAB_JUNK": "Junk",
+  "TAB_OTHER": "Miscellaneous"
 }

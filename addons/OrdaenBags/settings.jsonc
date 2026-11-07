@@ -25,6 +25,20 @@
           "label": "SORT"
         }
       }
+    },
+    {
+      // The tabs on the window's left ("All" always shows): one off leaves the sidebar, its items stay in "All".
+      "header": "HEADER_TABS",
+      "settings": {
+        "hideEmpty": { "type": "boolean", "default": false, "label": "HIDE_EMPTY", "tooltip": "HIDE_EMPTY_TOOLTIP" },
+        "tabs.equipment": { "type": "boolean", "default": true, "label": "TAB_EQUIPMENT" },
+        "tabs.consumables": { "type": "boolean", "default": true, "label": "TAB_CONSUMABLES" },
+        "tabs.tradegoods": { "type": "boolean", "default": true, "label": "TAB_TRADEGOODS" },
+        "tabs.recipes": { "type": "boolean", "default": true, "label": "TAB_RECIPES" },
+        "tabs.quest": { "type": "boolean", "default": true, "label": "TAB_QUEST" },
+        "tabs.junk": { "type": "boolean", "default": true, "label": "TAB_JUNK" },
+        "tabs.other": { "type": "boolean", "default": true, "label": "TAB_OTHER" }
+      }
     }
   ]
 }
