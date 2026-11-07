@@ -181,9 +181,9 @@ build writes `## Category:` plus the localized `## Category-xxXX:` lines from `o
 from `addon-categories.json` (the Warcraft Wiki's list with every translation; the user's decision, 2026-11-07: the
 in-game list groups by exact text, so these names share a group with other addons in every language) and copy its
 translations into `ordaen.jsonc` "categories". Never invent a category or a translation; CurseForge's own categories
-are set per project on the website (e.g. "Miscellaneous", "Bags & Inventory"), not in the TOC. OrdaenCore is
-`Libraries`, feature
-addons use e.g. `User Interface`.
+are set per project on the website (e.g. "Miscellaneous", "Bags & Inventory"), not in the TOC. Ordaen (OrdaenCore,
+TOC title `Ordaen`) and every module are `User Interface`; the modules' TOCs also say `## Group: OrdaenCore`
+(the build writes it), so Blizzard's AddOns list shows them under Ordaen.
 
 ## Build (`ordaen`, private CLI in `../wow-dev-tools/cli`)
 

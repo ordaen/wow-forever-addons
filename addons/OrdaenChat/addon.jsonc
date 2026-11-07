@@ -6,7 +6,7 @@
     "enUS": "Chat tabs for general, guild and channels, whispers in their own tabs, the chat menu next to the input.",
     "ruRU": "Вкладки чата для общего, гильдии и каналов, личные сообщения в своих вкладках, меню чата у поля ввода."
   },
-  "category": "Chat",
+  "category": "User Interface", // with Ordaen and every other module
   "loadOnDemand": true, // a module: Ordaen loads it while it is on (OrdaenCore/Modules.lua)
   "icon": "Interface\\Icons\\INV_Letter_15",
   "version": "0.0.0", // x-release-please-version

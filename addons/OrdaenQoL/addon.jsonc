@@ -6,7 +6,7 @@
     "enUS": "Sells junk and repairs your gear when you visit a vendor.",
     "ruRU": "Продаёт хлам и чинит снаряжение у торговца."
   },
-  "category": "Other",
+  "category": "User Interface", // with Ordaen and every other module
   "loadOnDemand": true, // a module: Ordaen loads it while it is on (OrdaenCore/Modules.lua)
   "icon": "Interface\\Icons\\INV_Misc_Coin_01",
   "version": "0.0.0", // x-release-please-version

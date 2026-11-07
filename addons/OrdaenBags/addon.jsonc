@@ -6,7 +6,7 @@
     "enUS": "All your bags in one window, sorted into category tabs, with search.",
     "ruRU": "Все сумки в одном окне, предметы по вкладкам категорий, с поиском."
   },
-  "category": "Inventory",
+  "category": "User Interface", // with Ordaen and every other module
   "loadOnDemand": true, // a module: Ordaen loads it while it is on (OrdaenCore/Modules.lua)
   "icon": "Interface\\Icons\\INV_Misc_Bag_10",
   "version": "0.0.0", // x-release-please-version
