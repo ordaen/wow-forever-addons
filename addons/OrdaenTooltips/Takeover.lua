@@ -238,8 +238,57 @@ function Takeover.Disable()
 end
 
 --- What the dev-mode dump records.
-function Takeover.Describe()
+-- One line of text per value (the dump keeps two levels of tables): `k=v` pairs in key order, tables nested in braces
+-- up to a few levels, secret values named, never read.
+local function flatten(value, depth)
+	if isSecret(value) then
+		return "<secret>"
+	end
+	if type(value) ~= "table" then
+		return type(value) == "string" and string.format("%q", value) or tostring(value)
+	end
+	if depth > 3 then
+		return "{...}"
+	end
+	local keys = {}
+	for k in pairs(value) do
+		keys[#keys + 1] = k
+	end
+	table.sort(keys, function(a, b)
+		return tostring(a) < tostring(b)
+	end)
+	local parts = {}
+	for _, k in ipairs(keys) do
+		parts[#parts + 1] = tostring(k) .. "=" .. flatten(value[k], depth + 1)
+	end
+	return "{" .. table.concat(parts, " ") .. "}"
+end
+
+-- The last tooltip data per kind, as the game gave it: its fields but the lines, then each line on its own.
+local function probe()
 	local out = {}
+	for kind, data in pairs(ns.Reader.lastData) do
+		local entry = {}
+		local top = {}
+		for k, v in pairs(data) do
+			if k ~= "lines" then
+				top[k] = v
+			end
+		end
+		entry.fields = flatten(top, 1)
+		local lines = data.lines
+		if type(lines) == "table" and not isSecret(lines) then
+			for i, line in ipairs(lines) do
+				entry[string.format("line%02d", i)] = flatten(line, 1)
+			end
+		end
+		out["kind" .. tostring(kind)] = entry
+	end
+	return out
+end
+
+function Takeover.Describe()
+	local out = { probe = probe() }
 	for native, state in pairs(states) do
 		local view, model = state.view, state.model
 		local header = view.header

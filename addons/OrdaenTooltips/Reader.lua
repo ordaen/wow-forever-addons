@@ -94,6 +94,10 @@ local function readFont(fs, row, side)
 	return true
 end
 
+--- The last tooltip data the game gave per kind (Enum.TooltipDataType value -> its table), for the dev dump's probe
+--- of what Forever's tooltip lines carry (types, arguments: the base for tooltips inside tooltips, 2026-11-07).
+Reader.lastData = {}
+
 local function safeNumber(value)
 	return type(value) == "number" and not isSecret(value) and value or false
 end
@@ -111,6 +115,9 @@ local function readData(tooltip, model)
 		return
 	end
 	model.kind, model.id = safeNumber(data.type), safeNumber(data.id)
+	if model.kind then
+		Reader.lastData[model.kind] = data -- the game's own table, kept for the dev dump's probe (no copy)
+	end
 	local lines = data.lines
 	if isSecret(lines) or type(lines) ~= "table" then
 		return
