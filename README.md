@@ -9,30 +9,18 @@ World of Warcraft addons for the **WoW Forever** flavor (interface `16001`).
 
 ## Development
 
-Development happens on Windows: the game runs there and the repo lives on the Windows drive. Lua tooling (luacheck,
-busted) runs in WSL Ubuntu, called from Git Bash by `scripts/test.sh`.
+Development happens on Windows: the game runs there and the repo lives on the Windows drive. The checks (luacheck,
+forever-lint, lua-language-server, busted) all run through the `ordaen` build tool, which has Lua 5.1 built in and
+downloads the pinned lua-language-server on first use: no WSL, luarocks or Lua install needed.
 
 ### One-time setup
 
 1. **Windows tools:** [Git for Windows](https://gitforwindows.org/) (includes Git Bash),
    [Node.js](https://nodejs.org/) LTS (commit linting only) and [PowerShell 7](https://aka.ms/powershell) (`pwsh`).
-2. **WSL Ubuntu**, from an *admin* terminal (Win+X → Terminal (Admin)):
-   ```powershell
-   wsl --install -d Ubuntu      # reboot if asked, then open "Ubuntu" from the Start menu once to create a user
-   ```
-3. **Lua 5.1 + test tools inside Ubuntu** (WoW runs Lua 5.1, so do not use a newer Lua):
-   ```bash
-   sudo apt-get update
-   sudo apt-get install -y lua5.1 liblua5.1-0-dev luarocks build-essential
-   sudo luarocks --lua-version=5.1 install busted
-   sudo luarocks --lua-version=5.1 install luacheck
-   # lua-language-server: type checks against the real Forever API (the version CI uses, see ci.yml)
-   v=3.19.2; d=~/.local/share/lua-language-server-$v; mkdir -p $d ~/.local/bin
-   curl -fsSL https://github.com/LuaLS/lua-language-server/releases/download/$v/lua-language-server-$v-linux-x64.tar.gz | tar -xz -C $d
-   printf '#!/bin/sh\nexec %s/bin/lua-language-server "$@"\n' $d > ~/.local/bin/lua-language-server
-   chmod +x ~/.local/bin/lua-language-server
-   ```
-   Editors with the Lua extension (LuaLS) pick up `.luarc.json`: completion and type checks for the Forever API.
+2. **Editor (optional):** editors with the Lua extension (LuaLS) pick up `.luarc.json`: completion and type checks
+   for the Forever API.
+3. **C compiler for building `ordaen`:** the Visual Studio Build Tools ("Desktop development with C++"); Rust needs
+   them anyway, and they compile the Lua 5.1 that `ordaen` embeds.
 4. **The `ordaen` build tool** (maintainers; it lives in the private `wow-dev-tools` repo): clone `wow-dev-tools` next
    to this repo, install [Rust](https://rustup.rs), then in `wow-dev-tools`: `cargo install --path cli`.
 5. **Repo**, in the repo folder:
@@ -59,10 +47,10 @@ checkout never changes branch.
    cd ../wow-forever-addons-<topic> && npm install    # installs the commit hook in the new folder
    ```
 2. Edit and commit there (signed, [Conventional Commits](#commits)).
-3. Run the same checks as CI: `scripts/test.sh` (= `ordaen check`: build, luacheck, forever-lint, busted). Extra
-   arguments go to busted (`scripts/test.sh --filter Snapshot`).
-4. Bring it into the game: `git rebase develop` in the worktree, then from the main checkout
-   `git merge --ff-only feat/<topic>`.
+3. Run the same checks as CI: `scripts/test.sh` (= `ordaen check`: build, luacheck, forever-lint,
+   lua-language-server, busted; a few seconds). Extra arguments go to busted (`scripts/test.sh --filter Snapshot`).
+4. Bring it into the game: `ordaen merge feat/<topic>` (rebases it, fast-forwards `develop`, then checks it; if it
+   says develop is red, fix that first).
 5. Keep `ordaen watch` running in the main checkout: it rebuilds `dist/` whenever files change. In game: `/reload`
    (on Forever that also picks up new files and TOC changes).
 6. When the feature is done: `git worktree remove ../wow-forever-addons-<topic>` and `git branch -d feat/<topic>`.

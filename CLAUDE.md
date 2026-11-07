@@ -115,7 +115,7 @@ would have caught it is half a fix: say which check now catches it, or add one.
   and the specs enforce this once a dump is imported. Before the first dump (or for things a dump can't see), confirm
   by a Forever-specific addon using it (`*Camelot*`/`Forever*` files) or a `/dump` in game; unconfirmed APIs get a
   fallback and go in the dev-mode `api:` log line (`UNCONFIRMED_APIS` in `addons/OrdaenMinimap/Core.lua`).
-- Dev environment is Windows + WSL only (README "Development" describes nothing else). Lua 5.1, luacheck and busted live in the WSL distro `Ubuntu`; `ordaen` (and `scripts/test.sh`, which calls it) runs them there. From Git Bash, call WSL with `MSYS_NO_PATHCONV=1` and `--exec` (otherwise Git Bash rewrites `/mnt/...` paths and WSL's shell expands `$1` early).
+- Dev environment is Windows, no WSL (user's decision, 2026-11-07). `ordaen` has Lua 5.1 built in and runs luacheck, busted and forever-lint in it (threads, no shell); lua-language-server is the pinned native release it downloads once. Scripts and specs therefore never shell out (`io.popen`, `os.execute`): list and make folders with `scripts/fs.lua` (LuaFileSystem). Run any repo script with `ordaen lua <script> [args]`.
 - Packaging: BigWigs packager (pinned in `scripts/package.sh`). It requires a git repo root as topdir, so the script copies the addon into a temp git repo and tags it. Packager handles CurseForge/Wago uploads; the zip is attached to release-please's GitHub release with `gh release upload` (packager's own GitHub upload would overwrite the release notes). Packager maps interface `16???` to the `forever` flavor (CurseForge game id 88568).
 
 ## Layout
@@ -430,7 +430,7 @@ The real Lua API of each Forever client version, dumped in game, so nobody guess
   Owner of the linter and `api/` tooling: the Ordaen Core session.
 - **`api.json`** per version is the structured form of the text files (globals, namespaces, widgets, objects, and
   documented `functions`/`events` with typed `args`/`returns`/`payload`), for the linter and other tools (e.g. the
-  companion app). `bash scripts/api-import.sh` writes it; `lua5.1 scripts/api_import.lua --rebuild .` (in WSL)
+  companion app). `bash scripts/api-import.sh` writes it; `ordaen lua scripts/api_import.lua --rebuild .`
   regenerates every derived file from the committed text files without a new dump.
 - **LuaLS type checking**: the import also writes `api/forever/luals/*.lua` (`scripts/luals_defs.lua`, from the
   current api.json): widget classes with inheritance worked out from the method sets (`Frame`, `Button : Frame`,

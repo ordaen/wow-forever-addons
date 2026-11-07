@@ -6,7 +6,7 @@
 # In game first: Ordaen Dev window -> "Dump game API" (it reloads, which writes the file). The window is
 # part of the dev-only addon OrdaenCore_Debug in the private wow-dev-tools repo.
 # Afterwards click "Clear API dump" there; the dump is a few MB of SavedVariables.
-# Linux / CI: needs lua5.1 (or lua) on PATH. Windows (Git Bash): runs it in the WSL "Ubuntu" distro.
+# Runs in the ordaen CLI's own Lua (`ordaen lua`), or lua5.1 on PATH when ordaen isn't installed (needs lfs).
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
@@ -22,16 +22,14 @@ if [ -z "$saved" ] || [ ! -f "$saved" ]; then
 	exit 1
 fi
 
-if command -v lua5.1 >/dev/null || command -v lua >/dev/null; then
+if command -v ordaen >/dev/null; then
+	# Windows: ordaen's own Lua 5.1 (Git Bash paths like /c/... become C:/... for it)
+	if command -v cygpath >/dev/null; then saved="$(cygpath -m "$saved")"; fi
+	ordaen lua scripts/api_import.lua "$saved" . # in $root (cd above)
+elif command -v lua5.1 >/dev/null || command -v lua >/dev/null; then
 	lua="$(command -v lua5.1 || command -v lua)"
 	"$lua" scripts/api_import.lua "$saved" "$root"
-elif command -v wsl.exe >/dev/null && command -v cygpath >/dev/null; then
-	wsl_root="/mnt$(cygpath -u "$root")"
-	wsl_saved="/mnt$(cygpath -u "$saved")"
-	MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu --exec bash -c \
-		'cd "$1" && lua=$(command -v lua5.1 || command -v lua) && "$lua" scripts/api_import.lua "$2" "$1"' \
-		_ "$wsl_root" "$wsl_saved"
 else
-	echo "No Lua found, and no WSL to run it in." >&2
+	echo "Neither ordaen nor Lua 5.1 found (install the ordaen CLI from wow-dev-tools)." >&2
 	exit 1
 fi

@@ -1,15 +1,14 @@
 #!/usr/bin/env bash
 # Everything CI checks, through the ordaen CLI: build (generated TOCs, locales, load order checks), luacheck,
-# forever-lint, busted. The specs load the addons from dist/, as the game does.
+# forever-lint, lua-language-server, busted. The specs load the addons from dist/, as the game does.
 #
 #   scripts/test.sh                 everything (ordaen check)
 #   scripts/test.sh --filter Snap   build, then only busted (extra arguments go to busted)
 #
 # ordaen lives in the private wow-dev-tools repo (cli/). Install it there with `cargo install --path cli`, or build
 # it (`cargo build --release -p ordaen`) and this script finds it in a sibling checkout.
-# Lua 5.1, luacheck and busted: on PATH (Linux, CI), or in the WSL distro "Ubuntu" on Windows, which needs
-#   apt-get install lua5.1 liblua5.1-0-dev luarocks build-essential
-#   luarocks --lua-version=5.1 install busted && luarocks --lua-version=5.1 install luacheck
+# Nothing else to install: ordaen has Lua 5.1, luacheck and busted built in and downloads the pinned
+# lua-language-server on first use.
 set -euo pipefail
 
 root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
