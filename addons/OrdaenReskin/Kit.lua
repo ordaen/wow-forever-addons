@@ -187,6 +187,14 @@ function Kit.Button(button)
 	local dress = Kit.Dress(button, "pushButton", art, { track = "button" })
 	if dress then
 		goldLabel(button)
+		local Debug = ns.Addon.Debug
+		if Debug:IsEnabled() then
+			-- what Blizzard hangs on a push button besides its art (the game menu's «new» label): name, type, shown
+			for _, child in ipairs({ button:GetChildren() }) do
+				Debug:Logf("button %s child %s %s shown %s", button:GetDebugName(), child:GetDebugName(),
+					child:GetObjectType(), tostring(child:IsShown()))
+			end
+		end
 	end
 	return dress
 end
