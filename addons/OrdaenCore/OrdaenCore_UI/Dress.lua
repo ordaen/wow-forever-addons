@@ -44,6 +44,8 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 --- "disabled" while disabled, "pushed" while held down; "checkbox": also "checked"; "tab": "selected" while Blizzard
 --- has it selected (PanelTemplates). A control style (pushButton, checkbox, tab...) draws its own art for each
 --- state; `states` can still map a state to another role. Hover is the look's highlight
+---@field title FontString|nil a window's title text (Blizzard's): placed inside the window's top, with the role's
+--- engraved rule under it (theme titleRule); put Blizzard's title plate in `art`
 ---@field focus boolean|nil an EditBox: our look shows only while it has the keyboard focus (being typed in), at full
 --- alpha whatever alpha Blizzard gives the frame (Blizzard's IM chat style leaves an inactive input faintly shown)
 ---@field block OrdaenUIBlock|nil our look as a whole block (a row of cells, say) instead of an icon; `style` is its
@@ -71,6 +73,7 @@ local hooked = setmetatable({}, { __mode = "k" }) -- clickables whose OnEnter/On
 local ownerOf = setmetatable({}, { __mode = "k" }) -- hidden texture -> its dress (for the SetAlpha hook)
 local alphaHooked = setmetatable({}, { __mode = "k" }) -- textures whose SetAlpha carries our hook
 local zeroing = false
+local placeTitle -- an engraved title's text and rule (opts.title), below
 
 -- Blizzard's button gets the hover, so ours shows its highlight on request.
 local function onEnter(clickable)
@@ -249,6 +252,9 @@ local function resize(self)
 	if not self.dressed then
 		return
 	end
+	if self.opts.title then
+		placeTitle(self) -- the rule spans the window's width
+	end
 	local look = self.look
 	local block = look.block
 	local width, height = look:GetWidth(), look:GetHeight()
@@ -330,6 +336,17 @@ function Dress:SetIcon(icon, atlas)
 	end
 	el.image, el.atlas = icon, atlas
 	self.look:Refresh()
+end
+
+--- Mark the control as new (Blizzard's "New" label, hidden by the caller): the theme's marker at its left end.
+---@param on boolean|nil
+function Dress:SetNew(on)
+	local block = self.look.block
+	local isNew = on and true or nil
+	if block.newMarker ~= isNew then
+		block.newMarker = isNew
+		self.look:Refresh()
+	end
 end
 
 --- Show a state of the frame (a tab "selected" or "flash"): the style role `opts.states[state]`, or the frame's own
@@ -451,6 +468,76 @@ end
 
 local create
 
+-- An engraved title (opts.title): Blizzard's title text inside the window's top, a 1 px rule under it fading out at
+-- both ends (4 gradient segments on the look), from the role's titleRule. Blizzard re-anchoring the text gets ours
+-- back. Made once per dress.
+local titled = setmetatable({}, { __mode = "k" }) -- title FontString -> its dress
+local placingTitle = false
+
+local function anchorTitle(self)
+	local rule = Theme.BlockStyle(self.opts.style) and Theme.BlockStyle(self.opts.style).titleRule
+	local text = self.opts.title
+	if not rule or not text then
+		return
+	end
+	placingTitle = true
+	text:ClearAllPoints()
+	text:SetPoint("TOP", self.frame, "TOP", 0, -rule.textY)
+	placingTitle = false
+end
+
+local function onTitlePlaced(text)
+	local self = titled[text]
+	if self and self.dressed and not placingTitle then
+		anchorTitle(self)
+	end
+end
+
+function placeTitle(self)
+	local rule = Theme.BlockStyle(self.opts.style) and Theme.BlockStyle(self.opts.style).titleRule
+	if not rule then
+		return
+	end
+	local look = self.look.frame
+	local segments = self.titleRule
+	if not segments then
+		segments = {}
+		for i = 1, 4 do
+			segments[i] = look:CreateTexture(nil, "ARTWORK")
+			segments[i]:SetColorTexture(1, 1, 1, 1)
+		end
+		self.titleRule = segments
+	end
+	local dim, light = rule.colors[1], rule.colors[2]
+	local stops = { { dim, 0 }, { dim, 1 }, { light, 1 }, { dim, 1 }, { dim, 0 } }
+	local px = PixelUtil.GetPixelToUIUnitFactor() / look:GetEffectiveScale()
+	for i = 1, 4 do
+		local seg, from, to = segments[i], stops[i], stops[i + 1]
+		seg:SetGradient("HORIZONTAL", CreateColor(from[1][1], from[1][2], from[1][3], from[2]),
+			CreateColor(to[1][1], to[1][2], to[1][3], to[2]))
+		seg:ClearAllPoints()
+		seg:SetHeight(px)
+		seg:Show()
+	end
+	-- Four equal segments between the insets, chained left to right.
+	segments[1]:SetPoint("TOPLEFT", look, "TOPLEFT", rule.inset, -rule.ruleY)
+	for i = 2, 4 do
+		segments[i]:SetPoint("TOPLEFT", segments[i - 1], "TOPRIGHT")
+	end
+	local width = self.frame:GetWidth()
+	if not issecretvalue(width) then
+		local each = math.max(1, (width - 2 * rule.inset) / 4)
+		for i = 1, 4 do
+			segments[i]:SetWidth(each)
+		end
+	end
+	if not titled[self.opts.title] then
+		titled[self.opts.title] = self
+		hooksecurefunc(self.opts.title, "SetPoint", onTitlePlaced)
+	end
+	anchorTitle(self)
+end
+
 --- Dress one of Blizzard's frames in our look. The same frame dressed twice returns the first dress. A dress that
 --- fails (a frame Blizzard changed under us) is reported to the error handler and returns nil.
 ---@param frame Frame
@@ -525,6 +612,9 @@ function create(frame, opts)
 		end)
 	end
 	self:Apply()
+	if opts.title then
+		placeTitle(self)
+	end
 	if opts.track then
 		track(self)
 		self:SetState(trackedState(self))

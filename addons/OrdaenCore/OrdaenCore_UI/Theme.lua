@@ -75,6 +75,12 @@ end
 
 local THEMES = {}
 
+-- An engraved window title (the user's pick, title variant B, 2026-11-07): the title's text inside the window's top
+-- (its top `textY` below the window's), and under it a 1 px bronze rule fading out at both ends (transparent, dim
+-- bronze, light bronze, dim bronze, transparent), `ruleY` below the top, `inset` in from each side.
+local TITLE_RULE = { textY = 14, ruleY = 32, inset = 40,
+	colors = { { 0.557, 0.463, 0.333 }, { 0.839, 0.647, 0.420 } } }
+
 -- Blizzard's window art, by theme token (themes.jsonc): the frame asset (its NineSlice layout), the background asset,
 -- the border's scale, and where the background sits inside that layout's border (the art's pixels: top, right,
 -- bottom, left). Windows at full size; small surfaces (tooltips, panels, the chat window) with the border at the
@@ -168,6 +174,7 @@ THEMES.ordaen = {
 			padding = { 28, "md", "md", "md" },
 			gap = "sm",
 			frameArt = WINDOW_ART,
+			titleRule = TITLE_RULE,
 		},
 		-- A window with Blizzard's portrait ring (the portrait itself stays the window's own).
 		portraitWindow = {
@@ -182,6 +189,7 @@ THEMES.ordaen = {
 		dialog = {
 			padding = "xl", gap = "lg",
 			frameArt = DIALOG_ART,
+			titleRule = TITLE_RULE,
 		},
 		-- An inner pane of a window (Blizzard's inset: a sunken frame inside the metal one), e.g. a list behind its own
 		-- border. Ordaen Reskin dresses Blizzard's own insets (frame.Inset) with it.
@@ -440,6 +448,15 @@ function Theme.Token(name)
 	ensure()
 	local store = OrdaenCore._SettingsStore
 	return store and store.TokenIn(Theme.name, name)
+end
+
+--- The asset a theme token names (kind, token): e.g. ("marker", "control.newMarker") -> its data, or nil.
+---@param kind string
+---@param token string
+function Theme.AssetOf(kind, token)
+	ensure()
+	local store = OrdaenCore._SettingsStore
+	return store and store.Asset(kind, store.TokenIn(Theme.name, token)) or nil
 end
 
 --- A colour given as { r, g, b, a? } or as a colour token's name ("color.xp"): the colour, or `fallback`.

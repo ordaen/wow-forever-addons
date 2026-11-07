@@ -92,6 +92,7 @@ local unavailable = false
 --- hovered)
 ---@field accent number[]|nil { r, g, b }: tints this block's surface, lines and accented text (an item's quality,
 --- a zone's PvP colour); children inherit it
+---@field newMarker boolean|nil a top-level control marked as new: the theme's marker at its left end (dress:SetNew)
 ---@field controlState string|nil a top-level control's state for its style's control art ("pushed", "checked",
 --- "selected", "disabled"); a dress sets it with :SetState
 ---@field open { top: boolean|nil, right: boolean|nil, bottom: boolean|nil, left: boolean|nil }|nil a top-level

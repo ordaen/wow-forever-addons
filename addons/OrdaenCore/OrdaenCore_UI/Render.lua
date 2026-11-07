@@ -1147,8 +1147,8 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 end
 
 -- Blizzard's control art (a look with `controlArt`, from the theme's control assets): pieces drawn on the surface's
--- own textures, pooled per surface. A piece is an atlas name; { atlas | file, alpha, coords, outset, aspect }; three slices
--- { left, center, right } (the ends keep their aspect at the surface's height, the centre stretches) or
+-- own textures, pooled per surface. A piece is an atlas name; { atlas | file, alpha, coords, outset, aspect }; three
+-- slices, { left, center, right } (the ends keep their aspect at the surface's height, the centre stretches) or
 -- { top, middle, bottom }. Drawn in the block's controlState (from the dress's :SetState): the asset's piece for it,
 -- checked over normal (the box, then its check), or normal darker for pushed and grey for disabled when it has none.
 -- The asset's highlight piece goes on the HIGHLIGHT layer (shown on hover and LockHighlight); `parts` put a part (a
@@ -1157,6 +1157,7 @@ local controlPools = setmetatable({}, { __mode = "k" }) -- surface -> { used = n
 local FALLBACK_TINT = { pushed = 0.75, disabled = 0.6 }
 local OVER_NORMAL = { checked = true, disabledChecked = true } -- states drawn over the normal piece
 local NO_PARTS = {}
+local drawNewMarker
 local drawControlPiece
 
 local function controlTexture(surface, pool, layer, sublevel)
@@ -1303,6 +1304,36 @@ local function drawControlArt(surface, look, accent, w, h, state)
 	end
 end
 
+-- Something new on a control (Blizzard's floating "New" label, which Reskin hides): the theme's marker (token
+-- control.newMarker: { file or atlas, size, inset }) at the left end, inside the rim, centred vertically. One texture
+-- per surface, made on first use.
+local markers = setmetatable({}, { __mode = "k" })
+
+function drawNewMarker(surface, on, h)
+	local tex = markers[surface]
+	local asset = on and Theme.AssetOf("marker", "control.newMarker") or nil
+	if not asset then
+		if tex then
+			tex:Hide()
+		end
+		return
+	end
+	if not tex then
+		tex = surface:CreateTexture(nil, "OVERLAY", nil, 6)
+		markers[surface] = tex
+	end
+	if asset.atlas then
+		tex:SetAtlas(asset.atlas)
+	else
+		tex:SetTexture(asset.file)
+	end
+	local size = asset.size or { 16, 16 }
+	tex:SetSize(size[1], size[2])
+	tex:ClearAllPoints()
+	tex:SetPoint("LEFT", surface, "TOPLEFT", asset.inset or 6, issecretvalue(h) and 0 or -h / 2)
+	tex:Show()
+end
+
 local function hideRest(list, used)
 	for i = used + 1, #list do
 		list[i]:Hide()
@@ -1435,6 +1466,7 @@ function Render.Draw(surface, root, width)
 	drawBackdrop(surface, look)
 	drawFrameArt(surface, look, root.accent, root.open, result.width, result.height)
 	drawControlArt(surface, look, root.accent, result.width, result.height, root.controlState)
+	drawNewMarker(surface, root.newMarker, result.height)
 	if look and not look.controlArt then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end

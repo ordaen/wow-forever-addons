@@ -352,6 +352,7 @@ UI.Dress(SomeButton, { style = "pushButton", size = "frame", art = buttonArt, tr
 | `states` | | state -> style role for `d:SetState(state)`; control styles draw their own art per state and need none |
 | `track` | | `"button"`, `"checkbox"` or `"tab"`: follow the control's own state (see below) |
 | `borderAbove` | false | a style with window art: its border goes above the frame and its children (a Blizzard window whose opaque content reaches its edges), at the level of the window's own NineSlice (else 500 above it); the fill stays under |
+| `title` | | a window's title FontString: placed inside the top, with the engraved rule under it |
 | `open` | | open sides of the look's window art, `{ bottom = true }`; change with `d:SetOpen(sides)` |
 | `focus` | false | an EditBox: our look shows only while it's typed in, at full alpha (whatever alpha Blizzard gives it) |
 
@@ -373,6 +374,19 @@ dress.look:On("render", function(look)
 	-- put ChatFrameMenuButton over it
 end)
 ```
+
+### d:SetNew(on)
+
+Marks the control as new (Blizzard's floating "New" label, which the caller hides): the theme's marker (token
+`control.newMarker`, a small glowing blue gem in the Ordaen theme) at its left end, inside the rim, centred
+vertically. `false` takes it off.
+
+### Engraved titles
+
+`title = <FontString>` in the options (a window's or dialog's title text, Blizzard's): the dress places the text
+inside the window's top and draws the role's engraved rule under it, a 1 px bronze line fading out at both ends
+(theme `titleRule` on `window` and `dialog`: `textY`, `ruleY`, `inset`). Blizzard re-anchoring the text puts it
+back. Give Blizzard's title plate pieces in `art`.
 
 ### d:Restrip()
 

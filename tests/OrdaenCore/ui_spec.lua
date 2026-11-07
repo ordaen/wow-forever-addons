@@ -998,10 +998,11 @@ describe("OrdaenCore.UI", function()
 				files[#files + 1] = t.file
 			end
 			assert.same({ "Interface\\Buttons\\UI-CheckBox-Up", "Interface\\Buttons\\UI-CheckBox-Check" }, files)
-			local button = UI.Block({ name = "Push", style = "pushButton", controlState = "pushed", width = 120,
-				height = 22 })
+			-- (the close button's art has no pushed or disabled piece)
+			local button = UI.Block({ name = "Close", style = "closeButton", controlState = "pushed", width = 28,
+				height = 28 })
 			local left = controlPieces(button.frame, "BACKGROUND")[1]
-			assert.equals("128-RedButton-Left", left.atlas, "no pushed art: normal")
+			assert.equals("RedButton-Exit", left.atlas, "no pushed art: normal")
 			assert.same({ 0.75, 0.75, 0.75 }, left.vertexColor)
 			button.block.controlState = "disabled"
 			button:Refresh()
@@ -1448,6 +1449,39 @@ describe("OrdaenCore.UI", function()
 			rawset(_G, "OrdaenCoreDB", { ui = { textSize = 16 } })
 			UI._SettingsChanged()
 			assert.is_true(-look.point[5] > 4, "a bigger text size: more room")
+		end)
+
+		it("mark a control as new with the theme's gem at its left end, and take it off again", function()
+			local button = chatWindow()
+			button:SetSize(120, 26)
+			local dress = UI.Dress(button, { style = "pushButton", size = "frame", art = {} })
+			local function gem()
+				for _, t in ipairs(dress.look.frame.textures) do
+					if t.file and tostring(t.file):find("new%-gem") then
+						return t
+					end
+				end
+			end
+			assert.is_nil(gem())
+			dress:SetNew(true)
+			local g = gem()
+			assert.is_truthy(g, "the theme's marker (control.newMarker)")
+			assert.equals("LEFT", g.point[1])
+			assert.equals(4, g.point[4], "the asset's inset from the left")
+			assert.is_true(g.shown)
+			dress:SetNew(false)
+			assert.is_false(g.shown)
+		end)
+
+		it("place a window's title inside its top, with the engraved rule under it", function()
+			local window = chatWindow()
+			window:SetSize(300, 200)
+			local title = window:CreateFontString()
+			title:SetPoint("CENTER", window, "TOP", 0, 10) -- on Blizzard's title plate
+			UI.Dress(window, { style = "dialog", size = "frame", art = {}, title = title })
+			assert.same({ "TOP", window, "TOP", 0, -14 }, title.point, "inside the top")
+			title:SetPoint("CENTER", window, "TOP", 0, 10) -- Blizzard's layout again
+			assert.same({ "TOP", window, "TOP", 0, -14 }, title.point, "back inside")
 		end)
 
 		it("switch the style with :SetState (a selected or flashing tab)", function()
