@@ -1480,8 +1480,18 @@ describe("OrdaenCore.UI", function()
 			title:SetPoint("CENTER", window, "TOP", 0, 10) -- on Blizzard's title plate
 			UI.Dress(window, { style = "dialog", size = "frame", art = {}, title = title })
 			assert.same({ "TOP", window, "TOP", 0, -14 }, title.point, "inside the top")
+			assert.same({ 1, 0.82, 0 }, { title.color[1], title.color[2], title.color[3] }, "in gold")
 			title:SetPoint("CENTER", window, "TOP", 0, 10) -- Blizzard's layout again
 			assert.same({ "TOP", window, "TOP", 0, -14 }, title.point, "back inside")
+		end)
+
+		it("switch a dressed control's style with :SetStyle, keeping its state", function()
+			local button = chatWindow()
+			local dress = UI.Dress(button, { style = "pushButton", size = "frame", art = {} })
+			dress:SetState("pushed")
+			dress:SetStyle("pushButtonAccent")
+			assert.equals("pushButtonAccent", dress.look.block.style)
+			assert.equals("pushed", dress.look.block.controlState)
 		end)
 
 		it("switch the style with :SetState (a selected or flashing tab)", function()

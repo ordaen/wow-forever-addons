@@ -375,6 +375,11 @@ dress.look:On("render", function(look)
 end)
 ```
 
+### d:SetStyle(role)
+
+Switches the dressed control's style and redraws it, keeping its state: a pooled Blizzard button that is the menu's
+exit on this show (`pushButtonAccent`, the accent plate) and a plain one on the next (`pushButton`).
+
 ### d:SetNew(on)
 
 Marks the control as new (Blizzard's floating "New" label, which the caller hides): the theme's marker (token

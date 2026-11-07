@@ -338,6 +338,19 @@ function Dress:SetIcon(icon, atlas)
 	self.look:Refresh()
 end
 
+--- Switch the dressed control's style (role) and redraw, keeping its state: e.g. a pooled Blizzard button that is
+--- the menu's exit on this show ("pushButtonAccent") and a plain one on the next ("pushButton").
+---@param role string
+function Dress:SetStyle(role)
+	if self.opts.style == role then
+		return
+	end
+	self.opts.style = role
+	local states = self.opts.states
+	self.look.block.style = (states and self.state and states[self.state]) or role
+	self.look:Refresh()
+end
+
 --- Mark the control as new (Blizzard's "New" label, hidden by the caller): the theme's marker at its left end.
 ---@param on boolean|nil
 function Dress:SetNew(on)
@@ -483,6 +496,10 @@ local function anchorTitle(self)
 	placingTitle = true
 	text:ClearAllPoints()
 	text:SetPoint("TOP", self.frame, "TOP", 0, -rule.textY)
+	local c = rule.text
+	if c then
+		text:SetTextColor(c[1], c[2], c[3])
+	end
 	placingTitle = false
 end
 

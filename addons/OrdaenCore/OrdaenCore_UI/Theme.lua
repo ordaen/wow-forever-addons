@@ -78,7 +78,7 @@ local THEMES = {}
 -- An engraved window title (the user's pick, title variant B, 2026-11-07): the title's text inside the window's top
 -- (its top `textY` below the window's), and under it a 1 px bronze rule fading out at both ends (transparent, dim
 -- bronze, light bronze, dim bronze, transparent), `ruleY` below the top, `inset` in from each side.
-local TITLE_RULE = { textY = 14, ruleY = 32, inset = 40,
+local TITLE_RULE = { textY = 14, ruleY = 32, inset = 40, text = { 1, 0.82, 0 }, -- the title in gold (#ffd100)
 	colors = { { 0.557, 0.463, 0.333 }, { 0.839, 0.647, 0.420 } } }
 
 -- Blizzard's window art, by theme token (themes.jsonc): the frame asset (its NineSlice layout), the background asset,
@@ -214,6 +214,9 @@ THEMES.ordaen = {
 		-- normal (a scroll stepper's back or forward arrow). `parts` put a part at a side (a dropdown's arrow). `accent`:
 		-- the block's accent tints it (an item's quality on its slot). The asset's highlight shows on hover.
 		pushButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "pushButton" } },
+		-- An important button (the game menu's exits): the accent plate, the same kind of art under its own token.
+		pushButtonAccent = { padding = { "sm", "lg", "sm", "lg" },
+			controlArt = { kind = "pushButton", token = "control.pushButtonAccent" } },
 		-- the push button in our red accent (a window's own close button among bronze ones)
 		accentButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "accentButton" } },
 		closeButton = { padding = 0, controlArt = { kind = "closeButton" } },
@@ -325,7 +328,7 @@ local function resolveControl(spec, themeName)
 	if not (spec and store) then
 		return nil
 	end
-	local asset = store.Asset(spec.kind, store.TokenIn(themeName, "control." .. spec.kind))
+	local asset = store.Asset(spec.kind, store.TokenIn(themeName, spec.token or ("control." .. spec.kind)))
 	if not asset then
 		return nil
 	end
