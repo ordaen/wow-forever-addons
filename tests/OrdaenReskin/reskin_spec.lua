@@ -46,12 +46,16 @@ local function texture(name)
 	return stub(name, { kind = "Texture" })
 end
 
--- A window as Blizzard builds it (PortraitFrameTemplate): a NineSlice of border pieces, the Bg fill and the top
--- streaks, plus content of its own (a parchment page) that must stay.
-local function window(name)
-	local nine = stub(name .. ".NineSlice", { kind = "Frame" })
-	nine.regions = { texture(name .. ".TopLeftCorner"), texture(name .. ".TopEdge"), stub(name .. ".Text",
-		{ kind = "FontString" }) }
+-- A window as Blizzard builds it: a NineSlice of border pieces (its top-left corner a portrait ring on
+-- PortraitFrameTemplate), the Bg fill and the top streaks, plus content of its own (a parchment page) that must stay.
+local function window(name, portrait)
+	local corner = texture(name .. ".TopLeftCorner")
+	local atlas = portrait and "UI-Frame-PortraitMetal-CornerTopLeft" or "UI-Frame-Metal-CornerTopLeft"
+	function corner:GetAtlas()
+		return atlas
+	end
+	local nine = stub(name .. ".NineSlice", { kind = "Frame", TopLeftCorner = corner })
+	nine.regions = { corner, texture(name .. ".TopEdge"), stub(name .. ".Text", { kind = "FontString" }) }
 	local frame = stub(name, { kind = "Frame", NineSlice = nine, Bg = texture(name .. ".Bg"),
 		TopTileStreaks = texture(name .. ".TopTileStreaks"), Page = texture(name .. ".Page") })
 	frame.regions = { frame.Bg, frame.Page }
@@ -128,7 +132,7 @@ describe("Ordaen Reskin", function()
 
 	before_each(function()
 		frames, dressed = {}, {}
-		windows = { CharacterFrame = window("CharacterFrame"), GameMenuFrame = dialog("GameMenuFrame") }
+		windows = { CharacterFrame = window("CharacterFrame", true), GameMenuFrame = dialog("GameMenuFrame") }
 	end)
 
 	after_each(function()
@@ -144,11 +148,35 @@ describe("Ordaen Reskin", function()
 		load()
 		show(windows.CharacterFrame)
 		local dress = dressed[windows.CharacterFrame]
-		assert.equals("window", dress.spec.style)
+		assert.equals("portraitWindow", dress.spec.style, "it has a portrait ring")
 		assert.equals("frame", dress.spec.size)
+		assert.is_true(dress.spec.borderAbove, "our border goes above its content, as Blizzard's")
 		assert.same({ "CharacterFrame.Bg", "CharacterFrame.TopEdge", "CharacterFrame.TopLeftCorner",
 			"CharacterFrame.TopTileStreaks" }, art(windows.CharacterFrame), "the parchment and text stay")
 		show(windows.CharacterFrame) -- a second show: no second dress (fakeDressing asserts it)
+	end)
+
+	it("dresses a window without a portrait ring in the plain window style", function()
+		load()
+		local spellbook = window("PlayerSpellsFrame")
+		rawset(_G, "PlayerSpellsFrame", spellbook)
+		fire("ADDON_LOADED", "Blizzard_PlayerSpells")
+		show(spellbook)
+		assert.equals("window", dressed[spellbook].spec.style)
+	end)
+
+	it("dresses a window's inner pane (its Inset) in the inset style, with the inset's own art", function()
+		local inset = window("CharacterFrame.Inset")
+		rawset(windows.CharacterFrame, "Inset", inset)
+		load()
+		show(windows.CharacterFrame)
+		local dress = dressed[inset]
+		assert.equals("inset", dress.spec.style)
+		assert.is_true(dress.spec.borderAbove)
+		assert.same({ "CharacterFrame.Inset.Bg", "CharacterFrame.Inset.TopEdge", "CharacterFrame.Inset.TopLeftCorner",
+			"CharacterFrame.Inset.TopTileStreaks" }, art(inset))
+		ns.Addon:Set("windows", false)
+		assert.is_false(dress.on, "it goes with its window")
 	end)
 
 	it("dresses a dialog in the dialog style, with its Border pieces", function()
