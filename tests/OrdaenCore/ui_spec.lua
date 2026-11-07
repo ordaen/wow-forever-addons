@@ -370,6 +370,9 @@ local function fakeFrame(name, log, parent)
 	function f:SetFrameLevel(level)
 		self.level = level
 	end
+	function f:SetUsingParentLevel(on)
+		self.usingParentLevel = on
+	end
 	function f:GetFrameLevel() -- a real frame always has one: its parent's + 1 unless set
 		if self.level then
 			return self.level
@@ -1229,29 +1232,20 @@ describe("OrdaenCore.UI", function()
 			assert.equals(501, look.children[#look.children].level)
 		end)
 
-		it("show and hide with Blizzard's frame (a hidden chat window, tab or voice button leaves no look)", function()
+		it("draw on the frame with size = \"frame\": a child at its level, so it shows, hides, fades with it", function()
 			local window, background = chatWindow()
 			window:Show()
+			window.strata = "HIGH"
 			local dress = UI.Dress(window, { style = "panel", size = "frame", cover = background, art = { background } })
-			assert.is_true(dress.look.frame.shown)
+			local look = dress.look.frame
+			assert.equals(window, look.parent, "on the frame, not beside it")
+			assert.is_true(look.usingParentLevel, "its regions interleave with the frame's by layer")
+			assert.is_nil(rawget(look, "level"), "no level of its own")
+			assert.equals("MEDIUM", look.strata, "no strata copied: the parent's applies")
 			window:Hide()
-			assert.is_false(dress.look.frame.shown)
-			window:Show()
-			assert.is_true(dress.look.frame.shown)
-			local hidden = chatWindow()
-			hidden:Hide()
-			assert.is_false(UI.Dress(hidden, { style = "panel", size = "frame", art = {} }).look.frame.shown,
-				"dressed while hidden: our look starts hidden")
-		end)
-
-		it("fade with Blizzard's frame (a chat input faded out in IM style leaves no look)", function()
-			local window = chatWindow()
-			window:Show()
-			local dress = UI.Dress(window, { style = "panel", size = "frame", art = {} })
 			window:SetAlpha(0.2)
-			assert.equals(0.2, dress.look.frame:GetAlpha())
-			window:SetAlpha(1)
-			assert.equals(1, dress.look.frame:GetAlpha())
+			assert.is_true(look.shown, "hidden and faded through its parent, nothing set on it")
+			assert.is_nil(rawget(look, "alpha"))
 		end)
 
 				it("show only while being typed in with `focus`, at full alpha (an input over the chat)", function()
@@ -1292,22 +1286,6 @@ describe("OrdaenCore.UI", function()
 			look.scripts.OnSizeChanged(look)
 			assert.same(drawn, look.size, "not drawn again for a size it can't read")
 			assert.is_true(look.shown, "still covering the frame")
-		end)
-
-		it("follow the frame to another strata and level (the chat input goes to DIALOG while typing)", function()
-			local input = chatWindow()
-			input:Show()
-			input:SetFrameStrata("LOW")
-			input:SetFrameLevel(9)
-			local dress = UI.Dress(input, { style = "input", size = "frame", art = {} })
-			local look = dress.look.frame
-			assert.same({ "LOW", 8 }, { look:GetFrameStrata(), look:GetFrameLevel() }, "right under the frame")
-			input:SetFrameStrata("DIALOG") -- Blizzard, as typing starts
-			assert.same({ "DIALOG", 8 }, { look:GetFrameStrata(), look:GetFrameLevel() })
-			input:SetFrameLevel(14) -- Blizzard raised it
-			input:Hide()
-			input:Show()
-			assert.equals(13, look:GetFrameLevel(), "under it again when shown")
 		end)
 
 				it("reach past the covered region with `extend` (an input with buttons on its left)", function()

@@ -1,6 +1,8 @@
 -- OrdaenCore.UI dressing: one of Blizzard's frames in our look, without taking it over. Blizzard's frame keeps its
 -- clicks, menus, scripts, text and size rules and stays on top; its art (textures, never its text) goes to alpha 0
--- and stays there when Blizzard fades it back in, and our block is drawn underneath. :Undress() gives the art back.
+-- and stays there when Blizzard fades it back in, and our block is drawn underneath: a sibling right under a button
+-- (size "look"), or on a window, tab or input itself (size "frame": a child at its level, our fill under its
+-- content by layer, following its visibility, alpha, strata and scale). :Undress() gives the art back.
 --
 --   local dress = UI.Dress(CharacterMicroButton, { atlas = "UI-HUD-MicroMenu-CharacterInfo-Up" })  -- a button
 --   UI.Dress(ChatFrame1, { style = "panel", size = "frame", cover = ChatFrame1Background,
@@ -46,7 +48,7 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@class OrdaenUIDress
 ---@field frame Frame Blizzard's frame
 ---@field clickable Frame the frame that gets the mouse
----@field look OrdaenUIComponent our block, under Blizzard's frame
+---@field look OrdaenUIComponent our block: on Blizzard's frame (size "frame", a child at its level), else under it
 ---@field icon OrdaenUIImage|nil the icon element of `look` (none when dressed with size "frame" and no icon)
 ---@field alphas table<table, number> each hidden region's alpha before dressing
 ---@field size number[] Blizzard's frame size before dressing
@@ -208,7 +210,9 @@ end
 local function onFocus(frame)
 	for _, dress in pairs(byClickable) do
 		if dress.frame == frame and dress.dressed and dress.opts.focus then
-			layer(dress)
+			if dress.opts.size ~= "frame" then
+				layer(dress)
+			end
 			dress.look:SetShown(wanted(dress))
 		end
 	end
@@ -257,26 +261,30 @@ function Dress:Apply()
 	local frame, look = self.frame, self.look
 	self.dressed = true
 	hideArt(self) -- first: Blizzard's art goes even if something below fails
-	look:SetParent(frame:GetParent())
 	if self.opts.size == "frame" then
+		-- On the frame itself: a child at the frame's own level, so our regions interleave with Blizzard's by layer
+		-- (our fill under its content) and its visibility, alpha, strata and scale reach ours by themselves.
+		look:SetParent(frame)
+		look.frame:SetUsingParentLevel(true)
 		placeOver(self)
 		look:SetShown(wanted(self))
 		resize(self)
-	else
-		look:ClearAllPoints()
-		look:SetPoint("CENTER", frame, "CENTER")
-		look:SetShown(wanted(self))
-		frame:SetSize(look:GetWidth(), look:GetHeight())
-		if self.clickable ~= frame then
-			self.clickable:ClearAllPoints()
-			self.clickable:SetAllPoints(frame)
-		end
+		return
+	end
+	-- Beside the frame (size "look"): a sibling right under it, the frame taking our block's size.
+	look:SetParent(frame:GetParent())
+	look:ClearAllPoints()
+	look:SetPoint("CENTER", frame, "CENTER")
+	look:SetShown(wanted(self))
+	frame:SetSize(look:GetWidth(), look:GetHeight())
+	if self.clickable ~= frame then
+		self.clickable:ClearAllPoints()
+		self.clickable:SetAllPoints(frame)
 	end
 	look:SetAlpha(self.opts.focus and 1 or frame:GetAlpha())
 	layer(self)
 end
 
---- Hide art Blizzard added since dressing (a new texture, a re-created child) and redraw our look.
 --- Open sides of the look's window art (see the component's :SetOpen), e.g. the chat window on a panel.
 ---@param sides { top: boolean|nil, right: boolean|nil, bottom: boolean|nil, left: boolean|nil }|nil
 function Dress:SetOpen(sides)
@@ -284,6 +292,7 @@ function Dress:SetOpen(sides)
 	self.look:SetOpen(sides)
 end
 
+--- Hide art Blizzard added since dressing (a new texture, a re-created child) and redraw our look.
 function Dress:Refresh()
 	if not self.dressed then
 		return
@@ -358,7 +367,8 @@ function Dress.New(frame, opts)
 		end
 		spec = { icon }
 	end
-	spec.style, spec.parent = opts.style or "iconButton", frame:GetParent()
+	spec.style = opts.style or "iconButton"
+	spec.parent = opts.size == "frame" and frame or frame:GetParent()
 	spec.open = opts.open
 	local look = Component.Block(spec)
 	if opts.borderAbove then
@@ -381,11 +391,14 @@ function Dress.New(frame, opts)
 		clickable:HookScript("OnEnter", onEnter)
 		clickable:HookScript("OnLeave", onLeave)
 	end
-	-- Once per dress: dressing the same frame again returns this one.
-	frame:HookScript("OnShow", onFrameShown)
-	frame:HookScript("OnHide", onFrameHidden)
-	hooksecurefunc(frame, "SetAlpha", onFrameAlpha)
-	hooksecurefunc(frame, "SetFrameStrata", onFrameStrata)
+	-- Once per dress: dressing the same frame again returns this one. A look beside its frame (size "look") follows
+	-- the frame's visibility, alpha and strata by these hooks; one on the frame (size "frame") follows by itself.
+	if opts.size ~= "frame" then
+		frame:HookScript("OnShow", onFrameShown)
+		frame:HookScript("OnHide", onFrameHidden)
+		hooksecurefunc(frame, "SetAlpha", onFrameAlpha)
+		hooksecurefunc(frame, "SetFrameStrata", onFrameStrata)
+	end
 	if frame:IsObjectType("EditBox") then -- `focus` may be turned on later
 		frame:HookScript("OnEditFocusGained", onFocus)
 		frame:HookScript("OnEditFocusLost", onFocus)
