@@ -3,6 +3,1355 @@
 
 
 do
+---@class PartyFrame_BackgroundObject : Frame
+---@field BottomEdge PartyFrame_Background_BottomEdgeObject
+---@field BottomLeftCorner PartyFrame_Background_BottomLeftCornerObject
+---@field BottomRightCorner PartyFrame_Background_BottomRightCornerObject
+---@field Center PartyFrame_Background_CenterObject
+---@field LeftEdge PartyFrame_Background_LeftEdgeObject
+---@field RightEdge PartyFrame_Background_RightEdgeObject
+---@field TopEdge PartyFrame_Background_TopEdgeObject
+---@field TopLeftCorner PartyFrame_Background_TopLeftCornerObject
+---@field TopRightCorner PartyFrame_Background_TopRightCornerObject
+---@field backdropInfo PartyFrame_Background_backdropInfoObject
+local PartyFrame_BackgroundObject = {}
+---@return any ...
+function PartyFrame_BackgroundObject:ApplyBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:ClearBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetBackdropBorderColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetBackdropColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:GetEdgeSize(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:HasBackdropInfo(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnBackdropLoaded(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnBackdropSizeChanged(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnMouseUp(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:OnShow(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SaveOpacity(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBackdrop(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBackdropBorderColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBackdropColor(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetBorderBlendMode(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetOpacity(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetupPieceVisuals(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:SetupTextureCoordinates(...) end
+---@return any ...
+function PartyFrame_BackgroundObject:ToggleOpacity(...) end
+end
+
+do
+---@class PartyFrame_Background_BottomEdgeObject : Texture
+local PartyFrame_Background_BottomEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_BottomLeftCornerObject : Texture
+local PartyFrame_Background_BottomLeftCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_BottomRightCornerObject : Texture
+local PartyFrame_Background_BottomRightCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_CenterObject : Texture
+local PartyFrame_Background_CenterObject = {}
+end
+
+do
+---@class PartyFrame_Background_LeftEdgeObject : Texture
+local PartyFrame_Background_LeftEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_RightEdgeObject : Texture
+local PartyFrame_Background_RightEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_TopEdgeObject : Texture
+local PartyFrame_Background_TopEdgeObject = {}
+end
+
+do
+---@class PartyFrame_Background_TopLeftCornerObject : Texture
+local PartyFrame_Background_TopLeftCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_TopRightCornerObject : Texture
+local PartyFrame_Background_TopRightCornerObject = {}
+end
+
+do
+---@class PartyFrame_Background_backdropInfoObject
+---@field bgFile string
+---@field edgeFile string
+---@field edgeSize number
+---@field insets table
+---@field tile boolean
+---@field tileEdge boolean
+---@field tileSize number
+local PartyFrame_Background_backdropInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1Object : Button
+---@field ArtLayoutInfo PartyFrame_MemberFrame1_ArtLayoutInfoObject
+---@field AuraFrameContainer PartyFrame_MemberFrame1_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame1_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame1_FlashObject
+---@field HealthBarContainer PartyFrame_MemberFrame1_HealthBarContainerObject
+---@field ManaBar PartyFrame_MemberFrame1_ManaBarObject
+---@field Name PartyFrame_MemberFrame1_NameObject
+---@field NotPresentIcon PartyFrame_MemberFrame1_NotPresentIconObject
+---@field PartyMemberOverlay PartyFrame_MemberFrame1_PartyMemberOverlayObject
+---@field PetFrame PartyFrame_MemberFrame1_PetFrameObject
+---@field Portrait PartyFrame_MemberFrame1_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame1_PortraitMaskObject
+---@field PowerBarAlt PartyFrame_MemberFrame1_PowerBarAltObject
+---@field ReadyCheck PartyFrame_MemberFrame1_ReadyCheckObject
+---@field ResurrectableIndicator PartyFrame_MemberFrame1_ResurrectableIndicatorObject
+---@field Texture PartyFrame_MemberFrame1_TextureObject
+---@field VehicleTexture PartyFrame_MemberFrame1_VehicleTextureObject
+---@field buffs PartyFrame_MemberFrame1_buffsObject
+---@field debuffCountdown number
+---@field debuffs PartyFrame_MemberFrame1_debuffsObject
+---@field frameType string
+---@field healAbsorbBar PartyFrame_MemberFrame1_healAbsorbBarObject
+---@field healthbar PartyFrame_MemberFrame1_healthbarObject
+---@field initialized boolean
+---@field layoutIndex number
+---@field manabar PartyFrame_MemberFrame1_manabarObject
+---@field myHealPredictionBar PartyFrame_MemberFrame1_myHealPredictionBarObject
+---@field name PartyFrame_MemberFrame1_nameObject
+---@field noContextActions boolean
+---@field numDebuffs number
+---@field otherHealPredictionBar PartyFrame_MemberFrame1_otherHealPredictionBarObject
+---@field overAbsorbGlow PartyFrame_MemberFrame1_overAbsorbGlowObject
+---@field overHealAbsorbGlow PartyFrame_MemberFrame1_overHealAbsorbGlowObject
+---@field petUnitToken string
+---@field portrait PartyFrame_MemberFrame1_portraitObject
+---@field predictedPowerCost number
+---@field replacePortraitSettingChangedHandlers table
+---@field state string
+---@field statusCounter number
+---@field statusSign number
+---@field tempMaxHealthLossBar PartyFrame_MemberFrame1_tempMaxHealthLossBarObject
+---@field threatIndicator PartyFrame_MemberFrame1_threatIndicatorObject
+---@field totalAbsorbBar PartyFrame_MemberFrame1_totalAbsorbBarObject
+---@field unit string
+---@field unitHPPercent number
+---@field unitToken string
+local PartyFrame_MemberFrame1Object = {}
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetAllowRadialWheel(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetIsPingable(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetTargetInfo(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:GetUnit(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:PartyMemberHealthCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ToCharacterStyleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ToPlayerArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:ToVehicleArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateArt(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateAssignedRoles(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateHealthBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateLeader(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateManaBarTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateMember(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateMemberAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateMemberHealth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateNameTextAnchors(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateNotPresentIcon(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateOnlineStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdatePet(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdatePingAttributes(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdatePvPStatus(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateReadyCheck(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:UpdateVoiceActivityNotification(...) end
+---@return any ...
+function PartyFrame_MemberFrame1Object:VoiceActivityNotificationCreatedCallback(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_ArtLayoutInfoObject
+local PartyFrame_MemberFrame1_ArtLayoutInfoObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_AuraFrameContainerObject : Frame
+---@field dirty boolean
+---@field spacing number
+local PartyFrame_MemberFrame1_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_AuraFramePoolObject
+local PartyFrame_MemberFrame1_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_FlashObject
+local PartyFrame_MemberFrame1_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_HealthBarContainerObject
+local PartyFrame_MemberFrame1_HealthBarContainerObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBarObject : StatusBar
+---@field CenterText PartyFrame_MemberFrame1_ManaBar_CenterTextObject
+---@field LeftText PartyFrame_MemberFrame1_ManaBar_LeftTextObject
+---@field ManaBarMask PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject
+---@field RightText PartyFrame_MemberFrame1_ManaBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame1_ManaBar_TextStringObject
+---@field Texture PartyFrame_MemberFrame1_ManaBar_TextureObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceUpdate boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field powerToken string
+---@field powerType number
+---@field smartNavigationIgnored boolean
+---@field textLockable number
+---@field texture PartyFrame_MemberFrame1_ManaBar_textureObject
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame1_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame1_ManaBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_CenterTextObject
+local PartyFrame_MemberFrame1_ManaBar_CenterTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame1_ManaBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_RightTextObject : FontString
+local PartyFrame_MemberFrame1_ManaBar_RightTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_TextStringObject : FontString
+local PartyFrame_MemberFrame1_ManaBar_TextStringObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_TextureObject : Texture
+local PartyFrame_MemberFrame1_ManaBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_textureObject
+local PartyFrame_MemberFrame1_ManaBar_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ManaBar_unitFrameObject
+local PartyFrame_MemberFrame1_ManaBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NameObject : FontString
+local PartyFrame_MemberFrame1_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NotPresentIconObject : Frame
+---@field Border PartyFrame_MemberFrame1_NotPresentIcon_BorderObject
+---@field smartNavigationIgnored boolean
+---@field texture PartyFrame_MemberFrame1_NotPresentIcon_textureObject
+local PartyFrame_MemberFrame1_NotPresentIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NotPresentIcon_BorderObject : Texture
+local PartyFrame_MemberFrame1_NotPresentIcon_BorderObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_NotPresentIcon_textureObject : Texture
+local PartyFrame_MemberFrame1_NotPresentIcon_textureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlayObject : Frame
+---@field Disconnect PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject
+---@field GuideIcon PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject
+---@field LeaderIcon PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject
+---@field PVPIcon PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject
+---@field RoleIcon PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject
+---@field Status PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame1_PartyMemberOverlayObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject : Texture
+local PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrameObject : Button
+---@field AuraFrameContainer PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject
+---@field AuraFramePool PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
+---@field Flash PartyFrame_MemberFrame1_PetFrame_FlashObject
+---@field HealthBar PartyFrame_MemberFrame1_PetFrame_HealthBarObject
+---@field Name PartyFrame_MemberFrame1_PetFrame_NameObject
+---@field Portrait PartyFrame_MemberFrame1_PetFrame_PortraitObject
+---@field PortraitMask PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject
+---@field Texture PartyFrame_MemberFrame1_PetFrame_TextureObject
+---@field buffs PartyFrame_MemberFrame1_PetFrame_buffsObject
+---@field debuffs PartyFrame_MemberFrame1_PetFrame_debuffsObject
+---@field healthbar PartyFrame_MemberFrame1_PetFrame_healthbarObject
+---@field name PartyFrame_MemberFrame1_PetFrame_nameObject
+---@field noContextActions boolean
+---@field portrait PartyFrame_MemberFrame1_PetFrame_portraitObject
+---@field replacePortraitSettingChangedHandlers table
+---@field threatIndicator PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject
+---@field unit string
+---@field unitToken string
+local PartyFrame_MemberFrame1_PetFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:ParseAllAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:Setup(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:UpdateAuras(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:UpdateAurasInternal(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrameObject:UpdateMemberAuras(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject : Frame
+---@field dirty boolean
+---@field smartNavigationIgnored boolean
+---@field spacing number
+local PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:Layout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkClean(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
+local PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:GetTemplate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:private(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_FlashObject
+local PartyFrame_MemberFrame1_PetFrame_FlashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_HealthBarObject : StatusBar
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockShow number
+---@field smartNavigationIgnored boolean
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame1_PetFrame_HealthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
+local PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_NameObject : FontString
+local PartyFrame_MemberFrame1_PetFrame_NameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_PortraitObject
+local PartyFrame_MemberFrame1_PetFrame_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_TextureObject : Texture
+local PartyFrame_MemberFrame1_PetFrame_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_buffsObject
+local PartyFrame_MemberFrame1_PetFrame_buffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_buffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_debuffsObject
+local PartyFrame_MemberFrame1_PetFrame_debuffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_healthbarObject
+local PartyFrame_MemberFrame1_PetFrame_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_nameObject
+local PartyFrame_MemberFrame1_PetFrame_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_portraitObject : Texture
+local PartyFrame_MemberFrame1_PetFrame_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject : Texture
+---@field feedbackUnit string
+---@field unit string
+local PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PortraitObject : Texture
+local PartyFrame_MemberFrame1_PortraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PortraitMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_PortraitMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAltObject : Frame
+---@field background PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject
+---@field counterBar PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject
+---@field fill PartyFrame_MemberFrame1_PowerBarAlt_fillObject
+---@field flash PartyFrame_MemberFrame1_PowerBarAlt_flashObject
+---@field flashAnim PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject
+---@field flashOutAnim PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject
+---@field frame PartyFrame_MemberFrame1_PowerBarAlt_frameObject
+---@field pillFrames table
+---@field scale number
+---@field smartNavigationIgnored boolean
+---@field spark PartyFrame_MemberFrame1_PowerBarAlt_sparkObject
+---@field statusFrame PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject
+---@field unit string
+---@field updateAllEvent string
+local PartyFrame_MemberFrame1_PowerBarAltObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject : Frame
+---@field BG PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject
+---@field BGL PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject
+---@field BGR PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject
+---@field artBottom PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject
+---@field artTop PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject
+---@field digit1 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object
+---@field digit2 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object
+---@field digit3 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object
+---@field digit4 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object
+---@field digit5 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object
+---@field digit6 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object
+---@field digit7 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object
+---@field unit string
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object : Frame
+---@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject
+---@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_fillObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_fillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_flashObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_flashObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject : AnimationGroup
+local PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject : AnimationGroup
+local PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_frameObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_frameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_sparkObject : Texture
+local PartyFrame_MemberFrame1_PowerBarAlt_sparkObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject : StatusBar
+---@field alwaysShow number
+---@field cvar string
+---@field cvarLabel string
+---@field lockShow number
+---@field text PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject
+---@field textLockable number
+local PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject : FontString
+local PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ReadyCheckObject : Frame
+---@field Texture PartyFrame_MemberFrame1_ReadyCheck_TextureObject
+---@field smartNavigationIgnored boolean
+local PartyFrame_MemberFrame1_ReadyCheckObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ReadyCheck_TextureObject : Texture
+local PartyFrame_MemberFrame1_ReadyCheck_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_ResurrectableIndicatorObject : FontString
+local PartyFrame_MemberFrame1_ResurrectableIndicatorObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnLeave(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_TextureObject : Texture
+local PartyFrame_MemberFrame1_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_VehicleTextureObject : Texture
+local PartyFrame_MemberFrame1_VehicleTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_buffsObject
+local PartyFrame_MemberFrame1_buffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_buffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_debuffsObject
+local PartyFrame_MemberFrame1_debuffsObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:Clear(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:Get(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:GetBottom(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:GetTop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:Iterate(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:Pop(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:Remove(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_debuffsObject:Size(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_healAbsorbBarObject
+local PartyFrame_MemberFrame1_healAbsorbBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_healthbarObject
+local PartyFrame_MemberFrame1_healthbarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_manabarObject
+local PartyFrame_MemberFrame1_manabarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_myHealPredictionBarObject
+local PartyFrame_MemberFrame1_myHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_nameObject
+local PartyFrame_MemberFrame1_nameObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_otherHealPredictionBarObject
+local PartyFrame_MemberFrame1_otherHealPredictionBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_overAbsorbGlowObject
+local PartyFrame_MemberFrame1_overAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_overHealAbsorbGlowObject
+local PartyFrame_MemberFrame1_overHealAbsorbGlowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_portraitObject
+local PartyFrame_MemberFrame1_portraitObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBarObject : StatusBar
+---@field Texture PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject
+---@field healthBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject
+---@field initialized boolean
+---@field myHealthBarContainer PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject : StatusBar
+---@field Background PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject
+---@field HealAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
+---@field HealthBarTexture PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
+---@field LeftText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject
+---@field MyHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
+---@field OtherHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
+---@field OverAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
+---@field OverHealAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
+---@field RightText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject
+---@field TextString PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject
+---@field TotalAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
+---@field capNumericDisplay boolean
+---@field controlsShownState boolean
+---@field currValue number
+---@field cvar string
+---@field cvarLabel string
+---@field disconnected boolean
+---@field forceHideText boolean
+---@field frequentUpdates boolean
+---@field lockColor boolean
+---@field lockShow number
+---@field partyFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject
+---@field textLockable number
+---@field unit string
+---@field unitFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject
+---@field zeroText string
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
+---@field LeftShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
+---@field RightShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+---@field fillOverlays table
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
+end
+
+do
+---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
+---@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
+---@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
+---@field fillAtlas string
+---@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
+---@field initialized boolean
+---@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
+local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
+---@return any ...
+function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
+end
+
+do
 ---@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject : Texture
 local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject = {}
 end
@@ -8131,1457 +9480,4 @@ function PetCastingBarFrameObject:UpdateStage(...) end
 function PetCastingBarFrameObject:UpdateTargetNameText(...) end
 ---@type PetCastingBarFrameObject
 PetCastingBarFrame = PetCastingBarFrameObject
-end
-
-do
----@class PetCastingBarFrame_BackgroundObject : Texture
-local PetCastingBarFrame_BackgroundObject = {}
-end
-
-do
----@class PetCastingBarFrame_BaseGlowObject : Texture
-local PetCastingBarFrame_BaseGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_BorderObject : Texture
-local PetCastingBarFrame_BorderObject = {}
-end
-
-do
----@class PetCastingBarFrame_BorderMaskObject : MaskTexture
-local PetCastingBarFrame_BorderMaskObject = {}
-end
-
-do
----@class PetCastingBarFrame_BorderShieldObject : Texture
-local PetCastingBarFrame_BorderShieldObject = {}
-end
-
-do
----@class PetCastingBarFrame_CastTimeTextObject : FontString
-local PetCastingBarFrame_CastTimeTextObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChannelFinishObject : AnimationGroup
-local PetCastingBarFrame_ChannelFinishObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChannelShadowObject : Texture
-local PetCastingBarFrame_ChannelShadowObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChargeFlashObject : Texture
-local PetCastingBarFrame_ChargeFlashObject = {}
-end
-
-do
----@class PetCastingBarFrame_ChargeGlowObject : Texture
-local PetCastingBarFrame_ChargeGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_CraftGlowObject : Texture
-local PetCastingBarFrame_CraftGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_CraftingFinishObject : AnimationGroup
-local PetCastingBarFrame_CraftingFinishObject = {}
-end
-
-do
----@class PetCastingBarFrame_CraftingMaskObject : MaskTexture
-local PetCastingBarFrame_CraftingMaskObject = {}
-end
-
-do
----@class PetCastingBarFrame_DropShadowObject : Texture
-local PetCastingBarFrame_DropShadowObject = {}
-end
-
-do
----@class PetCastingBarFrame_EnergyGlowObject : Texture
-local PetCastingBarFrame_EnergyGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_EnergyMaskObject : MaskTexture
-local PetCastingBarFrame_EnergyMaskObject = {}
-end
-
-do
----@class PetCastingBarFrame_FadeOutAnimObject : AnimationGroup
-local PetCastingBarFrame_FadeOutAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_Flakes01Object : Texture
-local PetCastingBarFrame_Flakes01Object = {}
-end
-
-do
----@class PetCastingBarFrame_Flakes02Object : Texture
-local PetCastingBarFrame_Flakes02Object = {}
-end
-
-do
----@class PetCastingBarFrame_Flakes03Object : Texture
-local PetCastingBarFrame_Flakes03Object = {}
-end
-
-do
----@class PetCastingBarFrame_FlashObject : Texture
-local PetCastingBarFrame_FlashObject = {}
-end
-
-do
----@class PetCastingBarFrame_FlashAnimObject : AnimationGroup
-local PetCastingBarFrame_FlashAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
-local PetCastingBarFrame_FlashLoopingAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
-local PetCastingBarFrame_HoldFadeOutAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_IconObject : Texture
-local PetCastingBarFrame_IconObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptGlowObject : Texture
-local PetCastingBarFrame_InterruptGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
-local PetCastingBarFrame_InterruptGlowAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
-local PetCastingBarFrame_InterruptShakeAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
-local PetCastingBarFrame_InterruptSparkAnimObject = {}
-end
-
-do
----@class PetCastingBarFrame_ShineObject : Texture
-local PetCastingBarFrame_ShineObject = {}
-end
-
-do
----@class PetCastingBarFrame_SparkObject : Texture
----@field offsetY number
-local PetCastingBarFrame_SparkObject = {}
-end
-
-do
----@class PetCastingBarFrame_Sparkles01Object : Texture
-local PetCastingBarFrame_Sparkles01Object = {}
-end
-
-do
----@class PetCastingBarFrame_Sparkles02Object : Texture
-local PetCastingBarFrame_Sparkles02Object = {}
-end
-
-do
----@class PetCastingBarFrame_StageFinishObject : AnimationGroup
-local PetCastingBarFrame_StageFinishObject = {}
-end
-
-do
----@class PetCastingBarFrame_StageFlashObject : AnimationGroup
-local PetCastingBarFrame_StageFlashObject = {}
-end
-
-do
----@class PetCastingBarFrame_StandardFinishObject : AnimationGroup
-local PetCastingBarFrame_StandardFinishObject = {}
----@return any ...
-function PetCastingBarFrame_StandardFinishObject:Hide(...) end
----@return any ...
-function PetCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
----@return any ...
-function PetCastingBarFrame_StandardFinishObject:Show(...) end
-end
-
-do
----@class PetCastingBarFrame_StandardGlowObject : Texture
-local PetCastingBarFrame_StandardGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_TextObject : FontString
-local PetCastingBarFrame_TextObject = {}
-end
-
-do
----@class PetCastingBarFrame_TextBorderObject : Texture
-local PetCastingBarFrame_TextBorderObject = {}
-end
-
-do
----@class PetCastingBarFrame_WispGlowObject : Texture
-local PetCastingBarFrame_WispGlowObject = {}
-end
-
-do
----@class PetCastingBarFrame_WispMaskObject : MaskTexture
-local PetCastingBarFrame_WispMaskObject = {}
-end
-
-do
----@class PetStableFrameObject : Frame
----@field Background PetStableFrame_BackgroundObject
----@field Bg PetStableFrame_BgObject
----@field BottomDividerFrame PetStableFrame_BottomDividerFrameObject
----@field CloseButton PetStableFrame_CloseButtonObject
----@field FocusJumpHint PetStableFrame_FocusJumpHintObject
----@field FrameGlow PetStableFrame_FrameGlowObject
----@field GamepadSlotCostText PetStableFrame_GamepadSlotCostTextObject
----@field LeftJumpHint PetStableFrame_LeftJumpHintObject
----@field NineSlice PetStableFrame_NineSliceObject
----@field PortraitContainer PetStableFrame_PortraitContainerObject
----@field RightJumpHint PetStableFrame_RightJumpHintObject
----@field TitleContainer PetStableFrame_TitleContainerObject
----@field TopDividerFrame PetStableFrame_TopDividerFrameObject
----@field TopTileStreaks PetStableFrame_TopTileStreaksObject
----@field diet PetStableFrame_dietObject
----@field expBar PetStableFrame_expBarObject
----@field insideFrameBottom PetStableFrame_insideFrameBottomObject
----@field layoutType string
----@field modelScene PetStableFrame_modelSceneObject
----@field purchaseButton PetStableFrame_purchaseButtonObject
-local PetStableFrameObject = {}
----@return any ...
-function PetStableFrameObject:EndFocus(...) end
----@return any ...
-function PetStableFrameObject:FocusGamepad(...) end
----@return any ...
-function PetStableFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function PetStableFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function PetStableFrameObject:GetPortrait(...) end
----@return any ...
-function PetStableFrameObject:GetSlotFrame(...) end
----@return any ...
-function PetStableFrameObject:GetTitleText(...) end
----@return any ...
-function PetStableFrameObject:HasPortraitTexture(...) end
----@return any ...
-function PetStableFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function PetStableFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function PetStableFrameObject:HideRightJumpHint(...) end
----@return any ...
-function PetStableFrameObject:InitializeGamepad(...) end
----@return any ...
-function PetStableFrameObject:LockInFocus(...) end
----@return any ...
-function PetStableFrameObject:OnEvent(...) end
----@return any ...
-function PetStableFrameObject:OnHide(...) end
----@return any ...
-function PetStableFrameObject:OnLoad(...) end
----@return any ...
-function PetStableFrameObject:OnPetSelected(...) end
----@return any ...
-function PetStableFrameObject:OnPetSwapRequested(...) end
----@return any ...
-function PetStableFrameObject:OnShow(...) end
----@return any ...
-function PetStableFrameObject:OnUpdate(...) end
----@return any ...
-function PetStableFrameObject:RefreshFocus(...) end
----@return any ...
-function PetStableFrameObject:RegisterForTransitions(...) end
----@return any ...
-function PetStableFrameObject:SelectPet(...) end
----@return any ...
-function PetStableFrameObject:SetBorder(...) end
----@return any ...
-function PetStableFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitShown(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitToBag(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function PetStableFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function PetStableFrameObject:SetTitle(...) end
----@return any ...
-function PetStableFrameObject:SetTitleColor(...) end
----@return any ...
-function PetStableFrameObject:SetTitleFormatted(...) end
----@return any ...
-function PetStableFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function PetStableFrameObject:SetTitleOffsets(...) end
----@return any ...
-function PetStableFrameObject:SetZoomAndRotateSpeeds(...) end
----@return any ...
-function PetStableFrameObject:SetupGamepad(...) end
----@return any ...
-function PetStableFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function PetStableFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function PetStableFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function PetStableFrameObject:StartFocus(...) end
----@return any ...
-function PetStableFrameObject:UnfocusGamepad(...) end
----@return any ...
-function PetStableFrameObject:UninitializeGamepad(...) end
----@return any ...
-function PetStableFrameObject:Update(...) end
----@type PetStableFrameObject
-PetStableFrame = PetStableFrameObject
-end
-
-do
----@class PetStableFrame_BackgroundObject : Texture
-local PetStableFrame_BackgroundObject = {}
-end
-
-do
----@class PetStableFrame_BgObject : Texture
-local PetStableFrame_BgObject = {}
-end
-
-do
----@class PetStableFrame_BottomDividerFrameObject : Frame
----@field horzDivider PetStableFrame_BottomDividerFrame_horzDividerObject
-local PetStableFrame_BottomDividerFrameObject = {}
-end
-
-do
----@class PetStableFrame_BottomDividerFrame_horzDividerObject : Texture
-local PetStableFrame_BottomDividerFrame_horzDividerObject = {}
-end
-
-do
----@class PetStableFrame_CloseButtonObject : Button
-local PetStableFrame_CloseButtonObject = {}
----@return any ...
-function PetStableFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function PetStableFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class PetStableFrame_FocusJumpHintObject : Frame
----@field ActiveTexture PetStableFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture PetStableFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim PetStableFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator PetStableFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetStableFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetStableFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar PetStableFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG PetStableFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow PetStableFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture PetStableFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture PetStableFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip PetStableFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetStableFrame_FocusJumpHintObject = {}
----@return any ...
-function PetStableFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetStableFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetStableFrame_FocusJumpHint_ActiveTextureObject : Texture
-local PetStableFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_DisabledTextureObject : Texture
-local PetStableFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetStableFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local PetStableFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local PetStableFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_HoverTextureObject : Texture
-local PetStableFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_LoadBarObject : Texture
-local PetStableFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_LoadBarBGObject : Texture
-local PetStableFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local PetStableFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_NormalTextureObject : Texture
-local PetStableFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_PressedTextureObject : Texture
-local PetStableFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetStableFrame_FocusJumpHint_SpinnerTipObject : Texture
-local PetStableFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetStableFrame_FrameGlowObject : Frame
----@field GlowTexture PetStableFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local PetStableFrame_FrameGlowObject = {}
----@return any ...
-function PetStableFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function PetStableFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function PetStableFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function PetStableFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class PetStableFrame_FrameGlow_GlowTextureObject : Texture
-local PetStableFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class PetStableFrame_GamepadSlotCostTextObject : FontString
-local PetStableFrame_GamepadSlotCostTextObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHintObject : Frame
----@field ActiveTexture PetStableFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture PetStableFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim PetStableFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator PetStableFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetStableFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetStableFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar PetStableFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG PetStableFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow PetStableFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture PetStableFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture PetStableFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip PetStableFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetStableFrame_LeftJumpHintObject = {}
----@return any ...
-function PetStableFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetStableFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetStableFrame_LeftJumpHint_ActiveTextureObject : Texture
-local PetStableFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_DisabledTextureObject : Texture
-local PetStableFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetStableFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local PetStableFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local PetStableFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_HoverTextureObject : Texture
-local PetStableFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_LoadBarObject : Texture
-local PetStableFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_LoadBarBGObject : Texture
-local PetStableFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local PetStableFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_NormalTextureObject : Texture
-local PetStableFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_PressedTextureObject : Texture
-local PetStableFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetStableFrame_LeftJumpHint_SpinnerTipObject : Texture
-local PetStableFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetStableFrame_NineSliceObject : Frame
----@field BottomEdge PetStableFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner PetStableFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner PetStableFrame_NineSlice_BottomRightCornerObject
----@field Center PetStableFrame_NineSlice_CenterObject
----@field LeftEdge PetStableFrame_NineSlice_LeftEdgeObject
----@field RightEdge PetStableFrame_NineSlice_RightEdgeObject
----@field TopEdge PetStableFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner PetStableFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner PetStableFrame_NineSlice_TopRightCornerObject
-local PetStableFrame_NineSliceObject = {}
----@return any ...
-function PetStableFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function PetStableFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class PetStableFrame_NineSlice_BottomEdgeObject : Texture
-local PetStableFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_BottomLeftCornerObject : Texture
-local PetStableFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_BottomRightCornerObject : Texture
-local PetStableFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_CenterObject : Texture
-local PetStableFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_LeftEdgeObject : Texture
-local PetStableFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_RightEdgeObject : Texture
-local PetStableFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_TopEdgeObject : Texture
-local PetStableFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_TopLeftCornerObject : Texture
-local PetStableFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class PetStableFrame_NineSlice_TopRightCornerObject : Texture
-local PetStableFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class PetStableFrame_PortraitContainerObject : Frame
----@field CircleMask PetStableFrame_PortraitContainer_CircleMaskObject
----@field portrait PetStableFrame_PortraitContainer_portraitObject
-local PetStableFrame_PortraitContainerObject = {}
-end
-
-do
----@class PetStableFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local PetStableFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class PetStableFrame_PortraitContainer_portraitObject : Texture
-local PetStableFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHintObject : Frame
----@field ActiveTexture PetStableFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture PetStableFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim PetStableFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator PetStableFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG PetStableFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture PetStableFrame_RightJumpHint_HoverTextureObject
----@field LoadBar PetStableFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG PetStableFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow PetStableFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture PetStableFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture PetStableFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip PetStableFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local PetStableFrame_RightJumpHintObject = {}
----@return any ...
-function PetStableFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function PetStableFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class PetStableFrame_RightJumpHint_ActiveTextureObject : Texture
-local PetStableFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_DisabledTextureObject : Texture
-local PetStableFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local PetStableFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldIndicatorObject : Texture
-local PetStableFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local PetStableFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_HoverTextureObject : Texture
-local PetStableFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_LoadBarObject : Texture
-local PetStableFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_LoadBarBGObject : Texture
-local PetStableFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_LoadBarGlowObject : Texture
-local PetStableFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_NormalTextureObject : Texture
-local PetStableFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_PressedTextureObject : Texture
-local PetStableFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class PetStableFrame_RightJumpHint_SpinnerTipObject : Texture
-local PetStableFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class PetStableFrame_TitleContainerObject : Frame
----@field TitleText PetStableFrame_TitleContainer_TitleTextObject
-local PetStableFrame_TitleContainerObject = {}
-end
-
-do
----@class PetStableFrame_TitleContainer_TitleTextObject : FontString
-local PetStableFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class PetStableFrame_TopDividerFrameObject : Frame
----@field horzDivider PetStableFrame_TopDividerFrame_horzDividerObject
-local PetStableFrame_TopDividerFrameObject = {}
-end
-
-do
----@class PetStableFrame_TopDividerFrame_horzDividerObject : Texture
-local PetStableFrame_TopDividerFrame_horzDividerObject = {}
-end
-
-do
----@class PetStableFrame_TopTileStreaksObject : Texture
-local PetStableFrame_TopTileStreaksObject = {}
-end
-
-do
----@class PetStableFrame_dietObject : Frame
----@field Texture PetStableFrame_diet_TextureObject
-local PetStableFrame_dietObject = {}
----@return any ...
-function PetStableFrame_dietObject:GetHappinessStats(...) end
----@return any ...
-function PetStableFrame_dietObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_dietObject:OnEvent(...) end
----@return any ...
-function PetStableFrame_dietObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_dietObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_dietObject:ShouldShow(...) end
----@return any ...
-function PetStableFrame_dietObject:UpdateHappiness(...) end
-end
-
-do
----@class PetStableFrame_diet_TextureObject : Texture
-local PetStableFrame_diet_TextureObject = {}
-end
-
-do
----@class PetStableFrame_expBarObject : Frame
----@field ColorType PetStableFrame_expBar_ColorTypeObject
----@field Fill PetStableFrame_expBar_FillObject
----@field FillArea PetStableFrame_expBar_FillAreaObject
----@field Mask PetStableFrame_expBar_MaskObject
----@field Text PetStableFrame_expBar_TextObject
----@field fillPercent number
-local PetStableFrame_expBarObject = {}
----@return any ...
-function PetStableFrame_expBarObject:GetPetExperience(...) end
----@return any ...
-function PetStableFrame_expBarObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_expBarObject:OnUpdate(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetFillPercent(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetFillTextureByColorType(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetFillWidth(...) end
----@return any ...
-function PetStableFrame_expBarObject:SetText(...) end
-end
-
-do
----@class PetStableFrame_expBar_ColorTypeObject
----@field Blue number
----@field Green number
----@field Red number
----@field White number
-local PetStableFrame_expBar_ColorTypeObject = {}
-end
-
-do
----@class PetStableFrame_expBar_FillObject : Texture
-local PetStableFrame_expBar_FillObject = {}
-end
-
-do
----@class PetStableFrame_expBar_FillAreaObject : Frame
-local PetStableFrame_expBar_FillAreaObject = {}
-end
-
-do
----@class PetStableFrame_expBar_MaskObject : MaskTexture
-local PetStableFrame_expBar_MaskObject = {}
-end
-
-do
----@class PetStableFrame_expBar_TextObject : FontString
-local PetStableFrame_expBar_TextObject = {}
-end
-
-do
----@class PetStableFrame_insideFrameBottomObject : Texture
-local PetStableFrame_insideFrameBottomObject = {}
-end
-
-do
----@class PetStableFrame_modelSceneObject
----@field Background PetStableFrame_modelScene_BackgroundObject
----@field ControlFrame PetStableFrame_modelScene_ControlFrameObject
----@field Inset PetStableFrame_modelScene_InsetObject
----@field PetModelSceneShadow PetStableFrame_modelScene_PetModelSceneShadowObject
----@field PetShadow PetStableFrame_modelScene_PetShadowObject
----@field actorTemplate string
----@field cameras table
----@field tagToActor table
----@field tagToCamera table
-local PetStableFrame_modelSceneObject = {}
----@return any ...
-function PetStableFrame_modelSceneObject:AcquireActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AddCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ClearScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetActorByTag(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetCameraByTag(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetModelSceneID(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:GetPlayerActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:HasActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:InitializeActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnModelLoaded(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnMouseWheel(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:OnUpdate(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ReleaseActor(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:Reset(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetPet(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SetResetCallback(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:StopCameraYaw(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:TransitionToModelSceneID(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:UpdateBackgroundForPet(...) end
----@return any ...
-function PetStableFrame_modelSceneObject:UpdatePetModel(...) end
-end
-
-do
----@class PetStableFrame_modelScene_BackgroundObject : Texture
-local PetStableFrame_modelScene_BackgroundObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrameObject : Frame
----@field buttonHorizontalPadding number
----@field enableReset boolean
----@field enableRotate boolean
----@field enableZoom boolean
----@field modelScene PetStableFrame_modelScene_ControlFrame_modelSceneObject
----@field resetButton PetStableFrame_modelScene_ControlFrame_resetButtonObject
----@field rotateLeftButton PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject
----@field rotateRightButton PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject
----@field rotationIncrement number
----@field zoomInButton PetStableFrame_modelScene_ControlFrame_zoomInButtonObject
----@field zoomIncrement number
----@field zoomOutButton PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject
-local PetStableFrame_modelScene_ControlFrameObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:GetRotateIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:GetZoomIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:OnShow(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:SetRotateIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:SetZoomIncrement(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrameObject:UpdateLayout(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_resetButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject
----@field tooltip string
-local PetStableFrame_modelScene_ControlFrame_resetButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_resetButtonObject:SetModelScene(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnSmartNavClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:RotateStep(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetRotation(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnSmartNavClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:RotateStep(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetRotation(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local PetStableFrame_modelScene_ControlFrame_zoomInButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject : Texture
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject
-local PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject = {}
-end
-
-do
----@class PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject : Button
----@field HighlightTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject
----@field Icon PetStableFrame_modelScene_ControlFrame_zoomOutButton_IconObject
----@field NormalTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_NormalTextureObject
----@field PushedTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_PushedTextureObject
----@field modelScene PetStableFrame_modelScene_ControlFrame_zoomOutButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject = {}
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:Init(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnClick(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnEnter(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnLeave(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnLoad(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnMouseDown(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnMouseUp(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:SetModelScene(...) end
----@return any ...
-function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:SetZoomAmount(...) end
 end

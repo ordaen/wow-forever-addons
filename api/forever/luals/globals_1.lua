@@ -8,6 +8,7 @@
 ---@class EditBoxWithBackdrop : EditBox, BackdropTemplate
 ---@class FrameWithBackdrop : Frame, BackdropTemplate
 ---@class GameTooltipWithBackdrop : GameTooltip, BackdropTemplate
+---@class ItemButtonWithBackdrop : ItemButton, BackdropTemplate
 ---@class MessageFrameWithBackdrop : MessageFrame, BackdropTemplate
 ---@class ModelWithBackdrop : Model, BackdropTemplate
 ---@class PlayerModelWithBackdrop : PlayerModel, BackdropTemplate
@@ -22,6 +23,7 @@
 ---@overload fun(frameType: "EditBox", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): EditBoxWithBackdrop
 ---@overload fun(frameType: "Frame", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): FrameWithBackdrop
 ---@overload fun(frameType: "GameTooltip", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): GameTooltipWithBackdrop
+---@overload fun(frameType: "ItemButton", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): ItemButtonWithBackdrop
 ---@overload fun(frameType: "MessageFrame", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): MessageFrameWithBackdrop
 ---@overload fun(frameType: "Model", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): ModelWithBackdrop
 ---@overload fun(frameType: "PlayerModel", name: string?, parent: any?, template: "BackdropTemplate", id: integer?): PlayerModelWithBackdrop
@@ -36,6 +38,7 @@
 ---@overload fun(frameType: "EditBox", name?: string, parent?: any, template?: string, id?: integer): EditBox
 ---@overload fun(frameType: "Frame", name?: string, parent?: any, template?: string, id?: integer): Frame
 ---@overload fun(frameType: "GameTooltip", name?: string, parent?: any, template?: string, id?: integer): GameTooltip
+---@overload fun(frameType: "ItemButton", name?: string, parent?: any, template?: string, id?: integer): ItemButton
 ---@overload fun(frameType: "MessageFrame", name?: string, parent?: any, template?: string, id?: integer): MessageFrame
 ---@overload fun(frameType: "Model", name?: string, parent?: any, template?: string, id?: integer): Model
 ---@overload fun(frameType: "PlayerModel", name?: string, parent?: any, template?: string, id?: integer): PlayerModel
@@ -5700,6 +5703,7 @@ CHAT_FONT_HEIGHTS = {}
 CHAT_FRAMES = {}
 CHAT_FRAME_ANCHOR_OFFSET_Y = 0
 CHAT_FRAME_BIGGER_MIN_HEIGHT = 0
+CHAT_FRAME_BUTTON_FRAME_MIN_ALPHA = 0
 CHAT_FRAME_DEFAULT_FONT_SIZE = 0
 CHAT_FRAME_FADE_OUT_TIME = 0
 CHAT_FRAME_FADE_TIME = 0
@@ -8126,6 +8130,54 @@ CharacterBackSlotSearchOverlay = {}
 ---@type table
 CharacterBackSlotStock = {}
 ---@type table
+CharacterBag0Slot = {}
+---@type table
+CharacterBag0SlotCount = {}
+---@type table
+CharacterBag0SlotIconTexture = {}
+---@type table
+CharacterBag0SlotNormalTexture = {}
+---@type table
+CharacterBag0SlotSearchOverlay = {}
+---@type table
+CharacterBag0SlotStock = {}
+---@type table
+CharacterBag1Slot = {}
+---@type table
+CharacterBag1SlotCount = {}
+---@type table
+CharacterBag1SlotIconTexture = {}
+---@type table
+CharacterBag1SlotNormalTexture = {}
+---@type table
+CharacterBag1SlotSearchOverlay = {}
+---@type table
+CharacterBag1SlotStock = {}
+---@type table
+CharacterBag2Slot = {}
+---@type table
+CharacterBag2SlotCount = {}
+---@type table
+CharacterBag2SlotIconTexture = {}
+---@type table
+CharacterBag2SlotNormalTexture = {}
+---@type table
+CharacterBag2SlotSearchOverlay = {}
+---@type table
+CharacterBag2SlotStock = {}
+---@type table
+CharacterBag3Slot = {}
+---@type table
+CharacterBag3SlotCount = {}
+---@type table
+CharacterBag3SlotIconTexture = {}
+---@type table
+CharacterBag3SlotNormalTexture = {}
+---@type table
+CharacterBag3SlotSearchOverlay = {}
+---@type table
+CharacterBag3SlotStock = {}
+---@type table
 CharacterChestSlot = {}
 ---@type table
 CharacterChestSlotCooldown = {}
@@ -8304,6 +8356,8 @@ CharacterMainHandSlotSearchOverlay = {}
 ---@type table
 CharacterMainHandSlotStock = {}
 ---@type table
+CharacterMicroButton = {}
+---@type table
 CharacterModelFrameBackgroundBotLeft = {}
 ---@type table
 CharacterModelFrameBackgroundBotRight = {}
@@ -8345,6 +8399,18 @@ CharacterRangedSlotPopoutButton = {}
 CharacterRangedSlotSearchOverlay = {}
 ---@type table
 CharacterRangedSlotStock = {}
+---@type table
+CharacterReagentBag0Slot = {}
+---@type table
+CharacterReagentBag0SlotCount = {}
+---@type table
+CharacterReagentBag0SlotIconTexture = {}
+---@type table
+CharacterReagentBag0SlotNormalTexture = {}
+---@type table
+CharacterReagentBag0SlotSearchOverlay = {}
+---@type table
+CharacterReagentBag0SlotStock = {}
 ---@type table
 CharacterSecondaryHandSlot = {}
 ---@type table
@@ -10496,6 +10562,8 @@ function CollapseWarGameHeader(...) end
 function CollectTableDifferences(...) end
 ---@return any ...
 function CollectionsJournal_LoadUI(...) end
+---@type table
+CollectionsMicroButton = {}
 ---@return any ...
 function CollectionsMicroButton_CanAlertBeShown(...) end
 ---@return any ...
@@ -12316,9 +12384,23 @@ ContainerFrame6 = {}
 ---@type table
 ContainerFrame6Background1Slot = {}
 ---@type table
+ContainerFrame6Cooldown = {}
+---@type table
+ContainerFrame6Count = {}
+---@type table
+ContainerFrame6IconQuestTexture = {}
+---@type table
+ContainerFrame6IconTexture = {}
+---@type table
+ContainerFrame6NormalTexture = {}
+---@type table
 ContainerFrame6Portrait = {}
 ---@type table
 ContainerFrame6PortraitButton = {}
+---@type table
+ContainerFrame6SearchOverlay = {}
+---@type table
+ContainerFrame6Stock = {}
 ---@type table
 ContainerFrame6TitleText = {}
 ---@type table
@@ -12332,23 +12414,35 @@ ContainerFrame7PortraitButton = {}
 ---@type table
 ContainerFrame7TitleText = {}
 ---@type table
-ContainerFrameCombinedBags = {}
+ContainerFrameCombinedBagsCooldown = {}
 ---@type table
 ContainerFrameCombinedBagsCopperButton = {}
 ---@type table
 ContainerFrameCombinedBagsCopperButtonText = {}
 ---@type table
+ContainerFrameCombinedBagsCount = {}
+---@type table
 ContainerFrameCombinedBagsGoldButton = {}
 ---@type table
 ContainerFrameCombinedBagsGoldButtonText = {}
+---@type table
+ContainerFrameCombinedBagsIconQuestTexture = {}
+---@type table
+ContainerFrameCombinedBagsIconTexture = {}
+---@type table
+ContainerFrameCombinedBagsNormalTexture = {}
 ---@type table
 ContainerFrameCombinedBagsPortrait = {}
 ---@type table
 ContainerFrameCombinedBagsPortraitButton = {}
 ---@type table
+ContainerFrameCombinedBagsSearchOverlay = {}
+---@type table
 ContainerFrameCombinedBagsSilverButton = {}
 ---@type table
 ContainerFrameCombinedBagsSilverButtonText = {}
+---@type table
+ContainerFrameCombinedBagsStock = {}
 ---@type table
 ContainerFrameCombinedBagsTitleText = {}
 ---@type table
@@ -12807,89 +12901,3 @@ function CreateSettingsCheckboxWithButtonInitializer(...) end
 function CreateSettingsCheckboxWithColorSwatchInitializer(...) end
 ---@return any ...
 function CreateSettingsExpandableSectionInitializer(...) end
----@return any ...
-function CreateSettingsListSearchCategoryInitializer(...) end
----@return any ...
-function CreateSettingsListSectionHeaderInitializer(...) end
----@return any ...
-function CreateSimpleTextureMarkup(...) end
----@return any ...
-function CreateTabGroup(...) end
----@return any ...
-function CreateTableBuilder(...) end
----@return any ...
-function CreateTableEnumerator(...) end
----@return any ...
-function CreateTableReverseEnumerator(...) end
----@return any ...
-function CreateTemplateInfoCache(...) end
----@return any ...
-function CreateTextureMarkup(...) end
----@return any ...
-function CreateTexturePool(...) end
----@return any ...
-function CreateTreeDataProvider(...) end
----@return UnitHealPredictionCalculator healPredictionCalculator
-function CreateUnitHealPredictionCalculator() end
----@return any ...
-function CreateUnsecuredFontStringPool(...) end
----@return any ...
-function CreateUnsecuredFramePool(...) end
----@return any ...
-function CreateUnsecuredFramePoolCollection(...) end
----@return any ...
-function CreateUnsecuredMaskTexturePool(...) end
----@return any ...
-function CreateUnsecuredObjectPool(...) end
----@return any ...
-function CreateUnsecuredRegionPoolInstance(...) end
----@return any ...
-function CreateUnsecuredTexturePool(...) end
----@return any ...
-function CreateVector2D(...) end
----@return any ...
-function CreateVector3D(...) end
----@return any ...
-function CreateVector4D(...) end
----@return any ...
-function CreateVerticalLayout(...) end
----@return any ...
-function CreateVoicePushToTalkBindingHandler(...) end
----@param popupStyle? boolean
----@param topMost? boolean
----@return SimpleWindow? window
-function CreateWindow(popupStyle, topMost) end
----@return any ...
-function CriteriaAlertFrame_SetUp(...) end
----@type table
-CurrencyCallbackRegistry = {}
----@type table
-CurrencyTransferLog = {}
----@type table
-CurrencyTransferLogBg = {}
----@type table
-CurrencyTransferLogCloseButton = {}
----@type table
-CurrencyTransferLogInset = {}
----@type table
-CurrencyTransferLogPortrait = {}
----@type table
-CurrencyTransferLogTitleText = {}
----@type table
-CurrencyTransferMenuBg = {}
----@type table
-CurrencyTransferMenuCloseButton = {}
----@type table
-CurrencyTransferMenuInset = {}
----@type table
-CurrencyTransferMenuPortrait = {}
----@type table
-CurrencyTransferMenuText = {}
----@type table
-CurrencyTransferMenuTitleText = {}
----@type table
-CurrentQuestsText = {}
----@return any ...
-function CurrentVersionHasNewUnseenSettings(...) end
----@return boolean result
-function CursorHasItem() end

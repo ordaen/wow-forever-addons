@@ -3206,6 +3206,7 @@ function C_DamageMeter.GetSessionDurationSeconds(sessionType) end
 ---@return boolean isAvailable
 ---@return string failureReason
 function C_DamageMeter.IsDamageMeterAvailable() end
+function C_DamageMeter.ResetAllCombatSessions() end
 
 C_DateAndTime = {}
 ---@param date CalendarTime

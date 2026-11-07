@@ -3191,6 +3191,1358 @@ function CompactRaidFrameManager_toggleButtonForwardObject:OnLoad(...) end
 end
 
 do
+---@class ContainerFrameCombinedBagsObject : Frame
+---@field AddSlotsButton ContainerFrameCombinedBags_AddSlotsButtonObject
+---@field Bg ContainerFrameCombinedBags_BgObject
+---@field CloseButton ContainerFrameCombinedBags_CloseButtonObject
+---@field CountContainer ContainerFrameCombinedBags_CountContainerObject
+---@field FocusJumpHint ContainerFrameCombinedBags_FocusJumpHintObject
+---@field FrameGlow ContainerFrameCombinedBags_FrameGlowObject
+---@field Items table
+---@field LeftJumpHint ContainerFrameCombinedBags_LeftJumpHintObject
+---@field MoneyFrame ContainerFrameCombinedBags_MoneyFrameObject
+---@field NineSlice ContainerFrameCombinedBags_NineSliceObject
+---@field PortraitButton ContainerFrameCombinedBags_PortraitButtonObject
+---@field PortraitContainer ContainerFrameCombinedBags_PortraitContainerObject
+---@field RightJumpHint ContainerFrameCombinedBags_RightJumpHintObject
+---@field SearchBoxIcon ContainerFrameCombinedBags_SearchBoxIconObject
+---@field TitleContainer ContainerFrameCombinedBags_TitleContainerObject
+---@field itemButtonPool ContainerFrameCombinedBags_itemButtonPoolObject
+---@field layoutType string
+---@field shownSlots number
+---@field size number
+local ContainerFrameCombinedBagsObject = {}
+---@return any ...
+function ContainerFrameCombinedBagsObject:AcquireNewItemButton(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:AddItemsForRefresh(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:ApplySmartNavOverrideForLeftmostButton(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CalculateExtraHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CalculateHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CalculateWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CanUseForBagID(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CancelRefresh(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CheckUpdateDynamicContents(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:ClearBagHighlights(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:ClearItems(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:Close(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:CloseTutorial(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:EndFocus(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:EnumerateItems(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:EnumerateValidItems(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:FocusGamepad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:Gamepad_OnItemClicked(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetAnchorLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetBackgroundColor(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetBagID(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetBagSize(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetColumns(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetContainedBagIDs(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetExtraRows(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetFirstButtonOffsetY(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetFocusFrameGlow(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetFocusFrameRoot(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetInitialItemAnchor(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetPaddingHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetPaddingWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetPortrait(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetRows(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:GetTitleText(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:HasPortraitTexture(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:HideFocusJumpHint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:HideItems(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:HideLeftJumpHint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:HideRightJumpHint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:InitializeGamepad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:IsBackpack(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:IsBagOpen(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:IsCombinedBagContainer(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:IsExtended(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:IsPlusTwoBag(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:LayoutAddSlots(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:LockInFocus(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:MatchesBagID(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnBagSlotEnter(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnBagSlotLeave(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnCloseClicked(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnHide(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnShow(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:OnTokenWatchChanged(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:RefreshFocus(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:RegisterForTransitions(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetBackgroundColor(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetBagID(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetBagSize(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetBorder(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetFocusByItemID(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetFocusByItemLink(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetItemsMatchingBagHighlighted(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitShown(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitTexCoord(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitToAsset(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitToBag(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetPortraitToUnit(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetSearchBoxPoint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetTitle(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetTitleColor(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetTitleFormatted(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetTitleOffsets(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetTokenTracker(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetUpSearchGamepad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SetupGamepad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:ShowFocusJumpHint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:ShowLeftJumpHint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:ShowRightJumpHint(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SmartNavPanelInfoAdded(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:SmartNavigationCloseHandler(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:StartFocus(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UnfocusGamepad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UninitializeGamepad(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:Update(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateAddSlots(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateBackground(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateCooldowns(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateCurrencyFrames(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateFilterIcon(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateFrameSize(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateIfShown(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateItemContextMatching(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateItemLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateItemSlots(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateItems(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateMiscellaneousFrames(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateMoneyFrame(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateName(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateSearchBox(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateSearchResults(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:UpdateTokenTracker(...) end
+---@return any ...
+function ContainerFrameCombinedBagsObject:onCloseCallback(...) end
+---@type ContainerFrameCombinedBagsObject
+ContainerFrameCombinedBags = ContainerFrameCombinedBagsObject
+end
+
+do
+---@class ContainerFrameCombinedBags_AddSlotsButtonObject : Button
+local ContainerFrameCombinedBags_AddSlotsButtonObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_BgObject : Frame
+---@field BottomEdge ContainerFrameCombinedBags_Bg_BottomEdgeObject
+---@field BottomLeft ContainerFrameCombinedBags_Bg_BottomLeftObject
+---@field BottomRight ContainerFrameCombinedBags_Bg_BottomRightObject
+---@field TopSection ContainerFrameCombinedBags_Bg_TopSectionObject
+local ContainerFrameCombinedBags_BgObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_Bg_BottomEdgeObject : Texture
+local ContainerFrameCombinedBags_Bg_BottomEdgeObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_Bg_BottomLeftObject : Texture
+local ContainerFrameCombinedBags_Bg_BottomLeftObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_Bg_BottomRightObject : Texture
+local ContainerFrameCombinedBags_Bg_BottomRightObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_Bg_TopSectionObject : Texture
+local ContainerFrameCombinedBags_Bg_TopSectionObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_CloseButtonObject : Button
+local ContainerFrameCombinedBags_CloseButtonObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function ContainerFrameCombinedBags_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_CountContainerObject : Frame
+---@field Count ContainerFrameCombinedBags_CountContainer_CountObject
+local ContainerFrameCombinedBags_CountContainerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_CountContainer_CountObject : FontString
+local ContainerFrameCombinedBags_CountContainer_CountObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHintObject : Frame
+---@field ActiveTexture ContainerFrameCombinedBags_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture ContainerFrameCombinedBags_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim ContainerFrameCombinedBags_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator ContainerFrameCombinedBags_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ContainerFrameCombinedBags_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ContainerFrameCombinedBags_FocusJumpHint_HoverTextureObject
+---@field LoadBar ContainerFrameCombinedBags_FocusJumpHint_LoadBarObject
+---@field LoadBarBG ContainerFrameCombinedBags_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow ContainerFrameCombinedBags_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture ContainerFrameCombinedBags_FocusJumpHint_NormalTextureObject
+---@field PressedTexture ContainerFrameCombinedBags_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip ContainerFrameCombinedBags_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ContainerFrameCombinedBags_FocusJumpHintObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_ActiveTextureObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_DisabledTextureObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local ContainerFrameCombinedBags_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ContainerFrameCombinedBags_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoldIndicatorObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoldIndicatorBGObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_HoverTextureObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_LoadBarObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_LoadBarBGObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_LoadBarGlowObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_PressedTextureObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FocusJumpHint_SpinnerTipObject : Texture
+local ContainerFrameCombinedBags_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_FrameGlowObject : Frame
+---@field GlowTexture ContainerFrameCombinedBags_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local ContainerFrameCombinedBags_FrameGlowObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function ContainerFrameCombinedBags_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_FrameGlow_GlowTextureObject : Texture
+local ContainerFrameCombinedBags_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHintObject : Frame
+---@field ActiveTexture ContainerFrameCombinedBags_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture ContainerFrameCombinedBags_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim ContainerFrameCombinedBags_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator ContainerFrameCombinedBags_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ContainerFrameCombinedBags_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ContainerFrameCombinedBags_LeftJumpHint_HoverTextureObject
+---@field LoadBar ContainerFrameCombinedBags_LeftJumpHint_LoadBarObject
+---@field LoadBarBG ContainerFrameCombinedBags_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow ContainerFrameCombinedBags_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture ContainerFrameCombinedBags_LeftJumpHint_NormalTextureObject
+---@field PressedTexture ContainerFrameCombinedBags_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip ContainerFrameCombinedBags_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ContainerFrameCombinedBags_LeftJumpHintObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_ActiveTextureObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_DisabledTextureObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local ContainerFrameCombinedBags_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ContainerFrameCombinedBags_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoldIndicatorObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoldIndicatorBGObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_HoverTextureObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_LoadBarObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_LoadBarBGObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_LoadBarGlowObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_PressedTextureObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_LeftJumpHint_SpinnerTipObject : Texture
+local ContainerFrameCombinedBags_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrameObject : Frame
+---@field Border ContainerFrameCombinedBags_MoneyFrame_BorderObject
+---@field CopperButton ContainerFrameCombinedBags_MoneyFrame_CopperButtonObject
+---@field GoldButton ContainerFrameCombinedBags_MoneyFrame_GoldButtonObject
+---@field SilverButton ContainerFrameCombinedBags_MoneyFrame_SilverButtonObject
+---@field info ContainerFrameCombinedBags_MoneyFrame_infoObject
+---@field lastArgMoney number
+---@field maxDisplayWidth number
+---@field moneyIconsDirty boolean
+---@field moneyType string
+---@field showCurrencyTracking boolean
+---@field small number
+---@field smartNavigationIgnored boolean
+---@field staticMoney number
+---@field trialErrorButton ContainerFrameCombinedBags_MoneyFrame_trialErrorButtonObject
+---@field vadjust number
+local ContainerFrameCombinedBags_MoneyFrameObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_MoneyFrameObject:SetIsUserScaled(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_BorderObject : Frame
+---@field Left ContainerFrameCombinedBags_MoneyFrame_Border_LeftObject
+---@field Middle ContainerFrameCombinedBags_MoneyFrame_Border_MiddleObject
+---@field Right ContainerFrameCombinedBags_MoneyFrame_Border_RightObject
+---@field centerEdge string
+---@field leftEdge string
+---@field rightEdge string
+local ContainerFrameCombinedBags_MoneyFrame_BorderObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_MoneyFrame_BorderObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_MoneyFrame_BorderObject:SetupPiece(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_Border_LeftObject : Texture
+local ContainerFrameCombinedBags_MoneyFrame_Border_LeftObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_Border_MiddleObject : Texture
+local ContainerFrameCombinedBags_MoneyFrame_Border_MiddleObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_Border_RightObject : Texture
+local ContainerFrameCombinedBags_MoneyFrame_Border_RightObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_CopperButtonObject : Button
+---@field NormalTexture ContainerFrameCombinedBags_MoneyFrame_CopperButton_NormalTextureObject
+---@field Text ContainerFrameCombinedBags_MoneyFrame_CopperButton_TextObject
+local ContainerFrameCombinedBags_MoneyFrame_CopperButtonObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_CopperButton_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_MoneyFrame_CopperButton_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_CopperButton_TextObject : FontString
+local ContainerFrameCombinedBags_MoneyFrame_CopperButton_TextObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_GoldButtonObject : Button
+---@field Text ContainerFrameCombinedBags_MoneyFrame_GoldButton_TextObject
+local ContainerFrameCombinedBags_MoneyFrame_GoldButtonObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_GoldButton_TextObject : FontString
+local ContainerFrameCombinedBags_MoneyFrame_GoldButton_TextObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_SilverButtonObject : Button
+---@field Text ContainerFrameCombinedBags_MoneyFrame_SilverButton_TextObject
+local ContainerFrameCombinedBags_MoneyFrame_SilverButtonObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_SilverButton_TextObject : FontString
+local ContainerFrameCombinedBags_MoneyFrame_SilverButton_TextObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_infoObject
+local ContainerFrameCombinedBags_MoneyFrame_infoObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_MoneyFrame_trialErrorButtonObject : Texture
+local ContainerFrameCombinedBags_MoneyFrame_trialErrorButtonObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSliceObject : Frame
+---@field BottomEdge ContainerFrameCombinedBags_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner ContainerFrameCombinedBags_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner ContainerFrameCombinedBags_NineSlice_BottomRightCornerObject
+---@field Center ContainerFrameCombinedBags_NineSlice_CenterObject
+---@field LeftEdge ContainerFrameCombinedBags_NineSlice_LeftEdgeObject
+---@field RightEdge ContainerFrameCombinedBags_NineSlice_RightEdgeObject
+---@field TopEdge ContainerFrameCombinedBags_NineSlice_TopEdgeObject
+---@field TopLeftCorner ContainerFrameCombinedBags_NineSlice_TopLeftCornerObject
+---@field TopRightCorner ContainerFrameCombinedBags_NineSlice_TopRightCornerObject
+local ContainerFrameCombinedBags_NineSliceObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function ContainerFrameCombinedBags_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_BottomEdgeObject : Texture
+local ContainerFrameCombinedBags_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_BottomLeftCornerObject : Texture
+local ContainerFrameCombinedBags_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_BottomRightCornerObject : Texture
+local ContainerFrameCombinedBags_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_CenterObject : Texture
+local ContainerFrameCombinedBags_NineSlice_CenterObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_LeftEdgeObject : Texture
+local ContainerFrameCombinedBags_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_RightEdgeObject : Texture
+local ContainerFrameCombinedBags_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_TopEdgeObject : Texture
+local ContainerFrameCombinedBags_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_TopLeftCornerObject : Texture
+local ContainerFrameCombinedBags_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_NineSlice_TopRightCornerObject : Texture
+local ContainerFrameCombinedBags_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitButtonObject : Button
+---@field Event ContainerFrameCombinedBags_PortraitButton_EventObject
+---@field Highlight ContainerFrameCombinedBags_PortraitButton_HighlightObject
+---@field buttonContext string
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor ContainerFrameCombinedBags_PortraitButton_menuAnchorObject
+---@field menuDescription ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field smartNavigationIgnoreGrid boolean
+local ContainerFrameCombinedBags_PortraitButtonObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:ClearMenuState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:CloseMenu(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:CollectSelectionData(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:CreateRootDescription(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:Decrement(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GenerateCallbackEvents(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GenerateMenu(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetBagID(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetCallbackTable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetCallbackTables(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetCallbacksByEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetMenuDescription(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:GetSelectionData(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:HasElements(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:HasStickyFocus(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:Increment(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:IsMenuOpen(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnEnter(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnHide(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnLeave(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMenuAssigned(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMenuChanged(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMenuClosed(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMenuOpened(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMenuResponse(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMouseDown(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OnShow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:OpenMenu(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:Pick(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:RegisterCallback(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:RegisterMenu(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:Rotate(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:SecureInsertEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:SetMenuAnchor(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:SetMenuOpen(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:SetupMenu(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:SignalUpdate(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:TriggerEvent(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:UnregisterCallback(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:UnregisterEvents(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:Update(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:UpdateSelections(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:UpdateToMenuSelections(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:menuGenerator(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButtonObject:onMenuClosedCallback(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitButton_EventObject
+local ContainerFrameCombinedBags_PortraitButton_EventObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitButton_HighlightObject : Texture
+local ContainerFrameCombinedBags_PortraitButton_HighlightObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitButton_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo ContainerFrameCombinedBags_PortraitButton_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local ContainerFrameCombinedBags_PortraitButton_menuAnchorObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:Get(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:Init(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:Set(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitButton_menuAnchor_relativeToObject
+local ContainerFrameCombinedBags_PortraitButton_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject
+---@field tag string
+local ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function ContainerFrameCombinedBags_PortraitButton_menuDescriptionObject:private(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitContainerObject : Frame
+---@field CircleMask ContainerFrameCombinedBags_PortraitContainer_CircleMaskObject
+---@field portrait ContainerFrameCombinedBags_PortraitContainer_portraitObject
+local ContainerFrameCombinedBags_PortraitContainerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitContainer_CircleMaskObject : MaskTexture
+local ContainerFrameCombinedBags_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_PortraitContainer_portraitObject : Texture
+local ContainerFrameCombinedBags_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHintObject : Frame
+---@field ActiveTexture ContainerFrameCombinedBags_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture ContainerFrameCombinedBags_RightJumpHint_DisabledTextureObject
+---@field HoldAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnimObject
+---@field HoldIndicator ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture ContainerFrameCombinedBags_RightJumpHint_HoverTextureObject
+---@field LoadBar ContainerFrameCombinedBags_RightJumpHint_LoadBarObject
+---@field LoadBarBG ContainerFrameCombinedBags_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow ContainerFrameCombinedBags_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture ContainerFrameCombinedBags_RightJumpHint_NormalTextureObject
+---@field PressedTexture ContainerFrameCombinedBags_RightJumpHint_PressedTextureObject
+---@field SpinnerTip ContainerFrameCombinedBags_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ContainerFrameCombinedBags_RightJumpHintObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_ActiveTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_DisabledTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ContainerFrameCombinedBags_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarAnimObject
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local ContainerFrameCombinedBags_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorBGObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_HoverTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_LoadBarObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_LoadBarBGObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_LoadBarGlowObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_PressedTextureObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_RightJumpHint_SpinnerTipObject : Texture
+local ContainerFrameCombinedBags_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIconObject : Frame
+---@field ActiveTexture ContainerFrameCombinedBags_SearchBoxIcon_ActiveTextureObject
+---@field DisabledTexture ContainerFrameCombinedBags_SearchBoxIcon_DisabledTextureObject
+---@field HoldAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnimObject
+---@field HoldIndicator ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorObject
+---@field HoldIndicatorBG ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorBGObject
+---@field HoverTexture ContainerFrameCombinedBags_SearchBoxIcon_HoverTextureObject
+---@field LoadBar ContainerFrameCombinedBags_SearchBoxIcon_LoadBarObject
+---@field LoadBarBG ContainerFrameCombinedBags_SearchBoxIcon_LoadBarBGObject
+---@field LoadBarGlow ContainerFrameCombinedBags_SearchBoxIcon_LoadBarGlowObject
+---@field NormalTexture ContainerFrameCombinedBags_SearchBoxIcon_NormalTextureObject
+---@field PressedTexture ContainerFrameCombinedBags_SearchBoxIcon_PressedTextureObject
+---@field SpinnerTip ContainerFrameCombinedBags_SearchBoxIcon_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local ContainerFrameCombinedBags_SearchBoxIconObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:ApplyTextureLayout(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:BeginHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:CanEnterTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:DisableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:EnableDropShadow(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:EndHold(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:OnHoldAnimFinished(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:OnHoldAnimStopped(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:OnLoad(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:RefreshIconTextures(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetDisabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetEnabled(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetFocused(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetHoldState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetInputKey(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetIsHoldAction(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetPressable(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetTextureHeight(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetTextureState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetTextureWidth(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:SetUsableState(...) end
+---@return any ...
+function ContainerFrameCombinedBags_SearchBoxIconObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_ActiveTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_ActiveTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_DisabledTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_DisabledTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarAnimObject
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorBGObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_HoldIndicatorBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_HoverTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_HoverTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_LoadBarObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_LoadBarObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_LoadBarBGObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_LoadBarBGObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_LoadBarGlowObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_LoadBarGlowObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_NormalTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_NormalTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_PressedTextureObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_PressedTextureObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_SearchBoxIcon_SpinnerTipObject : Texture
+local ContainerFrameCombinedBags_SearchBoxIcon_SpinnerTipObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_TitleContainerObject : Frame
+---@field TitleText ContainerFrameCombinedBags_TitleContainer_TitleTextObject
+local ContainerFrameCombinedBags_TitleContainerObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_TitleContainer_TitleTextObject : FontString
+local ContainerFrameCombinedBags_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class ContainerFrameCombinedBags_itemButtonPoolObject
+local ContainerFrameCombinedBags_itemButtonPoolObject = {}
+---@return any ...
+function ContainerFrameCombinedBags_itemButtonPoolObject:GetTemplate(...) end
+---@return any ...
+function ContainerFrameCombinedBags_itemButtonPoolObject:private(...) end
+end
+
+do
 ---@class ContainerFrameContainerObject : Frame
 ---@field ContainerFrames table
 local ContainerFrameContainerObject = {}
@@ -7351,1500 +8703,4 @@ function CooldownViewerSettings_LayoutDropdownObject:UpdateToMenuSelections(...)
 function CooldownViewerSettings_LayoutDropdownObject:onMenuClosedCallback(...) end
 ---@return any ...
 function CooldownViewerSettings_LayoutDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class CooldownViewerSettings_LayoutDropdown_ArrowObject : Texture
-local CooldownViewerSettings_LayoutDropdown_ArrowObject = {}
-end
-
-do
----@class CooldownViewerSettings_LayoutDropdown_BackgroundObject : Texture
-local CooldownViewerSettings_LayoutDropdown_BackgroundObject = {}
-end
-
-do
----@class CooldownViewerSettings_LayoutDropdown_EventObject
-local CooldownViewerSettings_LayoutDropdown_EventObject = {}
-end
-
-do
----@class CooldownViewerSettings_LayoutDropdown_TextObject : FontString
-local CooldownViewerSettings_LayoutDropdown_TextObject = {}
-end
-
-do
----@class CooldownViewerSettings_LayoutDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CooldownViewerSettings_LayoutDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CooldownViewerSettings_LayoutDropdown_menuAnchorObject = {}
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CooldownViewerSettings_LayoutDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CooldownViewerSettings_LayoutDropdown_menuAnchor_relativeToObject
-local CooldownViewerSettings_LayoutDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHintObject : Frame
----@field ActiveTexture CooldownViewerSettings_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture CooldownViewerSettings_LeftJumpHint_DisabledTextureObject
----@field HoldAnim CooldownViewerSettings_LeftJumpHint_HoldAnimObject
----@field HoldIndicator CooldownViewerSettings_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CooldownViewerSettings_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture CooldownViewerSettings_LeftJumpHint_HoverTextureObject
----@field LoadBar CooldownViewerSettings_LeftJumpHint_LoadBarObject
----@field LoadBarBG CooldownViewerSettings_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow CooldownViewerSettings_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture CooldownViewerSettings_LeftJumpHint_NormalTextureObject
----@field PressedTexture CooldownViewerSettings_LeftJumpHint_PressedTextureObject
----@field SpinnerTip CooldownViewerSettings_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CooldownViewerSettings_LeftJumpHintObject = {}
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function CooldownViewerSettings_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_ActiveTextureObject : Texture
-local CooldownViewerSettings_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_DisabledTextureObject : Texture
-local CooldownViewerSettings_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CooldownViewerSettings_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local CooldownViewerSettings_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CooldownViewerSettings_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CooldownViewerSettings_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoldIndicatorObject : Texture
-local CooldownViewerSettings_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoldIndicatorBGObject : Texture
-local CooldownViewerSettings_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_HoverTextureObject : Texture
-local CooldownViewerSettings_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_LoadBarObject : Texture
-local CooldownViewerSettings_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_LoadBarBGObject : Texture
-local CooldownViewerSettings_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_LoadBarGlowObject : Texture
-local CooldownViewerSettings_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_NormalTextureObject : Texture
-local CooldownViewerSettings_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_PressedTextureObject : Texture
-local CooldownViewerSettings_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_LeftJumpHint_SpinnerTipObject : Texture
-local CooldownViewerSettings_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSliceObject : Frame
----@field BottomEdge CooldownViewerSettings_NineSlice_BottomEdgeObject
----@field BottomLeftCorner CooldownViewerSettings_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner CooldownViewerSettings_NineSlice_BottomRightCornerObject
----@field Center CooldownViewerSettings_NineSlice_CenterObject
----@field LeftEdge CooldownViewerSettings_NineSlice_LeftEdgeObject
----@field RightEdge CooldownViewerSettings_NineSlice_RightEdgeObject
----@field TopEdge CooldownViewerSettings_NineSlice_TopEdgeObject
----@field TopLeftCorner CooldownViewerSettings_NineSlice_TopLeftCornerObject
----@field TopRightCorner CooldownViewerSettings_NineSlice_TopRightCornerObject
-local CooldownViewerSettings_NineSliceObject = {}
----@return any ...
-function CooldownViewerSettings_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function CooldownViewerSettings_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class CooldownViewerSettings_NineSlice_BottomEdgeObject : Texture
-local CooldownViewerSettings_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_BottomLeftCornerObject : Texture
-local CooldownViewerSettings_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_BottomRightCornerObject : Texture
-local CooldownViewerSettings_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_CenterObject : Texture
-local CooldownViewerSettings_NineSlice_CenterObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_LeftEdgeObject : Texture
-local CooldownViewerSettings_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_RightEdgeObject : Texture
-local CooldownViewerSettings_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_TopEdgeObject : Texture
-local CooldownViewerSettings_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_TopLeftCornerObject : Texture
-local CooldownViewerSettings_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class CooldownViewerSettings_NineSlice_TopRightCornerObject : Texture
-local CooldownViewerSettings_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class CooldownViewerSettings_PortraitContainerObject : Frame
----@field CircleMask CooldownViewerSettings_PortraitContainer_CircleMaskObject
----@field portrait CooldownViewerSettings_PortraitContainer_portraitObject
-local CooldownViewerSettings_PortraitContainerObject = {}
-end
-
-do
----@class CooldownViewerSettings_PortraitContainer_CircleMaskObject : MaskTexture
-local CooldownViewerSettings_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class CooldownViewerSettings_PortraitContainer_portraitObject : Texture
-local CooldownViewerSettings_PortraitContainer_portraitObject = {}
-end
-
-do
----@class CooldownViewerSettings_ReorderMarkerObject
-local CooldownViewerSettings_ReorderMarkerObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHintObject : Frame
----@field ActiveTexture CooldownViewerSettings_RightJumpHint_ActiveTextureObject
----@field DisabledTexture CooldownViewerSettings_RightJumpHint_DisabledTextureObject
----@field HoldAnim CooldownViewerSettings_RightJumpHint_HoldAnimObject
----@field HoldIndicator CooldownViewerSettings_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG CooldownViewerSettings_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture CooldownViewerSettings_RightJumpHint_HoverTextureObject
----@field LoadBar CooldownViewerSettings_RightJumpHint_LoadBarObject
----@field LoadBarBG CooldownViewerSettings_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow CooldownViewerSettings_RightJumpHint_LoadBarGlowObject
----@field NormalTexture CooldownViewerSettings_RightJumpHint_NormalTextureObject
----@field PressedTexture CooldownViewerSettings_RightJumpHint_PressedTextureObject
----@field SpinnerTip CooldownViewerSettings_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local CooldownViewerSettings_RightJumpHintObject = {}
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:EndHold(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function CooldownViewerSettings_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_ActiveTextureObject : Texture
-local CooldownViewerSettings_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_DisabledTextureObject : Texture
-local CooldownViewerSettings_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim CooldownViewerSettings_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local CooldownViewerSettings_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarAnimObject
-local CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local CooldownViewerSettings_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local CooldownViewerSettings_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoldIndicatorObject : Texture
-local CooldownViewerSettings_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoldIndicatorBGObject : Texture
-local CooldownViewerSettings_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_HoverTextureObject : Texture
-local CooldownViewerSettings_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_LoadBarObject : Texture
-local CooldownViewerSettings_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_LoadBarBGObject : Texture
-local CooldownViewerSettings_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_LoadBarGlowObject : Texture
-local CooldownViewerSettings_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_NormalTextureObject : Texture
-local CooldownViewerSettings_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_PressedTextureObject : Texture
-local CooldownViewerSettings_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_RightJumpHint_SpinnerTipObject : Texture
-local CooldownViewerSettings_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class CooldownViewerSettings_SearchBoxObject : EditBox
----@field Instructions CooldownViewerSettings_SearchBox_InstructionsObject
----@field Left CooldownViewerSettings_SearchBox_LeftObject
----@field Middle CooldownViewerSettings_SearchBox_MiddleObject
----@field Right CooldownViewerSettings_SearchBox_RightObject
----@field clearButton CooldownViewerSettings_SearchBox_clearButtonObject
----@field instructionText string
----@field searchIcon CooldownViewerSettings_SearchBox_searchIconObject
-local CooldownViewerSettings_SearchBoxObject = {}
----@return any ...
-function CooldownViewerSettings_SearchBoxObject:CooldownViewerSettingsSearch_OnTextChanged(...) end
----@return any ...
-function CooldownViewerSettings_SearchBoxObject:NarrationGetContext(...) end
----@return any ...
-function CooldownViewerSettings_SearchBoxObject:NarrationGetDescription(...) end
----@return any ...
-function CooldownViewerSettings_SearchBoxObject:NarrationGetName(...) end
----@return any ...
-function CooldownViewerSettings_SearchBoxObject:SetNarrationLabelRegion(...) end
-end
-
-do
----@class CooldownViewerSettings_SearchBox_InstructionsObject : FontString
-local CooldownViewerSettings_SearchBox_InstructionsObject = {}
-end
-
-do
----@class CooldownViewerSettings_SearchBox_LeftObject : Texture
-local CooldownViewerSettings_SearchBox_LeftObject = {}
-end
-
-do
----@class CooldownViewerSettings_SearchBox_MiddleObject : Texture
-local CooldownViewerSettings_SearchBox_MiddleObject = {}
-end
-
-do
----@class CooldownViewerSettings_SearchBox_RightObject : Texture
-local CooldownViewerSettings_SearchBox_RightObject = {}
-end
-
-do
----@class CooldownViewerSettings_SearchBox_clearButtonObject : Button
----@field Icon CooldownViewerSettings_SearchBox_clearButton_IconObject
-local CooldownViewerSettings_SearchBox_clearButtonObject = {}
----@return any ...
-function CooldownViewerSettings_SearchBox_clearButtonObject:NarrationGetName(...) end
----@return any ...
-function CooldownViewerSettings_SearchBox_clearButtonObject:OnClick(...) end
----@return any ...
-function CooldownViewerSettings_SearchBox_clearButtonObject:OnEnter(...) end
----@return any ...
-function CooldownViewerSettings_SearchBox_clearButtonObject:OnLeave(...) end
----@return any ...
-function CooldownViewerSettings_SearchBox_clearButtonObject:OnMouseDown(...) end
----@return any ...
-function CooldownViewerSettings_SearchBox_clearButtonObject:OnMouseUp(...) end
-end
-
-do
----@class CooldownViewerSettings_SearchBox_clearButton_IconObject : Texture
-local CooldownViewerSettings_SearchBox_clearButton_IconObject = {}
-end
-
-do
----@class CooldownViewerSettings_SearchBox_searchIconObject : Texture
-local CooldownViewerSettings_SearchBox_searchIconObject = {}
-end
-
-do
----@class CooldownViewerSettings_SettingsDropdownObject : Button
----@field Event CooldownViewerSettings_SettingsDropdown_EventObject
----@field Icon CooldownViewerSettings_SettingsDropdown_IconObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor CooldownViewerSettings_SettingsDropdown_menuAnchorObject
----@field menuDescription CooldownViewerSettings_SettingsDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
-local CooldownViewerSettings_SettingsDropdownObject = {}
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:ClearMenuState(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:CloseMenu(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:CollectSelectionData(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:CreateRootDescription(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:Decrement(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GenerateMenu(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GetCallbackTable(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GetCallbackTables(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GetMenuDescription(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:GetSelectionData(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:HasElements(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:HasStickyFocus(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:Increment(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:IsMenuOpen(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMenuChanged(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMenuClosed(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMenuOpened(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMenuResponse(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMouseDown(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMouseUp(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:OpenMenu(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:Pick(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:RegisterCallback(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:RegisterMenu(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:Rotate(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:SetMenuOpen(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:SetupMenu(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:SignalUpdate(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:TriggerEvent(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:UnregisterCallback(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:UnregisterEvents(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:Update(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:UpdateSelections(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:menuGenerator(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdownObject:onMenuClosedCallback(...) end
-end
-
-do
----@class CooldownViewerSettings_SettingsDropdown_EventObject
-local CooldownViewerSettings_SettingsDropdown_EventObject = {}
-end
-
-do
----@class CooldownViewerSettings_SettingsDropdown_IconObject : Texture
-local CooldownViewerSettings_SettingsDropdown_IconObject = {}
-end
-
-do
----@class CooldownViewerSettings_SettingsDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local CooldownViewerSettings_SettingsDropdown_menuAnchorObject = {}
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject
-local CooldownViewerSettings_SettingsDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class CooldownViewerSettings_SettingsDropdown_menuDescriptionObject
----@field tag string
-local CooldownViewerSettings_SettingsDropdown_menuDescriptionObject = {}
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function CooldownViewerSettings_SettingsDropdown_menuDescriptionObject:private(...) end
-end
-
-do
----@class CooldownViewerSettings_SpellsTabObject : Frame
----@field Background CooldownViewerSettings_SpellsTab_BackgroundObject
----@field HighlightTexture CooldownViewerSettings_SpellsTab_HighlightTextureObject
----@field Icon CooldownViewerSettings_SpellsTab_IconObject
----@field Mask CooldownViewerSettings_SpellsTab_MaskObject
----@field NewOptionsFrame CooldownViewerSettings_SpellsTab_NewOptionsFrameObject
----@field SelectedTexture CooldownViewerSettings_SpellsTab_SelectedTextureObject
----@field TabGlow CooldownViewerSettings_SpellsTab_TabGlowObject
----@field TabGlowAnimation CooldownViewerSettings_SpellsTab_TabGlowAnimationObject
----@field activeAtlas string
----@field displayMode string
----@field inactiveAtlas string
----@field newTagID string
----@field tooltipText string
-local CooldownViewerSettings_SpellsTabObject = {}
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:CalculateTabSizeBasedOnTabArt(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:CheckNewTagID(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetFinalIconAnchorOffsets(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetIconAnchorOffsetsForTabArt(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetNewOptionDisplay(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetNewTagID(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetPressedIconAnchorOffsets(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:GetTooltipTextSetupFunction(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:HideNewOptionDisplay(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:InitializeIconAnchoring(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:InitializeSizeForTabArt(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:IsTabGlowAnimationPlaying(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:MarkSeen(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:NDCM_OnHide(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:NDCM_OnShow(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnEnter(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnLeave(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnMouseDown(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:OnMouseUp(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetChecked(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetCustomOnMouseUpHandler(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetFillToInterior(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetNewOptionAnchor(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetNewTagID(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetTabGlowAnimationPlaying(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:SetTooltipTextSetupFunction(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:UpdateIconInterior(...) end
----@return any ...
-function CooldownViewerSettings_SpellsTabObject:customMouseUpHandler(...) end
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_BackgroundObject : Texture
-local CooldownViewerSettings_SpellsTab_BackgroundObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_HighlightTextureObject : Texture
-local CooldownViewerSettings_SpellsTab_HighlightTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_IconObject : Texture
-local CooldownViewerSettings_SpellsTab_IconObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_MaskObject : MaskTexture
-local CooldownViewerSettings_SpellsTab_MaskObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_NewOptionsFrameObject : Texture
-local CooldownViewerSettings_SpellsTab_NewOptionsFrameObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_SelectedTextureObject : Texture
-local CooldownViewerSettings_SpellsTab_SelectedTextureObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_TabGlowObject : Texture
-local CooldownViewerSettings_SpellsTab_TabGlowObject = {}
-end
-
-do
----@class CooldownViewerSettings_SpellsTab_TabGlowAnimationObject : AnimationGroup
-local CooldownViewerSettings_SpellsTab_TabGlowAnimationObject = {}
-end
-
-do
----@class CooldownViewerSettings_TitleContainerObject : Frame
----@field TitleText CooldownViewerSettings_TitleContainer_TitleTextObject
-local CooldownViewerSettings_TitleContainerObject = {}
-end
-
-do
----@class CooldownViewerSettings_TitleContainer_TitleTextObject : FontString
-local CooldownViewerSettings_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class CooldownViewerSettings_TopTileStreaksObject : Texture
-local CooldownViewerSettings_TopTileStreaksObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButtonObject : Button
----@field Controller CooldownViewerSettings_UndoButton_ControllerObject
----@field Left CooldownViewerSettings_UndoButton_LeftObject
----@field Middle CooldownViewerSettings_UndoButton_MiddleObject
----@field Right CooldownViewerSettings_UndoButton_RightObject
----@field Text CooldownViewerSettings_UndoButton_TextObject
----@field disabledTooltip string
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field tooltipTitle string
-local CooldownViewerSettings_UndoButtonObject = {}
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:ClearCustomTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:FitToText(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:GetOnClickSoundKit(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:InitButton(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:OnClick(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:OnEnter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:OnLeave(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:RunCustomTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetButtonArtKit(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetCustomTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetOnClickHandler(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetOnEnterHandler(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetTextToFit(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetTooltipAnchor(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:SetTooltipInfo(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:customTextFormatter(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:onClickHandler(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:originalOnDisableScript(...) end
----@return any ...
-function CooldownViewerSettings_UndoButtonObject:originalOnEnableScript(...) end
-end
-
-do
----@class CooldownViewerSettings_UndoButton_ControllerObject : Frame
-local CooldownViewerSettings_UndoButton_ControllerObject = {}
----@return any ...
-function CooldownViewerSettings_UndoButton_ControllerObject:OnLoad(...) end
----@return any ...
-function CooldownViewerSettings_UndoButton_ControllerObject:OnShow(...) end
-end
-
-do
----@class CooldownViewerSettings_UndoButton_LeftObject : Texture
-local CooldownViewerSettings_UndoButton_LeftObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButton_MiddleObject : Texture
-local CooldownViewerSettings_UndoButton_MiddleObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButton_RightObject : Texture
-local CooldownViewerSettings_UndoButton_RightObject = {}
-end
-
-do
----@class CooldownViewerSettings_UndoButton_TextObject : FontString
-local CooldownViewerSettings_UndoButton_TextObject = {}
-end
-
-do
----@class CooldownViewerSettings_categoryPoolObject
-local CooldownViewerSettings_categoryPoolObject = {}
----@return any ...
-function CooldownViewerSettings_categoryPoolObject:private(...) end
-end
-
-do
----@class CooldownViewerSettings_dataProviderObject
----@field displayData table
----@field displayDataDirty boolean
----@field layoutManager table
-local CooldownViewerSettings_dataProviderObject = {}
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ChangeCooldownInfoCategoryByID(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ChangeCooldownInfoInternal(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ChangeOrderIndex(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:CheckBuildDisplayData(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetCooldownDefaults(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetCooldownInfoForID(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetDefaultOrderedCooldownIDs(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetDisplayData(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetLayoutManager(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetOrderedCooldownIDs(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:GetOrderedCooldownIDsForCategory(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:IsDefaultValue(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:IsDirty(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:IsLayoutUpdateQueued(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:MarkDirty(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ResetCurrentToDefaults(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:ResetToRestorePoint(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SetActiveLayoutByID(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SetCooldownToCategory(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SetLayoutManager(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:SwitchToBestLayoutForSpec(...) end
----@return any ...
-function CooldownViewerSettings_dataProviderObject:UseDefaultLayout(...) end
-end
-
-do
----@class CooldownViewerSettings_dataSerializationObject
----@field cachedSerializedData string
----@field layoutManager table
-local CooldownViewerSettings_dataSerializationObject = {}
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:AddLayout(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:ClearSerializedData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:CreateEncodeOutput(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:DeserializeLayouts(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetCurrentEncodingVersion(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetCurrentSaveFormatVersion(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetLayoutManager(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:GetSerializedData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:Init(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:IsLoaded(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:ReadData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:ResetToDefaults(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:SerializeLayouts(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:SetSerializationPersistenceObject(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:SetSerializedData(...) end
----@return any ...
-function CooldownViewerSettings_dataSerializationObject:WriteData(...) end
-end
-
-do
----@class CooldownViewerSettings_layoutManagerObject
-local CooldownViewerSettings_layoutManagerObject = {}
-end
-
-do
----@class CovenantChoiceToastObject : Frame
----@field CovenantName CovenantChoiceToast_CovenantNameObject
----@field GlowLineTop CovenantChoiceToast_GlowLineTopObject
----@field GlowLineTopAdditive CovenantChoiceToast_GlowLineTopAdditiveObject
----@field HeaderText CovenantChoiceToast_HeaderTextObject
----@field Icon CovenantChoiceToast_IconObject
----@field IconSwirlModelScene CovenantChoiceToast_IconSwirlModelSceneObject
----@field ShowAnim CovenantChoiceToast_ShowAnimObject
----@field Stars1 CovenantChoiceToast_Stars1Object
----@field Stars2 CovenantChoiceToast_Stars2Object
----@field ToastBG CovenantChoiceToast_ToastBGObject
-local CovenantChoiceToastObject = {}
----@return any ...
-function CovenantChoiceToastObject:AddSwirlEffects(...) end
----@return any ...
-function CovenantChoiceToastObject:CancelIconSwirlEffects(...) end
----@return any ...
-function CovenantChoiceToastObject:OnAnimFinished(...) end
----@return any ...
-function CovenantChoiceToastObject:OnEvent(...) end
----@return any ...
-function CovenantChoiceToastObject:OnHide(...) end
----@return any ...
-function CovenantChoiceToastObject:OnLoad(...) end
----@return any ...
-function CovenantChoiceToastObject:PlayBanner(...) end
----@return any ...
-function CovenantChoiceToastObject:PlayCovenantChoiceToast(...) end
----@return any ...
-function CovenantChoiceToastObject:SetCovenantTextureKit(...) end
----@return any ...
-function CovenantChoiceToastObject:StopBanner(...) end
----@type CovenantChoiceToastObject
-CovenantChoiceToast = CovenantChoiceToastObject
-end
-
-do
----@class CovenantChoiceToast_CovenantNameObject : FontString
-local CovenantChoiceToast_CovenantNameObject = {}
-end
-
-do
----@class CovenantChoiceToast_GlowLineTopObject : Texture
-local CovenantChoiceToast_GlowLineTopObject = {}
-end
-
-do
----@class CovenantChoiceToast_GlowLineTopAdditiveObject : Texture
-local CovenantChoiceToast_GlowLineTopAdditiveObject = {}
-end
-
-do
----@class CovenantChoiceToast_HeaderTextObject : FontString
-local CovenantChoiceToast_HeaderTextObject = {}
-end
-
-do
----@class CovenantChoiceToast_IconObject : Frame
----@field Tex CovenantChoiceToast_Icon_TexObject
-local CovenantChoiceToast_IconObject = {}
-end
-
-do
----@class CovenantChoiceToast_Icon_TexObject : Texture
-local CovenantChoiceToast_Icon_TexObject = {}
-end
-
-do
----@class CovenantChoiceToast_IconSwirlModelSceneObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field delayedActions table
----@field effectControllers table
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera table
----@field useViewInsetNormalization boolean
-local CovenantChoiceToast_IconSwirlModelSceneObject = {}
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AcquireActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddEffect(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ClearEffects(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ClearScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetActorByTag(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:GetSceneSize(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:InitializeActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnEnter(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnEvent(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnHide(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnLeave(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnLoad(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseDown(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseUp(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnShow(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:OnUpdate(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseActor(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:Reset(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SetResetCallback(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function CovenantChoiceToast_IconSwirlModelSceneObject:TransitionToModelSceneID(...) end
-end
-
-do
----@class CovenantChoiceToast_ShowAnimObject : AnimationGroup
-local CovenantChoiceToast_ShowAnimObject = {}
-end
-
-do
----@class CovenantChoiceToast_Stars1Object : Texture
-local CovenantChoiceToast_Stars1Object = {}
-end
-
-do
----@class CovenantChoiceToast_Stars2Object : Texture
-local CovenantChoiceToast_Stars2Object = {}
-end
-
-do
----@class CovenantChoiceToast_ToastBGObject : Texture
-local CovenantChoiceToast_ToastBGObject = {}
-end
-
-do
----@class CovenantRenownToastObject : Frame
----@field GlowLineTop CovenantRenownToast_GlowLineTopObject
----@field GlowLineTopAdditive CovenantRenownToast_GlowLineTopAdditiveObject
----@field GlowLineTopBottom CovenantRenownToast_GlowLineTopBottomObject
----@field Icon CovenantRenownToast_IconObject
----@field IconSwirlModelScene CovenantRenownToast_IconSwirlModelSceneObject
----@field RenownLabel CovenantRenownToast_RenownLabelObject
----@field RewardDescription CovenantRenownToast_RewardDescriptionObject
----@field RewardIcon CovenantRenownToast_RewardIconObject
----@field RewardIconMask CovenantRenownToast_RewardIconMaskObject
----@field RewardIconMouseOver CovenantRenownToast_RewardIconMouseOverObject
----@field RewardIconRing CovenantRenownToast_RewardIconRingObject
----@field ShowAnim CovenantRenownToast_ShowAnimObject
----@field Stars1 CovenantRenownToast_Stars1Object
----@field Stars2 CovenantRenownToast_Stars2Object
----@field ToastBG CovenantRenownToast_ToastBGObject
-local CovenantRenownToastObject = {}
----@return any ...
-function CovenantRenownToastObject:AddSwirlEffects(...) end
----@return any ...
-function CovenantRenownToastObject:CancelIconSwirlEffects(...) end
----@return any ...
-function CovenantRenownToastObject:OnAnimFinished(...) end
----@return any ...
-function CovenantRenownToastObject:OnEvent(...) end
----@return any ...
-function CovenantRenownToastObject:OnHide(...) end
----@return any ...
-function CovenantRenownToastObject:OnHoldAnimStarted(...) end
----@return any ...
-function CovenantRenownToastObject:OnLoad(...) end
----@return any ...
-function CovenantRenownToastObject:OnMouseEnter(...) end
----@return any ...
-function CovenantRenownToastObject:OnMouseLeave(...) end
----@return any ...
-function CovenantRenownToastObject:PlayBanner(...) end
----@return any ...
-function CovenantRenownToastObject:RefreshTooltip(...) end
----@return any ...
-function CovenantRenownToastObject:SetCovenantTextureKit(...) end
----@return any ...
-function CovenantRenownToastObject:SetupRewardVisuals(...) end
----@return any ...
-function CovenantRenownToastObject:ShowRenownLevelUpToast(...) end
----@return any ...
-function CovenantRenownToastObject:StopBanner(...) end
----@type CovenantRenownToastObject
-CovenantRenownToast = CovenantRenownToastObject
-end
-
-do
----@class CovenantRenownToast_GlowLineTopObject : Texture
-local CovenantRenownToast_GlowLineTopObject = {}
-end
-
-do
----@class CovenantRenownToast_GlowLineTopAdditiveObject : Texture
-local CovenantRenownToast_GlowLineTopAdditiveObject = {}
-end
-
-do
----@class CovenantRenownToast_GlowLineTopBottomObject : Texture
-local CovenantRenownToast_GlowLineTopBottomObject = {}
-end
-
-do
----@class CovenantRenownToast_IconObject : Frame
----@field Tex CovenantRenownToast_Icon_TexObject
-local CovenantRenownToast_IconObject = {}
-end
-
-do
----@class CovenantRenownToast_Icon_TexObject : Texture
-local CovenantRenownToast_Icon_TexObject = {}
-end
-
-do
----@class CovenantRenownToast_IconSwirlModelSceneObject
----@field actorTemplate string
----@field cameras table
----@field centerX number
----@field centerY number
----@field delayedActions table
----@field effectControllers table
----@field pixelsPerSceneUnit number
----@field tagToActor table
----@field tagToCamera table
----@field useViewInsetNormalization boolean
-local CovenantRenownToast_IconSwirlModelSceneObject = {}
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AcquireActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddDynamicEffect(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddEffect(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CalculatePixelsPerSceneUnit(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ClearEffects(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ClearScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ExecuteOrDelayUntilSceneSet(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetActorByTag(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetCameraByTag(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetEffectSpeed(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetModelSceneID(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetPixelsPerSceneUnit(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetPlayerActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:GetSceneSize(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:HasActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:HasActiveEffects(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:InitializeActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:InternalAddEffect(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:IsModelSceneSet(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnEnter(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnEvent(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnHide(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnLeave(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnLoad(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseDown(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseUp(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnMouseWheel(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnShow(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnSizeChanged(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:OnUpdate(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:RefreshModelScene(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseActor(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:RemoveEffectController(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:Reset(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetActorPositionFromPixels(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetEffectSpeed(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SetResetCallback(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:StopCameraYaw(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function CovenantRenownToast_IconSwirlModelSceneObject:TransitionToModelSceneID(...) end
 end

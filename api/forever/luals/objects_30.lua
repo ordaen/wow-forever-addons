@@ -3,6 +3,1216 @@
 
 
 do
+---@class RaidParentFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local RaidParentFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_HoverTextureObject : Texture
+local RaidParentFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_LoadBarObject : Texture
+local RaidParentFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_LoadBarBGObject : Texture
+local RaidParentFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local RaidParentFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_NormalTextureObject : Texture
+local RaidParentFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_PressedTextureObject : Texture
+local RaidParentFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_FocusJumpHint_SpinnerTipObject : Texture
+local RaidParentFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class RaidParentFrame_FrameGlowObject : Frame
+---@field GlowTexture RaidParentFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local RaidParentFrame_FrameGlowObject = {}
+---@return any ...
+function RaidParentFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function RaidParentFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function RaidParentFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function RaidParentFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class RaidParentFrame_FrameGlow_GlowTextureObject : Texture
+local RaidParentFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_InsetObject : Frame
+---@field Bg RaidParentFrame_Inset_BgObject
+---@field NineSlice RaidParentFrame_Inset_NineSliceObject
+---@field layoutType string
+local RaidParentFrame_InsetObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_BgObject : Texture
+local RaidParentFrame_Inset_BgObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge RaidParentFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner RaidParentFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge RaidParentFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge RaidParentFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge RaidParentFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner RaidParentFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner RaidParentFrame_Inset_NineSlice_TopRightCornerObject
+local RaidParentFrame_Inset_NineSliceObject = {}
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function RaidParentFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local RaidParentFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local RaidParentFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local RaidParentFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_RightEdgeObject : Texture
+local RaidParentFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_TopEdgeObject : Texture
+local RaidParentFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local RaidParentFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local RaidParentFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture RaidParentFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture RaidParentFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim RaidParentFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator RaidParentFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture RaidParentFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar RaidParentFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG RaidParentFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow RaidParentFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture RaidParentFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture RaidParentFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip RaidParentFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local RaidParentFrame_LeftJumpHintObject = {}
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function RaidParentFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_ActiveTextureObject : Texture
+local RaidParentFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_DisabledTextureObject : Texture
+local RaidParentFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local RaidParentFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local RaidParentFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_HoverTextureObject : Texture
+local RaidParentFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_LoadBarObject : Texture
+local RaidParentFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_LoadBarBGObject : Texture
+local RaidParentFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local RaidParentFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_NormalTextureObject : Texture
+local RaidParentFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_PressedTextureObject : Texture
+local RaidParentFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_LeftJumpHint_SpinnerTipObject : Texture
+local RaidParentFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSliceObject : Frame
+---@field BottomEdge RaidParentFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner RaidParentFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner RaidParentFrame_NineSlice_BottomRightCornerObject
+---@field Center RaidParentFrame_NineSlice_CenterObject
+---@field LeftEdge RaidParentFrame_NineSlice_LeftEdgeObject
+---@field RightEdge RaidParentFrame_NineSlice_RightEdgeObject
+---@field TopEdge RaidParentFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner RaidParentFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner RaidParentFrame_NineSlice_TopRightCornerObject
+local RaidParentFrame_NineSliceObject = {}
+---@return any ...
+function RaidParentFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function RaidParentFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class RaidParentFrame_NineSlice_BottomEdgeObject : Texture
+local RaidParentFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_BottomLeftCornerObject : Texture
+local RaidParentFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_BottomRightCornerObject : Texture
+local RaidParentFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_CenterObject : Texture
+local RaidParentFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_LeftEdgeObject : Texture
+local RaidParentFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_RightEdgeObject : Texture
+local RaidParentFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_TopEdgeObject : Texture
+local RaidParentFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_TopLeftCornerObject : Texture
+local RaidParentFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_NineSlice_TopRightCornerObject : Texture
+local RaidParentFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class RaidParentFrame_PortraitContainerObject : Frame
+---@field CircleMask RaidParentFrame_PortraitContainer_CircleMaskObject
+---@field portrait RaidParentFrame_PortraitContainer_portraitObject
+local RaidParentFrame_PortraitContainerObject = {}
+end
+
+do
+---@class RaidParentFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local RaidParentFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class RaidParentFrame_PortraitContainer_portraitObject : Texture
+local RaidParentFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHintObject : Frame
+---@field ActiveTexture RaidParentFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture RaidParentFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim RaidParentFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator RaidParentFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG RaidParentFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture RaidParentFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar RaidParentFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG RaidParentFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow RaidParentFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture RaidParentFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture RaidParentFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip RaidParentFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local RaidParentFrame_RightJumpHintObject = {}
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function RaidParentFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_ActiveTextureObject : Texture
+local RaidParentFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_DisabledTextureObject : Texture
+local RaidParentFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local RaidParentFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoldIndicatorObject : Texture
+local RaidParentFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local RaidParentFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_HoverTextureObject : Texture
+local RaidParentFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_LoadBarObject : Texture
+local RaidParentFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_LoadBarBGObject : Texture
+local RaidParentFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_LoadBarGlowObject : Texture
+local RaidParentFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_NormalTextureObject : Texture
+local RaidParentFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_PressedTextureObject : Texture
+local RaidParentFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class RaidParentFrame_RightJumpHint_SpinnerTipObject : Texture
+local RaidParentFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class RaidParentFrame_TitleContainerObject : Frame
+---@field TitleText RaidParentFrame_TitleContainer_TitleTextObject
+local RaidParentFrame_TitleContainerObject = {}
+end
+
+do
+---@class RaidParentFrame_TitleContainer_TitleTextObject : FontString
+local RaidParentFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class RaidParentFrame_TopTileStreaksObject : Texture
+local RaidParentFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelectionObject : Frame
+---@field RaidTargetingFooterinputLegend RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject
+---@field TargetHighlight RaidTargetingFreeSelection_TargetHighlightObject
+---@field raidTargetingFooter RaidTargetingFreeSelection_raidTargetingFooterObject
+local RaidTargetingFreeSelectionObject = {}
+---@return any ...
+function RaidTargetingFreeSelectionObject:CanUseFocusButton(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:InitializeGamepad(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:OnExitEditMode(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:OnGamepadMainMenuShown(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:OnHide(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:OnLoad(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:OnShow(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:RegisterForTransitions(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:SetActive(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:SetupFooter(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:Toggle(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:UninitializeGamepad(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:UpdateFooter(...) end
+---@return any ...
+function RaidTargetingFreeSelectionObject:UpdateVisibility(...) end
+---@type RaidTargetingFreeSelectionObject
+RaidTargetingFreeSelection = RaidTargetingFreeSelectionObject
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject : Frame
+---@field actions table
+---@field promptContainerFrame RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject
+---@field promptFrames RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject
+---@field promptFramesAddOrder table
+---@field promptMap table
+---@field wrapAroundRowWidth boolean
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject = {}
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:AddModifierSection(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyDefaultPromptPositioning(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyDefaultStyle(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyWideStyle(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:InitializePrompts(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:OnBackgroundAlphaChanged(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:RefreshWithPromptedBindings(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:SetLegendWidth(...) end
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject : Frame
+---@field backgroundBorder RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject
+---@field backgroundSlot RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject
+---@field StandardOneIconPADLSHOULDERSLASH RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject : Frame
+---@field ControlDescText RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject
+---@field InputIcon1 RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object
+---@field InputIcons table
+---@field template string
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject = {}
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:BeginHold(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:DisablePrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnablePrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EndHold(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetIconDividerControl(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetInputIconControl(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetPromptTextControl(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:OnLoad(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:RefreshInputPromptSize(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDisabled(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDividerType(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetFocused(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetInputIconSize(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetIsHoldAction(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPressable(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptFont(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptInputIconKey(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptText(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetUseDropShadow(...) end
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject : Frame
+---@field FontString RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject : FontString
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object : Frame
+---@field ActiveTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject
+---@field DisabledTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject
+---@field HoldAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject
+---@field HoldIndicator RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject
+---@field LoadBar RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject
+---@field LoadBarBG RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject
+---@field NormalTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject
+---@field PressedTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject
+---@field SpinnerTip RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object = {}
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EndHold(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject : Texture
+local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_TargetHighlightObject : Frame
+local RaidTargetingFreeSelection_TargetHighlightObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_raidTargetingFooterObject
+---@field ALIGNMENT_TYPE table
+---@field OVERFLOW_TYPE table
+---@field alignmentType number
+---@field debugName string
+---@field disallowButtonContexts boolean
+---@field inputLegend RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject
+---@field isShown boolean
+---@field overflowType number
+---@field parentFrame RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject
+---@field promptedBindings table
+---@field promptedBindingsActive table
+---@field promptedBindingsByKey table
+---@field requiresBindingGroup boolean
+---@field xOffset number
+---@field yOffset number
+local RaidTargetingFreeSelection_raidTargetingFooterObject = {}
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:AddFunctionBinding(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:AddNonFallbackSelectPrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:AddPromptedBinding(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:AddPromptedBindings(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:AddStandardBackPrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:AddStandardSelectPrompt(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:ApplyInputLegendAttachment(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:Finalize(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:GeneratePromptedBindingsByKey(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:GetPromptedBindingToDisplayForKey(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:HideAndDeactivateBindings(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:Init(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:IsBindingGroupRequired(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:Refresh(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshBindingGroup(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshCustomFrameVisibility(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshInputLegend(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshPromptedBindingsActive(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:SetAlignmentType(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:SetAnchorOffsets(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:SetCustomAnchor(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:SetOverflowType(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:SetParentFrame(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:ShowAndActivateBindings(...) end
+---@return any ...
+function RaidTargetingFreeSelection_raidTargetingFooterObject:UseWideBackground(...) end
+end
+
+do
+---@class RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject
+local RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject = {}
+end
+
+do
+---@class RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject
+local RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject = {}
+end
+
+do
+---@class RaidWarningFrameObject : Frame
+---@field Selection RaidWarningFrame_SelectionObject
+---@field defaultHideSelection boolean
+---@field dirtySettings table
+---@field downKeys table
+---@field fontStringPool RaidWarningFrame_fontStringPoolObject
+---@field hasActiveChanges boolean
+---@field maxMessageSlots number
+---@field maxTextHeight number
+---@field maxTotalLines number
+---@field messageCounter number
+---@field messageTypes table
+---@field minReservedSlots number
+---@field savedSystemInfo RaidWarningFrame_savedSystemInfoObject
+---@field settingDisplayInfoMap table
+---@field settingMap table
+---@field settingsDialogAnchor RaidWarningFrame_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field system number
+---@field systemInfo RaidWarningFrame_systemInfoObject
+---@field systemNameString string
+local RaidWarningFrameObject = {}
+---@return any ...
+function RaidWarningFrameObject:AcquireOrEvictSlot(...) end
+---@return any ...
+function RaidWarningFrameObject:AcquireString(...) end
+---@return any ...
+function RaidWarningFrameObject:AddExtraButtons(...) end
+---@return any ...
+function RaidWarningFrameObject:AddMessage(...) end
+---@return any ...
+function RaidWarningFrameObject:AddSnappedFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:AnchorSelectionFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:AnySettingsDirty(...) end
+---@return any ...
+function RaidWarningFrameObject:ApplySystemAnchor(...) end
+---@return any ...
+function RaidWarningFrameObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function RaidWarningFrameObject:BreakFrameSnap(...) end
+---@return any ...
+function RaidWarningFrameObject:BreakFromFrameManager(...) end
+---@return any ...
+function RaidWarningFrameObject:BreakSnappedFrames(...) end
+---@return any ...
+function RaidWarningFrameObject:CanBeMoved(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearAllPointsBase(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearAllPointsOverride(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearDirtySetting(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearDownKeys(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearFrameSnap(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearHighlight(...) end
+---@return any ...
+function RaidWarningFrameObject:ClearMessages(...) end
+---@return any ...
+function RaidWarningFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function RaidWarningFrameObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function RaidWarningFrameObject:DoesSettingValueEqual(...) end
+---@return any ...
+function RaidWarningFrameObject:EnforceLineLimits(...) end
+---@return any ...
+function RaidWarningFrameObject:FindSlotToEvict(...) end
+---@return any ...
+function RaidWarningFrameObject:GetActiveMessageCount(...) end
+---@return any ...
+function RaidWarningFrameObject:GetBottomOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function RaidWarningFrameObject:GetFirstMessage(...) end
+---@return any ...
+function RaidWarningFrameObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function RaidWarningFrameObject:GetLeftOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:GetLowestMessage(...) end
+---@return any ...
+function RaidWarningFrameObject:GetManagedFrameContainer(...) end
+---@return any ...
+function RaidWarningFrameObject:GetRightOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:GetScaledCenter(...) end
+---@return any ...
+function RaidWarningFrameObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function RaidWarningFrameObject:GetScaledSelectionSides(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSelectionOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSettingValue(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSettingValueBool(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSnapOffsets(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSortedMessages(...) end
+---@return any ...
+function RaidWarningFrameObject:GetSystemName(...) end
+---@return any ...
+function RaidWarningFrameObject:GetTopOffset(...) end
+---@return any ...
+function RaidWarningFrameObject:HasActiveChanges(...) end
+---@return any ...
+function RaidWarningFrameObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function RaidWarningFrameObject:HasSetting(...) end
+---@return any ...
+function RaidWarningFrameObject:HasValidSelectionRect(...) end
+---@return any ...
+function RaidWarningFrameObject:HideBase(...) end
+---@return any ...
+function RaidWarningFrameObject:HideOverride(...) end
+---@return any ...
+function RaidWarningFrameObject:HighlightSystem(...) end
+---@return any ...
+function RaidWarningFrameObject:IsAboveFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:IsBelowFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:IsEditModeDragging(...) end
+---@return any ...
+function RaidWarningFrameObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function RaidWarningFrameObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:IsInDefaultPosition(...) end
+---@return any ...
+function RaidWarningFrameObject:IsInitialized(...) end
+---@return any ...
+function RaidWarningFrameObject:IsSettingDirty(...) end
+---@return any ...
+function RaidWarningFrameObject:IsShiftKeyDown(...) end
+---@return any ...
+function RaidWarningFrameObject:IsSystemSettingDefault(...) end
+---@return any ...
+function RaidWarningFrameObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function RaidWarningFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function RaidWarningFrameObject:OnDragStart(...) end
+---@return any ...
+function RaidWarningFrameObject:OnDragStop(...) end
+---@return any ...
+function RaidWarningFrameObject:OnEditModeEnter(...) end
+---@return any ...
+function RaidWarningFrameObject:OnEditModeExit(...) end
+---@return any ...
+function RaidWarningFrameObject:OnEvent(...) end
+---@return any ...
+function RaidWarningFrameObject:OnKeyDown(...) end
+---@return any ...
+function RaidWarningFrameObject:OnKeyUp(...) end
+---@return any ...
+function RaidWarningFrameObject:OnLayoutUpdated(...) end
+---@return any ...
+function RaidWarningFrameObject:OnLoad(...) end
+---@return any ...
+function RaidWarningFrameObject:OnSystemHide(...) end
+---@return any ...
+function RaidWarningFrameObject:OnSystemLoad(...) end
+---@return any ...
+function RaidWarningFrameObject:OnSystemPositionChange(...) end
+---@return any ...
+function RaidWarningFrameObject:OnUpdate(...) end
+---@return any ...
+function RaidWarningFrameObject:OnUpdateSystem(...) end
+---@return any ...
+function RaidWarningFrameObject:PrepareForSave(...) end
+---@return any ...
+function RaidWarningFrameObject:ProcessMovementKey(...) end
+---@return any ...
+function RaidWarningFrameObject:RegisterMessageEvents(...) end
+---@return any ...
+function RaidWarningFrameObject:RemoveSnappedFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:ResetToDefaultPosition(...) end
+---@return any ...
+function RaidWarningFrameObject:SelectSystem(...) end
+---@return any ...
+function RaidWarningFrameObject:SetHasActiveChanges(...) end
+---@return any ...
+function RaidWarningFrameObject:SetIsInEditMode(...) end
+---@return any ...
+function RaidWarningFrameObject:SetPointBase(...) end
+---@return any ...
+function RaidWarningFrameObject:SetPointOverride(...) end
+---@return any ...
+function RaidWarningFrameObject:SetScaleBase(...) end
+---@return any ...
+function RaidWarningFrameObject:SetScaleOverride(...) end
+---@return any ...
+function RaidWarningFrameObject:SetSelectionShown(...) end
+---@return any ...
+function RaidWarningFrameObject:SetShownBase(...) end
+---@return any ...
+function RaidWarningFrameObject:SetShownOverride(...) end
+---@return any ...
+function RaidWarningFrameObject:SetSnappedToFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function RaidWarningFrameObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function RaidWarningFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function RaidWarningFrameObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function RaidWarningFrameObject:ShouldShowSetting(...) end
+---@return any ...
+function RaidWarningFrameObject:ShowEditInstructions(...) end
+---@return any ...
+function RaidWarningFrameObject:SnapToFrame(...) end
+---@return any ...
+function RaidWarningFrameObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateClampOffsets(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateDirtySettings(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateLayout(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateSettingMap(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateShownState(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateSystem(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateSystemSetting(...) end
+---@return any ...
+function RaidWarningFrameObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function RaidWarningFrameObject:UseSettingAltName(...) end
+---@type RaidWarningFrameObject
+RaidWarningFrame = RaidWarningFrameObject
+end
+
+do
 ---@class RaidWarningFrame_SelectionObject : Frame
 ---@field Label RaidWarningFrame_Selection_LabelObject
 ---@field MouseOverHighlight RaidWarningFrame_Selection_MouseOverHighlightObject
@@ -8014,1585 +9224,4 @@ function ShoppingTooltip1_NineSliceObject:SetBorderColor(...) end
 function ShoppingTooltip1_NineSliceObject:SetCenterColor(...) end
 ---@return any ...
 function ShoppingTooltip1_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class ShoppingTooltip1_NineSlice_BottomEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_BottomLeftCornerObject : Texture
-local ShoppingTooltip1_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_BottomRightCornerObject : Texture
-local ShoppingTooltip1_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_CenterObject : Texture
-local ShoppingTooltip1_NineSlice_CenterObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_LeftEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_RightEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_TopEdgeObject : Texture
-local ShoppingTooltip1_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_TopLeftCornerObject : Texture
-local ShoppingTooltip1_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_NineSlice_TopRightCornerObject : Texture
-local ShoppingTooltip1_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip1_TextLeft1Object : FontString
-local ShoppingTooltip1_TextLeft1Object = {}
-end
-
-do
----@class ShoppingTooltip1_TextLeft2Object : FontString
-local ShoppingTooltip1_TextLeft2Object = {}
-end
-
-do
----@class ShoppingTooltip1_TextRight1Object : FontString
-local ShoppingTooltip1_TextRight1Object = {}
-end
-
-do
----@class ShoppingTooltip1_TextRight2Object : FontString
-local ShoppingTooltip1_TextRight2Object = {}
-end
-
-do
----@class ShoppingTooltip1_TopOverlayObject : Texture
-local ShoppingTooltip1_TopOverlayObject = {}
-end
-
-do
----@class ShoppingTooltip2Object : GameTooltip
----@field BottomOverlay ShoppingTooltip2_BottomOverlayObject
----@field CompareHeader ShoppingTooltip2_CompareHeaderObject
----@field NineSlice ShoppingTooltip2_NineSliceObject
----@field TextLeft1 ShoppingTooltip2_TextLeft1Object
----@field TextLeft2 ShoppingTooltip2_TextLeft2Object
----@field TextRight1 ShoppingTooltip2_TextRight1Object
----@field TextRight2 ShoppingTooltip2_TextRight2Object
----@field TopOverlay ShoppingTooltip2_TopOverlayObject
----@field layoutType string
----@field textLeft1Font string
----@field textLeft2Font string
----@field textRight1Font string
----@field textRight2Font string
----@field updateTooltipTimer number
-local ShoppingTooltip2Object = {}
----@return any ...
-function ShoppingTooltip2Object:AddLineDataText(...) end
----@return any ...
-function ShoppingTooltip2Object:AppendInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:AppendInfoWithSpacer(...) end
----@return any ...
-function ShoppingTooltip2Object:ClearHandlerInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:GetPrimaryTooltipData(...) end
----@return any ...
-function ShoppingTooltip2Object:GetPrimaryTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:GetProcessingTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:GetTooltipData(...) end
----@return any ...
-function ShoppingTooltip2Object:HasDataInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:InternalProcessInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:IsTooltipType(...) end
----@return any ...
-function ShoppingTooltip2Object:ProcessInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:ProcessLineData(...) end
----@return any ...
-function ShoppingTooltip2Object:ProcessLines(...) end
----@return any ...
-function ShoppingTooltip2Object:RebuildFromTooltipInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAchievementByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAction(...) end
----@return any ...
-function ShoppingTooltip2Object:SetArtifactItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetArtifactPowerByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAzeriteEssence(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAzeriteEssenceSlot(...) end
----@return any ...
-function ShoppingTooltip2Object:SetAzeritePower(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBackpackToken(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBagItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBagItemChild(...) end
----@return any ...
-function ShoppingTooltip2Object:SetBuybackItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetCompanionPet(...) end
----@return any ...
-function ShoppingTooltip2Object:SetConduit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetCurrencyByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetCurrencyToken(...) end
----@return any ...
-function ShoppingTooltip2Object:SetEnhancedConduit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetEquipmentSet(...) end
----@return any ...
-function ShoppingTooltip2Object:SetExistingSocketGem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetGuildBankItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetHeirloomByItemID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetHyperlink(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInboxItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInfoBackdropStyle(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInstanceLockEncountersComplete(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInventoryItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetInventoryItemByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemByGUID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemByItemModifiedAppearanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemInteractionItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetItemKey(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLFGDungeonReward(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLFGDungeonShortageReward(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLootCurrency(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLootItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetLootRollItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMerchantCostItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMerchantItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMinimapMouseover(...) end
----@return any ...
-function ShoppingTooltip2Object:SetMountBySpellID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetOutfit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetOwnedItemByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPetAction(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPossession(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPvpBrawl(...) end
----@return any ...
-function ShoppingTooltip2Object:SetPvpTalent(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestCurrency(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestLogCurrency(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestLogItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestLogSpecialItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetQuestPartyProgress(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeRankInfo(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeReagentItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeResultItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRecipeResultItemForOrder(...) end
----@return any ...
-function ShoppingTooltip2Object:SetRuneforgeResultItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSendMailItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetShapeshift(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSlottedKeystone(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSocketGem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSocketedItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSocketedRelic(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSpellBookItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetSpellByID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTalent(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTotem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetToyByItemID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTradePlayerItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTradeTargetItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTrainerService(...) end
----@return any ...
-function ShoppingTooltip2Object:SetTraitEntry(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnit(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitAura(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitAuraByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitBuff(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitBuffByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitDebuff(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUnitDebuffByAuraInstanceID(...) end
----@return any ...
-function ShoppingTooltip2Object:SetUpgradeItem(...) end
----@return any ...
-function ShoppingTooltip2Object:SetWeeklyReward(...) end
----@return any ...
-function ShoppingTooltip2Object:SetWorldLootObject(...) end
----@type ShoppingTooltip2Object
-ShoppingTooltip2 = ShoppingTooltip2Object
-end
-
-do
----@class ShoppingTooltip2_BottomOverlayObject : Texture
-local ShoppingTooltip2_BottomOverlayObject = {}
-end
-
-do
----@class ShoppingTooltip2_CompareHeaderObject : Frame
----@field Label ShoppingTooltip2_CompareHeader_LabelObject
-local ShoppingTooltip2_CompareHeaderObject = {}
-end
-
-do
----@class ShoppingTooltip2_CompareHeader_LabelObject : FontString
-local ShoppingTooltip2_CompareHeader_LabelObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSliceObject : Frame
----@field BottomEdge ShoppingTooltip2_NineSlice_BottomEdgeObject
----@field BottomLeftCorner ShoppingTooltip2_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner ShoppingTooltip2_NineSlice_BottomRightCornerObject
----@field Center ShoppingTooltip2_NineSlice_CenterObject
----@field LeftEdge ShoppingTooltip2_NineSlice_LeftEdgeObject
----@field RightEdge ShoppingTooltip2_NineSlice_RightEdgeObject
----@field TopEdge ShoppingTooltip2_NineSlice_TopEdgeObject
----@field TopLeftCorner ShoppingTooltip2_NineSlice_TopLeftCornerObject
----@field TopRightCorner ShoppingTooltip2_NineSlice_TopRightCornerObject
-local ShoppingTooltip2_NineSliceObject = {}
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:OnLoad(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function ShoppingTooltip2_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class ShoppingTooltip2_NineSlice_BottomEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_BottomLeftCornerObject : Texture
-local ShoppingTooltip2_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_BottomRightCornerObject : Texture
-local ShoppingTooltip2_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_CenterObject : Texture
-local ShoppingTooltip2_NineSlice_CenterObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_LeftEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_RightEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_TopEdgeObject : Texture
-local ShoppingTooltip2_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_TopLeftCornerObject : Texture
-local ShoppingTooltip2_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_NineSlice_TopRightCornerObject : Texture
-local ShoppingTooltip2_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class ShoppingTooltip2_TextLeft1Object : FontString
-local ShoppingTooltip2_TextLeft1Object = {}
-end
-
-do
----@class ShoppingTooltip2_TextLeft2Object : FontString
-local ShoppingTooltip2_TextLeft2Object = {}
-end
-
-do
----@class ShoppingTooltip2_TextRight1Object : FontString
-local ShoppingTooltip2_TextRight1Object = {}
-end
-
-do
----@class ShoppingTooltip2_TextRight2Object : FontString
-local ShoppingTooltip2_TextRight2Object = {}
-end
-
-do
----@class ShoppingTooltip2_TopOverlayObject : Texture
-local ShoppingTooltip2_TopOverlayObject = {}
-end
-
-do
----@class SideDressUpFrameObject : Frame
----@field BGBottomLeft SideDressUpFrame_BGBottomLeftObject
----@field BGTopLeft SideDressUpFrame_BGTopLeftObject
----@field ModelScene SideDressUpFrame_ModelSceneObject
----@field ResetButton SideDressUpFrame_ResetButtonObject
----@field hasCustomSetControls boolean
-local SideDressUpFrameObject = {}
----@return any ...
-function SideDressUpFrameObject:GetLastLink(...) end
----@return any ...
-function SideDressUpFrameObject:GetMode(...) end
----@return any ...
-function SideDressUpFrameObject:OnHide(...) end
----@return any ...
-function SideDressUpFrameObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrameObject:OnModelSceneReset(...) end
----@return any ...
-function SideDressUpFrameObject:OnShow(...) end
----@return any ...
-function SideDressUpFrameObject:SetLastLink(...) end
----@return any ...
-function SideDressUpFrameObject:SetMode(...) end
----@type SideDressUpFrameObject
-SideDressUpFrame = SideDressUpFrameObject
-end
-
-do
----@class SideDressUpFrame_BGBottomLeftObject : Texture
-local SideDressUpFrame_BGBottomLeftObject = {}
-end
-
-do
----@class SideDressUpFrame_BGTopLeftObject : Texture
-local SideDressUpFrame_BGTopLeftObject = {}
-end
-
-do
----@class SideDressUpFrame_ModelSceneObject
-local SideDressUpFrame_ModelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButtonObject : Button
----@field Left SideDressUpFrame_ResetButton_LeftObject
----@field Middle SideDressUpFrame_ResetButton_MiddleObject
----@field Right SideDressUpFrame_ResetButton_RightObject
----@field Text SideDressUpFrame_ResetButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
----@field modelScene SideDressUpFrame_ResetButton_modelSceneObject
-local SideDressUpFrame_ResetButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButtonObject:FitToText(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:SetDisabledState(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function SideDressUpFrame_ResetButtonObject:SetTextToFit(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_LeftObject : Texture
-local SideDressUpFrame_ResetButton_LeftObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_MiddleObject : Texture
-local SideDressUpFrame_ResetButton_MiddleObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_RightObject : Texture
-local SideDressUpFrame_ResetButton_RightObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_TextObject : FontString
-local SideDressUpFrame_ResetButton_TextObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelSceneObject
----@field ControlFrame SideDressUpFrame_ResetButton_modelScene_ControlFrameObject
----@field actorTemplate string
----@field cameras table
----@field highlightIntensity number
----@field normalIntensity number
----@field tagToActor table
----@field tagToCamera table
-local SideDressUpFrame_ResetButton_modelSceneObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AcquireActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AcquireAndInitializeActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AddCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AddOrUpdateDropShadow(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AdjustCameraYaw(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:AttachPlayerToMount(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ClearScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateActorFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateCameraFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateOrTransitionActorFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:CreateOrTransitionCameraFromScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:EnumerateActiveActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetActorByTag(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetCameraByTag(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetModelSceneID(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetNumActiveActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetOrAcquireDropShadow(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:GetPlayerActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:HasActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:InitializeActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:IsRightMouseButtonDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnMouseWheel(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:OnUpdate(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ReleaseActor(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ReleaseAllActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ReleaseAllCameras(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:Reset(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SetActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SetFromModelSceneID(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SetResetCallback(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:ShowAndAnimateActors(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:StopCameraYaw(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:SynchronizeActiveCamera(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:Transform3DPointTo2D(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:TransitionToModelSceneID(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelSceneObject:resetCallback(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrameObject : Frame
----@field buttonHorizontalPadding number
----@field enableReset boolean
----@field enableRotate boolean
----@field enableZoom boolean
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_modelSceneObject
----@field resetButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject
----@field rotateLeftButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject
----@field rotateRightButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject
----@field rotationIncrement number
----@field zoomInButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject
----@field zoomIncrement number
----@field zoomOutButton SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrameObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:GetRotateIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:GetZoomIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:OnShow(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:SetRotateIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:SetZoomIncrement(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrameObject:UpdateLayout(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_modelSceneObject
----@field tooltip string
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButtonObject:SetModelScene(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_resetButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:OnSmartNavClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:RotateStep(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:SetRotation(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateLeftButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_modelSceneObject
----@field rotateDirection string
----@field rotationIncrement number
----@field tooltip string
----@field tooltipText string
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:OnSmartNavClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:RotateStep(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:SetRotation(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButtonObject:SetRotationIncrement(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_rotateRightButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomInButton_modelSceneObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject : Button
----@field HighlightTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject
----@field Icon SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_IconObject
----@field NormalTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_NormalTextureObject
----@field PushedTexture SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_PushedTextureObject
----@field modelScene SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_modelSceneObject
----@field tooltip string
----@field tooltipText string
----@field zoomAmount number
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject = {}
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:Init(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnClick(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnEnter(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnLeave(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnLoad(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnMouseDown(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:OnMouseUp(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:SetModelScene(...) end
----@return any ...
-function SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButtonObject:SetZoomAmount(...) end
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_IconObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_IconObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_NormalTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_NormalTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_PushedTextureObject : Texture
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_PushedTextureObject = {}
-end
-
-do
----@class SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_modelSceneObject
-local SideDressUpFrame_ResetButton_modelScene_ControlFrame_zoomOutButton_modelSceneObject = {}
-end
-
-do
----@class SmartNavigationObject : Frame
----@field Event SmartNavigation_EventObject
----@field Pointer SmartNavigation_PointerObject
----@field accumulatedRightStickScrollOffset number
----@field activePanels table
----@field bindingActive boolean
----@field callbackTables table
----@field currentDirections table
----@field cursorOffsetX number
----@field cursorOffsetY number
----@field deferredCallbacks table
----@field enabled boolean
----@field executingEvents table
----@field hookedButtons table
----@field hookedFrames table
----@field isRepeating boolean
----@field maxScrollSpeed number
----@field navigatingTime number
----@field navigationBindings SmartNavigation_navigationBindingsObject
----@field repeatDelay number
----@field repeatStart number
----@field rightStickScrollBindings SmartNavigation_rightStickScrollBindingsObject
----@field rightStickScrolling boolean
----@field smartNavigationCanFocus boolean
----@field smartNavigationIgnored boolean
----@field startDelay number
----@field startedNavigating boolean
----@field xRes number
----@field yRes number
-local SmartNavigationObject = {}
----@return any ...
-function SmartNavigationObject:ActivateBinding(...) end
----@return any ...
-function SmartNavigationObject:AnchorDropDown(...) end
----@return any ...
-function SmartNavigationObject:AttemptClose(...) end
----@return any ...
-function SmartNavigationObject:ClearActiveFrames(...) end
----@return any ...
-function SmartNavigationObject:ClearItemToBeDeleted(...) end
----@return any ...
-function SmartNavigationObject:ClearLastTarget(...) end
----@return any ...
-function SmartNavigationObject:ClearNavigationInput(...) end
----@return any ...
-function SmartNavigationObject:ClearOverrideIconAtlas(...) end
----@return any ...
-function SmartNavigationObject:Click(...) end
----@return any ...
-function SmartNavigationObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SmartNavigationObject:DeactivateBinding(...) end
----@return any ...
-function SmartNavigationObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SmartNavigationObject:EnterFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:FindButton(...) end
----@return any ...
-function SmartNavigationObject:FindTopLeftButton(...) end
----@return any ...
-function SmartNavigationObject:GenerateCallbackEvents(...) end
----@return any ...
-function SmartNavigationObject:GetActiveFrame(...) end
----@return any ...
-function SmartNavigationObject:GetActiveGroup(...) end
----@return any ...
-function SmartNavigationObject:GetButtonAtGridIndex(...) end
----@return any ...
-function SmartNavigationObject:GetButtonInDirectionGrid(...) end
----@return any ...
-function SmartNavigationObject:GetButtonInfoInDirection(...) end
----@return any ...
-function SmartNavigationObject:GetCallbackTable(...) end
----@return any ...
-function SmartNavigationObject:GetCallbackTables(...) end
----@return any ...
-function SmartNavigationObject:GetCallbacksByEvent(...) end
----@return any ...
-function SmartNavigationObject:GetCurrentButton(...) end
----@return any ...
-function SmartNavigationObject:GetCurrentButtonContext(...) end
----@return any ...
-function SmartNavigationObject:GetCurrentDirection(...) end
----@return any ...
-function SmartNavigationObject:GetLastButtonForPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SmartNavigationObject:GetPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:GetParentPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:HandleNavigationInput(...) end
----@return any ...
-function SmartNavigationObject:HandlePanelClose(...) end
----@return any ...
-function SmartNavigationObject:HandlePanelOpen(...) end
----@return any ...
-function SmartNavigationObject:HandleScroll(...) end
----@return any ...
-function SmartNavigationObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SmartNavigationObject:HideCursor(...) end
----@return any ...
-function SmartNavigationObject:InitializeGamepad(...) end
----@return any ...
-function SmartNavigationObject:IsButtonInCurrentFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:IsButtonValid(...) end
----@return any ...
-function SmartNavigationObject:IsCurrentButton(...) end
----@return any ...
-function SmartNavigationObject:IsCursorHidden(...) end
----@return any ...
-function SmartNavigationObject:IsInFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:LeaveFocusGroup(...) end
----@return any ...
-function SmartNavigationObject:Navigate(...) end
----@return any ...
-function SmartNavigationObject:NavigateDown(...) end
----@return any ...
-function SmartNavigationObject:NavigateLeft(...) end
----@return any ...
-function SmartNavigationObject:NavigateRight(...) end
----@return any ...
-function SmartNavigationObject:NavigateUp(...) end
----@return any ...
-function SmartNavigationObject:OnDropDownShown(...) end
----@return any ...
-function SmartNavigationObject:OnEvent(...) end
----@return any ...
-function SmartNavigationObject:OnGamepadRightStick(...) end
----@return any ...
-function SmartNavigationObject:OnHide(...) end
----@return any ...
-function SmartNavigationObject:OnLoad(...) end
----@return any ...
-function SmartNavigationObject:OnShow(...) end
----@return any ...
-function SmartNavigationObject:OnUpdate(...) end
----@return any ...
-function SmartNavigationObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SmartNavigationObject:RefreshButtonGroups(...) end
----@return any ...
-function SmartNavigationObject:RegisterCallback(...) end
----@return any ...
-function SmartNavigationObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SmartNavigationObject:RegisterForTransitions(...) end
----@return any ...
-function SmartNavigationObject:RemovePanelInfo(...) end
----@return any ...
-function SmartNavigationObject:ReselectCurrentButton(...) end
----@return any ...
-function SmartNavigationObject:ResetVars(...) end
----@return any ...
-function SmartNavigationObject:RightClick(...) end
----@return any ...
-function SmartNavigationObject:RunCurrentButtonEnterScript(...) end
----@return any ...
-function SmartNavigationObject:RunCurrentButtonLeaveScript(...) end
----@return any ...
-function SmartNavigationObject:SecureInsertEvent(...) end
----@return any ...
-function SmartNavigationObject:SelectButton(...) end
----@return any ...
-function SmartNavigationObject:SelectFirstButton(...) end
----@return any ...
-function SmartNavigationObject:SelectTopLeftButton(...) end
----@return any ...
-function SmartNavigationObject:SetActiveFrame(...) end
----@return any ...
-function SmartNavigationObject:SetCursorArtHorizontal(...) end
----@return any ...
-function SmartNavigationObject:SetCursorArtVerical(...) end
----@return any ...
-function SmartNavigationObject:SetGridHeightCompensation(...) end
----@return any ...
-function SmartNavigationObject:SetItemToBeDeleted(...) end
----@return any ...
-function SmartNavigationObject:SetLastButtonForPanelInfo(...) end
----@return any ...
-function SmartNavigationObject:SetOverrideIconAtlas(...) end
----@return any ...
-function SmartNavigationObject:SetPosition(...) end
----@return any ...
-function SmartNavigationObject:SetRightStickScrollingEnabled(...) end
----@return any ...
-function SmartNavigationObject:SetScrollFrameForFrame(...) end
----@return any ...
-function SmartNavigationObject:SetSmartNavPanelInfoAddedCallback(...) end
----@return any ...
-function SmartNavigationObject:SetSmartNavPanelInfoRemovedCallback(...) end
----@return any ...
-function SmartNavigationObject:SetTargetButtonForFrame(...) end
----@return any ...
-function SmartNavigationObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SmartNavigationObject:SetUseGridNavigation(...) end
----@return any ...
-function SmartNavigationObject:SetWrapping(...) end
----@return any ...
-function SmartNavigationObject:SetupFrameHooks(...) end
----@return any ...
-function SmartNavigationObject:SetupInputBindings(...) end
----@return any ...
-function SmartNavigationObject:ShowCursor(...) end
----@return any ...
-function SmartNavigationObject:ShowCursorAsActive(...) end
----@return any ...
-function SmartNavigationObject:SuspendCursor(...) end
----@return any ...
-function SmartNavigationObject:TrackButtonEnabledState(...) end
----@return any ...
-function SmartNavigationObject:TriggerEvent(...) end
----@return any ...
-function SmartNavigationObject:TrySelectButton(...) end
----@return any ...
-function SmartNavigationObject:UninitializeGamepad(...) end
----@return any ...
-function SmartNavigationObject:UnregisterCallback(...) end
----@return any ...
-function SmartNavigationObject:UnregisterEvents(...) end
----@return any ...
-function SmartNavigationObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SmartNavigationObject:UpdateCursorColor(...) end
----@return any ...
-function SmartNavigationObject:UpdateCursorPosition(...) end
----@return any ...
-function SmartNavigationObject:UpdateGrid(...) end
----@return any ...
-function SmartNavigationObject:UpdateParent(...) end
----@return any ...
-function SmartNavigationObject:UpdateResolution(...) end
----@type SmartNavigationObject
-SmartNavigation = SmartNavigationObject
-end
-
-do
----@class SmartNavigation_EventObject
----@field FocusedFrame string
----@field HitBottomEdge string
----@field HitLeftEdge string
----@field HitRightEdge string
----@field HitTopEdge string
----@field SelectedButtonEnabledStateChanged string
----@field SelectedButtonUpdated string
----@field UnfocusedFrame string
-local SmartNavigation_EventObject = {}
-end
-
-do
----@class SmartNavigation_PointerObject : Frame
----@field Icon SmartNavigation_Pointer_IconObject
----@field IntroAnim SmartNavigation_Pointer_IntroAnimObject
-local SmartNavigation_PointerObject = {}
-end
-
-do
----@class SmartNavigation_Pointer_IconObject : Frame
----@field Cursor SmartNavigation_Pointer_Icon_CursorObject
-local SmartNavigation_Pointer_IconObject = {}
-end
-
-do
----@class SmartNavigation_Pointer_Icon_CursorObject : Texture
-local SmartNavigation_Pointer_Icon_CursorObject = {}
-end
-
-do
----@class SmartNavigation_Pointer_IntroAnimObject : AnimationGroup
-local SmartNavigation_Pointer_IntroAnimObject = {}
-end
-
-do
----@class SmartNavigation_navigationBindingsObject
----@field actions table
----@field axes table
----@field buttons table
----@field functions table
----@field name string
----@field nextButtonId number
----@field nextFunctionId number
----@field treatBindsAsCore boolean
-local SmartNavigation_navigationBindingsObject = {}
----@return any ...
-function SmartNavigation_navigationBindingsObject:AddAxisBinding(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:AddButtonBinding(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:AddFunctionBinding(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockDpad(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockDpadAndFaceButtons(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockEverything(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockKeys(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockKeysWithModifiers(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:BlockKeysWithoutModifiers(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:Init(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:RemoveKeys(...) end
----@return any ...
-function SmartNavigation_navigationBindingsObject:TreatAsCore(...) end
-end
-
-do
----@class SmartNavigation_rightStickScrollBindingsObject
----@field actions table
----@field axes table
----@field buttons table
----@field functions table
----@field name string
----@field nextButtonId number
----@field nextFunctionId number
----@field treatBindsAsCore boolean
-local SmartNavigation_rightStickScrollBindingsObject = {}
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:AddAxisBinding(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:AddButtonBinding(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:AddFunctionBinding(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockDpad(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockDpadAndFaceButtons(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockEverything(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockKeys(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockKeysWithModifiers(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:BlockKeysWithoutModifiers(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:Init(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:RemoveKeys(...) end
----@return any ...
-function SmartNavigation_rightStickScrollBindingsObject:TreatAsCore(...) end
-end
-
-do
----@class SocialUIFrameObject : Frame
----@field BattleNetBar SocialUIFrame_BattleNetBarObject
----@field BattleNetBroadcastFrame SocialUIFrame_BattleNetBroadcastFrameObject
----@field BattleNetUnavailableNoticeFrame SocialUIFrame_BattleNetUnavailableNoticeFrameObject
----@field Bg SocialUIFrame_BgObject
----@field BottomFade SocialUIFrame_BottomFadeObject
----@field CloseButton SocialUIFrame_CloseButtonObject
----@field Event SocialUIFrame_EventObject
----@field FocusJumpHint SocialUIFrame_FocusJumpHintObject
----@field FrameGlow SocialUIFrame_FrameGlowObject
----@field FriendRequestsList SocialUIFrame_FriendRequestsListObject
----@field FriendsList SocialUIFrame_FriendsListObject
----@field IgnoreListFrame SocialUIFrame_IgnoreListFrameObject
----@field LeftJumpHint SocialUIFrame_LeftJumpHintObject
----@field NineSlice SocialUIFrame_NineSliceObject
----@field PortraitContainer SocialUIFrame_PortraitContainerObject
----@field RaidFrame SocialUIFrame_RaidFrameObject
----@field RaidInfoFrame SocialUIFrame_RaidInfoFrameObject
----@field RecentAlliesList SocialUIFrame_RecentAlliesListObject
----@field RightJumpHint SocialUIFrame_RightJumpHintObject
----@field TitleContainer SocialUIFrame_TitleContainerObject
----@field TopFade SocialUIFrame_TopFadeObject
----@field TopTileStreaks SocialUIFrame_TopTileStreaksObject
----@field availableTabData table
----@field callbackRegistrantHandlers table
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field glowingTabTypes table
----@field layoutType string
----@field portraitIcon string
----@field sideWindowFrames table
----@field sideWindowToLinkedTabType table
----@field socialTabPool SocialUIFrame_socialTabPoolObject
----@field staticCallbackRegistrantHandlers table
----@field tabDefinitions table
-local SocialUIFrameObject = {}
----@return any ...
-function SocialUIFrameObject:AddDynamicEventMethod(...) end
----@return any ...
-function SocialUIFrameObject:AddEventMethodInternal(...) end
----@return any ...
-function SocialUIFrameObject:AddStaticEventMethod(...) end
----@return any ...
-function SocialUIFrameObject:CleanUp(...) end
----@return any ...
-function SocialUIFrameObject:ClearAllTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:ClearAllTabs(...) end
----@return any ...
-function SocialUIFrameObject:ClearLastSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:ClearSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:ClearTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:ConsumeDeferredOpenTab(...) end
----@return any ...
-function SocialUIFrameObject:ConsumeDeferredSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:CopyDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrameObject:CreateContentFramesForSupportedTabs(...) end
----@return any ...
-function SocialUIFrameObject:CreateEventRegistrationInfo(...) end
----@return any ...
-function SocialUIFrameObject:DoesFrameHaveEvent(...) end
----@return any ...
-function SocialUIFrameObject:EndFocus(...) end
----@return any ...
-function SocialUIFrameObject:EnumerateTabs(...) end
----@return any ...
-function SocialUIFrameObject:FilterAvailableTabData(...) end
----@return any ...
-function SocialUIFrameObject:GenerateAvailableTabData(...) end
----@return any ...
-function SocialUIFrameObject:GenerateCallbackEvents(...) end
----@return any ...
-function SocialUIFrameObject:GetActiveSideWindowType(...) end
----@return any ...
-function SocialUIFrameObject:GetActiveSideWindowWidth(...) end
----@return any ...
-function SocialUIFrameObject:GetBestDefaultTabType(...) end
----@return any ...
-function SocialUIFrameObject:GetCallbackTable(...) end
----@return any ...
-function SocialUIFrameObject:GetCallbackTables(...) end
----@return any ...
-function SocialUIFrameObject:GetCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrameObject:GetDataForAvailableTab(...) end
----@return any ...
-function SocialUIFrameObject:GetDynamicCallbackRegistrantHandlers(...) end
----@return any ...
-function SocialUIFrameObject:GetFirstEnabledTabType(...) end
----@return any ...
-function SocialUIFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function SocialUIFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function SocialUIFrameObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function SocialUIFrameObject:GetPanelExtraWidth(...) end
----@return any ...
-function SocialUIFrameObject:GetPortrait(...) end
----@return any ...
-function SocialUIFrameObject:GetSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:GetSelectedTabData(...) end
----@return any ...
-function SocialUIFrameObject:GetSideWindowFrame(...) end
----@return any ...
-function SocialUIFrameObject:GetStaticCallbackRegistrantHandlers(...) end
----@return any ...
-function SocialUIFrameObject:GetTabByType(...) end
----@return any ...
-function SocialUIFrameObject:GetTabColumnWidth(...) end
----@return any ...
-function SocialUIFrameObject:GetTabDefinition(...) end
----@return any ...
-function SocialUIFrameObject:GetTitleForSelectedTab(...) end
----@return any ...
-function SocialUIFrameObject:GetTitleText(...) end
----@return any ...
-function SocialUIFrameObject:HasPortraitTexture(...) end
----@return any ...
-function SocialUIFrameObject:HasRegistrantsForEvent(...) end
----@return any ...
-function SocialUIFrameObject:HideActiveSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:HideActiveTabHelpTips(...) end
----@return any ...
-function SocialUIFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:HideRightJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:InitializeAnchoringForGameContext(...) end
----@return any ...
-function SocialUIFrameObject:InitializeCallbackEventSystem(...) end
----@return any ...
-function SocialUIFrameObject:InitializeFrameVisuals(...) end
----@return any ...
-function SocialUIFrameObject:InitializeSideWindowAnchoring(...) end
----@return any ...
-function SocialUIFrameObject:InitializeSideWindows(...) end
----@return any ...
-function SocialUIFrameObject:InitializeTabDefinitions(...) end
----@return any ...
-function SocialUIFrameObject:InitializeTabSystem(...) end
----@return any ...
-function SocialUIFrameObject:IsSideWindowAllowedByLinkedTab(...) end
----@return any ...
-function SocialUIFrameObject:IsTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:LockInFocus(...) end
----@return any ...
-function SocialUIFrameObject:OnEvent(...) end
----@return any ...
-function SocialUIFrameObject:OnFeatureAvailabilityChanged(...) end
----@return any ...
-function SocialUIFrameObject:OnHide(...) end
----@return any ...
-function SocialUIFrameObject:OnLoad(...) end
----@return any ...
-function SocialUIFrameObject:OnNewTabSelected(...) end
----@return any ...
-function SocialUIFrameObject:OnOpenToTabAndSideWindowRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnOpenToTabRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnShow(...) end
----@return any ...
-function SocialUIFrameObject:OnSideWindowHideRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnSideWindowShowRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnTabCounterRefreshRequested(...) end
----@return any ...
-function SocialUIFrameObject:OnTabGlowRequested(...) end
----@return any ...
-function SocialUIFrameObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function SocialUIFrameObject:RefreshAvailableTabData(...) end
----@return any ...
-function SocialUIFrameObject:RefreshContentFrame(...) end
----@return any ...
-function SocialUIFrameObject:RefreshFocus(...) end
----@return any ...
-function SocialUIFrameObject:RefreshTabStates(...) end
----@return any ...
-function SocialUIFrameObject:RefreshTabs(...) end
----@return any ...
-function SocialUIFrameObject:RefreshTitle(...) end
----@return any ...
-function SocialUIFrameObject:RefreshVisuals(...) end
----@return any ...
-function SocialUIFrameObject:RegisterCallback(...) end
----@return any ...
-function SocialUIFrameObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function SocialUIFrameObject:RegisterFromRegistrationInfo(...) end
----@return any ...
-function SocialUIFrameObject:RemoveStaticEventMethod(...) end
----@return any ...
-function SocialUIFrameObject:Reset(...) end
----@return any ...
-function SocialUIFrameObject:ResetTabs(...) end
----@return any ...
-function SocialUIFrameObject:SecureInsertEvent(...) end
----@return any ...
-function SocialUIFrameObject:SelectBestDefaultTab(...) end
----@return any ...
-function SocialUIFrameObject:SelectTab(...) end
----@return any ...
-function SocialUIFrameObject:SetActiveContentFrame(...) end
----@return any ...
-function SocialUIFrameObject:SetBestTopLevelParent(...) end
----@return any ...
-function SocialUIFrameObject:SetBorder(...) end
----@return any ...
-function SocialUIFrameObject:SetDeferredOpenTab(...) end
----@return any ...
-function SocialUIFrameObject:SetDeferredSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitShown(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToBag(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function SocialUIFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function SocialUIFrameObject:SetTabTypeGlowing(...) end
----@return any ...
-function SocialUIFrameObject:SetTitle(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleColor(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleFormatted(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function SocialUIFrameObject:SetTitleOffsets(...) end
----@return any ...
-function SocialUIFrameObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function SocialUIFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function SocialUIFrameObject:ShowSideWindow(...) end
----@return any ...
-function SocialUIFrameObject:SortTabData(...) end
----@return any ...
-function SocialUIFrameObject:StartFocus(...) end
----@return any ...
-function SocialUIFrameObject:TriggerEvent(...) end
----@return any ...
-function SocialUIFrameObject:TryHideActiveSideWindowForUnavailableTab(...) end
----@return any ...
-function SocialUIFrameObject:TryInitializeUIPanelRegistration(...) end
----@return any ...
-function SocialUIFrameObject:TryRefreshUIPanelPositions(...) end
----@return any ...
-function SocialUIFrameObject:TryShowTabHelpTips(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterAllEventMethods(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterAllInternal(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterCallback(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterEvents(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function SocialUIFrameObject:UnregisterFromRegistrationInfo(...) end
----@type SocialUIFrameObject
-SocialUIFrame = SocialUIFrameObject
 end

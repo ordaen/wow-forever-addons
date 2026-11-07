@@ -6311,6 +6311,7 @@ C_DamageMeter.GetCombatSessionSourceFromID	function
 C_DamageMeter.GetCombatSessionSourceFromType	function
 C_DamageMeter.GetSessionDurationSeconds	function
 C_DamageMeter.IsDamageMeterAvailable	function
+C_DamageMeter.ResetAllCombatSessions	function
 C_DateAndTime.AdjustTimeByDays	function
 C_DateAndTime.AdjustTimeByMinutes	function
 C_DateAndTime.AdjustTimeByMonths	function
@@ -13339,6 +13340,7 @@ ContainerFrameSettingsManager.Init	function
 ContainerFrameSettingsManager.IsUsingCombinedBags	function
 ContainerFrameSettingsManager.MarkBagSetupDirty	function
 ContainerFrameSettingsManager.MarkBagsShownDirty	function
+ContainerFrameSettingsManager.MoneyFrameOwner	widget
 ContainerFrameSettingsManager.OnAddonLoaded	function
 ContainerFrameSettingsManager.OnBagClosed	function
 ContainerFrameSettingsManager.OnBagContainerUpdate	function
@@ -13351,6 +13353,7 @@ ContainerFrameSettingsManager.SetUsingCombinedBags	function
 ContainerFrameSettingsManager.SetupBagsCombined	function
 ContainerFrameSettingsManager.SetupBagsIndividual	function
 ContainerFrameSettingsManager.TokenTracker	widget
+ContainerFrameSettingsManager.TokenTrackerOwner	widget
 ContainerFrameSettingsManager.bagSetupDirty	boolean
 ContainerFrameSettingsManager.isUsingCombinedBags	boolean
 ContainerFrameTokenWatcherMixin.AcquireNewItemButton	function
@@ -26621,6 +26624,7 @@ GearManagerPopupFrameMixin.OnShow	function
 GearManagerPopupFrameMixin.Update	function
 GearSetButtonMixin.OnLoad	function
 GearSetButtonMixin.OnSmartNavSelect	function
+GlobalBlizzardSavedSets.SeenShopCatalogProductIDs	table
 GlobalRaidWarningFrameMixin.OnLayoutUpdated	function
 GlobalRaidWarningFrameMixin.OnLoad	function
 GlowEmitterFactory.Attach	function
@@ -29967,6 +29971,7 @@ MainMenuBarBagManager.ShouldBarExpand	function
 MainMenuBarBagManager.ToggleExpandBar	function
 MainMenuBarBagManager.allBagButtons	table
 MainMenuBarBagManager.expandBar	boolean
+MainMenuBarBagManager.expandBarAuto	boolean
 MainMenuBarEndCapMixin.DoesFitOnScreen	function
 MainMenuBarEndCapMixin.OnEvent	function
 MainMenuBarEndCapMixin.OnLoad	function

@@ -10188,6 +10188,8 @@ function ContainerFrameSettingsManager.IsUsingCombinedBags(...) end
 function ContainerFrameSettingsManager.MarkBagSetupDirty(...) end
 ---@return any ...
 function ContainerFrameSettingsManager.MarkBagsShownDirty(...) end
+---@type table
+ContainerFrameSettingsManager.MoneyFrameOwner = {}
 ---@return any ...
 function ContainerFrameSettingsManager.OnAddonLoaded(...) end
 ---@return any ...
@@ -10212,6 +10214,8 @@ function ContainerFrameSettingsManager.SetupBagsCombined(...) end
 function ContainerFrameSettingsManager.SetupBagsIndividual(...) end
 ---@type table
 ContainerFrameSettingsManager.TokenTracker = {}
+---@type table
+ContainerFrameSettingsManager.TokenTrackerOwner = {}
 ContainerFrameSettingsManager.bagSetupDirty = false
 ContainerFrameSettingsManager.isUsingCombinedBags = false
 
@@ -10794,5 +10798,3 @@ function ContributionCollectorPinMixin.GetNudgeFactor(...) end
 function ContributionCollectorPinMixin.GetNudgeSourcePinZoomedInNudgeFactor(...) end
 ---@return any ...
 function ContributionCollectorPinMixin.GetNudgeSourcePinZoomedOutNudgeFactor(...) end
----@return any ...
-function ContributionCollectorPinMixin.GetNudgeSourceRadius(...) end

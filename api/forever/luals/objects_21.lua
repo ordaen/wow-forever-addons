@@ -3,6 +3,1062 @@
 
 
 do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldIndicatorObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldIndicatorBGObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoverTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_HoverTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_LoadBarObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_LoadBarObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_LoadBarBGObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_LoadBarGlowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_NormalTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_NormalTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_PressedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_PressedTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_SpinnerTipObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_ButtonIcon_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CheckedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CheckedTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleGlowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleGlowFocusObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleMaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleShadowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleShadowObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleShadowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CircleShadowFocusObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlashObject : Frame
+---@field FlashAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlashAnimObject
+---@field Flipbook GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlipbookObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlashObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlashAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlipbookObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CountObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_CountObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_EditModeCircleFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_EditModeCircleFocusStartAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_EditModeSquareFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_EditModeSquareFocusStartAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_FlashObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_FlashObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_GameplayModeCircleFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_GameplayModeCircleFocusStartAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_GameplayModeSquareFocusStartAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_GameplayModeSquareFocusStartAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_HighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_HighlightTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_HotKeyObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_HotKeyObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_IconMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_IconMaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplayObject : Frame
+---@field Base GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_BaseObject
+---@field Highlight GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_HighlightObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplayObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_BaseObject : Frame
+---@field AnimIn GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject
+---@field Base GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_BaseObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_BaseObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_MaskObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_LevelLinkLockIconObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_LevelLinkLockIconObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_NameObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_NameObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_NewActionTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_NewActionTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_NormalTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_NormalTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_PermaboundOverlayObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_PermaboundOverlayObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_PushedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_PushedTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_QuickKeybindHighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_RangeIndicatorObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_RangeIndicatorObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SlotArtObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SlotArtObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SlotBackgroundObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SlotBackgroundObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpecialActionIconObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpecialActionIconObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject : Frame
+---@field EndBurst GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurstObject
+---@field Fill GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_FillObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellHighlightAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellHighlightAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellHighlightTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SpellHighlightTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareGlowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareGlowFocusObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareMaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareMaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareShadowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareShadowObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareShadowFocusObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_SquareShadowFocusObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrameObject : Frame
+---@field Base GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_BaseObject
+---@field Highlight GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_MaskObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrameObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_BaseObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_MaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainerObject : Frame
+---@field Count GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainer_CountObject
+---@field HotKey GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainer_HotKeyObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainerObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainer_CountObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainer_HotKeyObject : FontString
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_chargeCooldownObject : Cooldown
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_chargeCooldownObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_cooldownObject : Cooldown
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_cooldownObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_iconObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_iconObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_lossOfControlCooldownObject : Cooldown
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_lossOfControlCooldownObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_parentActionBarObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton2_parentActionBarObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object : CheckButton
+---@field Arrow GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ArrowObject
+---@field AutoCastOverlay GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject
+---@field Border GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_BorderObject
+---@field BorderShadow GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_BorderShadowObject
+---@field ButtonIcon GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject
+---@field CheckedTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CheckedTextureObject
+---@field CircleGlowFocus GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CircleGlowFocusObject
+---@field CircleMask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CircleMaskObject
+---@field CircleShadow GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CircleShadowObject
+---@field CircleShadowFocus GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CircleShadowFocusObject
+---@field CooldownFlash GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CooldownFlashObject
+---@field Count GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CountObject
+---@field EditModeCircleFocusStartAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_EditModeCircleFocusStartAnimObject
+---@field EditModeSquareFocusStartAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_EditModeSquareFocusStartAnimObject
+---@field Flash GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_FlashObject
+---@field GameplayModeCircleFocusStartAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_GameplayModeCircleFocusStartAnimObject
+---@field GameplayModeSquareFocusStartAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_GameplayModeSquareFocusStartAnimObject
+---@field HighlightTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_HighlightTextureObject
+---@field HotKey GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_HotKeyObject
+---@field IconMask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_IconMaskObject
+---@field InterruptDisplay GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_InterruptDisplayObject
+---@field LevelLinkLockIcon GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_LevelLinkLockIconObject
+---@field Name GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_NameObject
+---@field NewActionTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_NewActionTextureObject
+---@field NormalTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_NormalTextureObject
+---@field PermaboundOverlay GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_PermaboundOverlayObject
+---@field PushedTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_PushedTextureObject
+---@field QuickKeybindHighlightTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_QuickKeybindHighlightTextureObject
+---@field RangeIndicator GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_RangeIndicatorObject
+---@field SlotArt GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SlotArtObject
+---@field SlotBackground GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SlotBackgroundObject
+---@field SpecialActionIcon GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SpecialActionIconObject
+---@field SpellCastAnimFrame GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SpellCastAnimFrameObject
+---@field SpellHighlightAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SpellHighlightAnimObject
+---@field SpellHighlightTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SpellHighlightTextureObject
+---@field SquareGlowFocus GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SquareGlowFocusObject
+---@field SquareMask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SquareMaskObject
+---@field SquareShadow GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SquareShadowObject
+---@field SquareShadowFocus GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_SquareShadowFocusObject
+---@field TargetReticleAnimFrame GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_TargetReticleAnimFrameObject
+---@field TextOverlayContainer GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_TextOverlayContainerObject
+---@field action number
+---@field activeButtonShape string
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field buttonIndexOnActionBar number
+---@field chargeCooldown GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_chargeCooldownObject
+---@field closedArrowOffset number
+---@field collapsed boolean
+---@field cooldown GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field eventsRegistered boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field flyoutArrowAngleRads number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_iconObject
+---@field isFlyoutAction boolean
+---@field lossOfControlCooldown GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field pageUnitSlotID number
+---@field parentActionBar GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_parentActionBarObject
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ApplyExtraButtonStylesForState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ApplyGamepadAOETargetAnchorPoints(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ApplyGamepadInterruptAnchorPoints(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ApplyPressedStyle(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:CacheFlyoutSpellInfo(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:CalculateAction(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:CheckNeedsUpdate(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearFlash(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearInterruptDisplay(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearPopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearProfessionQuality(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearPushedStateAfterAOETargeting(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearReticle(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClearTypeOverlay(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ClosePopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:Collapse(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:DesaturateIfDisabled(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:DisableGameplayFeedback(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:DoModeChange(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:EnumFlyoutSlotInfo(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:EvaluateState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:EvaluateTutorials(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:Expand(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:Flyout_OnClick(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetActionBarParent(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetActionButtonInfo(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetActiveSpellID(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetAllowRadialWheel(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetArrowRotation(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetGamepadPageUnitSlotID(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetIsPingable(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetPagedID(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetPopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetPopupDirection(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetShowGrid(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetSingleSpellID(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:GetTargetInfo(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:HandleFlyoutClickOverride(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:HasAction(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:HasPopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:IsDown(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:IsDownOver(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:IsFlashing(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:IsOver(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:IsPopupOpen(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnAttributeChanged(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnButtonStateChanged(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnClick(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnDisable(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnDragStart(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnEnable(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnEnter(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnEvent(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnFlyoutClosed(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnFlyoutOpened(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnLeave(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnLoad(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnMouseDown(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnMouseUp(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnPopupHidden(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnPopupToggled(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnReceiveDrag(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnShow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:OnUpdate(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:PlaySpellCastAnim(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:ReapplyStyle(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:RefreshRange(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetActionBarParent(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetArrowRotationRadians(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetButtonArt(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetButtonIndexOnActionBar(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetButtonStateBase(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetButtonStateOverride(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetCircleCastingTextures(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetDisplacedRegions(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetGamepadPageUnitSlotID(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetPopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetPopupDirection(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetShapeToCircle(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetShapeToSquare(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetShowGrid(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetSquareCastingTextures(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetTooltip(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SetupCastingAnim(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:SpellFXEnabled(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:StartFlash(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:StopFlash(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:StopSpellCastAnim(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:TogglePopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:TriggerSecureClick(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:Update(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateAction(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateArrowPosition(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateArrowRotation(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateArrowShown(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateArrowTexture(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateAutoCastAnchors(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateBorderShadow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateButtonArt(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateButtonArtAnchoring(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateCastingAnimSizeAndPositioning(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateCastingAnimation(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateCooldown(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateCount(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateEmptySlotBackgroundTexture(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateFlash(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateFlyout(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateFlyoutActionIcon(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateFlyoutActionInfo(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateHighlightMark(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateHotkeys(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateInterruptHighlightAnimAnchors(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdatePageableGamepadButtonAction(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdatePingAttributes(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateProfessionQuality(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateSpellAlert(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateTypeOverlay(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateUsable(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:UpdateWithStorageId(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3Object:castingAnimTextureSetupFunc(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ArrowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ArrowObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject : Frame
+---@field Corners GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_CornersObject
+---@field Mask GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_MaskObject
+---@field Shine GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_CornersObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_MaskObject : MaskTexture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_ShineObject : Texture
+---@field Anim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_Shine_AnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_BorderObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_BorderObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_BorderShadowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_BorderShadowObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject : Frame
+---@field ActiveTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_ActiveTextureObject
+---@field DisabledTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_DisabledTextureObject
+---@field HoldAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnimObject
+---@field HoldIndicator GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldIndicatorBGObject
+---@field HoverTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoverTextureObject
+---@field LoadBar GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarObject
+---@field LoadBarBG GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarBGObject
+---@field LoadBarGlow GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarGlowObject
+---@field NormalTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_NormalTextureObject
+---@field PressedTexture GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_PressedTextureObject
+---@field SpinnerTip GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject = {}
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:BeginHold(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:CanEnterTextureState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:DisableDropShadow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:EnableDropShadow(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:EndHold(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:OnLoad(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:RefreshIconTextures(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetDisabled(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetEnabled(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetFocused(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetHoldState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetInputKey(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetPressable(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetTextureHeight(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetTextureState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetTextureWidth(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:SetUsableState(...) end
+---@return any ...
+function GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIconObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_ActiveTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_DisabledTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldIndicatorObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldIndicatorBGObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoverTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_HoverTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarBGObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarGlowObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_NormalTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_NormalTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_PressedTextureObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_PressedTextureObject = {}
+end
+
+do
+---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_SpinnerTipObject : Texture
+local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_ButtonIcon_SpinnerTipObject = {}
+end
+
+do
 ---@class GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CheckedTextureObject : Texture
 local GamepadMainActionBarFrame_PageUnit_activeBar_Left_ActionButton3_CheckedTextureObject = {}
 end
@@ -5965,1133 +7021,4 @@ function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:
 function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:SetUsableState(...) end
 ---@return any ...
 function GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_rightObject : Frame
----@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject
----@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object
----@field InputIcons table
-local GamepadPersistentInputLegend_friendlyDpadEntries_rightObject = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:DisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EnableOrDisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EnablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GROUP_JOINED(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GROUP_LEFT(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetDividerSpacingInfo(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetIconDividerControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetInputIconControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetPromptTextControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:RefreshInputPromptSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshOnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithCVar(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithEvents(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetDividerType(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetInputIconSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptFont(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptInputIconKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptText(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetUseDropShadow(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject : Frame
----@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject : FontString
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object : Frame
----@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject
----@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject
----@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject
----@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject
----@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject
----@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject
----@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject
----@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject
----@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject
----@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_topObject : Frame
----@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject
----@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object
----@field InputIcons table
-local GamepadPersistentInputLegend_friendlyDpadEntries_topObject = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:DisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EnableOrDisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EnablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GROUP_JOINED(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GROUP_LEFT(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetDividerSpacingInfo(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetIconDividerControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetInputIconControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetPromptTextControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:RefreshInputPromptSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshOnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithCVar(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithEvents(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetDividerType(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetInputIconSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptFont(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptInputIconKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptText(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetUseDropShadow(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject : Frame
----@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject : FontString
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object : Frame
----@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject
----@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject
----@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject
----@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject
----@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject
----@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject
----@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject
----@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject
----@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject
----@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject : Texture
-local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntriesObject
----@field bottom GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject
----@field left GamepadPersistentInputLegend_friendlyFaceEntries_leftObject
----@field right GamepadPersistentInputLegend_friendlyFaceEntries_rightObject
----@field top GamepadPersistentInputLegend_friendlyFaceEntries_topObject
-local GamepadPersistentInputLegend_friendlyFaceEntriesObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject : Frame
----@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject
----@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object
----@field InputIcons table
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:DisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EnableOrDisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EnablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetDividerSpacingInfo(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetIconDividerControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetInputIconControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetPromptTextControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:RefreshInputPromptSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshOnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithCVar(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithEvents(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetDividerType(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetInputIconSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptFont(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptInputIconKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptText(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetUseDropShadow(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject : Frame
----@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject : FontString
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object : Frame
----@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject
----@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject
----@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject
----@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject
----@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject
----@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject
----@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject
----@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject
----@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject
----@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_leftObject : Frame
----@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject
----@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object
----@field InputIcons table
-local GamepadPersistentInputLegend_friendlyFaceEntries_leftObject = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:DisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EnableOrDisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EnablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetDividerSpacingInfo(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetIconDividerControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetInputIconControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetPromptTextControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:RefreshInputPromptSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshOnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithCVar(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithEvents(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetDividerType(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetInputIconSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptFont(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptInputIconKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptText(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetUseDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:UNIT_PET(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject : Frame
----@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject : FontString
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object : Frame
----@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject
----@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject
----@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject
----@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject
----@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject
----@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject
----@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject
----@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject
----@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject
----@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject : Texture
-local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_rightObject : Frame
----@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject
----@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object
----@field InputIcons table
-local GamepadPersistentInputLegend_friendlyFaceEntries_rightObject = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:DisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EnableOrDisablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EnablePrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetDividerSpacingInfo(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetIconDividerControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetInputIconControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetPromptTextControl(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:RefreshInputPromptSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshOnShow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithCVar(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithEvent(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithEvents(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetDividerType(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetInputIconSize(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptFont(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptInputIconKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptText(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetUseDropShadow(...) end
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject : Frame
----@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject
-local GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject : FontString
-local GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject = {}
-end
-
-do
----@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object : Frame
----@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject
----@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_DisabledTextureObject
----@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnimObject
----@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoverTextureObject
----@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarObject
----@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarBGObject
----@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarGlowObject
----@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_NormalTextureObject
----@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_PressedTextureObject
----@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object = {}
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:BeginHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:EndHold(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnLoad(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetFocused(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetPressable(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
 end

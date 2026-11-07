@@ -3,6 +3,1227 @@
 
 
 do
+---@class WorldMapFrame_BlackoutFrameObject : Frame
+---@field Blackout WorldMapFrame_BlackoutFrame_BlackoutObject
+local WorldMapFrame_BlackoutFrameObject = {}
+end
+
+do
+---@class WorldMapFrame_BlackoutFrame_BlackoutObject : Texture
+local WorldMapFrame_BlackoutFrame_BlackoutObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrameObject : Frame
+---@field Bg WorldMapFrame_BorderFrame_BgObject
+---@field CloseButton WorldMapFrame_BorderFrame_CloseButtonObject
+---@field FocusJumpHint WorldMapFrame_BorderFrame_FocusJumpHintObject
+---@field FrameGlow WorldMapFrame_BorderFrame_FrameGlowObject
+---@field InsetBorderTop WorldMapFrame_BorderFrame_InsetBorderTopObject
+---@field LeftJumpHint WorldMapFrame_BorderFrame_LeftJumpHintObject
+---@field MaxMinButtonFrame WorldMapFrame_BorderFrame_MaxMinButtonFrameObject
+---@field MaximizeMinimizeFrame WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject
+---@field NineSlice WorldMapFrame_BorderFrame_NineSliceObject
+---@field PortraitContainer WorldMapFrame_BorderFrame_PortraitContainerObject
+---@field RightJumpHint WorldMapFrame_BorderFrame_RightJumpHintObject
+---@field TitleContainer WorldMapFrame_BorderFrame_TitleContainerObject
+---@field TopTileStreaks WorldMapFrame_BorderFrame_TopTileStreaksObject
+---@field Tutorial WorldMapFrame_BorderFrame_TutorialObject
+---@field Underlay WorldMapFrame_BorderFrame_UnderlayObject
+---@field layoutType string
+local WorldMapFrame_BorderFrameObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrameObject:EndFocus(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:GetPortrait(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:GetTitleText(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:LockInFocus(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:RefreshFocus(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetBorder(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitShown(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetTitle(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetTitleColor(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:StartFocus(...) end
+---@return any ...
+function WorldMapFrame_BorderFrameObject:onCloseCallback(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_BgObject : Texture
+local WorldMapFrame_BorderFrame_BgObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_CloseButtonObject : Button
+local WorldMapFrame_BorderFrame_CloseButtonObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local WorldMapFrame_BorderFrame_FocusJumpHintObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject : Texture
+local WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FrameGlowObject : Frame
+---@field GlowTexture WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local WorldMapFrame_BorderFrame_FrameGlowObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject : Texture
+local WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_InsetBorderTopObject : Texture
+local WorldMapFrame_BorderFrame_InsetBorderTopObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local WorldMapFrame_BorderFrame_LeftJumpHintObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject : Texture
+local WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_MaxMinButtonFrameObject
+local WorldMapFrame_BorderFrame_MaxMinButtonFrameObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject : Frame
+---@field MaximizeButton WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject
+---@field MinimizeButton WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject
+local WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:IsMinimized(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:Maximize(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:Minimize(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:OnShow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMaximizedLook(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMinimizedCVar(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMinimizedLook(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetOnMaximizedCallback(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetOnMinimizedCallback(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SkipResetOnShow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:maximizedCallback(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:minimizedCallback(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject : Button
+local WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject : Button
+local WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSliceObject : Frame
+---@field BottomEdge WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject
+---@field Center WorldMapFrame_BorderFrame_NineSlice_CenterObject
+---@field LeftEdge WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject
+---@field RightEdge WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject
+---@field TopEdge WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject
+local WorldMapFrame_BorderFrame_NineSliceObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_CenterObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject : Texture
+local WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_PortraitContainerObject : Frame
+---@field CircleMask WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject
+---@field portrait WorldMapFrame_BorderFrame_PortraitContainer_portraitObject
+local WorldMapFrame_BorderFrame_PortraitContainerObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_PortraitContainer_portraitObject : Texture
+local WorldMapFrame_BorderFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHintObject : Frame
+---@field ActiveTexture WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local WorldMapFrame_BorderFrame_RightJumpHintObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject : Texture
+local WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_TitleContainerObject : Frame
+---@field TitleText WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject
+local WorldMapFrame_BorderFrame_TitleContainerObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject : FontString
+local WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_TopTileStreaksObject : Texture
+local WorldMapFrame_BorderFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_TutorialObject : Button
+---@field BigIPulse WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject
+---@field I WorldMapFrame_BorderFrame_Tutorial_IObject
+---@field Pulse WorldMapFrame_BorderFrame_Tutorial_PulseObject
+---@field Ring WorldMapFrame_BorderFrame_Tutorial_RingObject
+---@field RingPulse WorldMapFrame_BorderFrame_Tutorial_RingPulseObject
+---@field helpInfo WorldMapFrame_BorderFrame_Tutorial_helpInfoObject
+---@field mainHelpPlateButtonTooltipText string
+---@field smartNavigationIgnored boolean
+local WorldMapFrame_BorderFrame_TutorialObject = {}
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:CheckAndHideHelpInfo(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:CheckAndShowTooltip(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnEnter(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnHide(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnLeave(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnMouseDown(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnMouseUp(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:OnShow(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:SetHelpInfo3(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:ShowTooltip(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:ToggleHelpInfo(...) end
+---@return any ...
+function WorldMapFrame_BorderFrame_TutorialObject:UpdateHelpInfo(...) end
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject : Texture
+local WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_IObject : Texture
+local WorldMapFrame_BorderFrame_Tutorial_IObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_PulseObject : AnimationGroup
+---@field BigIPulse WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject
+---@field RingPulse WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject
+local WorldMapFrame_BorderFrame_Tutorial_PulseObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject : Alpha
+local WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject : Alpha
+local WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_RingObject : Texture
+local WorldMapFrame_BorderFrame_Tutorial_RingObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_RingPulseObject : Texture
+local WorldMapFrame_BorderFrame_Tutorial_RingPulseObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_Tutorial_helpInfoObject
+---@field FramePos table
+---@field FrameSize table
+local WorldMapFrame_BorderFrame_Tutorial_helpInfoObject = {}
+end
+
+do
+---@class WorldMapFrame_BorderFrame_UnderlayObject : Texture
+local WorldMapFrame_BorderFrame_UnderlayObject = {}
+end
+
+do
+---@class WorldMapFrame_MouseActionObject
+---@field Click number
+---@field Down number
+---@field Up number
+local WorldMapFrame_MouseActionObject = {}
+end
+
+do
+---@class WorldMapFrame_NavBarObject
+local WorldMapFrame_NavBarObject = {}
+end
+
+do
+---@class WorldMapFrame_OverscrollBGObject : Frame
+---@field BottomLeftVignette WorldMapFrame_OverscrollBG_BottomLeftVignetteObject
+---@field BottomRightVignette WorldMapFrame_OverscrollBG_BottomRightVignetteObject
+---@field Texture WorldMapFrame_OverscrollBG_TextureObject
+---@field TopLeftVignette WorldMapFrame_OverscrollBG_TopLeftVignetteObject
+---@field TopRightVignette WorldMapFrame_OverscrollBG_TopRightVignetteObject
+local WorldMapFrame_OverscrollBGObject = {}
+end
+
+do
+---@class WorldMapFrame_OverscrollBG_BottomLeftVignetteObject : Texture
+local WorldMapFrame_OverscrollBG_BottomLeftVignetteObject = {}
+end
+
+do
+---@class WorldMapFrame_OverscrollBG_BottomRightVignetteObject : Texture
+local WorldMapFrame_OverscrollBG_BottomRightVignetteObject = {}
+end
+
+do
+---@class WorldMapFrame_OverscrollBG_TextureObject : Texture
+local WorldMapFrame_OverscrollBG_TextureObject = {}
+end
+
+do
+---@class WorldMapFrame_OverscrollBG_TopLeftVignetteObject : Texture
+local WorldMapFrame_OverscrollBG_TopLeftVignetteObject = {}
+end
+
+do
+---@class WorldMapFrame_OverscrollBG_TopRightVignetteObject : Texture
+local WorldMapFrame_OverscrollBG_TopRightVignetteObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLogObject : Frame
+---@field ContentFrames table
+---@field ContentsAnchor WorldMapFrame_QuestLog_ContentsAnchorObject
+---@field DetailsFrame WorldMapFrame_QuestLog_DetailsFrameObject
+---@field EventsFrame WorldMapFrame_QuestLog_EventsFrameObject
+---@field EventsTab WorldMapFrame_QuestLog_EventsTabObject
+---@field MapLegend WorldMapFrame_QuestLog_MapLegendObject
+---@field MapLegendTab WorldMapFrame_QuestLog_MapLegendTabObject
+---@field QuestSessionManagement WorldMapFrame_QuestLog_QuestSessionManagementObject
+---@field QuestsFrame WorldMapFrame_QuestLog_QuestsFrameObject
+---@field QuestsTab WorldMapFrame_QuestLog_QuestsTabObject
+---@field TabButtons table
+---@field VerticalSeparator WorldMapFrame_QuestLog_VerticalSeparatorObject
+---@field completedCriteria table
+---@field displayMode number
+---@field initialCampaignHeadersUpdate boolean
+local WorldMapFrame_QuestLogObject = {}
+---@return any ...
+function WorldMapFrame_QuestLogObject:CheckEventsTabTutorial(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:GetCurrentMapID(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:GetHelpInfoText(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:GetLastLayoutIndex(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:GetPanelExtraWidth(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:HideCampaignOverview(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:OnButtonSelected(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:OnHighlightedQuestPOIChange(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:OnSmartNavFocus(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:Refresh(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:ResetLayoutIndex(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:SetDisplayMode(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:SetFrameLayoutIndex(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:SetHeaderQuestsTracked(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:ShowCampaignOverview(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:SyncQuestSystemWithCurrentMap(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:UpdatePOIs(...) end
+---@return any ...
+function WorldMapFrame_QuestLogObject:ValidateTabs(...) end
+end
+
+do
+---@class WorldMapFrame_QuestLog_ContentsAnchorObject : Frame
+local WorldMapFrame_QuestLog_ContentsAnchorObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_DetailsFrameObject
+local WorldMapFrame_QuestLog_DetailsFrameObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrameObject : Frame
+---@field BorderFrame WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject
+---@field LoadingFrame WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject
+---@field ScrollBar WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject
+---@field ScrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBoxObject
+---@field SettingsDropdown WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject
+---@field TitleText WorldMapFrame_QuestLog_EventsFrame_TitleTextObject
+---@field displayMode number
+local WorldMapFrame_QuestLog_EventsFrameObject = {}
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:AddAllEvents(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:AddOngoingEvents(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:AddScheduledEvents(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:CancelTimer(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:OnAnimationFinished(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:OnEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:OnHide(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:OnShow(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrameObject:Refresh(...) end
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject : Frame
+---@field Border WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject
+---@field TopDetail WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject
+local WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject : Texture
+local WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject : Texture
+local WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject : Frame
+---@field Anim WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject
+---@field Ring WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject
+---@field Sparks WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject
+local WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject = {}
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:GetShadowAlpha(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnHide(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnShow(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnSizeChanged(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:SetDesaturated(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:SetShadowEnabled(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:UpdateShadowSize(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:UpdateTheme(...) end
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject : AnimationGroup
+local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject : Texture
+local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject : Texture
+local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject = {}
+end
+
+do
+---@class WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject : Frame
+---@field Back WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject
+---@field Defaults WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DefaultsObject
+---@field Directions WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DirectionsObject
+---@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_EventObject
+---@field Forward WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject
+---@field Track WorldMapFrame_QuestLog_EventsFrame_ScrollBar_TrackObject
+---@field allowScroll boolean
+---@field callbackTables table
+---@field canInterpolateScroll boolean
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field hideTrack boolean
+---@field hideTrackIfThumbExceedsTrack boolean
+---@field interpolator WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject
+---@field isScrollController boolean
+---@field minThumbExtent number
+---@field panDelay number
+---@field panExtentPercentage number
+---@field panRepeatTime number
+---@field registeredScrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject
+---@field scrollPercentage number
+---@field smartNavigationIgnored boolean
+---@field snapToInterval boolean
+---@field thumbAnchor string
+---@field useProportionalThumb boolean
+---@field visibleExtentPercentage number
+---@field wheelPanScalar number
+local WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject = {}
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CallInternalScope(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CanCursorStepInDirection(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CanInterpolateScroll(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:DisableControls(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:EnableInternalPriority(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:EnableSnapToInterval(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GenerateCallbackEvents(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetBackStepper(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbackTable(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbackTables(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbacksByEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetForwardStepper(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetFrameExtent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetIntervalRange(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetLower(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanExtentPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanRepeatDelay(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanRepeatTime(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetScrollInterpolator(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetScrollPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetThumb(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetThumbAnchor(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetTrack(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetTrackExtent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetUpper(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetWheelPanPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:HasScrollableExtent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Init(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:InitializeNarration(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Interpolate(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsAtBegin(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsAtEnd(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsHorizontal(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsScrollAllowed(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsThumbMouseDown(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnHide_Intrinsic(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnLoad(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnMouseWheel(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnShow_Intrinsic(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnStepperMouseDown(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnThumbMouseDown(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnTrackMouseDown(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:RegisterCallback(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollDecrease(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollInDirection(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollIncrease(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollPageInDirection(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollStepInDirection(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollToBegin(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollToEnd(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollWheelInDirection(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SecureInsertEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SelectCursorComponent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SelectPointComponent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetFrameExtent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHorizontal(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetInterpolateScroll(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetPanExtentPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollAllowed(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetThumbExtent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:TriggerEvent(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterCallback(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterEvents(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterUpdate(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Update(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:onButtonMouseUp(...) end
+---@return any ...
+function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:scrollInternal(...) end
+end
+
+do
 ---@class WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject : Button
 ---@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_EventObject
 ---@field Texture WorldMapFrame_QuestLog_EventsFrame_ScrollBar_Back_TextureObject
@@ -6536,774 +7757,4 @@ function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetPoint(.
 function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetPointWithExtraOffset(...) end
 ---@return any ...
 function WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchor_relativeToObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_menuAnchor_relativeToObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_relativeFrameObject
-local WorldMapFrame_WorldMapTrackingOptionsButton_relativeFrameObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingOptionsButton_worldMapFiltersObject
----@field contentTrackingFilter table
----@field primaryProfessionsFilter table
----@field questPOI table
----@field questPOIWQ table
----@field secondaryProfessionsFilter table
----@field showQuestDifficultyColor table
----@field showQuestLevel table
----@field trivialQuests table
-local WorldMapFrame_WorldMapTrackingOptionsButton_worldMapFiltersObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButtonObject : Button
----@field ActiveTexture WorldMapFrame_WorldMapTrackingPinButton_ActiveTextureObject
----@field Background WorldMapFrame_WorldMapTrackingPinButton_BackgroundObject
----@field Border WorldMapFrame_WorldMapTrackingPinButton_BorderObject
----@field Icon WorldMapFrame_WorldMapTrackingPinButton_IconObject
----@field IconOverlay WorldMapFrame_WorldMapTrackingPinButton_IconOverlayObject
----@field relativeFrame WorldMapFrame_WorldMapTrackingPinButton_relativeFrameObject
-local WorldMapFrame_WorldMapTrackingPinButtonObject = {}
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnClick(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnEvent(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:Refresh(...) end
----@return any ...
-function WorldMapFrame_WorldMapTrackingPinButtonObject:SetActive(...) end
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButton_ActiveTextureObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButton_BackgroundObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_BackgroundObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButton_BorderObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_BorderObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButton_IconObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_IconObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButton_IconOverlayObject : Texture
-local WorldMapFrame_WorldMapTrackingPinButton_IconOverlayObject = {}
-end
-
-do
----@class WorldMapFrame_WorldMapTrackingPinButton_relativeFrameObject
-local WorldMapFrame_WorldMapTrackingPinButton_relativeFrameObject = {}
-end
-
-do
----@class WorldMapFrame_cursorHandlersObject
-local WorldMapFrame_cursorHandlersObject = {}
----@return any ...
-function WorldMapFrame_cursorHandlersObject:AddHandler(...) end
----@return any ...
-function WorldMapFrame_cursorHandlersObject:FindHandler(...) end
----@return any ...
-function WorldMapFrame_cursorHandlersObject:InvokeHandlers(...) end
----@return any ...
-function WorldMapFrame_cursorHandlersObject:RemoveHandler(...) end
-end
-
-do
----@class WorldMapFrame_dataProviderEventsCountObject
----@field CONTENT_TRACKING_UPDATE number
----@field QUEST_LOG_UPDATE number
----@field SUPER_TRACKING_CHANGED number
----@field TRACKING_TARGET_INFO_UPDATE number
-local WorldMapFrame_dataProviderEventsCountObject = {}
-end
-
-do
----@class WorldMapFrame_detailLayerPoolObject
-local WorldMapFrame_detailLayerPoolObject = {}
----@return any ...
-function WorldMapFrame_detailLayerPoolObject:GetTemplate(...) end
----@return any ...
-function WorldMapFrame_detailLayerPoolObject:private(...) end
-end
-
-do
----@class WorldMapFrame_globalPinMouseActionHandlersObject
-local WorldMapFrame_globalPinMouseActionHandlersObject = {}
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:AddHandler(...) end
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:FindHandler(...) end
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:InvokeHandlers(...) end
----@return any ...
-function WorldMapFrame_globalPinMouseActionHandlersObject:RemoveHandler(...) end
-end
-
-do
----@class WorldMapFrame_mouseClickHandlersObject
-local WorldMapFrame_mouseClickHandlersObject = {}
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:AddHandler(...) end
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:FindHandler(...) end
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:InvokeHandlers(...) end
----@return any ...
-function WorldMapFrame_mouseClickHandlersObject:RemoveHandler(...) end
-end
-
-do
----@class WorldMapFrame_navBarObject : Frame
----@field GamepadNextAreaIcon WorldMapFrame_navBar_GamepadNextAreaIconObject
----@field GamepadPreviousAreaIcon WorldMapFrame_navBar_GamepadPreviousAreaIconObject
----@field InsetBorderBottom WorldMapFrame_navBar_InsetBorderBottomObject
----@field InsetBorderBottomLeft WorldMapFrame_navBar_InsetBorderBottomLeftObject
----@field InsetBorderBottomRight WorldMapFrame_navBar_InsetBorderBottomRightObject
----@field InsetBorderLeft WorldMapFrame_navBar_InsetBorderLeftObject
----@field InsetBorderRight WorldMapFrame_navBar_InsetBorderRightObject
----@field KioskOverlay WorldMapFrame_navBar_KioskOverlayObject
----@field freeButtons table
----@field home WorldMapFrame_navBar_homeObject
----@field homeButton WorldMapFrame_navBar_homeButtonObject
----@field navList table
----@field overflow WorldMapFrame_navBar_overflowObject
----@field overflowButton WorldMapFrame_navBar_overflowButtonObject
----@field overlay WorldMapFrame_navBar_overlayObject
----@field relativeFrame WorldMapFrame_navBar_relativeFrameObject
----@field template string
----@field widthBuffer number
-local WorldMapFrame_navBarObject = {}
----@return any ...
-function WorldMapFrame_navBarObject:GetTopMostUIMapType(...) end
----@return any ...
-function WorldMapFrame_navBarObject:GoToMap(...) end
----@return any ...
-function WorldMapFrame_navBarObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_navBarObject:Refresh(...) end
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIconObject : Frame
----@field ActiveTexture WorldMapFrame_navBar_GamepadNextAreaIcon_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_navBar_GamepadNextAreaIcon_DisabledTextureObject
----@field HoldAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnimObject
----@field HoldIndicator WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_navBar_GamepadNextAreaIcon_HoverTextureObject
----@field LoadBar WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarObject
----@field LoadBarBG WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_navBar_GamepadNextAreaIcon_NormalTextureObject
----@field PressedTexture WorldMapFrame_navBar_GamepadNextAreaIcon_PressedTextureObject
----@field SpinnerTip WorldMapFrame_navBar_GamepadNextAreaIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_navBar_GamepadNextAreaIconObject = {}
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadNextAreaIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_ActiveTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_DisabledTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorBGObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_HoverTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarBGObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarGlowObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_NormalTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_PressedTextureObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadNextAreaIcon_SpinnerTipObject : Texture
-local WorldMapFrame_navBar_GamepadNextAreaIcon_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIconObject : Frame
----@field ActiveTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_DisabledTextureObject
----@field HoldAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnimObject
----@field HoldIndicator WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoverTextureObject
----@field LoadBar WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarObject
----@field LoadBarBG WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_NormalTextureObject
----@field PressedTexture WorldMapFrame_navBar_GamepadPreviousAreaIcon_PressedTextureObject
----@field SpinnerTip WorldMapFrame_navBar_GamepadPreviousAreaIcon_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_navBar_GamepadPreviousAreaIconObject = {}
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_navBar_GamepadPreviousAreaIconObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_ActiveTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_DisabledTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorBGObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoverTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarBGObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarGlowObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_NormalTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_PressedTextureObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_GamepadPreviousAreaIcon_SpinnerTipObject : Texture
-local WorldMapFrame_navBar_GamepadPreviousAreaIcon_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderBottomObject : Texture
-local WorldMapFrame_navBar_InsetBorderBottomObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderBottomLeftObject : Texture
-local WorldMapFrame_navBar_InsetBorderBottomLeftObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderBottomRightObject : Texture
-local WorldMapFrame_navBar_InsetBorderBottomRightObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderLeftObject : Texture
-local WorldMapFrame_navBar_InsetBorderLeftObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_InsetBorderRightObject : Texture
-local WorldMapFrame_navBar_InsetBorderRightObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_KioskOverlayObject : Frame
-local WorldMapFrame_navBar_KioskOverlayObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_homeObject
-local WorldMapFrame_navBar_homeObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_homeButtonObject : Button
----@field data WorldMapFrame_navBar_homeButton_dataObject
----@field text WorldMapFrame_navBar_homeButton_textObject
----@field xoffset number
-local WorldMapFrame_navBar_homeButtonObject = {}
----@return any ...
-function WorldMapFrame_navBar_homeButtonObject:myclick(...) end
----@return any ...
-function WorldMapFrame_navBar_homeButtonObject:oldClick(...) end
-end
-
-do
----@class WorldMapFrame_navBar_homeButton_dataObject
----@field name string
-local WorldMapFrame_navBar_homeButton_dataObject = {}
----@return any ...
-function WorldMapFrame_navBar_homeButton_dataObject:OnClick(...) end
-end
-
-do
----@class WorldMapFrame_navBar_homeButton_textObject : FontString
-local WorldMapFrame_navBar_homeButton_textObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overflowObject
-local WorldMapFrame_navBar_overflowObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overflowButtonObject : Button
----@field Event WorldMapFrame_navBar_overflowButton_EventObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor WorldMapFrame_navBar_overflowButton_menuAnchorObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field xoffset number
-local WorldMapFrame_navBar_overflowButtonObject = {}
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:ClearMenuState(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CloseMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CollectSelectionData(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:CreateRootDescription(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Decrement(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GenerateMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetMenuDescription(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:GetSelectionData(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasElements(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:HasStickyFocus(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Increment(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:IsMenuOpen(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnEnter_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuAssigned(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuChanged(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuClosed(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuOpened(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMenuResponse(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:OpenMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Pick(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:RegisterMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Rotate(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetMenuAnchor(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetMenuOpen(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SetupMenu(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:SignalUpdate(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:Update(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UpdateSelections(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:UpdateToMenuSelections(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:listFunc(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:menuGenerator(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButtonObject:onMenuClosedCallback(...) end
-end
-
-do
----@class WorldMapFrame_navBar_overflowButton_EventObject
-local WorldMapFrame_navBar_overflowButton_EventObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overflowButton_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo WorldMapFrame_navBar_overflowButton_menuAnchor_relativeToObject
----@field x number
----@field y number
-local WorldMapFrame_navBar_overflowButton_menuAnchorObject = {}
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:Get(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:Init(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:Set(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetPoint(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function WorldMapFrame_navBar_overflowButton_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class WorldMapFrame_navBar_overflowButton_menuAnchor_relativeToObject
-local WorldMapFrame_navBar_overflowButton_menuAnchor_relativeToObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_overlayObject : Frame
-local WorldMapFrame_navBar_overlayObject = {}
-end
-
-do
----@class WorldMapFrame_navBar_relativeFrameObject
-local WorldMapFrame_navBar_relativeFrameObject = {}
-end
-
-do
----@class WorldMapFrame_pinFrameLevelsManagerObject
----@field definitions table
----@field maxLevel number
----@field minLevel number
----@field topMostDefinition table
-local WorldMapFrame_pinFrameLevelsManagerObject = {}
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:AddDefinition(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:AddFrameLevel(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:ClearOverride(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:GetFrameLevelRange(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:GetFrameLevelStart(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:GetValidFrameLevel(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:Initialize(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:InsertFrameLevelAbove(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:InsertFrameLevelBelow(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:SetOverride(...) end
----@return any ...
-function WorldMapFrame_pinFrameLevelsManagerObject:ValidateContiguous(...) end
-end
-
-do
----@class WorldMapFrame_pinPoolsObject
----@field FogOfWarPinTemplate table
----@field GroupMembersPinTemplate table
----@field MapExplorationPinTemplate table
----@field MapHighlightPinTemplate table
----@field QuestBlobPinTemplate table
----@field ScenarioBlobPinTemplate table
-local WorldMapFrame_pinPoolsObject = {}
-end
-
-do
----@class WorldMapFrame_pinTemplateTypesObject
----@field FogOfWarPinTemplate string
----@field GroupMembersPinTemplate string
----@field MapExplorationPinTemplate string
----@field MapHighlightPinTemplate string
----@field QuestBlobPinTemplate string
----@field ScenarioBlobPinTemplate string
----@field VignettePinPOIButtonTemplate string
-local WorldMapFrame_pinTemplateTypesObject = {}
-end
-
-do
----@class ZoneTextFrameObject : Frame
----@field fadeInTime number
----@field fadeOutTime number
----@field holdTime number
----@field zoneText string
-local ZoneTextFrameObject = {}
----@type ZoneTextFrameObject
-ZoneTextFrame = ZoneTextFrameObject
 end

@@ -3,6 +3,1135 @@
 
 
 do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_left_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_rightObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyDpadEntries_rightObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GROUP_JOINED(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GROUP_LEFT(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_rightObject:SetUseDropShadow(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescTextObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_right_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_topObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyDpadEntries_topObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GROUP_JOINED(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GROUP_LEFT(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_topObject:SetUseDropShadow(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescTextObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyDpadEntries_top_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntriesObject
+---@field bottom GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject
+---@field left GamepadPersistentInputLegend_friendlyFaceEntries_leftObject
+---@field right GamepadPersistentInputLegend_friendlyFaceEntries_rightObject
+---@field top GamepadPersistentInputLegend_friendlyFaceEntries_topObject
+local GamepadPersistentInputLegend_friendlyFaceEntriesObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottomObject:SetUseDropShadow(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescTextObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_bottom_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_leftObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyFaceEntries_leftObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:SetUseDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_leftObject:UNIT_PET(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescTextObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject : Texture
+local GamepadPersistentInputLegend_friendlyFaceEntries_left_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_rightObject : Frame
+---@field ControlDescText GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject
+---@field InputIcon1 GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object
+---@field InputIcons table
+local GamepadPersistentInputLegend_friendlyFaceEntries_rightObject = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:DisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EnablePrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetIconDividerControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetInputIconControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:GetPromptTextControl(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:OnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:RefreshInputPromptSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshOnShow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithCVar(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithEvent(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetCustomRefreshWithEvents(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetDividerType(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetInputIconSize(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptFont(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptInputIconKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetPromptText(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_rightObject:SetUseDropShadow(...) end
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject : Frame
+---@field FontString GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescTextObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject : FontString
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object : Frame
+---@field ActiveTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject
+---@field DisabledTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_DisabledTextureObject
+---@field HoldAnim GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldAnimObject
+---@field HoldIndicator GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_HoverTextureObject
+---@field LoadBar GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarObject
+---@field LoadBarBG GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_LoadBarGlowObject
+---@field NormalTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_NormalTextureObject
+---@field PressedTexture GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_PressedTextureObject
+---@field SpinnerTip GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object = {}
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:EndHold(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
 ---@class GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject : Texture
 local GamepadPersistentInputLegend_friendlyFaceEntries_right_InputIcon1_ActiveTextureObject = {}
 end
@@ -4986,6 +6115,7 @@ do
 ---@field RightTabHint GeneralDockManager_RightTabHintObject
 ---@field insertHighlight GeneralDockManager_insertHighlightObject
 ---@field isDirty boolean
+---@field leftTab number
 ---@field overflowButton GeneralDockManager_overflowButtonObject
 ---@field primary GeneralDockManager_primaryObject
 ---@field scrollFrame GeneralDockManager_scrollFrameObject
@@ -7893,1615 +9023,4 @@ function GlobalFXMediumModelSceneObject:UnregisterAllEvents(...) end
 function GlobalFXMediumModelSceneObject:UnregisterEvent(...) end
 ---@type GlobalFXMediumModelSceneObject
 GlobalFXMediumModelScene = GlobalFXMediumModelSceneObject
-end
-
-do
----@class GlobalFXMediumModelScene_activeCameraObject
----@field buttonModes table
----@field maxZoomDistance number
----@field minZoomDistance number
----@field modelSceneCameraInfo table
----@field owningScene GlobalFXMediumModelScene_activeCamera_owningSceneObject
----@field panningXOffset number
----@field panningYOffset number
----@field pitch number
----@field pitchInterpolationAmount number
----@field roll number
----@field rollInterpolationAmount number
----@field targetInterpolationAmount number
----@field targetX number
----@field targetY number
----@field targetZ number
----@field yaw number
----@field yawInterpolationAmount number
----@field zoomInterpolationAmount number
----@field zoomPercent number
-local GlobalFXMediumModelScene_activeCameraObject = {}
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:AdjustYaw(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:ApplyFromModelSceneCameraInfo(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:CalculatePositionByDistanceFromTarget(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:CalculateTransitionalValues(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:CalculateZoomDistanceFromPercent(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:CalculateZoomPercentFromDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetCameraType(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetDeltaModifierForCameraMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetDerivedOrientation(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetDerivedTarget(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetDerivedZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetForwardVector(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetInterpolatedOrientation(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetInterpolatedTarget(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetInterpolatedZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetLeftMouseButtonXMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetLeftYMouseButtonYMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetMaxZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetMinZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetMouseWheelMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetOrientationSpline(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetOwningScene(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetPitch(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetPitchInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetPosition(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetRightMouseButtonXMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetRightMouseButtonYMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetRightVector(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetRoll(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetRollInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetTarget(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetTargetInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetTargetSpline(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetUpVector(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetYaw(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetYawInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetZoomAvailable(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetZoomInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetZoomPercent(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:GetZoomSpline(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:HandleMouseMovement(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:IsLeftMouseButtonDown(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:IsRightMouseButtonDown(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnActivated(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnAdded(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnDeactivated(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnMouseDown(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnMouseUp(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnMouseWheel(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnRemoved(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:OnUpdate(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:ResetDefaultInputModes(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetAlignLightToOrbitDelta(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetLeftMouseButtonXMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetLeftMouseButtonYMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetMaxZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetMinZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetMouseWheelMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetOrientationSpline(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetOwningScene(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetPitch(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetPitchInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetPosition(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetRightMouseButtonXMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetRightMouseButtonYMode(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetRoll(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetRollInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetTarget(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetTargetInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetTargetSpline(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetYaw(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetYawInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetZoomDistance(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetZoomInterpolationAmount(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetZoomPercent(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SetZoomSpline(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:ShouldAlignLightToOrbitDelta(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SnapAllInterpolatedValues(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationPitch(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationRoll(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationTarget(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationYaw(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SnapToTargetInterpolationZoom(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:SynchronizeCamera(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:UpdateCameraOrientationAndPosition(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:UpdateInterpolationTargets(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:UpdateLight(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:ZoomBy(...) end
----@return any ...
-function GlobalFXMediumModelScene_activeCameraObject:ZoomByPercent(...) end
-end
-
-do
----@class GlobalFXMediumModelScene_activeCamera_owningSceneObject
-local GlobalFXMediumModelScene_activeCamera_owningSceneObject = {}
-end
-
-do
----@class GlobalFXMediumModelScene_tagToCameraObject
----@field primary table
-local GlobalFXMediumModelScene_tagToCameraObject = {}
-end
-
-do
----@class GossipFrameObject : Frame
----@field Background GossipFrame_BackgroundObject
----@field Bg GossipFrame_BgObject
----@field CloseButton GossipFrame_CloseButtonObject
----@field FocusJumpHint GossipFrame_FocusJumpHintObject
----@field FrameGlow GossipFrame_FrameGlowObject
----@field FriendshipStatusBar GossipFrame_FriendshipStatusBarObject
----@field GreetingPanel GossipFrame_GreetingPanelObject
----@field Inset GossipFrame_InsetObject
----@field LeftJumpHint GossipFrame_LeftJumpHintObject
----@field NineSlice GossipFrame_NineSliceObject
----@field PortraitContainer GossipFrame_PortraitContainerObject
----@field RightJumpHint GossipFrame_RightJumpHintObject
----@field TitleContainer GossipFrame_TitleContainerObject
----@field TopTileStreaks GossipFrame_TopTileStreaksObject
----@field cvar string
----@field fontStrings table
----@field frames table
----@field layoutType string
----@field tutorialButtons table
-local GossipFrameObject = {}
----@return any ...
-function GossipFrameObject:AvailableQuestButtonInit(...) end
----@return any ...
-function GossipFrameObject:CheckUpdateTheme(...) end
----@return any ...
-function GossipFrameObject:EndFocus(...) end
----@return any ...
-function GossipFrameObject:GetCVarValue(...) end
----@return any ...
-function GossipFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function GossipFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function GossipFrameObject:GetPortrait(...) end
----@return any ...
-function GossipFrameObject:GetTitleText(...) end
----@return any ...
-function GossipFrameObject:GetTutorialButtons(...) end
----@return any ...
-function GossipFrameObject:HandleHide(...) end
----@return any ...
-function GossipFrameObject:HandleShow(...) end
----@return any ...
-function GossipFrameObject:HasPortraitTexture(...) end
----@return any ...
-function GossipFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function GossipFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function GossipFrameObject:HideRightJumpHint(...) end
----@return any ...
-function GossipFrameObject:InitializeGamepad(...) end
----@return any ...
-function GossipFrameObject:IsDarkMode(...) end
----@return any ...
-function GossipFrameObject:LockInFocus(...) end
----@return any ...
-function GossipFrameObject:OnEvent(...) end
----@return any ...
-function GossipFrameObject:OnHide(...) end
----@return any ...
-function GossipFrameObject:OnLoad(...) end
----@return any ...
-function GossipFrameObject:OnShow(...) end
----@return any ...
-function GossipFrameObject:RefreshFocus(...) end
----@return any ...
-function GossipFrameObject:RegisterBackgroundTexture(...) end
----@return any ...
-function GossipFrameObject:RegisterFontString(...) end
----@return any ...
-function GossipFrameObject:RegisterFontStrings(...) end
----@return any ...
-function GossipFrameObject:RegisterForTransitions(...) end
----@return any ...
-function GossipFrameObject:RegisterFrame(...) end
----@return any ...
-function GossipFrameObject:RegisterFrames(...) end
----@return any ...
-function GossipFrameObject:RegisterObject(...) end
----@return any ...
-function GossipFrameObject:RegisterObjects(...) end
----@return any ...
-function GossipFrameObject:SelectGossipOption(...) end
----@return any ...
-function GossipFrameObject:SetBorder(...) end
----@return any ...
-function GossipFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function GossipFrameObject:SetGossipTitle(...) end
----@return any ...
-function GossipFrameObject:SetGossipTutorialMode(...) end
----@return any ...
-function GossipFrameObject:SetInteractionIsContinuing(...) end
----@return any ...
-function GossipFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function GossipFrameObject:SetPortraitShown(...) end
----@return any ...
-function GossipFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function GossipFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function GossipFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function GossipFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function GossipFrameObject:SetPortraitToBag(...) end
----@return any ...
-function GossipFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function GossipFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function GossipFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function GossipFrameObject:SetTitle(...) end
----@return any ...
-function GossipFrameObject:SetTitleColor(...) end
----@return any ...
-function GossipFrameObject:SetTitleFormatted(...) end
----@return any ...
-function GossipFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function GossipFrameObject:SetTitleOffsets(...) end
----@return any ...
-function GossipFrameObject:SetUpGamepad(...) end
----@return any ...
-function GossipFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function GossipFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function GossipFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function GossipFrameObject:SortOrder(...) end
----@return any ...
-function GossipFrameObject:StartFocus(...) end
----@return any ...
-function GossipFrameObject:UIThemeContainerFrame_OnPostEvent(...) end
----@return any ...
-function GossipFrameObject:UIThemeContainerFrame_OnPostHide(...) end
----@return any ...
-function GossipFrameObject:UIThemeContainerFrame_OnPreLoad(...) end
----@return any ...
-function GossipFrameObject:UIThemeContainerFrame_OnPreShow(...) end
----@return any ...
-function GossipFrameObject:UninitializeGamepad(...) end
----@return any ...
-function GossipFrameObject:Update(...) end
----@return any ...
-function GossipFrameObject:UpdateBackground(...) end
----@return any ...
-function GossipFrameObject:UpdateFontStrings(...) end
----@return any ...
-function GossipFrameObject:UpdateFrames(...) end
----@return any ...
-function GossipFrameObject:UpdateScrollBox(...) end
----@return any ...
-function GossipFrameObject:UpdateTheme(...) end
----@type GossipFrameObject
-GossipFrame = GossipFrameObject
-end
-
-do
----@class GossipFrame_BackgroundObject : Texture
-local GossipFrame_BackgroundObject = {}
-end
-
-do
----@class GossipFrame_BgObject : Texture
-local GossipFrame_BgObject = {}
-end
-
-do
----@class GossipFrame_CloseButtonObject : Button
-local GossipFrame_CloseButtonObject = {}
----@return any ...
-function GossipFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function GossipFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class GossipFrame_FocusJumpHintObject : Frame
----@field ActiveTexture GossipFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture GossipFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim GossipFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator GossipFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG GossipFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture GossipFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar GossipFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG GossipFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow GossipFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture GossipFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture GossipFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip GossipFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local GossipFrame_FocusJumpHintObject = {}
----@return any ...
-function GossipFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function GossipFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class GossipFrame_FocusJumpHint_ActiveTextureObject : Texture
-local GossipFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_DisabledTextureObject : Texture
-local GossipFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim GossipFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim GossipFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim GossipFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local GossipFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local GossipFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local GossipFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local GossipFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local GossipFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local GossipFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_HoverTextureObject : Texture
-local GossipFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_LoadBarObject : Texture
-local GossipFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_LoadBarBGObject : Texture
-local GossipFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local GossipFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_NormalTextureObject : Texture
-local GossipFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_PressedTextureObject : Texture
-local GossipFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class GossipFrame_FocusJumpHint_SpinnerTipObject : Texture
-local GossipFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class GossipFrame_FrameGlowObject : Frame
----@field GlowTexture GossipFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local GossipFrame_FrameGlowObject = {}
----@return any ...
-function GossipFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function GossipFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function GossipFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function GossipFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class GossipFrame_FrameGlow_GlowTextureObject : Texture
-local GossipFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBarObject : StatusBar
----@field Bar GossipFrame_FriendshipStatusBar_BarObject
----@field BarBorder GossipFrame_FriendshipStatusBar_BarBorderObject
----@field BarCircle GossipFrame_FriendshipStatusBar_BarCircleObject
----@field BarRingBackground GossipFrame_FriendshipStatusBar_BarRingBackgroundObject
----@field FriendshipIconMask GossipFrame_FriendshipStatusBar_FriendshipIconMaskObject
----@field Notch1 GossipFrame_FriendshipStatusBar_Notch1Object
----@field Notch2 GossipFrame_FriendshipStatusBar_Notch2Object
----@field Notch3 GossipFrame_FriendshipStatusBar_Notch3Object
----@field Notch4 GossipFrame_FriendshipStatusBar_Notch4Object
----@field icon GossipFrame_FriendshipStatusBar_iconObject
-local GossipFrame_FriendshipStatusBarObject = {}
----@return any ...
-function GossipFrame_FriendshipStatusBarObject:GetColorIndex(...) end
----@return any ...
-function GossipFrame_FriendshipStatusBarObject:OnEnter(...) end
----@return any ...
-function GossipFrame_FriendshipStatusBarObject:OnLoad(...) end
----@return any ...
-function GossipFrame_FriendshipStatusBarObject:Update(...) end
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_BarObject : Texture
-local GossipFrame_FriendshipStatusBar_BarObject = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_BarBorderObject : Texture
-local GossipFrame_FriendshipStatusBar_BarBorderObject = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_BarCircleObject : Texture
-local GossipFrame_FriendshipStatusBar_BarCircleObject = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_BarRingBackgroundObject : Texture
-local GossipFrame_FriendshipStatusBar_BarRingBackgroundObject = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_FriendshipIconMaskObject : MaskTexture
-local GossipFrame_FriendshipStatusBar_FriendshipIconMaskObject = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_Notch1Object : Texture
-local GossipFrame_FriendshipStatusBar_Notch1Object = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_Notch2Object : Texture
-local GossipFrame_FriendshipStatusBar_Notch2Object = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_Notch3Object : Texture
-local GossipFrame_FriendshipStatusBar_Notch3Object = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_Notch4Object : Texture
-local GossipFrame_FriendshipStatusBar_Notch4Object = {}
-end
-
-do
----@class GossipFrame_FriendshipStatusBar_iconObject : Texture
-local GossipFrame_FriendshipStatusBar_iconObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanelObject : Frame
----@field GoodbyeButton GossipFrame_GreetingPanel_GoodbyeButtonObject
----@field MaterialTopLeft GossipFrame_GreetingPanel_MaterialTopLeftObject
----@field ScrollBar GossipFrame_GreetingPanel_ScrollBarObject
----@field ScrollBox GossipFrame_GreetingPanel_ScrollBoxObject
-local GossipFrame_GreetingPanelObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_GoodbyeButtonObject : Button
----@field Left GossipFrame_GreetingPanel_GoodbyeButton_LeftObject
----@field Middle GossipFrame_GreetingPanel_GoodbyeButton_MiddleObject
----@field Right GossipFrame_GreetingPanel_GoodbyeButton_RightObject
----@field Text GossipFrame_GreetingPanel_GoodbyeButton_TextObject
----@field fitTextCanWidthDecrease boolean
----@field fitTextWidthPadding number
-local GossipFrame_GreetingPanel_GoodbyeButtonObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:FitToText(...) end
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:GetDisabledTooltip(...) end
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:OnEnter(...) end
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:OnLeave(...) end
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:SetDisabledState(...) end
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:SetDisabledTooltip(...) end
----@return any ...
-function GossipFrame_GreetingPanel_GoodbyeButtonObject:SetTextToFit(...) end
-end
-
-do
----@class GossipFrame_GreetingPanel_GoodbyeButton_LeftObject : Texture
-local GossipFrame_GreetingPanel_GoodbyeButton_LeftObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_GoodbyeButton_MiddleObject : Texture
-local GossipFrame_GreetingPanel_GoodbyeButton_MiddleObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_GoodbyeButton_RightObject : Texture
-local GossipFrame_GreetingPanel_GoodbyeButton_RightObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_GoodbyeButton_TextObject : FontString
-local GossipFrame_GreetingPanel_GoodbyeButton_TextObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_MaterialTopLeftObject : Texture
-local GossipFrame_GreetingPanel_MaterialTopLeftObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBarObject : Frame
----@field Back GossipFrame_GreetingPanel_ScrollBar_BackObject
----@field Defaults GossipFrame_GreetingPanel_ScrollBar_DefaultsObject
----@field Directions GossipFrame_GreetingPanel_ScrollBar_DirectionsObject
----@field Event GossipFrame_GreetingPanel_ScrollBar_EventObject
----@field Forward GossipFrame_GreetingPanel_ScrollBar_ForwardObject
----@field Track GossipFrame_GreetingPanel_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator GossipFrame_GreetingPanel_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local GossipFrame_GreetingPanel_ScrollBarObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:DisableControls(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetLower(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetThumb(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetTrack(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetUpper(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:Init(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:Interpolate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnLoad(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:Update(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBarObject:scrollInternal(...) end
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_BackObject : Button
----@field Event GossipFrame_GreetingPanel_ScrollBar_Back_EventObject
----@field Texture GossipFrame_GreetingPanel_ScrollBar_Back_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local GossipFrame_GreetingPanel_ScrollBar_BackObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:CopyDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:DesaturateIfDisabled(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:DoesFrameHaveEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:GenerateCallbackEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetAtlas(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetCallbackTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetCallbackTables(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:HasRegistrantsForEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:IsDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:IsDownOver(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:IsOver(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:NarrationGetName(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnButtonStateChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnClick_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnDisable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnEnable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnEnter(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnEnter_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLeave(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLeave_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLoad(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnLoad_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseUp(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnShow(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:RegisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:SecureInsertEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:SetDisplacedRegions(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:TriggerEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:UnregisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:UnregisterEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_BackObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Back_EventObject
-local GossipFrame_GreetingPanel_ScrollBar_Back_EventObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Back_TextureObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Back_TextureObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_DefaultsObject
-local GossipFrame_GreetingPanel_ScrollBar_DefaultsObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_DirectionsObject
-local GossipFrame_GreetingPanel_ScrollBar_DirectionsObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_EventObject
-local GossipFrame_GreetingPanel_ScrollBar_EventObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_ForwardObject : Button
----@field Event GossipFrame_GreetingPanel_ScrollBar_Forward_EventObject
----@field Texture GossipFrame_GreetingPanel_ScrollBar_Forward_TextureObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field direction number
----@field disabledTexture string
----@field displaceX number
----@field displaceY number
----@field displacedRegions table
----@field downTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field normalTexture string
----@field overTexture string
-local GossipFrame_GreetingPanel_ScrollBar_ForwardObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:CopyDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:DesaturateIfDisabled(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:DoesFrameHaveEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GenerateCallbackEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetAtlas(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetCallbackTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetCallbackTables(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:HasRegistrantsForEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:IsDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:IsDownOver(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:IsOver(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:NarrationGetName(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnButtonStateChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnClick_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnDisable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnEnable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnEnter(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnEnter_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLeave(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLeave_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLoad(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnLoad_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseUp(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnShow(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:RegisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:SecureInsertEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:SetDisplacedRegions(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:TriggerEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:UnregisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:UnregisterEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_ForwardObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Forward_EventObject
-local GossipFrame_GreetingPanel_ScrollBar_Forward_EventObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Forward_TextureObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Forward_TextureObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_TrackObject : Frame
----@field Begin GossipFrame_GreetingPanel_ScrollBar_Track_BeginObject
----@field End GossipFrame_GreetingPanel_ScrollBar_Track_EndObject
----@field Middle GossipFrame_GreetingPanel_ScrollBar_Track_MiddleObject
----@field Thumb GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject
-local GossipFrame_GreetingPanel_ScrollBar_TrackObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_BeginObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Track_BeginObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_EndObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Track_EndObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_MiddleObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Track_MiddleObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject : Button
----@field Begin GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_BeginObject
----@field End GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EndObject
----@field Event GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EventObject
----@field Middle GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_MiddleObject
----@field callbackTables table
----@field deferredCallbacks table
----@field desaturateIfDisabled boolean
----@field downBeginTexture string
----@field downEndTexture string
----@field downMiddleTexture string
----@field executingEvents table
----@field mouseDownSoundKitID number
----@field overBeginTexture string
----@field overEndTexture string
----@field overMiddleTexture string
----@field upBeginTexture string
----@field upEndTexture string
----@field upMiddleTexture string
-local GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:CopyDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:DesaturateIfDisabled(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:DoesFrameHaveEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GenerateCallbackEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetAtlas(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetCallbackTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetCallbackTables(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:HasRegistrantsForEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:IsDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:IsDownOver(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:IsOver(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnButtonStateChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnClick_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnDisable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnEnable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnEnter(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnEnter_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLeave(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLeave_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLoad(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnLoad_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseDown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseUp(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnMouseUp_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnShow(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnSizeChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:RegisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:SecureInsertEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:SetDisplacedRegions(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:TriggerEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:UnregisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:UnregisterEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_Track_ThumbObject:UnregisterEventsByEventTable(...) end
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_BeginObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_BeginObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EndObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EndObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EventObject
-local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_EventObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_MiddleObject : Texture
-local GossipFrame_GreetingPanel_ScrollBar_Track_Thumb_MiddleObject = {}
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_interpolatorObject
-local GossipFrame_GreetingPanel_ScrollBar_interpolatorObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:Cancel(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:GetInterpolateTo(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:Interpolate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_interpolatorObject:interpolateFunc(...) end
-end
-
-do
----@class GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject : Frame
----@field Defaults GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DefaultsObject
----@field Directions GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DirectionsObject
----@field DragDelegate GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_DragDelegateObject
----@field Event GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_EventObject
----@field ScrollTarget GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ScrollTargetObject
----@field Shadows GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_ShadowsObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field debugInspectionSystem string
----@field deferredCallbacks table
----@field executingEvents table
----@field isScrollController boolean
----@field panExtentPercentage number
----@field registeredScrollBar GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_registeredScrollBarObject
----@field view GossipFrame_GreetingPanel_ScrollBar_registeredScrollBox_viewObject
----@field wheelPanScalar number
-local GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject = {}
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ApplyEdgeFade(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CalculateEdgeFade(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CalculatePanExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CalculateScrollPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CanInterpolateScroll(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ClearEdgeFade(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ContainsElementDataByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:CopyDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:DoesFrameHaveEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnableSnapToInterval(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnumerateDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnumerateDataProviderEntireRange(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:EnumerateFrames(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementData(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementDataByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementDataIndex(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindElementDataIndexByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindFrameByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FindFrameElementDataIndex(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Flush(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FlushDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ForEachElementData(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ForEachFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FullUpdate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:FullUpdateInternal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GenerateCallbackEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetBottomPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetCallbackTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetCallbackTables(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataIndexBegin(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataIndexEnd(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDataProviderSize(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDerivedExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDerivedScrollOffset(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetDerivedScrollRange(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetElementExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetExtentPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetExtentUntil(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetFrameCount(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetFrameExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetFrames(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetIntervalRange(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLeftPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLower(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLowerPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetLowerShadowTexture(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetPanExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetPanExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetRightPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetScrollInterpolator(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetScrollPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetScrollTarget(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetTopPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetUpper(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetUpperPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetUpperShadowTexture(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetView(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetVisibleExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:GetWheelPanPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasEdgeFade(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasRegistrantsForEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasScrollableExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:HasView(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Init(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Interpolate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAcquireLocked(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAlignmentOverlapIgnored(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAtBegin(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsAtEnd(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsHorizontal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsScrollAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsScrollToDataIndexSafe(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsUpdateLocked(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:IsVirtualized(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Layout(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnLoad(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnMouseWheel(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnScrollTargetSizeChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnSizeChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewAcquiredFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewDataChanged(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewDataProviderReassigned(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewInitializedFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:OnViewReleasedFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Rebuild(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RecalculateDerivedExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RegisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReinitializeFrames(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:RemoveDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseEnumerateDataProviderEntireRange(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseForEachElementData(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ReverseForEachFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SanitizeAlignment(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollDecrease(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollInDirection(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollIncrease(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToBegin(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToElementData(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToElementDataByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToElementDataIndex(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToEnd(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToFrame(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToNearest(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToNearestByPredicate(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToOffset(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ScrollToOffsetWithAdjustment(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SecureInsertEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SelectCursorComponent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SelectPointComponent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetAlignmentOverlapIgnored(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetDataProvider(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetEdgeFadeLength(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetFrameExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetHorizontal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetInterpolateScroll(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetLowerShadowAtlas(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetPadding(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetPanExtent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetPanExtentPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollPercentage(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollPercentageInternal(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetScrollTargetOffset(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetShadowsFrameLevel(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetShadowsScale(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetShadowsShown(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUpdateLocked(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUpperShadowAtlas(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetUseShadowsForEdgeFade(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:SetView(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:ShouldUseShadowsForEdgeFade(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:TriggerEvent(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:UnregisterCallback(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:UnregisterEvents(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:Update(...) end
----@return any ...
-function GossipFrame_GreetingPanel_ScrollBar_registeredScrollBoxObject:scrollInternal(...) end
 end

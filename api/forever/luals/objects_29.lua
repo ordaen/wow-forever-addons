@@ -3,6 +3,1026 @@
 
 
 do
+---@class QuestSessionManager_CheckLeavePartyDialog_BGObject : Texture
+---@field ignoreInLayout boolean
+local QuestSessionManager_CheckLeavePartyDialog_BGObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_BodyObject : Frame
+---@field Icon QuestSessionManager_CheckLeavePartyDialog_Body_IconObject
+---@field Text QuestSessionManager_CheckLeavePartyDialog_Body_TextObject
+local QuestSessionManager_CheckLeavePartyDialog_BodyObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:AdjustTextWidthForAlignment(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetText(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetWarningText(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Body_IconObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Body_IconObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Body_TextObject : FontString
+local QuestSessionManager_CheckLeavePartyDialog_Body_TextObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_BorderObject : Frame
+---@field Bg QuestSessionManager_CheckLeavePartyDialog_Border_BgObject
+---@field BottomEdge QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject
+---@field LeftEdge QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject
+---@field RightEdge QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject
+---@field TopEdge QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject
+---@field TopLeftCorner QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject
+---@field TopRightCorner QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject
+---@field ignoreInLayout boolean
+---@field layoutType string
+local QuestSessionManager_CheckLeavePartyDialog_BorderObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_BgObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_BgObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject : Frame
+---@field Buttons table
+---@field Confirm QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject
+---@field Decline QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject
+---@field heightPadding number
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject : Button
+---@field Flash QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject
+---@field PulseAnim QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject
+---@field Text QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject
+---@field baseHeight number
+---@field baseWidth number
+---@field isConfirm boolean
+---@field useScaleWeight boolean
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnClick(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject : FontString
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject : Button
+---@field Flash QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject
+---@field PulseAnim QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject
+---@field Text QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject
+---@field baseHeight number
+---@field baseWidth number
+---@field useScaleWeight boolean
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnClick(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject : FontString
+local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_DividerObject : Texture
+---@field ignoreInLayout boolean
+local QuestSessionManager_CheckLeavePartyDialog_DividerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject : Frame
+local QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_TitleObject : Frame
+---@field Icon QuestSessionManager_CheckLeavePartyDialog_Title_IconObject
+---@field Text QuestSessionManager_CheckLeavePartyDialog_Title_TextObject
+local QuestSessionManager_CheckLeavePartyDialog_TitleObject = {}
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetText(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckLeavePartyDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Title_IconObject : Texture
+local QuestSessionManager_CheckLeavePartyDialog_Title_IconObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckLeavePartyDialog_Title_TextObject : FontString
+local QuestSessionManager_CheckLeavePartyDialog_Title_TextObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialogObject : Frame
+---@field BG QuestSessionManager_CheckStartDialog_BGObject
+---@field Body QuestSessionManager_CheckStartDialog_BodyObject
+---@field Border QuestSessionManager_CheckStartDialog_BorderObject
+---@field ButtonContainer QuestSessionManager_CheckStartDialog_ButtonContainerObject
+---@field Divider QuestSessionManager_CheckStartDialog_DividerObject
+---@field InvisibleRule QuestSessionManager_CheckStartDialog_InvisibleRuleObject
+---@field PlayerContainer QuestSessionManager_CheckStartDialog_PlayerContainerObject
+---@field Title QuestSessionManager_CheckStartDialog_TitleObject
+---@field cancelText string
+---@field confirmText string
+---@field heightPadding number
+---@field minimumWidth number
+---@field requiresValidateDialog boolean
+local QuestSessionManager_CheckStartDialogObject = {}
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:AddParty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:AddUnit(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:BaseOnEvent(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:BaseOnHide(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:BaseOnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:Cancel(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:CheckAddUnit(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:CheckValidateDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:ClearHideSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:ClearShowSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:Confirm(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetDialogFailureReason(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetHideSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetMemberFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetResponseCounts(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetSessionCommand(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetShowSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:HasTrackedResponse(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:HideImmediate(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:Minimize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:OnButtonsEnabled(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:OnLoad(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:PlayHideSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:PlayShowSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:RequiresValidateDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:ResetPlayerContainer(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetButtonsEnabled(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetHideSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetMemberResponse(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetShowSound(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:Setup(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:SetupPlayerContainer(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:ShouldClearOnUpdateAfterClean(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:ShowDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:StartHideDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialogObject:TrackResponse(...) end
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_BGObject : Texture
+---@field ignoreInLayout boolean
+local QuestSessionManager_CheckStartDialog_BGObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_BodyObject : Frame
+---@field Icon QuestSessionManager_CheckStartDialog_Body_IconObject
+---@field Text QuestSessionManager_CheckStartDialog_Body_TextObject
+local QuestSessionManager_CheckStartDialog_BodyObject = {}
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:AdjustTextWidthForAlignment(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetText(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetWarningText(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Body_IconObject : Texture
+local QuestSessionManager_CheckStartDialog_Body_IconObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Body_TextObject : FontString
+local QuestSessionManager_CheckStartDialog_Body_TextObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_BorderObject : Frame
+---@field Bg QuestSessionManager_CheckStartDialog_Border_BgObject
+---@field BottomEdge QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject
+---@field BottomLeftCorner QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject
+---@field BottomRightCorner QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject
+---@field LeftEdge QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject
+---@field RightEdge QuestSessionManager_CheckStartDialog_Border_RightEdgeObject
+---@field TopEdge QuestSessionManager_CheckStartDialog_Border_TopEdgeObject
+---@field TopLeftCorner QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject
+---@field TopRightCorner QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject
+---@field ignoreInLayout boolean
+---@field layoutType string
+local QuestSessionManager_CheckStartDialog_BorderObject = {}
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:GetBorderColor(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:GetCenterColor(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:GetFrameLayoutType(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:OnLoad(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:SetBlendMode(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:SetBorderBlendMode(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:SetBorderColor(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:SetCenterColor(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_BorderObject:SetVertexColor(...) end
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_BgObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_BgObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_RightEdgeObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_RightEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_TopEdgeObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_TopEdgeObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject : Texture
+local QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_ButtonContainerObject : Frame
+---@field Buttons table
+---@field Confirm QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject
+---@field Decline QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject
+---@field heightPadding number
+local QuestSessionManager_CheckStartDialog_ButtonContainerObject = {}
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:AddLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:ClearFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetAdditionalRegions(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetLayoutChildren(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IsDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IsLayoutFrame(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:Layout(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkClean(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkDirty(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnCleaned(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnShow(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnUpdate(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedSize(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetHeightPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetMaximumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetMinimumWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetWidthPadding(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject : Button
+---@field Flash QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject
+---@field PulseAnim QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject
+---@field Text QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject
+---@field baseHeight number
+---@field baseWidth number
+---@field isConfirm boolean
+---@field useScaleWeight boolean
+local QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject = {}
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnClick(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject : Texture
+local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
+local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject : FontString
+local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject = {}
+end
+
+do
+---@class QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject : Button
+---@field Flash QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject
+---@field PulseAnim QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_PulseAnimObject
+---@field Text QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_TextObject
+---@field baseHeight number
+---@field baseWidth number
+---@field useScaleWeight boolean
+local QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject = {}
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnClick(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
+---@return any ...
+function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
+end
+
+do
 ---@class QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject : Texture
 local QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject = {}
 end
@@ -7211,1214 +8231,4 @@ end
 do
 ---@class RaidParentFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
 local RaidParentFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local RaidParentFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local RaidParentFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_HoverTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_LoadBarObject : Texture
-local RaidParentFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_LoadBarBGObject : Texture
-local RaidParentFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local RaidParentFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_NormalTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_PressedTextureObject : Texture
-local RaidParentFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RaidParentFrame_FocusJumpHint_SpinnerTipObject : Texture
-local RaidParentFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RaidParentFrame_FrameGlowObject : Frame
----@field GlowTexture RaidParentFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local RaidParentFrame_FrameGlowObject = {}
----@return any ...
-function RaidParentFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function RaidParentFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidParentFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function RaidParentFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class RaidParentFrame_FrameGlow_GlowTextureObject : Texture
-local RaidParentFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class RaidParentFrame_InsetObject : Frame
----@field Bg RaidParentFrame_Inset_BgObject
----@field NineSlice RaidParentFrame_Inset_NineSliceObject
----@field layoutType string
-local RaidParentFrame_InsetObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_BgObject : Texture
-local RaidParentFrame_Inset_BgObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSliceObject : Frame
----@field BottomEdge RaidParentFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner RaidParentFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge RaidParentFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge RaidParentFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge RaidParentFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner RaidParentFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner RaidParentFrame_Inset_NineSlice_TopRightCornerObject
-local RaidParentFrame_Inset_NineSliceObject = {}
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function RaidParentFrame_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_RightEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_TopEdgeObject : Texture
-local RaidParentFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local RaidParentFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHintObject : Frame
----@field ActiveTexture RaidParentFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture RaidParentFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim RaidParentFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator RaidParentFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture RaidParentFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar RaidParentFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG RaidParentFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow RaidParentFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture RaidParentFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture RaidParentFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip RaidParentFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidParentFrame_LeftJumpHintObject = {}
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function RaidParentFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_ActiveTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_DisabledTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local RaidParentFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidParentFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidParentFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local RaidParentFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local RaidParentFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_HoverTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_LoadBarObject : Texture
-local RaidParentFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_LoadBarBGObject : Texture
-local RaidParentFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local RaidParentFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_NormalTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_PressedTextureObject : Texture
-local RaidParentFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RaidParentFrame_LeftJumpHint_SpinnerTipObject : Texture
-local RaidParentFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RaidParentFrame_NineSliceObject : Frame
----@field BottomEdge RaidParentFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner RaidParentFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner RaidParentFrame_NineSlice_BottomRightCornerObject
----@field Center RaidParentFrame_NineSlice_CenterObject
----@field LeftEdge RaidParentFrame_NineSlice_LeftEdgeObject
----@field RightEdge RaidParentFrame_NineSlice_RightEdgeObject
----@field TopEdge RaidParentFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner RaidParentFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner RaidParentFrame_NineSlice_TopRightCornerObject
-local RaidParentFrame_NineSliceObject = {}
----@return any ...
-function RaidParentFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function RaidParentFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class RaidParentFrame_NineSlice_BottomEdgeObject : Texture
-local RaidParentFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_BottomLeftCornerObject : Texture
-local RaidParentFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_BottomRightCornerObject : Texture
-local RaidParentFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_CenterObject : Texture
-local RaidParentFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_LeftEdgeObject : Texture
-local RaidParentFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_RightEdgeObject : Texture
-local RaidParentFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_TopEdgeObject : Texture
-local RaidParentFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_TopLeftCornerObject : Texture
-local RaidParentFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class RaidParentFrame_NineSlice_TopRightCornerObject : Texture
-local RaidParentFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class RaidParentFrame_PortraitContainerObject : Frame
----@field CircleMask RaidParentFrame_PortraitContainer_CircleMaskObject
----@field portrait RaidParentFrame_PortraitContainer_portraitObject
-local RaidParentFrame_PortraitContainerObject = {}
-end
-
-do
----@class RaidParentFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local RaidParentFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class RaidParentFrame_PortraitContainer_portraitObject : Texture
-local RaidParentFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHintObject : Frame
----@field ActiveTexture RaidParentFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture RaidParentFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim RaidParentFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator RaidParentFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG RaidParentFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture RaidParentFrame_RightJumpHint_HoverTextureObject
----@field LoadBar RaidParentFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG RaidParentFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow RaidParentFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture RaidParentFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture RaidParentFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip RaidParentFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidParentFrame_RightJumpHintObject = {}
----@return any ...
-function RaidParentFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function RaidParentFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidParentFrame_RightJumpHint_ActiveTextureObject : Texture
-local RaidParentFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_DisabledTextureObject : Texture
-local RaidParentFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local RaidParentFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local RaidParentFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidParentFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidParentFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldIndicatorObject : Texture
-local RaidParentFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local RaidParentFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_HoverTextureObject : Texture
-local RaidParentFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_LoadBarObject : Texture
-local RaidParentFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_LoadBarBGObject : Texture
-local RaidParentFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_LoadBarGlowObject : Texture
-local RaidParentFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_NormalTextureObject : Texture
-local RaidParentFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_PressedTextureObject : Texture
-local RaidParentFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class RaidParentFrame_RightJumpHint_SpinnerTipObject : Texture
-local RaidParentFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class RaidParentFrame_TitleContainerObject : Frame
----@field TitleText RaidParentFrame_TitleContainer_TitleTextObject
-local RaidParentFrame_TitleContainerObject = {}
-end
-
-do
----@class RaidParentFrame_TitleContainer_TitleTextObject : FontString
-local RaidParentFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class RaidParentFrame_TopTileStreaksObject : Texture
-local RaidParentFrame_TopTileStreaksObject = {}
-end
-
-do
----@class RaidTargetingFreeSelectionObject : Frame
----@field RaidTargetingFooterinputLegend RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject
----@field TargetHighlight RaidTargetingFreeSelection_TargetHighlightObject
----@field raidTargetingFooter RaidTargetingFreeSelection_raidTargetingFooterObject
-local RaidTargetingFreeSelectionObject = {}
----@return any ...
-function RaidTargetingFreeSelectionObject:CanUseFocusButton(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:InitializeGamepad(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnExitEditMode(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnGamepadMainMenuShown(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnHide(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnLoad(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:OnShow(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:RegisterForTransitions(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:SetActive(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:SetupFooter(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:Toggle(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:UninitializeGamepad(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:UpdateFooter(...) end
----@return any ...
-function RaidTargetingFreeSelectionObject:UpdateVisibility(...) end
----@type RaidTargetingFreeSelectionObject
-RaidTargetingFreeSelection = RaidTargetingFreeSelectionObject
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject
----@field promptFrames RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject = {}
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:AddModifierSection(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:InitializePrompts(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject
----@field StandardOneIconPADLSHOULDERSLASH RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFramesObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject : Frame
----@field ControlDescText RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject
----@field InputIcon1 RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject = {}
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:BeginHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:DisablePrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EnablePrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:EndHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetInputIconControl(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:OnLoad(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDisabled(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetDividerType(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetFocused(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetInputIconSize(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPressable(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptFont(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetPromptText(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject : Frame
----@field FontString RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescTextObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject : FontString
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object : Frame
----@field ActiveTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject
----@field LoadBar RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object = {}
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject : Texture
-local RaidTargetingFreeSelection_RaidTargetingFooterinputLegend_promptFrames_StandardOneIconPADLSHOULDERSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_TargetHighlightObject : Frame
-local RaidTargetingFreeSelection_TargetHighlightObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_raidTargetingFooterObject
----@field ALIGNMENT_TYPE table
----@field OVERFLOW_TYPE table
----@field alignmentType number
----@field debugName string
----@field disallowButtonContexts boolean
----@field inputLegend RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject
----@field isShown boolean
----@field overflowType number
----@field parentFrame RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject
----@field promptedBindings table
----@field promptedBindingsActive table
----@field promptedBindingsByKey table
----@field requiresBindingGroup boolean
----@field xOffset number
----@field yOffset number
-local RaidTargetingFreeSelection_raidTargetingFooterObject = {}
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddFunctionBinding(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddNonFallbackSelectPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddPromptedBinding(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddPromptedBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddStandardBackPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:AddStandardSelectPrompt(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:ApplyInputLegendAttachment(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:Finalize(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:GeneratePromptedBindingsByKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:GetPromptedBindingToDisplayForKey(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:HideAndDeactivateBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:Init(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:IsBindingGroupRequired(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:Refresh(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshBindingGroup(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshCustomFrameVisibility(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshInputLegend(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:RefreshPromptedBindingsActive(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetAlignmentType(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetAnchorOffsets(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetCustomAnchor(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetOverflowType(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:SetParentFrame(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:ShowAndActivateBindings(...) end
----@return any ...
-function RaidTargetingFreeSelection_raidTargetingFooterObject:UseWideBackground(...) end
-end
-
-do
----@class RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject
-local RaidTargetingFreeSelection_raidTargetingFooter_inputLegendObject = {}
-end
-
-do
----@class RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject
-local RaidTargetingFreeSelection_raidTargetingFooter_parentFrameObject = {}
-end
-
-do
----@class RaidWarningFrameObject : Frame
----@field Selection RaidWarningFrame_SelectionObject
----@field defaultHideSelection boolean
----@field dirtySettings table
----@field downKeys table
----@field fontStringPool RaidWarningFrame_fontStringPoolObject
----@field hasActiveChanges boolean
----@field maxMessageSlots number
----@field maxTextHeight number
----@field maxTotalLines number
----@field messageCounter number
----@field messageTypes table
----@field minReservedSlots number
----@field savedSystemInfo RaidWarningFrame_savedSystemInfoObject
----@field settingDisplayInfoMap table
----@field settingMap table
----@field settingsDialogAnchor RaidWarningFrame_settingsDialogAnchorObject
----@field snappedFrames table
----@field system number
----@field systemInfo RaidWarningFrame_systemInfoObject
----@field systemNameString string
-local RaidWarningFrameObject = {}
----@return any ...
-function RaidWarningFrameObject:AcquireOrEvictSlot(...) end
----@return any ...
-function RaidWarningFrameObject:AcquireString(...) end
----@return any ...
-function RaidWarningFrameObject:AddExtraButtons(...) end
----@return any ...
-function RaidWarningFrameObject:AddMessage(...) end
----@return any ...
-function RaidWarningFrameObject:AddSnappedFrame(...) end
----@return any ...
-function RaidWarningFrameObject:AnchorSelectionFrame(...) end
----@return any ...
-function RaidWarningFrameObject:AnySettingsDirty(...) end
----@return any ...
-function RaidWarningFrameObject:ApplySystemAnchor(...) end
----@return any ...
-function RaidWarningFrameObject:AreAllSystemSettingsDefault(...) end
----@return any ...
-function RaidWarningFrameObject:BreakFrameSnap(...) end
----@return any ...
-function RaidWarningFrameObject:BreakFromFrameManager(...) end
----@return any ...
-function RaidWarningFrameObject:BreakSnappedFrames(...) end
----@return any ...
-function RaidWarningFrameObject:CanBeMoved(...) end
----@return any ...
-function RaidWarningFrameObject:ClearAllPointsBase(...) end
----@return any ...
-function RaidWarningFrameObject:ClearAllPointsOverride(...) end
----@return any ...
-function RaidWarningFrameObject:ClearDirtySetting(...) end
----@return any ...
-function RaidWarningFrameObject:ClearDownKeys(...) end
----@return any ...
-function RaidWarningFrameObject:ClearFrameSnap(...) end
----@return any ...
-function RaidWarningFrameObject:ClearHighlight(...) end
----@return any ...
-function RaidWarningFrameObject:ClearMessages(...) end
----@return any ...
-function RaidWarningFrameObject:ConvertSettingDisplayValueToRawValue(...) end
----@return any ...
-function RaidWarningFrameObject:DoesSettingDisplayValueEqual(...) end
----@return any ...
-function RaidWarningFrameObject:DoesSettingValueEqual(...) end
----@return any ...
-function RaidWarningFrameObject:EnforceLineLimits(...) end
----@return any ...
-function RaidWarningFrameObject:FindSlotToEvict(...) end
----@return any ...
-function RaidWarningFrameObject:GetActiveMessageCount(...) end
----@return any ...
-function RaidWarningFrameObject:GetBottomOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetCombinedCenterOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetCombinedSelectionOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetCompositeNumberSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:GetFirstMessage(...) end
----@return any ...
-function RaidWarningFrameObject:GetFrameMagneticEligibility(...) end
----@return any ...
-function RaidWarningFrameObject:GetLeftOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetLowestMessage(...) end
----@return any ...
-function RaidWarningFrameObject:GetManagedFrameContainer(...) end
----@return any ...
-function RaidWarningFrameObject:GetRightOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetScaledCenter(...) end
----@return any ...
-function RaidWarningFrameObject:GetScaledSelectionCenter(...) end
----@return any ...
-function RaidWarningFrameObject:GetScaledSelectionSides(...) end
----@return any ...
-function RaidWarningFrameObject:GetSelectionOffset(...) end
----@return any ...
-function RaidWarningFrameObject:GetSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:GetSettingValueBool(...) end
----@return any ...
-function RaidWarningFrameObject:GetSettingsDialogAnchor(...) end
----@return any ...
-function RaidWarningFrameObject:GetSnapOffsets(...) end
----@return any ...
-function RaidWarningFrameObject:GetSortedMessages(...) end
----@return any ...
-function RaidWarningFrameObject:GetSystemName(...) end
----@return any ...
-function RaidWarningFrameObject:GetTopOffset(...) end
----@return any ...
-function RaidWarningFrameObject:HasActiveChanges(...) end
----@return any ...
-function RaidWarningFrameObject:HasCompositeNumberSetting(...) end
----@return any ...
-function RaidWarningFrameObject:HasSetting(...) end
----@return any ...
-function RaidWarningFrameObject:HasValidSelectionRect(...) end
----@return any ...
-function RaidWarningFrameObject:HideBase(...) end
----@return any ...
-function RaidWarningFrameObject:HideOverride(...) end
----@return any ...
-function RaidWarningFrameObject:HighlightSystem(...) end
----@return any ...
-function RaidWarningFrameObject:IsAboveFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsBelowFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsEditModeDragging(...) end
----@return any ...
-function RaidWarningFrameObject:IsFrameAnchoredToMe(...) end
----@return any ...
-function RaidWarningFrameObject:IsHorizontallyAlignedWithFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsInDefaultPosition(...) end
----@return any ...
-function RaidWarningFrameObject:IsInitialized(...) end
----@return any ...
-function RaidWarningFrameObject:IsSettingDirty(...) end
----@return any ...
-function RaidWarningFrameObject:IsShiftKeyDown(...) end
----@return any ...
-function RaidWarningFrameObject:IsSystemSettingDefault(...) end
----@return any ...
-function RaidWarningFrameObject:IsToTheLeftOfFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsToTheRightOfFrame(...) end
----@return any ...
-function RaidWarningFrameObject:IsVerticallyAlignedWithFrame(...) end
----@return any ...
-function RaidWarningFrameObject:MarkAllSettingsDirty(...) end
----@return any ...
-function RaidWarningFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
----@return any ...
-function RaidWarningFrameObject:OnDragStart(...) end
----@return any ...
-function RaidWarningFrameObject:OnDragStop(...) end
----@return any ...
-function RaidWarningFrameObject:OnEditModeEnter(...) end
----@return any ...
-function RaidWarningFrameObject:OnEditModeExit(...) end
----@return any ...
-function RaidWarningFrameObject:OnEvent(...) end
----@return any ...
-function RaidWarningFrameObject:OnKeyDown(...) end
----@return any ...
-function RaidWarningFrameObject:OnKeyUp(...) end
----@return any ...
-function RaidWarningFrameObject:OnLayoutUpdated(...) end
----@return any ...
-function RaidWarningFrameObject:OnLoad(...) end
----@return any ...
-function RaidWarningFrameObject:OnSystemHide(...) end
----@return any ...
-function RaidWarningFrameObject:OnSystemLoad(...) end
----@return any ...
-function RaidWarningFrameObject:OnSystemPositionChange(...) end
----@return any ...
-function RaidWarningFrameObject:OnUpdate(...) end
----@return any ...
-function RaidWarningFrameObject:OnUpdateSystem(...) end
----@return any ...
-function RaidWarningFrameObject:PrepareForSave(...) end
----@return any ...
-function RaidWarningFrameObject:ProcessMovementKey(...) end
----@return any ...
-function RaidWarningFrameObject:RegisterMessageEvents(...) end
----@return any ...
-function RaidWarningFrameObject:RemoveSnappedFrame(...) end
----@return any ...
-function RaidWarningFrameObject:ResetToDefaultPosition(...) end
----@return any ...
-function RaidWarningFrameObject:SelectSystem(...) end
----@return any ...
-function RaidWarningFrameObject:SetHasActiveChanges(...) end
----@return any ...
-function RaidWarningFrameObject:SetIsInEditMode(...) end
----@return any ...
-function RaidWarningFrameObject:SetPointBase(...) end
----@return any ...
-function RaidWarningFrameObject:SetPointOverride(...) end
----@return any ...
-function RaidWarningFrameObject:SetScaleBase(...) end
----@return any ...
-function RaidWarningFrameObject:SetScaleOverride(...) end
----@return any ...
-function RaidWarningFrameObject:SetSelectionShown(...) end
----@return any ...
-function RaidWarningFrameObject:SetShownBase(...) end
----@return any ...
-function RaidWarningFrameObject:SetShownOverride(...) end
----@return any ...
-function RaidWarningFrameObject:SetSnappedToFrame(...) end
----@return any ...
-function RaidWarningFrameObject:SetupSettingsDialogAnchor(...) end
----@return any ...
-function RaidWarningFrameObject:SetupVisibilityFunctionOverrides(...) end
----@return any ...
-function RaidWarningFrameObject:ShouldBreakSnappedFramesOnHide(...) end
----@return any ...
-function RaidWarningFrameObject:ShouldResetSettingsDialogAnchors(...) end
----@return any ...
-function RaidWarningFrameObject:ShouldShowSetting(...) end
----@return any ...
-function RaidWarningFrameObject:ShowEditInstructions(...) end
----@return any ...
-function RaidWarningFrameObject:SnapToFrame(...) end
----@return any ...
-function RaidWarningFrameObject:TrySetCompositeNumberSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateClampOffsets(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateDirtySettings(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateDisplayInfoOptions(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateLayout(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateMagnetismRegistration(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSettingMap(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateShownState(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSystem(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSystemSetting(...) end
----@return any ...
-function RaidWarningFrameObject:UpdateSystemSettingValue(...) end
----@return any ...
-function RaidWarningFrameObject:UseSettingAltName(...) end
----@type RaidWarningFrameObject
-RaidWarningFrame = RaidWarningFrameObject
 end

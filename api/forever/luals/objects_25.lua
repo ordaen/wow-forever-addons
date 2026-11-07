@@ -3,6 +3,1829 @@
 
 
 do
+---@class MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
+local MailFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+local MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
+local MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButtonObject : Button
+---@field ActiveTexture MailFrame_TabIndicators_RightTabButton_ActiveTextureObject
+---@field DisabledTexture MailFrame_TabIndicators_RightTabButton_DisabledTextureObject
+---@field HoldAnim MailFrame_TabIndicators_RightTabButton_HoldAnimObject
+---@field HoldIndicator MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
+---@field HoverTexture MailFrame_TabIndicators_RightTabButton_HoverTextureObject
+---@field LoadBar MailFrame_TabIndicators_RightTabButton_LoadBarObject
+---@field LoadBarBG MailFrame_TabIndicators_RightTabButton_LoadBarBGObject
+---@field LoadBarGlow MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject
+---@field NormalTexture MailFrame_TabIndicators_RightTabButton_NormalTextureObject
+---@field PressedTexture MailFrame_TabIndicators_RightTabButton_PressedTextureObject
+---@field SpinnerTip MailFrame_TabIndicators_RightTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MailFrame_TabIndicators_RightTabButtonObject = {}
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MailFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_ActiveTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_DisabledTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject
+local MailFrame_TabIndicators_RightTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
+local MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject : Texture
+local MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject : Texture
+local MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_HoverTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_LoadBarObject : Texture
+local MailFrame_TabIndicators_RightTabButton_LoadBarObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_LoadBarBGObject : Texture
+local MailFrame_TabIndicators_RightTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject : Texture
+local MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_NormalTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_PressedTextureObject : Texture
+local MailFrame_TabIndicators_RightTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_RightTabButton_SpinnerTipObject : Texture
+local MailFrame_TabIndicators_RightTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MailFrame_TabIndicators_bindingsObject
+---@field actions table
+---@field axes table
+---@field buttons table
+---@field functions table
+---@field name string
+---@field nextButtonId number
+---@field nextFunctionId number
+---@field treatBindsAsCore boolean
+local MailFrame_TabIndicators_bindingsObject = {}
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:AddAxisBinding(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:AddButtonBinding(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:AddFunctionBinding(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockDpad(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockDpadAndFaceButtons(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockEverything(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockKeys(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockKeysWithModifiers(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:BlockKeysWithoutModifiers(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:Init(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:RemoveKeys(...) end
+---@return any ...
+function MailFrame_TabIndicators_bindingsObject:TreatAsCore(...) end
+end
+
+do
+---@class MailFrame_TitleContainerObject : Frame
+---@field TitleText MailFrame_TitleContainer_TitleTextObject
+local MailFrame_TitleContainerObject = {}
+end
+
+do
+---@class MailFrame_TitleContainer_TitleTextObject : FontString
+local MailFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class MailFrame_TopTileStreaksObject : Texture
+local MailFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class MailFrame_activeSubFrameObject
+local MailFrame_activeSubFrameObject = {}
+end
+
+do
+---@class MailFrame_trialErrorObject : FontString
+local MailFrame_trialErrorObject = {}
+end
+
+do
+---@class MajorFactionUnlockToastObject : Frame
+---@field FactionName MajorFactionUnlockToast_FactionNameObject
+---@field Glow1 MajorFactionUnlockToast_Glow1Object
+---@field Glow2 MajorFactionUnlockToast_Glow2Object
+---@field GlowLineBottom MajorFactionUnlockToast_GlowLineBottomObject
+---@field HeaderText MajorFactionUnlockToast_HeaderTextObject
+---@field Mask MajorFactionUnlockToast_MaskObject
+---@field ShowAnim MajorFactionUnlockToast_ShowAnimObject
+---@field Star1 MajorFactionUnlockToast_Star1Object
+---@field Star2 MajorFactionUnlockToast_Star2Object
+---@field ToastBG MajorFactionUnlockToast_ToastBGObject
+---@field TopBorder MajorFactionUnlockToast_TopBorderObject
+---@field TopIcon MajorFactionUnlockToast_TopIconObject
+local MajorFactionUnlockToastObject = {}
+---@return any ...
+function MajorFactionUnlockToastObject:OnAnimFinished(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:OnEvent(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:OnHide(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:OnLoad(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:PlayBanner(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:PlayMajorFactionUnlockToast(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:SetMajorFactionTextureKit(...) end
+---@return any ...
+function MajorFactionUnlockToastObject:StopBanner(...) end
+---@type MajorFactionUnlockToastObject
+MajorFactionUnlockToast = MajorFactionUnlockToastObject
+end
+
+do
+---@class MajorFactionUnlockToast_FactionNameObject : FontString
+local MajorFactionUnlockToast_FactionNameObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Glow1Object : Texture
+local MajorFactionUnlockToast_Glow1Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Glow2Object : Texture
+local MajorFactionUnlockToast_Glow2Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_GlowLineBottomObject : Texture
+local MajorFactionUnlockToast_GlowLineBottomObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_HeaderTextObject : FontString
+local MajorFactionUnlockToast_HeaderTextObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_MaskObject : Frame
+---@field MaskTexture MajorFactionUnlockToast_Mask_MaskTextureObject
+---@field Shine MajorFactionUnlockToast_Mask_ShineObject
+local MajorFactionUnlockToast_MaskObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Mask_MaskTextureObject : MaskTexture
+local MajorFactionUnlockToast_Mask_MaskTextureObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Mask_ShineObject : Texture
+local MajorFactionUnlockToast_Mask_ShineObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_ShowAnimObject : AnimationGroup
+local MajorFactionUnlockToast_ShowAnimObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Star1Object : Texture
+local MajorFactionUnlockToast_Star1Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_Star2Object : Texture
+local MajorFactionUnlockToast_Star2Object = {}
+end
+
+do
+---@class MajorFactionUnlockToast_ToastBGObject : Texture
+local MajorFactionUnlockToast_ToastBGObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_TopBorderObject : Texture
+local MajorFactionUnlockToast_TopBorderObject = {}
+end
+
+do
+---@class MajorFactionUnlockToast_TopIconObject : Texture
+local MajorFactionUnlockToast_TopIconObject = {}
+end
+
+do
+---@class MajorFactionsRenownToastObject : Frame
+---@field Glow1 MajorFactionsRenownToast_Glow1Object
+---@field Glow2 MajorFactionsRenownToast_Glow2Object
+---@field GlowLineBottom MajorFactionsRenownToast_GlowLineBottomObject
+---@field Mask MajorFactionsRenownToast_MaskObject
+---@field RenownLabel MajorFactionsRenownToast_RenownLabelObject
+---@field RewardDescription MajorFactionsRenownToast_RewardDescriptionObject
+---@field RewardIcon MajorFactionsRenownToast_RewardIconObject
+---@field RewardIconMask MajorFactionsRenownToast_RewardIconMaskObject
+---@field RewardIconMouseOver MajorFactionsRenownToast_RewardIconMouseOverObject
+---@field RewardIconRing MajorFactionsRenownToast_RewardIconRingObject
+---@field ShowAnim MajorFactionsRenownToast_ShowAnimObject
+---@field Star1 MajorFactionsRenownToast_Star1Object
+---@field Star2 MajorFactionsRenownToast_Star2Object
+---@field ToastBG MajorFactionsRenownToast_ToastBGObject
+---@field TopBorder MajorFactionsRenownToast_TopBorderObject
+---@field TopIcon MajorFactionsRenownToast_TopIconObject
+---@field waitAndAnimOut MajorFactionsRenownToast_waitAndAnimOutObject
+local MajorFactionsRenownToastObject = {}
+---@return any ...
+function MajorFactionsRenownToastObject:OnAnimFinished(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnEvent(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnHide(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnLoad(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnMouseEnter(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:OnMouseLeave(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:PlayBanner(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:RefreshTooltip(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:SetMajorFactionTextureKit(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:SetupRewardVisuals(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:ShowRenownLevelUpToast(...) end
+---@return any ...
+function MajorFactionsRenownToastObject:StopBanner(...) end
+---@type MajorFactionsRenownToastObject
+MajorFactionsRenownToast = MajorFactionsRenownToastObject
+end
+
+do
+---@class MajorFactionsRenownToast_Glow1Object : Texture
+local MajorFactionsRenownToast_Glow1Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Glow2Object : Texture
+local MajorFactionsRenownToast_Glow2Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_GlowLineBottomObject : Texture
+local MajorFactionsRenownToast_GlowLineBottomObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_MaskObject : Frame
+---@field MaskTexture MajorFactionsRenownToast_Mask_MaskTextureObject
+---@field Shine MajorFactionsRenownToast_Mask_ShineObject
+local MajorFactionsRenownToast_MaskObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Mask_MaskTextureObject : MaskTexture
+local MajorFactionsRenownToast_Mask_MaskTextureObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Mask_ShineObject : Texture
+local MajorFactionsRenownToast_Mask_ShineObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RenownLabelObject : FontString
+local MajorFactionsRenownToast_RenownLabelObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardDescriptionObject : FontString
+local MajorFactionsRenownToast_RewardDescriptionObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconObject : Texture
+local MajorFactionsRenownToast_RewardIconObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconMaskObject : MaskTexture
+local MajorFactionsRenownToast_RewardIconMaskObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconMouseOverObject : Frame
+local MajorFactionsRenownToast_RewardIconMouseOverObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_RewardIconRingObject : Texture
+local MajorFactionsRenownToast_RewardIconRingObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_ShowAnimObject : AnimationGroup
+local MajorFactionsRenownToast_ShowAnimObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Star1Object : Texture
+local MajorFactionsRenownToast_Star1Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_Star2Object : Texture
+local MajorFactionsRenownToast_Star2Object = {}
+end
+
+do
+---@class MajorFactionsRenownToast_ToastBGObject : Texture
+local MajorFactionsRenownToast_ToastBGObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_TopBorderObject : Texture
+local MajorFactionsRenownToast_TopBorderObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_TopIconObject : Texture
+local MajorFactionsRenownToast_TopIconObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_waitAndAnimOutObject : AnimationGroup
+---@field animOut MajorFactionsRenownToast_waitAndAnimOut_animOutObject
+local MajorFactionsRenownToast_waitAndAnimOutObject = {}
+end
+
+do
+---@class MajorFactionsRenownToast_waitAndAnimOut_animOutObject : Alpha
+local MajorFactionsRenownToast_waitAndAnimOut_animOutObject = {}
+end
+
+do
+---@class MerchantFrameObject : Frame
+---@field Bg MerchantFrame_BgObject
+---@field CloseButton MerchantFrame_CloseButtonObject
+---@field FilterDropdown MerchantFrame_FilterDropdownObject
+---@field FocusJumpHint MerchantFrame_FocusJumpHintObject
+---@field FrameGlow MerchantFrame_FrameGlowObject
+---@field Inset MerchantFrame_InsetObject
+---@field LeftJumpHint MerchantFrame_LeftJumpHintObject
+---@field NineSlice MerchantFrame_NineSliceObject
+---@field PortraitContainer MerchantFrame_PortraitContainerObject
+---@field RightJumpHint MerchantFrame_RightJumpHintObject
+---@field TabIndicators MerchantFrame_TabIndicatorsObject
+---@field Tabs table
+---@field TitleContainer MerchantFrame_TitleContainerObject
+---@field TopTileStreaks MerchantFrame_TopTileStreaksObject
+---@field lastTab number
+---@field layoutType string
+---@field numTabs number
+---@field page number
+---@field selectedTab number
+---@field update boolean
+local MerchantFrameObject = {}
+---@return any ...
+function MerchantFrameObject:EndFocus(...) end
+---@return any ...
+function MerchantFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function MerchantFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function MerchantFrameObject:GetPortrait(...) end
+---@return any ...
+function MerchantFrameObject:GetTitleText(...) end
+---@return any ...
+function MerchantFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function MerchantFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:LockInFocus(...) end
+---@return any ...
+function MerchantFrameObject:RefreshFocus(...) end
+---@return any ...
+function MerchantFrameObject:SetBorder(...) end
+---@return any ...
+function MerchantFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitShown(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function MerchantFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function MerchantFrameObject:SetTitle(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleColor(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function MerchantFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function MerchantFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function MerchantFrameObject:StartFocus(...) end
+---@type MerchantFrameObject
+MerchantFrame = MerchantFrameObject
+end
+
+do
+---@class MerchantFrame_BgObject : Texture
+local MerchantFrame_BgObject = {}
+end
+
+do
+---@class MerchantFrame_CloseButtonObject : Button
+local MerchantFrame_CloseButtonObject = {}
+---@return any ...
+function MerchantFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function MerchantFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class MerchantFrame_FilterDropdownObject : Button
+---@field Arrow MerchantFrame_FilterDropdown_ArrowObject
+---@field Background MerchantFrame_FilterDropdown_BackgroundObject
+---@field Event MerchantFrame_FilterDropdown_EventObject
+---@field Text MerchantFrame_FilterDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor MerchantFrame_FilterDropdown_menuAnchorObject
+---@field menuDescription MerchantFrame_FilterDropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local MerchantFrame_FilterDropdownObject = {}
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ClearMenuState(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CloseMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Decrement(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GenerateMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetDefaultText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetSelectionData(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:GetUpdateText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasElements(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Increment(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsDown(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsDownOver(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:IsOver(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:NarrationGetName(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnDisable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnEnable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnEnter(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnLeave(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseDown(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseUp(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OnShow(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OpenMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:OverrideText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Pick(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:RegisterCallback(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:RegisterMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Rotate(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetDefaultText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetSelectionText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SetupMenu(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:ShowTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:SignalUpdate(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:TriggerEvent(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:Update(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UpdateSelections(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UpdateText(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:menuGenerator(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function MerchantFrame_FilterDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class MerchantFrame_FilterDropdown_ArrowObject : Texture
+local MerchantFrame_FilterDropdown_ArrowObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_BackgroundObject : Texture
+local MerchantFrame_FilterDropdown_BackgroundObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_EventObject
+local MerchantFrame_FilterDropdown_EventObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_TextObject : FontString
+local MerchantFrame_FilterDropdown_TextObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo MerchantFrame_FilterDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local MerchantFrame_FilterDropdown_menuAnchorObject = {}
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class MerchantFrame_FilterDropdown_menuAnchor_relativeToObject
+local MerchantFrame_FilterDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class MerchantFrame_FilterDropdown_menuDescriptionObject
+---@field tag string
+local MerchantFrame_FilterDropdown_menuDescriptionObject = {}
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function MerchantFrame_FilterDropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class MerchantFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture MerchantFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim MerchantFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator MerchantFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar MerchantFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG MerchantFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture MerchantFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip MerchantFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_FocusJumpHintObject = {}
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_ActiveTextureObject : Texture
+local MerchantFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_DisabledTextureObject : Texture
+local MerchantFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local MerchantFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local MerchantFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_HoverTextureObject : Texture
+local MerchantFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_LoadBarObject : Texture
+local MerchantFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_LoadBarBGObject : Texture
+local MerchantFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local MerchantFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_NormalTextureObject : Texture
+local MerchantFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_PressedTextureObject : Texture
+local MerchantFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_FocusJumpHint_SpinnerTipObject : Texture
+local MerchantFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_FrameGlowObject : Frame
+---@field GlowTexture MerchantFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local MerchantFrame_FrameGlowObject = {}
+---@return any ...
+function MerchantFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function MerchantFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function MerchantFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function MerchantFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class MerchantFrame_FrameGlow_GlowTextureObject : Texture
+local MerchantFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class MerchantFrame_InsetObject : Frame
+---@field Bg MerchantFrame_Inset_BgObject
+---@field NineSlice MerchantFrame_Inset_NineSliceObject
+---@field layoutType string
+local MerchantFrame_InsetObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_BgObject : Texture
+local MerchantFrame_Inset_BgObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSliceObject : Frame
+---@field BottomEdge MerchantFrame_Inset_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MerchantFrame_Inset_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MerchantFrame_Inset_NineSlice_BottomRightCornerObject
+---@field LeftEdge MerchantFrame_Inset_NineSlice_LeftEdgeObject
+---@field RightEdge MerchantFrame_Inset_NineSlice_RightEdgeObject
+---@field TopEdge MerchantFrame_Inset_NineSlice_TopEdgeObject
+---@field TopLeftCorner MerchantFrame_Inset_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MerchantFrame_Inset_NineSlice_TopRightCornerObject
+local MerchantFrame_Inset_NineSliceObject = {}
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MerchantFrame_Inset_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_BottomEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_BottomRightCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_LeftEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_RightEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_TopEdgeObject : Texture
+local MerchantFrame_Inset_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_TopLeftCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_Inset_NineSlice_TopRightCornerObject : Texture
+local MerchantFrame_Inset_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture MerchantFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim MerchantFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator MerchantFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar MerchantFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG MerchantFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture MerchantFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip MerchantFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_LeftJumpHintObject = {}
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_ActiveTextureObject : Texture
+local MerchantFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_DisabledTextureObject : Texture
+local MerchantFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local MerchantFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local MerchantFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_HoverTextureObject : Texture
+local MerchantFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_LoadBarObject : Texture
+local MerchantFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_LoadBarBGObject : Texture
+local MerchantFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local MerchantFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_NormalTextureObject : Texture
+local MerchantFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_PressedTextureObject : Texture
+local MerchantFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_LeftJumpHint_SpinnerTipObject : Texture
+local MerchantFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_NineSliceObject : Frame
+---@field BottomEdge MerchantFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner MerchantFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner MerchantFrame_NineSlice_BottomRightCornerObject
+---@field Center MerchantFrame_NineSlice_CenterObject
+---@field LeftEdge MerchantFrame_NineSlice_LeftEdgeObject
+---@field RightEdge MerchantFrame_NineSlice_RightEdgeObject
+---@field TopEdge MerchantFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner MerchantFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner MerchantFrame_NineSlice_TopRightCornerObject
+local MerchantFrame_NineSliceObject = {}
+---@return any ...
+function MerchantFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function MerchantFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class MerchantFrame_NineSlice_BottomEdgeObject : Texture
+local MerchantFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_BottomLeftCornerObject : Texture
+local MerchantFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_BottomRightCornerObject : Texture
+local MerchantFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_CenterObject : Texture
+local MerchantFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_LeftEdgeObject : Texture
+local MerchantFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_RightEdgeObject : Texture
+local MerchantFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_TopEdgeObject : Texture
+local MerchantFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_TopLeftCornerObject : Texture
+local MerchantFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class MerchantFrame_NineSlice_TopRightCornerObject : Texture
+local MerchantFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class MerchantFrame_PortraitContainerObject : Frame
+---@field CircleMask MerchantFrame_PortraitContainer_CircleMaskObject
+---@field portrait MerchantFrame_PortraitContainer_portraitObject
+local MerchantFrame_PortraitContainerObject = {}
+end
+
+do
+---@class MerchantFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local MerchantFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class MerchantFrame_PortraitContainer_portraitObject : Texture
+local MerchantFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHintObject : Frame
+---@field ActiveTexture MerchantFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim MerchantFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator MerchantFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar MerchantFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG MerchantFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture MerchantFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip MerchantFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_RightJumpHintObject = {}
+---@return any ...
+function MerchantFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_RightJumpHint_ActiveTextureObject : Texture
+local MerchantFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_DisabledTextureObject : Texture
+local MerchantFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldIndicatorObject : Texture
+local MerchantFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local MerchantFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_HoverTextureObject : Texture
+local MerchantFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_LoadBarObject : Texture
+local MerchantFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_LoadBarBGObject : Texture
+local MerchantFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_LoadBarGlowObject : Texture
+local MerchantFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_NormalTextureObject : Texture
+local MerchantFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_PressedTextureObject : Texture
+local MerchantFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_RightJumpHint_SpinnerTipObject : Texture
+local MerchantFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicatorsObject : Frame
+---@field LeftTabButton MerchantFrame_TabIndicators_LeftTabButtonObject
+---@field RightTabButton MerchantFrame_TabIndicators_RightTabButtonObject
+---@field bindings MerchantFrame_TabIndicators_bindingsObject
+---@field currentIndex number
+---@field tabs table
+---@field visibleTabs table
+local MerchantFrame_TabIndicatorsObject = {}
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:ClickCurrentTab(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:GetNumTabs(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:LockTabs(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:OnHide(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:OnShow(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:SetCurrentIndex(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:SetUpTabs(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:Tab(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:UpdateTabIndicators(...) end
+---@return any ...
+function MerchantFrame_TabIndicatorsObject:UpdateTabVisibility(...) end
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButtonObject : Button
+---@field ActiveTexture MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject
+---@field HoldAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject
+---@field HoldIndicator MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject
+---@field LoadBar MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject
+---@field LoadBarBG MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject
+---@field PressedTexture MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject
+---@field SpinnerTip MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_TabIndicators_LeftTabButtonObject = {}
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnClick(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_LeftTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
+local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
+local MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
+end
+
+do
+---@class MerchantFrame_TabIndicators_RightTabButtonObject : Button
+---@field ActiveTexture MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject
+---@field DisabledTexture MerchantFrame_TabIndicators_RightTabButton_DisabledTextureObject
+---@field HoldAnim MerchantFrame_TabIndicators_RightTabButton_HoldAnimObject
+---@field HoldIndicator MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorObject
+---@field HoldIndicatorBG MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
+---@field HoverTexture MerchantFrame_TabIndicators_RightTabButton_HoverTextureObject
+---@field LoadBar MerchantFrame_TabIndicators_RightTabButton_LoadBarObject
+---@field LoadBarBG MerchantFrame_TabIndicators_RightTabButton_LoadBarBGObject
+---@field LoadBarGlow MerchantFrame_TabIndicators_RightTabButton_LoadBarGlowObject
+---@field NormalTexture MerchantFrame_TabIndicators_RightTabButton_NormalTextureObject
+---@field PressedTexture MerchantFrame_TabIndicators_RightTabButton_PressedTextureObject
+---@field SpinnerTip MerchantFrame_TabIndicators_RightTabButton_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field offset number
+---@field smartNavigationIgnored boolean
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local MerchantFrame_TabIndicators_RightTabButtonObject = {}
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
+---@return any ...
+function MerchantFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
 ---@class MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject : Texture
 local MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject = {}
 end
@@ -8253,1673 +10076,4 @@ function OverlayPlayerCastingBarFrameObject:UpdateStage(...) end
 function OverlayPlayerCastingBarFrameObject:UpdateTargetNameText(...) end
 ---@type OverlayPlayerCastingBarFrameObject
 OverlayPlayerCastingBarFrame = OverlayPlayerCastingBarFrameObject
-end
-
-do
----@class OverlayPlayerCastingBarFrame_BackgroundObject : Texture
-local OverlayPlayerCastingBarFrame_BackgroundObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_BaseGlowObject : Texture
-local OverlayPlayerCastingBarFrame_BaseGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_BorderObject : Texture
-local OverlayPlayerCastingBarFrame_BorderObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_BorderMaskObject : MaskTexture
-local OverlayPlayerCastingBarFrame_BorderMaskObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_BorderShieldObject : Texture
-local OverlayPlayerCastingBarFrame_BorderShieldObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_CastTimeTextObject : FontString
-local OverlayPlayerCastingBarFrame_CastTimeTextObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_ChannelFinishObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_ChannelFinishObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_ChannelShadowObject : Texture
-local OverlayPlayerCastingBarFrame_ChannelShadowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_ChargeFlashObject : Texture
-local OverlayPlayerCastingBarFrame_ChargeFlashObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_ChargeGlowObject : Texture
-local OverlayPlayerCastingBarFrame_ChargeGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_CraftGlowObject : Texture
-local OverlayPlayerCastingBarFrame_CraftGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_CraftingFinishObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_CraftingFinishObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_CraftingMaskObject : MaskTexture
-local OverlayPlayerCastingBarFrame_CraftingMaskObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_DropShadowObject : Texture
-local OverlayPlayerCastingBarFrame_DropShadowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_EnergyGlowObject : Texture
-local OverlayPlayerCastingBarFrame_EnergyGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_EnergyMaskObject : MaskTexture
-local OverlayPlayerCastingBarFrame_EnergyMaskObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_FadeOutAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_FadeOutAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_Flakes01Object : Texture
-local OverlayPlayerCastingBarFrame_Flakes01Object = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_Flakes02Object : Texture
-local OverlayPlayerCastingBarFrame_Flakes02Object = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_Flakes03Object : Texture
-local OverlayPlayerCastingBarFrame_Flakes03Object = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_FlashObject : Texture
-local OverlayPlayerCastingBarFrame_FlashObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_FlashAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_FlashAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_FlashLoopingAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_IconObject : Texture
-local OverlayPlayerCastingBarFrame_IconObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_InterruptGlowObject : Texture
-local OverlayPlayerCastingBarFrame_InterruptGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_InterruptGlowAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_InterruptShakeAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_InterruptSparkAnimObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_ShineObject : Texture
-local OverlayPlayerCastingBarFrame_ShineObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_SparkObject : Texture
----@field offsetY number
-local OverlayPlayerCastingBarFrame_SparkObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_Sparkles01Object : Texture
-local OverlayPlayerCastingBarFrame_Sparkles01Object = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_Sparkles02Object : Texture
-local OverlayPlayerCastingBarFrame_Sparkles02Object = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_StageFinishObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_StageFinishObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_StageFlashObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_StageFlashObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_StandardFinishObject : AnimationGroup
-local OverlayPlayerCastingBarFrame_StandardFinishObject = {}
----@return any ...
-function OverlayPlayerCastingBarFrame_StandardFinishObject:Hide(...) end
----@return any ...
-function OverlayPlayerCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
----@return any ...
-function OverlayPlayerCastingBarFrame_StandardFinishObject:Show(...) end
-end
-
-do
----@class OverlayPlayerCastingBarFrame_StandardGlowObject : Texture
-local OverlayPlayerCastingBarFrame_StandardGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_TextObject : FontString
-local OverlayPlayerCastingBarFrame_TextObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_TextBorderObject : Texture
-local OverlayPlayerCastingBarFrame_TextBorderObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_WispGlowObject : Texture
-local OverlayPlayerCastingBarFrame_WispGlowObject = {}
-end
-
-do
----@class OverlayPlayerCastingBarFrame_WispMaskObject : MaskTexture
-local OverlayPlayerCastingBarFrame_WispMaskObject = {}
-end
-
-do
----@class OverrideActionBarObject : Frame
----@field ButtonBGL OverrideActionBar_ButtonBGLObject
----@field ButtonBGR OverrideActionBar_ButtonBGRObject
----@field Divider1 OverrideActionBar_Divider1Object
----@field Divider2 OverrideActionBar_Divider2Object
----@field Divider3 OverrideActionBar_Divider3Object
----@field EndCapL OverrideActionBar_EndCapLObject
----@field EndCapR OverrideActionBar_EndCapRObject
----@field ExitBG OverrideActionBar_ExitBGObject
----@field HealthBarBG OverrideActionBar_HealthBarBGObject
----@field HealthBarOverlay OverrideActionBar_HealthBarOverlayObject
----@field LeaveButton OverrideActionBar_LeaveButtonObject
----@field LeaveDown OverrideActionBar_LeaveDownObject
----@field LeaveHighlight OverrideActionBar_LeaveHighlightObject
----@field LeaveUp OverrideActionBar_LeaveUpObject
----@field MicroBGL OverrideActionBar_MicroBGLObject
----@field MicroBGR OverrideActionBar_MicroBGRObject
----@field PitchBG OverrideActionBar_PitchBGObject
----@field PitchButtonBG OverrideActionBar_PitchButtonBGObject
----@field PitchDownButton OverrideActionBar_PitchDownButtonObject
----@field PitchDownDown OverrideActionBar_PitchDownDownObject
----@field PitchDownHighlight OverrideActionBar_PitchDownHighlightObject
----@field PitchDownUp OverrideActionBar_PitchDownUpObject
----@field PitchMarker OverrideActionBar_PitchMarkerObject
----@field PitchOverlay OverrideActionBar_PitchOverlayObject
----@field PitchUpButton OverrideActionBar_PitchUpButtonObject
----@field PitchUpDown OverrideActionBar_PitchUpDownObject
----@field PitchUpHighlight OverrideActionBar_PitchUpHighlightObject
----@field PitchUpUp OverrideActionBar_PitchUpUpObject
----@field PowerBarBG OverrideActionBar_PowerBarBGObject
----@field PowerBarOverlay OverrideActionBar_PowerBarOverlayObject
----@field SpellButton1 OverrideActionBar_SpellButton1Object
----@field SpellButton2 OverrideActionBar_SpellButton2Object
----@field SpellButton3 OverrideActionBar_SpellButton3Object
----@field SpellButton4 OverrideActionBar_SpellButton4Object
----@field SpellButton5 OverrideActionBar_SpellButton5Object
----@field SpellButton6 OverrideActionBar_SpellButton6Object
----@field _BG OverrideActionBar__BGObject
----@field _Border OverrideActionBar__BorderObject
----@field _ButtonBGMid OverrideActionBar__ButtonBGMidObject
----@field _MicroBGMid OverrideActionBar__MicroBGMidObject
----@field healthBar OverrideActionBar_healthBarObject
----@field leaveFrame OverrideActionBar_leaveFrameObject
----@field pitchFrame OverrideActionBar_pitchFrameObject
----@field powerBar OverrideActionBar_powerBarObject
----@field slideOut OverrideActionBar_slideOutObject
----@field xpBar OverrideActionBar_xpBarObject
-local OverrideActionBarObject = {}
----@return any ...
-function OverrideActionBarObject:CalcSize(...) end
----@return any ...
-function OverrideActionBarObject:GetMicroButtonAnchor(...) end
----@return any ...
-function OverrideActionBarObject:IsShownBase(...) end
----@return any ...
-function OverrideActionBarObject:IsShownOverride(...) end
----@return any ...
-function OverrideActionBarObject:Leave(...) end
----@return any ...
-function OverrideActionBarObject:OnEvent(...) end
----@return any ...
-function OverrideActionBarObject:OnHide(...) end
----@return any ...
-function OverrideActionBarObject:OnLoad(...) end
----@return any ...
-function OverrideActionBarObject:OnShow(...) end
----@return any ...
-function OverrideActionBarObject:SetPitchValue(...) end
----@return any ...
-function OverrideActionBarObject:SetSkin(...) end
----@return any ...
-function OverrideActionBarObject:Setup(...) end
----@return any ...
-function OverrideActionBarObject:UpdateMicroButtons(...) end
----@return any ...
-function OverrideActionBarObject:UpdateSkin(...) end
----@return any ...
-function OverrideActionBarObject:UpdateXpBar(...) end
----@type OverrideActionBarObject
-OverrideActionBar = OverrideActionBarObject
-end
-
-do
----@class OverrideActionBar_ButtonBGLObject : Texture
-local OverrideActionBar_ButtonBGLObject = {}
-end
-
-do
----@class OverrideActionBar_ButtonBGRObject : Texture
-local OverrideActionBar_ButtonBGRObject = {}
-end
-
-do
----@class OverrideActionBar_Divider1Object : Texture
-local OverrideActionBar_Divider1Object = {}
-end
-
-do
----@class OverrideActionBar_Divider2Object : Texture
-local OverrideActionBar_Divider2Object = {}
-end
-
-do
----@class OverrideActionBar_Divider3Object
-local OverrideActionBar_Divider3Object = {}
-end
-
-do
----@class OverrideActionBar_EndCapLObject : Texture
-local OverrideActionBar_EndCapLObject = {}
-end
-
-do
----@class OverrideActionBar_EndCapRObject : Texture
-local OverrideActionBar_EndCapRObject = {}
-end
-
-do
----@class OverrideActionBar_ExitBGObject
-local OverrideActionBar_ExitBGObject = {}
-end
-
-do
----@class OverrideActionBar_HealthBarBGObject : Texture
-local OverrideActionBar_HealthBarBGObject = {}
-end
-
-do
----@class OverrideActionBar_HealthBarOverlayObject : Texture
-local OverrideActionBar_HealthBarOverlayObject = {}
-end
-
-do
----@class OverrideActionBar_LeaveButtonObject
-local OverrideActionBar_LeaveButtonObject = {}
-end
-
-do
----@class OverrideActionBar_LeaveDownObject
-local OverrideActionBar_LeaveDownObject = {}
-end
-
-do
----@class OverrideActionBar_LeaveHighlightObject : Texture
-local OverrideActionBar_LeaveHighlightObject = {}
-end
-
-do
----@class OverrideActionBar_LeaveUpObject : Texture
-local OverrideActionBar_LeaveUpObject = {}
-end
-
-do
----@class OverrideActionBar_MicroBGLObject : Texture
-local OverrideActionBar_MicroBGLObject = {}
-end
-
-do
----@class OverrideActionBar_MicroBGRObject : Texture
-local OverrideActionBar_MicroBGRObject = {}
-end
-
-do
----@class OverrideActionBar_PitchBGObject : Texture
-local OverrideActionBar_PitchBGObject = {}
-end
-
-do
----@class OverrideActionBar_PitchButtonBGObject : Texture
-local OverrideActionBar_PitchButtonBGObject = {}
-end
-
-do
----@class OverrideActionBar_PitchDownButtonObject : Button
-local OverrideActionBar_PitchDownButtonObject = {}
-end
-
-do
----@class OverrideActionBar_PitchDownDownObject : Texture
-local OverrideActionBar_PitchDownDownObject = {}
-end
-
-do
----@class OverrideActionBar_PitchDownHighlightObject : Texture
-local OverrideActionBar_PitchDownHighlightObject = {}
-end
-
-do
----@class OverrideActionBar_PitchDownUpObject : Texture
-local OverrideActionBar_PitchDownUpObject = {}
-end
-
-do
----@class OverrideActionBar_PitchMarkerObject : Texture
-local OverrideActionBar_PitchMarkerObject = {}
-end
-
-do
----@class OverrideActionBar_PitchOverlayObject : Texture
-local OverrideActionBar_PitchOverlayObject = {}
-end
-
-do
----@class OverrideActionBar_PitchUpButtonObject
-local OverrideActionBar_PitchUpButtonObject = {}
-end
-
-do
----@class OverrideActionBar_PitchUpDownObject : Texture
-local OverrideActionBar_PitchUpDownObject = {}
-end
-
-do
----@class OverrideActionBar_PitchUpHighlightObject : Texture
-local OverrideActionBar_PitchUpHighlightObject = {}
-end
-
-do
----@class OverrideActionBar_PitchUpUpObject : Texture
-local OverrideActionBar_PitchUpUpObject = {}
-end
-
-do
----@class OverrideActionBar_PowerBarBGObject
-local OverrideActionBar_PowerBarBGObject = {}
-end
-
-do
----@class OverrideActionBar_PowerBarOverlayObject
-local OverrideActionBar_PowerBarOverlayObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1Object : CheckButton
----@field Arrow OverrideActionBar_SpellButton1_ArrowObject
----@field AutoCastOverlay OverrideActionBar_SpellButton1_AutoCastOverlayObject
----@field Border OverrideActionBar_SpellButton1_BorderObject
----@field BorderShadow OverrideActionBar_SpellButton1_BorderShadowObject
----@field CheckedTexture OverrideActionBar_SpellButton1_CheckedTextureObject
----@field CooldownFlash OverrideActionBar_SpellButton1_CooldownFlashObject
----@field Count OverrideActionBar_SpellButton1_CountObject
----@field Flash OverrideActionBar_SpellButton1_FlashObject
----@field HighlightTexture OverrideActionBar_SpellButton1_HighlightTextureObject
----@field HotKey OverrideActionBar_SpellButton1_HotKeyObject
----@field IconMask OverrideActionBar_SpellButton1_IconMaskObject
----@field InterruptDisplay OverrideActionBar_SpellButton1_InterruptDisplayObject
----@field LevelLinkLockIcon OverrideActionBar_SpellButton1_LevelLinkLockIconObject
----@field Name OverrideActionBar_SpellButton1_NameObject
----@field NewActionTexture OverrideActionBar_SpellButton1_NewActionTextureObject
----@field NormalTexture OverrideActionBar_SpellButton1_NormalTextureObject
----@field PushedTexture OverrideActionBar_SpellButton1_PushedTextureObject
----@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject
----@field SlotArt OverrideActionBar_SpellButton1_SlotArtObject
----@field SlotBackground OverrideActionBar_SpellButton1_SlotBackgroundObject
----@field SpellCastAnimFrame OverrideActionBar_SpellButton1_SpellCastAnimFrameObject
----@field SpellHighlightAnim OverrideActionBar_SpellButton1_SpellHighlightAnimObject
----@field SpellHighlightTexture OverrideActionBar_SpellButton1_SpellHighlightTextureObject
----@field TargetReticleAnimFrame OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject
----@field TextOverlayContainer OverrideActionBar_SpellButton1_TextOverlayContainerObject
----@field action number
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field chargeCooldown OverrideActionBar_SpellButton1_chargeCooldownObject
----@field closedArrowOffset number
----@field commandName string
----@field cooldown OverrideActionBar_SpellButton1_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field eventsRegistered boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon OverrideActionBar_SpellButton1_iconObject
----@field lossOfControlCooldown OverrideActionBar_SpellButton1_lossOfControlCooldownObject
----@field openArrowOffset number
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local OverrideActionBar_SpellButton1Object = {}
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:CalculateAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:CheckNeedsUpdate(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClearFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClearInterruptDisplay(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClearPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClearProfessionQuality(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClearReticle(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClearTypeOverlay(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:ClosePopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:DesaturateIfDisabled(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:DoModeChange(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:EvaluateState(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:EvaluateTutorials(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:Flyout_OnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetActionButtonInfo(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetAllowRadialWheel(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetArrowRotation(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetIsPingable(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetPagedID(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetPopupDirection(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetShowGrid(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:GetTargetInfo(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:HasAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:HasPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:IsDown(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:IsDownOver(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:IsFlashing(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:IsOver(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:IsPopupOpen(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnActionBarSlotChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnAttributeChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnButtonStateChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnDisable(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnEnable(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnEvent(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnMouseDown(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnMouseUp(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnPopupHidden(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnPopupToggled(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnReceiveDrag(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:OnUpdate(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:PlaySpellCastAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetButtonStateBase(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetButtonStateOverride(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetDisplacedRegions(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetPopupDirection(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetShowGrid(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SetTooltip(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:SpellFXEnabled(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:StartFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:StopFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:StopSpellCastAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:StopTargettingReticleAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:TogglePopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:TriggerSecureClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:Update(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateArrowPosition(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateArrowRotation(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateArrowShown(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateArrowTexture(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateBorderShadow(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateButtonArt(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateCastingAnimation(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateCount(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateFlyout(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateFlyoutPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateHighlightMark(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateHotkeys(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdatePingAttributes(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateProfessionQuality(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateSpellAlert(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateState(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateTypeOverlay(...) end
----@return any ...
-function OverrideActionBar_SpellButton1Object:UpdateUsable(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_ArrowObject : Texture
----@field origHeight number
----@field origTexCoords table
----@field origWidth number
----@field rotationDegrees number
-local OverrideActionBar_SpellButton1_ArrowObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_AutoCastOverlayObject : Frame
----@field Corners OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject
----@field Mask OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject
----@field Shine OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local OverrideActionBar_SpellButton1_AutoCastOverlayObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject : Texture
-local OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject : MaskTexture
-local OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject : Texture
----@field Anim OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject
-local OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_BorderObject : Texture
-local OverrideActionBar_SpellButton1_BorderObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_BorderShadowObject : Texture
-local OverrideActionBar_SpellButton1_BorderShadowObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_CheckedTextureObject : Texture
-local OverrideActionBar_SpellButton1_CheckedTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_CooldownFlashObject : Frame
----@field FlashAnim OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject
----@field Flipbook OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject
-local OverrideActionBar_SpellButton1_CooldownFlashObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject : AnimationGroup
-local OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject : Texture
-local OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_CountObject : FontString
-local OverrideActionBar_SpellButton1_CountObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_FlashObject : Texture
-local OverrideActionBar_SpellButton1_FlashObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_HighlightTextureObject : Texture
-local OverrideActionBar_SpellButton1_HighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_HotKeyObject : FontString
-local OverrideActionBar_SpellButton1_HotKeyObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_IconMaskObject : MaskTexture
-local OverrideActionBar_SpellButton1_IconMaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplayObject : Frame
----@field Base OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject
----@field Highlight OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject
-local OverrideActionBar_SpellButton1_InterruptDisplayObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_InterruptDisplayObject:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject : Frame
----@field AnimIn OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject
----@field Base OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject
-local OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject : Texture
-local OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject : Frame
----@field AnimIn OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject
-local OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_LevelLinkLockIconObject : Texture
-local OverrideActionBar_SpellButton1_LevelLinkLockIconObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_NameObject : FontString
-local OverrideActionBar_SpellButton1_NameObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_NewActionTextureObject : Texture
-local OverrideActionBar_SpellButton1_NewActionTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_NormalTextureObject : Texture
-local OverrideActionBar_SpellButton1_NormalTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_PushedTextureObject : Texture
-local OverrideActionBar_SpellButton1_PushedTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject : Texture
-local OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SlotArtObject : Texture
-local OverrideActionBar_SpellButton1_SlotArtObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SlotBackgroundObject : Texture
-local OverrideActionBar_SpellButton1_SlotBackgroundObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrameObject : Frame
----@field EndBurst OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject
----@field Fill OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject
-local OverrideActionBar_SpellButton1_SpellCastAnimFrameObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:Setup(...) end
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject : Frame
----@field CastFill OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject
----@field CastingAnim OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject
----@field FillMask OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject
----@field InnerGlowTexture OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject : Texture
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
----@field CastFillTranslation OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
-local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellHighlightAnimObject : AnimationGroup
-local OverrideActionBar_SpellButton1_SpellHighlightAnimObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_SpellHighlightTextureObject : Texture
-local OverrideActionBar_SpellButton1_SpellHighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject : Frame
----@field Base OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject
----@field Highlight OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject
----@field HighlightAnim OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject
----@field Mask OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject
-local OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject:Setup(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject : Texture
-local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject : Texture
-local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
-local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject : MaskTexture
-local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_TextOverlayContainerObject : Frame
----@field Count OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject
----@field HotKey OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject
-local OverrideActionBar_SpellButton1_TextOverlayContainerObject = {}
----@return any ...
-function OverrideActionBar_SpellButton1_TextOverlayContainerObject:OnLoad(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject
-local OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject
-local OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_chargeCooldownObject : Cooldown
-local OverrideActionBar_SpellButton1_chargeCooldownObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_cooldownObject : Cooldown
-local OverrideActionBar_SpellButton1_cooldownObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_iconObject : Texture
-local OverrideActionBar_SpellButton1_iconObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton1_lossOfControlCooldownObject : Cooldown
-local OverrideActionBar_SpellButton1_lossOfControlCooldownObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2Object : CheckButton
----@field Arrow OverrideActionBar_SpellButton2_ArrowObject
----@field AutoCastOverlay OverrideActionBar_SpellButton2_AutoCastOverlayObject
----@field Border OverrideActionBar_SpellButton2_BorderObject
----@field BorderShadow OverrideActionBar_SpellButton2_BorderShadowObject
----@field CheckedTexture OverrideActionBar_SpellButton2_CheckedTextureObject
----@field CooldownFlash OverrideActionBar_SpellButton2_CooldownFlashObject
----@field Count OverrideActionBar_SpellButton2_CountObject
----@field Flash OverrideActionBar_SpellButton2_FlashObject
----@field HighlightTexture OverrideActionBar_SpellButton2_HighlightTextureObject
----@field HotKey OverrideActionBar_SpellButton2_HotKeyObject
----@field IconMask OverrideActionBar_SpellButton2_IconMaskObject
----@field InterruptDisplay OverrideActionBar_SpellButton2_InterruptDisplayObject
----@field LevelLinkLockIcon OverrideActionBar_SpellButton2_LevelLinkLockIconObject
----@field Name OverrideActionBar_SpellButton2_NameObject
----@field NewActionTexture OverrideActionBar_SpellButton2_NewActionTextureObject
----@field NormalTexture OverrideActionBar_SpellButton2_NormalTextureObject
----@field PushedTexture OverrideActionBar_SpellButton2_PushedTextureObject
----@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject
----@field SlotArt OverrideActionBar_SpellButton2_SlotArtObject
----@field SlotBackground OverrideActionBar_SpellButton2_SlotBackgroundObject
----@field SpellCastAnimFrame OverrideActionBar_SpellButton2_SpellCastAnimFrameObject
----@field SpellHighlightAnim OverrideActionBar_SpellButton2_SpellHighlightAnimObject
----@field SpellHighlightTexture OverrideActionBar_SpellButton2_SpellHighlightTextureObject
----@field TargetReticleAnimFrame OverrideActionBar_SpellButton2_TargetReticleAnimFrameObject
----@field TextOverlayContainer OverrideActionBar_SpellButton2_TextOverlayContainerObject
----@field action number
----@field arrowCrossAxisSize number
----@field arrowDownTexture string
----@field arrowMainAxisSize number
----@field arrowNormalTexture string
----@field arrowOverTexture string
----@field bindingAction string
----@field chargeCooldown OverrideActionBar_SpellButton2_chargeCooldownObject
----@field closedArrowOffset number
----@field commandName string
----@field cooldown OverrideActionBar_SpellButton2_cooldownObject
----@field enableLOCCooldown boolean
----@field enableSpellFX boolean
----@field eventsRegistered boolean
----@field feedback_action number
----@field flashing number
----@field flashtime number
----@field hotkeyTextGamepadX number
----@field hotkeyTextGamepadY number
----@field hotkeyTextKeyboardX number
----@field hotkeyTextKeyboardY number
----@field icon OverrideActionBar_SpellButton2_iconObject
----@field lossOfControlCooldown OverrideActionBar_SpellButton2_lossOfControlCooldownObject
----@field openArrowOffset number
----@field popupCrossAxisSize number
----@field popupDirection string
----@field popupOffset number
-local OverrideActionBar_SpellButton2Object = {}
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnAttributeChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:CalculateAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:CheckNeedsUpdate(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClearFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClearInterruptDisplay(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClearPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClearProfessionQuality(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClearReticle(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClearTypeOverlay(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:ClosePopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:CreateTextureOverlayFrame(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:DesaturateIfDisabled(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:DoModeChange(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:EvaluateState(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:EvaluateTutorials(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:Flyout_OnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetActionButtonInfo(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetAllowRadialWheel(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetArrowRotation(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetIsPingable(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetOrCreateTypeOverlay(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetPagedID(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetPopupDirection(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetShowGrid(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:GetTargetInfo(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:HasAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:HasPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:IsDown(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:IsDownOver(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:IsFlashing(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:IsOver(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:IsPopupOpen(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:MatchesActiveButtonSpellID(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnActionBarSlotChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnAttributeChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnButtonStateChanged(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnDisable(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnDragStart(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnEnable(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnEvent(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnLoad(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnMouseDown(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnMouseUp(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnPopupHidden(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnPopupToggled(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnReceiveDrag(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:OnUpdate(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:PlaySpellCastAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:PlaySpellInterruptedAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:PlayTargettingReticleAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnEnter(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnLeave(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnMouseWheel(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnUpdate(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:QuickKeybindButtonSetTooltip(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:RegisterActionBarButtonCheckFrames(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetButtonStateBase(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetButtonStateOverride(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetDisplacedRegions(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetPopupDirection(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetShowGrid(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SetTooltip(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:SpellFXEnabled(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:StartFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:StopFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:StopSpellCastAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:StopTargettingReticleAnim(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:TogglePopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:TriggerSecureClick(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UnregisterActionBarButtonCheckFrames(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:Update(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateArrowPosition(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateArrowRotation(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateArrowShown(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateArrowTexture(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateAssistedCombatRotationFrame(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateBorderShadow(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateButtonArt(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateCastingAnimation(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateCount(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateFlash(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateFlyout(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateFlyoutPopup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateHighlightMark(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateHotkeys(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateMouseWheelHandler(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdatePingAttributes(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdatePressAndHoldAction(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateProfessionQuality(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateSpellAlert(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateSpellHighlightMark(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateState(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateTypeOverlay(...) end
----@return any ...
-function OverrideActionBar_SpellButton2Object:UpdateUsable(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_ArrowObject : Texture
----@field origHeight number
----@field origTexCoords table
----@field origWidth number
----@field rotationDegrees number
-local OverrideActionBar_SpellButton2_ArrowObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_AutoCastOverlayObject : Frame
----@field Corners OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject
----@field Mask OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject
----@field Shine OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject
----@field autoCastEnabled boolean
-local OverrideActionBar_SpellButton2_AutoCastOverlayObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_AutoCastOverlayObject:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_AutoCastOverlayObject:OnShow(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_AutoCastOverlayObject:UpdateShineAnim(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject : Texture
-local OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject : MaskTexture
-local OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject : Texture
----@field Anim OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject
-local OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject : AnimationGroup
-local OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_BorderObject : Texture
-local OverrideActionBar_SpellButton2_BorderObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_BorderShadowObject : Texture
-local OverrideActionBar_SpellButton2_BorderShadowObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_CheckedTextureObject : Texture
-local OverrideActionBar_SpellButton2_CheckedTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_CooldownFlashObject : Frame
----@field FlashAnim OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject
----@field Flipbook OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject
-local OverrideActionBar_SpellButton2_CooldownFlashObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_CooldownFlashObject:Setup(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject : AnimationGroup
-local OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject:OnFinished(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject : Texture
-local OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_CountObject : FontString
-local OverrideActionBar_SpellButton2_CountObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_FlashObject : Texture
-local OverrideActionBar_SpellButton2_FlashObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_HighlightTextureObject : Texture
-local OverrideActionBar_SpellButton2_HighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_HotKeyObject : FontString
-local OverrideActionBar_SpellButton2_HotKeyObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_IconMaskObject : MaskTexture
-local OverrideActionBar_SpellButton2_IconMaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplayObject : Frame
----@field Base OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject
----@field Highlight OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject
-local OverrideActionBar_SpellButton2_InterruptDisplayObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_InterruptDisplayObject:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_InterruptDisplayObject:OnShow(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject : Frame
----@field AnimIn OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject
----@field Base OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject
-local OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject : AnimationGroup
-local OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject : Texture
-local OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject : Frame
----@field AnimIn OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject
----@field HighlightTexture OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject
----@field Mask OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject
-local OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
----@field Translation OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject
-local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
-local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject : Texture
-local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject : MaskTexture
-local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_LevelLinkLockIconObject : Texture
-local OverrideActionBar_SpellButton2_LevelLinkLockIconObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_NameObject : FontString
-local OverrideActionBar_SpellButton2_NameObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_NewActionTextureObject : Texture
-local OverrideActionBar_SpellButton2_NewActionTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_NormalTextureObject : Texture
-local OverrideActionBar_SpellButton2_NormalTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_PushedTextureObject : Texture
-local OverrideActionBar_SpellButton2_PushedTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject : Texture
-local OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_SlotArtObject : Texture
-local OverrideActionBar_SpellButton2_SlotArtObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_SlotBackgroundObject : Texture
-local OverrideActionBar_SpellButton2_SlotBackgroundObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_SpellCastAnimFrameObject : Frame
----@field EndBurst OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject
----@field Fill OverrideActionBar_SpellButton2_SpellCastAnimFrame_FillObject
-local OverrideActionBar_SpellButton2_SpellCastAnimFrameObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:OnHide(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:Setup(...) end
----@return any ...
-function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
-end
-
-do
----@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject : Frame
----@field EndMask OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject
----@field FinishCastAnim OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
----@field GlowRing OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject
-local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
-local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
-end
-
-do
----@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
-local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
----@return any ...
-function OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
 end

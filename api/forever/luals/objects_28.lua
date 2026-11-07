@@ -3,6 +3,1459 @@
 
 
 do
+---@class PetCastingBarFrame_BackgroundObject : Texture
+local PetCastingBarFrame_BackgroundObject = {}
+end
+
+do
+---@class PetCastingBarFrame_BaseGlowObject : Texture
+local PetCastingBarFrame_BaseGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_BorderObject : Texture
+local PetCastingBarFrame_BorderObject = {}
+end
+
+do
+---@class PetCastingBarFrame_BorderMaskObject : MaskTexture
+local PetCastingBarFrame_BorderMaskObject = {}
+end
+
+do
+---@class PetCastingBarFrame_BorderShieldObject : Texture
+local PetCastingBarFrame_BorderShieldObject = {}
+end
+
+do
+---@class PetCastingBarFrame_CastTimeTextObject : FontString
+local PetCastingBarFrame_CastTimeTextObject = {}
+end
+
+do
+---@class PetCastingBarFrame_ChannelFinishObject : AnimationGroup
+local PetCastingBarFrame_ChannelFinishObject = {}
+end
+
+do
+---@class PetCastingBarFrame_ChannelShadowObject : Texture
+local PetCastingBarFrame_ChannelShadowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_ChargeFlashObject : Texture
+local PetCastingBarFrame_ChargeFlashObject = {}
+end
+
+do
+---@class PetCastingBarFrame_ChargeGlowObject : Texture
+local PetCastingBarFrame_ChargeGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_CraftGlowObject : Texture
+local PetCastingBarFrame_CraftGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_CraftingFinishObject : AnimationGroup
+local PetCastingBarFrame_CraftingFinishObject = {}
+end
+
+do
+---@class PetCastingBarFrame_CraftingMaskObject : MaskTexture
+local PetCastingBarFrame_CraftingMaskObject = {}
+end
+
+do
+---@class PetCastingBarFrame_DropShadowObject : Texture
+local PetCastingBarFrame_DropShadowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_EnergyGlowObject : Texture
+local PetCastingBarFrame_EnergyGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_EnergyMaskObject : MaskTexture
+local PetCastingBarFrame_EnergyMaskObject = {}
+end
+
+do
+---@class PetCastingBarFrame_FadeOutAnimObject : AnimationGroup
+local PetCastingBarFrame_FadeOutAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_Flakes01Object : Texture
+local PetCastingBarFrame_Flakes01Object = {}
+end
+
+do
+---@class PetCastingBarFrame_Flakes02Object : Texture
+local PetCastingBarFrame_Flakes02Object = {}
+end
+
+do
+---@class PetCastingBarFrame_Flakes03Object : Texture
+local PetCastingBarFrame_Flakes03Object = {}
+end
+
+do
+---@class PetCastingBarFrame_FlashObject : Texture
+local PetCastingBarFrame_FlashObject = {}
+end
+
+do
+---@class PetCastingBarFrame_FlashAnimObject : AnimationGroup
+local PetCastingBarFrame_FlashAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
+local PetCastingBarFrame_FlashLoopingAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
+local PetCastingBarFrame_HoldFadeOutAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_IconObject : Texture
+local PetCastingBarFrame_IconObject = {}
+end
+
+do
+---@class PetCastingBarFrame_InterruptGlowObject : Texture
+local PetCastingBarFrame_InterruptGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
+local PetCastingBarFrame_InterruptGlowAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
+local PetCastingBarFrame_InterruptShakeAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
+local PetCastingBarFrame_InterruptSparkAnimObject = {}
+end
+
+do
+---@class PetCastingBarFrame_ShineObject : Texture
+local PetCastingBarFrame_ShineObject = {}
+end
+
+do
+---@class PetCastingBarFrame_SparkObject : Texture
+---@field offsetY number
+local PetCastingBarFrame_SparkObject = {}
+end
+
+do
+---@class PetCastingBarFrame_Sparkles01Object : Texture
+local PetCastingBarFrame_Sparkles01Object = {}
+end
+
+do
+---@class PetCastingBarFrame_Sparkles02Object : Texture
+local PetCastingBarFrame_Sparkles02Object = {}
+end
+
+do
+---@class PetCastingBarFrame_StageFinishObject : AnimationGroup
+local PetCastingBarFrame_StageFinishObject = {}
+end
+
+do
+---@class PetCastingBarFrame_StageFlashObject : AnimationGroup
+local PetCastingBarFrame_StageFlashObject = {}
+end
+
+do
+---@class PetCastingBarFrame_StandardFinishObject : AnimationGroup
+local PetCastingBarFrame_StandardFinishObject = {}
+---@return any ...
+function PetCastingBarFrame_StandardFinishObject:Hide(...) end
+---@return any ...
+function PetCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
+---@return any ...
+function PetCastingBarFrame_StandardFinishObject:Show(...) end
+end
+
+do
+---@class PetCastingBarFrame_StandardGlowObject : Texture
+local PetCastingBarFrame_StandardGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_TextObject : FontString
+local PetCastingBarFrame_TextObject = {}
+end
+
+do
+---@class PetCastingBarFrame_TextBorderObject : Texture
+local PetCastingBarFrame_TextBorderObject = {}
+end
+
+do
+---@class PetCastingBarFrame_WispGlowObject : Texture
+local PetCastingBarFrame_WispGlowObject = {}
+end
+
+do
+---@class PetCastingBarFrame_WispMaskObject : MaskTexture
+local PetCastingBarFrame_WispMaskObject = {}
+end
+
+do
+---@class PetStableFrameObject : Frame
+---@field Background PetStableFrame_BackgroundObject
+---@field Bg PetStableFrame_BgObject
+---@field BottomDividerFrame PetStableFrame_BottomDividerFrameObject
+---@field CloseButton PetStableFrame_CloseButtonObject
+---@field FocusJumpHint PetStableFrame_FocusJumpHintObject
+---@field FrameGlow PetStableFrame_FrameGlowObject
+---@field GamepadSlotCostText PetStableFrame_GamepadSlotCostTextObject
+---@field LeftJumpHint PetStableFrame_LeftJumpHintObject
+---@field NineSlice PetStableFrame_NineSliceObject
+---@field PortraitContainer PetStableFrame_PortraitContainerObject
+---@field RightJumpHint PetStableFrame_RightJumpHintObject
+---@field TitleContainer PetStableFrame_TitleContainerObject
+---@field TopDividerFrame PetStableFrame_TopDividerFrameObject
+---@field TopTileStreaks PetStableFrame_TopTileStreaksObject
+---@field diet PetStableFrame_dietObject
+---@field expBar PetStableFrame_expBarObject
+---@field insideFrameBottom PetStableFrame_insideFrameBottomObject
+---@field layoutType string
+---@field modelScene PetStableFrame_modelSceneObject
+---@field purchaseButton PetStableFrame_purchaseButtonObject
+local PetStableFrameObject = {}
+---@return any ...
+function PetStableFrameObject:EndFocus(...) end
+---@return any ...
+function PetStableFrameObject:FocusGamepad(...) end
+---@return any ...
+function PetStableFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function PetStableFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function PetStableFrameObject:GetPortrait(...) end
+---@return any ...
+function PetStableFrameObject:GetSlotFrame(...) end
+---@return any ...
+function PetStableFrameObject:GetTitleText(...) end
+---@return any ...
+function PetStableFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function PetStableFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function PetStableFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function PetStableFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function PetStableFrameObject:InitializeGamepad(...) end
+---@return any ...
+function PetStableFrameObject:LockInFocus(...) end
+---@return any ...
+function PetStableFrameObject:OnEvent(...) end
+---@return any ...
+function PetStableFrameObject:OnHide(...) end
+---@return any ...
+function PetStableFrameObject:OnLoad(...) end
+---@return any ...
+function PetStableFrameObject:OnPetSelected(...) end
+---@return any ...
+function PetStableFrameObject:OnPetSwapRequested(...) end
+---@return any ...
+function PetStableFrameObject:OnShow(...) end
+---@return any ...
+function PetStableFrameObject:OnUpdate(...) end
+---@return any ...
+function PetStableFrameObject:RefreshFocus(...) end
+---@return any ...
+function PetStableFrameObject:RegisterForTransitions(...) end
+---@return any ...
+function PetStableFrameObject:SelectPet(...) end
+---@return any ...
+function PetStableFrameObject:SetBorder(...) end
+---@return any ...
+function PetStableFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitShown(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function PetStableFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function PetStableFrameObject:SetTitle(...) end
+---@return any ...
+function PetStableFrameObject:SetTitleColor(...) end
+---@return any ...
+function PetStableFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function PetStableFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function PetStableFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function PetStableFrameObject:SetZoomAndRotateSpeeds(...) end
+---@return any ...
+function PetStableFrameObject:SetupGamepad(...) end
+---@return any ...
+function PetStableFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function PetStableFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function PetStableFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function PetStableFrameObject:StartFocus(...) end
+---@return any ...
+function PetStableFrameObject:UnfocusGamepad(...) end
+---@return any ...
+function PetStableFrameObject:UninitializeGamepad(...) end
+---@return any ...
+function PetStableFrameObject:Update(...) end
+---@type PetStableFrameObject
+PetStableFrame = PetStableFrameObject
+end
+
+do
+---@class PetStableFrame_BackgroundObject : Texture
+local PetStableFrame_BackgroundObject = {}
+end
+
+do
+---@class PetStableFrame_BgObject : Texture
+local PetStableFrame_BgObject = {}
+end
+
+do
+---@class PetStableFrame_BottomDividerFrameObject : Frame
+---@field horzDivider PetStableFrame_BottomDividerFrame_horzDividerObject
+local PetStableFrame_BottomDividerFrameObject = {}
+end
+
+do
+---@class PetStableFrame_BottomDividerFrame_horzDividerObject : Texture
+local PetStableFrame_BottomDividerFrame_horzDividerObject = {}
+end
+
+do
+---@class PetStableFrame_CloseButtonObject : Button
+local PetStableFrame_CloseButtonObject = {}
+---@return any ...
+function PetStableFrame_CloseButtonObject:NarrationGetName(...) end
+---@return any ...
+function PetStableFrame_CloseButtonObject:OnLoad(...) end
+end
+
+do
+---@class PetStableFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture PetStableFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture PetStableFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim PetStableFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator PetStableFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG PetStableFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture PetStableFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar PetStableFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG PetStableFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow PetStableFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture PetStableFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture PetStableFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip PetStableFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local PetStableFrame_FocusJumpHintObject = {}
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function PetStableFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_ActiveTextureObject : Texture
+local PetStableFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_DisabledTextureObject : Texture
+local PetStableFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local PetStableFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local PetStableFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local PetStableFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local PetStableFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local PetStableFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local PetStableFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_HoverTextureObject : Texture
+local PetStableFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_LoadBarObject : Texture
+local PetStableFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_LoadBarBGObject : Texture
+local PetStableFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local PetStableFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_NormalTextureObject : Texture
+local PetStableFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_PressedTextureObject : Texture
+local PetStableFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_FocusJumpHint_SpinnerTipObject : Texture
+local PetStableFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class PetStableFrame_FrameGlowObject : Frame
+---@field GlowTexture PetStableFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local PetStableFrame_FrameGlowObject = {}
+---@return any ...
+function PetStableFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function PetStableFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function PetStableFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function PetStableFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class PetStableFrame_FrameGlow_GlowTextureObject : Texture
+local PetStableFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class PetStableFrame_GamepadSlotCostTextObject : FontString
+local PetStableFrame_GamepadSlotCostTextObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture PetStableFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture PetStableFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim PetStableFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator PetStableFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG PetStableFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture PetStableFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar PetStableFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG PetStableFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow PetStableFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture PetStableFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture PetStableFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip PetStableFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local PetStableFrame_LeftJumpHintObject = {}
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function PetStableFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_ActiveTextureObject : Texture
+local PetStableFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_DisabledTextureObject : Texture
+local PetStableFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local PetStableFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local PetStableFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local PetStableFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local PetStableFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local PetStableFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local PetStableFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_HoverTextureObject : Texture
+local PetStableFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_LoadBarObject : Texture
+local PetStableFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_LoadBarBGObject : Texture
+local PetStableFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local PetStableFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_NormalTextureObject : Texture
+local PetStableFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_PressedTextureObject : Texture
+local PetStableFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_LeftJumpHint_SpinnerTipObject : Texture
+local PetStableFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class PetStableFrame_NineSliceObject : Frame
+---@field BottomEdge PetStableFrame_NineSlice_BottomEdgeObject
+---@field BottomLeftCorner PetStableFrame_NineSlice_BottomLeftCornerObject
+---@field BottomRightCorner PetStableFrame_NineSlice_BottomRightCornerObject
+---@field Center PetStableFrame_NineSlice_CenterObject
+---@field LeftEdge PetStableFrame_NineSlice_LeftEdgeObject
+---@field RightEdge PetStableFrame_NineSlice_RightEdgeObject
+---@field TopEdge PetStableFrame_NineSlice_TopEdgeObject
+---@field TopLeftCorner PetStableFrame_NineSlice_TopLeftCornerObject
+---@field TopRightCorner PetStableFrame_NineSlice_TopRightCornerObject
+local PetStableFrame_NineSliceObject = {}
+---@return any ...
+function PetStableFrame_NineSliceObject:GetBorderColor(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:GetCenterColor(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:GetFrameLayoutType(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:SetBlendMode(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:SetBorderBlendMode(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:SetBorderColor(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:SetCenterColor(...) end
+---@return any ...
+function PetStableFrame_NineSliceObject:SetVertexColor(...) end
+end
+
+do
+---@class PetStableFrame_NineSlice_BottomEdgeObject : Texture
+local PetStableFrame_NineSlice_BottomEdgeObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_BottomLeftCornerObject : Texture
+local PetStableFrame_NineSlice_BottomLeftCornerObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_BottomRightCornerObject : Texture
+local PetStableFrame_NineSlice_BottomRightCornerObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_CenterObject : Texture
+local PetStableFrame_NineSlice_CenterObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_LeftEdgeObject : Texture
+local PetStableFrame_NineSlice_LeftEdgeObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_RightEdgeObject : Texture
+local PetStableFrame_NineSlice_RightEdgeObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_TopEdgeObject : Texture
+local PetStableFrame_NineSlice_TopEdgeObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_TopLeftCornerObject : Texture
+local PetStableFrame_NineSlice_TopLeftCornerObject = {}
+end
+
+do
+---@class PetStableFrame_NineSlice_TopRightCornerObject : Texture
+local PetStableFrame_NineSlice_TopRightCornerObject = {}
+end
+
+do
+---@class PetStableFrame_PortraitContainerObject : Frame
+---@field CircleMask PetStableFrame_PortraitContainer_CircleMaskObject
+---@field portrait PetStableFrame_PortraitContainer_portraitObject
+local PetStableFrame_PortraitContainerObject = {}
+end
+
+do
+---@class PetStableFrame_PortraitContainer_CircleMaskObject : MaskTexture
+local PetStableFrame_PortraitContainer_CircleMaskObject = {}
+end
+
+do
+---@class PetStableFrame_PortraitContainer_portraitObject : Texture
+local PetStableFrame_PortraitContainer_portraitObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHintObject : Frame
+---@field ActiveTexture PetStableFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture PetStableFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim PetStableFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator PetStableFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG PetStableFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture PetStableFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar PetStableFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG PetStableFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow PetStableFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture PetStableFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture PetStableFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip PetStableFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local PetStableFrame_RightJumpHintObject = {}
+---@return any ...
+function PetStableFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function PetStableFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class PetStableFrame_RightJumpHint_ActiveTextureObject : Texture
+local PetStableFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_DisabledTextureObject : Texture
+local PetStableFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local PetStableFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local PetStableFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local PetStableFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local PetStableFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoldIndicatorObject : Texture
+local PetStableFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local PetStableFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_HoverTextureObject : Texture
+local PetStableFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_LoadBarObject : Texture
+local PetStableFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_LoadBarBGObject : Texture
+local PetStableFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_LoadBarGlowObject : Texture
+local PetStableFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_NormalTextureObject : Texture
+local PetStableFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_PressedTextureObject : Texture
+local PetStableFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_RightJumpHint_SpinnerTipObject : Texture
+local PetStableFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class PetStableFrame_TitleContainerObject : Frame
+---@field TitleText PetStableFrame_TitleContainer_TitleTextObject
+local PetStableFrame_TitleContainerObject = {}
+end
+
+do
+---@class PetStableFrame_TitleContainer_TitleTextObject : FontString
+local PetStableFrame_TitleContainer_TitleTextObject = {}
+end
+
+do
+---@class PetStableFrame_TopDividerFrameObject : Frame
+---@field horzDivider PetStableFrame_TopDividerFrame_horzDividerObject
+local PetStableFrame_TopDividerFrameObject = {}
+end
+
+do
+---@class PetStableFrame_TopDividerFrame_horzDividerObject : Texture
+local PetStableFrame_TopDividerFrame_horzDividerObject = {}
+end
+
+do
+---@class PetStableFrame_TopTileStreaksObject : Texture
+local PetStableFrame_TopTileStreaksObject = {}
+end
+
+do
+---@class PetStableFrame_dietObject : Frame
+---@field Texture PetStableFrame_diet_TextureObject
+local PetStableFrame_dietObject = {}
+---@return any ...
+function PetStableFrame_dietObject:GetHappinessStats(...) end
+---@return any ...
+function PetStableFrame_dietObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_dietObject:OnEvent(...) end
+---@return any ...
+function PetStableFrame_dietObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_dietObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_dietObject:ShouldShow(...) end
+---@return any ...
+function PetStableFrame_dietObject:UpdateHappiness(...) end
+end
+
+do
+---@class PetStableFrame_diet_TextureObject : Texture
+local PetStableFrame_diet_TextureObject = {}
+end
+
+do
+---@class PetStableFrame_expBarObject : Frame
+---@field ColorType PetStableFrame_expBar_ColorTypeObject
+---@field Fill PetStableFrame_expBar_FillObject
+---@field FillArea PetStableFrame_expBar_FillAreaObject
+---@field Mask PetStableFrame_expBar_MaskObject
+---@field Text PetStableFrame_expBar_TextObject
+---@field fillPercent number
+local PetStableFrame_expBarObject = {}
+---@return any ...
+function PetStableFrame_expBarObject:GetPetExperience(...) end
+---@return any ...
+function PetStableFrame_expBarObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_expBarObject:OnUpdate(...) end
+---@return any ...
+function PetStableFrame_expBarObject:SetFillPercent(...) end
+---@return any ...
+function PetStableFrame_expBarObject:SetFillTextureByColorType(...) end
+---@return any ...
+function PetStableFrame_expBarObject:SetFillWidth(...) end
+---@return any ...
+function PetStableFrame_expBarObject:SetText(...) end
+end
+
+do
+---@class PetStableFrame_expBar_ColorTypeObject
+---@field Blue number
+---@field Green number
+---@field Red number
+---@field White number
+local PetStableFrame_expBar_ColorTypeObject = {}
+end
+
+do
+---@class PetStableFrame_expBar_FillObject : Texture
+local PetStableFrame_expBar_FillObject = {}
+end
+
+do
+---@class PetStableFrame_expBar_FillAreaObject : Frame
+local PetStableFrame_expBar_FillAreaObject = {}
+end
+
+do
+---@class PetStableFrame_expBar_MaskObject : MaskTexture
+local PetStableFrame_expBar_MaskObject = {}
+end
+
+do
+---@class PetStableFrame_expBar_TextObject : FontString
+local PetStableFrame_expBar_TextObject = {}
+end
+
+do
+---@class PetStableFrame_insideFrameBottomObject : Texture
+local PetStableFrame_insideFrameBottomObject = {}
+end
+
+do
+---@class PetStableFrame_modelSceneObject
+---@field Background PetStableFrame_modelScene_BackgroundObject
+---@field ControlFrame PetStableFrame_modelScene_ControlFrameObject
+---@field Inset PetStableFrame_modelScene_InsetObject
+---@field PetModelSceneShadow PetStableFrame_modelScene_PetModelSceneShadowObject
+---@field PetShadow PetStableFrame_modelScene_PetShadowObject
+---@field actorTemplate string
+---@field cameras table
+---@field tagToActor table
+---@field tagToCamera table
+local PetStableFrame_modelSceneObject = {}
+---@return any ...
+function PetStableFrame_modelSceneObject:AcquireActor(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:AcquireAndInitializeActor(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:AddCamera(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:AddOrUpdateDropShadow(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:AdjustCameraYaw(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:AttachPlayerToMount(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:ClearScene(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:CreateActorFromScene(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:CreateCameraFromScene(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:CreateOrTransitionActorFromScene(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:CreateOrTransitionCameraFromScene(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:EnumerateActiveActors(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetActiveCamera(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetActorByTag(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetCameraByTag(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetModelSceneID(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetNumActiveActors(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetOrAcquireDropShadow(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:GetPlayerActor(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:HasActiveCamera(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:InitializeActor(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:IsLeftMouseButtonDown(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:IsRightMouseButtonDown(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnModelLoaded(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnMouseDown(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnMouseUp(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnMouseWheel(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:OnUpdate(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:ReleaseActor(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:ReleaseAllActors(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:ReleaseAllCameras(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:Reset(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:SetActiveCamera(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:SetFromModelSceneID(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:SetPet(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:SetResetCallback(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:ShowAndAnimateActors(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:StopCameraYaw(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:SynchronizeActiveCamera(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:Transform3DPointTo2D(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:TransitionToModelSceneID(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:UpdateBackgroundForPet(...) end
+---@return any ...
+function PetStableFrame_modelSceneObject:UpdatePetModel(...) end
+end
+
+do
+---@class PetStableFrame_modelScene_BackgroundObject : Texture
+local PetStableFrame_modelScene_BackgroundObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrameObject : Frame
+---@field buttonHorizontalPadding number
+---@field enableReset boolean
+---@field enableRotate boolean
+---@field enableZoom boolean
+---@field modelScene PetStableFrame_modelScene_ControlFrame_modelSceneObject
+---@field resetButton PetStableFrame_modelScene_ControlFrame_resetButtonObject
+---@field rotateLeftButton PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject
+---@field rotateRightButton PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject
+---@field rotationIncrement number
+---@field zoomInButton PetStableFrame_modelScene_ControlFrame_zoomInButtonObject
+---@field zoomIncrement number
+---@field zoomOutButton PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject
+local PetStableFrame_modelScene_ControlFrameObject = {}
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:GetRotateIncrement(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:GetZoomIncrement(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:OnShow(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:SetModelScene(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:SetRotateIncrement(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:SetZoomIncrement(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrameObject:UpdateLayout(...) end
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_modelSceneObject
+local PetStableFrame_modelScene_ControlFrame_modelSceneObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_resetButtonObject : Button
+---@field HighlightTexture PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject
+---@field Icon PetStableFrame_modelScene_ControlFrame_resetButton_IconObject
+---@field NormalTexture PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject
+---@field PushedTexture PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject
+---@field modelScene PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject
+---@field tooltip string
+local PetStableFrame_modelScene_ControlFrame_resetButtonObject = {}
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:Init(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnMouseDown(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:OnMouseUp(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_resetButtonObject:SetModelScene(...) end
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_resetButton_HighlightTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_resetButton_IconObject : Texture
+local PetStableFrame_modelScene_ControlFrame_resetButton_IconObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_resetButton_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_resetButton_PushedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject
+local PetStableFrame_modelScene_ControlFrame_resetButton_modelSceneObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject : Button
+---@field HighlightTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject
+---@field Icon PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject
+---@field NormalTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject
+---@field PushedTexture PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject
+---@field modelScene PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
+---@field rotateDirection string
+---@field rotationIncrement number
+---@field tooltip string
+---@field tooltipText string
+local PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject = {}
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:Init(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseDown(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnMouseUp(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:OnSmartNavClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:RotateStep(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetModelScene(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetRotation(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateLeftButtonObject:SetRotationIncrement(...) end
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_HighlightTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_IconObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_PushedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject
+local PetStableFrame_modelScene_ControlFrame_rotateLeftButton_modelSceneObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject : Button
+---@field HighlightTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject
+---@field Icon PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject
+---@field NormalTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject
+---@field PushedTexture PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject
+---@field modelScene PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject
+---@field rotateDirection string
+---@field rotationIncrement number
+---@field tooltip string
+---@field tooltipText string
+local PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject = {}
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:Init(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnMouseDown(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnMouseUp(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:OnSmartNavClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:RotateStep(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetModelScene(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetRotation(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_rotateRightButtonObject:SetRotationIncrement(...) end
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateRightButton_HighlightTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateRightButton_IconObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateRightButton_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_rotateRightButton_PushedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject
+local PetStableFrame_modelScene_ControlFrame_rotateRightButton_modelSceneObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomInButtonObject : Button
+---@field HighlightTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject
+---@field Icon PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject
+---@field NormalTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject
+---@field PushedTexture PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject
+---@field modelScene PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject
+---@field tooltip string
+---@field tooltipText string
+---@field zoomAmount number
+local PetStableFrame_modelScene_ControlFrame_zoomInButtonObject = {}
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:Init(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnMouseDown(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:OnMouseUp(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:SetModelScene(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomInButtonObject:SetZoomAmount(...) end
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_zoomInButton_HighlightTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject : Texture
+local PetStableFrame_modelScene_ControlFrame_zoomInButton_IconObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_zoomInButton_NormalTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject : Texture
+local PetStableFrame_modelScene_ControlFrame_zoomInButton_PushedTextureObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject
+local PetStableFrame_modelScene_ControlFrame_zoomInButton_modelSceneObject = {}
+end
+
+do
+---@class PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject : Button
+---@field HighlightTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject
+---@field Icon PetStableFrame_modelScene_ControlFrame_zoomOutButton_IconObject
+---@field NormalTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_NormalTextureObject
+---@field PushedTexture PetStableFrame_modelScene_ControlFrame_zoomOutButton_PushedTextureObject
+---@field modelScene PetStableFrame_modelScene_ControlFrame_zoomOutButton_modelSceneObject
+---@field tooltip string
+---@field tooltipText string
+---@field zoomAmount number
+local PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject = {}
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:Init(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnClick(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnEnter(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnLeave(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnLoad(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnMouseDown(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:OnMouseUp(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:SetModelScene(...) end
+---@return any ...
+function PetStableFrame_modelScene_ControlFrame_zoomOutButtonObject:SetZoomAmount(...) end
+end
+
+do
 ---@class PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject : Texture
 local PetStableFrame_modelScene_ControlFrame_zoomOutButton_HighlightTextureObject = {}
 end
@@ -8516,1024 +9969,4 @@ function QuestSessionManager_CheckLeavePartyDialogObject:ShowDialog(...) end
 function QuestSessionManager_CheckLeavePartyDialogObject:StartHideDialog(...) end
 ---@return any ...
 function QuestSessionManager_CheckLeavePartyDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckLeavePartyDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_BodyObject : Frame
----@field Icon QuestSessionManager_CheckLeavePartyDialog_Body_IconObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_Body_TextObject
-local QuestSessionManager_CheckLeavePartyDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Body_IconObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Body_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_BorderObject : Frame
----@field Bg QuestSessionManager_CheckLeavePartyDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_CheckLeavePartyDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BgObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_ButtonContainer_Decline_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_DividerObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckLeavePartyDialog_DividerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_InvisibleRuleObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject : Frame
-local QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_PlayerContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_TitleObject : Frame
----@field Icon QuestSessionManager_CheckLeavePartyDialog_Title_IconObject
----@field Text QuestSessionManager_CheckLeavePartyDialog_Title_TextObject
-local QuestSessionManager_CheckLeavePartyDialog_TitleObject = {}
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckLeavePartyDialog_TitleObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Title_IconObject : Texture
-local QuestSessionManager_CheckLeavePartyDialog_Title_IconObject = {}
-end
-
-do
----@class QuestSessionManager_CheckLeavePartyDialog_Title_TextObject : FontString
-local QuestSessionManager_CheckLeavePartyDialog_Title_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialogObject : Frame
----@field BG QuestSessionManager_CheckStartDialog_BGObject
----@field Body QuestSessionManager_CheckStartDialog_BodyObject
----@field Border QuestSessionManager_CheckStartDialog_BorderObject
----@field ButtonContainer QuestSessionManager_CheckStartDialog_ButtonContainerObject
----@field Divider QuestSessionManager_CheckStartDialog_DividerObject
----@field InvisibleRule QuestSessionManager_CheckStartDialog_InvisibleRuleObject
----@field PlayerContainer QuestSessionManager_CheckStartDialog_PlayerContainerObject
----@field Title QuestSessionManager_CheckStartDialog_TitleObject
----@field cancelText string
----@field confirmText string
----@field heightPadding number
----@field minimumWidth number
----@field requiresValidateDialog boolean
-local QuestSessionManager_CheckStartDialogObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:AddParty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:AddUnit(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:BaseOnEvent(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:BaseOnHide(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:BaseOnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:Cancel(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:CheckAddUnit(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:CheckValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ClearHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ClearShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:Confirm(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetDialogFailureReason(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetMemberFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetResponseCounts(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetSessionCommand(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:HasTrackedResponse(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:HideImmediate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:Minimize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:PlayHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:PlayShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:RequiresValidateDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ResetPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetButtonsEnabled(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetHideSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetMemberResponse(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetShowSound(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:Setup(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:SetupPlayerContainer(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ShouldClearOnUpdateAfterClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:ShowDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:StartHideDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialogObject:TrackResponse(...) end
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_BGObject : Texture
----@field ignoreInLayout boolean
-local QuestSessionManager_CheckStartDialog_BGObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_BodyObject : Frame
----@field Icon QuestSessionManager_CheckStartDialog_Body_IconObject
----@field Text QuestSessionManager_CheckStartDialog_Body_TextObject
-local QuestSessionManager_CheckStartDialog_BodyObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:AdjustTextWidthForAlignment(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetText(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetWarningText(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BodyObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Body_IconObject : Texture
-local QuestSessionManager_CheckStartDialog_Body_IconObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Body_TextObject : FontString
-local QuestSessionManager_CheckStartDialog_Body_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_BorderObject : Frame
----@field Bg QuestSessionManager_CheckStartDialog_Border_BgObject
----@field BottomEdge QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject
----@field BottomLeftCorner QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject
----@field BottomRightCorner QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject
----@field LeftEdge QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject
----@field RightEdge QuestSessionManager_CheckStartDialog_Border_RightEdgeObject
----@field TopEdge QuestSessionManager_CheckStartDialog_Border_TopEdgeObject
----@field TopLeftCorner QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject
----@field TopRightCorner QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject
----@field ignoreInLayout boolean
----@field layoutType string
-local QuestSessionManager_CheckStartDialog_BorderObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetBorderColor(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetCenterColor(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:GetFrameLayoutType(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:OnLoad(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetBlendMode(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetBorderBlendMode(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetBorderColor(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetCenterColor(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_BorderObject:SetVertexColor(...) end
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_BgObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BgObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BottomEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BottomLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_BottomRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_LeftEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_RightEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_RightEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_TopEdgeObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_TopEdgeObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_TopLeftCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject : Texture
-local QuestSessionManager_CheckStartDialog_Border_TopRightCornerObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_ButtonContainerObject : Frame
----@field Buttons table
----@field Confirm QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject
----@field Decline QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject
----@field heightPadding number
-local QuestSessionManager_CheckStartDialog_ButtonContainerObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:AddLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:ClearFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetChildWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetLayoutChildren(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:GetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IsDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:IsLayoutFrame(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:Layout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkClean(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkDirty(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnCleaned(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnShow(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:OnUpdate(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedSize(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetFixedWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetHeightPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetMaximumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetMinimumWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:SetWidthPadding(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject : Button
----@field Flash QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject
----@field PulseAnim QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject
----@field Text QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject
----@field baseHeight number
----@field baseWidth number
----@field isConfirm boolean
----@field useScaleWeight boolean
-local QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_ConfirmObject:UpdateWidth(...) end
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject : Texture
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_FlashObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject : AnimationGroup
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_PulseAnimObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject : FontString
-local QuestSessionManager_CheckStartDialog_ButtonContainer_Confirm_TextObject = {}
-end
-
-do
----@class QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject : Button
----@field Flash QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_FlashObject
----@field PulseAnim QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_PulseAnimObject
----@field Text QuestSessionManager_CheckStartDialog_ButtonContainer_Decline_TextObject
----@field baseHeight number
----@field baseWidth number
----@field useScaleWeight boolean
-local QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject = {}
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialogData(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetOwningDialogInfo(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredDimension(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredHeight(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetScaledDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:GetWeightedScale(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnClick(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnLoad_UserScaledElement(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:OnTextScaleUpdated(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:SetDesiredWidth(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:SetOwningDialog(...) end
----@return any ...
-function QuestSessionManager_CheckStartDialog_ButtonContainer_DeclineObject:UpdateWidth(...) end
 end

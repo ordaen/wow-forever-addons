@@ -5001,6 +5001,7 @@ CHAT_FONT_HEIGHTS	table
 CHAT_FRAMES	table
 CHAT_FRAME_ANCHOR_OFFSET_Y	number
 CHAT_FRAME_BIGGER_MIN_HEIGHT	number
+CHAT_FRAME_BUTTON_FRAME_MIN_ALPHA	number
 CHAT_FRAME_DEFAULT_FONT_SIZE	number
 CHAT_FRAME_FADE_OUT_TIME	number
 CHAT_FRAME_FADE_TIME	number
@@ -7544,6 +7545,30 @@ CharacterBackSlotNormalTexture	widget
 CharacterBackSlotPopoutButton	widget
 CharacterBackSlotSearchOverlay	widget
 CharacterBackSlotStock	widget
+CharacterBag0Slot	widget
+CharacterBag0SlotCount	widget
+CharacterBag0SlotIconTexture	widget
+CharacterBag0SlotNormalTexture	widget
+CharacterBag0SlotSearchOverlay	widget
+CharacterBag0SlotStock	widget
+CharacterBag1Slot	widget
+CharacterBag1SlotCount	widget
+CharacterBag1SlotIconTexture	widget
+CharacterBag1SlotNormalTexture	widget
+CharacterBag1SlotSearchOverlay	widget
+CharacterBag1SlotStock	widget
+CharacterBag2Slot	widget
+CharacterBag2SlotCount	widget
+CharacterBag2SlotIconTexture	widget
+CharacterBag2SlotNormalTexture	widget
+CharacterBag2SlotSearchOverlay	widget
+CharacterBag2SlotStock	widget
+CharacterBag3Slot	widget
+CharacterBag3SlotCount	widget
+CharacterBag3SlotIconTexture	widget
+CharacterBag3SlotNormalTexture	widget
+CharacterBag3SlotSearchOverlay	widget
+CharacterBag3SlotStock	widget
 CharacterChestSlot	widget
 CharacterChestSlotCooldown	widget
 CharacterChestSlotCount	widget
@@ -7637,6 +7662,7 @@ CharacterMainHandSlotNormalTexture	widget
 CharacterMainHandSlotPopoutButton	widget
 CharacterMainHandSlotSearchOverlay	widget
 CharacterMainHandSlotStock	widget
+CharacterMicroButton	widget
 CharacterMicroButtonMixin	table
 CharacterModeTabButtonMixin	table
 CharacterModelFrameBackgroundBotLeft	widget
@@ -7661,6 +7687,12 @@ CharacterRangedSlotNormalTexture	widget
 CharacterRangedSlotPopoutButton	widget
 CharacterRangedSlotSearchOverlay	widget
 CharacterRangedSlotStock	widget
+CharacterReagentBag0Slot	widget
+CharacterReagentBag0SlotCount	widget
+CharacterReagentBag0SlotIconTexture	widget
+CharacterReagentBag0SlotNormalTexture	widget
+CharacterReagentBag0SlotSearchOverlay	widget
+CharacterReagentBag0SlotStock	widget
 CharacterReagentBagMixin	table
 CharacterSecondaryHandSlot	widget
 CharacterSecondaryHandSlotCooldown	widget
@@ -8866,6 +8898,7 @@ CollectTableDifferences	function
 CollectionMicroButtonMixin	table
 CollectionWardrobeUtil	table
 CollectionsJournal_LoadUI	function
+CollectionsMicroButton	widget
 CollectionsMicroButton_CanAlertBeShown	function
 CollectionsMicroButton_SetAlert	function
 CollectionsMicroButton_SetAlertShown	function
@@ -9882,8 +9915,15 @@ ContainerFrame5PortraitButton	widget
 ContainerFrame5TitleText	widget
 ContainerFrame6	widget
 ContainerFrame6Background1Slot	widget
+ContainerFrame6Cooldown	widget
+ContainerFrame6Count	widget
+ContainerFrame6IconQuestTexture	widget
+ContainerFrame6IconTexture	widget
+ContainerFrame6NormalTexture	widget
 ContainerFrame6Portrait	widget
 ContainerFrame6PortraitButton	widget
+ContainerFrame6SearchOverlay	widget
+ContainerFrame6Stock	widget
 ContainerFrame6TitleText	widget
 ContainerFrame7	widget
 ContainerFrame7Background1Slot	widget
@@ -9892,15 +9932,22 @@ ContainerFrame7PortraitButton	widget
 ContainerFrame7TitleText	widget
 ContainerFrameBackpackMixin	table
 ContainerFrameCombinedBags	widget
+ContainerFrameCombinedBagsCooldown	widget
 ContainerFrameCombinedBagsCopperButton	widget
 ContainerFrameCombinedBagsCopperButtonText	widget
+ContainerFrameCombinedBagsCount	widget
 ContainerFrameCombinedBagsGoldButton	widget
 ContainerFrameCombinedBagsGoldButtonText	widget
+ContainerFrameCombinedBagsIconQuestTexture	widget
+ContainerFrameCombinedBagsIconTexture	widget
 ContainerFrameCombinedBagsMixin	table
+ContainerFrameCombinedBagsNormalTexture	widget
 ContainerFrameCombinedBagsPortrait	widget
 ContainerFrameCombinedBagsPortraitButton	widget
+ContainerFrameCombinedBagsSearchOverlay	widget
 ContainerFrameCombinedBagsSilverButton	widget
 ContainerFrameCombinedBagsSilverButtonText	widget
+ContainerFrameCombinedBagsStock	widget
 ContainerFrameCombinedBagsTitleText	widget
 ContainerFrameCombinedBagsTrialErrorButton	widget
 ContainerFrameContainer	widget
@@ -10461,6 +10508,7 @@ DEFAULTS	string
 DEFAULT_AFK_MESSAGE	string
 DEFAULT_AGILITY_TOOLTIP	string
 DEFAULT_AURA_DURATION_FONT	string
+DEFAULT_CHATFRAME_ALPHA	number
 DEFAULT_CHATFRAME_COLOR	table
 DEFAULT_CHAT_CHANNEL_COLOR	table
 DEFAULT_CHAT_CHANNEL_COLOR_CODE	string
@@ -18066,6 +18114,7 @@ GameTooltipTextLeft4	widget
 GameTooltipTextLeft5	widget
 GameTooltipTextLeft6	widget
 GameTooltipTextLeft7	widget
+GameTooltipTextLeft8	widget
 GameTooltipTextRight1	widget
 GameTooltipTextRight2	widget
 GameTooltipTextRight3	widget
@@ -18073,6 +18122,7 @@ GameTooltipTextRight4	widget
 GameTooltipTextRight5	widget
 GameTooltipTextRight6	widget
 GameTooltipTextRight7	widget
+GameTooltipTextRight8	widget
 GameTooltipTextSmall	widget
 GameTooltipTexture1	widget
 GameTooltipTexture10	widget
@@ -21138,6 +21188,7 @@ GuildInviteFrame_SetupGamepad	function
 GuildLeave	function
 GuildMasterAbsent	function
 GuildMemberListDropdownMixin	table
+GuildMicroButton	widget
 GuildMicroButtonMixin	table
 GuildNewsButton_SetIcon	function
 GuildNewsButton_SetMOTD	function
@@ -22811,6 +22862,7 @@ HelpFrame_EscapePressed	function
 HelpFrame_IsGMTicketQueueActive	function
 HelpFrame_ShowReportCheatingDialog	function
 HelpMicroButtonMixin	table
+HelpOpenWebTicketButton	widget
 HelpOpenWebTicketButton_OnEnter	function
 HelpOpenWebTicketButton_OnEvent	function
 HelpOpenWebTicketButton_OnUpdate	function
@@ -26355,6 +26407,7 @@ LE_VAS_PURCHASE_STATE_READY	number
 LE_WOW_CONNECTION_STATE_CONNECTING	number
 LE_WOW_CONNECTION_STATE_IN_QUEUE	number
 LE_WOW_CONNECTION_STATE_NONE	number
+LFDMicroButton	widget
 LFDMicroButtonMixin	table
 LFD_CURRENCY_CAP_ALL	string
 LFD_CURRENCY_CAP_SPECIFIC	string
@@ -28071,6 +28124,12 @@ MainActionBar_InitializeGamepad	function
 MainActionBar_InitializeMKB	function
 MainActionBar_UnInitializeMKB	function
 MainHelpPlateButtonMixin	table
+MainMenuBarBackpackButton	widget
+MainMenuBarBackpackButtonCount	widget
+MainMenuBarBackpackButtonIconTexture	widget
+MainMenuBarBackpackButtonNormalTexture	widget
+MainMenuBarBackpackButtonSearchOverlay	widget
+MainMenuBarBackpackButtonStock	widget
 MainMenuBarBackpackMixin	table
 MainMenuBarBagManager	table
 MainMenuBarEndCapMixin	table
@@ -28079,6 +28138,7 @@ MainMenuBarPerformanceBarFrame_OnEnter	function
 MainMenuBarPerformanceBarFrame_UseDetailedTooltip	function
 MainMenuBarVehicleLeaveButtonMixin	table
 MainMenuFrameMixin	table
+MainMenuMicroButton	widget
 MainMenuMicroButtonMixin	table
 MainMenuMicroButton_AreAlertsEnabled	function
 MainMenuMicroButton_GetAlertPriority	function
@@ -28088,6 +28148,7 @@ MainMenuMicroButton_SetAlertsEnabled	function
 MainMenuMicroButton_ShowAlert	function
 MainMenuMicroButton_UpdateAlertsEnabled	function
 MainMenu_GetMovieDownloadProgress	function
+MainStatusTrackingBarContainer	widget
 MajorFactionButtonLockedStateMixin	table
 MajorFactionButtonMixin	table
 MajorFactionButtonUnlockedStateMixin	table
@@ -30558,6 +30619,7 @@ NUM_TOTAL_BAG_FRAMES	number
 NUM_TOTAL_EQUIPPED_BAG_SLOTS	number
 NUM_WORLDMAP_PATCH_TILES	number
 NUM_WORLD_RAID_MARKERS	number
+NamePlate1	widget
 NamePlateAuraItemMixin	table
 NamePlateAurasMixin	table
 NamePlateBaseMixin	table
@@ -34779,6 +34841,7 @@ PrivateRaidBossEmoteFrameAnchor	widget
 PrivateRaidBossEmoteFrameAnchorMixin	table
 ProcessExceptionClient	function
 ProcessQuestLogRewardFactions	function
+ProfessionMicroButton	widget
 ProfessionMicroButtonMixin	table
 ProfessionsBook_LoadUI	function
 ProfessionsCustomerOrders_LoadUI	function
@@ -35300,6 +35363,7 @@ QuestLogButtonTypes	table
 QuestLogCount	widget
 QuestLogDisplayMode	table
 QuestLogHeaderCodeMixin	table
+QuestLogMicroButton	widget
 QuestLogMicroButtonMixin	table
 QuestLogMixin	table
 QuestLogObjectiveMixin	table
@@ -40852,6 +40916,7 @@ SearchLFGGetResults	function
 SearchLFGJoin	function
 SearchLFGLeave	function
 SearchLFGSort	function
+SecondaryStatusTrackingBarContainer	widget
 SecondsFormatter	table
 SecondsFormatterConstants	table
 SecondsFormatterMixin	table
@@ -41696,6 +41761,7 @@ SpellStopCasting	function
 SpellStopTargeting	function
 SpellTargetItem	function
 SpellTargetUnit	function
+SpellbookMicroButton	widget
 Spikey	widget
 SpinnerMixin	table
 SpinnerWithShadowMixin	table
@@ -42157,6 +42223,7 @@ StoreFrame_SetServicesCategory	function
 StoreFrame_SetShown	function
 StoreFrame_SetTokenCategory	function
 StoreInterfaceUtil	table
+StoreMicroButton	widget
 StoreMicroButtonMixin	table
 StorePreviewFrame	widget
 StorePreviewFrame_OnHide	function
@@ -43760,6 +43827,7 @@ TalentFrame_Load	function
 TalentFrame_Update	function
 TalentFrame_UpdateRowGlow	function
 TalentFrame_UpdateSpecInfoCache	function
+TalentMicroButton	widget
 TalentNameCardMixin	table
 TalentRankDisplayMixin	table
 TalentRedButtonMixin	table
@@ -44024,6 +44092,7 @@ TimerunningUtil	table
 TitleUtil	table
 TitledPanelMixin	table
 ToggleAchievementFrame	function
+ToggleAllBags	function
 ToggleAutoRun	function
 ToggleBackpack	function
 ToggleBackpack_Combined	function

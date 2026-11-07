@@ -3,6 +3,701 @@
 
 
 do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
+---@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject : FontString
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object : Frame
+---@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject
+---@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject
+---@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject
+---@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject
+---@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject
+---@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject
+---@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject
+---@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject
+---@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object = {}
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EndHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject : Frame
+---@field ControlDescText UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject
+---@field InputIcon1 UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object
+---@field InputIcons table
+---@field template string
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject = {}
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:BeginHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:DisablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EndHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetIconDividerControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetInputIconControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetPromptTextControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:OnLoad(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:RefreshInputPromptSize(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDisabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDividerType(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetFocused(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetInputIconSize(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetIsHoldAction(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPressable(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptFont(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptInputIconKey(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptText(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetUseDropShadow(...) end
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject : Frame
+---@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject : FontString
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object : Frame
+---@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject
+---@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject
+---@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject
+---@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject
+---@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject
+---@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject
+---@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject
+---@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject
+---@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object = {}
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EndHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject : Texture
+local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegendObject : Frame
+---@field actions table
+---@field promptContainerFrame UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject
+---@field promptFrames UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject
+---@field promptFramesAddOrder table
+---@field promptMap table
+---@field wrapAroundRowWidth boolean
+local UIParent_SettingsCheckboxSliderControlinputLegendObject = {}
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:AddModifierSection(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyDefaultStyle(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyWideStyle(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:InitializePrompts(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:OnBackgroundAlphaChanged(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:RefreshWithPromptedBindings(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegendObject:SetLegendWidth(...) end
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject : Frame
+---@field backgroundBorder UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject
+---@field backgroundSlot UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject
+---@field StandardOneIconPAD1SLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject
+---@field StandardOneIconPADDLEFTSLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject
+---@field StandardOneIconPADDRIGHTSLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject : Frame
+---@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject
+---@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object
+---@field InputIcons table
+---@field template string
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject = {}
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:BeginHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:DisablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EndHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetIconDividerControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetInputIconControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetPromptTextControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:OnLoad(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:RefreshInputPromptSize(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDisabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDividerType(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetFocused(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetInputIconSize(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetIsHoldAction(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPressable(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptFont(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptInputIconKey(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptText(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetUseDropShadow(...) end
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject : Frame
+---@field FontString UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject : FontString
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object : Frame
+---@field ActiveTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject
+---@field DisabledTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject
+---@field HoldAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject
+---@field HoldIndicator UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject
+---@field HoldIndicatorBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject
+---@field HoverTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject
+---@field LoadBar UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject
+---@field LoadBarBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject
+---@field LoadBarGlow UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject
+---@field NormalTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject
+---@field PressedTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject
+---@field SpinnerTip UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object = {}
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ApplyTextureLayout(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:BeginHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:CanEnterTextureState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:DisableDropShadow(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EnableDropShadow(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EndHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnLoad(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:RefreshIconTextures(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetDisabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetEnabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetFocused(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetHoldState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetInputKey(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetIsHoldAction(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetPressable(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureHeight(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureWidth(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetUsableState(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject : Texture
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject = {}
+end
+
+do
+---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject : Frame
+---@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject
+---@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object
+---@field InputIcons table
+---@field template string
+local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject = {}
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:BeginHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:DisablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnableOrDisablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnablePrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EndHold(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingForPrompt(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingInfo(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetIconDividerControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetInputIconControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetPromptTextControl(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:OnLoad(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:RefreshInputPromptSize(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDisabled(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDividerType(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetFocused(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetInputIconSize(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetIsHoldAction(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPressable(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptFont(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptInputIconKey(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
+---@return any ...
+function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
+end
+
+do
 ---@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
 ---@field FontString UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
 local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
@@ -6807,1225 +7502,4 @@ function WorldMapFrameObject:ZoomIn(...) end
 function WorldMapFrameObject:ZoomOut(...) end
 ---@type WorldMapFrameObject
 WorldMapFrame = WorldMapFrameObject
-end
-
-do
----@class WorldMapFrame_BlackoutFrameObject : Frame
----@field Blackout WorldMapFrame_BlackoutFrame_BlackoutObject
-local WorldMapFrame_BlackoutFrameObject = {}
-end
-
-do
----@class WorldMapFrame_BlackoutFrame_BlackoutObject : Texture
-local WorldMapFrame_BlackoutFrame_BlackoutObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrameObject : Frame
----@field Bg WorldMapFrame_BorderFrame_BgObject
----@field CloseButton WorldMapFrame_BorderFrame_CloseButtonObject
----@field FocusJumpHint WorldMapFrame_BorderFrame_FocusJumpHintObject
----@field FrameGlow WorldMapFrame_BorderFrame_FrameGlowObject
----@field InsetBorderTop WorldMapFrame_BorderFrame_InsetBorderTopObject
----@field LeftJumpHint WorldMapFrame_BorderFrame_LeftJumpHintObject
----@field MaxMinButtonFrame WorldMapFrame_BorderFrame_MaxMinButtonFrameObject
----@field MaximizeMinimizeFrame WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject
----@field NineSlice WorldMapFrame_BorderFrame_NineSliceObject
----@field PortraitContainer WorldMapFrame_BorderFrame_PortraitContainerObject
----@field RightJumpHint WorldMapFrame_BorderFrame_RightJumpHintObject
----@field TitleContainer WorldMapFrame_BorderFrame_TitleContainerObject
----@field TopTileStreaks WorldMapFrame_BorderFrame_TopTileStreaksObject
----@field Tutorial WorldMapFrame_BorderFrame_TutorialObject
----@field Underlay WorldMapFrame_BorderFrame_UnderlayObject
----@field layoutType string
-local WorldMapFrame_BorderFrameObject = {}
----@return any ...
-function WorldMapFrame_BorderFrameObject:EndFocus(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:GetPortrait(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:GetTitleText(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:HasPortraitTexture(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:HideRightJumpHint(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:LockInFocus(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:RefreshFocus(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetBorder(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitShown(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToBag(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitle(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleColor(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleFormatted(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:SetTitleOffsets(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:StartFocus(...) end
----@return any ...
-function WorldMapFrame_BorderFrameObject:onCloseCallback(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_BgObject : Texture
-local WorldMapFrame_BorderFrame_BgObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_CloseButtonObject : Button
-local WorldMapFrame_BorderFrame_CloseButtonObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHintObject : Frame
----@field ActiveTexture WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_BorderFrame_FocusJumpHintObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject : Texture
-local WorldMapFrame_BorderFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_FrameGlowObject : Frame
----@field GlowTexture WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local WorldMapFrame_BorderFrame_FrameGlowObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject : Texture
-local WorldMapFrame_BorderFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_InsetBorderTopObject : Texture
-local WorldMapFrame_BorderFrame_InsetBorderTopObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHintObject : Frame
----@field ActiveTexture WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_BorderFrame_LeftJumpHintObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject : Texture
-local WorldMapFrame_BorderFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_MaxMinButtonFrameObject
-local WorldMapFrame_BorderFrame_MaxMinButtonFrameObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject : Frame
----@field MaximizeButton WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject
----@field MinimizeButton WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject
-local WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:IsMinimized(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:Maximize(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:Minimize(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMaximizedLook(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMinimizedCVar(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetMinimizedLook(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetOnMaximizedCallback(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SetOnMinimizedCallback(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:SkipResetOnShow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:maximizedCallback(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_MaximizeMinimizeFrameObject:minimizedCallback(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject : Button
-local WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MaximizeButtonObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject : Button
-local WorldMapFrame_BorderFrame_MaximizeMinimizeFrame_MinimizeButtonObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSliceObject : Frame
----@field BottomEdge WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject
----@field Center WorldMapFrame_BorderFrame_NineSlice_CenterObject
----@field LeftEdge WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject
----@field RightEdge WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject
----@field TopEdge WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject
-local WorldMapFrame_BorderFrame_NineSliceObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_CenterObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject : Texture
-local WorldMapFrame_BorderFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_PortraitContainerObject : Frame
----@field CircleMask WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject
----@field portrait WorldMapFrame_BorderFrame_PortraitContainer_portraitObject
-local WorldMapFrame_BorderFrame_PortraitContainerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local WorldMapFrame_BorderFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_PortraitContainer_portraitObject : Texture
-local WorldMapFrame_BorderFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHintObject : Frame
----@field ActiveTexture WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject
----@field LoadBar WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local WorldMapFrame_BorderFrame_RightJumpHintObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject : Texture
-local WorldMapFrame_BorderFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_TitleContainerObject : Frame
----@field TitleText WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject
-local WorldMapFrame_BorderFrame_TitleContainerObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject : FontString
-local WorldMapFrame_BorderFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_TopTileStreaksObject : Texture
-local WorldMapFrame_BorderFrame_TopTileStreaksObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_TutorialObject : Button
----@field BigIPulse WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject
----@field I WorldMapFrame_BorderFrame_Tutorial_IObject
----@field Pulse WorldMapFrame_BorderFrame_Tutorial_PulseObject
----@field Ring WorldMapFrame_BorderFrame_Tutorial_RingObject
----@field RingPulse WorldMapFrame_BorderFrame_Tutorial_RingPulseObject
----@field helpInfo WorldMapFrame_BorderFrame_Tutorial_helpInfoObject
----@field mainHelpPlateButtonTooltipText string
----@field smartNavigationIgnored boolean
-local WorldMapFrame_BorderFrame_TutorialObject = {}
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:CheckAndHideHelpInfo(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:CheckAndShowTooltip(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnEnter(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnLeave(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnMouseDown(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnMouseUp(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:SetHelpInfo3(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:ShowTooltip(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:ToggleHelpInfo(...) end
----@return any ...
-function WorldMapFrame_BorderFrame_TutorialObject:UpdateHelpInfo(...) end
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_BigIPulseObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_IObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_IObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_PulseObject : AnimationGroup
----@field BigIPulse WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject
----@field RingPulse WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject
-local WorldMapFrame_BorderFrame_Tutorial_PulseObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject : Alpha
-local WorldMapFrame_BorderFrame_Tutorial_Pulse_BigIPulseObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject : Alpha
-local WorldMapFrame_BorderFrame_Tutorial_Pulse_RingPulseObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_RingObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_RingObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_RingPulseObject : Texture
-local WorldMapFrame_BorderFrame_Tutorial_RingPulseObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_Tutorial_helpInfoObject
----@field FramePos table
----@field FrameSize table
-local WorldMapFrame_BorderFrame_Tutorial_helpInfoObject = {}
-end
-
-do
----@class WorldMapFrame_BorderFrame_UnderlayObject : Texture
-local WorldMapFrame_BorderFrame_UnderlayObject = {}
-end
-
-do
----@class WorldMapFrame_MouseActionObject
----@field Click number
----@field Down number
----@field Up number
-local WorldMapFrame_MouseActionObject = {}
-end
-
-do
----@class WorldMapFrame_NavBarObject
-local WorldMapFrame_NavBarObject = {}
-end
-
-do
----@class WorldMapFrame_OverscrollBGObject : Frame
----@field BottomLeftVignette WorldMapFrame_OverscrollBG_BottomLeftVignetteObject
----@field BottomRightVignette WorldMapFrame_OverscrollBG_BottomRightVignetteObject
----@field Texture WorldMapFrame_OverscrollBG_TextureObject
----@field TopLeftVignette WorldMapFrame_OverscrollBG_TopLeftVignetteObject
----@field TopRightVignette WorldMapFrame_OverscrollBG_TopRightVignetteObject
-local WorldMapFrame_OverscrollBGObject = {}
-end
-
-do
----@class WorldMapFrame_OverscrollBG_BottomLeftVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_BottomLeftVignetteObject = {}
-end
-
-do
----@class WorldMapFrame_OverscrollBG_BottomRightVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_BottomRightVignetteObject = {}
-end
-
-do
----@class WorldMapFrame_OverscrollBG_TextureObject : Texture
-local WorldMapFrame_OverscrollBG_TextureObject = {}
-end
-
-do
----@class WorldMapFrame_OverscrollBG_TopLeftVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_TopLeftVignetteObject = {}
-end
-
-do
----@class WorldMapFrame_OverscrollBG_TopRightVignetteObject : Texture
-local WorldMapFrame_OverscrollBG_TopRightVignetteObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLogObject : Frame
----@field ContentFrames table
----@field ContentsAnchor WorldMapFrame_QuestLog_ContentsAnchorObject
----@field DetailsFrame WorldMapFrame_QuestLog_DetailsFrameObject
----@field EventsFrame WorldMapFrame_QuestLog_EventsFrameObject
----@field EventsTab WorldMapFrame_QuestLog_EventsTabObject
----@field MapLegend WorldMapFrame_QuestLog_MapLegendObject
----@field MapLegendTab WorldMapFrame_QuestLog_MapLegendTabObject
----@field QuestSessionManagement WorldMapFrame_QuestLog_QuestSessionManagementObject
----@field QuestsFrame WorldMapFrame_QuestLog_QuestsFrameObject
----@field QuestsTab WorldMapFrame_QuestLog_QuestsTabObject
----@field TabButtons table
----@field VerticalSeparator WorldMapFrame_QuestLog_VerticalSeparatorObject
----@field completedCriteria table
----@field displayMode number
----@field initialCampaignHeadersUpdate boolean
-local WorldMapFrame_QuestLogObject = {}
----@return any ...
-function WorldMapFrame_QuestLogObject:CheckEventsTabTutorial(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetCurrentMapID(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetHelpInfoText(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetLastLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:GetPanelExtraWidth(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:HideCampaignOverview(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:OnButtonSelected(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:OnHighlightedQuestPOIChange(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:OnSmartNavFocus(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:Refresh(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:ResetLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SetDisplayMode(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SetFrameLayoutIndex(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SetHeaderQuestsTracked(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:ShowCampaignOverview(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:SyncQuestSystemWithCurrentMap(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:UpdatePOIs(...) end
----@return any ...
-function WorldMapFrame_QuestLogObject:ValidateTabs(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_ContentsAnchorObject : Frame
-local WorldMapFrame_QuestLog_ContentsAnchorObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_DetailsFrameObject
-local WorldMapFrame_QuestLog_DetailsFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrameObject : Frame
----@field BorderFrame WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject
----@field LoadingFrame WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject
----@field ScrollBar WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject
----@field ScrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBoxObject
----@field SettingsDropdown WorldMapFrame_QuestLog_EventsFrame_SettingsDropdownObject
----@field TitleText WorldMapFrame_QuestLog_EventsFrame_TitleTextObject
----@field displayMode number
-local WorldMapFrame_QuestLog_EventsFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:AddAllEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:AddOngoingEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:AddScheduledEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:CancelTimer(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnAnimationFinished(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrameObject:Refresh(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject : Frame
----@field Border WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject
----@field TopDetail WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject
-local WorldMapFrame_QuestLog_EventsFrame_BorderFrameObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_BorderFrame_BorderObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_BorderFrame_TopDetailObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject : Frame
----@field Anim WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject
----@field Ring WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject
----@field Sparks WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:GetShadowAlpha(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnHide(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnShow(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:OnSizeChanged(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:SetDesaturated(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:SetShadowEnabled(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:UpdateShadowSize(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_LoadingFrameObject:UpdateTheme(...) end
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject : AnimationGroup
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_AnimObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_RingObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject : Texture
-local WorldMapFrame_QuestLog_EventsFrame_LoadingFrame_SparksObject = {}
-end
-
-do
----@class WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject : Frame
----@field Back WorldMapFrame_QuestLog_EventsFrame_ScrollBar_BackObject
----@field Defaults WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DefaultsObject
----@field Directions WorldMapFrame_QuestLog_EventsFrame_ScrollBar_DirectionsObject
----@field Event WorldMapFrame_QuestLog_EventsFrame_ScrollBar_EventObject
----@field Forward WorldMapFrame_QuestLog_EventsFrame_ScrollBar_ForwardObject
----@field Track WorldMapFrame_QuestLog_EventsFrame_ScrollBar_TrackObject
----@field allowScroll boolean
----@field callbackTables table
----@field canInterpolateScroll boolean
----@field deferredCallbacks table
----@field executingEvents table
----@field hideTrack boolean
----@field hideTrackIfThumbExceedsTrack boolean
----@field interpolator WorldMapFrame_QuestLog_EventsFrame_ScrollBar_interpolatorObject
----@field isScrollController boolean
----@field minThumbExtent number
----@field panDelay number
----@field panExtentPercentage number
----@field panRepeatTime number
----@field registeredScrollBox WorldMapFrame_QuestLog_EventsFrame_ScrollBar_registeredScrollBoxObject
----@field scrollPercentage number
----@field smartNavigationIgnored boolean
----@field snapToInterval boolean
----@field thumbAnchor string
----@field useProportionalThumb boolean
----@field visibleExtentPercentage number
----@field wheelPanScalar number
-local WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject = {}
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CallInternalScope(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CanCursorStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CanInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:CopyDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:DisableControls(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:DoesFrameHaveEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:EnableInternalPriority(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:EnableSnapToInterval(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GenerateCallbackEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetBackStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbackTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbackTables(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetForwardStepper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetIntervalRange(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetLower(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanRepeatDelay(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetPanRepeatTime(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetScrollInterpolator(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetThumb(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetThumbAnchor(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetTrackExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetUpper(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:GetWheelPanPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:HasRegistrantsForEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:HasScrollableExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Init(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:InitializeNarration(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Interpolate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsAtBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsAtEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:IsThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnHide_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnLoad(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnLoad_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnMouseWheel(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnShow_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnSizeChanged_Intrinsic(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnStepperMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnThumbMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:OnTrackMouseDown(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:RegisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollDecrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollIncrease(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollPageInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollStepInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollToBegin(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollToEnd(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:ScrollWheelInDirection(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SecureInsertEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SelectCursorComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SelectPointComponent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetFrameExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHideIfUnscrollable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHideTrackIfThumbExceedsTrack(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetHorizontal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetInterpolateScroll(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetPanExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetScrollPercentageInternal(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetThumbExtent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:SetVisibleExtentPercentage(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:TriggerEvent(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterCallback(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterEvents(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:UnregisterUpdate(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:Update(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:onButtonMouseUp(...) end
----@return any ...
-function WorldMapFrame_QuestLog_EventsFrame_ScrollBarObject:scrollInternal(...) end
 end

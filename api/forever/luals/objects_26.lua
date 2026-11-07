@@ -3,6 +3,1675 @@
 
 
 do
+---@class OverlayPlayerCastingBarFrame_BackgroundObject : Texture
+local OverlayPlayerCastingBarFrame_BackgroundObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_BaseGlowObject : Texture
+local OverlayPlayerCastingBarFrame_BaseGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_BorderObject : Texture
+local OverlayPlayerCastingBarFrame_BorderObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_BorderMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_BorderMaskObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_BorderShieldObject : Texture
+local OverlayPlayerCastingBarFrame_BorderShieldObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CastTimeTextObject : FontString
+local OverlayPlayerCastingBarFrame_CastTimeTextObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChannelFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_ChannelFinishObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChannelShadowObject : Texture
+local OverlayPlayerCastingBarFrame_ChannelShadowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChargeFlashObject : Texture
+local OverlayPlayerCastingBarFrame_ChargeFlashObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ChargeGlowObject : Texture
+local OverlayPlayerCastingBarFrame_ChargeGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CraftGlowObject : Texture
+local OverlayPlayerCastingBarFrame_CraftGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CraftingFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_CraftingFinishObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_CraftingMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_CraftingMaskObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_DropShadowObject : Texture
+local OverlayPlayerCastingBarFrame_DropShadowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_EnergyGlowObject : Texture
+local OverlayPlayerCastingBarFrame_EnergyGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_EnergyMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_EnergyMaskObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FadeOutAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_FadeOutAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Flakes01Object : Texture
+local OverlayPlayerCastingBarFrame_Flakes01Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Flakes02Object : Texture
+local OverlayPlayerCastingBarFrame_Flakes02Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Flakes03Object : Texture
+local OverlayPlayerCastingBarFrame_Flakes03Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FlashObject : Texture
+local OverlayPlayerCastingBarFrame_FlashObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FlashAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_FlashAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_FlashLoopingAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_FlashLoopingAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_HoldFadeOutAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_IconObject : Texture
+local OverlayPlayerCastingBarFrame_IconObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptGlowObject : Texture
+local OverlayPlayerCastingBarFrame_InterruptGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptGlowAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_InterruptGlowAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptShakeAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_InterruptShakeAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_InterruptSparkAnimObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_InterruptSparkAnimObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_ShineObject : Texture
+local OverlayPlayerCastingBarFrame_ShineObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_SparkObject : Texture
+---@field offsetY number
+local OverlayPlayerCastingBarFrame_SparkObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Sparkles01Object : Texture
+local OverlayPlayerCastingBarFrame_Sparkles01Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_Sparkles02Object : Texture
+local OverlayPlayerCastingBarFrame_Sparkles02Object = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StageFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_StageFinishObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StageFlashObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_StageFlashObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StandardFinishObject : AnimationGroup
+local OverlayPlayerCastingBarFrame_StandardFinishObject = {}
+---@return any ...
+function OverlayPlayerCastingBarFrame_StandardFinishObject:Hide(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrame_StandardFinishObject:SetTargetsShown(...) end
+---@return any ...
+function OverlayPlayerCastingBarFrame_StandardFinishObject:Show(...) end
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_StandardGlowObject : Texture
+local OverlayPlayerCastingBarFrame_StandardGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_TextObject : FontString
+local OverlayPlayerCastingBarFrame_TextObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_TextBorderObject : Texture
+local OverlayPlayerCastingBarFrame_TextBorderObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_WispGlowObject : Texture
+local OverlayPlayerCastingBarFrame_WispGlowObject = {}
+end
+
+do
+---@class OverlayPlayerCastingBarFrame_WispMaskObject : MaskTexture
+local OverlayPlayerCastingBarFrame_WispMaskObject = {}
+end
+
+do
+---@class OverrideActionBarObject : Frame
+---@field ButtonBGL OverrideActionBar_ButtonBGLObject
+---@field ButtonBGR OverrideActionBar_ButtonBGRObject
+---@field Divider1 OverrideActionBar_Divider1Object
+---@field Divider2 OverrideActionBar_Divider2Object
+---@field Divider3 OverrideActionBar_Divider3Object
+---@field EndCapL OverrideActionBar_EndCapLObject
+---@field EndCapR OverrideActionBar_EndCapRObject
+---@field ExitBG OverrideActionBar_ExitBGObject
+---@field HealthBarBG OverrideActionBar_HealthBarBGObject
+---@field HealthBarOverlay OverrideActionBar_HealthBarOverlayObject
+---@field LeaveButton OverrideActionBar_LeaveButtonObject
+---@field LeaveDown OverrideActionBar_LeaveDownObject
+---@field LeaveHighlight OverrideActionBar_LeaveHighlightObject
+---@field LeaveUp OverrideActionBar_LeaveUpObject
+---@field MicroBGL OverrideActionBar_MicroBGLObject
+---@field MicroBGR OverrideActionBar_MicroBGRObject
+---@field PitchBG OverrideActionBar_PitchBGObject
+---@field PitchButtonBG OverrideActionBar_PitchButtonBGObject
+---@field PitchDownButton OverrideActionBar_PitchDownButtonObject
+---@field PitchDownDown OverrideActionBar_PitchDownDownObject
+---@field PitchDownHighlight OverrideActionBar_PitchDownHighlightObject
+---@field PitchDownUp OverrideActionBar_PitchDownUpObject
+---@field PitchMarker OverrideActionBar_PitchMarkerObject
+---@field PitchOverlay OverrideActionBar_PitchOverlayObject
+---@field PitchUpButton OverrideActionBar_PitchUpButtonObject
+---@field PitchUpDown OverrideActionBar_PitchUpDownObject
+---@field PitchUpHighlight OverrideActionBar_PitchUpHighlightObject
+---@field PitchUpUp OverrideActionBar_PitchUpUpObject
+---@field PowerBarBG OverrideActionBar_PowerBarBGObject
+---@field PowerBarOverlay OverrideActionBar_PowerBarOverlayObject
+---@field SpellButton1 OverrideActionBar_SpellButton1Object
+---@field SpellButton2 OverrideActionBar_SpellButton2Object
+---@field SpellButton3 OverrideActionBar_SpellButton3Object
+---@field SpellButton4 OverrideActionBar_SpellButton4Object
+---@field SpellButton5 OverrideActionBar_SpellButton5Object
+---@field SpellButton6 OverrideActionBar_SpellButton6Object
+---@field _BG OverrideActionBar__BGObject
+---@field _Border OverrideActionBar__BorderObject
+---@field _ButtonBGMid OverrideActionBar__ButtonBGMidObject
+---@field _MicroBGMid OverrideActionBar__MicroBGMidObject
+---@field healthBar OverrideActionBar_healthBarObject
+---@field leaveFrame OverrideActionBar_leaveFrameObject
+---@field pitchFrame OverrideActionBar_pitchFrameObject
+---@field powerBar OverrideActionBar_powerBarObject
+---@field slideOut OverrideActionBar_slideOutObject
+---@field xpBar OverrideActionBar_xpBarObject
+local OverrideActionBarObject = {}
+---@return any ...
+function OverrideActionBarObject:CalcSize(...) end
+---@return any ...
+function OverrideActionBarObject:GetMicroButtonAnchor(...) end
+---@return any ...
+function OverrideActionBarObject:IsShownBase(...) end
+---@return any ...
+function OverrideActionBarObject:IsShownOverride(...) end
+---@return any ...
+function OverrideActionBarObject:Leave(...) end
+---@return any ...
+function OverrideActionBarObject:OnEvent(...) end
+---@return any ...
+function OverrideActionBarObject:OnHide(...) end
+---@return any ...
+function OverrideActionBarObject:OnLoad(...) end
+---@return any ...
+function OverrideActionBarObject:OnShow(...) end
+---@return any ...
+function OverrideActionBarObject:SetPitchValue(...) end
+---@return any ...
+function OverrideActionBarObject:SetSkin(...) end
+---@return any ...
+function OverrideActionBarObject:Setup(...) end
+---@return any ...
+function OverrideActionBarObject:UpdateMicroButtons(...) end
+---@return any ...
+function OverrideActionBarObject:UpdateSkin(...) end
+---@return any ...
+function OverrideActionBarObject:UpdateXpBar(...) end
+---@type OverrideActionBarObject
+OverrideActionBar = OverrideActionBarObject
+end
+
+do
+---@class OverrideActionBar_ButtonBGLObject : Texture
+local OverrideActionBar_ButtonBGLObject = {}
+end
+
+do
+---@class OverrideActionBar_ButtonBGRObject : Texture
+local OverrideActionBar_ButtonBGRObject = {}
+end
+
+do
+---@class OverrideActionBar_Divider1Object : Texture
+local OverrideActionBar_Divider1Object = {}
+end
+
+do
+---@class OverrideActionBar_Divider2Object : Texture
+local OverrideActionBar_Divider2Object = {}
+end
+
+do
+---@class OverrideActionBar_Divider3Object
+local OverrideActionBar_Divider3Object = {}
+end
+
+do
+---@class OverrideActionBar_EndCapLObject : Texture
+local OverrideActionBar_EndCapLObject = {}
+end
+
+do
+---@class OverrideActionBar_EndCapRObject : Texture
+local OverrideActionBar_EndCapRObject = {}
+end
+
+do
+---@class OverrideActionBar_ExitBGObject
+local OverrideActionBar_ExitBGObject = {}
+end
+
+do
+---@class OverrideActionBar_HealthBarBGObject : Texture
+local OverrideActionBar_HealthBarBGObject = {}
+end
+
+do
+---@class OverrideActionBar_HealthBarOverlayObject : Texture
+local OverrideActionBar_HealthBarOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveButtonObject
+local OverrideActionBar_LeaveButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveDownObject
+local OverrideActionBar_LeaveDownObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveHighlightObject : Texture
+local OverrideActionBar_LeaveHighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_LeaveUpObject : Texture
+local OverrideActionBar_LeaveUpObject = {}
+end
+
+do
+---@class OverrideActionBar_MicroBGLObject : Texture
+local OverrideActionBar_MicroBGLObject = {}
+end
+
+do
+---@class OverrideActionBar_MicroBGRObject : Texture
+local OverrideActionBar_MicroBGRObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchBGObject : Texture
+local OverrideActionBar_PitchBGObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchButtonBGObject : Texture
+local OverrideActionBar_PitchButtonBGObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownButtonObject : Button
+local OverrideActionBar_PitchDownButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownDownObject : Texture
+local OverrideActionBar_PitchDownDownObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownHighlightObject : Texture
+local OverrideActionBar_PitchDownHighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchDownUpObject : Texture
+local OverrideActionBar_PitchDownUpObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchMarkerObject : Texture
+local OverrideActionBar_PitchMarkerObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchOverlayObject : Texture
+local OverrideActionBar_PitchOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpButtonObject
+local OverrideActionBar_PitchUpButtonObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpDownObject : Texture
+local OverrideActionBar_PitchUpDownObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpHighlightObject : Texture
+local OverrideActionBar_PitchUpHighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_PitchUpUpObject : Texture
+local OverrideActionBar_PitchUpUpObject = {}
+end
+
+do
+---@class OverrideActionBar_PowerBarBGObject
+local OverrideActionBar_PowerBarBGObject = {}
+end
+
+do
+---@class OverrideActionBar_PowerBarOverlayObject
+local OverrideActionBar_PowerBarOverlayObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton1_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton1_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton1_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton1_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton1_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton1_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton1_CountObject
+---@field Flash OverrideActionBar_SpellButton1_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton1_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton1_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton1_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton1_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton1_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton1_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton1_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton1_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton1_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton1_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton1_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton1_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton1_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton1_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton1_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton1_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton1_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field eventsRegistered boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton1_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton1_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton1Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton1_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton1_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton1_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton1_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_BorderObject : Texture
+local OverrideActionBar_SpellButton1_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton1_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton1_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton1_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton1_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_CountObject : FontString
+local OverrideActionBar_SpellButton1_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_FlashObject : Texture
+local OverrideActionBar_SpellButton1_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_HotKeyObject : FontString
+local OverrideActionBar_SpellButton1_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton1_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton1_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton1_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton1_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton1_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_NameObject : FontString
+local OverrideActionBar_SpellButton1_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton1_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton1_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton1_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SlotArtObject : Texture
+local OverrideActionBar_SpellButton1_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton1_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject : Frame
+---@field CastFill OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject
+---@field CastingAnim OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject
+---@field FillMask OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject
+---@field InnerGlowTexture OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_FillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject : Texture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastFillObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject : AnimationGroup
+---@field CastFillTranslation OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject : Translation
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_CastingAnim_CastFillTranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_FillMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject : Texture
+local OverrideActionBar_SpellButton1_SpellCastAnimFrame_Fill_InnerGlowTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellHighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_SpellHighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_SpellHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton1_SpellHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject : Frame
+---@field Base OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject
+---@field Highlight OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject
+---@field HighlightAnim OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject
+---@field Mask OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_TargetReticleAnimFrameObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject : Texture
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject : Texture
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_HighlightAnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton1_TargetReticleAnimFrame_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TextOverlayContainerObject : Frame
+---@field Count OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject
+---@field HotKey OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton1_TextOverlayContainerObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton1_TextOverlayContainerObject:OnLoad(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject
+local OverrideActionBar_SpellButton1_TextOverlayContainer_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject
+local OverrideActionBar_SpellButton1_TextOverlayContainer_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_chargeCooldownObject : Cooldown
+local OverrideActionBar_SpellButton1_chargeCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_cooldownObject : Cooldown
+local OverrideActionBar_SpellButton1_cooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_iconObject : Texture
+local OverrideActionBar_SpellButton1_iconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton1_lossOfControlCooldownObject : Cooldown
+local OverrideActionBar_SpellButton1_lossOfControlCooldownObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2Object : CheckButton
+---@field Arrow OverrideActionBar_SpellButton2_ArrowObject
+---@field AutoCastOverlay OverrideActionBar_SpellButton2_AutoCastOverlayObject
+---@field Border OverrideActionBar_SpellButton2_BorderObject
+---@field BorderShadow OverrideActionBar_SpellButton2_BorderShadowObject
+---@field CheckedTexture OverrideActionBar_SpellButton2_CheckedTextureObject
+---@field CooldownFlash OverrideActionBar_SpellButton2_CooldownFlashObject
+---@field Count OverrideActionBar_SpellButton2_CountObject
+---@field Flash OverrideActionBar_SpellButton2_FlashObject
+---@field HighlightTexture OverrideActionBar_SpellButton2_HighlightTextureObject
+---@field HotKey OverrideActionBar_SpellButton2_HotKeyObject
+---@field IconMask OverrideActionBar_SpellButton2_IconMaskObject
+---@field InterruptDisplay OverrideActionBar_SpellButton2_InterruptDisplayObject
+---@field LevelLinkLockIcon OverrideActionBar_SpellButton2_LevelLinkLockIconObject
+---@field Name OverrideActionBar_SpellButton2_NameObject
+---@field NewActionTexture OverrideActionBar_SpellButton2_NewActionTextureObject
+---@field NormalTexture OverrideActionBar_SpellButton2_NormalTextureObject
+---@field PushedTexture OverrideActionBar_SpellButton2_PushedTextureObject
+---@field QuickKeybindHighlightTexture OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject
+---@field SlotArt OverrideActionBar_SpellButton2_SlotArtObject
+---@field SlotBackground OverrideActionBar_SpellButton2_SlotBackgroundObject
+---@field SpellCastAnimFrame OverrideActionBar_SpellButton2_SpellCastAnimFrameObject
+---@field SpellHighlightAnim OverrideActionBar_SpellButton2_SpellHighlightAnimObject
+---@field SpellHighlightTexture OverrideActionBar_SpellButton2_SpellHighlightTextureObject
+---@field TargetReticleAnimFrame OverrideActionBar_SpellButton2_TargetReticleAnimFrameObject
+---@field TextOverlayContainer OverrideActionBar_SpellButton2_TextOverlayContainerObject
+---@field action number
+---@field arrowCrossAxisSize number
+---@field arrowDownTexture string
+---@field arrowMainAxisSize number
+---@field arrowNormalTexture string
+---@field arrowOverTexture string
+---@field bindingAction string
+---@field chargeCooldown OverrideActionBar_SpellButton2_chargeCooldownObject
+---@field closedArrowOffset number
+---@field commandName string
+---@field cooldown OverrideActionBar_SpellButton2_cooldownObject
+---@field enableLOCCooldown boolean
+---@field enableSpellFX boolean
+---@field eventsRegistered boolean
+---@field feedback_action number
+---@field flashing number
+---@field flashtime number
+---@field hotkeyTextGamepadX number
+---@field hotkeyTextGamepadY number
+---@field hotkeyTextKeyboardX number
+---@field hotkeyTextKeyboardY number
+---@field icon OverrideActionBar_SpellButton2_iconObject
+---@field lossOfControlCooldown OverrideActionBar_SpellButton2_lossOfControlCooldownObject
+---@field openArrowOffset number
+---@field popupCrossAxisSize number
+---@field popupDirection string
+---@field popupOffset number
+local OverrideActionBar_SpellButton2Object = {}
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnDragStop(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnPostClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarActionButtonDerivedMixin_OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ActionBarButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:BaseActionButtonMixin_OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:CalculateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:CheckNeedsUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearInterruptDisplay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearReticle(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClearTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:ClosePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:CreateTextureOverlayFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:DesaturateIfDisabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:DoModeChange(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:EvaluateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:EvaluateTutorials(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:Flyout_OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetActionButtonInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetAllowRadialWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetIsPingable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetOrCreateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetPagedID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:GetTargetInfo(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:HasAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:HasPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsDownOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsFlashing(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsOver(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:IsPopupOpen(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:MatchesActiveButtonSpellID(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnActionBarSlotChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnAttributeChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnButtonStateChanged(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnDisable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnDragStart(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnEnable(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnEvent(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnLoad(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnMouseDown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnMouseUp(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnPopupHidden(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnPopupToggled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnReceiveDrag(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:OnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:PlaySpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:PlaySpellInterruptedAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:PlayTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnEnter(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnLeave(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnMouseWheel(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonOnUpdate(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:QuickKeybindButtonSetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:RegisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetButtonStateBase(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetButtonStateOverride(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetDisplacedRegions(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetPopupDirection(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetShowGrid(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SetTooltip(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:SpellFXEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StartFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StopFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StopSpellCastAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:StopTargettingReticleAnim(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:TogglePopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:TriggerSecureClick(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UnregisterActionBarButtonCheckFrames(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:Update(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowPosition(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowRotation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowShown(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateArrowTexture(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateAssistedCombatRotationFrame(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateBorderShadow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateButtonArt(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateCastingAnimation(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateCount(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateFlash(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateFlyout(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateFlyoutPopup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateHotkeys(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateMouseWheelHandler(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdatePingAttributes(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdatePressAndHoldAction(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateProfessionQuality(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateSpellAlert(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateSpellHighlightMark(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateState(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateTypeOverlay(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2Object:UpdateUsable(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_ArrowObject : Texture
+---@field origHeight number
+---@field origTexCoords table
+---@field origWidth number
+---@field rotationDegrees number
+local OverrideActionBar_SpellButton2_ArrowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlayObject : Frame
+---@field Corners OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject
+---@field Mask OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject
+---@field Shine OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject
+---@field autoCastEnabled boolean
+local OverrideActionBar_SpellButton2_AutoCastOverlayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:OnShow(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:ShowAutoCastEnabled(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_AutoCastOverlayObject:UpdateShineAnim(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject : Texture
+local OverrideActionBar_SpellButton2_AutoCastOverlay_CornersObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_AutoCastOverlay_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject : Texture
+---@field Anim OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject
+local OverrideActionBar_SpellButton2_AutoCastOverlay_ShineObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_AutoCastOverlay_Shine_AnimObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_BorderObject : Texture
+local OverrideActionBar_SpellButton2_BorderObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_BorderShadowObject : Texture
+local OverrideActionBar_SpellButton2_BorderShadowObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CheckedTextureObject : Texture
+local OverrideActionBar_SpellButton2_CheckedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CooldownFlashObject : Frame
+---@field FlashAnim OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject
+---@field Flipbook OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject
+local OverrideActionBar_SpellButton2_CooldownFlashObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_CooldownFlashObject:Setup(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_CooldownFlash_FlashAnimObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject : Texture
+local OverrideActionBar_SpellButton2_CooldownFlash_FlipbookObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_CountObject : FontString
+local OverrideActionBar_SpellButton2_CountObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_FlashObject : Texture
+local OverrideActionBar_SpellButton2_FlashObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_HotKeyObject : FontString
+local OverrideActionBar_SpellButton2_HotKeyObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_IconMaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_IconMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplayObject : Frame
+---@field Base OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject
+---@field Highlight OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject
+local OverrideActionBar_SpellButton2_InterruptDisplayObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_InterruptDisplayObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_InterruptDisplayObject:OnShow(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject
+---@field Base OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject
+local OverrideActionBar_SpellButton2_InterruptDisplay_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject : AnimationGroup
+local OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_InterruptDisplay_Base_AnimInObject:OnFinished(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject : Texture
+local OverrideActionBar_SpellButton2_InterruptDisplay_Base_BaseObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject : Frame
+---@field AnimIn OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject
+---@field HighlightTexture OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject
+---@field Mask OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject
+local OverrideActionBar_SpellButton2_InterruptDisplay_HighlightObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject : AnimationGroup
+---@field Translation OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimInObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject : Translation
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_AnimIn_TranslationObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_HighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_InterruptDisplay_Highlight_MaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_LevelLinkLockIconObject : Texture
+local OverrideActionBar_SpellButton2_LevelLinkLockIconObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_NameObject : FontString
+local OverrideActionBar_SpellButton2_NameObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_NewActionTextureObject : Texture
+local OverrideActionBar_SpellButton2_NewActionTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_NormalTextureObject : Texture
+local OverrideActionBar_SpellButton2_NormalTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_PushedTextureObject : Texture
+local OverrideActionBar_SpellButton2_PushedTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject : Texture
+local OverrideActionBar_SpellButton2_QuickKeybindHighlightTextureObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SlotArtObject : Texture
+local OverrideActionBar_SpellButton2_SlotArtObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SlotBackgroundObject : Texture
+local OverrideActionBar_SpellButton2_SlotBackgroundObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrameObject : Frame
+---@field EndBurst OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject
+---@field Fill OverrideActionBar_SpellButton2_SpellCastAnimFrame_FillObject
+local OverrideActionBar_SpellButton2_SpellCastAnimFrameObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:FinishAnimAndPlayBurst(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:GetCooldownFrameAlpha(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:OnHide(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:Setup(...) end
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrameObject:SetupAnimAtlases(...) end
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject : Frame
+---@field EndMask OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject
+---@field FinishCastAnim OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject
+---@field GlowRing OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurstObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject : MaskTexture
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_EndMaskObject = {}
+end
+
+do
+---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject : AnimationGroup
+local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject = {}
+---@return any ...
+function OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_FinishCastAnimObject:OnFinished(...) end
+end
+
+do
 ---@class OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject : Texture
 local OverrideActionBar_SpellButton2_SpellCastAnimFrame_EndBurst_GlowRingObject = {}
 end
@@ -8163,1353 +9832,4 @@ function PartyFrameObject:UseCombinedGroups(...) end
 function PartyFrameObject:UseSettingAltName(...) end
 ---@type PartyFrameObject
 PartyFrame = PartyFrameObject
-end
-
-do
----@class PartyFrame_BackgroundObject : Frame
----@field BottomEdge PartyFrame_Background_BottomEdgeObject
----@field BottomLeftCorner PartyFrame_Background_BottomLeftCornerObject
----@field BottomRightCorner PartyFrame_Background_BottomRightCornerObject
----@field Center PartyFrame_Background_CenterObject
----@field LeftEdge PartyFrame_Background_LeftEdgeObject
----@field RightEdge PartyFrame_Background_RightEdgeObject
----@field TopEdge PartyFrame_Background_TopEdgeObject
----@field TopLeftCorner PartyFrame_Background_TopLeftCornerObject
----@field TopRightCorner PartyFrame_Background_TopRightCornerObject
----@field backdropInfo PartyFrame_Background_backdropInfoObject
-local PartyFrame_BackgroundObject = {}
----@return any ...
-function PartyFrame_BackgroundObject:ApplyBackdrop(...) end
----@return any ...
-function PartyFrame_BackgroundObject:ClearBackdrop(...) end
----@return any ...
-function PartyFrame_BackgroundObject:GetBackdrop(...) end
----@return any ...
-function PartyFrame_BackgroundObject:GetBackdropBorderColor(...) end
----@return any ...
-function PartyFrame_BackgroundObject:GetBackdropColor(...) end
----@return any ...
-function PartyFrame_BackgroundObject:GetEdgeSize(...) end
----@return any ...
-function PartyFrame_BackgroundObject:HasBackdropInfo(...) end
----@return any ...
-function PartyFrame_BackgroundObject:OnBackdropLoaded(...) end
----@return any ...
-function PartyFrame_BackgroundObject:OnBackdropSizeChanged(...) end
----@return any ...
-function PartyFrame_BackgroundObject:OnEvent(...) end
----@return any ...
-function PartyFrame_BackgroundObject:OnLoad(...) end
----@return any ...
-function PartyFrame_BackgroundObject:OnMouseUp(...) end
----@return any ...
-function PartyFrame_BackgroundObject:OnShow(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SaveOpacity(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetBackdrop(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetBackdropBorderColor(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetBackdropColor(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetBorderBlendMode(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetOpacity(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetupPieceVisuals(...) end
----@return any ...
-function PartyFrame_BackgroundObject:SetupTextureCoordinates(...) end
----@return any ...
-function PartyFrame_BackgroundObject:ToggleOpacity(...) end
-end
-
-do
----@class PartyFrame_Background_BottomEdgeObject : Texture
-local PartyFrame_Background_BottomEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_BottomLeftCornerObject : Texture
-local PartyFrame_Background_BottomLeftCornerObject = {}
-end
-
-do
----@class PartyFrame_Background_BottomRightCornerObject : Texture
-local PartyFrame_Background_BottomRightCornerObject = {}
-end
-
-do
----@class PartyFrame_Background_CenterObject : Texture
-local PartyFrame_Background_CenterObject = {}
-end
-
-do
----@class PartyFrame_Background_LeftEdgeObject : Texture
-local PartyFrame_Background_LeftEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_RightEdgeObject : Texture
-local PartyFrame_Background_RightEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_TopEdgeObject : Texture
-local PartyFrame_Background_TopEdgeObject = {}
-end
-
-do
----@class PartyFrame_Background_TopLeftCornerObject : Texture
-local PartyFrame_Background_TopLeftCornerObject = {}
-end
-
-do
----@class PartyFrame_Background_TopRightCornerObject : Texture
-local PartyFrame_Background_TopRightCornerObject = {}
-end
-
-do
----@class PartyFrame_Background_backdropInfoObject
----@field bgFile string
----@field edgeFile string
----@field edgeSize number
----@field insets table
----@field tile boolean
----@field tileEdge boolean
----@field tileSize number
-local PartyFrame_Background_backdropInfoObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1Object : Button
----@field ArtLayoutInfo PartyFrame_MemberFrame1_ArtLayoutInfoObject
----@field AuraFrameContainer PartyFrame_MemberFrame1_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame1_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame1_FlashObject
----@field HealthBarContainer PartyFrame_MemberFrame1_HealthBarContainerObject
----@field ManaBar PartyFrame_MemberFrame1_ManaBarObject
----@field Name PartyFrame_MemberFrame1_NameObject
----@field NotPresentIcon PartyFrame_MemberFrame1_NotPresentIconObject
----@field PartyMemberOverlay PartyFrame_MemberFrame1_PartyMemberOverlayObject
----@field PetFrame PartyFrame_MemberFrame1_PetFrameObject
----@field Portrait PartyFrame_MemberFrame1_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame1_PortraitMaskObject
----@field PowerBarAlt PartyFrame_MemberFrame1_PowerBarAltObject
----@field ReadyCheck PartyFrame_MemberFrame1_ReadyCheckObject
----@field ResurrectableIndicator PartyFrame_MemberFrame1_ResurrectableIndicatorObject
----@field Texture PartyFrame_MemberFrame1_TextureObject
----@field VehicleTexture PartyFrame_MemberFrame1_VehicleTextureObject
----@field buffs PartyFrame_MemberFrame1_buffsObject
----@field debuffCountdown number
----@field debuffs PartyFrame_MemberFrame1_debuffsObject
----@field frameType string
----@field healAbsorbBar PartyFrame_MemberFrame1_healAbsorbBarObject
----@field healthbar PartyFrame_MemberFrame1_healthbarObject
----@field initialized boolean
----@field layoutIndex number
----@field manabar PartyFrame_MemberFrame1_manabarObject
----@field myHealPredictionBar PartyFrame_MemberFrame1_myHealPredictionBarObject
----@field name PartyFrame_MemberFrame1_nameObject
----@field noContextActions boolean
----@field numDebuffs number
----@field otherHealPredictionBar PartyFrame_MemberFrame1_otherHealPredictionBarObject
----@field overAbsorbGlow PartyFrame_MemberFrame1_overAbsorbGlowObject
----@field overHealAbsorbGlow PartyFrame_MemberFrame1_overHealAbsorbGlowObject
----@field petUnitToken string
----@field portrait PartyFrame_MemberFrame1_portraitObject
----@field predictedPowerCost number
----@field replacePortraitSettingChangedHandlers table
----@field state string
----@field statusCounter number
----@field statusSign number
----@field tempMaxHealthLossBar PartyFrame_MemberFrame1_tempMaxHealthLossBarObject
----@field threatIndicator PartyFrame_MemberFrame1_threatIndicatorObject
----@field totalAbsorbBar PartyFrame_MemberFrame1_totalAbsorbBarObject
----@field unit string
----@field unitHPPercent number
----@field unitToken string
-local PartyFrame_MemberFrame1Object = {}
----@return any ...
-function PartyFrame_MemberFrame1Object:GetAllowRadialWheel(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:GetIsPingable(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:GetTargetInfo(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:GetUnit(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:PartyMemberHealthCheck(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:ToCharacterStyleArt(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:ToPlayerArt(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:ToVehicleArt(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateArt(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateAssignedRoles(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateHealthBarTextAnchors(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateLeader(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateManaBarTextAnchors(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateMember(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateMemberAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateMemberHealth(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateNameTextAnchors(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateNotPresentIcon(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateOnlineStatus(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdatePet(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdatePingAttributes(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdatePvPStatus(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateReadyCheck(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:UpdateVoiceActivityNotification(...) end
----@return any ...
-function PartyFrame_MemberFrame1Object:VoiceActivityNotificationCreatedCallback(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_ArtLayoutInfoObject
-local PartyFrame_MemberFrame1_ArtLayoutInfoObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_AuraFrameContainerObject : Frame
----@field dirty boolean
----@field spacing number
-local PartyFrame_MemberFrame1_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:Layout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:LayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkClean(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_AuraFramePoolObject
-local PartyFrame_MemberFrame1_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_FlashObject
-local PartyFrame_MemberFrame1_FlashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_HealthBarContainerObject
-local PartyFrame_MemberFrame1_HealthBarContainerObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBarObject : StatusBar
----@field CenterText PartyFrame_MemberFrame1_ManaBar_CenterTextObject
----@field LeftText PartyFrame_MemberFrame1_ManaBar_LeftTextObject
----@field ManaBarMask PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject
----@field RightText PartyFrame_MemberFrame1_ManaBar_RightTextObject
----@field TextString PartyFrame_MemberFrame1_ManaBar_TextStringObject
----@field Texture PartyFrame_MemberFrame1_ManaBar_TextureObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceUpdate boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field powerToken string
----@field powerType number
----@field smartNavigationIgnored boolean
----@field textLockable number
----@field texture PartyFrame_MemberFrame1_ManaBar_textureObject
----@field unit string
----@field unitFrame PartyFrame_MemberFrame1_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame1_ManaBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:GetNumericDisplay(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:HideStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:SetForceShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:ShowStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextString(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ManaBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_CenterTextObject
-local PartyFrame_MemberFrame1_ManaBar_CenterTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame1_ManaBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_ManaBar_ManaBarMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_RightTextObject : FontString
-local PartyFrame_MemberFrame1_ManaBar_RightTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_TextStringObject : FontString
-local PartyFrame_MemberFrame1_ManaBar_TextStringObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_TextureObject : Texture
-local PartyFrame_MemberFrame1_ManaBar_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_textureObject
-local PartyFrame_MemberFrame1_ManaBar_textureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ManaBar_unitFrameObject
-local PartyFrame_MemberFrame1_ManaBar_unitFrameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_NameObject : FontString
-local PartyFrame_MemberFrame1_NameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_NotPresentIconObject : Frame
----@field Border PartyFrame_MemberFrame1_NotPresentIcon_BorderObject
----@field smartNavigationIgnored boolean
----@field texture PartyFrame_MemberFrame1_NotPresentIcon_textureObject
-local PartyFrame_MemberFrame1_NotPresentIconObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_NotPresentIcon_BorderObject : Texture
-local PartyFrame_MemberFrame1_NotPresentIcon_BorderObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_NotPresentIcon_textureObject : Texture
-local PartyFrame_MemberFrame1_NotPresentIcon_textureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlayObject : Frame
----@field Disconnect PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject
----@field GuideIcon PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject
----@field LeaderIcon PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject
----@field PVPIcon PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject
----@field RoleIcon PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject
----@field Status PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame1_PartyMemberOverlayObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_DisconnectObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_GuideIconObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_LeaderIconObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_PVPIconObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_RoleIconObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject : Texture
-local PartyFrame_MemberFrame1_PartyMemberOverlay_StatusObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrameObject : Button
----@field AuraFrameContainer PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject
----@field AuraFramePool PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
----@field Flash PartyFrame_MemberFrame1_PetFrame_FlashObject
----@field HealthBar PartyFrame_MemberFrame1_PetFrame_HealthBarObject
----@field Name PartyFrame_MemberFrame1_PetFrame_NameObject
----@field Portrait PartyFrame_MemberFrame1_PetFrame_PortraitObject
----@field PortraitMask PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject
----@field Texture PartyFrame_MemberFrame1_PetFrame_TextureObject
----@field buffs PartyFrame_MemberFrame1_PetFrame_buffsObject
----@field debuffs PartyFrame_MemberFrame1_PetFrame_debuffsObject
----@field healthbar PartyFrame_MemberFrame1_PetFrame_healthbarObject
----@field name PartyFrame_MemberFrame1_PetFrame_nameObject
----@field noContextActions boolean
----@field portrait PartyFrame_MemberFrame1_PetFrame_portraitObject
----@field replacePortraitSettingChangedHandlers table
----@field threatIndicator PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject
----@field unit string
----@field unitToken string
-local PartyFrame_MemberFrame1_PetFrameObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:ParseAllAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:Setup(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:UpdateAuras(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:UpdateAurasInternal(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrameObject:UpdateMemberAuras(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject : Frame
----@field dirty boolean
----@field smartNavigationIgnored boolean
----@field spacing number
-local PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:AddLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:CalculateFrameSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ClearFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetAdditionalRegions(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetChildWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetLayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:GetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IgnoreLayoutIndex(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:IsLayoutFrame(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:Layout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:LayoutChildren(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkClean(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkDirty(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:MarkIgnoreInLayout(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnCleaned(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:OnUpdate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedHeight(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedSize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetFixedWidth(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetHeightPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:SetWidthPadding(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFrameContainerObject:ShouldClearOnUpdateAfterClean(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject
-local PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:GetTemplate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_AuraFramePoolObject:private(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_FlashObject
-local PartyFrame_MemberFrame1_PetFrame_FlashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_HealthBarObject : StatusBar
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockShow number
----@field smartNavigationIgnored boolean
----@field unit string
----@field unitFrame PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame1_PetFrame_HealthBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:GetNumericDisplay(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:HideStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:SetForceShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:ShowStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextString(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_HealthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject
-local PartyFrame_MemberFrame1_PetFrame_HealthBar_unitFrameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_NameObject : FontString
-local PartyFrame_MemberFrame1_PetFrame_NameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_PortraitObject
-local PartyFrame_MemberFrame1_PetFrame_PortraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_PetFrame_PortraitMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_TextureObject : Texture
-local PartyFrame_MemberFrame1_PetFrame_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_buffsObject
-local PartyFrame_MemberFrame1_PetFrame_buffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Clear(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Get(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetBottom(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:GetTop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Iterate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Pop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Remove(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_buffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_debuffsObject
-local PartyFrame_MemberFrame1_PetFrame_debuffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Clear(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Get(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetBottom(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:GetTop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Iterate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Pop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Remove(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PetFrame_debuffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_healthbarObject
-local PartyFrame_MemberFrame1_PetFrame_healthbarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_nameObject
-local PartyFrame_MemberFrame1_PetFrame_nameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_portraitObject : Texture
-local PartyFrame_MemberFrame1_PetFrame_portraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject : Texture
----@field feedbackUnit string
----@field unit string
-local PartyFrame_MemberFrame1_PetFrame_threatIndicatorObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PortraitObject : Texture
-local PartyFrame_MemberFrame1_PortraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PortraitMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_PortraitMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAltObject : Frame
----@field background PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject
----@field counterBar PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject
----@field fill PartyFrame_MemberFrame1_PowerBarAlt_fillObject
----@field flash PartyFrame_MemberFrame1_PowerBarAlt_flashObject
----@field flashAnim PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject
----@field flashOutAnim PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject
----@field frame PartyFrame_MemberFrame1_PowerBarAlt_frameObject
----@field pillFrames table
----@field scale number
----@field smartNavigationIgnored boolean
----@field spark PartyFrame_MemberFrame1_PowerBarAlt_sparkObject
----@field statusFrame PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject
----@field unit string
----@field updateAllEvent string
-local PartyFrame_MemberFrame1_PowerBarAltObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_backgroundObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject : Frame
----@field BG PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject
----@field BGL PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject
----@field BGR PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject
----@field artBottom PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject
----@field artTop PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject
----@field digit1 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object
----@field digit2 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object
----@field digit3 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object
----@field digit4 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object
----@field digit5 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object
----@field digit6 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object
----@field digit7 PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object
----@field unit string
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGLObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_BGRObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artBottomObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_artTopObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit1_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit2_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit3_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit4_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit5_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit6_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object : Frame
----@field number PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject
----@field numberMask PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7Object = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_counterBar_digit7_numberMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_fillObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_fillObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_flashObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_flashObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject : AnimationGroup
-local PartyFrame_MemberFrame1_PowerBarAlt_flashAnimObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject : AnimationGroup
-local PartyFrame_MemberFrame1_PowerBarAlt_flashOutAnimObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_frameObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_frameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_sparkObject : Texture
-local PartyFrame_MemberFrame1_PowerBarAlt_sparkObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject : StatusBar
----@field alwaysShow number
----@field cvar string
----@field cvarLabel string
----@field lockShow number
----@field text PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject
----@field textLockable number
-local PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:GetNumericDisplay(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:HideStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:InitializeTextStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextPrefix(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetBarTextZeroText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:SetForceShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:ShowStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextString(...) end
----@return any ...
-function PartyFrame_MemberFrame1_PowerBarAlt_statusFrameObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject : FontString
-local PartyFrame_MemberFrame1_PowerBarAlt_statusFrame_textObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ReadyCheckObject : Frame
----@field Texture PartyFrame_MemberFrame1_ReadyCheck_TextureObject
----@field smartNavigationIgnored boolean
-local PartyFrame_MemberFrame1_ReadyCheckObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ReadyCheck_TextureObject : Texture
-local PartyFrame_MemberFrame1_ReadyCheck_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_ResurrectableIndicatorObject : FontString
-local PartyFrame_MemberFrame1_ResurrectableIndicatorObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_ResurrectableIndicatorObject:OnLeave(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_TextureObject : Texture
-local PartyFrame_MemberFrame1_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_VehicleTextureObject : Texture
-local PartyFrame_MemberFrame1_VehicleTextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_buffsObject
-local PartyFrame_MemberFrame1_buffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:Clear(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:Get(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:GetBottom(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:GetTop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:Iterate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:Pop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:Remove(...) end
----@return any ...
-function PartyFrame_MemberFrame1_buffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_debuffsObject
-local PartyFrame_MemberFrame1_debuffsObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:Clear(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:Get(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:GetBottom(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:GetTop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:Iterate(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:Pop(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:Remove(...) end
----@return any ...
-function PartyFrame_MemberFrame1_debuffsObject:Size(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_healAbsorbBarObject
-local PartyFrame_MemberFrame1_healAbsorbBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_healthbarObject
-local PartyFrame_MemberFrame1_healthbarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_manabarObject
-local PartyFrame_MemberFrame1_manabarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_myHealPredictionBarObject
-local PartyFrame_MemberFrame1_myHealPredictionBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_nameObject
-local PartyFrame_MemberFrame1_nameObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_otherHealPredictionBarObject
-local PartyFrame_MemberFrame1_otherHealPredictionBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_overAbsorbGlowObject
-local PartyFrame_MemberFrame1_overAbsorbGlowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_overHealAbsorbGlowObject
-local PartyFrame_MemberFrame1_overHealAbsorbGlowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_portraitObject
-local PartyFrame_MemberFrame1_portraitObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBarObject : StatusBar
----@field Texture PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject
----@field healthBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject
----@field initialized boolean
----@field myHealthBarContainer PartyFrame_MemberFrame1_tempMaxHealthLossBar_myHealthBarContainerObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:InitializeMaxHealthLossBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:OnMaxHealthModifiersChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:SetShouldAdjustHealthBarAnchor(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBarObject:Update_MaxHealthLoss(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_TextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject : StatusBar
----@field Background PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject
----@field HealAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject
----@field HealthBarTexture PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject
----@field LeftText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject
----@field MyHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject
----@field OtherHealPredictionBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject
----@field OverAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverAbsorbGlowObject
----@field OverHealAbsorbGlow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OverHealAbsorbGlowObject
----@field RightText PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_RightTextObject
----@field TextString PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TextStringObject
----@field TotalAbsorbBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_TotalAbsorbBarObject
----@field capNumericDisplay boolean
----@field controlsShownState boolean
----@field currValue number
----@field cvar string
----@field cvarLabel string
----@field disconnected boolean
----@field forceHideText boolean
----@field frequentUpdates boolean
----@field lockColor boolean
----@field lockShow number
----@field partyFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_partyFrameObject
----@field textLockable number
----@field unit string
----@field unitFrame PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_unitFrameObject
----@field zeroText string
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:GetNumericDisplay(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:HideStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:InitializeTextStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarEnter(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarLeave(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarMinMaxChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:OnStatusBarValueChanged(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextPrefix(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetBarTextZeroText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:SetForceShow(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:ShowStatusBarText(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:TextStatusBarOnEvent(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextString(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBarObject:UpdateTextStringWithValues(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_BackgroundObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject
----@field LeftShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject
----@field RightShadow PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
----@field fillOverlays table
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_FillMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_LeftShadowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_RightShadowObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealAbsorbBar_fillColorObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_HealthBarTextureObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject : FontString
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_LeftTextObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBarObject:UpdateFillPosition(...) end
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject : Texture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject : MaskTexture
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_FillMaskObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_fillColorObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_MyHealPredictionBar_statusBarObject = {}
-end
-
-do
----@class PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject : Frame
----@field Fill PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillObject
----@field FillMask PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_FillMaskObject
----@field fillAtlas string
----@field fillColor PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_fillColorObject
----@field initialized boolean
----@field statusBar PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBar_statusBarObject
-local PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject = {}
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:Initialize(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:OnLoad(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetFillColor(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:SetStatusBar(...) end
----@return any ...
-function PartyFrame_MemberFrame1_tempMaxHealthLossBar_healthBar_OtherHealPredictionBarObject:UpdateFillPosition(...) end
 end

@@ -3,6 +3,1701 @@
 
 
 do
+---@class GuildControlUI_discordFrame_channelDropdown_ArrowObject : Texture
+local GuildControlUI_discordFrame_channelDropdown_ArrowObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_channelDropdown_BackgroundObject : Texture
+local GuildControlUI_discordFrame_channelDropdown_BackgroundObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_channelDropdown_EventObject
+local GuildControlUI_discordFrame_channelDropdown_EventObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_channelDropdown_TextObject : FontString
+local GuildControlUI_discordFrame_channelDropdown_TextObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_channelDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GuildControlUI_discordFrame_channelDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GuildControlUI_discordFrame_channelDropdown_menuAnchorObject = {}
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GuildControlUI_discordFrame_channelDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class GuildControlUI_discordFrame_channelDropdown_menuAnchor_relativeToObject
+local GuildControlUI_discordFrame_channelDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_channelListTitleObject : FontString
+local GuildControlUI_discordFrame_channelListTitleObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_noChannelsErrorObject : FontString
+local GuildControlUI_discordFrame_noChannelsErrorObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdownObject : Button
+---@field Arrow GuildControlUI_discordFrame_serverDropdown_ArrowObject
+---@field Background GuildControlUI_discordFrame_serverDropdown_BackgroundObject
+---@field Event GuildControlUI_discordFrame_serverDropdown_EventObject
+---@field Text GuildControlUI_discordFrame_serverDropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor GuildControlUI_discordFrame_serverDropdown_menuAnchorObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local GuildControlUI_discordFrame_serverDropdownObject = {}
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:ClearMenuState(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:CloseMenu(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:CollectSelectionData(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:CreateRootDescription(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:Decrement(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GenerateMenu(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetCallbackTable(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetCallbackTables(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetDefaultText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetMenuDescription(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetSelectionData(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:GetUpdateText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:HasElements(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:HasStickyFocus(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:Increment(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:IsDown(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:IsDownOver(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:IsMenuOpen(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:IsOver(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnDisable(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnEnable(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuChanged(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuClosed(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuOpened(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMenuResponse(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseDown(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseUp(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OnShow(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OpenMenu(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:OverrideText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:Pick(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:RegisterCallback(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:RegisterMenu(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:Rotate(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetDefaultText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetMenuOpen(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetSelectionText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SetupMenu(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:ShowTooltip(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:SignalUpdate(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:TriggerEvent(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:Update(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:UpdateSelections(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:UpdateText(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdown_ArrowObject : Texture
+local GuildControlUI_discordFrame_serverDropdown_ArrowObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdown_BackgroundObject : Texture
+local GuildControlUI_discordFrame_serverDropdown_BackgroundObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdown_EventObject
+local GuildControlUI_discordFrame_serverDropdown_EventObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdown_TextObject : FontString
+local GuildControlUI_discordFrame_serverDropdown_TextObject = {}
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GuildControlUI_discordFrame_serverDropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GuildControlUI_discordFrame_serverDropdown_menuAnchorObject = {}
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GuildControlUI_discordFrame_serverDropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class GuildControlUI_discordFrame_serverDropdown_menuAnchor_relativeToObject
+local GuildControlUI_discordFrame_serverDropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class GuildControlUI_dropdownObject : Button
+---@field Arrow GuildControlUI_dropdown_ArrowObject
+---@field Background GuildControlUI_dropdown_BackgroundObject
+---@field Event GuildControlUI_dropdown_EventObject
+---@field Text GuildControlUI_dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor GuildControlUI_dropdown_menuAnchorObject
+---@field menuDescription GuildControlUI_dropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+---@field text string
+local GuildControlUI_dropdownObject = {}
+---@return any ...
+function GuildControlUI_dropdownObject:ClearMenuState(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:CloseMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:CollectSelectionData(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:CreateRootDescription(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Decrement(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GenerateMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetCallbackTable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetCallbackTables(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetDefaultText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetMenuDescription(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetSelectionData(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:GetUpdateText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasElements(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:HasStickyFocus(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Increment(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsDown(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsDownOver(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsMenuOpen(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:IsOver(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnDisable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnEnable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuChanged(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuClosed(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuOpened(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMenuResponse(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseDown(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseUp(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OnShow(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OpenMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:OverrideText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Pick(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:RegisterCallback(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:RegisterMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Rotate(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetDefaultText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetMenuOpen(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetSelectionText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SetupMenu(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:ShowTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:SignalUpdate(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:TriggerEvent(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:Update(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UpdateSelections(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UpdateText(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:menuGenerator(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_dropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class GuildControlUI_dropdown_ArrowObject : Texture
+local GuildControlUI_dropdown_ArrowObject = {}
+end
+
+do
+---@class GuildControlUI_dropdown_BackgroundObject : Texture
+local GuildControlUI_dropdown_BackgroundObject = {}
+end
+
+do
+---@class GuildControlUI_dropdown_EventObject
+local GuildControlUI_dropdown_EventObject = {}
+end
+
+do
+---@class GuildControlUI_dropdown_TextObject : FontString
+local GuildControlUI_dropdown_TextObject = {}
+end
+
+do
+---@class GuildControlUI_dropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GuildControlUI_dropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GuildControlUI_dropdown_menuAnchorObject = {}
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class GuildControlUI_dropdown_menuAnchor_relativeToObject
+local GuildControlUI_dropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class GuildControlUI_dropdown_menuDescriptionObject
+---@field tag string
+local GuildControlUI_dropdown_menuDescriptionObject = {}
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_dropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class GuildControlUI_orderFrameObject : Frame
+---@field dupButton GuildControlUI_orderFrame_dupButtonObject
+---@field newButton GuildControlUI_orderFrame_newButtonObject
+local GuildControlUI_orderFrameObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_dupButtonObject : Button
+---@field Left GuildControlUI_orderFrame_dupButton_LeftObject
+---@field Middle GuildControlUI_orderFrame_dupButton_MiddleObject
+---@field Right GuildControlUI_orderFrame_dupButton_RightObject
+---@field Text GuildControlUI_orderFrame_dupButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local GuildControlUI_orderFrame_dupButtonObject = {}
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:FitToText(...) end
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:SetDisabledState(...) end
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function GuildControlUI_orderFrame_dupButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class GuildControlUI_orderFrame_dupButton_LeftObject : Texture
+local GuildControlUI_orderFrame_dupButton_LeftObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_dupButton_MiddleObject : Texture
+local GuildControlUI_orderFrame_dupButton_MiddleObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_dupButton_RightObject : Texture
+local GuildControlUI_orderFrame_dupButton_RightObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_dupButton_TextObject : FontString
+local GuildControlUI_orderFrame_dupButton_TextObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_newButtonObject : Button
+---@field Left GuildControlUI_orderFrame_newButton_LeftObject
+---@field Middle GuildControlUI_orderFrame_newButton_MiddleObject
+---@field Right GuildControlUI_orderFrame_newButton_RightObject
+---@field Text GuildControlUI_orderFrame_newButton_TextObject
+---@field fitTextCanWidthDecrease boolean
+---@field fitTextWidthPadding number
+local GuildControlUI_orderFrame_newButtonObject = {}
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:FitToText(...) end
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:GetDisabledTooltip(...) end
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:SetDisabledState(...) end
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:SetDisabledTooltip(...) end
+---@return any ...
+function GuildControlUI_orderFrame_newButtonObject:SetTextToFit(...) end
+end
+
+do
+---@class GuildControlUI_orderFrame_newButton_LeftObject : Texture
+local GuildControlUI_orderFrame_newButton_LeftObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_newButton_MiddleObject : Texture
+local GuildControlUI_orderFrame_newButton_MiddleObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_newButton_RightObject : Texture
+local GuildControlUI_orderFrame_newButton_RightObject = {}
+end
+
+do
+---@class GuildControlUI_orderFrame_newButton_TextObject : FontString
+local GuildControlUI_orderFrame_newButton_TextObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrameObject : Frame
+---@field InviteCheckbox GuildControlUI_rankPermFrame_InviteCheckboxObject
+---@field OfficerCheckbox GuildControlUI_rankPermFrame_OfficerCheckboxObject
+---@field OfficerPermissions GuildControlUI_rankPermFrame_OfficerPermissionsObject
+---@field dropdown GuildControlUI_rankPermFrame_dropdownObject
+---@field goldBox GuildControlUI_rankPermFrame_goldBoxObject
+local GuildControlUI_rankPermFrameObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_InviteCheckboxObject : CheckButton
+---@field text GuildControlUI_rankPermFrame_InviteCheckbox_textObject
+local GuildControlUI_rankPermFrame_InviteCheckboxObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_InviteCheckbox_textObject : FontString
+local GuildControlUI_rankPermFrame_InviteCheckbox_textObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_OfficerCheckboxObject : CheckButton
+---@field text GuildControlUI_rankPermFrame_OfficerCheckbox_textObject
+local GuildControlUI_rankPermFrame_OfficerCheckboxObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_OfficerCheckbox_textObject : FontString
+local GuildControlUI_rankPermFrame_OfficerCheckbox_textObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_OfficerPermissionsObject : FontString
+local GuildControlUI_rankPermFrame_OfficerPermissionsObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdownObject : Button
+---@field Arrow GuildControlUI_rankPermFrame_dropdown_ArrowObject
+---@field Background GuildControlUI_rankPermFrame_dropdown_BackgroundObject
+---@field Event GuildControlUI_rankPermFrame_dropdown_EventObject
+---@field Text GuildControlUI_rankPermFrame_dropdown_TextObject
+---@field callbackTables table
+---@field deferredCallbacks table
+---@field executingEvents table
+---@field intrinsic string
+---@field menuAnchor GuildControlUI_rankPermFrame_dropdown_menuAnchorObject
+---@field menuDescription GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject
+---@field menuPoint string
+---@field menuPointX number
+---@field menuPointY number
+---@field menuRelativePoint string
+local GuildControlUI_rankPermFrame_dropdownObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ClearMenuState(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CloseMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CollectSelectionData(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CopyDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CreateDefaultRootMenuDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:CreateRootDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Decrement(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:DesaturateIfDisabled(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:DoesFrameHaveEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:EnableRegenerateOnResponse(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GenerateCallbackEvents(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GenerateMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetArrowAtlas(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetCallbackTable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetCallbackTables(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetDefaultText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetMenuDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetMutableCallbacksByEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetSelectionData(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:GetUpdateText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HandlesGlobalMouseEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasAnyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasElements(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasOnlyRadioDescriptions(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasRegistrantsForEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:HasStickyFocus(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Increment(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsDown(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsDownOver(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsMenuOpen(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:IsOver(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnButtonStateChanged(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnDisable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnEnable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnEnter(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnEnter_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnLeave(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnLoad(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnLoad_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuAssigned(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuChanged(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuClosed(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuOpened(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMenuResponse(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseDown(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseDown_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseUp(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnMouseWheel_Intrinsic(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OnShow(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OpenMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:OverrideText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Pick(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ReconcileDeferredCallbacks(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:RegisterCallback(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:RegisterCallbackWithHandle(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:RegisterMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Rotate(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SecureInsertEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetDefaultText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetDisplacedRegions(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetMenuAnchor(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetMenuOpen(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetSelectionText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetSelectionTranslator(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetUndefinedEventsAllowed(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SetupMenu(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ShouldShowTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:ShowTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:SignalUpdate(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:TriggerEvent(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UnregisterCallback(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UnregisterEvents(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UnregisterEventsByEventTable(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:Update(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UpdateSelections(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UpdateText(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:UpdateToMenuSelections(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:menuGenerator(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:onMenuClosedCallback(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdownObject:selectionTranslator(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_ArrowObject : Texture
+local GuildControlUI_rankPermFrame_dropdown_ArrowObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_BackgroundObject : Texture
+local GuildControlUI_rankPermFrame_dropdown_BackgroundObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_EventObject
+local GuildControlUI_rankPermFrame_dropdown_EventObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_TextObject : FontString
+local GuildControlUI_rankPermFrame_dropdown_TextObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_menuAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo GuildControlUI_rankPermFrame_dropdown_menuAnchor_relativeToObject
+---@field x number
+---@field y number
+local GuildControlUI_rankPermFrame_dropdown_menuAnchorObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:Get(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:Init(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:Set(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetFromPoint(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetOffsets(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetPoint(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_menuAnchor_relativeToObject
+local GuildControlUI_rankPermFrame_dropdown_menuAnchor_relativeToObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject
+---@field tag string
+local GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateButton(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateCheckbox(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateColorSwatch(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateDivider(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateFrame(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateHighlightButton(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateHighlightRadio(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateRadio(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateSearchEntry(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateSpacer(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateTemplate(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:CreateTitle(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:QueueDivider(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:QueueSpacer(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:QueueTitle(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:SetTooltip(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_dropdown_menuDescriptionObject:private(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBoxObject : EditBox
+---@field Left GuildControlUI_rankPermFrame_goldBox_LeftObject
+---@field Middle GuildControlUI_rankPermFrame_goldBox_MiddleObject
+---@field Right GuildControlUI_rankPermFrame_goldBox_RightObject
+---@field mask GuildControlUI_rankPermFrame_goldBox_maskObject
+local GuildControlUI_rankPermFrame_goldBoxObject = {}
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:NarrationGetContext(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:NarrationGetDescription(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:NarrationGetName(...) end
+---@return any ...
+function GuildControlUI_rankPermFrame_goldBoxObject:SetNarrationLabelRegion(...) end
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_LeftObject : Texture
+local GuildControlUI_rankPermFrame_goldBox_LeftObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_MiddleObject : Texture
+local GuildControlUI_rankPermFrame_goldBox_MiddleObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_RightObject : Texture
+local GuildControlUI_rankPermFrame_goldBox_RightObject = {}
+end
+
+do
+---@class GuildControlUI_rankPermFrame_goldBox_maskObject : Frame
+local GuildControlUI_rankPermFrame_goldBox_maskObject = {}
+end
+
+do
+---@class GuildInviteFrameObject : Frame
+---@field Bg GuildInviteFrame_BgObject
+---@field BottomBorder GuildInviteFrame_BottomBorderObject
+---@field BottomLeftCorner GuildInviteFrame_BottomLeftCornerObject
+---@field BottomRightCorner GuildInviteFrame_BottomRightCornerObject
+---@field FocusJumpHint GuildInviteFrame_FocusJumpHintObject
+---@field FrameGlow GuildInviteFrame_FrameGlowObject
+---@field LeftBorder GuildInviteFrame_LeftBorderObject
+---@field LeftJumpHint GuildInviteFrame_LeftJumpHintObject
+---@field Points GuildInviteFrame_PointsObject
+---@field RightBorder GuildInviteFrame_RightBorderObject
+---@field RightJumpHint GuildInviteFrame_RightJumpHintObject
+---@field TopBorder GuildInviteFrame_TopBorderObject
+---@field TopLeftCorner GuildInviteFrame_TopLeftCornerObject
+---@field TopRightCorner GuildInviteFrame_TopRightCornerObject
+---@field hideOnEscape boolean
+---@field layoutType string
+local GuildInviteFrameObject = {}
+---@return any ...
+function GuildInviteFrameObject:EndFocus(...) end
+---@return any ...
+function GuildInviteFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function GuildInviteFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function GuildInviteFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:LockInFocus(...) end
+---@return any ...
+function GuildInviteFrameObject:RefreshFocus(...) end
+---@return any ...
+function GuildInviteFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function GuildInviteFrameObject:StartFocus(...) end
+---@type GuildInviteFrameObject
+GuildInviteFrame = GuildInviteFrameObject
+end
+
+do
+---@class GuildInviteFrame_BgObject : Texture
+local GuildInviteFrame_BgObject = {}
+end
+
+do
+---@class GuildInviteFrame_BottomBorderObject : Texture
+local GuildInviteFrame_BottomBorderObject = {}
+end
+
+do
+---@class GuildInviteFrame_BottomLeftCornerObject : Texture
+local GuildInviteFrame_BottomLeftCornerObject = {}
+end
+
+do
+---@class GuildInviteFrame_BottomRightCornerObject : Texture
+local GuildInviteFrame_BottomRightCornerObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHintObject : Frame
+---@field ActiveTexture GuildInviteFrame_FocusJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildInviteFrame_FocusJumpHint_DisabledTextureObject
+---@field HoldAnim GuildInviteFrame_FocusJumpHint_HoldAnimObject
+---@field HoldIndicator GuildInviteFrame_FocusJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildInviteFrame_FocusJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildInviteFrame_FocusJumpHint_HoverTextureObject
+---@field LoadBar GuildInviteFrame_FocusJumpHint_LoadBarObject
+---@field LoadBarBG GuildInviteFrame_FocusJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildInviteFrame_FocusJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildInviteFrame_FocusJumpHint_NormalTextureObject
+---@field PressedTexture GuildInviteFrame_FocusJumpHint_PressedTextureObject
+---@field SpinnerTip GuildInviteFrame_FocusJumpHint_SpinnerTipObject
+---@field ignoreInLayout boolean
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildInviteFrame_FocusJumpHintObject = {}
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildInviteFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_ActiveTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_DisabledTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildInviteFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildInviteFrame_FocusJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
+local GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildInviteFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildInviteFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoldIndicatorObject : Texture
+local GuildInviteFrame_FocusJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
+local GuildInviteFrame_FocusJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_HoverTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_LoadBarObject : Texture
+local GuildInviteFrame_FocusJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_LoadBarBGObject : Texture
+local GuildInviteFrame_FocusJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_LoadBarGlowObject : Texture
+local GuildInviteFrame_FocusJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_NormalTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_PressedTextureObject : Texture
+local GuildInviteFrame_FocusJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_FocusJumpHint_SpinnerTipObject : Texture
+local GuildInviteFrame_FocusJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildInviteFrame_FrameGlowObject : Frame
+---@field GlowTexture GuildInviteFrame_FrameGlow_GlowTextureObject
+---@field glowTextures table
+local GuildInviteFrame_FrameGlowObject = {}
+---@return any ...
+function GuildInviteFrame_FrameGlowObject:GetContainerFrame(...) end
+---@return any ...
+function GuildInviteFrame_FrameGlowObject:GetFrameLayoutType(...) end
+---@return any ...
+function GuildInviteFrame_FrameGlowObject:GetHeaderFrame(...) end
+---@return any ...
+function GuildInviteFrame_FrameGlowObject:OnLoad(...) end
+end
+
+do
+---@class GuildInviteFrame_FrameGlow_GlowTextureObject : Texture
+local GuildInviteFrame_FrameGlow_GlowTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftBorderObject : Texture
+local GuildInviteFrame_LeftBorderObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHintObject : Frame
+---@field ActiveTexture GuildInviteFrame_LeftJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildInviteFrame_LeftJumpHint_DisabledTextureObject
+---@field HoldAnim GuildInviteFrame_LeftJumpHint_HoldAnimObject
+---@field HoldIndicator GuildInviteFrame_LeftJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildInviteFrame_LeftJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildInviteFrame_LeftJumpHint_HoverTextureObject
+---@field LoadBar GuildInviteFrame_LeftJumpHint_LoadBarObject
+---@field LoadBarBG GuildInviteFrame_LeftJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildInviteFrame_LeftJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildInviteFrame_LeftJumpHint_NormalTextureObject
+---@field PressedTexture GuildInviteFrame_LeftJumpHint_PressedTextureObject
+---@field SpinnerTip GuildInviteFrame_LeftJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildInviteFrame_LeftJumpHintObject = {}
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildInviteFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_ActiveTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_DisabledTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildInviteFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildInviteFrame_LeftJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
+local GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildInviteFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildInviteFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoldIndicatorObject : Texture
+local GuildInviteFrame_LeftJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
+local GuildInviteFrame_LeftJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_HoverTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_LoadBarObject : Texture
+local GuildInviteFrame_LeftJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_LoadBarBGObject : Texture
+local GuildInviteFrame_LeftJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_LoadBarGlowObject : Texture
+local GuildInviteFrame_LeftJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_NormalTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_PressedTextureObject : Texture
+local GuildInviteFrame_LeftJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_LeftJumpHint_SpinnerTipObject : Texture
+local GuildInviteFrame_LeftJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildInviteFrame_PointsObject : Frame
+---@field Icon GuildInviteFrame_Points_IconObject
+---@field Text GuildInviteFrame_Points_TextObject
+---@field Title GuildInviteFrame_Points_TitleObject
+local GuildInviteFrame_PointsObject = {}
+end
+
+do
+---@class GuildInviteFrame_Points_IconObject : Texture
+local GuildInviteFrame_Points_IconObject = {}
+end
+
+do
+---@class GuildInviteFrame_Points_TextObject : FontString
+local GuildInviteFrame_Points_TextObject = {}
+end
+
+do
+---@class GuildInviteFrame_Points_TitleObject : FontString
+local GuildInviteFrame_Points_TitleObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightBorderObject : Texture
+local GuildInviteFrame_RightBorderObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHintObject : Frame
+---@field ActiveTexture GuildInviteFrame_RightJumpHint_ActiveTextureObject
+---@field DisabledTexture GuildInviteFrame_RightJumpHint_DisabledTextureObject
+---@field HoldAnim GuildInviteFrame_RightJumpHint_HoldAnimObject
+---@field HoldIndicator GuildInviteFrame_RightJumpHint_HoldIndicatorObject
+---@field HoldIndicatorBG GuildInviteFrame_RightJumpHint_HoldIndicatorBGObject
+---@field HoverTexture GuildInviteFrame_RightJumpHint_HoverTextureObject
+---@field LoadBar GuildInviteFrame_RightJumpHint_LoadBarObject
+---@field LoadBarBG GuildInviteFrame_RightJumpHint_LoadBarBGObject
+---@field LoadBarGlow GuildInviteFrame_RightJumpHint_LoadBarGlowObject
+---@field NormalTexture GuildInviteFrame_RightJumpHint_NormalTextureObject
+---@field PressedTexture GuildInviteFrame_RightJumpHint_PressedTextureObject
+---@field SpinnerTip GuildInviteFrame_RightJumpHint_SpinnerTipObject
+---@field isHoldAction boolean
+---@field mappedButtonKey string
+---@field textureState number
+---@field textureStateTextures table
+---@field usableState number
+---@field useDropShadow boolean
+local GuildInviteFrame_RightJumpHintObject = {}
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:ApplyTextureLayout(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:BeginHold(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:CanEnterTextureState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:DisableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:EnableDropShadow(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:EndHold(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:OnLoad(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:RefreshIconTextures(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetDisabled(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetEnabled(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetFocused(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetHoldState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetInputKey(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetIsHoldAction(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetPressable(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetTextureHeight(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetTextureState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetTextureWidth(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:SetUsableState(...) end
+---@return any ...
+function GuildInviteFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_ActiveTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_DisabledTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim GuildInviteFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local GuildInviteFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local GuildInviteFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local GuildInviteFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldIndicatorObject : Texture
+local GuildInviteFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local GuildInviteFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_HoverTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_LoadBarObject : Texture
+local GuildInviteFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_LoadBarBGObject : Texture
+local GuildInviteFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_LoadBarGlowObject : Texture
+local GuildInviteFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_NormalTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_PressedTextureObject : Texture
+local GuildInviteFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class GuildInviteFrame_RightJumpHint_SpinnerTipObject : Texture
+local GuildInviteFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class GuildInviteFrame_TopBorderObject : Texture
+local GuildInviteFrame_TopBorderObject = {}
+end
+
+do
+---@class GuildInviteFrame_TopLeftCornerObject : Texture
+local GuildInviteFrame_TopLeftCornerObject = {}
+end
+
+do
+---@class GuildInviteFrame_TopRightCornerObject : Texture
+local GuildInviteFrame_TopRightCornerObject = {}
+end
+
+do
+---@class GuildRegistrarFrameObject : Frame
+---@field Bg GuildRegistrarFrame_BgObject
+---@field CloseButton GuildRegistrarFrame_CloseButtonObject
+---@field FocusJumpHint GuildRegistrarFrame_FocusJumpHintObject
+---@field FrameGlow GuildRegistrarFrame_FrameGlowObject
+---@field Inset GuildRegistrarFrame_InsetObject
+---@field LeftJumpHint GuildRegistrarFrame_LeftJumpHintObject
+---@field NineSlice GuildRegistrarFrame_NineSliceObject
+---@field PortraitContainer GuildRegistrarFrame_PortraitContainerObject
+---@field RightJumpHint GuildRegistrarFrame_RightJumpHintObject
+---@field ScrollBar GuildRegistrarFrame_ScrollBarObject
+---@field TitleContainer GuildRegistrarFrame_TitleContainerObject
+---@field TopTileStreaks GuildRegistrarFrame_TopTileStreaksObject
+---@field layoutType string
+local GuildRegistrarFrameObject = {}
+---@return any ...
+function GuildRegistrarFrameObject:EndFocus(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetFocusFrameGlow(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetFocusFrameRoot(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetPortrait(...) end
+---@return any ...
+function GuildRegistrarFrameObject:GetTitleText(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HasPortraitTexture(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HideFocusJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HideLeftJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:HideRightJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:LockInFocus(...) end
+---@return any ...
+function GuildRegistrarFrameObject:RefreshFocus(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetBorder(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetFrameLevelsFromBaseLevel(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitAtlasRaw(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitShown(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitTexCoord(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitTextureRaw(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitTextureSizeAndOffset(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToAsset(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToBag(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToClassIcon(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToSpecIcon(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetPortraitToUnit(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitle(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleColor(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleFormatted(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleMaxLinesAndHeight(...) end
+---@return any ...
+function GuildRegistrarFrameObject:SetTitleOffsets(...) end
+---@return any ...
+function GuildRegistrarFrameObject:ShowFocusJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:ShowLeftJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:ShowRightJumpHint(...) end
+---@return any ...
+function GuildRegistrarFrameObject:StartFocus(...) end
+---@type GuildRegistrarFrameObject
+GuildRegistrarFrame = GuildRegistrarFrameObject
+end
+
+do
 ---@class GuildRegistrarFrame_BgObject : Texture
 local GuildRegistrarFrame_BgObject = {}
 end
@@ -4590,6 +6285,8 @@ function ItemRefTooltipObject:SetGuildBankItem(...) end
 ---@return any ...
 function ItemRefTooltipObject:SetHeirloomByItemID(...) end
 ---@return any ...
+function ItemRefTooltipObject:SetHyperlink(...) end
+---@return any ...
 function ItemRefTooltipObject:SetInboxItem(...) end
 ---@return any ...
 function ItemRefTooltipObject:SetInfoBackdropStyle(...) end
@@ -7378,9 +9075,12 @@ do
 ---@field Tabs table
 ---@field TitleContainer MailFrame_TitleContainerObject
 ---@field TopTileStreaks MailFrame_TopTileStreaksObject
+---@field activeSubFrame MailFrame_activeSubFrameObject
+---@field inboxBeingChecked boolean
 ---@field layoutType string
 ---@field maxTabWidth number
 ---@field numTabs number
+---@field refreshQueued boolean
 ---@field selectedTab number
 ---@field trialError MailFrame_trialErrorObject
 local MailFrameObject = {}
@@ -8292,6 +9992,8 @@ do
 ---@field SendButton MailFrame_SendMail_SendButtonObject
 ---@field SendMailAttachments table
 ---@field SubjectEditBox MailFrame_SendMail_SubjectEditBoxObject
+---@field maxRowsShown number
+---@field previousItem string
 ---@field smartNavigationIgnoredDontPropagate boolean
 local MailFrame_SendMailObject = {}
 ---@return any ...
@@ -9132,1821 +10834,4 @@ function MailFrame_TabIndicators_LeftTabButtonObject:SetTextureWidth(...) end
 function MailFrame_TabIndicators_LeftTabButtonObject:SetUsableState(...) end
 ---@return any ...
 function MailFrame_TabIndicators_LeftTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
----@field LoadBarAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
-local MailFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
-local MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
-local MailFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
-local MailFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
-local MailFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButtonObject : Button
----@field ActiveTexture MailFrame_TabIndicators_RightTabButton_ActiveTextureObject
----@field DisabledTexture MailFrame_TabIndicators_RightTabButton_DisabledTextureObject
----@field HoldAnim MailFrame_TabIndicators_RightTabButton_HoldAnimObject
----@field HoldIndicator MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject
----@field HoldIndicatorBG MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
----@field HoverTexture MailFrame_TabIndicators_RightTabButton_HoverTextureObject
----@field LoadBar MailFrame_TabIndicators_RightTabButton_LoadBarObject
----@field LoadBarBG MailFrame_TabIndicators_RightTabButton_LoadBarBGObject
----@field LoadBarGlow MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject
----@field NormalTexture MailFrame_TabIndicators_RightTabButton_NormalTextureObject
----@field PressedTexture MailFrame_TabIndicators_RightTabButton_PressedTextureObject
----@field SpinnerTip MailFrame_TabIndicators_RightTabButton_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field offset number
----@field smartNavigationIgnored boolean
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local MailFrame_TabIndicators_RightTabButtonObject = {}
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
----@return any ...
-function MailFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_ActiveTextureObject : Texture
-local MailFrame_TabIndicators_RightTabButton_ActiveTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_DisabledTextureObject : Texture
-local MailFrame_TabIndicators_RightTabButton_DisabledTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoldAnimObject : AnimationGroup
----@field LoadBarAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject
-local MailFrame_TabIndicators_RightTabButton_HoldAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject
-local MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
-local MailFrame_TabIndicators_RightTabButton_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
-local MailFrame_TabIndicators_RightTabButton_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject : Texture
-local MailFrame_TabIndicators_RightTabButton_HoldIndicatorObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject : Texture
-local MailFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_HoverTextureObject : Texture
-local MailFrame_TabIndicators_RightTabButton_HoverTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_LoadBarObject : Texture
-local MailFrame_TabIndicators_RightTabButton_LoadBarObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_LoadBarBGObject : Texture
-local MailFrame_TabIndicators_RightTabButton_LoadBarBGObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject : Texture
-local MailFrame_TabIndicators_RightTabButton_LoadBarGlowObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_NormalTextureObject : Texture
-local MailFrame_TabIndicators_RightTabButton_NormalTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_PressedTextureObject : Texture
-local MailFrame_TabIndicators_RightTabButton_PressedTextureObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_RightTabButton_SpinnerTipObject : Texture
-local MailFrame_TabIndicators_RightTabButton_SpinnerTipObject = {}
-end
-
-do
----@class MailFrame_TabIndicators_bindingsObject
----@field actions table
----@field axes table
----@field buttons table
----@field functions table
----@field name string
----@field nextButtonId number
----@field nextFunctionId number
----@field treatBindsAsCore boolean
-local MailFrame_TabIndicators_bindingsObject = {}
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:AddAxisBinding(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:AddButtonBinding(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:AddFunctionBinding(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:BlockDpad(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:BlockDpadAndFaceButtons(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:BlockEverything(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:BlockKeys(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:BlockKeysWithModifiers(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:BlockKeysWithoutModifiers(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:Init(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:RemoveKeys(...) end
----@return any ...
-function MailFrame_TabIndicators_bindingsObject:TreatAsCore(...) end
-end
-
-do
----@class MailFrame_TitleContainerObject : Frame
----@field TitleText MailFrame_TitleContainer_TitleTextObject
-local MailFrame_TitleContainerObject = {}
-end
-
-do
----@class MailFrame_TitleContainer_TitleTextObject : FontString
-local MailFrame_TitleContainer_TitleTextObject = {}
-end
-
-do
----@class MailFrame_TopTileStreaksObject : Texture
-local MailFrame_TopTileStreaksObject = {}
-end
-
-do
----@class MailFrame_trialErrorObject : FontString
-local MailFrame_trialErrorObject = {}
-end
-
-do
----@class MajorFactionUnlockToastObject : Frame
----@field FactionName MajorFactionUnlockToast_FactionNameObject
----@field Glow1 MajorFactionUnlockToast_Glow1Object
----@field Glow2 MajorFactionUnlockToast_Glow2Object
----@field GlowLineBottom MajorFactionUnlockToast_GlowLineBottomObject
----@field HeaderText MajorFactionUnlockToast_HeaderTextObject
----@field Mask MajorFactionUnlockToast_MaskObject
----@field ShowAnim MajorFactionUnlockToast_ShowAnimObject
----@field Star1 MajorFactionUnlockToast_Star1Object
----@field Star2 MajorFactionUnlockToast_Star2Object
----@field ToastBG MajorFactionUnlockToast_ToastBGObject
----@field TopBorder MajorFactionUnlockToast_TopBorderObject
----@field TopIcon MajorFactionUnlockToast_TopIconObject
-local MajorFactionUnlockToastObject = {}
----@return any ...
-function MajorFactionUnlockToastObject:OnAnimFinished(...) end
----@return any ...
-function MajorFactionUnlockToastObject:OnEvent(...) end
----@return any ...
-function MajorFactionUnlockToastObject:OnHide(...) end
----@return any ...
-function MajorFactionUnlockToastObject:OnLoad(...) end
----@return any ...
-function MajorFactionUnlockToastObject:PlayBanner(...) end
----@return any ...
-function MajorFactionUnlockToastObject:PlayMajorFactionUnlockToast(...) end
----@return any ...
-function MajorFactionUnlockToastObject:SetMajorFactionTextureKit(...) end
----@return any ...
-function MajorFactionUnlockToastObject:StopBanner(...) end
----@type MajorFactionUnlockToastObject
-MajorFactionUnlockToast = MajorFactionUnlockToastObject
-end
-
-do
----@class MajorFactionUnlockToast_FactionNameObject : FontString
-local MajorFactionUnlockToast_FactionNameObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_Glow1Object : Texture
-local MajorFactionUnlockToast_Glow1Object = {}
-end
-
-do
----@class MajorFactionUnlockToast_Glow2Object : Texture
-local MajorFactionUnlockToast_Glow2Object = {}
-end
-
-do
----@class MajorFactionUnlockToast_GlowLineBottomObject : Texture
-local MajorFactionUnlockToast_GlowLineBottomObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_HeaderTextObject : FontString
-local MajorFactionUnlockToast_HeaderTextObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_MaskObject : Frame
----@field MaskTexture MajorFactionUnlockToast_Mask_MaskTextureObject
----@field Shine MajorFactionUnlockToast_Mask_ShineObject
-local MajorFactionUnlockToast_MaskObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_Mask_MaskTextureObject : MaskTexture
-local MajorFactionUnlockToast_Mask_MaskTextureObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_Mask_ShineObject : Texture
-local MajorFactionUnlockToast_Mask_ShineObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_ShowAnimObject : AnimationGroup
-local MajorFactionUnlockToast_ShowAnimObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_Star1Object : Texture
-local MajorFactionUnlockToast_Star1Object = {}
-end
-
-do
----@class MajorFactionUnlockToast_Star2Object : Texture
-local MajorFactionUnlockToast_Star2Object = {}
-end
-
-do
----@class MajorFactionUnlockToast_ToastBGObject : Texture
-local MajorFactionUnlockToast_ToastBGObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_TopBorderObject : Texture
-local MajorFactionUnlockToast_TopBorderObject = {}
-end
-
-do
----@class MajorFactionUnlockToast_TopIconObject : Texture
-local MajorFactionUnlockToast_TopIconObject = {}
-end
-
-do
----@class MajorFactionsRenownToastObject : Frame
----@field Glow1 MajorFactionsRenownToast_Glow1Object
----@field Glow2 MajorFactionsRenownToast_Glow2Object
----@field GlowLineBottom MajorFactionsRenownToast_GlowLineBottomObject
----@field Mask MajorFactionsRenownToast_MaskObject
----@field RenownLabel MajorFactionsRenownToast_RenownLabelObject
----@field RewardDescription MajorFactionsRenownToast_RewardDescriptionObject
----@field RewardIcon MajorFactionsRenownToast_RewardIconObject
----@field RewardIconMask MajorFactionsRenownToast_RewardIconMaskObject
----@field RewardIconMouseOver MajorFactionsRenownToast_RewardIconMouseOverObject
----@field RewardIconRing MajorFactionsRenownToast_RewardIconRingObject
----@field ShowAnim MajorFactionsRenownToast_ShowAnimObject
----@field Star1 MajorFactionsRenownToast_Star1Object
----@field Star2 MajorFactionsRenownToast_Star2Object
----@field ToastBG MajorFactionsRenownToast_ToastBGObject
----@field TopBorder MajorFactionsRenownToast_TopBorderObject
----@field TopIcon MajorFactionsRenownToast_TopIconObject
----@field waitAndAnimOut MajorFactionsRenownToast_waitAndAnimOutObject
-local MajorFactionsRenownToastObject = {}
----@return any ...
-function MajorFactionsRenownToastObject:OnAnimFinished(...) end
----@return any ...
-function MajorFactionsRenownToastObject:OnEvent(...) end
----@return any ...
-function MajorFactionsRenownToastObject:OnHide(...) end
----@return any ...
-function MajorFactionsRenownToastObject:OnLoad(...) end
----@return any ...
-function MajorFactionsRenownToastObject:OnMouseEnter(...) end
----@return any ...
-function MajorFactionsRenownToastObject:OnMouseLeave(...) end
----@return any ...
-function MajorFactionsRenownToastObject:PlayBanner(...) end
----@return any ...
-function MajorFactionsRenownToastObject:RefreshTooltip(...) end
----@return any ...
-function MajorFactionsRenownToastObject:SetMajorFactionTextureKit(...) end
----@return any ...
-function MajorFactionsRenownToastObject:SetupRewardVisuals(...) end
----@return any ...
-function MajorFactionsRenownToastObject:ShowRenownLevelUpToast(...) end
----@return any ...
-function MajorFactionsRenownToastObject:StopBanner(...) end
----@type MajorFactionsRenownToastObject
-MajorFactionsRenownToast = MajorFactionsRenownToastObject
-end
-
-do
----@class MajorFactionsRenownToast_Glow1Object : Texture
-local MajorFactionsRenownToast_Glow1Object = {}
-end
-
-do
----@class MajorFactionsRenownToast_Glow2Object : Texture
-local MajorFactionsRenownToast_Glow2Object = {}
-end
-
-do
----@class MajorFactionsRenownToast_GlowLineBottomObject : Texture
-local MajorFactionsRenownToast_GlowLineBottomObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_MaskObject : Frame
----@field MaskTexture MajorFactionsRenownToast_Mask_MaskTextureObject
----@field Shine MajorFactionsRenownToast_Mask_ShineObject
-local MajorFactionsRenownToast_MaskObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_Mask_MaskTextureObject : MaskTexture
-local MajorFactionsRenownToast_Mask_MaskTextureObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_Mask_ShineObject : Texture
-local MajorFactionsRenownToast_Mask_ShineObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_RenownLabelObject : FontString
-local MajorFactionsRenownToast_RenownLabelObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_RewardDescriptionObject : FontString
-local MajorFactionsRenownToast_RewardDescriptionObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_RewardIconObject : Texture
-local MajorFactionsRenownToast_RewardIconObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_RewardIconMaskObject : MaskTexture
-local MajorFactionsRenownToast_RewardIconMaskObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_RewardIconMouseOverObject : Frame
-local MajorFactionsRenownToast_RewardIconMouseOverObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_RewardIconRingObject : Texture
-local MajorFactionsRenownToast_RewardIconRingObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_ShowAnimObject : AnimationGroup
-local MajorFactionsRenownToast_ShowAnimObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_Star1Object : Texture
-local MajorFactionsRenownToast_Star1Object = {}
-end
-
-do
----@class MajorFactionsRenownToast_Star2Object : Texture
-local MajorFactionsRenownToast_Star2Object = {}
-end
-
-do
----@class MajorFactionsRenownToast_ToastBGObject : Texture
-local MajorFactionsRenownToast_ToastBGObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_TopBorderObject : Texture
-local MajorFactionsRenownToast_TopBorderObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_TopIconObject : Texture
-local MajorFactionsRenownToast_TopIconObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_waitAndAnimOutObject : AnimationGroup
----@field animOut MajorFactionsRenownToast_waitAndAnimOut_animOutObject
-local MajorFactionsRenownToast_waitAndAnimOutObject = {}
-end
-
-do
----@class MajorFactionsRenownToast_waitAndAnimOut_animOutObject : Alpha
-local MajorFactionsRenownToast_waitAndAnimOut_animOutObject = {}
-end
-
-do
----@class MerchantFrameObject : Frame
----@field Bg MerchantFrame_BgObject
----@field CloseButton MerchantFrame_CloseButtonObject
----@field FilterDropdown MerchantFrame_FilterDropdownObject
----@field FocusJumpHint MerchantFrame_FocusJumpHintObject
----@field FrameGlow MerchantFrame_FrameGlowObject
----@field Inset MerchantFrame_InsetObject
----@field LeftJumpHint MerchantFrame_LeftJumpHintObject
----@field NineSlice MerchantFrame_NineSliceObject
----@field PortraitContainer MerchantFrame_PortraitContainerObject
----@field RightJumpHint MerchantFrame_RightJumpHintObject
----@field TabIndicators MerchantFrame_TabIndicatorsObject
----@field Tabs table
----@field TitleContainer MerchantFrame_TitleContainerObject
----@field TopTileStreaks MerchantFrame_TopTileStreaksObject
----@field lastTab number
----@field layoutType string
----@field numTabs number
----@field page number
----@field selectedTab number
-local MerchantFrameObject = {}
----@return any ...
-function MerchantFrameObject:EndFocus(...) end
----@return any ...
-function MerchantFrameObject:GetFocusFrameGlow(...) end
----@return any ...
-function MerchantFrameObject:GetFocusFrameRoot(...) end
----@return any ...
-function MerchantFrameObject:GetPortrait(...) end
----@return any ...
-function MerchantFrameObject:GetTitleText(...) end
----@return any ...
-function MerchantFrameObject:HasPortraitTexture(...) end
----@return any ...
-function MerchantFrameObject:HideFocusJumpHint(...) end
----@return any ...
-function MerchantFrameObject:HideLeftJumpHint(...) end
----@return any ...
-function MerchantFrameObject:HideRightJumpHint(...) end
----@return any ...
-function MerchantFrameObject:LockInFocus(...) end
----@return any ...
-function MerchantFrameObject:RefreshFocus(...) end
----@return any ...
-function MerchantFrameObject:SetBorder(...) end
----@return any ...
-function MerchantFrameObject:SetFrameLevelsFromBaseLevel(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitAtlasRaw(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitShown(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitTexCoord(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitTextureRaw(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitTextureSizeAndOffset(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitToAsset(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitToBag(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitToClassIcon(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitToSpecIcon(...) end
----@return any ...
-function MerchantFrameObject:SetPortraitToUnit(...) end
----@return any ...
-function MerchantFrameObject:SetTitle(...) end
----@return any ...
-function MerchantFrameObject:SetTitleColor(...) end
----@return any ...
-function MerchantFrameObject:SetTitleFormatted(...) end
----@return any ...
-function MerchantFrameObject:SetTitleMaxLinesAndHeight(...) end
----@return any ...
-function MerchantFrameObject:SetTitleOffsets(...) end
----@return any ...
-function MerchantFrameObject:ShowFocusJumpHint(...) end
----@return any ...
-function MerchantFrameObject:ShowLeftJumpHint(...) end
----@return any ...
-function MerchantFrameObject:ShowRightJumpHint(...) end
----@return any ...
-function MerchantFrameObject:StartFocus(...) end
----@type MerchantFrameObject
-MerchantFrame = MerchantFrameObject
-end
-
-do
----@class MerchantFrame_BgObject : Texture
-local MerchantFrame_BgObject = {}
-end
-
-do
----@class MerchantFrame_CloseButtonObject : Button
-local MerchantFrame_CloseButtonObject = {}
----@return any ...
-function MerchantFrame_CloseButtonObject:NarrationGetName(...) end
----@return any ...
-function MerchantFrame_CloseButtonObject:OnLoad(...) end
-end
-
-do
----@class MerchantFrame_FilterDropdownObject : Button
----@field Arrow MerchantFrame_FilterDropdown_ArrowObject
----@field Background MerchantFrame_FilterDropdown_BackgroundObject
----@field Event MerchantFrame_FilterDropdown_EventObject
----@field Text MerchantFrame_FilterDropdown_TextObject
----@field callbackTables table
----@field deferredCallbacks table
----@field executingEvents table
----@field intrinsic string
----@field menuAnchor MerchantFrame_FilterDropdown_menuAnchorObject
----@field menuDescription MerchantFrame_FilterDropdown_menuDescriptionObject
----@field menuPoint string
----@field menuPointX number
----@field menuPointY number
----@field menuRelativePoint string
----@field text string
-local MerchantFrame_FilterDropdownObject = {}
----@return any ...
-function MerchantFrame_FilterDropdownObject:ClearMenuState(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:CloseMenu(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:CollectSelectionData(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:CopyDeferredCallbacks(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:CreateDefaultRootMenuDescription(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:CreateRootDescription(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:Decrement(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:DesaturateIfDisabled(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:DoesFrameHaveEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:EnableRegenerateOnResponse(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GenerateCallbackEvents(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GenerateMenu(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetArrowAtlas(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetCallbackTable(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetCallbackTables(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetCallbacksByEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetDefaultText(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetMenuDescription(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetMutableCallbacksByEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetSelectionData(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:GetUpdateText(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:HandlesGlobalMouseEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:HasAnyRadioDescriptions(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:HasElements(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:HasOnlyRadioDescriptions(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:HasRegistrantsForEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:HasStickyFocus(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:Increment(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:IsDown(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:IsDownOver(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:IsMenuOpen(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:IsOver(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:NarrationGetContext(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:NarrationGetName(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnButtonStateChanged(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnDisable(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnEnable(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnEnter(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnEnter_Intrinsic(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnLeave(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnLoad_Intrinsic(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMenuAssigned(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMenuChanged(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMenuClosed(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMenuOpened(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMenuResponse(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMouseDown(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMouseDown_Intrinsic(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMouseUp(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnMouseWheel_Intrinsic(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OnShow(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OpenMenu(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:OverrideText(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:Pick(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:ReconcileDeferredCallbacks(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:RegisterCallback(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:RegisterCallbackWithHandle(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:RegisterMenu(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:Rotate(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SecureInsertEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetDefaultText(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetDisplacedRegions(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetMenuAnchor(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetMenuOpen(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetSelectionText(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetSelectionTranslator(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetTooltip(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetUndefinedEventsAllowed(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SetupMenu(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:ShouldShowTooltip(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:ShowTooltip(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:SignalUpdate(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:TriggerEvent(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:UnregisterCallback(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:UnregisterEvents(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:UnregisterEventsByEventTable(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:Update(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:UpdateSelections(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:UpdateText(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:UpdateToMenuSelections(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:menuGenerator(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:onMenuClosedCallback(...) end
----@return any ...
-function MerchantFrame_FilterDropdownObject:selectionTranslator(...) end
-end
-
-do
----@class MerchantFrame_FilterDropdown_ArrowObject : Texture
-local MerchantFrame_FilterDropdown_ArrowObject = {}
-end
-
-do
----@class MerchantFrame_FilterDropdown_BackgroundObject : Texture
-local MerchantFrame_FilterDropdown_BackgroundObject = {}
-end
-
-do
----@class MerchantFrame_FilterDropdown_EventObject
-local MerchantFrame_FilterDropdown_EventObject = {}
-end
-
-do
----@class MerchantFrame_FilterDropdown_TextObject : FontString
-local MerchantFrame_FilterDropdown_TextObject = {}
-end
-
-do
----@class MerchantFrame_FilterDropdown_menuAnchorObject
----@field point string
----@field relativePoint string
----@field relativeTo MerchantFrame_FilterDropdown_menuAnchor_relativeToObject
----@field x number
----@field y number
-local MerchantFrame_FilterDropdown_menuAnchorObject = {}
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:Get(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:GetRelativeTo(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:Init(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:Set(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:SetFromPoint(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:SetOffsets(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:SetPoint(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:SetPointWithExtraOffset(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuAnchorObject:SetRelativeTo(...) end
-end
-
-do
----@class MerchantFrame_FilterDropdown_menuAnchor_relativeToObject
-local MerchantFrame_FilterDropdown_menuAnchor_relativeToObject = {}
-end
-
-do
----@class MerchantFrame_FilterDropdown_menuDescriptionObject
----@field tag string
-local MerchantFrame_FilterDropdown_menuDescriptionObject = {}
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateButton(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateCheckbox(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateColorSwatch(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateDivider(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateFrame(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateHighlightButton(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateHighlightRadio(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateRadio(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateRedHighlightButton(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateSearchEntry(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateSpacer(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateTemplate(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:CreateTitle(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueDivider(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueSpacer(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:QueueTitle(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:SetTitleAndTextTooltip(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:SetTooltip(...) end
----@return any ...
-function MerchantFrame_FilterDropdown_menuDescriptionObject:private(...) end
-end
-
-do
----@class MerchantFrame_FocusJumpHintObject : Frame
----@field ActiveTexture MerchantFrame_FocusJumpHint_ActiveTextureObject
----@field DisabledTexture MerchantFrame_FocusJumpHint_DisabledTextureObject
----@field HoldAnim MerchantFrame_FocusJumpHint_HoldAnimObject
----@field HoldIndicator MerchantFrame_FocusJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG MerchantFrame_FocusJumpHint_HoldIndicatorBGObject
----@field HoverTexture MerchantFrame_FocusJumpHint_HoverTextureObject
----@field LoadBar MerchantFrame_FocusJumpHint_LoadBarObject
----@field LoadBarBG MerchantFrame_FocusJumpHint_LoadBarBGObject
----@field LoadBarGlow MerchantFrame_FocusJumpHint_LoadBarGlowObject
----@field NormalTexture MerchantFrame_FocusJumpHint_NormalTextureObject
----@field PressedTexture MerchantFrame_FocusJumpHint_PressedTextureObject
----@field SpinnerTip MerchantFrame_FocusJumpHint_SpinnerTipObject
----@field ignoreInLayout boolean
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local MerchantFrame_FocusJumpHintObject = {}
----@return any ...
-function MerchantFrame_FocusJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:BeginHold(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:EndHold(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetDisabled(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetEnabled(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetFocused(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetHoldState(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetInputKey(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetPressable(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetTextureState(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:SetUsableState(...) end
----@return any ...
-function MerchantFrame_FocusJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class MerchantFrame_FocusJumpHint_ActiveTextureObject : Texture
-local MerchantFrame_FocusJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_DisabledTextureObject : Texture
-local MerchantFrame_FocusJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject
-local MerchantFrame_FocusJumpHint_HoldAnimObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject
-local MerchantFrame_FocusJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local MerchantFrame_FocusJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local MerchantFrame_FocusJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoldIndicatorObject : Texture
-local MerchantFrame_FocusJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoldIndicatorBGObject : Texture
-local MerchantFrame_FocusJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_HoverTextureObject : Texture
-local MerchantFrame_FocusJumpHint_HoverTextureObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_LoadBarObject : Texture
-local MerchantFrame_FocusJumpHint_LoadBarObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_LoadBarBGObject : Texture
-local MerchantFrame_FocusJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_LoadBarGlowObject : Texture
-local MerchantFrame_FocusJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_NormalTextureObject : Texture
-local MerchantFrame_FocusJumpHint_NormalTextureObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_PressedTextureObject : Texture
-local MerchantFrame_FocusJumpHint_PressedTextureObject = {}
-end
-
-do
----@class MerchantFrame_FocusJumpHint_SpinnerTipObject : Texture
-local MerchantFrame_FocusJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class MerchantFrame_FrameGlowObject : Frame
----@field GlowTexture MerchantFrame_FrameGlow_GlowTextureObject
----@field glowTextures table
-local MerchantFrame_FrameGlowObject = {}
----@return any ...
-function MerchantFrame_FrameGlowObject:GetContainerFrame(...) end
----@return any ...
-function MerchantFrame_FrameGlowObject:GetFrameLayoutType(...) end
----@return any ...
-function MerchantFrame_FrameGlowObject:GetHeaderFrame(...) end
----@return any ...
-function MerchantFrame_FrameGlowObject:OnLoad(...) end
-end
-
-do
----@class MerchantFrame_FrameGlow_GlowTextureObject : Texture
-local MerchantFrame_FrameGlow_GlowTextureObject = {}
-end
-
-do
----@class MerchantFrame_InsetObject : Frame
----@field Bg MerchantFrame_Inset_BgObject
----@field NineSlice MerchantFrame_Inset_NineSliceObject
----@field layoutType string
-local MerchantFrame_InsetObject = {}
-end
-
-do
----@class MerchantFrame_Inset_BgObject : Texture
-local MerchantFrame_Inset_BgObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSliceObject : Frame
----@field BottomEdge MerchantFrame_Inset_NineSlice_BottomEdgeObject
----@field BottomLeftCorner MerchantFrame_Inset_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner MerchantFrame_Inset_NineSlice_BottomRightCornerObject
----@field LeftEdge MerchantFrame_Inset_NineSlice_LeftEdgeObject
----@field RightEdge MerchantFrame_Inset_NineSlice_RightEdgeObject
----@field TopEdge MerchantFrame_Inset_NineSlice_TopEdgeObject
----@field TopLeftCorner MerchantFrame_Inset_NineSlice_TopLeftCornerObject
----@field TopRightCorner MerchantFrame_Inset_NineSlice_TopRightCornerObject
-local MerchantFrame_Inset_NineSliceObject = {}
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function MerchantFrame_Inset_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_BottomEdgeObject : Texture
-local MerchantFrame_Inset_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_BottomLeftCornerObject : Texture
-local MerchantFrame_Inset_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_BottomRightCornerObject : Texture
-local MerchantFrame_Inset_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_LeftEdgeObject : Texture
-local MerchantFrame_Inset_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_RightEdgeObject : Texture
-local MerchantFrame_Inset_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_TopEdgeObject : Texture
-local MerchantFrame_Inset_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_TopLeftCornerObject : Texture
-local MerchantFrame_Inset_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class MerchantFrame_Inset_NineSlice_TopRightCornerObject : Texture
-local MerchantFrame_Inset_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHintObject : Frame
----@field ActiveTexture MerchantFrame_LeftJumpHint_ActiveTextureObject
----@field DisabledTexture MerchantFrame_LeftJumpHint_DisabledTextureObject
----@field HoldAnim MerchantFrame_LeftJumpHint_HoldAnimObject
----@field HoldIndicator MerchantFrame_LeftJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG MerchantFrame_LeftJumpHint_HoldIndicatorBGObject
----@field HoverTexture MerchantFrame_LeftJumpHint_HoverTextureObject
----@field LoadBar MerchantFrame_LeftJumpHint_LoadBarObject
----@field LoadBarBG MerchantFrame_LeftJumpHint_LoadBarBGObject
----@field LoadBarGlow MerchantFrame_LeftJumpHint_LoadBarGlowObject
----@field NormalTexture MerchantFrame_LeftJumpHint_NormalTextureObject
----@field PressedTexture MerchantFrame_LeftJumpHint_PressedTextureObject
----@field SpinnerTip MerchantFrame_LeftJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local MerchantFrame_LeftJumpHintObject = {}
----@return any ...
-function MerchantFrame_LeftJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:BeginHold(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:EndHold(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetDisabled(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetEnabled(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetFocused(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetHoldState(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetInputKey(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetPressable(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetTextureState(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:SetUsableState(...) end
----@return any ...
-function MerchantFrame_LeftJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class MerchantFrame_LeftJumpHint_ActiveTextureObject : Texture
-local MerchantFrame_LeftJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_DisabledTextureObject : Texture
-local MerchantFrame_LeftJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject
-local MerchantFrame_LeftJumpHint_HoldAnimObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject
-local MerchantFrame_LeftJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local MerchantFrame_LeftJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local MerchantFrame_LeftJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoldIndicatorObject : Texture
-local MerchantFrame_LeftJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoldIndicatorBGObject : Texture
-local MerchantFrame_LeftJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_HoverTextureObject : Texture
-local MerchantFrame_LeftJumpHint_HoverTextureObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_LoadBarObject : Texture
-local MerchantFrame_LeftJumpHint_LoadBarObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_LoadBarBGObject : Texture
-local MerchantFrame_LeftJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_LoadBarGlowObject : Texture
-local MerchantFrame_LeftJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_NormalTextureObject : Texture
-local MerchantFrame_LeftJumpHint_NormalTextureObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_PressedTextureObject : Texture
-local MerchantFrame_LeftJumpHint_PressedTextureObject = {}
-end
-
-do
----@class MerchantFrame_LeftJumpHint_SpinnerTipObject : Texture
-local MerchantFrame_LeftJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class MerchantFrame_NineSliceObject : Frame
----@field BottomEdge MerchantFrame_NineSlice_BottomEdgeObject
----@field BottomLeftCorner MerchantFrame_NineSlice_BottomLeftCornerObject
----@field BottomRightCorner MerchantFrame_NineSlice_BottomRightCornerObject
----@field Center MerchantFrame_NineSlice_CenterObject
----@field LeftEdge MerchantFrame_NineSlice_LeftEdgeObject
----@field RightEdge MerchantFrame_NineSlice_RightEdgeObject
----@field TopEdge MerchantFrame_NineSlice_TopEdgeObject
----@field TopLeftCorner MerchantFrame_NineSlice_TopLeftCornerObject
----@field TopRightCorner MerchantFrame_NineSlice_TopRightCornerObject
-local MerchantFrame_NineSliceObject = {}
----@return any ...
-function MerchantFrame_NineSliceObject:GetBorderColor(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:GetCenterColor(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:GetFrameLayoutTextureKit(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:GetFrameLayoutType(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:SetBlendMode(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:SetBorderBlendMode(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:SetBorderColor(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:SetCenterColor(...) end
----@return any ...
-function MerchantFrame_NineSliceObject:SetVertexColor(...) end
-end
-
-do
----@class MerchantFrame_NineSlice_BottomEdgeObject : Texture
-local MerchantFrame_NineSlice_BottomEdgeObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_BottomLeftCornerObject : Texture
-local MerchantFrame_NineSlice_BottomLeftCornerObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_BottomRightCornerObject : Texture
-local MerchantFrame_NineSlice_BottomRightCornerObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_CenterObject : Texture
-local MerchantFrame_NineSlice_CenterObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_LeftEdgeObject : Texture
-local MerchantFrame_NineSlice_LeftEdgeObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_RightEdgeObject : Texture
-local MerchantFrame_NineSlice_RightEdgeObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_TopEdgeObject : Texture
-local MerchantFrame_NineSlice_TopEdgeObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_TopLeftCornerObject : Texture
-local MerchantFrame_NineSlice_TopLeftCornerObject = {}
-end
-
-do
----@class MerchantFrame_NineSlice_TopRightCornerObject : Texture
-local MerchantFrame_NineSlice_TopRightCornerObject = {}
-end
-
-do
----@class MerchantFrame_PortraitContainerObject : Frame
----@field CircleMask MerchantFrame_PortraitContainer_CircleMaskObject
----@field portrait MerchantFrame_PortraitContainer_portraitObject
-local MerchantFrame_PortraitContainerObject = {}
-end
-
-do
----@class MerchantFrame_PortraitContainer_CircleMaskObject : MaskTexture
-local MerchantFrame_PortraitContainer_CircleMaskObject = {}
-end
-
-do
----@class MerchantFrame_PortraitContainer_portraitObject : Texture
-local MerchantFrame_PortraitContainer_portraitObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHintObject : Frame
----@field ActiveTexture MerchantFrame_RightJumpHint_ActiveTextureObject
----@field DisabledTexture MerchantFrame_RightJumpHint_DisabledTextureObject
----@field HoldAnim MerchantFrame_RightJumpHint_HoldAnimObject
----@field HoldIndicator MerchantFrame_RightJumpHint_HoldIndicatorObject
----@field HoldIndicatorBG MerchantFrame_RightJumpHint_HoldIndicatorBGObject
----@field HoverTexture MerchantFrame_RightJumpHint_HoverTextureObject
----@field LoadBar MerchantFrame_RightJumpHint_LoadBarObject
----@field LoadBarBG MerchantFrame_RightJumpHint_LoadBarBGObject
----@field LoadBarGlow MerchantFrame_RightJumpHint_LoadBarGlowObject
----@field NormalTexture MerchantFrame_RightJumpHint_NormalTextureObject
----@field PressedTexture MerchantFrame_RightJumpHint_PressedTextureObject
----@field SpinnerTip MerchantFrame_RightJumpHint_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local MerchantFrame_RightJumpHintObject = {}
----@return any ...
-function MerchantFrame_RightJumpHintObject:ApplyTextureLayout(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:BeginHold(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:CanEnterTextureState(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:DisableDropShadow(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:EnableDropShadow(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:EndHold(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:OnHoldAnimFinished(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:OnHoldAnimStopped(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:RefreshIconTextures(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetDisabled(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetEnabled(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetFocused(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetHoldState(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetInputKey(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetIsHoldAction(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetPressable(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetTextureHeight(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetTextureState(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetTextureWidth(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:SetUsableState(...) end
----@return any ...
-function MerchantFrame_RightJumpHintObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class MerchantFrame_RightJumpHint_ActiveTextureObject : Texture
-local MerchantFrame_RightJumpHint_ActiveTextureObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_DisabledTextureObject : Texture
-local MerchantFrame_RightJumpHint_DisabledTextureObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoldAnimObject : AnimationGroup
----@field LoadBarAnim MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
-local MerchantFrame_RightJumpHint_HoldAnimObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
-local MerchantFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
-local MerchantFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
-local MerchantFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoldIndicatorObject : Texture
-local MerchantFrame_RightJumpHint_HoldIndicatorObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoldIndicatorBGObject : Texture
-local MerchantFrame_RightJumpHint_HoldIndicatorBGObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_HoverTextureObject : Texture
-local MerchantFrame_RightJumpHint_HoverTextureObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_LoadBarObject : Texture
-local MerchantFrame_RightJumpHint_LoadBarObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_LoadBarBGObject : Texture
-local MerchantFrame_RightJumpHint_LoadBarBGObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_LoadBarGlowObject : Texture
-local MerchantFrame_RightJumpHint_LoadBarGlowObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_NormalTextureObject : Texture
-local MerchantFrame_RightJumpHint_NormalTextureObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_PressedTextureObject : Texture
-local MerchantFrame_RightJumpHint_PressedTextureObject = {}
-end
-
-do
----@class MerchantFrame_RightJumpHint_SpinnerTipObject : Texture
-local MerchantFrame_RightJumpHint_SpinnerTipObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicatorsObject : Frame
----@field LeftTabButton MerchantFrame_TabIndicators_LeftTabButtonObject
----@field RightTabButton MerchantFrame_TabIndicators_RightTabButtonObject
----@field bindings MerchantFrame_TabIndicators_bindingsObject
----@field currentIndex number
----@field tabs table
----@field visibleTabs table
-local MerchantFrame_TabIndicatorsObject = {}
----@return any ...
-function MerchantFrame_TabIndicatorsObject:ClickCurrentTab(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:GetNumTabs(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:LockTabs(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:OnHide(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:OnShow(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:SetCurrentIndex(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:SetUpTabs(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:Tab(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:UpdateTabIndicators(...) end
----@return any ...
-function MerchantFrame_TabIndicatorsObject:UpdateTabVisibility(...) end
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButtonObject : Button
----@field ActiveTexture MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject
----@field DisabledTexture MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject
----@field HoldAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject
----@field HoldIndicator MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject
----@field HoldIndicatorBG MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject
----@field HoverTexture MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject
----@field LoadBar MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject
----@field LoadBarBG MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject
----@field LoadBarGlow MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject
----@field NormalTexture MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject
----@field PressedTexture MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject
----@field SpinnerTip MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field offset number
----@field smartNavigationIgnored boolean
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local MerchantFrame_TabIndicators_LeftTabButtonObject = {}
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:ApplyTextureLayout(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:BeginHold(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:CanEnterTextureState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:DisableDropShadow(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:EnableDropShadow(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:EndHold(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:OnClick(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimFinished(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:OnHoldAnimStopped(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:RefreshIconTextures(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetDisabled(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetFocused(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetHoldState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetInputKey(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetIsHoldAction(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetPressable(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureHeight(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetTextureWidth(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:SetUsableState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_LeftTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_ActiveTextureObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_DisabledTextureObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject : AnimationGroup
----@field LoadBarAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject
-local MerchantFrame_TabIndicators_LeftTabButton_HoldAnimObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject
-local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject : Alpha
-local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject : Rotation
-local MerchantFrame_TabIndicators_LeftTabButton_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_HoldIndicatorBGObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_HoverTextureObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_LoadBarObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_LoadBarBGObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_LoadBarGlowObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_NormalTextureObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_PressedTextureObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject : Texture
-local MerchantFrame_TabIndicators_LeftTabButton_SpinnerTipObject = {}
-end
-
-do
----@class MerchantFrame_TabIndicators_RightTabButtonObject : Button
----@field ActiveTexture MerchantFrame_TabIndicators_RightTabButton_ActiveTextureObject
----@field DisabledTexture MerchantFrame_TabIndicators_RightTabButton_DisabledTextureObject
----@field HoldAnim MerchantFrame_TabIndicators_RightTabButton_HoldAnimObject
----@field HoldIndicator MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorObject
----@field HoldIndicatorBG MerchantFrame_TabIndicators_RightTabButton_HoldIndicatorBGObject
----@field HoverTexture MerchantFrame_TabIndicators_RightTabButton_HoverTextureObject
----@field LoadBar MerchantFrame_TabIndicators_RightTabButton_LoadBarObject
----@field LoadBarBG MerchantFrame_TabIndicators_RightTabButton_LoadBarBGObject
----@field LoadBarGlow MerchantFrame_TabIndicators_RightTabButton_LoadBarGlowObject
----@field NormalTexture MerchantFrame_TabIndicators_RightTabButton_NormalTextureObject
----@field PressedTexture MerchantFrame_TabIndicators_RightTabButton_PressedTextureObject
----@field SpinnerTip MerchantFrame_TabIndicators_RightTabButton_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field offset number
----@field smartNavigationIgnored boolean
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local MerchantFrame_TabIndicators_RightTabButtonObject = {}
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:ApplyTextureLayout(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:BeginHold(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:CanEnterTextureState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:DisableDropShadow(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:EnableDropShadow(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:EndHold(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:OnClick(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:OnHoldAnimFinished(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:OnHoldAnimStopped(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:OnLoad(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:RefreshIconTextures(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetDisabled(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetFocused(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetHoldState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetInputKey(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetIsHoldAction(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetPressable(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureHeight(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetTextureWidth(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:SetUsableState(...) end
----@return any ...
-function MerchantFrame_TabIndicators_RightTabButtonObject:ShouldUseAdjustedTextureBounds(...) end
 end

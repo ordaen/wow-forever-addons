@@ -3,6 +3,1284 @@
 
 
 do
+---@class StackSplitFrame_RightJumpHint_ActiveTextureObject : Texture
+local StackSplitFrame_RightJumpHint_ActiveTextureObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_DisabledTextureObject : Texture
+local StackSplitFrame_RightJumpHint_DisabledTextureObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoldAnimObject : AnimationGroup
+---@field LoadBarAnim StackSplitFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+---@field LoadBarGlowAnim StackSplitFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject
+---@field SpinnerTipAnim StackSplitFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject
+local StackSplitFrame_RightJumpHint_HoldAnimObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoldAnim_LoadBarAnimObject
+local StackSplitFrame_RightJumpHint_HoldAnim_LoadBarAnimObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject : Alpha
+local StackSplitFrame_RightJumpHint_HoldAnim_LoadBarGlowAnimObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject : Rotation
+local StackSplitFrame_RightJumpHint_HoldAnim_SpinnerTipAnimObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoldIndicatorObject : Texture
+local StackSplitFrame_RightJumpHint_HoldIndicatorObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoldIndicatorBGObject : Texture
+local StackSplitFrame_RightJumpHint_HoldIndicatorBGObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_HoverTextureObject : Texture
+local StackSplitFrame_RightJumpHint_HoverTextureObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_LoadBarObject : Texture
+local StackSplitFrame_RightJumpHint_LoadBarObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_LoadBarBGObject : Texture
+local StackSplitFrame_RightJumpHint_LoadBarBGObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_LoadBarGlowObject : Texture
+local StackSplitFrame_RightJumpHint_LoadBarGlowObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_NormalTextureObject : Texture
+local StackSplitFrame_RightJumpHint_NormalTextureObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_PressedTextureObject : Texture
+local StackSplitFrame_RightJumpHint_PressedTextureObject = {}
+end
+
+do
+---@class StackSplitFrame_RightJumpHint_SpinnerTipObject : Texture
+local StackSplitFrame_RightJumpHint_SpinnerTipObject = {}
+end
+
+do
+---@class StackSplitFrame_SingleItemSplitBackgroundObject : Texture
+local StackSplitFrame_SingleItemSplitBackgroundObject = {}
+end
+
+do
+---@class StackSplitFrame_StackItemCountTextObject : FontString
+local StackSplitFrame_StackItemCountTextObject = {}
+end
+
+do
+---@class StackSplitFrame_StackSplitTextObject : FontString
+local StackSplitFrame_StackSplitTextObject = {}
+end
+
+do
+---@class StartSplashObject : Frame
+---@field SplashText StartSplash_SplashTextObject
+---@field SplashTexture StartSplash_SplashTextureObject
+local StartSplashObject = {}
+---@type StartSplashObject
+StartSplash = StartSplashObject
+end
+
+do
+---@class StartSplash_SplashTextObject : Frame
+---@field TextAnim StartSplash_SplashText_TextAnimObject
+---@field battlePetReachedText StartSplash_SplashText_battlePetReachedTextObject
+local StartSplash_SplashTextObject = {}
+end
+
+do
+---@class StartSplash_SplashText_TextAnimObject : AnimationGroup
+local StartSplash_SplashText_TextAnimObject = {}
+end
+
+do
+---@class StartSplash_SplashText_battlePetReachedTextObject : FontString
+local StartSplash_SplashText_battlePetReachedTextObject = {}
+end
+
+do
+---@class StartSplash_SplashTextureObject : Frame
+---@field splashAnim StartSplash_SplashTexture_splashAnimObject
+local StartSplash_SplashTextureObject = {}
+end
+
+do
+---@class StartSplash_SplashTexture_splashAnimObject : AnimationGroup
+local StartSplash_SplashTexture_splashAnimObject = {}
+end
+
+do
+---@class StopwatchFrameObject : Frame
+local StopwatchFrameObject = {}
+---@type StopwatchFrameObject
+StopwatchFrame = StopwatchFrameObject
+end
+
+do
+---@class StreamingIconObject : Frame
+---@field FadeIN StreamingIcon_FadeINObject
+---@field FadeOUT StreamingIcon_FadeOUTObject
+---@field Loop StreamingIcon_LoopObject
+local StreamingIconObject = {}
+---@type StreamingIconObject
+StreamingIcon = StreamingIconObject
+end
+
+do
+---@class StreamingIcon_FadeINObject : AnimationGroup
+local StreamingIcon_FadeINObject = {}
+end
+
+do
+---@class StreamingIcon_FadeOUTObject : AnimationGroup
+local StreamingIcon_FadeOUTObject = {}
+end
+
+do
+---@class StreamingIcon_LoopObject : AnimationGroup
+local StreamingIcon_LoopObject = {}
+end
+
+do
+---@class SubZoneTextFrameObject : Frame
+---@field fadeInTime number
+---@field fadeOutTime number
+---@field holdTime number
+local SubZoneTextFrameObject = {}
+---@type SubZoneTextFrameObject
+SubZoneTextFrame = SubZoneTextFrameObject
+end
+
+do
+---@class SuperTrackedFrameObject : Frame
+---@field Arrow SuperTrackedFrame_ArrowObject
+---@field DistanceText SuperTrackedFrame_DistanceTextObject
+---@field Icon SuperTrackedFrame_IconObject
+---@field IconBorder SuperTrackedFrame_IconBorderObject
+---@field circularVec SuperTrackedFrame_circularVecObject
+---@field indicatorVec SuperTrackedFrame_indicatorVecObject
+---@field mouseToNavVec SuperTrackedFrame_mouseToNavVecObject
+---@field timeSinceLastPartyMemberUpdate number
+local SuperTrackedFrameObject = {}
+---@return any ...
+function SuperTrackedFrameObject:CheckInitializeNavigationFrame(...) end
+---@return any ...
+function SuperTrackedFrameObject:ClampElliptical(...) end
+---@return any ...
+function SuperTrackedFrameObject:ForceTransparentUntil(...) end
+---@return any ...
+function SuperTrackedFrameObject:GetTargetAlpha(...) end
+---@return any ...
+function SuperTrackedFrameObject:GetTargetAlphaBaseValue(...) end
+---@return any ...
+function SuperTrackedFrameObject:InitializeNavigationFrame(...) end
+---@return any ...
+function SuperTrackedFrameObject:OnDestinationReached(...) end
+---@return any ...
+function SuperTrackedFrameObject:OnEvent(...) end
+---@return any ...
+function SuperTrackedFrameObject:OnLoad(...) end
+---@return any ...
+function SuperTrackedFrameObject:OnUpdate(...) end
+---@return any ...
+function SuperTrackedFrameObject:PingNavFrame(...) end
+---@return any ...
+function SuperTrackedFrameObject:SetEllipticalRadii(...) end
+---@return any ...
+function SuperTrackedFrameObject:SetTargetAlphaForState(...) end
+---@return any ...
+function SuperTrackedFrameObject:ShouldClearSuperTrackWhenDestinationReached(...) end
+---@return any ...
+function SuperTrackedFrameObject:ShutdownNavigationFrame(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdateAlpha(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdateArrow(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdateClampedState(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdateDistanceText(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdateIcon(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdateIconSize(...) end
+---@return any ...
+function SuperTrackedFrameObject:UpdatePosition(...) end
+---@type SuperTrackedFrameObject
+SuperTrackedFrame = SuperTrackedFrameObject
+end
+
+do
+---@class SuperTrackedFrame_ArrowObject : Texture
+local SuperTrackedFrame_ArrowObject = {}
+end
+
+do
+---@class SuperTrackedFrame_DistanceTextObject : FontString
+local SuperTrackedFrame_DistanceTextObject = {}
+end
+
+do
+---@class SuperTrackedFrame_IconObject : Texture
+local SuperTrackedFrame_IconObject = {}
+end
+
+do
+---@class SuperTrackedFrame_IconBorderObject : Texture
+local SuperTrackedFrame_IconBorderObject = {}
+end
+
+do
+---@class SuperTrackedFrame_circularVecObject
+---@field x number
+---@field y number
+local SuperTrackedFrame_circularVecObject = {}
+---@return any ...
+function SuperTrackedFrame_circularVecObject:Add(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:Clone(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:Cross(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:DivideBy(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:Dot(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:GetLength(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:GetLengthSquared(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:GetXY(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:IsEqualTo(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:IsZero(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:Normalize(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:OnLoad(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:RotateDirection(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:ScaleBy(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:SetXY(...) end
+---@return any ...
+function SuperTrackedFrame_circularVecObject:Subtract(...) end
+end
+
+do
+---@class SuperTrackedFrame_indicatorVecObject
+---@field x number
+---@field y number
+local SuperTrackedFrame_indicatorVecObject = {}
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:Add(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:Clone(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:Cross(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:DivideBy(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:Dot(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:GetLength(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:GetLengthSquared(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:GetXY(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:IsEqualTo(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:IsZero(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:Normalize(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:OnLoad(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:RotateDirection(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:ScaleBy(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:SetXY(...) end
+---@return any ...
+function SuperTrackedFrame_indicatorVecObject:Subtract(...) end
+end
+
+do
+---@class SuperTrackedFrame_mouseToNavVecObject
+---@field x number
+---@field y number
+local SuperTrackedFrame_mouseToNavVecObject = {}
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:Add(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:Clone(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:Cross(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:DivideBy(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:Dot(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:GetLength(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:GetLengthSquared(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:GetXY(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:IsEqualTo(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:IsZero(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:Normalize(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:OnLoad(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:RotateDirection(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:ScaleBy(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:SetXY(...) end
+---@return any ...
+function SuperTrackedFrame_mouseToNavVecObject:Subtract(...) end
+end
+
+do
+---@class SwingTimerMainHandFrameObject : Frame
+---@field Background SwingTimerMainHandFrame_BackgroundObject
+---@field Border SwingTimerMainHandFrame_BorderObject
+---@field Selection SwingTimerMainHandFrame_SelectionObject
+---@field StatusBar SwingTimerMainHandFrame_StatusBarObject
+---@field align string
+---@field barTexture string
+---@field bottomPadding number
+---@field defaultHideSelection boolean
+---@field dirtySettings table
+---@field downKeys table
+---@field hasActiveChanges boolean
+---@field hideWhenActionBarIsOverriden boolean
+---@field ignoreInLayoutWhenActionBarIsOverriden boolean
+---@field isBottomManagedFrame boolean
+---@field isManagedFrame boolean
+---@field isOutOfRange boolean
+---@field layoutIndex number
+---@field layoutParent SwingTimerMainHandFrame_layoutParentObject
+---@field savedSystemInfo SwingTimerMainHandFrame_savedSystemInfoObject
+---@field settingDisplayInfoMap table
+---@field settingMap table
+---@field settingsDialogAnchor SwingTimerMainHandFrame_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field swingType number
+---@field system number
+---@field systemIndex number
+---@field systemInfo SwingTimerMainHandFrame_systemInfoObject
+---@field systemNameString string
+---@field typeText string
+---@field visibility number
+local SwingTimerMainHandFrameObject = {}
+---@return any ...
+function SwingTimerMainHandFrameObject:AddExtraButtons(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:AddSnappedFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:AnchorSelectionFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:AnySettingsDirty(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ApplyRangePresentation(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ApplySystemAnchor(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:BreakFrameSnap(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:BreakFromFrameManager(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:BreakSnappedFrames(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:CanBeMoved(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearAllPointsBase(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearAllPointsOverride(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearDirtySetting(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearDownKeys(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearFrameSnap(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearHighlight(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ClearSwingTimer(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:DoesSettingValueEqual(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetBackground(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetBorder(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetBottomOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetEquippedSwingDuration(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetLeftOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetManagedFrameContainer(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetRightOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetScaledCenter(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetScaledSelectionSides(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetSelectionOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetSettingValue(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetSettingValueBool(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetSnapOffsets(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetStatusBar(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetStatusBarPip(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetSystemName(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetTimeLabel(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetTopOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetTypeLabel(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:GetTypeLabelShadow(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasActiveChanges(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasAppropriateWeapon(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasOffHandWeapon(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasRangedWeapon(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasSetting(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasSwingTimer(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HasValidSelectionRect(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HideBase(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HideOverride(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:HighlightSystem(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:InitializeBarPresentation(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsAboveFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsBelowFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsEditModeDragging(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsInDefaultPosition(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsInitialized(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsOutOfRange(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsRangeCheckEnabled(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsSettingDirty(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsShiftKeyDown(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsSystemSettingDefault(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnDragStart(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnDragStop(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnEditModeEnter(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnEditModeExit(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnEvent(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnHide(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnKeyDown(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnKeyUp(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnLoad(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnShow(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnSystemHide(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnSystemLoad(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnSystemPositionChange(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnUpdate(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:OnUpdateSystem(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:PrepareForSave(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ProcessMovementKey(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:RemoveSnappedFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ResetSwingTimer(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ResetSwingTimerForEquippedWeapon(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ResetToDefaultPosition(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SelectSystem(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetHasActiveChanges(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetIsInEditMode(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetOutOfRange(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetPointBase(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetPointOverride(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetScaleBase(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetScaleOverride(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetSelectionShown(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetShownBase(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetShownOverride(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetSnappedToFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldBeShown(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldCheckRange(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldClearSwing(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldDisplaySwing(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldHandleSwing(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShouldShowSetting(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:ShowEditInstructions(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:SnapToFrame(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateClampOffsets(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateDirtySettings(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateFramePositions(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateFrameState(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateRangeCheckRegistration(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateRangeState(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSettingMap(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateShownState(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateShownStateAndRegistration(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystem(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSetting(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingHeight(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingOpacity(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingScale(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingShowBarTitle(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingShowTime(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingVisibility(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UpdateSystemSettingWidth(...) end
+---@return any ...
+function SwingTimerMainHandFrameObject:UseSettingAltName(...) end
+---@type SwingTimerMainHandFrameObject
+SwingTimerMainHandFrame = SwingTimerMainHandFrameObject
+end
+
+do
+---@class SwingTimerMainHandFrame_BackgroundObject : Texture
+local SwingTimerMainHandFrame_BackgroundObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_BorderObject : Texture
+local SwingTimerMainHandFrame_BorderObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_SelectionObject : Frame
+---@field Label SwingTimerMainHandFrame_Selection_LabelObject
+---@field MouseOverHighlight SwingTimerMainHandFrame_Selection_MouseOverHighlightObject
+---@field highlightTextureKit string
+---@field ignoreInLayout boolean
+---@field parent SwingTimerMainHandFrame_Selection_parentObject
+---@field selectedTextureKit string
+---@field system SwingTimerMainHandFrame_Selection_systemObject
+local SwingTimerMainHandFrame_SelectionObject = {}
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:CheckShowInstructionalTooltip(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:GetBorderColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:GetCenterColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:GetFrameLayoutType(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:GetLabelText(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:HideInstructionalTooltip(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:IsSelected(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:IsShowingEditInstructions(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:OnDragStart(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:OnDragStop(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:OnEnter(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:OnLeave(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:OnLoad(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:OnMouseDown(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:SetBlendMode(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:SetBorderBlendMode(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:SetBorderColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:SetCenterColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:SetSystem(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:SetVertexColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:ShouldShowLabelText(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:ShowEditInstructions(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:ShowHighlighted(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:ShowSelected(...) end
+---@return any ...
+function SwingTimerMainHandFrame_SelectionObject:UpdateLabelVisibility(...) end
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_LabelObject : FontString
+---@field fontObjectsToTry table
+local SwingTimerMainHandFrame_Selection_LabelObject = {}
+---@return any ...
+function SwingTimerMainHandFrame_Selection_LabelObject:ApplyFontObjects(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_LabelObject:SetFontObjectsToTry(...) end
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlightObject : Frame
+---@field BottomEdge SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomEdgeObject
+---@field BottomLeftCorner SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomLeftCornerObject
+---@field BottomRightCorner SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomRightCornerObject
+---@field Center SwingTimerMainHandFrame_Selection_MouseOverHighlight_CenterObject
+---@field LeftEdge SwingTimerMainHandFrame_Selection_MouseOverHighlight_LeftEdgeObject
+---@field RightEdge SwingTimerMainHandFrame_Selection_MouseOverHighlight_RightEdgeObject
+---@field TopEdge SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopEdgeObject
+---@field TopLeftCorner SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopLeftCornerObject
+---@field TopRightCorner SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopRightCornerObject
+local SwingTimerMainHandFrame_Selection_MouseOverHighlightObject = {}
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:GetBorderColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:GetCenterColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:GetFrameLayoutTextureKit(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:GetFrameLayoutType(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:OnLoad(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:SetBlendMode(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:SetBorderBlendMode(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:SetBorderColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:SetCenterColor(...) end
+---@return any ...
+function SwingTimerMainHandFrame_Selection_MouseOverHighlightObject:SetVertexColor(...) end
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomEdgeObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomEdgeObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomLeftCornerObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomLeftCornerObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomRightCornerObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_BottomRightCornerObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_CenterObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_CenterObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_LeftEdgeObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_LeftEdgeObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_RightEdgeObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_RightEdgeObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopEdgeObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopEdgeObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopLeftCornerObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopLeftCornerObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopRightCornerObject : Texture
+local SwingTimerMainHandFrame_Selection_MouseOverHighlight_TopRightCornerObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_parentObject
+local SwingTimerMainHandFrame_Selection_parentObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_Selection_systemObject
+local SwingTimerMainHandFrame_Selection_systemObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_StatusBarObject : StatusBar
+---@field Pip SwingTimerMainHandFrame_StatusBar_PipObject
+---@field TimeLabel SwingTimerMainHandFrame_StatusBar_TimeLabelObject
+---@field TypeLabel SwingTimerMainHandFrame_StatusBar_TypeLabelObject
+---@field TypeLabelShadow SwingTimerMainHandFrame_StatusBar_TypeLabelShadowObject
+local SwingTimerMainHandFrame_StatusBarObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_StatusBar_PipObject : Texture
+local SwingTimerMainHandFrame_StatusBar_PipObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_StatusBar_TimeLabelObject : FontString
+local SwingTimerMainHandFrame_StatusBar_TimeLabelObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_StatusBar_TypeLabelObject : FontString
+local SwingTimerMainHandFrame_StatusBar_TypeLabelObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_StatusBar_TypeLabelShadowObject : Texture
+local SwingTimerMainHandFrame_StatusBar_TypeLabelShadowObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_layoutParentObject
+local SwingTimerMainHandFrame_layoutParentObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_savedSystemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+---@field systemIndex number
+local SwingTimerMainHandFrame_savedSystemInfoObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_settingsDialogAnchorObject
+---@field point string
+---@field relativePoint string
+---@field relativeTo SwingTimerMainHandFrame_settingsDialogAnchor_relativeToObject
+---@field x number
+---@field y number
+local SwingTimerMainHandFrame_settingsDialogAnchorObject = {}
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:Get(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:GetRelativeTo(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:Init(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:Set(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:SetFromPoint(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:SetOffsets(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:SetPoint(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:SetPointWithExtraOffset(...) end
+---@return any ...
+function SwingTimerMainHandFrame_settingsDialogAnchorObject:SetRelativeTo(...) end
+end
+
+do
+---@class SwingTimerMainHandFrame_settingsDialogAnchor_relativeToObject
+local SwingTimerMainHandFrame_settingsDialogAnchor_relativeToObject = {}
+end
+
+do
+---@class SwingTimerMainHandFrame_systemInfoObject
+---@field anchorInfo table
+---@field isInDefaultPosition boolean
+---@field settings table
+---@field system number
+---@field systemIndex number
+local SwingTimerMainHandFrame_systemInfoObject = {}
+end
+
+do
+---@class SwingTimerOffHandFrameObject : Frame
+---@field Background SwingTimerOffHandFrame_BackgroundObject
+---@field Border SwingTimerOffHandFrame_BorderObject
+---@field Selection SwingTimerOffHandFrame_SelectionObject
+---@field StatusBar SwingTimerOffHandFrame_StatusBarObject
+---@field align string
+---@field barTexture string
+---@field bottomPadding number
+---@field defaultHideSelection boolean
+---@field dirtySettings table
+---@field downKeys table
+---@field hasActiveChanges boolean
+---@field hideWhenActionBarIsOverriden boolean
+---@field ignoreInLayoutWhenActionBarIsOverriden boolean
+---@field isBottomManagedFrame boolean
+---@field isManagedFrame boolean
+---@field isOutOfRange boolean
+---@field layoutIndex number
+---@field layoutParent SwingTimerOffHandFrame_layoutParentObject
+---@field savedSystemInfo SwingTimerOffHandFrame_savedSystemInfoObject
+---@field settingDisplayInfoMap SwingTimerOffHandFrame_settingDisplayInfoMapObject
+---@field settingMap table
+---@field settingsDialogAnchor SwingTimerOffHandFrame_settingsDialogAnchorObject
+---@field snappedFrames table
+---@field swingType number
+---@field system number
+---@field systemIndex number
+---@field systemInfo SwingTimerOffHandFrame_systemInfoObject
+---@field systemNameString string
+---@field typeText string
+---@field visibility number
+local SwingTimerOffHandFrameObject = {}
+---@return any ...
+function SwingTimerOffHandFrameObject:AddExtraButtons(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:AddSnappedFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:AnchorSelectionFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:AnySettingsDirty(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ApplyRangePresentation(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ApplySystemAnchor(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:AreAllSystemSettingsDefault(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:BreakFrameSnap(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:BreakFromFrameManager(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:BreakSnappedFrames(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:CanBeMoved(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearAllPointsBase(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearAllPointsOverride(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearDirtySetting(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearDownKeys(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearFrameSnap(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearHighlight(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ClearSwingTimer(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ConvertSettingDisplayValueToRawValue(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:DoesSettingDisplayValueEqual(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:DoesSettingValueEqual(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetBackground(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetBorder(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetBottomOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetCombinedCenterOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetCombinedSelectionOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetCompositeNumberSettingValue(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetEquippedSwingDuration(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetFrameMagneticEligibility(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetLeftOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetManagedFrameContainer(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetRightOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetScaledCenter(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetScaledSelectionCenter(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetScaledSelectionSides(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetSelectionOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetSettingValue(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetSettingValueBool(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetSettingsDialogAnchor(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetSnapOffsets(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetStatusBar(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetStatusBarPip(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetSystemName(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetTimeLabel(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetTopOffset(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetTypeLabel(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:GetTypeLabelShadow(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasActiveChanges(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasAppropriateWeapon(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasCompositeNumberSetting(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasOffHandWeapon(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasRangedWeapon(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasSetting(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasSwingTimer(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HasValidSelectionRect(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HideBase(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HideOverride(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:HighlightSystem(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:InitializeBarPresentation(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsAboveFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsBelowFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsEditModeDragging(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsFrameAnchoredToMe(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsHorizontallyAlignedWithFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsInDefaultPosition(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsInitialized(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsOutOfRange(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsRangeCheckEnabled(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsSettingDirty(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsShiftKeyDown(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsSystemSettingDefault(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsToTheLeftOfFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsToTheRightOfFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:IsVerticallyAlignedWithFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:MarkAllSettingsDirty(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnAnyEditModeSystemAnchorChanged(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnDragStart(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnDragStop(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnEditModeEnter(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnEditModeExit(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnEvent(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnHide(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnKeyDown(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnKeyUp(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnLoad(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnShow(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnSystemHide(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnSystemLoad(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnSystemPositionChange(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnUpdate(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:OnUpdateSystem(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:PrepareForSave(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ProcessMovementKey(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:RemoveSnappedFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ResetSwingTimer(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ResetSwingTimerForEquippedWeapon(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ResetToDefaultPosition(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SelectSystem(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetHasActiveChanges(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetIsInEditMode(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetOutOfRange(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetPointBase(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetPointOverride(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetScaleBase(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetScaleOverride(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetSelectionShown(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetShownBase(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetShownOverride(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetSnappedToFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetupSettingsDialogAnchor(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SetupVisibilityFunctionOverrides(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldBeShown(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldBreakSnappedFramesOnHide(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldCheckRange(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldClearSwing(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldDisplaySwing(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldHandleSwing(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldResetSettingsDialogAnchors(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShouldShowSetting(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:ShowEditInstructions(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:SnapToFrame(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:TrySetCompositeNumberSettingValue(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateClampOffsets(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateDirtySettings(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateDisplayInfoOptions(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateFramePositions(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateFrameState(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateMagnetismRegistration(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateRangeCheckRegistration(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateRangeState(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSettingMap(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateShownState(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateShownStateAndRegistration(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystem(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSetting(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingHeight(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingOpacity(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingScale(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingShowBarTitle(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingShowTime(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingValue(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingVisibility(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UpdateSystemSettingWidth(...) end
+---@return any ...
+function SwingTimerOffHandFrameObject:UseSettingAltName(...) end
+---@type SwingTimerOffHandFrameObject
+SwingTimerOffHandFrame = SwingTimerOffHandFrameObject
+end
+
+do
 ---@class SwingTimerOffHandFrame_BackgroundObject : Texture
 local SwingTimerOffHandFrame_BackgroundObject = {}
 end
@@ -2309,6 +3587,7 @@ do
 ---@field defaultHideSelection boolean
 ---@field dirtySettings table
 ---@field downKeys table
+---@field elapsed number
 ---@field frameType string
 ---@field hasActiveChanges boolean
 ---@field healAbsorbBar TargetFrame_healAbsorbBarObject
@@ -2322,6 +3601,7 @@ do
 ---@field overHealAbsorbGlow TargetFrame_overHealAbsorbGlowObject
 ---@field portrait TargetFrame_portraitObject
 ---@field powerBarAlt TargetFrame_powerBarAltObject
+---@field predictedPowerCost number
 ---@field replacePortraitSettingChangedHandlers table
 ---@field savedSystemInfo TargetFrame_savedSystemInfoObject
 ---@field settingDisplayInfoMap TargetFrame_settingDisplayInfoMapObject
@@ -3229,9 +4509,13 @@ do
 ---@field cvar string
 ---@field cvarLabel string
 ---@field disconnected boolean
+---@field forceUpdate boolean
 ---@field frequentUpdates boolean
 ---@field lockColor boolean
 ---@field lockShow number
+---@field pauseUpdates boolean
+---@field powerToken string
+---@field powerType number
 ---@field textLockable number
 ---@field texture TargetFrame_manabar_textureObject
 ---@field unit string
@@ -3299,6 +4583,7 @@ end
 
 do
 ---@class TargetFrame_manabar_SparkObject : Texture
+---@field isActive boolean
 ---@field statusBar TargetFrame_manabar_Spark_statusBarObject
 local TargetFrame_manabar_SparkObject = {}
 ---@return any ...
@@ -8902,699 +10187,4 @@ function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_Standa
 function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
 ---@return any ...
 function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxDropdownControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegendObject : Frame
----@field actions table
----@field promptContainerFrame UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject
----@field promptFrames UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject
----@field promptFramesAddOrder table
----@field promptMap table
----@field wrapAroundRowWidth boolean
-local UIParent_SettingsCheckboxSliderControlinputLegendObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:AddModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyDefaultPromptPositioning(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyDefaultStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyEnabledStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyFocusedStyleToModifierSection(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyFocusedStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyNeutralStyleToPromptContainer(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:ApplyWideStyle(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:GetOrCreatePromptFrameUsingTemplateAndInputs(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:InitializePrompts(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:OnBackgroundAlphaChanged(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:RefreshWithPromptedBindings(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegendObject:SetLegendWidth(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject : Frame
----@field backgroundBorder UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject
----@field backgroundSlot UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrameObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundBorderObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptContainerFrame_backgroundSlotObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject
----@field StandardOneIconPAD1SLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject
----@field StandardOneIconPADDLEFTSLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject
----@field StandardOneIconPADDRIGHTSLASH UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDRIGHTSLASHObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFramesObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASHObject:SetUseDropShadow(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject : Frame
----@field FontString UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescTextObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject : FontString
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_ControlDescText_FontStringObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object : Frame
----@field ActiveTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject
----@field DisabledTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject
----@field HoldAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject
----@field HoldIndicator UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject
----@field HoldIndicatorBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject
----@field HoverTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject
----@field LoadBar UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject
----@field LoadBarBG UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject
----@field LoadBarGlow UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject
----@field NormalTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject
----@field PressedTexture UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject
----@field SpinnerTip UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject
----@field isHoldAction boolean
----@field mappedButtonKey string
----@field textureState number
----@field textureStateTextures table
----@field usableState number
----@field useDropShadow boolean
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ApplyTextureLayout(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:CanEnterTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:DisableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EnableDropShadow(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimFinished(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnHoldAnimStopped(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:RefreshIconTextures(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetEnabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetHoldState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetInputKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureHeight(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetTextureWidth(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:SetUsableState(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1Object:ShouldUseAdjustedTextureBounds(...) end
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_ActiveTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_DisabledTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject : AnimationGroup
----@field LoadBarAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
----@field LoadBarGlowAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject
----@field SpinnerTipAnim UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject : Alpha
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_LoadBarGlowAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject : Rotation
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldAnim_SpinnerTipAnimObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoldIndicatorBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_HoverTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarBGObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_LoadBarGlowObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_NormalTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_PressedTextureObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject : Texture
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPAD1SLASH_InputIcon1_SpinnerTipObject = {}
-end
-
-do
----@class UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject : Frame
----@field ControlDescText UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_ControlDescTextObject
----@field InputIcon1 UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASH_InputIcon1Object
----@field InputIcons table
----@field template string
-local UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject = {}
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:ApplyInactiveEnabledPromptStyling(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:BeginHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:DisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnableOrDisablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EnablePrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:EndHold(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingForPrompt(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetDividerSpacingInfo(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetIconDividerControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetInputIconControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:GetPromptTextControl(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:OnLoad(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:RefreshInputPromptSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDisabled(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetDividerType(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetFocused(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetInputIconSize(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetIsHoldAction(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPressable(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptFont(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptInputIconKey(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetPromptText(...) end
----@return any ...
-function UIParent_SettingsCheckboxSliderControlinputLegend_promptFrames_StandardOneIconPADDLEFTSLASHObject:SetUseDropShadow(...) end
 end
