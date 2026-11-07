@@ -68,6 +68,8 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   guild, level or class data in the lines; read them from the unit (`unitToken`: `UnitLevel`, `UnitClass`,
   `GetGuildInfo`, `UnitFactionGroup`).
 - **NPC:** name (2, in its reaction colour), «Уровень 50», its faction («Штормград»), «PvP» (plain).
+- **Creature** (wildlife, critters): name (2, reaction colour: hostile #cc4d38, neutral #e6b300), «Уровень 6», its
+  creature type instead of a faction («Животное», «Существо»; plain). Read the type from `UnitCreatureType`.
 - **Pet:** name (2), owner (16, the owner's `guid`: «Прислужник |3-1(…)» for a warlock's, «Питомец |3-1(…)» for a
   hunter's: the case code again), «Уровень 15».
 - **Kind 4** also covers labels on the world (a building's name, «Аптека Песта»): one gold plain line.
@@ -167,4 +169,4 @@ tooltip for an item's stat computes the same numbers for the item's own amount w
 ## Still to measure
 
 Class restriction («Классы: …»), reputation requirement; the character tab's texts for a caster class; hostile,
-elite, rare, quest and critter NPCs.
+elite, rare and quest NPCs.
