@@ -842,12 +842,12 @@ function drawBlock(surface, p, result, ox, oy, accent, depth, parentEdges)
 end
 
 -- The style's hover highlight: one texture per surface on the HIGHLIGHT layer, which WoW shows by itself while
--- the mouse is over a mouse-enabled Button frame (and on LockHighlight). It covers the content box.
+-- the mouse is over a mouse-enabled Button frame (and on LockHighlight). It covers the content box. Added light by
+-- default; `blend = "BLEND"` lays its colour over instead (a dark one darkens: adding black changed nothing).
 local function drawHighlight(surface, p, look, result)
 	local tex = p.highlight
 	if not tex then
 		tex = surface:CreateTexture(nil, "HIGHLIGHT")
-		tex:SetBlendMode("ADD")
 		p.highlight = tex
 	end
 	local highlight = look and look.highlight
@@ -855,6 +855,7 @@ local function drawHighlight(surface, p, look, result)
 		tex:SetAlpha(0) -- the theme changed to one without a highlight for this role
 		return
 	end
+	tex:SetBlendMode(highlight.blend or "ADD")
 	tex:SetAlpha(1)
 	if highlight.texture then
 		tex:SetTexture(highlight.texture)

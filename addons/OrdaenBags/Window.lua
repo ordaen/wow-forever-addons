@@ -53,7 +53,7 @@ local litBag = nil -- the bag whose items the bag strip lights up (hovered)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
 -- the shown tab's page: rows of sections (packed side by side), the free slot last
-local content = { style = "tabPage", columns = { "auto" }, gap = "lg" }
+local content = { style = "tabPage", columns = { "auto" }, gap = 20 } -- rows of sections: room above each caption
 local rows = {} -- pool: { columns, gap, sections... } blocks, one per row of sections
 local sections = {} -- pool: { caption, grid } blocks
 local cells = {} -- pool of slot cells, the first `cellsUsed` in use
@@ -575,6 +575,19 @@ local function build()
 		tabButtons[tab.id] = button
 		tabs[#tabs + 1] = { embed = button }
 	end
+	-- One width for every tab, the widest label's with a three-digit count: each tab is its own frame (it takes clicks),
+	-- so its hover and selected fill span the sidebar only when they share a width. Measured once, here.
+	local widest = 0
+	for _, tab in ipairs(Categories.TABS) do
+		local label, button = tabTexts[tab.id], tabButtons[tab.id]
+		label.args[2] = 999
+		button:Refresh()
+		widest = math.max(widest, button.frame:GetWidth())
+		label.args[2] = 0
+	end
+	for _, tab in ipairs(Categories.TABS) do
+		tabButtons[tab.id].block.width = widest
+	end
 	local strip = buildBagStrip()
 	sidebar, itemsPane = UI.Block(tabs), UI.Block(content)
 	bagStrip = strip and UI.Block(strip)
@@ -593,10 +606,11 @@ local function build()
 		{ embed = settings },
 		{ embed = close },
 	}
-	local footer = { colSpan = 2, columns = { "1fr", "auto" }, gap = "md", freeText, moneyText }
+	local footer = { colSpan = 2, columns = { "1fr", "auto" }, gap = "md", padding = { 0, "sm", 0, "sm" }, freeText,
+		moneyText }
 	win = UI.Window({
 		-- the tabs as wide as their labels, touching the page (no gap between them); the page takes the rest
-		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = { 0, "md" }, padding = { 28, "lg", "lg", "lg" },
+		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = { 0, "lg" }, padding = { 28, "xl", "xl", "xl" },
 		top, bagStripCell, { embed = sidebar }, { embed = itemsPane }, footer,
 	}, { point = "BOTTOMRIGHT", x = -80, y = 120 })
 	if not win then
