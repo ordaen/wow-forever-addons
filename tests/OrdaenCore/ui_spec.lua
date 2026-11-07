@@ -111,6 +111,9 @@ local function fakeTexture(layer)
 	function t:SetTexture(file)
 		self.file, self.atlas = file, nil
 	end
+	function t:SetBlendMode(mode)
+		self.blend = mode
+	end
 	function t:SetAtlas(name)
 		self.atlas, self.file = name, nil
 	end
@@ -754,6 +757,25 @@ describe("OrdaenCore.UI", function()
 			assert.is_false(f.mouse)
 			assert.is_nil(f.scripts.OnClick)
 			assert.same({ 9 * CHAR + 1, LINE }, f.size) -- shrink to fit, no padding without a style
+		end)
+
+		it("a hover under the content (list tabs) darkens the background on enter, never the text", function()
+			local tab = UI.Button({ name = "ListTab", style = "listTab", { text = "Все (25)" } })
+			local f = tab.frame
+			local hover
+			for _, t in ipairs(f.textures) do
+				assert.is_not.equals("HIGHLIGHT", t.layer, "HIGHLIGHT draws over the text")
+				if t.layer == "BACKGROUND" and t.blend == "BLEND" then
+					hover = t
+				end
+			end
+			assert.is_truthy(hover, "a dark hover on the background")
+			assert.is_true(f.mouse, "it takes the mouse for its hover, even without listeners")
+			assert.is_false(hover.shown)
+			f.scripts.OnEnter(f)
+			assert.is_true(hover.shown)
+			f.scripts.OnLeave(f)
+			assert.is_false(hover.shown)
 		end)
 
 		it("a button takes clicks once it has a listener, and calls it with itself", function()

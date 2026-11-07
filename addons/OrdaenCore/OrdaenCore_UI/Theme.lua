@@ -116,12 +116,15 @@ THEMES.ordaen = {
 		},
 		-- Tabs in a list beside their page (Ordaen Bags' categories): hovering darkens one; the selected one has a bronze
 		-- bar on its left over a faint warm fill (the user's pick, 2026-11-07, on the bags design page).
-		listTab = { padding = { "sm", "lg", "sm", "lg" }, highlight = { color = { 0, 0, 0, 0.35 }, blend = "BLEND" } },
+		listTab = {
+			padding = { "sm", "lg", "sm", "lg" },
+			highlight = { color = { 0, 0, 0, 0.35 }, blend = "BLEND", under = true },
+		},
 		listTabSelected = {
 			padding = { "sm", "lg", "sm", "lg" },
-			fill = { top = { 0, 0, 0, 0.35, accent = 0.45 }, bottom = { 0, 0, 0, 0.35, accent = 0.45 } },
+			-- the page's own fill (tabPage), so the selected tab and its page read as one surface
+			fill = { top = { 0, 0, 0, 0.25 }, bottom = { 0, 0, 0, 0.25 } },
 			edges = { left = { 3, { 0, 0, 0, 1, accent = 1 } } },
-			highlight = { color = { 0, 0, 0, 0.15 }, blend = "BLEND" },
 		},
 		tabPage = { padding = "lg", gap = "md", fill = { top = { 0, 0, 0, 0.25 }, bottom = { 0, 0, 0, 0.25 } } },
 		-- A tooltip's part after its title (UI.Stats, UI.Rows, a text block): the section gap above it, no surface.

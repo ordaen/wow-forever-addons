@@ -841,16 +841,33 @@ function drawBlock(surface, p, result, ox, oy, accent, depth, parentEdges)
 	end
 end
 
+local hovers = setmetatable({}, { __mode = "k" }) -- surface -> its hover texture under the content (see below)
+
 -- The style's hover highlight: one texture per surface on the HIGHLIGHT layer, which WoW shows by itself while
 -- the mouse is over a mouse-enabled Button frame (and on LockHighlight). It covers the content box. Added light by
 -- default; `blend = "BLEND"` lays its colour over instead (a dark one darkens: adding black changed nothing).
+-- HIGHLIGHT draws above the text, so a dark one darkened the text too (the bags' tabs, 2026-11-07): `under = true`
+-- puts it on the background instead, over the whole surface, shown by the component's enter and leave
+-- (Render.Hover).
 local function drawHighlight(surface, p, look, result)
-	local tex = p.highlight
-	if not tex then
-		tex = surface:CreateTexture(nil, "HIGHLIGHT")
-		p.highlight = tex
-	end
 	local highlight = look and look.highlight
+	local under = highlight and highlight.under or false
+	local tex = under and p.hover or p.highlight
+	if not tex then
+		if under then
+			tex = surface:CreateTexture(nil, "BACKGROUND", nil, 7)
+			tex:Hide()
+			p.hover = tex
+		else
+			tex = surface:CreateTexture(nil, "HIGHLIGHT")
+			p.highlight = tex
+		end
+	end
+	local other = under and p.highlight or p.hover -- the other kind, from a theme or style before this one
+	if other then
+		other:SetAlpha(0)
+	end
+	hovers[surface] = under and tex or nil
 	if not highlight then
 		tex:SetAlpha(0) -- the theme changed to one without a highlight for this role
 		return
@@ -866,8 +883,29 @@ local function drawHighlight(surface, p, look, result)
 		tex:SetVertexColor(c[1], c[2], c[3], c[4] or 1)
 	end
 	tex:ClearAllPoints()
-	tex:SetPoint("TOPLEFT", surface, "TOPLEFT", result.padLeft, -result.padTop)
-	tex:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -result.padRight, result.padBottom)
+	if under then
+		tex:SetAllPoints(surface)
+	else
+		tex:SetPoint("TOPLEFT", surface, "TOPLEFT", result.padLeft, -result.padTop)
+		tex:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -result.padRight, result.padBottom)
+	end
+end
+
+--- Show or hide a surface's hover under its content (`highlight.under` in its style); nothing when it has none.
+---@param surface Frame
+---@param on boolean
+function Render.Hover(surface, on)
+	local tex = hovers[surface]
+	if tex then
+		tex:SetShown(on)
+	end
+end
+
+--- Whether a surface's style has a hover under its content (its component then listens to enter and leave).
+---@param surface Frame
+---@return boolean
+function Render.HasHover(surface)
+	return hovers[surface] ~= nil
 end
 
 local backdrops = setmetatable({}, { __mode = "k" }) -- surface -> the backdrop it shows (no keys on frames)
@@ -1659,7 +1697,7 @@ function Render.Draw(surface, root, width)
 		before[frame] = nil
 	end
 	p.embeds, p.placed = now, before
-	if (look and look.highlight) or p.highlight then
+	if (look and look.highlight) or p.highlight or p.hover then
 		drawHighlight(surface, p, look, result)
 	end
 	surface:SetSize(result.width, result.height)

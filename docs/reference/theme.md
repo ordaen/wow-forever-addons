@@ -23,8 +23,8 @@ How themes work: [Themes](/guide/themes).
 | `dialog` | confirmation dialogs (`UI.Confirm`) | Blizzard's dialog art, padding `xl` |
 | `portraitWindow` | a window with Blizzard's portrait ring (Ordaen Reskin) | Blizzard's portrait window art at full size |
 | `section` | a tooltip's part after its title (`UI.Stats`, `UI.Rows`, a text block) | the section gap (`lg`) above it, no surface |
-| `listTab` | a tab in a list beside its page (Ordaen Bags' categories) | no surface; hovering darkens it (a highlight with `blend = "BLEND"`: the default `ADD` only lightens) |
-| `listTabSelected` | the list tab shown | a bronze bar on its left over a warm fill |
+| `listTab` | a tab in a list beside its page (Ordaen Bags' categories) | no surface; hovering darkens its background, not its text (a highlight with `blend = "BLEND"`, `under = true`) |
+| `listTabSelected` | the list tab shown | a bronze bar on its left over the page's own fill |
 | `tabPage` | the page beside a list of tabs | a light dark fill, padding `lg` |
 | `inset` | an inner pane of a window (Blizzard's insets, which Ordaen Reskin dresses) | Blizzard's inset art, padding `sm` |
 | `pushButtonAccent` | an important button (the game menu's exits) | the accent plate (token `control.pushButtonAccent`) |

@@ -125,6 +125,16 @@ for event in pairs(SCRIPTS) do
 		end
 	end
 end
+-- enter and leave also show a hover drawn under the content (`highlight.under` in the style: Render.Hover)
+local function hoverDispatcher(event, on)
+	local listeners = dispatchers[event]
+	dispatchers[event] = function(frame, ...)
+		Render.Hover(frame, on)
+		listeners(frame, ...)
+	end
+end
+hoverDispatcher("enter", true)
+hoverDispatcher("leave", false)
 
 local function prepare(instance, event)
 	local frame = instance.frame
@@ -241,6 +251,12 @@ end
 local function draw(instance)
 	local frame = instance.frame
 	Render.Draw(frame, instance.block, instance.block.width)
+	if Render.HasHover(frame) and not frame:GetScript("OnEnter") then
+		-- its style hovers under the content: it needs the mouse and enter/leave even without listeners
+		frame:EnableMouse(true)
+		frame:SetScript("OnEnter", dispatchers.enter)
+		frame:SetScript("OnLeave", dispatchers.leave)
+	end
 	if instance.onDrawn then
 		instance.onDrawn(instance)
 	end
