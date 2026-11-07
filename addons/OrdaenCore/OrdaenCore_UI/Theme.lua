@@ -114,6 +114,15 @@ THEMES.ordaen = {
 			-- Nothing below it: the section after it brings the gap.
 			padding = 0, gap = { "md", "xs" },
 		},
+		-- Tabs in a list beside their page (Ordaen Bags' categories): hovering darkens one; the selected one wears the
+		-- page's own dark fill, so it reads as the page's tab.
+		listTab = { padding = { "xs", "md", "xs", "md" }, highlight = { color = { 0, 0, 0, 0.3 } } },
+		listTabSelected = {
+			padding = { "xs", "md", "xs", "md" },
+			fill = { top = { 0, 0, 0, 0.45 }, bottom = { 0, 0, 0, 0.45 } },
+			highlight = { color = { 0, 0, 0, 0.15 } },
+		},
+		tabPage = { padding = "md", gap = "md", fill = { top = { 0, 0, 0, 0.45 }, bottom = { 0, 0, 0, 0.45 } } },
 		-- A tooltip's part after its title (UI.Stats, UI.Rows, a text block): the section gap above it, no surface.
 		section = { padding = { "lg", 0, 0, 0 } },
 		button = { padding = 0, gap = 0 },

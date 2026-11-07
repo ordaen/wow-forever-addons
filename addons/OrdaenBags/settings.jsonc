@@ -9,6 +9,17 @@
         "columns": {
           "type": "number", "min": 4, "max": 24, "step": 1, "default": 10,
           "label": "COLUMNS", "tooltip": "COLUMNS_TOOLTIP"
+        },
+        // the order inside each section, picked in the window's dropdown
+        "sort": {
+          "type": "choice",
+          "choices": [
+            { "id": "bags", "label": "SORT_BAGS" },
+            { "id": "quality", "label": "SORT_QUALITY" },
+            { "id": "name", "label": "SORT_NAME" }
+          ],
+          "default": "bags",
+          "label": "SORT"
         }
       }
     }

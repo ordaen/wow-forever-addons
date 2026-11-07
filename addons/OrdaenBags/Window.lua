@@ -1,7 +1,9 @@
--- Ordaen Bags, the window (the user's design, 2026-11-07): an OrdaenCore.UI window with the search box, Blizzard's
--- sort and a close button at the top, the category tabs down the left with their counts, the chosen tab's items in
--- sections (a caption over a grid of slots, by item subclass), and the free slots and money at the bottom. The
--- framework draws a cell per item; Blizzard's own item buttons (Slots.lua) sit over the cells after each draw.
+-- Ordaen Bags, the window (the user's design, 2026-11-07): an OrdaenCore.UI window. On the left the search box and
+-- the category tabs with their counts; on the right the chosen tab's page, its items in sections (a caption over a
+-- grid of slots, by item subclass). The selected tab wears the page's dark fill, so it reads as the page's tab;
+-- hovering a tab darkens it. At the top the sort order (a dropdown: Blizzard's menu) and the close button; at the
+-- bottom the free slots and money. The framework draws a cell per item; Blizzard's own item buttons (Slots.lua) sit
+-- over the cells after each draw.
 --
 -- Cost: the window and its blocks are made on the first open, then changed in place. Its events (bag updates,
 -- locks, cooldowns, search, money) are registered only while it is open. A scan reads every slot once per
@@ -9,6 +11,7 @@
 local _, ns = ...
 
 local UI = OrdaenCore.UI
+local L = ns.L
 local Categories, Data, Slots = ns.Categories, ns.Data, ns.Slots
 
 local View = {}
@@ -16,18 +19,26 @@ ns.View = View
 
 local SLOT = 37 -- Blizzard's item button
 
+-- The sort orders the dropdown offers (the setting "sort"): the order of the items inside each section.
+local SORTS = {
+	{ id = "bags", label = "SORT_BAGS" },
+	{ id = "quality", label = "SORT_QUALITY" },
+	{ id = "name", label = "SORT_NAME" },
+}
+
 local win ---@type OrdaenUIWindow|nil
--- The tabs and the items each on their own surface (embedded in the window): only a surface's root block wears
--- Blizzard's art, so a nested inset would draw nothing. The slots sit on the items pane's frame.
+-- The sidebar and the page are components of their own (embedded in the window): the tabs take clicks and the page
+-- carries the slots on its frame.
 local sidebar ---@type OrdaenUIComponent|nil
 local itemsPane ---@type OrdaenUIComponent|nil
+local sortButton ---@type OrdaenUIComponent|nil
 local selected = "all" -- the tab shown (not saved: the window opens on all items)
 
 -- blocks, made once (build)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
--- the sections of the shown tab: the items pane's block, in Blizzard's inset (as the tabs beside it)
-local content = { style = "inset", columns = { "auto" }, gap = "md", padding = "md" }
+-- the sections of the shown tab: the page's block
+local content = { style = "tabPage", columns = { "auto" }, gap = "md" }
 local sections = {} -- pool: { caption, grid } blocks
 local cells = {} -- pool of slot cells, the first `cellsUsed` in use
 local cellsUsed = 0
@@ -35,6 +46,7 @@ local cellItem = {} ---@type table<table, OrdaenBagsItem> cell -> the item drawn
 local groups = {} ---@type OrdaenBagsGroup[]
 local freeText = { format = NUM_FREE_SLOTS, args = { 0 }, style = "label" }
 local moneyText = { text = "", align = "right" }
+local sortText = { text = "" }
 local fixedColumns = {} -- n -> { SLOT, SLOT, ... } (n slots across)
 
 local function columnsOf(n)
@@ -49,10 +61,29 @@ local function columnsOf(n)
 	return list
 end
 
-local function columns()
+local function setting(key, fallback)
 	local db = ns.Addon.db
-	return db and db.columns or 10
+	local value = db and db[key]
+	if value == nil then
+		return fallback
+	end
+	return value
 end
+
+-- Blizzard's labels start in either case ("Рецепты", "снаряжение"): the first letter up, Cyrillic too (UTF-8:
+-- а-п D0 B0-BF -> D0 90-9F, р-я D1 80-8F -> D0 A0-AF, ё D1 91 -> D0 81). Once per label, at build.
+local function capitalized(text)
+	local b1, b2 = text:byte(1, 2)
+	if b1 == 0xD0 and b2 and b2 >= 0xB0 and b2 <= 0xBF then
+		return string.char(0xD0, b2 - 0x20) .. text:sub(3)
+	elseif b1 == 0xD1 and b2 and b2 >= 0x80 and b2 <= 0x8F then
+		return string.char(0xD0, b2 + 0x20) .. text:sub(3)
+	elseif b1 == 0xD1 and b2 == 0x91 then
+		return string.char(0xD0, 0x81) .. text:sub(3)
+	end
+	return text:sub(1, 1):upper() .. text:sub(2)
+end
+View.Capitalized = capitalized -- specs
 
 -- The bags ----------------------------------------------------------------------------------------------------------
 
@@ -69,6 +100,7 @@ local function scan()
 				local isQuest = quest ~= nil and (quest.isQuestItem == true or quest.questID ~= nil)
 				local item = Data.Add(bag, slot, classID, subClassID, info.quality, isQuest)
 				item.texture, item.count, item.link = info.iconFileID, info.stackCount or 1, info.hyperlink
+				item.name = info.itemName
 				item.bound, item.locked = info.isBound == true, info.isLocked == true
 				item.noValue, item.filtered = info.hasNoValue == true, info.isFiltered == true
 				item.questID, item.questActive = quest and quest.questID, quest ~= nil and quest.isActive == true
@@ -81,13 +113,23 @@ local function updateMoney()
 	moneyText.text = GetMoneyString(GetMoney(), true)
 end
 
+local function sortLabel()
+	local current = setting("sort", "bags")
+	for _, sort in ipairs(SORTS) do
+		if sort.id == current then
+			return L[sort.label]
+		end
+	end
+	return L.SORT_BAGS
+end
+
 -- The shown tab's sections: a caption and a grid of cells per section; Blizzard's buttons follow on render.
 local function layout()
-	if not win then
+	if not (win and sidebar and itemsPane and sortButton) then
 		return
 	end
-	local across = columns()
-	local n = Data.Group(selected, groups)
+	local across = setting("columns", 10)
+	local n = Data.Group(selected, groups, setting("sort", "bags"))
 	Slots.HideAll()
 	local used = 0
 	for i = 1, n do
@@ -124,16 +166,12 @@ local function layout()
 	for _, tab in ipairs(Categories.TABS) do
 		tabTexts[tab.id].args[2] = Data.counts[tab.id]
 		local button = tabButtons[tab.id]
-		if tab.id == selected then
-			button:LockHighlight()
-		else
-			button:UnlockHighlight()
-		end
+		button.block.style = tab.id == selected and "listTabSelected" or "listTab"
+		button:Refresh()
 	end
 	freeText.args[1] = Data.free.bags
-	for _, tab in ipairs(Categories.TABS) do
-		tabButtons[tab.id]:Refresh()
-	end
+	sortText.text = sortLabel()
+	sortButton:Refresh()
 	sidebar:Refresh()
 	itemsPane:Refresh() -- draws the cells: its render places the buttons
 	win:Refresh() -- the panes' new sizes
@@ -176,17 +214,22 @@ local function onBagsChanged()
 	layout()
 end
 
+local lockBag, lockSlot -- the slot ITEM_LOCK_CHANGED names, for updateLock
+
+local function updateLock(button, item)
+	if item.bag == lockBag and item.slot == lockSlot then
+		local info = C_Container.GetContainerItemInfo(lockBag, lockSlot)
+		item.locked = info ~= nil and info.isLocked == true
+		SetItemButtonDesaturated(button, item.locked)
+	end
+end
+
 local function onLock(_, bag, slot)
 	if not slot then
 		return -- an equipped item's slot
 	end
-	Slots.EachShown(function(button, item)
-		if item.bag == bag and item.slot == slot then
-			local info = C_Container.GetContainerItemInfo(bag, slot)
-			item.locked = info ~= nil and info.isLocked == true
-			SetItemButtonDesaturated(button, item.locked)
-		end
-	end)
+	lockBag, lockSlot = bag, slot
+	Slots.EachShown(updateLock)
 end
 
 local function updateCooldown(button, item)
@@ -233,14 +276,36 @@ local function listen(on)
 	end
 end
 
+-- The sort dropdown: Blizzard's menu with a choice per order, then Blizzard's own clean-up of the bags -------------
+
+local function isSort(id)
+	return setting("sort", "bags") == id
+end
+
+local function setSort(id)
+	ns.Addon:Set("sort", id) -- the addon's onChange lays the window out again
+end
+
+local function onCleanUp()
+	C_Container.SortBags()
+end
+
+local function sortMenu(_, root)
+	for _, sort in ipairs(SORTS) do
+		root:CreateRadio(L[sort.label], isSort, setSort, sort.id)
+	end
+	root:CreateDivider()
+	root:CreateButton(BAG_CLEANUP_BAGS, onCleanUp)
+end
+
+local function onSortClick(self)
+	MenuUtil.CreateContextMenu(self.frame, sortMenu)
+end
+
 -- Building the window (first open) ---------------------------------------------------------------------------------
 
 local function onSearch(_, text)
 	C_Container.SetItemSearch(text or "")
-end
-
-local function onSort()
-	C_Container.SortBags()
 end
 
 local function onClose()
@@ -255,17 +320,18 @@ end
 
 local function build()
 	local search = UI.Input({ name = "OrdaenBagsSearch", width = 160, placeholder = SEARCH, on = { change = onSearch } })
-	local sort = UI.Button({ style = "pushButton", on = { click = onSort }, { text = BAG_CLEANUP_BAGS } })
+	sortButton = UI.Button({ style = "dropdown", on = { click = onSortClick }, sortText })
 	local close = UI.Button({ style = "closeButton", width = 28, height = 28, on = { click = onClose } })
-	if not (search and sort and close) then
+	if not (search and sortButton and close) then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end
-	local tabs = { style = "inset", columns = { "auto" }, gap = "xs", padding = "sm" } -- the sidebar's block
-	for i, tab in ipairs(Categories.TABS) do
-		local label = { format = "%s (%d)", args = { _G[tab.label] or tab.id, 0 } }
+	-- the sidebar: the search box, then a tab per category (Blizzard's words, first letter up, with its count)
+	local tabs = { columns = { "auto" }, gap = 0, padding = 0, { embed = search } }
+	for _, tab in ipairs(Categories.TABS) do
+		local label = { format = "%s (%d)", args = { capitalized(_G[tab.label] or tab.id), 0 } }
 		tabTexts[tab.id] = label
 		local id = tab.id
-		local button = UI.Button({ padding = "xs", on = {
+		local button = UI.Button({ style = "listTab", on = {
 			click = function()
 				selected = id
 				layout()
@@ -275,24 +341,23 @@ local function build()
 			return false
 		end
 		tabButtons[tab.id] = button
-		tabs[i] = { embed = button }
+		tabs[#tabs + 1] = { embed = button }
 	end
 	sidebar, itemsPane = UI.Block(tabs), UI.Block(content)
 	if not (sidebar and itemsPane) then
 		return false
 	end
-	local header = {
-		colSpan = 2, columns = { "auto", "1fr", "auto", "auto" }, gap = "sm", rowAlign = "center",
-		{ text = INVENTORY_TOOLTIP, style = "title" },
-		{ embed = search, align = "right" },
-		{ embed = sort },
+	local top = {
+		colSpan = 2, columns = { "1fr", "auto", "auto" }, gap = "sm", rowAlign = "center",
+		{ text = "" },
+		{ embed = sortButton },
 		{ embed = close },
 	}
 	local footer = { colSpan = 2, columns = { "1fr", "auto" }, gap = "md", freeText, moneyText }
 	win = UI.Window({
-		-- the tabs as wide as their labels, the items pane takes the rest; room inside the window's frame
-		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = "md", padding = { 28, "lg", "lg", "lg" },
-		header, { embed = sidebar }, { embed = itemsPane }, footer,
+		-- the tabs as wide as their labels, touching the page (no gap between them); the page takes the rest
+		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = { 0, "md" }, padding = { 28, "lg", "lg", "lg" },
+		top, { embed = sidebar }, { embed = itemsPane }, footer,
 	}, { point = "BOTTOMRIGHT", x = -80, y = 120 })
 	if not win then
 		return false
@@ -329,7 +394,7 @@ function View.IsOpen()
 	return win ~= nil and win:IsShown()
 end
 
---- The settings changed (slots per row): lay out again if open.
+--- The settings changed (slots per row, the sort order): lay out again if open.
 function View.Relayout()
 	if win and win:IsShown() then
 		layout()

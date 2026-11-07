@@ -2,5 +2,9 @@
   "SETTINGS_TITLE": "Ordaen Bags",
   "HEADER_WINDOW": "Window",
   "COLUMNS": "Slots per row",
-  "COLUMNS_TOOLTIP": "How many item slots a section shows side by side."
+  "COLUMNS_TOOLTIP": "How many item slots a section shows side by side.",
+  "SORT": "Sort",
+  "SORT_BAGS": "Bag order",
+  "SORT_QUALITY": "Quality",
+  "SORT_NAME": "Name"
 }

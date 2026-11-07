@@ -23,6 +23,9 @@ How themes work: [Themes](/guide/themes).
 | `dialog` | confirmation dialogs (`UI.Confirm`) | Blizzard's dialog art, padding `xl` |
 | `portraitWindow` | a window with Blizzard's portrait ring (Ordaen Reskin) | Blizzard's portrait window art at full size |
 | `section` | a tooltip's part after its title (`UI.Stats`, `UI.Rows`, a text block) | the section gap (`lg`) above it, no surface |
+| `listTab` | a tab in a list beside its page (Ordaen Bags' categories) | no surface; hovering darkens it |
+| `listTabSelected` | the list tab shown | the page's dark fill |
+| `tabPage` | the page beside a list of tabs | a dark fill, padding `md` |
 | `inset` | an inner pane of a window (Blizzard's insets, which Ordaen Reskin dresses) | Blizzard's inset art, padding `sm` |
 | `pushButton`, `closeButton`, `tab`, `sideTab`, `checkbox`, `dropdown`, `input`, `scrollTrack`, `scrollThumb`, `scrollStepper` (back), `scrollStepperForward`, `slot` | Blizzard's controls (Ordaen Reskin; UI.Confirm's buttons; UI.Input) | Blizzard's control art, see below |
 

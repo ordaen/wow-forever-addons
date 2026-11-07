@@ -10,7 +10,7 @@ local A = OrdaenCore.NewAddon(addonName, ns, {
 		return ns.View and ns.View.Dump()
 	end,
 	onChange = function(key)
-		if key == "columns" and ns.View then
+		if (key == "columns" or key == "sort") and ns.View then
 			ns.View.Relayout()
 		end
 	end,

@@ -21,6 +21,7 @@ ns.Data = Data
 ---@field count number
 ---@field quality number|nil
 ---@field link string|nil
+---@field name string|nil
 ---@field bound boolean
 ---@field locked boolean
 ---@field noValue boolean
@@ -104,11 +105,40 @@ local function sectionOrder(a, b)
 	return a.section < b.section
 end
 
---- A tab's items in sections, ordered by section: fills `out` (out[1..n], the rest cleared) and returns n.
+-- Ties keep the bags' order (bag, then slot), so a sort never shuffles equal items between draws.
+local function bagOrder(a, b)
+	if a.bag ~= b.bag then
+		return a.bag < b.bag
+	end
+	return a.slot < b.slot
+end
+
+--- The orders inside a section (the setting "sort"): "bags" is the scan's order, which needs no sort.
+local ORDERS = {
+	quality = function(a, b)
+		local qa, qb = a.quality or 0, b.quality or 0
+		if qa ~= qb then
+			return qa > qb -- the best first
+		end
+		return bagOrder(a, b)
+	end,
+	name = function(a, b)
+		local na, nb = a.name or "", b.name or ""
+		if na ~= nb then
+			return na < nb
+		end
+		return bagOrder(a, b)
+	end,
+}
+Data.ORDERS = ORDERS
+
+--- A tab's items in sections, ordered by section, each section's items in `order`: fills `out` (out[1..n], the
+--- rest cleared) and returns n.
 ---@param tab string a tab id ("all": every item)
 ---@param out OrdaenBagsGroup[] reused by the caller
+---@param order string|nil "bags" (default), "quality" or "name"
 ---@return number n sections
-function Data.Group(tab, out)
+function Data.Group(tab, out, order)
 	for key in pairs(bySection) do
 		bySection[key] = nil
 	end
@@ -136,5 +166,15 @@ function Data.Group(tab, out)
 		out[i] = nil
 	end
 	table.sort(out, sectionOrder)
+	local compare = order and ORDERS[order]
+	for i = 1, n do
+		local group = out[i]
+		for j = #group, group.n + 1, -1 do -- what a bigger section held last time
+			group[j] = nil
+		end
+		if compare then
+			table.sort(group, compare)
+		end
+	end
 	return n
 end
