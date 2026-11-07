@@ -1,17 +1,30 @@
--- Ordaen Bags' start: declares the addon to the Ordaen Core framework. The window (category tabs on the left,
--- sections of slots, search, sort, money) comes in the next steps; slots wait for the API dump to know ItemButton.
---
--- Conflicts: the bag addons that replace Blizzard's bags the same way (Baganator, Bagnon, AdiBags, ArkInventory):
--- both would take the bag key and the bag frames, so the player is asked at login (Core's dialog).
+-- Ordaen Bags' start: declares the addon to the Ordaen Core framework (settings come from settings.jsonc) and runs
+-- the takeover of Blizzard's bags (Takeover.lua) as a feature, so it stays off while another bag addon that takes
+-- the same frames is loaded (Baganator, Bagnon, AdiBags, ArkInventory): the player keeps that one's bags.
+-- The window itself (Window.lua) is made the first time the bags open.
 local addonName, ns = ...
 
 local A = OrdaenCore.NewAddon(addonName, ns, {
-	db = "OrdaenBagsDB",
-	defaults = {},
-	conflicts = { "Baganator", "Bagnon", "AdiBags", "ArkInventory" },
-})
+	slash = { "/ob", "/ordaenbags" },
+	dump = function()
+		return ns.View and ns.View.Dump()
+	end,
+	onChange = function(key)
+		if key == "columns" and ns.View then
+			ns.View.Relayout()
+		end
+	end,
+}) --[[@as OrdaenBagsAddon]]
 if not A then
 	return -- Ordaen Core is too old; the player was told
 end
 ns.Addon = A
 ns.Debug = A.Debug
+
+local Bags = A:Feature("takeover", { conflicts = { "Baganator", "Bagnon", "AdiBags", "ArkInventory" } })
+Bags:OnEnable(function()
+	ns.Takeover.Start()
+end)
+Bags:OnDisable(function()
+	ns.Takeover.Stop()
+end)

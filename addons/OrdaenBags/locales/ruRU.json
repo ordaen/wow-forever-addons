@@ -1,3 +1,6 @@
 {
-  "SETTINGS_TITLE": "Ordaen Bags"
+  "SETTINGS_TITLE": "Ordaen Bags",
+  "HEADER_WINDOW": "Окно",
+  "COLUMNS": "Ячеек в ряду",
+  "COLUMNS_TOOLTIP": "Сколько ячеек предметов раздел показывает в одном ряду."
 }

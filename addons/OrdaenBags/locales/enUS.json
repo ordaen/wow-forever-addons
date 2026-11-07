@@ -1,3 +1,6 @@
 {
-  "SETTINGS_TITLE": "Ordaen Bags"
+  "SETTINGS_TITLE": "Ordaen Bags",
+  "HEADER_WINDOW": "Window",
+  "COLUMNS": "Slots per row",
+  "COLUMNS_TOOLTIP": "How many item slots a section shows side by side."
 }

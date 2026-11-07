@@ -1,0 +1,16 @@
+// Ordaen Bags' settings (docs/reference/settings.md). Behaviour only: its look follows the theme.
+{
+  "db": "OrdaenBagsDB",
+  "title": "SETTINGS_TITLE",
+  "sections": [
+    {
+      "header": "HEADER_WINDOW",
+      "settings": {
+        "columns": {
+          "type": "number", "min": 4, "max": 24, "step": 1, "default": 10,
+          "label": "COLUMNS", "tooltip": "COLUMNS_TOOLTIP"
+        }
+      }
+    }
+  ]
+}
