@@ -94,6 +94,7 @@ local function readFont(fs, row, side)
 	return true
 end
 
+-- What Forever's tooltip data holds (kinds, line types and their fields, measured live): api/forever/tooltip-data.md.
 --- The last tooltip data the game gave per kind (Enum.TooltipDataType value -> its table), for the dev dump's probe
 --- of what Forever's tooltip lines carry (types, arguments: the base for tooltips inside tooltips, 2026-11-07).
 Reader.lastData = {}
