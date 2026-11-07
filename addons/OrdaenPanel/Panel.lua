@@ -119,6 +119,15 @@ local homes = {} ---@type table<table, table> Blizzard button -> { parent, point
 local sizes = {} ---@type table<table, number[]> Blizzard button -> its size before
 local dresses = {} ---@type table<table, OrdaenUIDress>
 local placing = false
+-- The character button's portrait (the user's design, 2026-11-07): across the bottom edge, the player's face in a
+-- round ring in the screen's bottom-left corner, cut by the screen's edges and standing over the panel's left end;
+-- Blizzard's character button sits invisibly over it. The micro menu starts right of it (a spacer in the left zone).
+local portrait ---@type OrdaenUIPortrait|nil
+local portraitButton ---@type table|nil the character button while it sits over the portrait
+local portraitSpacer = { width = 0, height = 0 }
+-- At the panel's height 72 (scaled with it): the ring 152 across, its centre 50 in from the screen's left and 46 up
+-- from its bottom; the micro menu starts 136 in.
+local PORTRAIT_SIZE, PORTRAIT_X, PORTRAIT_Y, PORTRAIT_ROOM = 152 / 72, 50 / 72, 46 / 72, 136 / 72
 -- Sizes, all from the panel's height (setting `height`; the user's design, 2026-11-07, at 72): square cells fill
 -- it; an icon's picture is 44/72 of it (iconSide; each atlas box scaled by its CONTENT), a bag's 52/72 (bagSide).
 local size = 72 -- the panel's height
@@ -184,7 +193,19 @@ end
 
 -- Putting Blizzard's buttons over their cells ----------------------------------------------------------------------
 
+local function placeOnPortrait(button)
+	placing = true
+	button:SetParent(portrait.frame)
+	button:ClearAllPoints()
+	button:SetAllPoints(portrait.frame)
+	placing = false
+end
+
 local function place(button)
+	if button == portraitButton and portrait and not placing then
+		placeOnPortrait(button)
+		return
+	end
 	local cell = cellOf[button]
 	if not cell or placing or not panel then
 		return
@@ -201,9 +222,11 @@ local function place(button)
 	placing = false
 end
 
--- The player's portrait changed (gear, form, a new look): the character cell draws it again.
+-- The player's portrait changed (gear, form, a new look) or the level: it draws them again.
 local function onPortraitChanged()
-	if panel then
+	if portrait and portraitButton then
+		portrait:Refresh()
+	elseif panel then
 		panel:Refresh()
 	end
 end
@@ -467,6 +490,9 @@ local function cellFor(button)
 		style = "iconButton", padding = 0, rowAlign = "center", edges = { top = false, bottom = false },
 	}
 	cells[button] = cell
+	-- across a top or bottom edge, the theme's panel cells (our button's side rims on the panel's wood, edge to edge:
+	-- the user's design, 2026-11-07); on a side edge, the plain icon buttons
+	cell.style = horizontal() and "panelCell" or "iconButton"
 	if horizontal() then
 		cell.width, cell.height = cellWidth, size
 	else
@@ -592,6 +618,60 @@ local function giveBack(button)
 	placing = false
 end
 
+-- The character button over the portrait: dressed like the other buttons (its art hidden), its home kept to give
+-- back. Called when the micro menu is placed across the bottom edge.
+local function takePortrait(button)
+	if not homes[button] then
+		noteHolder(button)
+		local home = { button:GetParent() }
+		if button:GetNumPoints() > 0 then
+			home[2], home[3], home[4], home[5], home[6] = button:GetPoint(1)
+		end
+		homes[button] = home
+		sizes[button] = { button:GetWidth(), button:GetHeight() }
+	end
+	portraitButton = button
+	hookPlacement(button)
+	local dress = dresses[button]
+	if dress then
+		dress:Apply()
+	else
+		dresses[button] = UI.Dress(button, { style = "none", size = "frame" })
+	end
+	ns.MicroTips.Attach(button)
+	placeOnPortrait(button)
+	portrait:Refresh()
+	portrait.frame:Show()
+end
+
+local function givePortraitBack()
+	local button = portraitButton
+	if not button then
+		return
+	end
+	portraitButton = nil
+	if portrait then
+		portrait.frame:Hide()
+	end
+	local dress = dresses[button]
+	if dress then
+		dress:Undress()
+	end
+	local home, before = homes[button], sizes[button]
+	placing = true
+	if home then
+		button:SetParent(home[1])
+		button:ClearAllPoints()
+		if home[2] then
+			button:SetPoint(home[2], home[3], home[4], home[5], home[6])
+		end
+	end
+	if before then
+		button:SetSize(before[1], before[2])
+	end
+	placing = false
+end
+
 -- Fill a row block with a cell per button (touching: gap 0, padding 0, so the borders collapse). A row that starts
 -- the left zone has no line on its first cell's left; one that ends the right zone none on its last cell's right:
 -- nothing to separate them from at the panel's edge.
@@ -691,16 +771,23 @@ local function placeButtons()
 	for button in pairs(cellOf) do
 		giveBack(button)
 	end
+	givePortraitBack()
 	-- the micro buttons and the social button in one row when they share a zone: neighbours share one line
 	for i = #microButtonsShown, 1, -1 do
 		microButtonsShown[i] = nil
 	end
 	socialButtons[1] = nil
+	local onPortrait = portrait ~= nil and s.edge == "bottom" and s.micromenu == "left"
 	if s.micromenu ~= "off" then
-		for i, button in ipairs(ns.MicroButtons) do
-			microButtonsShown[i] = button
+		for _, button in ipairs(ns.MicroButtons) do
+			if onPortrait and button:GetName() == PORTRAIT_BUTTON then
+				takePortrait(button)
+			else
+				microButtonsShown[#microButtonsShown + 1] = button
+			end
 		end
 	end
+	portraitSpacer.hidden = not portraitButton
 	local quickJoin = _G[SOCIAL_BUTTON]
 	if s.social ~= "off" and quickJoin then
 		if s.social == s.micromenu then
@@ -838,6 +925,26 @@ local function build()
 	end
 	middle = middle or { embed = barHolder, align = "center" }
 	xp.height = math.floor(size * 0.6 + 0.5)
+	-- across a top or bottom edge, the theme's glass tube (its fill the player's pick, setting xpFill)
+	xp.frame = across and "tube" or nil
+	if across then
+		xp.height = size
+	end
+	-- the portrait in the screen's bottom-left corner (only across the bottom edge, with the micro menu on the left)
+	if not portrait and UI.Portrait then
+		portrait = UI.Portrait({ unit = "player" })
+		if portrait then
+			portrait.frame:Hide()
+		end
+	end
+	if portrait then
+		local k = size
+		portrait:SetSize(math.floor(PORTRAIT_SIZE * k + 0.5))
+		portrait.frame:ClearAllPoints()
+		portrait.frame:SetPoint("CENTER", UIParent, "BOTTOMLEFT", PORTRAIT_X * k, PORTRAIT_Y * k)
+		portrait.frame:SetFrameStrata("MEDIUM")
+		portraitSpacer.width, portraitSpacer.height = math.floor(PORTRAIT_ROOM * k + 0.5), size
+	end
 	groupOf.micromenu, groupOf.social, groupOf.experience = microGroup, socialRow, middle
 	groupOf.zone, groupOf.clock, groupOf.currencies, groupOf.bags = zoneEmbed, clockEmbed, currencyGroup, bagRow
 	-- Each zone holds its items in ITEMS order; the social button joins the micro buttons' row when they share one.
@@ -853,6 +960,9 @@ local function build()
 			local group = groupOf[item]
 			local joined = item == "social" and s.micromenu == id
 			if s[item] == id and group and not joined then
+				if item == "micromenu" and id == "left" and across then
+					zone[#zone + 1] = portraitSpacer -- room for the portrait (hidden while it isn't shown)
+				end
 				zone[#zone + 1] = group
 			end
 		end
@@ -962,6 +1072,11 @@ local function updateExperience()
 	xp.bar, xp.max, xp.quest, xp.overlay = model.value, model.max, model.quest, model.overlay
 	local colour = Colors:Get(model.kind == "reputation" and STANDING_COLOR[model.standing] or "blue")
 	xp.color, xp.questColor, xp.overlayColor = colour, colour, colour
+	xp.fill = ns.Addon:Get("xpFill")
+	if portrait and portraitButton then
+		portrait:Refresh() -- the level on its badge (a level up comes as an experience update)
+	end
+	xp.tint = model.kind == "reputation" and colour or nil -- the tube's blue fill takes a standing's colour
 	xp.args[1] = model.percent
 	tipName.hidden = model.kind ~= "reputation"
 	tipName.text = model.name or ""

@@ -25,6 +25,8 @@ local function onSettingChanged(key, value)
 	end
 	if LAYOUT[key] then
 		ns.Changed("layout")
+	elseif key == "xpFill" then
+		ns.Changed("experience") -- only the bar's fill texture
 	end
 end
 
