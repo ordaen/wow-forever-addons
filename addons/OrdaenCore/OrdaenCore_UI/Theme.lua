@@ -114,15 +114,16 @@ THEMES.ordaen = {
 			-- Nothing below it: the section after it brings the gap.
 			padding = 0, gap = { "md", "xs" },
 		},
-		-- Tabs in a list beside their page (Ordaen Bags' categories): hovering darkens one; the selected one wears the
-		-- page's own dark fill, so it reads as the page's tab.
+		-- Tabs in a list beside their page (Ordaen Bags' categories): hovering darkens one; the selected one has a bronze
+		-- bar on its left over a faint warm fill (the user's pick, 2026-11-07, on the bags design page).
 		listTab = { padding = { "xs", "md", "xs", "md" }, highlight = { color = { 0, 0, 0, 0.3 } } },
 		listTabSelected = {
 			padding = { "xs", "md", "xs", "md" },
-			fill = { top = { 0, 0, 0, 0.45 }, bottom = { 0, 0, 0, 0.45 } },
+			fill = { top = { 0, 0, 0, 0.2, accent = 0.18 }, bottom = { 0, 0, 0, 0.2, accent = 0.18 } },
+			edges = { left = { 3, { 0, 0, 0, 1, accent = 1 } } },
 			highlight = { color = { 0, 0, 0, 0.15 } },
 		},
-		tabPage = { padding = "md", gap = "md", fill = { top = { 0, 0, 0, 0.45 }, bottom = { 0, 0, 0, 0.45 } } },
+		tabPage = { padding = "md", gap = "md", fill = { top = { 0, 0, 0, 0.25 }, bottom = { 0, 0, 0, 0.25 } } },
 		-- A tooltip's part after its title (UI.Stats, UI.Rows, a text block): the section gap above it, no surface.
 		section = { padding = { "lg", 0, 0, 0 } },
 		button = { padding = 0, gap = 0 },
@@ -213,6 +214,8 @@ THEMES.ordaen = {
 		-- normal (a scroll stepper's back or forward arrow). `parts` put a part at a side (a dropdown's arrow). `accent`:
 		-- the block's accent tints it (an item's quality on its slot). The asset's highlight shows on hover.
 		pushButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "pushButton" } },
+		-- the push button in our red accent (a window's own close button among bronze ones)
+		accentButton = { padding = { "sm", "lg", "sm", "lg" }, controlArt = { kind = "accentButton" } },
 		closeButton = { padding = 0, controlArt = { kind = "closeButton" } },
 		tab = { padding = 0, controlArt = { kind = "tab" } },
 		sideTab = { padding = 0, controlArt = { kind = "sideTab" } },

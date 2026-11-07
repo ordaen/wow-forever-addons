@@ -16,7 +16,10 @@
           "choices": [
             { "id": "bags", "label": "SORT_BAGS" },
             { "id": "quality", "label": "SORT_QUALITY" },
-            { "id": "name", "label": "SORT_NAME" }
+            { "id": "name", "label": "SORT_NAME" },
+            { "id": "ilvl", "label": "SORT_ILVL" },
+            { "id": "count", "label": "SORT_COUNT" },
+            { "id": "type", "label": "SORT_TYPE" }
           ],
           "default": "bags",
           "label": "SORT"

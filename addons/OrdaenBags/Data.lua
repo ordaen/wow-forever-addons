@@ -22,6 +22,7 @@ ns.Data = Data
 ---@field quality number|nil
 ---@field link string|nil
 ---@field name string|nil
+---@field ilvl number item level (0: none)
 ---@field bound boolean
 ---@field locked boolean
 ---@field noValue boolean
@@ -40,7 +41,8 @@ local items = {} ---@type OrdaenBagsItem[] reused records, the first `count` are
 local count = 0
 local counts = {} ---@type table<string, number> tab id -> items in it ("all": every item)
 Data.counts = counts
-local free = { bags = 0, reagent = 0 } -- free slots: the bags, and the reagent bag
+-- free slots: the bags', the reagent bag's, per bag, and the first free one (its button is the window's free slot)
+local free = { bags = 0, reagent = 0, ofBag = {}, firstBag = nil, firstSlot = nil }
 Data.free = free
 
 --- Start a scan: no items, every tab empty.
@@ -49,13 +51,20 @@ function Data.Reset()
 	for _, tab in ipairs(Categories.TABS) do
 		counts[tab.id] = 0
 	end
-	free.bags, free.reagent = 0, 0
+	free.bags, free.reagent, free.firstBag, free.firstSlot = 0, 0, nil, nil
+	for bag in pairs(free.ofBag) do
+		free.ofBag[bag] = 0
+	end
 end
 
 --- Count free slots of one bag (reagent: the reagent bag's).
 ---@param n number
 ---@param reagent boolean
-function Data.AddFree(n, reagent)
+---@param bag number|nil the bag, for its own count
+function Data.AddFree(n, reagent, bag)
+	if bag then
+		free.ofBag[bag] = n
+	end
 	if reagent then
 		free.reagent = free.reagent + n
 	else
@@ -85,6 +94,15 @@ function Data.Add(bag, slot, classID, subClassID, quality, isQuest)
 	counts[item.tab] = counts[item.tab] + 1
 	counts.all = counts.all + 1
 	return item
+end
+
+--- A slot the scan found empty: the first one (not the reagent bag's) becomes the window's free slot.
+---@param bag number
+---@param slot number
+function Data.Empty(bag, slot)
+	if not free.firstBag then
+		free.firstBag, free.firstSlot = bag, slot
+	end
 end
 
 ---@return number items found by the last scan
@@ -129,6 +147,27 @@ local ORDERS = {
 		end
 		return bagOrder(a, b)
 	end,
+	ilvl = function(a, b)
+		local la, lb = a.ilvl or 0, b.ilvl or 0
+		if la ~= lb then
+			return la > lb -- the highest first
+		end
+		return bagOrder(a, b)
+	end,
+	count = function(a, b)
+		if a.count ~= b.count then
+			return a.count > b.count -- the biggest stack first
+		end
+		return bagOrder(a, b)
+	end,
+	-- inside a section the items share their type: by name, so the same items stand together
+	type = function(a, b)
+		local na, nb = a.name or "", b.name or ""
+		if na ~= nb then
+			return na < nb
+		end
+		return bagOrder(a, b)
+	end,
 }
 Data.ORDERS = ORDERS
 
@@ -136,7 +175,7 @@ Data.ORDERS = ORDERS
 --- rest cleared) and returns n.
 ---@param tab string a tab id ("all": every item)
 ---@param out OrdaenBagsGroup[] reused by the caller
----@param order string|nil "bags" (default), "quality" or "name"
+---@param order string|nil "bags" (default), "quality", "name", "ilvl", "count" or "type"
 ---@return number n sections
 function Data.Group(tab, out, order)
 	for key in pairs(bySection) do

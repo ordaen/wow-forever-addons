@@ -1,9 +1,12 @@
--- Ordaen Bags, the window (the user's design, 2026-11-07): an OrdaenCore.UI window. On the left the search box and
--- the category tabs with their counts; on the right the chosen tab's page, its items in sections (a caption over a
--- grid of slots, by item subclass). The selected tab wears the page's dark fill, so it reads as the page's tab;
--- hovering a tab darkens it. At the top the sort order (a dropdown: Blizzard's menu) and the close button; at the
--- bottom the free slots and money. The framework draws a cell per item; Blizzard's own item buttons (Slots.lua) sit
--- over the cells after each draw.
+-- Ordaen Bags, the window (the user's design, approved on the design page 2026-11-07): an OrdaenCore.UI window.
+--   top     the search box; on the right the sort order (a dropdown: Blizzard's menu), the quick actions in our
+--           bronze button (arrange, the bag slots, settings) and the close button in our red accent
+--   bags    the bag strip (the bag slots button): each bag with its free slots; hovering one lights up its items
+--   left    the category tabs with their counts (a bronze bar marks the shown one)
+--   right   the shown tab's page: its sections side by side, wrapping (a caption over a grid of slots, by item
+--           subclass), then one free slot with the count (Blizzard's own button of the first free slot)
+--   bottom  the free slots and money
+-- The framework draws a cell per item; Blizzard's own item buttons (Slots.lua) sit over the cells after each draw.
 --
 -- Cost: the window and its blocks are made on the first open, then changed in place. Its events (bag updates,
 -- locks, cooldowns, search, money) are registered only while it is open. A scan reads every slot once per
@@ -18,12 +21,19 @@ local View = {}
 ns.View = View
 
 local SLOT = 37 -- Blizzard's item button
+local SLOT_GAP = 2
+local ICON = "Interface\\AddOns\\OrdaenCore\\media\\icon-"
+local CAPTION_EM = 7 -- a caption letter's width, roughly (UI units), for packing sections into rows
+local SECTION_GAP = 24 -- between sections side by side (UI units; the user asked for bigger gaps, 2026-11-07)
 
 -- The sort orders the dropdown offers (the setting "sort"): the order of the items inside each section.
 local SORTS = {
 	{ id = "bags", label = "SORT_BAGS" },
 	{ id = "quality", label = "SORT_QUALITY" },
 	{ id = "name", label = "SORT_NAME" },
+	{ id = "ilvl", label = "SORT_ILVL" },
+	{ id = "count", label = "SORT_COUNT" },
+	{ id = "type", label = "SORT_TYPE" },
 }
 
 local win ---@type OrdaenUIWindow|nil
@@ -32,21 +42,32 @@ local win ---@type OrdaenUIWindow|nil
 local sidebar ---@type OrdaenUIComponent|nil
 local itemsPane ---@type OrdaenUIComponent|nil
 local sortButton ---@type OrdaenUIComponent|nil
+local bagStrip ---@type OrdaenUIComponent|nil
 local selected = "all" -- the tab shown (not saved: the window opens on all items)
+local litBag = nil -- the bag whose items the bag strip lights up (hovered)
 
 -- blocks, made once (build)
 local tabButtons = {} ---@type table<string, OrdaenUIComponent> tab id -> its button
 local tabTexts = {} ---@type table<string, table> tab id -> its label element ({ format, args = { label, count } })
--- the sections of the shown tab: the page's block
-local content = { style = "tabPage", columns = { "auto" }, gap = "md" }
+-- the shown tab's page: rows of sections (packed side by side), the free slot last
+local content = { style = "tabPage", columns = { "auto" }, gap = "lg" }
+local rows = {} -- pool: { columns, gap, sections... } blocks, one per row of sections
 local sections = {} -- pool: { caption, grid } blocks
 local cells = {} -- pool of slot cells, the first `cellsUsed` in use
 local cellsUsed = 0
 local cellItem = {} ---@type table<table, OrdaenBagsItem> cell -> the item drawn there
 local groups = {} ---@type OrdaenBagsGroup[]
+local freeItem = { texture = nil, count = 0, locked = false, quest = false, noValue = false, filtered = false,
+	bound = false, questActive = false, ilvl = 0 } -- what the free slot's button shows
+local freeCell = { width = SLOT, height = SLOT }
+local freeSection = { columns = { "auto" }, gap = "xs", { text = "", style = "label" }, { columns = { SLOT },
+	freeCell } }
 local freeText = { format = NUM_FREE_SLOTS, args = { 0 }, style = "label" }
 local moneyText = { text = "", align = "right" }
 local sortText = { text = "" }
+local bagButtons = {} ---@type table<number, OrdaenUIComponent> bag -> its button in the bag strip
+local bagIcons = {} ---@type table<number, table> bag -> its image element
+local bagCounts = {} ---@type table<number, table> bag -> its count element
 local fixedColumns = {} -- n -> { SLOT, SLOT, ... } (n slots across)
 
 local function columnsOf(n)
@@ -57,6 +78,19 @@ local function columnsOf(n)
 			list[i] = SLOT
 		end
 		fixedColumns[n] = list
+	end
+	return list
+end
+
+local rowColumns = {} -- n -> { "auto", ... } (n sections in a row)
+local function autoColumns(n)
+	local list = rowColumns[n]
+	if not list then
+		list = {}
+		for i = 1, n do
+			list[i] = "auto"
+		end
+		rowColumns[n] = list
 	end
 	return list
 end
@@ -85,13 +119,19 @@ local function capitalized(text)
 end
 View.Capitalized = capitalized -- specs
 
+-- letters in a UTF-8 string (not bytes), for the caption width estimate
+local function letters(text)
+	local _, n = text:gsub("[^\128-\191]", "")
+	return n
+end
+
 -- The bags ----------------------------------------------------------------------------------------------------------
 
 local function scan()
 	Data.Reset()
 	for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS + (NUM_REAGENTBAG_SLOTS or 0) do
 		local reagent = bag > NUM_BAG_SLOTS
-		Data.AddFree(C_Container.GetContainerNumFreeSlots(bag) or 0, reagent)
+		Data.AddFree(C_Container.GetContainerNumFreeSlots(bag) or 0, reagent, bag)
 		for slot = 1, C_Container.GetContainerNumSlots(bag) or 0 do
 			local info = C_Container.GetContainerItemInfo(bag, slot)
 			if info and info.itemID then
@@ -101,9 +141,12 @@ local function scan()
 				local item = Data.Add(bag, slot, classID, subClassID, info.quality, isQuest)
 				item.texture, item.count, item.link = info.iconFileID, info.stackCount or 1, info.hyperlink
 				item.name = info.itemName
+				item.ilvl = info.hyperlink and C_Item.GetDetailedItemLevelInfo(info.hyperlink) or 0
 				item.bound, item.locked = info.isBound == true, info.isLocked == true
 				item.noValue, item.filtered = info.hasNoValue == true, info.isFiltered == true
 				item.questID, item.questActive = quest and quest.questID, quest ~= nil and quest.isActive == true
+			elseif not reagent then
+				Data.Empty(bag, slot)
 			end
 		end
 	end
@@ -123,27 +166,78 @@ local function sortLabel()
 	return L.SORT_BAGS
 end
 
--- The shown tab's sections: a caption and a grid of cells per section; Blizzard's buttons follow on render.
+local function section(i)
+	local s = sections[i]
+	if not s then
+		local caption = { text = "", style = "label" }
+		local grid = { gap = SLOT_GAP, padding = 0 }
+		s = { columns = { "auto" }, gap = "xs", caption = caption, grid = grid, caption, grid }
+		sections[i] = s
+	end
+	return s
+end
+
+local function row(i)
+	local r = rows[i]
+	if not r then
+		r = { gap = SECTION_GAP, rowAlign = "start" }
+		rows[i] = r
+	end
+	return r
+end
+
+-- How wide a section draws (UI units, roughly): its grid, or its caption when that is longer.
+local function sectionWidth(n, caption)
+	local grid = n * SLOT + (n - 1) * SLOT_GAP
+	local text = letters(caption) * CAPTION_EM
+	return grid > text and grid or text
+end
+
+-- packing state for one layout (file locals: no closure per layout)
+local current, inRow, rowWidth, rowCount, limit
+
+local function closeRow()
+	if current then
+		current.columns = autoColumns(inRow)
+		for k = #current, inRow + 1, -1 do
+			current[k] = nil
+		end
+	end
+end
+
+-- Put a section in the current row, or start a new row when it doesn't fit (a section never splits).
+local function place(block, w)
+	if not current or (inRow > 0 and rowWidth + SECTION_GAP + w > limit) then
+		closeRow()
+		rowCount = rowCount + 1
+		current, inRow, rowWidth = row(rowCount), 0, 0
+		content[rowCount] = current
+	end
+	inRow = inRow + 1
+	current[inRow] = block
+	rowWidth = rowWidth + (inRow > 1 and SECTION_GAP or 0) + w
+end
+
+-- The shown tab's sections, packed into rows no wider than the slots per row; the free slot ends the last row.
+-- Blizzard's buttons follow on render.
 local function layout()
 	if not (win and sidebar and itemsPane and sortButton) then
 		return
 	end
 	local across = setting("columns", 10)
+	limit = across * SLOT + (across - 1) * SLOT_GAP
+	current, inRow, rowWidth, rowCount = nil, 0, 0, 0
 	local n = Data.Group(selected, groups, setting("sort", "bags"))
 	Slots.HideAll()
 	local used = 0
 	for i = 1, n do
 		local group = groups[i]
-		local section = sections[i]
-		if not section then
-			local caption = { text = "", style = "label" }
-			local grid = { gap = 2, padding = 0 }
-			section = { columns = { "auto" }, gap = "xs", caption = caption, grid = grid, caption, grid }
-			sections[i] = section
-		end
-		section.caption.text = Categories.SectionLabel(group.section)
-		local grid = section.grid
-		grid.columns = columnsOf(math.min(across, group.n))
+		local s = section(i)
+		local label = Categories.SectionLabel(group.section)
+		s.caption.text = label
+		local grid = s.grid
+		local shown = math.min(across, group.n)
+		grid.columns = columnsOf(shown)
 		for j = 1, group.n do
 			used = used + 1
 			local cell = cells[used]
@@ -157,9 +251,16 @@ local function layout()
 		for j = #grid, group.n + 1, -1 do
 			grid[j] = nil
 		end
-		content[i] = section
+		place(s, sectionWidth(shown, label))
 	end
-	for i = #content, n + 1, -1 do
+	local free = Data.free
+	if selected == "all" and free.firstBag ~= nil then
+		freeSection[1].text = L.FREE
+		freeItem.count = free.bags
+		place(freeSection, sectionWidth(1, L.FREE))
+	end
+	closeRow()
+	for i = #content, rowCount + 1, -1 do
 		content[i] = nil
 	end
 	cellsUsed = used
@@ -169,7 +270,14 @@ local function layout()
 		button.block.style = tab.id == selected and "listTabSelected" or "listTab"
 		button:Refresh()
 	end
-	freeText.args[1] = Data.free.bags
+	for bag, count in pairs(bagCounts) do
+		count.args[1] = free.ofBag[bag] or 0
+		if bag > BACKPACK_CONTAINER then
+			bagIcons[bag].image = GetInventoryItemTexture("player", C_Container.ContainerIDToInventoryID(bag)) or nil
+		end
+		bagButtons[bag]:Refresh()
+	end
+	freeText.args[1] = free.bags
 	sortText.text = sortLabel()
 	sortButton:Refresh()
 	sidebar:Refresh()
@@ -179,7 +287,24 @@ end
 
 local waitingForCombat = false
 
--- Drawn: Blizzard's button over each cell (made now if new; in combat a new one waits for it to end).
+local function afterCombat()
+	waitingForCombat = false
+	layout()
+end
+
+local function waitForCombat()
+	if not waitingForCombat then
+		waitingForCombat = true
+		ns.Addon:AfterCombat(afterCombat)
+	end
+end
+
+local function lightFor(button, item)
+	button:SetAlpha((litBag == nil or item.bag == litBag) and 1 or 0.3)
+end
+
+-- Drawn: Blizzard's button over each cell (made now if new; in combat a new one waits for it to end), and the free
+-- slot's button (the first free slot's own) over its cell.
 local function onRender()
 	if not itemsPane then
 		return
@@ -195,14 +320,27 @@ local function onRender()
 				button:ClearAllPoints()
 				button:SetPoint("TOPLEFT", frame, "TOPLEFT", x, -y)
 				Slots.Fill(button, item)
+				lightFor(button, item)
 				button:Show()
-			elseif not waitingForCombat then
-				waitingForCombat = true
-				ns.Addon:AfterCombat(function()
-					waitingForCombat = false
-					layout()
-				end)
+			else
+				waitForCombat()
 			end
+		end
+	end
+	local free = Data.free
+	local x, y = itemsPane:RectOf(freeCell)
+	if x and free.firstBag then
+		local button = Slots.Get(free.firstBag, free.firstSlot)
+		if button then
+			button:ClearAllPoints()
+			button:SetPoint("TOPLEFT", frame, "TOPLEFT", x, -y)
+			freeItem.bag, freeItem.slot = free.firstBag, free.firstSlot
+			Slots.Fill(button, freeItem) -- empty: Blizzard's own empty-slot art
+			SetItemButtonCount(button, free.bags) -- and how many are free
+			button:SetAlpha(1)
+			button:Show()
+		else
+			waitForCombat()
 		end
 	end
 end
@@ -241,6 +379,9 @@ local function onCooldowns()
 end
 
 local function updateSearch(button, item)
+	if item == freeItem then
+		return
+	end
 	local info = C_Container.GetContainerItemInfo(item.bag, item.slot)
 	item.filtered = info ~= nil and info.isFiltered == true
 	button:SetMatchesSearch(not item.filtered)
@@ -302,14 +443,52 @@ local function onSortClick(self)
 	MenuUtil.CreateContextMenu(self.frame, sortMenu)
 end
 
--- Building the window (first open) ---------------------------------------------------------------------------------
+-- Quick actions ----------------------------------------------------------------------------------------------------
 
-local function onSearch(_, text)
-	C_Container.SetItemSearch(text or "")
+local function onArrange()
+	-- Blizzard's clean-up: it moves the items in the bags (in Blizzard's order); the window shows them in the chosen
+	-- order anyway. Moving them in the chosen order is the next step (an item mover of our own).
+	C_Container.SortBags()
+end
+
+local function onToggleBags()
+	if bagStrip and win then
+		bagStrip.block.hidden = not bagStrip.block.hidden
+		bagStrip:Refresh()
+		win:Refresh()
+	end
+end
+
+local function onSettings()
+	ns.Addon:OpenSettings()
 end
 
 local function onClose()
 	View.Close()
+end
+
+local function relight()
+	Slots.EachShown(lightFor)
+end
+
+-- A small tooltip for a quick action: its name over what it does (made once per button).
+local function actionTip(title, text)
+	return UI.Tooltip({ columns = { "auto" }, gap = "xs", { text = title, style = "title" }, { text = text } },
+		{ side = "below" })
+end
+
+local function iconButton(style, icon, tip, onClick)
+	return UI.Button({
+		style = style, width = 34, height = 34, padding = 0, rowAlign = "center", tooltip = tip,
+		on = { click = onClick },
+		{ image = ICON .. icon, size = 18, color = "color.icon", align = "center" },
+	})
+end
+
+-- Building the window (first open) ---------------------------------------------------------------------------------
+
+local function onSearch(_, text)
+	C_Container.SetItemSearch(text or "")
 end
 
 local function onHidden()
@@ -318,15 +497,54 @@ local function onHidden()
 	ns.Takeover.WindowHidden()
 end
 
+local function bagEnter(self)
+	litBag = self.bag
+	relight()
+end
+
+local function bagLeave()
+	litBag = nil
+	relight()
+end
+
+local function buildBagStrip()
+	local strip = { hidden = true, gap = "sm", rowAlign = "center" }
+	local columns = {}
+	for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
+		local icon = { image = bag == BACKPACK_CONTAINER and "Interface\\Buttons\\Button-Backpack-Up" or nil,
+			size = SLOT, crop = true, align = "center", valign = "center" }
+		local count = { format = "%d", args = { 0 }, style = "value", onTop = true, align = "right", valign = "bottom" }
+		bagIcons[bag], bagCounts[bag] = icon, count
+		local button = UI.Button({
+			style = "slot", width = SLOT, height = SLOT, padding = 0,
+			tooltip = actionTip(bag == BACKPACK_CONTAINER and BAG_NAME_BACKPACK or BAGSLOTTEXT, L.TIP_BAG_TEXT),
+			on = { enter = bagEnter, leave = bagLeave },
+			icon, count,
+		})
+		if not button then
+			return nil
+		end
+		button.bag = bag
+		bagButtons[bag] = button
+		columns[#columns + 1] = "auto"
+		strip[#strip + 1] = { embed = button }
+	end
+	strip.columns = columns
+	return strip
+end
+
 local function build()
-	local search = UI.Input({ name = "OrdaenBagsSearch", width = 160, placeholder = SEARCH, on = { change = onSearch } })
+	local search = UI.Input({ name = "OrdaenBagsSearch", width = 200, placeholder = SEARCH, on = { change = onSearch } })
 	sortButton = UI.Button({ style = "dropdown", on = { click = onSortClick }, sortText })
-	local close = UI.Button({ style = "closeButton", width = 28, height = 28, on = { click = onClose } })
-	if not (search and sortButton and close) then
+	local arrange = iconButton("pushButton", "sort", actionTip(L.TIP_SORT, L.TIP_SORT_TEXT), onArrange)
+	local bags = iconButton("pushButton", "bag", actionTip(L.TIP_BAGS, L.TIP_BAGS_TEXT), onToggleBags)
+	local settings = iconButton("pushButton", "settings", actionTip(SETTINGS, L.TIP_SETTINGS_TEXT), onSettings)
+	local close = iconButton("accentButton", "close", nil, onClose)
+	if not (search and sortButton and arrange and bags and settings and close) then
 		return false -- OrdaenCore_UI can't load (the player was told)
 	end
-	-- the sidebar: the search box, then a tab per category (Blizzard's words, first letter up, with its count)
-	local tabs = { columns = { "auto" }, gap = 0, padding = 0, { embed = search } }
+	-- the sidebar: a tab per category (Blizzard's words, first letter up, with its count)
+	local tabs = { columns = { "auto" }, gap = 0, padding = 0 }
 	for _, tab in ipairs(Categories.TABS) do
 		local label = { format = "%s (%d)", args = { capitalized(_G[tab.label] or tab.id), 0 } }
 		tabTexts[tab.id] = label
@@ -343,21 +561,27 @@ local function build()
 		tabButtons[tab.id] = button
 		tabs[#tabs + 1] = { embed = button }
 	end
+	local strip = buildBagStrip()
 	sidebar, itemsPane = UI.Block(tabs), UI.Block(content)
-	if not (sidebar and itemsPane) then
+	bagStrip = strip and UI.Block(strip)
+	if not (sidebar and itemsPane and bagStrip) then
 		return false
 	end
 	local top = {
-		colSpan = 2, columns = { "1fr", "auto", "auto" }, gap = "sm", rowAlign = "center",
+		colSpan = 2, columns = { "auto", "1fr", "auto", "auto", "auto", "auto", "auto" }, gap = "sm", rowAlign = "center",
+		{ embed = search },
 		{ text = "" },
 		{ embed = sortButton },
+		{ embed = arrange },
+		{ embed = bags },
+		{ embed = settings },
 		{ embed = close },
 	}
 	local footer = { colSpan = 2, columns = { "1fr", "auto" }, gap = "md", freeText, moneyText }
 	win = UI.Window({
 		-- the tabs as wide as their labels, touching the page (no gap between them); the page takes the rest
 		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = { 0, "md" }, padding = { 28, "lg", "lg", "lg" },
-		top, { embed = sidebar }, { embed = itemsPane }, footer,
+		top, { embed = bagStrip, colSpan = 2 }, { embed = sidebar }, { embed = itemsPane }, footer,
 	}, { point = "BOTTOMRIGHT", x = -80, y = 120 })
 	if not win then
 		return false
@@ -409,7 +633,7 @@ function View.Dump()
 		counts = Data.counts,
 		free = Data.free,
 		items = Data.Count(),
-		sections = #content,
+		rows = #content,
 		shown = win ~= nil and win:IsShown(),
 	}
 end

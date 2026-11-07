@@ -6,5 +6,17 @@
   "SORT": "Sort",
   "SORT_BAGS": "Bag order",
   "SORT_QUALITY": "Quality",
-  "SORT_NAME": "Name"
+  "SORT_NAME": "Name",
+  "SORT_ILVL": "Item level",
+  "SORT_COUNT": "Quantity",
+  "SORT_TYPE": "Item type",
+  "FREE": "Free",
+  "TIP_SORT": "Arrange",
+  "TIP_SORT_TEXT": "Sort the bags (Blizzard's clean-up).",
+  "TIP_BAGS": "Bags",
+  "TIP_BAGS_TEXT": "Show or hide your bag slots.",
+  "TIP_SETTINGS_TEXT": "Open Ordaen Bags' settings.",
+  "TIP_FREE": "Free slot",
+  "TIP_FREE_TEXT": "Drop an item here to put it in the first free slot.",
+  "TIP_BAG_TEXT": "Hover: its items light up."
 }

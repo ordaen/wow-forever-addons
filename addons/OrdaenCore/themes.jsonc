@@ -75,6 +75,17 @@
         "highlight": "128-RedButton-Highlight"
       }
     },
+    "accentButton": {
+      // The red accent of our button (art/button.py rows 4-7; the user's pick 2026-11-07: the bronze plate, red as the
+      // accent): a button that stands out among bronze ones, such as a window's own close button.
+      "ordaen": {
+        "label": "CONTROL_ORDAEN",
+        "normal": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.5, 0.625], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.5, 0.625] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.5, 0.625], "aspect": 0.5 } },
+        "pushed": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.625, 0.75], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.625, 0.75] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.625, 0.75], "aspect": 0.5 } },
+        "disabled": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.75, 0.875], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.75, 0.875] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.75, 0.875], "aspect": 0.5 } },
+        "highlight": { "left": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0, 0.125, 0.875, 1.0], "aspect": 0.5 }, "center": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.125, 0.875, 0.875, 1.0] }, "right": { "file": "Interface\\AddOns\\OrdaenCore\\media\\button", "coords": [0.875, 1, 0.875, 1.0], "aspect": 0.5 } }
+      }
+    },
     "marker": {
       // Marks a control that holds something new (Blizzard's floating «new» label): drawn at the control's left
       // end, `inset` UI units in from its inner edge, at `size` (art/gem.py; the user's pick 2026-11-07).
@@ -189,6 +200,7 @@
     "control.sideTab": "sideTab",
     "control.pushButton": "pushButton",
     "control.closeButton": "closeButton",
+    "control.accentButton": "accentButton",
     "control.newMarker": "marker",
     "control.checkbox": "checkbox",
     "control.dropdown": "dropdown",
@@ -230,7 +242,7 @@
       "icon.crop": 0.08,
       "motion.fade": 0.15, "tooltip.delay": 0,
       "sound.open": "IG_MAINMENU_OPEN", "sound.close": "IG_MAINMENU_CLOSE", "sound.click": "U_CHAT_SCROLL_BUTTON",
-      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "ordaen", "control.closeButton": "blizzard", "control.newMarker": "gem", "control.checkbox": "blizzard", "control.dropdown": "blizzard", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
+      "control.tab": "blizzard", "control.sideTab": "blizzard", "control.pushButton": "ordaen", "control.closeButton": "blizzard", "control.accentButton": "ordaen", "control.newMarker": "gem", "control.checkbox": "blizzard", "control.dropdown": "blizzard", "control.input": "blizzard", "control.scrollTrack": "blizzard", "control.scrollThumb": "blizzard", "control.scrollStepper": "blizzard", "control.slot": "blizzard"
     }
     // Planned, not built (user's decision, 2026-11-07): "blizzard" (mostly Blizzard's default look) and "minimal"
     // (little to no textures). Only Ordaen is worked on now; add them back here, with every token, when they are.

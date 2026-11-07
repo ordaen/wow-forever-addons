@@ -92,8 +92,58 @@ def dropdown():
     return img
 
 
+def sort():
+    """Two arrows, up and down: put things in order (Ordaen Bags' quick sort)."""
+    img, d = canvas()
+    for x, up in ((22, True), (42, False)):
+        d.rectangle(s(x - 4, 16, x + 4, 50) if up else s(x - 4, 14, x + 4, 48), fill=WHITE)
+        if up:
+            d.polygon([tuple(s(x, 4)), tuple(s(x + 13, 20)), tuple(s(x - 13, 20))], fill=WHITE)
+        else:
+            d.polygon([tuple(s(x, 60)), tuple(s(x + 13, 44)), tuple(s(x - 13, 44))], fill=WHITE)
+    return img
+
+
+def bag():
+    """A drawstring pouch: the bags (Ordaen Bags' bag slots)."""
+    img, d = canvas()
+    d.ellipse(s(8, 22, 56, 62), fill=WHITE)  # the body
+    d.rectangle(s(24, 14, 40, 26), fill=WHITE)  # the gathered neck
+    d.polygon([tuple(s(14, 4)), tuple(s(50, 4)), tuple(s(41, 16)), tuple(s(23, 16))], fill=WHITE)  # the flared top
+    d.rectangle(s(20, 17, 44, 21), fill=(255, 255, 255, 0))  # the drawstring
+    return img
+
+
+def grid():
+    """Four squares: lay things out in a grid of their own (Ordaen Bags' bag-by-bag view)."""
+    img, d = canvas()
+    for x, y in ((8, 8), (36, 8), (8, 36), (36, 36)):
+        d.rounded_rectangle(s(x, y, x + 20, y + 20), radius=3 * SS, fill=WHITE)
+    return img
+
+
+def close():
+    """A cross: close the window."""
+    img, d = canvas()
+    for a, b in (((15, 15), (49, 49)), ((49, 15), (15, 49))):
+        d.line([tuple(s(*a)), tuple(s(*b))], fill=WHITE, width=9 * SS)
+    for x, y in ((15, 15), (49, 49), (49, 15), (15, 49)):
+        d.ellipse(s(x - 4.5, y - 4.5, x + 4.5, y + 4.5), fill=WHITE)
+    return img
+
+
+def flask():
+    """A flask: reagents (Ordaen Bags' put reagents in the bank)."""
+    img, d = canvas()
+    d.rectangle(s(25, 6, 39, 26), fill=WHITE)
+    d.rectangle(s(21, 4, 43, 10), fill=WHITE)
+    d.polygon([tuple(s(25, 24)), tuple(s(39, 24)), tuple(s(56, 54)), tuple(s(8, 54))], fill=WHITE)
+    d.rounded_rectangle(s(8, 48, 56, 60), radius=5 * SS, fill=WHITE)
+    return img
+
+
 ICONS = {"chat": chat, "channels": channels, "settings": settings, "minimize": minimize, "expand": expand,
-         "dropdown": dropdown}
+         "dropdown": dropdown, "sort": sort, "bag": bag, "grid": grid, "close": close, "flask": flask}
 
 
 def main():
