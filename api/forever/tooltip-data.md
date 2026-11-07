@@ -14,7 +14,7 @@ and the last 20 different items), then click **Send state** in the Ordaen Dev wi
 
 | type | kind | top-level fields seen |
 |---|---|---|
-| 0 | item | `id`, `guid` (own items) or `hyperlink` (auction, links: with bonus IDs, e.g. random suffixes), `isAzerite…`, `isCorruptedItem`; `overrideItemLevel` on some (seen on drinks) |
+| 0 | item | `id`, `guid` (own items) or `hyperlink` (auction, links: with bonus IDs, e.g. random suffixes; for a recipe, the link is the made item's), `isAzerite…`, `isCorruptedItem`; `overrideItemLevel` on some (drinks, ammo; not gear) |
 | 1 | spell | `id` |
 | 2 | unit | `guid`, `healthGUID` |
 | 4 | (frame text, e.g. a button) | none |
@@ -31,10 +31,13 @@ and the last 20 different items), then click **Send state** in the Ordaen Dev wi
 | 11 | sell price (the money frame; on Forever the coins are in the text too) | `price` (copper), `maxPrice` | «» |
 | 13 | spell name | right side: rank («Уровень 1», «Ученик») | «Боевой крик» |
 | 16 | unit owner (a pet's) | `guid` (the owner) | «Прислужник \|3-1(Caéna Daerek)» |
+| 19 | nested block: the item a recipe makes; its own lines follow inline (its name is a type 22 line starting with a newline) | **`tooltipID`** (the made item's ID), `tooltipType` (0 = item) | «» |
 | 20 | binding | `bonding`: 3 = already soulbound («Персональный предмет»), 7 = binds on equip | «Становится персональным при надевании» |
 | 21 | slot · type | left: slot, right: type (empty for rings, trinkets, shirts…); `isValidInvSlot` (false: the slot is red too, e.g. a weapon type you can't train), `isValidItemType` (false: the type is red, you can't use it) | «Одноручное» \| «Дробящее» |
 | 22 | item name | `quality` | «Медная палица» |
 | 34 | spell description | `wrapText` | «Воин издает боевой крик…» |
+| 37 | flavour text (the quote) | `isGameInfo` (false) | «"Так про-100, что даже ваша кошка справится."» |
+| 38 | «Использование:» that teaches (a recipe, a pet) | **`spellID`** (the learned spell) | «Использование: Обучает изготовлению яркоглазых очков.» (12587), «Использование: Учит призывать этого спутника.» |
 | 42 | set piece or set bonus (grey when not active) | none | «  Алый пояс», «Комплект (2 \|4предмет:предмета:предметов;): +10 к сопротивлению темной магии.» |
 | 43 | requirement | `requirementType` (5 = level, with `level`; 2 = profession; 9 = weapon, on spells; 10 = stance/form), `usable` (false: red) | «Требуется 40-й уровень», «Требуется: Инженерное дело (140)», «Требуется: Оборонительная стойка» |
 | 44 | «Использование:» effect | **`spellID`** | «Использование: Повышает сопротивление огню на 33…» (13744) |
@@ -55,6 +58,13 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   are type 45 with one: stat-like effects (attack power, spell power, defense, hit, regen «восполняет 15 ед. здоровья
   раз в 5 сек.») are type 0, procs and auras type 45), a shield's block («Вероятность блока: 30», the block value
   under that label), the set's header, «Уникальный использующийся», a bag's or quiver's size.
+- **Recipes:** the recipe's name (22), then a nested block (19, `tooltipID` = the item it makes) followed by that
+  item's whole tooltip inline, then «Использование: Обучает изготовлению …» (38, the learned spell), the reagents as
+  one plain line («Толстая кожа (6), Цитрин (2)»), and the profession requirement (43). The made item can be our side
+  tooltip (like the set), by `tooltipID`.
+- **Ammo:** slot · type «Боеприпасы» \| «Стрелы» (21), then «Добавляет 13 ед. урона в секунду» (plain).
+- **Auction-only line:** «Предметы этой группы обладают разными характеристиками и внешним видом. Проверьте подсказку
+  аукциона…» (plain, gold, after a blank line) on browse results.
 - **Bags, quivers, ammo pouches** have no slot · type line (21): one plain line «Сумка (12 |4ячейка:ячейки:ячеек;)»,
   «Колчан (16 …)», «Подсумок (16 …)» (`CONTAINER_SLOTS`-like, with the plural code).
 - **Not in the tooltip at all:** item level (Forever doesn't print it on gear): read it from the item's info by ID.
@@ -65,7 +75,7 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   physical damage is «Урон: 7-13» (`DAMAGE_TEMPLATE`).
 - **«Уникальный»** and «Уникальный использующийся» are plain lines after the binding (`ITEM_UNIQUE`,
   `ITEM_UNIQUE_EQUIPPABLE`).
-- **Nested tooltips:** a spell tooltip for types 44, 45 and 46 (their `spellID`); the owner for type 16 (`guid`); set pieces have no
+- **Nested tooltips:** a spell tooltip for types 38, 44, 45 and 46 (their `spellID`); an item for type 19 (`tooltipID`); the owner for type 16 (`guid`); set pieces have no
   IDs (look them up by name); stats and «Если на персонаже:» have nothing behind them: our own text or Blizzard's stat
   strings below.
 
@@ -111,4 +121,4 @@ builds them on hover, or wasn't opened before the dump (to check).
 
 ## Still to measure
 
-Class restriction («Классы: …»), reputation requirement, ammo, recipes (a nested item), the character tab's stat tooltips.
+Class restriction («Классы: …»), reputation requirement, the character tab's stat tooltips.
