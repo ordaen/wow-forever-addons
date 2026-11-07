@@ -44,26 +44,18 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v7
-      - uses: leafo/gh-actions-lua@v13
-        with:
-          luaVersion: "5.1.5" # the Lua version WoW runs
-      - uses: leafo/gh-actions-luarocks@v6
-      - run: luarocks install luacheck && luarocks install busted
-      - name: Install lua-language-server (type checks against api/forever/luals)
-        env:
-          LUALS_VERSION: "3.19.2"
-        run: |
-          dir="$RUNNER_TEMP/lua-language-server"
-          mkdir -p "$dir"
-          curl -fsSL "https://github.com/LuaLS/lua-language-server/releases/download/$LUALS_VERSION/lua-language-server-$LUALS_VERSION-linux-x64.tar.gz" | tar -xz -C "$dir"
-          echo "$dir/bin" >> "$GITHUB_PATH"
       - uses: ./.github/actions/ordaen
         with:
           client-id: ${{ vars.RELEASE_APP_CLIENT_ID }}
           private-key: ${{ secrets.RELEASE_APP_PRIVATE_KEY }}
+      # The pinned lua-language-server, which ordaen downloads on first use (LUALS_VERSION in its lua_env.rs)
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ordaen/lua-language-server-*
+          key: luals-${{ hashFiles('.ordaen-version') }}
       # build (generated TOCs/locales, load order checks), luacheck, forever-lint, lua-language-server,
-      # busted on dist/
-      - run: eval "$(luarocks path)" && ordaen check
+      # busted on dist/. Lua 5.1, luacheck and busted are built into ordaen: nothing else to install.
+      - run: ordaen check
 
   package:
     name: Package (dry run)
