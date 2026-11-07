@@ -161,12 +161,13 @@ function Window:SkinAll()
 	ns.Kit.ControlsIn(frame, self.skip)
 end
 
---- Skin the window (the first time), or scan it again for controls Blizzard made since, or dress it again after
---- :Remove. In its own protected call, so a failure is reported and the other windows still skin.
+--- Skin the window (until that has worked once: the kit dresses each control once, so a retry after a failure only
+--- does what's left), or scan it again for controls Blizzard made since, or dress it again after :Remove. In its own
+--- protected call, so a failure is reported and the other windows still skin.
 function Window:Apply()
 	if not self.skinned then
-		self.skinned = true
 		ns.Kit.CollectInto(self.collect, self.SkinAll, self)
+		self.skinned = true
 		return
 	end
 	if self.removed then
@@ -196,14 +197,7 @@ local function protected(fn, ...)
 	return ok
 end
 
--- Shown again: pick up the controls Blizzard made since (a list's rows, a tab added later). One function for every
--- window, made once.
-local function onShow(frame)
-	local window = byFrame[frame]
-	if window and enabled[window.pack.kind] then
-		protected(window.Apply, window)
-	end
-end
+local onShow -- below: it skins through skin(), which comes after newWindow
 
 local function newWindow(pack, frame)
 	local window = setmetatable({ pack = pack, frame = frame, dresses = {}, skip = {} }, Window)
@@ -235,6 +229,15 @@ local function skin(window)
 		return
 	end
 	protected(window.Apply, window)
+end
+
+-- Shown again: pick up the controls Blizzard made since (a list's rows, a tab added later), the same way as the first
+-- time (after combat when needed). One function for every window, made once.
+function onShow(frame)
+	local window = byFrame[frame]
+	if window then
+		skin(window)
+	end
 end
 
 --- Find the windows of a kind that exist now (at the start, and when an addon loads) and skin them at once.

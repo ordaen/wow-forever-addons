@@ -368,6 +368,37 @@ describe("Ordaen Reskin", function()
 		assert.truthy(errors[1]:find("broken window", 1, true))
 	end)
 
+	it("tries again on the next show when a window's skinning failed, without dressing anything twice", function()
+		local broken = true
+		local real = windows.CharacterFrame.GetChildren
+		function windows.CharacterFrame:GetChildren()
+			if broken then
+				error("not built yet")
+			end
+			return real(self)
+		end
+		local button = control("Button", "Button", { "Left", "Middle", "Right" })
+		windows.CharacterFrame.children = { button }
+		load()
+		assert.equals(1, #errors)
+		assert.truthy(dressed[windows.CharacterFrame], "the frame's own look made it before the failure")
+		broken = false
+		show(windows.CharacterFrame)
+		assert.equals("pushButton", dressed[button].spec.style)
+	end)
+
+	it("waits for the end of combat to dress controls of a window shown in combat", function()
+		load()
+		helpers.inCombat = true
+		local later = control("Later", "Button", { "Left", "Middle", "Right" })
+		windows.CharacterFrame.children = { later }
+		show(windows.CharacterFrame)
+		assert.is_nil(dressed[later])
+		helpers.inCombat = false
+		fire("PLAYER_REGEN_ENABLED")
+		assert.truthy(dressed[later])
+	end)
+
 	it("waits for the end of combat to skin a window Blizzard loads in combat", function()
 		load()
 		helpers.inCombat = true
