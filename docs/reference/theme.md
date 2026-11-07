@@ -8,20 +8,30 @@ How themes work: [Themes](/guide/themes).
 
 | Style | For | `ordaen` |
 |---|---|---|
-| `tooltip` | tooltips (`UI.Tooltip` sets it) | gradient fill, 2 px accent top edge, 1 px sides, vignette, padding `lg` |
+| `tooltip` | tooltips (`UI.Tooltip` sets it) | Blizzard's window art at the small scale (see below), padding `lg` |
 | `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges |
 | `button` | clickable text without a surface | |
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only |
 | `stat` | a column of key numbers (a spell's cost, range, cast, cooldown) | a hairline on its left |
-| `window` | a window the player moves (`UI.Window`) | the panel's surface with `md` padding |
-| `panel` | a box holding other things (the minimap drawer) | tooltip surface |
+| `window` | a window the player moves (`UI.Window`) | Blizzard's window art at full size, room for its title bar |
+| `panel` | a box holding other things (the minimap drawer, the chat window) | Blizzard's window art at the small scale |
 | `input` | a text input over other text (the chat input) | opaque tooltip surface |
 | `tab` | a tab not shown (chat tabs, `UI.Dress` states) | dark, thin accent top edge |
 | `tabSelected` | the tab shown | tooltip surface, accent top edge |
 | `tabFlash` | a tab with a new message | accent fill |
-| `dialog` | confirmation dialogs (`UI.Confirm`) | like `tooltip`, padding `xl` |
+| `dialog` | confirmation dialogs (`UI.Confirm`) | Blizzard's dialog art, padding `xl` |
 | `pushButton` | a dialog's buttons | accent band, accent edges, highlight |
+
+**Window art.** `window`, `tooltip`, `panel` and `dialog` wear Blizzard's own window art, picked by theme tokens
+(`addons/OrdaenCore/themes.jsonc`): the frame asset names a `NineSliceLayouts` entry (`frame.border` = metal,
+`ButtonFrameTemplateNoPortrait`; `frame.dialog` = `Dialog`), which the renderer puts on the surface with
+`NineSliceUtil.ApplyLayoutByName` (Blizzard's pieces and offsets, sharpening off), and the background asset fills
+the inside (`frame.background` = `UI-Character-Info-General-BG`, `frame.dialogBackground`). The border is drawn at
+`frame.scale.window` (1) on windows and dialogs and at `frame.scale.small` (0.5) on tooltips and panels. It's
+untinted unless the block has its own `accent` (an item's quality), as Blizzard tints its tooltips. A role's
+`frameArt` in `Theme.lua` names the tokens and where the background sits inside the layout's border; only top-level
+blocks draw it. Dressed Blizzard frames (`UI.Dress`, `size = "frame"`) get it through their role too.
 
 Tooltips are 12 to 25 ems wide.
 

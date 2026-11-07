@@ -126,6 +126,9 @@ local function fakeTexture(layer)
 	function t:SetVertexColor(...)
 		self.vertexColor = { ... }
 	end
+	function t:SetScale(scale)
+		self.scale = scale
+	end
 	function t:SetPoint(...)
 		self.point = { ... }
 	end
@@ -902,6 +905,26 @@ describe("OrdaenCore.UI", function()
 			assert.same({ "CENTER", _G.UIParent, "CENTER", 0, 0 }, again.frame.point)
 		end)
 
+		it("wear Blizzard's window frame and fill, tinted only by an accent of their own", function()
+			local win = UI.Window({ name = "Framed", { text = "Bags" } })
+			win:Show()
+			local f = win.frame
+			assert.equals("ButtonFrameTemplateNoPortrait", f.layout)
+			assert.equals(1, f.TopLeftCorner.scale)
+			assert.same({ 1, 1, 1 }, f.TopLeftCorner.vertexColor)
+			local fill
+			for _, t in ipairs(f.textures) do
+				if t.atlas == "UI-Character-Info-General-BG" then
+					fill = t
+				end
+			end
+			assert.is_truthy(fill, "the fill inside the border")
+			assert.is_true(f.unsharpened)
+			win.block.accent = { 0.6, 0.2, 0.9 }
+			win:Refresh()
+			assert.same({ 0.6, 0.2, 0.9 }, f.TopLeftCorner.vertexColor)
+		end)
+
 		it("need a name", function()
 			assert.has_error(function()
 				UI.Window({ { text = "Bags" } })
@@ -1384,7 +1407,7 @@ describe("OrdaenCore.UI", function()
 				return { style = "iconButton", width = 20, height = 20 }
 			end
 			local row = UI.Block({ style = "panel", columns = { "auto", "auto" }, gap = 4, padding = 4, cell(), cell() })
-			assert.equals(2 + 4, #verticalEdges(row.frame))
+			assert.equals(2 + 2, #verticalEdges(row.frame), "each cell's own two (the panel wears Blizzard's art)")
 		end)
 
 		it("light a cell on request (highlight), under its content", function()
@@ -1432,18 +1455,22 @@ describe("OrdaenCore.UI", function()
 			assert.equals(11, fontOf(label.frame, "Goldshire").fontSize) -- small tier of 12 again
 		end)
 
-		it("tint a surface with the block's accent, else the theme's", function()
-			UI.Tooltip({ accent = { 1, 0, 0 }, { text = "Hogger" } }):Show(owner)
-			local top = solids(surface(), "BORDER")[1] -- the top edge: 0 + accent x 0.8
-			assert.same({ 0.8, 0, 0, 0.95 }, top.gradient[2])
+		it("tint the window art with the block's own accent only (quality), as Blizzard does", function()
+			local tip = UI.Tooltip({ { text = "Hogger" } })
+			tip:Show(owner)
+			local s = surface()
+			assert.equals("ButtonFrameTemplateNoPortrait", s.layout)
+			assert.equals(0.5, s.TopEdge.scale, "small surfaces: the border at half size")
+			assert.same({ 1, 1, 1 }, s.TopEdge.vertexColor)
+			tip.accent = { 1, 0, 0 }
+			tip:Refresh()
+			assert.same({ 1, 0, 0 }, s.TopEdge.vertexColor)
 		end)
 
 		it("draw edges and lines in whole physical pixels at any UI scale", function()
 			uiScale = 0.5 -- one physical pixel is 2 UI units here (the fake pixel factor is 1)
 			UI.Tooltip({ { text = "Goldshire" }, { separator = "rule" } }):Show(owner)
 			local s = surface()
-			local top = solids(s, "BORDER")[1]
-			assert.equals(4, top.size[2]) -- 2 px
 			local rule = solids(s, "ARTWORK")[1]
 			assert.equals(2, rule.size[2]) -- 1 px
 		end)

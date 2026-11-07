@@ -875,6 +875,78 @@ local function drawBackdrop(surface, look)
 	end
 end
 
+-- Blizzard's window art (a look with `frameArt`, resolved from theme tokens by Theme.lua): Blizzard's own NineSlice
+-- layout put on the surface by NineSliceUtil (its corners reach outside the rectangle as on Blizzard's windows), its
+-- border pieces scaled (0.5 on small surfaces), tinted by the block's own accent if it has one (quality), and one
+-- background texture inside the border (an atlas, or a file that tiles; `inset` in the art's pixels). The pieces
+-- are the surface's own textures, under its text. Root blocks only. Applied once per surface and resolved look
+-- (a theme change resolves new ones); a draw only re-tints.
+local BORDER_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner", "TopEdge",
+	"BottomEdge", "LeftEdge", "RightEdge" }
+local artShown = setmetatable({}, { __mode = "k" }) -- surface -> the frameArt it shows
+local artFills = setmetatable({}, { __mode = "k" }) -- surface -> its fill texture
+
+local function drawFrameArt(surface, look, accent)
+	local art = look and look.frameArt or nil
+	local shown = artShown[surface]
+	if art ~= shown then
+		local fill = artFills[surface]
+		if shown then
+			NineSliceUtil.HideLayout(surface)
+			if fill then
+				fill:Hide()
+			end
+		end
+		artShown[surface] = art
+		if not art then
+			return
+		end
+		NineSliceUtil.ApplyLayoutByName(surface, art.layout)
+		NineSliceUtil.DisableSharpening(surface)
+		NineSliceUtil.ShowLayout(surface)
+		local scale = art.scale or 1
+		for i = 1, #BORDER_PIECES do
+			local piece = surface[BORDER_PIECES[i]]
+			if piece then
+				piece:SetScale(scale)
+			end
+		end
+		local background = art.background
+		if background then
+			if not fill then
+				fill = surface:CreateTexture(nil, "BACKGROUND", nil, -8)
+				artFills[surface] = fill
+			end
+			local inset = art.inset
+			if background.atlas then
+				fill:SetAtlas(background.atlas)
+			else
+				local wrap = background.tile and "REPEAT" or nil
+				fill:SetTexture(background.file, wrap, wrap)
+			end
+			fill:SetHorizTile(background.tile and true or false)
+			fill:SetVertTile(background.tile and true or false)
+			fill:ClearAllPoints()
+			fill:SetPoint("TOPLEFT", surface, "TOPLEFT", inset[4] * scale, -inset[1] * scale)
+			fill:SetPoint("BOTTOMRIGHT", surface, "BOTTOMRIGHT", -inset[2] * scale, inset[3] * scale)
+			fill:Show()
+		end
+	end
+	if not art then
+		return
+	end
+	local r, g, b = 1, 1, 1
+	if accent then
+		r, g, b = accent[1], accent[2], accent[3]
+	end
+	for i = 1, #BORDER_PIECES do
+		local piece = surface[BORDER_PIECES[i]]
+		if piece then
+			piece:SetVertexColor(r, g, b)
+		end
+	end
+end
+
 local function hideRest(list, used)
 	for i = used + 1, #list do
 		list[i]:Hide()
@@ -1005,6 +1077,7 @@ function Render.Draw(surface, root, width)
 	local look = Theme.BlockStyle(root.style)
 	local accent = root.accent or Theme.accent
 	drawBackdrop(surface, look)
+	drawFrameArt(surface, look, root.accent)
 	if look then
 		drawSurface(surface, p, look, accent, 0, 0, result.width, result.height, 1, 0, edgesOf(look, root))
 	end

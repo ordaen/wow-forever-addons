@@ -103,6 +103,10 @@ function M.stubObject(name)
 	})
 end
 
+-- The pieces Blizzard's NineSliceUtil puts on a frame.
+M.NINE_SLICE_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "BottomRightCorner", "TopEdge",
+	"BottomEdge", "LeftEdge", "RightEdge", "Center" }
+
 function M.stubGlobals(overrides)
 	M.metadata = {
 		["*"] = { Version = "1.2.3" },
@@ -167,6 +171,32 @@ function M.stubGlobals(overrides)
 		PixelUtil = { GetPixelToUIUnitFactor = function()
 			return 1
 		end },
+		-- Blizzard's NineSlice layouts (window art): puts the named layout's pieces on the frame as its own textures
+		-- (fields named as Blizzard's), records the layout and that sharpening is off.
+		NineSliceUtil = {
+			ApplyLayoutByName = function(frame, name)
+				rawset(frame, "layout", name)
+				for _, piece in ipairs(M.NINE_SLICE_PIECES) do
+					if rawget(frame, piece) == nil then
+						rawset(frame, piece, frame:CreateTexture(nil, "BORDER"))
+					end
+				end
+			end,
+			DisableSharpening = function(frame)
+				rawset(frame, "unsharpened", true)
+			end,
+			ShowLayout = function(frame)
+				for _, piece in ipairs(M.NINE_SLICE_PIECES) do
+					rawget(frame, piece):Show()
+				end
+			end,
+			HideLayout = function(frame)
+				rawset(frame, "layout", nil)
+				for _, piece in ipairs(M.NINE_SLICE_PIECES) do
+					rawget(frame, piece):Hide()
+				end
+			end,
+		},
 		IsShiftKeyDown = function()
 			return M.shiftDown == true
 		end,

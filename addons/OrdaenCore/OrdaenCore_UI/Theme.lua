@@ -67,27 +67,29 @@ end
 -- surface: backdrop (Blizzard art: background, border colours) or fill = { top, bottom } (a vertical gradient),
 -- edges = { top, right, bottom, left }, each { width in physical px, colour }, vignette = { size, alpha } (the
 -- rim darkened inwards), highlight (hover: { texture } or { color }), bleed (a nested block's surface reaches
--- over its parent's padding to the parent's edges).
+-- over its parent's padding to the parent's edges), frameArt (Blizzard's window art from theme tokens: frame and
+-- background assets, the border's scale, the background's inset in the art's pixels; instead of fill and edges).
 -- Text looks: font (body, header, ui), size tier, color, shadow, outline, caps.
 
 local THEMES = {}
+
+-- Blizzard's window art, by theme token (themes.jsonc): the frame asset (its NineSlice layout), the background asset,
+-- the border's scale, and where the background sits inside that layout's border (the art's pixels: top, right,
+-- bottom, left). Windows at full size; small surfaces (tooltips, panels, the chat window) with the border at the
+-- small scale (the user's choice: half); dialogs in Blizzard's dialog frame.
+local WINDOW_ART = { border = "frame.border", background = "frame.background", scale = "frame.scale.window",
+	inset = { 21, 2, 2, 2 } }
+local SMALL_ART = { border = "frame.border", background = "frame.background", scale = "frame.scale.small",
+	inset = { 21, 2, 2, 2 } }
+local DIALOG_ART = { border = "frame.dialog", background = "frame.dialogBackground", scale = "frame.scale.window",
+	inset = { 7, 7, 7, 7 } }
 
 THEMES.ordaen = {
 	accent = { 0.72, 0.56, 0.34 }, -- bronze, as the minimap's rim
 	blocks = {
 		tooltip = {
 			padding = "lg", gap = "xs", minWidth = 12, maxWidth = 25,
-			fill = {
-				top = { 0.05, 0.04, 0.05, 0.93, accent = 0.07 },
-				bottom = { 0.015, 0.012, 0.015, 0.93, accent = 0.025 },
-			},
-			edges = {
-				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
-				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-			},
-			vignette = { size = "md", alpha = 0.35 },
+			frameArt = SMALL_ART,
 		},
 		header = {
 			padding = { "md", "lg", "md", "lg" }, gap = { "md", "xs" }, bleed = true,
@@ -145,46 +147,19 @@ THEMES.ordaen = {
 			},
 		},
 		-- A window the player moves (UI.Window): the panel's surface with room inside. Blizzard's window art comes later.
+		-- (Blizzard's metal frame; the top padding clears its title bar.)
 		window = {
-			padding = "md",
+			padding = { 28, "md", "md", "md" },
 			gap = "sm",
-			fill = {
-				top = { 0.05, 0.04, 0.05, 0.96, accent = 0.07 },
-				bottom = { 0.015, 0.012, 0.015, 0.96, accent = 0.025 },
-			},
-			edges = {
-				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
-				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-			},
+			frameArt = WINDOW_ART,
 		},
 		panel = { -- a box holding other things (the minimap drawer): the tooltip surface, no size of its own
 			padding = 0,
-			fill = {
-				top = { 0.05, 0.04, 0.05, 0.93, accent = 0.07 },
-				bottom = { 0.015, 0.012, 0.015, 0.93, accent = 0.025 },
-			},
-			edges = {
-				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
-				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-			},
+			frameArt = SMALL_ART,
 		},
 		dialog = {
 			padding = "xl", gap = "lg",
-			fill = {
-				top = { 0.05, 0.04, 0.05, 0.96, accent = 0.07 },
-				bottom = { 0.015, 0.012, 0.015, 0.96, accent = 0.025 },
-			},
-			edges = {
-				top = { 2, { 0, 0, 0, 0.95, accent = 0.8 } },
-				right = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				bottom = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-				left = { 1, { 0, 0, 0, 0.95, accent = 0.35 } },
-			},
-			vignette = { size = "lg", alpha = 0.35 },
+			frameArt = DIALOG_ART,
 		},
 		pushButton = {
 			padding = { "sm", "lg", "sm", "lg" },
@@ -267,11 +242,32 @@ local function spaceList(value)
 	return out
 end
 
-local function resolveBlock(look, textSize)
+-- A look's frameArt from the theme's tokens: { layout, scale, background = asset or nil, inset }, or nil when the
+-- theme's frame isn't a NineSlice layout.
+local function resolveArt(spec, themeName)
+	local store = OrdaenCore._SettingsStore
+	if not (spec and store) then
+		return nil
+	end
+	local frame = store.Asset("frame", store.TokenIn(themeName, spec.border))
+	if not (frame and frame.layout) then
+		return nil
+	end
+	local background = store.Asset("background", store.TokenIn(themeName, spec.background))
+	return {
+		layout = frame.layout,
+		scale = tonumber(store.TokenIn(themeName, spec.scale)) or 1,
+		background = background and (background.atlas or background.file) and background or nil,
+		inset = spec.inset,
+	}
+end
+
+local function resolveBlock(look, textSize, themeName)
 	local out = {}
 	for key, value in pairs(look) do
 		out[key] = value
 	end
+	out.frameArt = resolveArt(look.frameArt, themeName)
 	out.padding = spaceList(look.padding)
 	out.gap = spaceList(look.gap)
 	out.minWidth = look.minWidth and look.minWidth * textSize
@@ -329,7 +325,7 @@ function Theme.Apply(name, textSize)
 	end
 	local blocks = {}
 	for role, look in pairs(source.blocks) do
-		blocks[role] = resolveBlock(look, textSize)
+		blocks[role] = resolveBlock(look, textSize, name)
 	end
 	local text = {}
 	for role, look in pairs(source.text) do
