@@ -1180,6 +1180,26 @@ describe("OrdaenCore.UI", function()
 			assert.same({ 400, 180 }, window.size)
 		end)
 
+		it("put a window's border above Blizzard's frame and its children with borderAbove, the fill under", function()
+			local window = chatWindow()
+			window.strata = "HIGH"
+			window:SetFrameLevel(10)
+			local dress = UI.Dress(window, { style = "window", size = "frame", art = {}, borderAbove = true })
+			local look = dress.look.frame
+			local overlay = look.children[#look.children]
+			assert.equals("ButtonFrameTemplateNoPortrait", overlay.layout)
+			assert.is_nil(rawget(look, "layout"), "no border under the window")
+			assert.same({ "ALL", look }, overlay.point)
+			assert.equals("HIGH", overlay.strata)
+			assert.equals(60, overlay.level)
+			assert.is_false(overlay.mouse)
+			local fill
+			for _, t in ipairs(look.textures) do
+				fill = fill or (t.atlas == "UI-Character-Info-General-BG" and t)
+			end
+			assert.is_truthy(fill, "the fill stays on the look, under the window")
+		end)
+
 		it("show and hide with Blizzard's frame (a hidden chat window, tab or voice button leaves no look)", function()
 			local window, background = chatWindow()
 			window:Show()

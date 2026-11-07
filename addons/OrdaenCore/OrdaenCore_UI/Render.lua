@@ -885,14 +885,51 @@ local BORDER_PIECES = { "TopLeftCorner", "TopRightCorner", "BottomLeftCorner", "
 	"BottomEdge", "LeftEdge", "RightEdge" }
 local artShown = setmetatable({}, { __mode = "k" }) -- surface -> the frameArt it shows
 local artFills = setmetatable({}, { __mode = "k" }) -- surface -> its fill texture
+local artAbove = setmetatable({}, { __mode = "k" }) -- surface -> the frame its border goes above (a dressed window)
+local artOverlays = setmetatable({}, { __mode = "k" }) -- surface -> the overlay frame holding its border
+
+-- Where the border pieces go: the surface itself, or (a dressed Blizzard window, whose opaque content reaches its
+-- edges) an overlay over the surface placed above that window and its children, as Blizzard draws its own NineSlice.
+-- The overlay takes no mouse. Its strata and level follow the window on each draw.
+local ABOVE_LEVELS = 50
+
+local function borderHolder(surface)
+	local target = artAbove[surface]
+	if not target then
+		return surface
+	end
+	local overlay = artOverlays[surface]
+	if not overlay then
+		overlay = CreateFrame("Frame", nil, surface)
+		overlay:SetAllPoints(surface)
+		overlay:EnableMouse(false)
+		artOverlays[surface] = overlay
+	end
+	overlay:SetFrameStrata(target:GetFrameStrata())
+	overlay:SetFrameLevel(min(10000, target:GetFrameLevel() + ABOVE_LEVELS))
+	return overlay
+end
+
+--- Draw `surface`'s window border above `target` and its children (Dress, `borderAbove`); the next draw moves a
+--- border already drawn on the surface.
+---@param surface Frame
+---@param target Frame
+function Render.BorderAbove(surface, target)
+	if artShown[surface] and not artAbove[surface] then
+		NineSliceUtil.HideLayout(surface)
+		artShown[surface] = nil
+	end
+	artAbove[surface] = target
+end
 
 local function drawFrameArt(surface, look, accent)
 	local art = look and look.frameArt or nil
 	local shown = artShown[surface]
+	local holder = borderHolder(surface)
 	if art ~= shown then
 		local fill = artFills[surface]
 		if shown then
-			NineSliceUtil.HideLayout(surface)
+			NineSliceUtil.HideLayout(holder)
 			if fill then
 				fill:Hide()
 			end
@@ -901,12 +938,12 @@ local function drawFrameArt(surface, look, accent)
 		if not art then
 			return
 		end
-		NineSliceUtil.ApplyLayoutByName(surface, art.layout)
-		NineSliceUtil.DisableSharpening(surface)
-		NineSliceUtil.ShowLayout(surface)
+		NineSliceUtil.ApplyLayoutByName(holder, art.layout)
+		NineSliceUtil.DisableSharpening(holder)
+		NineSliceUtil.ShowLayout(holder)
 		local scale = art.scale or 1
 		for i = 1, #BORDER_PIECES do
-			local piece = surface[BORDER_PIECES[i]]
+			local piece = holder[BORDER_PIECES[i]]
 			if piece then
 				piece:SetScale(scale)
 			end
@@ -940,7 +977,7 @@ local function drawFrameArt(surface, look, accent)
 		r, g, b = accent[1], accent[2], accent[3]
 	end
 	for i = 1, #BORDER_PIECES do
-		local piece = surface[BORDER_PIECES[i]]
+		local piece = holder[BORDER_PIECES[i]]
 		if piece then
 			piece:SetVertexColor(r, g, b)
 		end

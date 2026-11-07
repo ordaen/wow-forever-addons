@@ -35,6 +35,8 @@ local ICON = 20 -- the "iconButton" style's padding (4 each side) around it make
 ---@field art table[]|nil the textures to hide; default every texture of the frame and its children (give a list
 --- when the frame's children hold content, e.g. a chat window's message lines)
 ---@field states table<string, string>|nil state -> style role for :SetState (any other state: `style`)
+---@field borderAbove boolean|nil with a style that wears Blizzard's window art: its border goes above the frame and
+--- its children (a Blizzard window whose opaque content reaches its edges and would hide it); the fill stays under
 ---@field focus boolean|nil an EditBox: our look shows only while it has the keyboard focus (being typed in), at full
 --- alpha whatever alpha Blizzard gives the frame (Blizzard's IM chat style leaves an inactive input faintly shown)
 ---@field block OrdaenUIBlock|nil our look as a whole block (a row of cells, say) instead of an icon; `style` is its
@@ -350,6 +352,10 @@ function Dress.New(frame, opts)
 	end
 	spec.style, spec.parent = opts.style or "iconButton", frame:GetParent()
 	local look = Component.Block(spec)
+	if opts.borderAbove then
+		ns.Render.BorderAbove(look.frame, frame)
+		look:Refresh() -- drawn once already, before it knew
+	end
 	local self = setmetatable({
 		frame = frame,
 		clickable = clickable,
