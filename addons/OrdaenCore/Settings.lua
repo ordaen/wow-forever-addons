@@ -202,13 +202,72 @@ local function optionsOf(addon, setting)
 	end
 end
 
+-- Colours on Blizzard's swatch (Settings.CreateColorSwatch): its value is a hex string "aarrggbb" (Blizzard's
+-- GenerateHexColor; the picker has no alpha), ours is { r, g, b[, a] } (0-1).
+
+--- { r, g, b } -> "ffrrggbb" (nothing or not a colour: black). Pure.
+---@param color any
+---@return string
+function SettingsPage.ColorToHex(color)
+	if type(color) ~= "table" then
+		color = {}
+	end
+	local function byte(v)
+		return math.floor(math.max(0, math.min(1, v or 0)) * 255 + 0.5)
+	end
+	return string.format("ff%02x%02x%02x", byte(color[1]), byte(color[2]), byte(color[3]))
+end
+
+--- "aarrggbb" -> { r, g, b, a } with `alpha` (the swatch's alpha byte is meaningless), or nil. Pure.
+---@param hex string
+---@param alpha number|nil
+---@return number[]|nil
+function SettingsPage.HexToColor(hex, alpha)
+	if type(hex) ~= "string" or not hex:match("^%x%x%x%x%x%x%x%x$") then
+		return nil
+	end
+	local function part(i)
+		return tonumber(hex:sub(i, i + 1), 16) / 255
+	end
+	return { part(3), part(5), part(7), alpha }
+end
+
+local function colorControl(addon, category, key, setting, tooltip)
+	if not Settings.CreateColorSwatch then
+		return nil
+	end
+	local store = addon._store --[[@as OrdaenSettingsStore]]
+	local toHex = SettingsPage.ColorToHex
+	local proxy = Settings.RegisterProxySetting(category, addon.name .. "_" .. key:gsub("%.", "_"), "string",
+		addon.L[setting.label], toHex(store:Default(key)), function()
+			return toHex(store:Get(key))
+		end, function(value)
+			-- the picker writes on every move and again on Cancel; the theme's colour itself means "not chosen"
+			-- (also what Blizzard's Defaults button writes), so it is forgotten rather than saved
+			local current = store:Get(key)
+			local color = SettingsPage.HexToColor(value, type(current) == "table" and current[4] or nil)
+			if not color then
+				return
+			end
+			if toHex(color) == toHex(store:Default(key)) then
+				store:Reset(key)
+			else
+				store:Set(key, color)
+			end
+		end)
+	return Settings.CreateColorSwatch(category, proxy, tooltip)
+end
+
 local function control(addon, category, key, setting)
 	local store = addon._store --[[@as OrdaenSettingsStore]]
+	local L = addon.L
+	if setting.type == "color" then
+		return colorControl(addon, category, key, setting, setting.tooltip and L[setting.tooltip])
+	end
 	local varType = VAR_TYPES[setting.type]
 	if not varType then
-		return nil -- colour, text, keybinding, sound, action, map: not on this page yet
+		return nil -- text, keybinding, sound, action, map: not on this page yet
 	end
-	local L = addon.L
 	local proxy = Settings.RegisterProxySetting(category, addon.name .. "_" .. key:gsub("%.", "_"), varType,
 		L[setting.label], store:Default(key), function()
 			return store:Get(key)

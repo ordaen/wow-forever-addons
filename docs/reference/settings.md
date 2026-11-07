@@ -260,8 +260,10 @@ player changed).
 - **Loading:** migrations run on the raw saved table first; then values that the schema refuses (wrong type,
   unknown choice or asset, out of range) are removed, so the default applies.
 - **Page:** from `sections`, under Options > AddOns. For now on Blizzard's Settings API (proxy settings that read
-  and write through the store): `boolean` checkboxes, `number` sliders, `choice` and `asset` dropdowns,
-  `enabledBy` greys a control out; the other types aren't on the page yet. A page drawn with OrdaenCore.UI
+  and write through the store): `boolean` checkboxes, `number` sliders, `choice` and `asset` dropdowns, `color`
+  Blizzard's colour swatch (opens the colour picker; changes apply while picking, Cancel restores; picking the
+  theme's own colour, or Blizzard's Defaults, forgets the player's choice; the picker has no alpha, a saved alpha
+  is kept), `enabledBy` greys a control out; the other types aren't on the page yet. A page drawn with OrdaenCore.UI
   components is planned (roadmap).
 - **Ordaen Core** has a manifest too (`OrdaenCore/settings.jsonc`: `ui.theme`, `ui.textSize`, `keptConflicts`).
   Its theme is applied when it loads, before the addons that depend on it bind; a theme change from its page
