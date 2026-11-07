@@ -764,7 +764,15 @@ function View.Dump()
 	for name, button in pairs(quickButtons) do
 		controls[name] = describe(button.frame, 2)
 	end
+	-- every item the last scan found, one line each: where it is, what it is, where the window files it
+	local list = {}
+	for i = 1, Data.Count() do
+		local item = Data.Item(i)
+		list[i] = string.format("%d/%d %s x%d: tab %s, section %d (%s)", item.bag, item.slot, item.name or "?",
+			item.count, item.tab, item.section, Categories.SectionLabel(item.section))
+	end
 	return {
+		list = list,
 		selected = selected,
 		counts = Data.counts,
 		free = Data.free,
