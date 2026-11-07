@@ -103,10 +103,11 @@ ns.MicroButtons = microButtons
 local Micro = A:Feature("micromenu", { when = placed("micromenu") })
 -- Forever's micro buttons, by name (the API dump doesn't list most of them). The client also has Achievement,
 -- Housing, PlayerSpells and EJ buttons from the modern code, but Forever doesn't use them: Bartender4's micro bar
--- takes exactly the ones below and leaves those four on a hidden holder (in-game log, 2026-11-06). Micro.Order
--- keeps the visible ones (Help comes and goes).
+-- (its Forever list in MicroMenu.lua) takes exactly the ones below and leaves those four on a hidden holder (in-game
+-- log, 2026-11-06). Micro.Order keeps the visible ones (Help comes and goes). LegacyMicroButton is Forever's Legacy
+-- System (account-wide progression; Blizzard disables it until the first Legacy Point, usually level 25).
 local MICRO_NAMES = {
-	"CharacterMicroButton", "ProfessionMicroButton", "SpellbookMicroButton", "TalentMicroButton",
+	"CharacterMicroButton", "ProfessionMicroButton", "SpellbookMicroButton", "TalentMicroButton", "LegacyMicroButton",
 	"QuestLogMicroButton", "GuildMicroButton", "LFDMicroButton", "CollectionsMicroButton", "StoreMicroButton",
 	"MainMenuMicroButton", "HelpMicroButton",
 }
