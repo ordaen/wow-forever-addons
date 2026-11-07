@@ -5,6 +5,7 @@
 -- Hooks (hooksecurefunc / HookScript: Blizzard's code is untouched):
 --   Show, SetShown, OnShow      read, draw ours, native alpha 0 (every show resets it to 1)
 --   SetAlpha                    the native's fades go to our view; the native goes back to 0
+--   SetPoint                    the view follows (the comparison tooltips are anchored after their Show)
 --   OnHide, OnTooltipCleared    ours hides
 -- While a view is shown, one shared ticker (every 0.25 s) notices lines rewritten in place without a new Show.
 local _, ns = ...
@@ -72,6 +73,12 @@ local function restore(native, state)
 	setNativeAlpha(native, state, state.alpha or 1)
 end
 
+-- Put the view where the native is, or beside the button it's for ("beside buttons").
+local function place(native, state, owner)
+	local beside = owner and ns.Addon.db.anchorToButtons and Owner.IsButton(owner) and owner or nil
+	state.view:Follow(native, viewOf, beside)
+end
+
 local function draw(native)
 	local state = states[native]
 	if not (state and feature.enabled) then
@@ -84,8 +91,7 @@ local function draw(native)
 	-- The button hovered: its key binding goes in the hotkey; with "beside buttons" on, the view goes beside it.
 	local owner = Owner.Of(native)
 	state.view:Fill(state.model, owner)
-	local beside = owner and ns.Addon.db.anchorToButtons and Owner.IsButton(owner) and owner or nil
-	state.view:Follow(native, viewOf, beside)
+	place(native, state, owner)
 	state.view:SetAlpha(state.alpha or 1)
 	showView(state)
 	setNativeAlpha(native, state, 0)
@@ -103,6 +109,15 @@ end
 local function onSetShown(native, shown)
 	if not isSecret(shown) and shown then
 		draw(native)
+	end
+end
+
+-- Blizzard anchors the comparison tooltips after showing them (the views followed the anchor of the show before and
+-- overlapped, 2026-11-07): a native moved while its view shows moves the view, without a redraw.
+local function onMoved(native)
+	local state = states[native]
+	if state and state.view:IsShown() then
+		place(native, state, Owner.Of(native))
 	end
 end
 
@@ -169,6 +184,7 @@ local function attach(native)
 	feature:Hook(native, "Show", onShown)
 	feature:Hook(native, "SetShown", onSetShown)
 	feature:Hook(native, "SetAlpha", onAlpha)
+	feature:Hook(native, "SetPoint", onMoved)
 	if native.FadeOut then
 		feature:Hook(native, "FadeOut", onFadeOut)
 	end

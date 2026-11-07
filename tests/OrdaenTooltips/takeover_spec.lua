@@ -197,6 +197,7 @@ describe("Ordaen Tooltips", function()
 	end)
 
 	it("puts a comparison tooltip edge to edge with ours, on the side Blizzard chose, whatever its offsets", function()
+		local anchored = false
 		local shopping = stub("ShoppingTooltip1", {
 			NumLines = function()
 				return 1
@@ -207,8 +208,11 @@ describe("Ordaen Tooltips", function()
 			GetRightLine = function()
 				return line("")
 			end,
-			-- Blizzard's anchor: left of GameTooltip, its offset from the natives' widths
+			-- Blizzard's anchor, set after the Show: left of GameTooltip, its offset from the natives' widths
 			GetPoint = function()
+				if not anchored then
+					return "BOTTOMLEFT", nil, "BOTTOMLEFT", 0, 0 -- where the last show left it
+				end
 				return "TOPRIGHT", tooltip, "TOPLEFT", -37, -12
 			end,
 			GetCenter = function()
@@ -229,6 +233,8 @@ describe("Ordaen Tooltips", function()
 		fire("PLAYER_LOGIN")
 		show({ { "Blacksmith Hammer" } })
 		shopping:Show()
+		anchored = true
+		shopping:SetPoint("TOPRIGHT", tooltip, "TOPLEFT", -37, -12)
 		local view = frameNamed("OrdaenTooltipsShoppingTooltip1")
 		local main
 		for _, f in ipairs(frames) do

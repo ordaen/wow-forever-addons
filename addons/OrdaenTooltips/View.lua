@@ -185,12 +185,17 @@ function ViewMethods:Follow(native, viewOf, beside)
 		local myX = native:GetCenter()
 		local otherX = relativeTo:GetCenter()
 		local left = not (isSecret(myX) or isSecret(otherX)) and myX and otherX and myX < otherX
+		ns.Debug:Verbosef("takeover: %s beside %s's view, on the %s (native at %s, %s)", native:GetName() or "?",
+			relativeTo:GetName() or "?", left and "left" or "right", tostring(myX), tostring(otherX))
 		if left then
 			c:SetPoint("TOPRIGHT", other.component.frame, "TOPLEFT", 0, 0)
 		else
 			c:SetPoint("TOPLEFT", other.component.frame, "TOPRIGHT", 0, 0)
 		end
 	elseif type(point) == "string" then
+		ns.Debug:Verbosef("takeover: %s on its native's %s (anchored to %s)", native:GetName() or "?", point,
+			isSecret(relativeTo) and "<secret>" or tostring(relativeTo and relativeTo.GetName and relativeTo:GetName()
+				or relativeTo))
 		c:SetPoint(point, native, point)
 	else
 		c:SetPoint("CENTER", native, "CENTER")
