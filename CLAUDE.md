@@ -391,6 +391,19 @@ decided with the user.
   - Drawer settings: columns, grow direction, autoClose, ignore list. Slash: reset, list, ignore/unignore.
   - Addons in Forever that use the compartment today: Altoholic, Baganator, Details, DialogueUI, Pawn, Prat.
 
+## Ordaen Reskin
+
+Owner: the wow-dev-tools-a7 session (it also owns Ordaen Meter). Blizzard's own windows and dialogs in the theme's
+art.
+
+- Eager skinning: at login, or when Blizzard loads a load-on-demand window. Window packs are data (`Windows.lua`
+  `PACKS`).
+- A control kit (`Kit.lua`: tabs, side tabs, push and close buttons, checkboxes, dropdowns, inputs, scroll bars,
+  item slots, insets) dresses each control with `UI.Dress` + `track`. A role is skipped while `UI.HasStyle` says
+  the theme doesn't draw it; other addons' frames are skipped (`Kit.IsForeign`, via `issecurevariable`).
+- Each window is dressed in its own protected call, and deferred while in combat.
+- Prior art: EllesmereUI (licence "all rights reserved": ideas only, never its code).
+
 ## Ordaen Core and debugging
 
 - `addons/OrdaenCore/` holds the code every addon shares. It publishes the global `OrdaenCore` and contains no features. The build gives every addon that uses it `## Dependencies: OrdaenCore`, `## OptionalDeps: OrdaenCore_Debug` and `required-dependencies: [ordaen-core]` in `.pkgmeta` (the CurseForge slug, `"package"` in addon.jsonc, is a guess until the project exists); `"minCore"` in addon.jsonc becomes `## X-Ordaen-MinCore`.
