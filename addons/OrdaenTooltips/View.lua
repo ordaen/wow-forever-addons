@@ -54,11 +54,14 @@ local ViewMeta = { __index = ViewMethods }
 function View.New(name)
 	local header = UI.Header({ title = "", subtitle = "", icon = NO_ICON, iconSize = ICON_SIZE, texCoord = ICON_CROP })
 	local spec = { name = name, parent = UIParent, strata = "TOOLTIP", style = "tooltip", header }
-	local stats = { columns = STAT_COLUMNS[#SpellStats.ORDER], padding = { "sm", 0, 0, 0 }, hidden = true }
+	-- The columns as tall as the section (their lines the same height), each value in its middle: one value may
+	-- wrap to two lines (a long cost).
+	local stats = { columns = STAT_COLUMNS[#SpellStats.ORDER], padding = { "sm", 0, 0, 0 }, rowAlign = "stretch",
+		hidden = true }
 	local statCells = {}
 	for i, stat in ipairs(SpellStats.ORDER) do
 		local value = { format = "%s", args = { "" }, style = "value", align = "center" }
-		local cell = { style = "stat", hidden = true, value }
+		local cell = { style = "stat", rowAlign = "center", hidden = true, value }
 		stats[i] = cell
 		statCells[stat] = { cell = cell, value = value }
 	end
