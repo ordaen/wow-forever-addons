@@ -38,9 +38,9 @@ for i = 1, 3 do
 	lines[i] = { text = "", hidden = true }
 end
 -- the text lines close together, as one section
-local text = { columns = { "auto" }, gap = "xs", hidden = true, lines[1], lines[2], lines[3] }
+local textBlock = { columns = { "auto" }, gap = "xs", hidden = true, lines[1], lines[2], lines[3] }
 -- sections (title, numbers, rows, text) clearly apart
-local tip = UI.Tooltip({ columns = { "auto" }, gap = "md", title, stats, rows, text }, { side = "above" })
+local tip = UI.Tooltip({ columns = { "auto" }, gap = "md", title, stats, rows, textBlock }, { side = "above" })
 
 local COLUMNS = { { "1fr" }, { "1fr", "1fr" }, { "1fr", "1fr", "1fr" } }
 local shown = 0 -- stat columns filled so far
@@ -90,7 +90,7 @@ local function finish()
 	stats.hidden = shown == 0
 	stats.columns = COLUMNS[math.max(shown, 1)]
 	rows.hidden = rowCount == 0
-	text.hidden = textLines == 0
+	textBlock.hidden = textLines == 0
 	return shown > 0 or textLines > 0 or rowCount > 0
 end
 
