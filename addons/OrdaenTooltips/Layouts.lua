@@ -25,10 +25,9 @@ local result = { icon = false, subtitle = false, skip = {}, extrasFrom = false, 
 ---@class OrdaenTooltipsStat
 ---@field shown boolean
 ---@field format string the value's format ("%s yd")
----@field arg string the number in it
----@field caption string
+---@field arg string the number in it (or the whole line)
 for _, stat in ipairs(ns.SpellStats.ORDER) do
-	result.stats[stat] = { shown = false, format = "%s", arg = "", caption = "" }
+	result.stats[stat] = { shown = false, format = "%s", arg = "" }
 end
 
 -- A spell's stats sit in its first lines, both sides ("30 Mana" | "30 yd range", "1.5 sec cast" | "6 sec cooldown").
@@ -74,7 +73,7 @@ local function stat(text)
 	end
 	local s = result.stats[rule.stat]
 	if not s.shown then -- the first line naming a stat wins
-		s.shown, s.format, s.arg, s.caption = true, rule.format, number, rule.caption
+		s.shown, s.format, s.arg = true, rule.format, number
 	end
 	return true
 end

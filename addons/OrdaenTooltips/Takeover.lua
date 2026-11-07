@@ -177,7 +177,7 @@ function Takeover.Describe()
 		for _, stat in ipairs(ns.SpellStats.ORDER) do
 			local c = view.statCells[stat]
 			if not c.cell.hidden then
-				stats[#stats + 1] = c.value.format:format(c.value.args[1]) .. " / " .. c.caption.text
+				stats[#stats + 1] = c.value.format:format(c.value.args[1])
 			end
 		end
 		for _, row in pairs(view.rows) do

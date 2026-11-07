@@ -2,7 +2,7 @@
 -- Reader's model and the Layouts' decisions on each show.
 --   header   the theme's header band: an icon when the kind has one (items, spells), the title (the first line, in
 --            its colour: an item's quality, a unit's reaction, which is also the tooltip's accent), a subtitle
---   stats    a spell's cost, range, cast time and cooldown in columns, a value over its caption (Layouts)
+--   stats    a spell's cost, range, cast time and cooldown in columns, values only (Layouts)
 --   rows     the other lines: left text, and right text when there is one; a blank line is a small gap; a divider
 --            before the lines other addons added
 --   bar      the unit health bar
@@ -44,7 +44,7 @@ local NO_ICON = "Interface\\Icons\\INV_Misc_QuestionMark"
 ---@field rows OrdaenTooltipsRowView[]
 ---@field bar OrdaenUIBar
 ---@field stats OrdaenUIBlock the spell section
----@field statCells table<string, { cell: OrdaenUIBlock, value: OrdaenUIText, caption: OrdaenUIText }>
+---@field statCells table<string, { cell: OrdaenUIBlock, value: OrdaenUIText }>
 local ViewMethods = {}
 local ViewMeta = { __index = ViewMethods }
 
@@ -58,10 +58,9 @@ function View.New(name)
 	local statCells = {}
 	for i, stat in ipairs(SpellStats.ORDER) do
 		local value = { format = "%s", args = { "" }, style = "value", align = "center" }
-		local caption = { text = "", style = "caption", align = "center" }
-		local cell = { style = "stat", hidden = true, value, caption }
+		local cell = { style = "stat", hidden = true, value }
 		stats[i] = cell
-		statCells[stat] = { cell = cell, value = value, caption = caption }
+		statCells[stat] = { cell = cell, value = value }
 	end
 	spec[#spec + 1] = stats
 	local rows = {}
@@ -123,7 +122,7 @@ function ViewMethods:Fill(model, owner)
 		c.cell.hidden = not s.shown
 		if s.shown then
 			n = n + 1
-			c.value.format, c.value.args[1], c.caption.text = s.format, s.arg, s.caption
+			c.value.format, c.value.args[1] = s.format, s.arg
 			c.cell.edges = n == 1 and FIRST_CELL or nil
 		end
 	end

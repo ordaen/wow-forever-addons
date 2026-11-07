@@ -242,7 +242,7 @@ describe("Ordaen Tooltips", function()
 			{ "Hurls a fiery ball that causes 50 Fire damage." },
 		})
 		local d = ns.Takeover.Describe().GameTooltip
-		assert.same({ "30 / Mana", "35 yd / Range", "3.5 sec / Cast", "6 sec / Cooldown" }, d.stats)
+		assert.same({ "30 Mana", "35 yd", "3.5 sec", "6 sec" }, d.stats, "no captions: the cost as Blizzard writes it")
 		assert.equals(1, d.shownRows, "only the description is left as a line")
 	end)
 
@@ -250,7 +250,7 @@ describe("Ordaen Tooltips", function()
 		data = { type = 1, id = 78, lines = { {}, {}, {}, {} } }
 		show({ { "Heroic Strike" }, { "15 Rage", "Melee Range" }, { "Next melee" }, { "A strong attack." } })
 		local d = ns.Takeover.Describe().GameTooltip
-		assert.same({ "15 / Rage", "Melee / Range", "Next melee / Cast" }, d.stats)
+		assert.same({ "15 Rage", "Melee", "Next melee" }, d.stats)
 		data = { type = 0, id = 19019, lines = { {}, {} } }
 		tooltip:Hide()
 		show({ { "Thunderfury" }, { "Item Level 80" } })
