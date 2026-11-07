@@ -516,37 +516,41 @@ function placeTitle(self)
 		return
 	end
 	local look = self.look.frame
-	local segments = self.titleRule
-	if not segments then
-		segments = {}
-		for i = 1, 4 do
-			segments[i] = look:CreateTexture(nil, "ARTWORK")
-			segments[i]:SetColorTexture(1, 1, 1, 1)
+	-- Per line of the groove: a fade in over its first quarter, solid, a fade out over its last quarter.
+	local rows = self.titleRule
+	if not rows then
+		rows = {}
+		for l = 1, #rule.lines do
+			local segments = {}
+			for i = 1, 3 do
+				segments[i] = look:CreateTexture(nil, "ARTWORK")
+				segments[i]:SetColorTexture(1, 1, 1, 1)
+			end
+			rows[l] = segments
 		end
-		self.titleRule = segments
+		self.titleRule = rows
 	end
-	local dim, light = rule.colors[1], rule.colors[2]
-	local stops = { { dim, 0 }, { dim, 1 }, { light, 1 }, { dim, 1 }, { dim, 0 } }
 	local px = PixelUtil.GetPixelToUIUnitFactor() / look:GetEffectiveScale()
-	for i = 1, 4 do
-		local seg, from, to = segments[i], stops[i], stops[i + 1]
-		seg:SetGradient("HORIZONTAL", CreateColor(from[1][1], from[1][2], from[1][3], from[2]),
-			CreateColor(to[1][1], to[1][2], to[1][3], to[2]))
-		seg:ClearAllPoints()
-		seg:SetHeight(px)
-		seg:Show()
-	end
-	-- Four equal segments between the insets, chained left to right.
-	segments[1]:SetPoint("TOPLEFT", look, "TOPLEFT", rule.inset, -rule.ruleY)
-	for i = 2, 4 do
-		segments[i]:SetPoint("TOPLEFT", segments[i - 1], "TOPRIGHT")
-	end
 	local width = self.frame:GetWidth()
-	if not issecretvalue(width) then
-		local each = math.max(1, (width - 2 * rule.inset) / 4)
-		for i = 1, 4 do
-			segments[i]:SetWidth(each)
+	local span = not issecretvalue(width) and math.max(4, width - 2 * rule.inset) or nil
+	for l, segments in ipairs(rows) do
+		local c = rule.lines[l]
+		local clear, solid = CreateColor(c[1], c[2], c[3], 0), CreateColor(c[1], c[2], c[3], c[4])
+		segments[1]:SetGradient("HORIZONTAL", clear, solid)
+		segments[2]:SetGradient("HORIZONTAL", solid, solid)
+		segments[3]:SetGradient("HORIZONTAL", solid, clear)
+		for i = 1, 3 do
+			local seg = segments[i]
+			seg:ClearAllPoints()
+			seg:SetHeight(px)
+			if span then
+				seg:SetWidth(i == 2 and span / 2 or span / 4)
+			end
+			seg:Show()
 		end
+		segments[1]:SetPoint("TOPLEFT", look, "TOPLEFT", rule.inset, -rule.ruleY - (l - 1) * px)
+		segments[2]:SetPoint("TOPLEFT", segments[1], "TOPRIGHT")
+		segments[3]:SetPoint("TOPLEFT", segments[2], "TOPRIGHT")
 	end
 	if not titled[self.opts.title] then
 		titled[self.opts.title] = self

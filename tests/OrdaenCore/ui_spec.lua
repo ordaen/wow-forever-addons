@@ -1080,10 +1080,14 @@ describe("OrdaenCore.UI", function()
 				BottomLeftCorner = { atlas = "UI-Frame-Metal-CornerBottomLeft", x = -8, y = -8 },
 				BottomRightCorner = { atlas = "UI-Frame-Metal-CornerBottomRight", x = 2, y = -8 },
 				BottomEdge = { atlas = "_UI-Frame-Metal-EdgeBottom" },
+				LeftEdge = { atlas = "!UI-Frame-Metal-EdgeLeft" },
 			} })
 			local strip = UI.Block({ name = "Small", style = "panel", { text = "Gold" } })
 			local corner = strip.frame.TopRightCorner
 			assert.equals("UI-Frame-Metal-CornerBottomRight", corner.atlas)
+			local top = strip.frame.TopEdge
+			assert.equals("!UI-Frame-Metal-EdgeLeft", top.atlas, "the left edge, turned to light from the top-left")
+			assert.same({ 0, 1, 1, 1, 0, 0, 1, 0 }, top.texCoord, "a quarter turn clockwise, within the atlas")
 			assert.same({ 0, 1, 1, 0 }, corner.texCoord, "flipped within the atlas, not in its file")
 			assert.same({ "TOPRIGHT", strip.frame, "TOPRIGHT", 2, 8 }, corner.point, "the bottom offset turned up")
 			rawset(_G, "NineSliceLayouts", nil)

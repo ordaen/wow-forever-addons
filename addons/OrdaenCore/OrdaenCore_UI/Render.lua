@@ -1069,10 +1069,14 @@ local function mirrorTop(holder, layoutName)
 			piece:SetPoint(pair[3], holder, pair[3], from.x or 0, -(from.y or 0))
 		end
 	end
-	local edge, from = holder.TopEdge, layout.BottomEdge
+	-- The top edge is the left edge turned a quarter clockwise (lit from the top-left like the rest: its outline and
+	-- bright band on the outer side, the user's lighting rule, 2026-11-07), within the atlas: drawn top-left shows
+	-- the art's bottom-left, top-right its top-left.
+	local edge, from = holder.TopEdge, layout.LeftEdge
 	if edge and type(from) == "table" and from.atlas then
-		edge:SetAtlas(from.atlas, true)
-		edge:SetRotation(math.pi)
+		edge:SetAtlas(from.atlas)
+		edge:SetRotation(0)
+		edge:SetTexCoord(0, 1, 1, 1, 0, 0, 1, 0)
 	end
 end
 
@@ -1101,6 +1105,7 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 			mirrorTop(holder, art.layout)
 		elseif holder.TopEdge then
 			holder.TopEdge:SetRotation(0) -- the same pieces may have worn a mirrored top before
+			holder.TopEdge:SetTexCoord(0, 1, 0, 1)
 		end
 		NineSliceUtil.DisableSharpening(holder)
 		NineSliceUtil.ShowLayout(holder)
