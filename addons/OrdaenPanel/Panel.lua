@@ -840,6 +840,19 @@ local function build()
 		spec.columns, spec.gap, spec.padding = { "auto" }, "md", { "sm", "xs", "sm", "xs" }
 		spec.height, spec.rowAlign = nil, nil
 	end
+	-- No border where the panel touches the screen (the user's rule, 2026-11-07): its edge, and along the whole edge
+	-- also both ends. The side facing the screen keeps its border (also where the chat sits on it: an edge can't be
+	-- partly open, and the rest of it would lose its line).
+	local open = spec.open or {}
+	spec.open = open
+	local full = s.fit == "full"
+	open.top, open.bottom, open.left, open.right = nil, nil, nil, nil
+	open[s.edge] = true
+	if across then
+		open.left, open.right = full or nil, full or nil
+	else
+		open.top, open.bottom = full or nil, full or nil
+	end
 	tipFriends.format, tipBnet.format, tipGuild.format = L.TIP_FRIENDS, L.TIP_BNET, L.TIP_GUILD
 	tipRested.format, tipQuest.format = L.TIP_RESTED, L.TIP_QUESTS
 	tipRate.format, tipLevel.format = L.TIP_RATE, L.TIP_LEVEL
