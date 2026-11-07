@@ -32,12 +32,13 @@ and the last 20 different items), then click **Send state** in the Ordaen Dev wi
 | 13 | spell name | right side: rank («Уровень 1», «Ученик») | «Боевой крик» |
 | 16 | unit owner (a pet's) | `guid` (the owner) | «Прислужник \|3-1(Caéna Daerek)» |
 | 20 | binding | `bonding`: 3 = already soulbound («Персональный предмет»), 7 = binds on equip | «Становится персональным при надевании» |
-| 21 | slot · type | left: slot, right: type (empty for rings, trinkets, shirts…); `isValidInvSlot`, `isValidItemType` (false: the type is red, you can't use it) | «Одноручное» \| «Дробящее» |
+| 21 | slot · type | left: slot, right: type (empty for rings, trinkets, shirts…); `isValidInvSlot` (false: the slot is red too, e.g. a weapon type you can't train), `isValidItemType` (false: the type is red, you can't use it) | «Одноручное» \| «Дробящее» |
 | 22 | item name | `quality` | «Медная палица» |
 | 34 | spell description | `wrapText` | «Воин издает боевой крик…» |
 | 42 | set piece or set bonus (grey when not active) | none | «  Алый пояс», «Комплект (2 \|4предмет:предмета:предметов;): +10 к сопротивлению темной магии.» |
 | 43 | requirement | `requirementType` (5 = level, with `level`; 2 = profession; 10 = stance/form), `usable` (false: red) | «Требуется 40-й уровень», «Требуется: Инженерное дело (140)», «Требуется: Оборонительная стойка» |
 | 44 | «Использование:» effect | **`spellID`** | «Использование: Повышает сопротивление огню на 33…» (13744) |
+| 46 | «Возможный эффект при попадании:» (chance on hit) | **`spellID`** | «Возможный эффект при попадании: Наносит противнику 42 ед. урона от темной магии.» (1292158) |
 
 Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on two-sided lines `rightText` and
 `rightColor`.
@@ -45,7 +46,7 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
 ## What it means for our tooltips
 
 - **Structured (no text parsing):** name and quality (22), binding (20), slot and type and whether you can use it
-  (21), required level, profession or stance and whether you meet it (43), «Использование:» and its spell (44), sell
+  (21), required level, profession or stance and whether you meet it (43), «Использование:» and chance-on-hit effects and their spells (44, 46), sell
   price (11), blank lines (1).
 - **Plain text (read with Blizzard's format strings, as SpellStats does):** armor, damage, speed, DPS, durability,
   primary stats, resistances («Устойчивость: +N <school>», not «к сопротивлению»), «Если на персонаже:» effects (white
@@ -53,7 +54,7 @@ Every line also has `leftText`, `leftColor` (a ColorMixin), `lineIndex`, and on 
   использующийся».
 - **Not in the tooltip at all:** item level (Forever doesn't print it on gear): read it from the item's info by ID.
 - **Set bonus lines carry WoW's plural code** (`|4one:few:many;`): render it before showing the text anywhere of our own.
-- **Nested tooltips:** a spell tooltip for type 44 (its `spellID`); the owner for type 16 (`guid`); set pieces have no
+- **Nested tooltips:** a spell tooltip for types 44 and 46 (their `spellID`); the owner for type 16 (`guid`); set pieces have no
   IDs (look them up by name); stats and «Если на персонаже:» have nothing behind them: our own text or Blizzard's stat
   strings below.
 
