@@ -1089,6 +1089,26 @@ describe("OrdaenCore.UI", function()
 			end
 		end
 
+		it("wear the theme's input art (Blizzard's search border) around the box", function()
+			local input = UI.Input({ width = 200, placeholder = "Search" })
+			local look
+			for _, f in ipairs(frames) do
+				if f.parent == input.frame then
+					look = f
+				end
+			end
+			assert.is_truthy(look, "the dress's look, on the box")
+			local atlases = {}
+			for _, t in ipairs(look.textures) do
+				if t.shown and t.atlas then
+					atlases[#atlases + 1] = t.atlas
+				end
+			end
+			assert.same({ "common-search-border-left", "common-search-border-middle", "common-search-border-right" },
+				atlases)
+			assert.is_true(look.shown, "shown")
+		end)
+
 		it("tell listeners what the player typed, not what code set", function()
 			local seen = {}
 			local input = UI.Input({ width = 180, on = { change = function(self, text)
