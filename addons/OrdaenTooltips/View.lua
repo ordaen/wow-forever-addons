@@ -150,6 +150,22 @@ function ViewMethods:Fill(model, owner)
 	self.component:Refresh()
 end
 
+-- Whether `frame` is anchored to `target`, directly or through the frames it hangs from (our views only: a short
+-- chain, the comparison tooltips).
+local function dependsOn(frame, target)
+	for _ = 1, 4 do
+		local _, relative = frame:GetPoint(1)
+		if relative == target then
+			return true
+		end
+		if type(relative) ~= "table" or isSecret(relative) then
+			return false
+		end
+		frame = relative
+	end
+	return false
+end
+
 --- Put the view where the native tooltip is. A native anchored to another native we draw (the comparison tooltips
 --- next to GameTooltip) goes edge to edge with that one's view, on the same side; otherwise the view
 --- takes the native's own corner, so it grows the same way.
@@ -189,8 +205,11 @@ function ViewMethods:Follow(native, viewOf, beside, nearest)
 		-- Blizzard anchors both comparison tooltips to GameTooltip, the second one past the first (both views went
 		-- beside the main one, 2026-11-07): ours hangs from the nearest shown tooltip between it and its anchor.
 		local between = left ~= nil and myX and otherX and nearest and nearest(native, relativeTo, myX, otherX)
-		if between then
-			other, relativeTo = viewOf(between), between
+		-- Never from a view that already hangs from this one (Blizzard re-anchors the first comparison tooltip after the
+		-- second, while the natives move: a loop the game refuses, 2026-11-07).
+		local candidate = between and viewOf(between)
+		if candidate and not dependsOn(candidate.component.frame, c.frame) then
+			other, relativeTo = candidate, between
 		end
 		ns.Debug:Verbosef("takeover: %s beside %s's view, on the %s (native at %s, %s)", native:GetName() or "?",
 			relativeTo:GetName() or "?", left and "left" or "right", tostring(myX), tostring(otherX))

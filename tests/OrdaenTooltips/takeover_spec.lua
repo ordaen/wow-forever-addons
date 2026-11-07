@@ -281,6 +281,17 @@ describe("Ordaen Tooltips", function()
 		assert.equals("TOPRIGHT", point2[1])
 		assert.equals(view, point2[2], "beside the first comparison view")
 		assert.equals("TOPLEFT", point2[3])
+		-- Blizzard re-anchors the first one while the natives move (the second's native now between it and GameTooltip):
+		-- the first must not hang from the second, which hangs from it (a loop the game refuses).
+		view2.GetPoint = function()
+			return "TOPRIGHT", view, "TOPLEFT", 0, 0
+		end
+		shopping.GetCenter = function()
+			return -150, 500
+		end
+		shopping:SetPoint("TOPRIGHT", tooltip, "TOPLEFT", -37, -12)
+		point = view.calls.SetPoint[#view.calls.SetPoint]
+		assert.are_not.equal(view2, point[2], "never from a view that hangs from it")
 	end)
 
 	it("hides ours with the native one", function()
