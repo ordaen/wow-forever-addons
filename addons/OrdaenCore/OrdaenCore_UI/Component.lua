@@ -722,13 +722,15 @@ function Component.Input(spec)
 	local textStyle = Theme.TextStyle("body")
 	local role = Theme.BlockStyle("input")
 	box:SetSize(spec.width or 160, role and role.height or textStyle.size + 2 * space("sm"))
-	box:SetTextInsets(space("sm"), space("sm"), 0, 0)
+	-- The text starts past the border's end caps (as drawn), plus a little room.
+	local capLeft, capRight = Render.ControlInsets("input")
+	box:SetTextInsets(capLeft + space("sm"), capRight + space("sm"), 0, 0)
 	ns.Dress.Font(box, "body")
 	local placeholder = box:CreateFontString(nil, "ARTWORK")
 	ns.Dress.Font(placeholder, "hint")
 	local hint = Theme.TextStyle("hint").color
 	placeholder:SetTextColor(hint[1], hint[2], hint[3], hint[4] or 1)
-	placeholder:SetPoint("LEFT", box, "LEFT", space("sm"), 0)
+	placeholder:SetPoint("LEFT", box, "LEFT", capLeft + space("sm"), 0)
 	placeholder:SetText(spec.placeholder or "")
 	local self = setmetatable({ frame = box, listeners = {}, placeholder = placeholder }, InputMeta)
 	inputs[box] = self

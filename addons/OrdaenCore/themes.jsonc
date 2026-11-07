@@ -120,8 +120,9 @@
     "input": {
       "blizzard": {
         "label": "CONTROL_BLIZZARD", "size": [0, 20],
-        // a nine-slice: its ends at their own width, top and bottom 6 px of the art, so the border stays thin when taller
-        "normal": { "left": "common-search-border-left", "center": "common-search-border-middle", "right": "common-search-border-right", "edges": [6] }
+        // a nine-slice: its ends at their own width, top and bottom 6 px of the art, so the border stays thin when taller;
+        // drawn at 0.4 of the art (about 2.4 px edges), as thin as the plates' rims (the user, 2026-11-07)
+        "normal": { "left": "common-search-border-left", "center": "common-search-border-middle", "right": "common-search-border-right", "edges": [6], "scale": 0.4 }
       }
     },
     "scrollTrack": {

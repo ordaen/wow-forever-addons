@@ -1154,8 +1154,9 @@ describe("OrdaenCore.UI", function()
 			end
 			assert.equals(3, #pieces, "the left end in three rows")
 			assert.same({ 0, 1, 0, 6 / 100 }, pieces[1].texCoord, "its top: 6 px of the (fake) 100 px high art")
-			assert.equals(6, pieces[1].size[2], "6 px high, whatever the field's height")
-			assert.equals(200, pieces[1].size[1], "its own width (the fake atlas is 200 wide: clamped to the field)")
+			assert.is_true(math.abs(pieces[1].size[2] - 6 * 0.4) < 1e-6, "6 px of the art at 0.4, whatever the height")
+			assert.is_true(math.abs(pieces[1].size[1] - 200 * 0.4) < 1e-6, "its own width at 0.4 (the fake: 200)")
+			assert.equals(200 * 0.4 + UI.Space("sm"), input.frame.insets[1], "the text starts past the cap, plus sm")
 		end)
 
 		it("wear the theme's input art (Blizzard's search border) around the box", function()

@@ -1349,11 +1349,19 @@ end
 -- Three slices as a nine-slice (`edges = { px }` on the slices): each end at its atlas's own width, every slice's
 -- top and bottom `px` of the art high whatever the height, so a thin border stays thin on a taller field (the search
 -- box at the buttons' height, 2026-11-07). Built only when a field is drawn, never per frame.
-local function drawNine(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+-- `scale` on the slices draws the whole border smaller than the art (its ends, edges and chamfers alike): Blizzard's
+-- search border at full size read heavy beside the plates (the user, 2026-11-07).
+local function capWidths(piece)
 	local left, right = atlasOf(piece.left), atlasOf(piece.right)
-	local lw, rw = left and left[6] or 8, right and right[6] or 8
+	local k = piece.scale or 1
+	return (left and left[6] or 8) * k, (right and right[6] or 8) * k
+end
+
+local function drawNine(surface, pool, piece, layer, sublevel, x, y, w, h, tint, grey, accent)
+	local left = atlasOf(piece.left)
+	local lw, rw = capWidths(piece)
 	local height = left and left[7] or h
-	local e = math.min(piece.edges[1], h / 2)
+	local e = math.min(piece.edges[1] * (piece.scale or 1), h / 2)
 	local v = math.min(piece.edges[1] / height, 0.5)
 	if lw + rw > w and w > 0 then
 		local scale = w / (lw + rw)
@@ -1483,6 +1491,21 @@ function drawNewMarker(surface, on, h)
 	tex:ClearAllPoints()
 	tex:SetPoint("LEFT", surface, "TOPLEFT", asset.inset or 6, issecretvalue(h) and 0 or -h / 2)
 	tex:Show()
+end
+
+--- How far a role's control art reaches in from its left and right sides (its nine-slice ends, as drawn), in UI
+--- units: where a control's own content (an input's text) starts. 0, 0 for a role without such art.
+---@param role string
+---@return number left
+---@return number right
+function Render.ControlInsets(role)
+	local look = Theme.BlockStyle(role)
+	local art = look and look.controlArt
+	local piece = art and art.asset[art.base]
+	if type(piece) == "table" and piece.left and piece.edges then
+		return capWidths(piece)
+	end
+	return 0, 0
 end
 
 local function hideRest(list, used)
