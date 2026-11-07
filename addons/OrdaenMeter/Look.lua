@@ -9,7 +9,8 @@
 --     as tall as the strip; touching cells share one line. Blizzard's buttons keep working: their art is hidden and
 --     each sits invisibly over its cell (placed after every draw), and its cell lights while it's hovered.
 --   the body: the theme's panel under the bars (on Blizzard's container, so it hides when the window is minimized).
---   the bars: the bar texture (UI.DressBar: the theme's, or the barTexture setting), the theme's fonts.
+--   the bars: the bar texture (UI.DressBar: the theme's, or the barTexture setting), the class's palette colour
+--     (OrdaenCore.Colors), the theme's fonts with a 1 px outline, and a faint scrim under the texts.
 -- Cost: no events and nothing per frame. Post-hooks on each window's InitEntry/SetupEntry (a bar shown, or reused
 -- from its pool), SetMinimized, and DamageMeter:SetupSessionWindow (a new window); the header is drawn again only
 -- when it changes (resize, hover, minimize). Each window and bar is dressed once.
@@ -34,10 +35,80 @@ local settingAlpha = false -- our own SetAlpha calls
 local texts = 0 -- texts dressed (for the dump)
 local windowOf = {} -- a header look or a Blizzard control -> its session window (never a field on theirs)
 
-local function dressText(text, style)
+local Colors = OrdaenCore.Colors
+local blizzardColor = {} -- bar -> the colour Blizzard last gave its fill (a ColorMixin: a class's, or the meter's own)
+local classOfColor -- Blizzard's class colour object (RAID_CLASS_COLORS[...]) -> class file, made once
+local scrims = {} -- bar -> { left, right }: our faint dark gradients under its name and number
+local scrimDark, scrimClear -- the scrim's two colours, made once
+
+local function dressText(text, style, flags)
 	if type(text) == "table" and text:IsObjectType("FontString") then
-		UI.DressFont(text, style)
+		UI.DressFont(text, style, flags)
 		texts = texts + 1
+	end
+end
+
+-- Bar colours: Blizzard colours a bar with a class's RAID_CLASS_COLORS object (or its own colours for creatures,
+-- allies, enemies). We know the class by that object, never by the bar's classFilename (secret in combat), and
+-- paint the fill in the class's palette colour instead (OrdaenCore.Colors, the player's pick). Other colours stay.
+local function classOf(color)
+	if not classOfColor then
+		classOfColor = {}
+		for classFile, blizzard in pairs(RAID_CLASS_COLORS or {}) do
+			if Colors:ClassName(classFile) then
+				classOfColor[blizzard] = classFile
+			end
+		end
+	end
+	return classOfColor[color]
+end
+
+local function paint(bar)
+	local color = blizzardColor[bar]
+	if not color then
+		return
+	end
+	local class = classOf(color)
+	local ours = on and class and Colors:Class(class)
+	bar:GetStatusBarTexture():SetVertexColor((ours or color):GetRGB())
+end
+
+-- Blizzard set a bar's colour (entry:SetStatusBarColor; the hook's arguments are Blizzard's).
+local function onBarColor(bar, color)
+	blizzardColor[bar] = color
+	paint(bar)
+end
+
+local function repaint()
+	for bar in pairs(blizzardColor) do
+		paint(bar)
+	end
+end
+
+-- The scrim: a faint dark gradient from each end of the bar towards its middle, between the fill and the texts, so
+-- white outlined text reads on light colours too. Two textures anchored to the bar's own points (its middle is
+-- its TOP/BOTTOM point): its size, secret in combat, is never read.
+local function scrimFor(statusBar)
+	if not scrimDark then
+		scrimDark, scrimClear = CreateColor(0, 0, 0, 0.4), CreateColor(0, 0, 0, 0)
+	end
+	local left = statusBar:CreateTexture(nil, "ARTWORK", nil, 7)
+	left:SetTexture("Interface\\Buttons\\WHITE8X8")
+	left:SetPoint("TOPLEFT", statusBar, "TOPLEFT")
+	left:SetPoint("BOTTOMRIGHT", statusBar, "BOTTOM")
+	left:SetGradient("HORIZONTAL", scrimDark, scrimClear)
+	local right = statusBar:CreateTexture(nil, "ARTWORK", nil, 7)
+	right:SetTexture("Interface\\Buttons\\WHITE8X8")
+	right:SetPoint("TOPLEFT", statusBar, "TOP")
+	right:SetPoint("BOTTOMRIGHT", statusBar, "BOTTOMRIGHT")
+	right:SetGradient("HORIZONTAL", scrimClear, scrimDark)
+	return { left, right }
+end
+
+local function showScrims(shown)
+	for _, pair in pairs(scrims) do
+		pair[1]:SetShown(shown)
+		pair[2]:SetShown(shown)
 	end
 end
 
@@ -87,8 +158,16 @@ local function dressBar(bar)
 	local statusBar = bar.GetStatusBar and bar:GetStatusBar()
 	bars[bar] = statusBar and UI.DressBar(statusBar, barAsset) or false
 	if statusBar then
-		dressText(statusBar.Name, "body")
-		dressText(statusBar.Value, "value")
+		-- White text on the coloured fill: a 1 px outline and the scrim under it (the look the user picked).
+		dressText(statusBar.Name, "body", "OUTLINE")
+		dressText(statusBar.Value, "value", "OUTLINE")
+		scrims[bar] = scrimFor(statusBar)
+		-- The class's palette colour on the fill, now and whenever Blizzard colours the bar again.
+		if bar.SetStatusBarColor and bar.GetStatusBarTexture then
+			blizzardColor[bar] = rawget(bar, "statusBarColor")
+			hooksecurefunc(bar, "SetStatusBarColor", onBarColor)
+			paint(bar)
+		end
 		-- Blizzard's per-bar art: a shadowed, bordered track under the fill (Background) and a shadow edge over it
 		-- (BackgroundEdge, OVERLAY: it darkened every texture's rim). Only the fill and its texts stay, on our panel.
 		hideArt(bar.GetBackground and bar:GetBackground())
@@ -322,6 +401,7 @@ function Look.Hook()
 	if not hookedMeter then
 		hookedMeter = true
 		hooksecurefunc(meter, "SetupSessionWindow", dressWindows) -- a window was added
+		Colors:On("change", repaint) -- the player picked a colour in Ordaen Core's settings
 	end
 	dressWindows()
 end
@@ -345,6 +425,8 @@ function Look.Enable(asset)
 	for texture in pairs(hiddenArt) do
 		hideArt(texture)
 	end
+	showScrims(true)
+	repaint()
 	Look.Hook()
 end
 
@@ -359,7 +441,8 @@ function Look.SetBarTexture(asset)
 	end
 end
 
---- Give the meter Blizzard's look back (the fonts stay the theme's until a /reload).
+--- Give the meter Blizzard's look back: its art, colours (class colours as Blizzard gave them) and no scrim; the
+--- fonts stay the theme's until a /reload.
 function Look.Disable()
 	on = false
 	for _, look in pairs(looks) do
@@ -373,6 +456,8 @@ function Look.Disable()
 		end
 	end
 	showArt()
+	showScrims(false)
+	repaint()
 end
 
 --- What the dev-mode dump records: whether the game's meter is there and on, and what we dressed.

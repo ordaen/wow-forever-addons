@@ -60,14 +60,40 @@ local function texture(name)
 	return stub(name, { kind = "Texture" })
 end
 
--- A bar of the meter: a button with a status bar holding its name and value.
-local function entry(name)
+-- A colour as Blizzard's ColorMixin: r, g, b and GetRGB.
+local function blizzardColor(r, g, b)
+	return { r = r, g = g, b = b, GetRGB = function(c)
+		return c.r, c.g, c.b
+	end }
+end
+
+-- Blizzard's class colours (RAID_CLASS_COLORS) for two classes, and the meter's own default colour.
+local RAID = { ROGUE = blizzardColor(1, 0.96, 0.41), MAGE = blizzardColor(0.25, 0.78, 0.92) }
+local METER_DEFAULT = blizzardColor(0.5, 0.5, 0.5)
+
+-- A bar of the meter: a button with a status bar holding its name and value; Blizzard colours its fill with
+-- entry:SetStatusBarColor(colour) (DamageMeterEntry.lua), a class's RAID_CLASS_COLORS object or its own.
+local function entry(name, colour)
+	local fill = texture(name .. ".Fill")
 	local statusBar = stub(name .. ".StatusBar", { kind = "StatusBar", Name = fontString(name .. ".Name"),
-		Value = fontString(name .. ".Value") })
+		Value = fontString(name .. ".Value"), made = {} })
+	function statusBar:CreateTexture(_, layer, _, sublevel)
+		local t = texture(name .. ".Ours")
+		t.layer, t.sublevel = layer, sublevel
+		self.made[#self.made + 1] = t
+		return t
+	end
 	local bar = stub(name, { kind = "Button", statusBar = statusBar, track = texture(name .. ".Background"),
-		edge = texture(name .. ".BackgroundEdge") })
+		edge = texture(name .. ".BackgroundEdge"), fill = fill })
 	function bar:GetStatusBar()
 		return self.statusBar
+	end
+	function bar:GetStatusBarTexture()
+		return self.fill
+	end
+	function bar:SetStatusBarColor(c)
+		self.statusBarColor = c
+		self.fill:SetVertexColor(c:GetRGB())
 	end
 	function bar:GetBackground()
 		return self.track
@@ -75,7 +101,14 @@ local function entry(name)
 	function bar:GetBackgroundEdge()
 		return self.edge
 	end
+	bar:SetStatusBarColor(colour or RAID.ROGUE)
 	return bar
+end
+
+-- The last colour the fill was given, as { r, g, b }.
+local function fillColour(bar)
+	local calls = bar.fill.calls.SetVertexColor
+	return calls[#calls]
 end
 
 -- A session window as on Forever (Blizzard's DamageMeterSessionWindow.xml): the header strip is a texture; the meter
@@ -160,7 +193,7 @@ local function meterFrame()
 end
 
 describe("Ordaen Meter", function()
-	local ns, frames, dressed, fonts, bars, meter
+	local ns, frames, dressed, fonts, outlines, bars, meter, Core
 
 	local function fire(event, arg)
 		frames[1].scripts.OnEvent(frames[1], event, arg)
@@ -207,8 +240,9 @@ describe("Ordaen Meter", function()
 			dressed[frame] = dress
 			return dress
 		end
-		UI.DressFont = function(text, style)
+		UI.DressFont = function(text, style, flags)
 			fonts[text] = style
+			outlines[text] = flags
 		end
 		UI.DressBar = function(bar, asset)
 			local dress = { bar = bar, asset = asset, on = true }
@@ -246,6 +280,7 @@ describe("Ordaen Meter", function()
 			C_DamageMeter = { IsDamageMeterAvailable = function()
 				return true
 			end },
+			RAID_CLASS_COLORS = RAID,
 		})
 		if not withMeter then
 			rawset(_G, "DamageMeter", nil) -- not loaded yet
@@ -253,7 +288,9 @@ describe("Ordaen Meter", function()
 		rawget(_G, "C_AddOns").LoadAddOn = function()
 			error("the real UI framework must not load: the spec fakes its dressing")
 		end
-		helpers.loadCore()
+		rawset(_G, "OrdaenCoreDB", nil)
+		Core = helpers.loadCore()
+		fire("ADDON_LOADED", "OrdaenCore") -- its settings: the palette (OrdaenCore.Colors)
 		fakeDressing()
 		ns = {}
 		helpers.loadAddon("OrdaenMeter", ns)
@@ -278,7 +315,7 @@ describe("Ordaen Meter", function()
 	end
 
 	before_each(function()
-		frames, dressed, fonts, bars = {}, {}, {}, {}
+		frames, dressed, fonts, outlines, bars = {}, {}, {}, {}, {}
 		rawset(_G, "OrdaenMeterDB", nil)
 		meter = meterFrame()
 	end)
@@ -386,6 +423,52 @@ describe("Ordaen Meter", function()
 			{ described.on, described.meter, described.available, described.windows, described.bars })
 	end)
 
+	it("paints a class's bar in its palette colour, now and when Blizzard colours it again", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		local rogue = entry("Bar1", RAID.ROGUE)
+		window:InitEntry(rogue)
+		load(true)
+		local Colors = Core.Colors
+		assert.same({ Colors:Class("ROGUE"):GetRGB() }, fillColour(rogue), "the palette's yellow, not Blizzard's")
+		rogue:SetStatusBarColor(RAID.MAGE) -- the bar is reused for a mage
+		assert.same({ Colors:Get("cyan"):GetRGB() }, fillColour(rogue))
+		rogue:SetStatusBarColor(METER_DEFAULT) -- a creature: the meter's own colour stays
+		assert.same({ 0.5, 0.5, 0.5 }, fillColour(rogue))
+	end)
+
+	it("repaints when the player picks another colour in Ordaen Core's settings", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		local mage = entry("Bar1", RAID.MAGE)
+		window:InitEntry(mage)
+		load(true)
+		local A
+		for _, addon in ipairs(Core._addons) do
+			A = addon.name == "OrdaenCore" and addon or A
+		end
+		A:Set("palette.cyan", { 0.1, 0.5, 0.6 })
+		assert.same({ 0.1, 0.5, 0.6 }, fillColour(mage))
+		A:Set("class.MAGE", "violet")
+		assert.same({ Core.Colors:Get("violet"):GetRGB() }, fillColour(mage))
+	end)
+
+	it("outlines the bar's texts and puts a scrim under them, made from the bar's own points", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		local bar = entry("Bar1")
+		window:InitEntry(bar)
+		load(true)
+		assert.equals("OUTLINE", outlines[bar.statusBar.Name])
+		assert.equals("OUTLINE", outlines[bar.statusBar.Value])
+		local left, right = bar.statusBar.made[1], bar.statusBar.made[2]
+		assert.same({ "ARTWORK", 7 }, { left.layer, left.sublevel }, "over the fill, under the texts")
+		assert.same({ "BOTTOMRIGHT", bar.statusBar, "BOTTOM" }, left.calls.SetPoint[2], "to the middle")
+		assert.same({ "TOPLEFT", bar.statusBar, "TOP" }, right.calls.SetPoint[1])
+		assert.equals("HORIZONTAL", left.calls.SetGradient[1][1])
+		assert.is_nil(bar.statusBar.calls.GetWidth, "the bar's size (secret in combat) is never read")
+	end)
+
 	it("dresses a window the meter adds later", function()
 		load(true)
 		local window = sessionWindow("DamageMeterSessionWindow2")
@@ -423,6 +506,9 @@ describe("Ordaen Meter", function()
 		assert.is_false(bars[bar.statusBar].on)
 		assert.same({ 1 }, lastAlpha(bar.track), "Blizzard's track back, at its own alpha")
 		assert.same({ 1 }, lastAlpha(bar.edge))
+		assert.same({ RAID.ROGUE:GetRGB() }, fillColour(bar), "Blizzard's class colour back")
+		local scrim = bar.statusBar.made[1].calls.SetShown
+		assert.same({ false }, scrim[#scrim], "no scrim")
 		assert.equals(1, #window.settings.calls.ClearAllPoints - placed, "back where Blizzard put it")
 		local later = entry("Bar2")
 		window:Show(later)
