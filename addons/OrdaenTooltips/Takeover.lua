@@ -259,7 +259,14 @@ local function flatten(value, depth)
 	end)
 	local parts = {}
 	for _, k in ipairs(keys) do
-		parts[#parts + 1] = tostring(k) .. "=" .. flatten(value[k], depth + 1)
+		local v = value[k]
+		-- A colour shows as its hex value; functions (a colour's methods) are left out.
+		if type(v) == "table" and v.GetRGB and not isSecret(v) then
+			parts[#parts + 1] = string.format("%s=#%02x%02x%02x", tostring(k), (v.r or 0) * 255, (v.g or 0) * 255,
+				(v.b or 0) * 255)
+		elseif type(v) ~= "function" then
+			parts[#parts + 1] = tostring(k) .. "=" .. flatten(v, depth + 1)
+		end
 	end
 	return "{" .. table.concat(parts, " ") .. "}"
 end
@@ -282,7 +289,7 @@ local function probe()
 				entry[string.format("line%02d", i)] = flatten(line, 1)
 			end
 		end
-		out["kind" .. tostring(kind)] = entry
+		out[type(kind) == "number" and "kind" .. kind or tostring(kind)] = entry
 	end
 	return out
 end
