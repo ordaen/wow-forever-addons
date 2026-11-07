@@ -159,7 +159,7 @@ end
 ---@param viewOf fun(native: table): OrdaenTooltipsView|nil
 ---@param beside table|nil
 function ViewMethods:Follow(native, viewOf, beside)
-	local point, relativeTo, relativePoint, x, y = native:GetPoint(1)
+	local point, relativeTo, _, x, y = native:GetPoint(1)
 	local c = self.component
 	c:ClearAllPoints()
 	if beside then
