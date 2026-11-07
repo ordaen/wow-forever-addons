@@ -89,6 +89,7 @@ local freeCell = { width = SLOT, height = SLOT }
 -- The bags view's empty slots: one record per cell, made on first use and reused (what their buttons show: nothing)
 local empties = {} ---@type table<integer, OrdaenBagsItem>
 local sidebarCell = {} -- the sidebar's cell in the window (hidden in the bags view)
+local sortCell = {} -- the sort dropdown's cell in the top row (hidden in the bags view: the bags keep their order)
 local freeSection = { columns = { "auto" }, gap = "xs", { text = "", style = "label" }, { columns = { SLOT },
 	freeCell } }
 local freeText = { format = NUM_FREE_SLOTS, args = { 0 }, style = "label" }
@@ -318,7 +319,7 @@ local function layout()
 	current, inRow, rowWidth, rowCount = nil, 0, 0, 0
 	Slots.HideAll()
 	local bagsView = setting("view", "categories") == "bags"
-	sidebarCell.hidden = bagsView
+	sidebarCell.hidden, sortCell.hidden = bagsView, bagsView
 	local used = 0
 	local n = bagsView and 0 or Data.Group(selected, groups, setting("sort", "bags"))
 	if bagsView then
@@ -730,13 +731,13 @@ local function build()
 	end
 	bagStripCell.embed = bagStrip
 	bagStrip:Hide()
-	sidebarCell.embed = sidebar
+	sidebarCell.embed, sortCell.embed = sidebar, sortButton
 	local top = {
 		colSpan = 2, columns = { "auto", "1fr", "auto", "auto", "auto", "auto", "auto", "auto" }, gap = "sm",
 		rowAlign = "center",
 		{ embed = search },
 		{ text = "" },
-		{ embed = sortButton },
+		sortCell,
 		{ embed = arrange },
 		{ embed = bags },
 		{ embed = view },
