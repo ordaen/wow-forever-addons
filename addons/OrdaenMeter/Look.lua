@@ -41,9 +41,9 @@ local classOfColor -- Blizzard's class colour object (RAID_CLASS_COLORS[...]) ->
 local scrims = {} -- bar -> { left, right }: our faint dark gradients under its name and number
 local scrimDark, scrimClear -- the scrim's two colours, made once
 
-local function dressText(text, style, flags)
+local function dressText(text, style)
 	if type(text) == "table" and text:IsObjectType("FontString") then
-		UI.DressFont(text, style, flags)
+		UI.DressFont(text, style)
 		texts = texts + 1
 	end
 end
@@ -158,9 +158,9 @@ local function dressBar(bar)
 	local statusBar = bar.GetStatusBar and bar:GetStatusBar()
 	bars[bar] = statusBar and UI.DressBar(statusBar, barAsset) or false
 	if statusBar then
-		-- White text on the coloured fill: a 1 px outline and the scrim under it (the look the user picked).
-		dressText(statusBar.Name, "body", "OUTLINE")
-		dressText(statusBar.Value, "value", "OUTLINE")
+		-- White text on the coloured fill: the theme's outlined text styles and the scrim under them.
+		dressText(statusBar.Name, "onBar")
+		dressText(statusBar.Value, "onBarValue")
 		scrims[bar] = scrimFor(statusBar)
 		-- The class's palette colour on the fill, now and whenever Blizzard colours the bar again.
 		if bar.SetStatusBarColor and bar.GetStatusBarTexture then

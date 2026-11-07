@@ -193,7 +193,7 @@ local function meterFrame()
 end
 
 describe("Ordaen Meter", function()
-	local ns, frames, dressed, fonts, outlines, bars, meter, Core
+	local ns, frames, dressed, fonts, bars, meter, Core
 
 	local function fire(event, arg)
 		frames[1].scripts.OnEvent(frames[1], event, arg)
@@ -240,9 +240,8 @@ describe("Ordaen Meter", function()
 			dressed[frame] = dress
 			return dress
 		end
-		UI.DressFont = function(text, style, flags)
+		UI.DressFont = function(text, style)
 			fonts[text] = style
-			outlines[text] = flags
 		end
 		UI.DressBar = function(bar, asset)
 			local dress = { bar = bar, asset = asset, on = true }
@@ -315,7 +314,7 @@ describe("Ordaen Meter", function()
 	end
 
 	before_each(function()
-		frames, dressed, fonts, outlines, bars = {}, {}, {}, {}, {}
+		frames, dressed, fonts, bars = {}, {}, {}, {}
 		rawset(_G, "OrdaenMeterDB", nil)
 		meter = meterFrame()
 	end)
@@ -406,8 +405,8 @@ describe("Ordaen Meter", function()
 		window:InitEntry(first)
 		load(true)
 		assert.equals(ns.Addon:Get("barTexture"), bars[first.statusBar].asset)
-		assert.equals("body", fonts[first.statusBar.Name])
-		assert.equals("value", fonts[first.statusBar.Value])
+		assert.equals("onBar", fonts[first.statusBar.Name])
+		assert.equals("onBarValue", fonts[first.statusBar.Value])
 		assert.is_nil(dressed[first.statusBar], "never measured: a bar's size is secret in combat")
 		for _, art in ipairs({ first.track, first.edge }) do
 			assert.same({ 0 }, lastAlpha(art), "Blizzard's track and shadow edge hidden")
@@ -459,8 +458,8 @@ describe("Ordaen Meter", function()
 		local bar = entry("Bar1")
 		window:InitEntry(bar)
 		load(true)
-		assert.equals("OUTLINE", outlines[bar.statusBar.Name])
-		assert.equals("OUTLINE", outlines[bar.statusBar.Value])
+		assert.equals("onBar", fonts[bar.statusBar.Name], "the theme's outlined style for text on bars")
+		assert.equals("onBarValue", fonts[bar.statusBar.Value])
 		local left, right = bar.statusBar.made[1], bar.statusBar.made[2]
 		assert.same({ "ARTWORK", 7 }, { left.layer, left.sublevel }, "over the fill, under the texts")
 		assert.same({ "BOTTOMRIGHT", bar.statusBar, "BOTTOM" }, left.calls.SetPoint[2], "to the middle")
