@@ -224,7 +224,7 @@ for i = 1, MAX_LINES do
 	trackingBlock[i] = trackingLines[i]
 end
 trackingBlock[#trackingBlock + 1] = trackingNone
-trackingBlock[#trackingBlock + 1] = { text = L.TRACKING_TOOLTIP_MENU, style = "hint" }
+trackingBlock.hints = { L.TRACKING_TOOLTIP_MENU }
 local trackingTip = UI.Tooltip(trackingBlock, RING_TIP)
 
 -- What is tracked now. Forever's info has `name` and `active` like mainline's; anything else is unused.

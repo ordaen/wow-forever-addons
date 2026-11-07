@@ -42,7 +42,7 @@ local subzoneName = { text = "", style = "label" }
 local zoneTooltip = UI.Tooltip({
 	zoneName,
 	subzoneName,
-	{ text = L.ZONE_TOOLTIP_MAP, style = "hint" },
+	hints = { L.ZONE_TOOLTIP_MAP },
 }, { side = "below" })
 
 -- The zone name opens the world map: its key binding at the bottom of the tooltip (the calendar has no binding).
@@ -68,9 +68,7 @@ local clockTooltip = UI.Tooltip({
 		realmTime,
 		invitesLine,
 	},
-	{ separator = "rule" },
-	{ text = L.TIME_TOOLTIP_CALENDAR, style = "hint" },
-	{ text = L.TIME_TOOLTIP_CLOCK, style = "hint" },
+	hints = { L.TIME_TOOLTIP_CALENDAR, L.TIME_TOOLTIP_CLOCK },
 }, { side = "below" })
 
 -- Zone -----------------------------------------------------------------------------------------
