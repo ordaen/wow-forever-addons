@@ -78,5 +78,6 @@
   "BACKGROUND_GENERAL": "Окно персонажа",
   "BACKGROUND_DIALOG": "Диалог",
   "BACKGROUND_INSET": "Внутренняя панель",
-  "BACKGROUND_NONE": "Нет"
+  "BACKGROUND_NONE": "Нет",
+  "FRAME_METAL_THIN": "Тонкий металл"
 }

@@ -78,5 +78,6 @@
   "BACKGROUND_GENERAL": "Character window",
   "BACKGROUND_DIALOG": "Dialog",
   "BACKGROUND_INSET": "Inset",
-  "BACKGROUND_NONE": "None"
+  "BACKGROUND_NONE": "None",
+  "FRAME_METAL_THIN": "Metal, thin"
 }

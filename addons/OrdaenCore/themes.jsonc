@@ -15,6 +15,8 @@
       // NineSliceUtil.ApplyLayoutByName, so the pieces and offsets are Blizzard's own.
       "metal": { "label": "FRAME_METAL", "layout": "ButtonFrameTemplateNoPortrait" },
       "metal-portrait": { "label": "FRAME_METAL_PORTRAIT", "layout": "PortraitFrameTemplate" },
+      // even-edged metal without a title bar: small surfaces (tooltip, panel strip, chat window)
+      "metal-thin": { "label": "FRAME_METAL_THIN", "layout": "GenericMetal" },
       "dialog": { "label": "FRAME_DIALOG", "layout": "Dialog" },
       "inset": { "label": "FRAME_INSET", "layout": "InsetFrameTemplate" }
     },
@@ -41,6 +43,7 @@
     // window, dialog and inset (panes inside a window): border and fill each
     "frame.background": "background",
     "frame.portrait": "frame", // a window with Blizzard's portrait ring (Ordaen Reskin)
+    "frame.borderSmall": "frame", // small surfaces (tooltip, panel strip, chat window), at frame.scale.small
     "frame.dialog": "frame",
     "frame.dialogBackground": "background",
     "frame.inset": "frame",
@@ -93,6 +96,7 @@
   "themes": {
     "ordaen": {
       "frame.border": "metal", "frame.background": "general", "frame.portrait": "metal-portrait",
+      "frame.borderSmall": "metal-thin",
       "frame.dialog": "dialog", "frame.dialogBackground": "dialog",
       "frame.inset": "inset", "frame.insetBackground": "inset",
       "frame.scale.window": 1, "frame.scale.small": 0.5,
