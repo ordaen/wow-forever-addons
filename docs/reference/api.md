@@ -1,7 +1,32 @@
 # API
 
-Everything is on `OrdaenCore.UI`. Things with state are objects with `:` methods (see "Lua code style" in
-`CLAUDE.md`). Names become permanent at the first release of Ordaen Core; until then they may still change.
+Everything is on `OrdaenCore.UI`, except the palette (`OrdaenCore.Colors`, below). Things with state are objects
+with `:` methods (see "Lua code style" in `CLAUDE.md`). Names become permanent at the first release of Ordaen Core;
+until then they may still change.
+
+## OrdaenCore.Colors
+
+```lua
+local Colors = OrdaenCore.Colors
+bar.color = Colors:Get("blue")                            -- a bar fill (white text on it)
+label:SetTextColor(Colors:ClassText(classFile):GetRGB())  -- a class name on a dark background
+local line = "|c" .. Colors:ClassText("MAGE"):Hex() .. name .. "|r"
+Colors:On("change", onColors)                             -- the player picked a colour: redraw
+```
+
+The palette every Ordaen addon uses, so chat, the panel, the meter and the rest show the same colours: `red`,
+`orange`, `yellow`, `green`, `cyan`, `blue`, `violet`, `pink`, `tan`, `white`, `grey` (`Colors:Names()`). Each has
+two tones: `:Get(name)` for fills, dark enough for white text on it, and `:Text(name)` for text on dark
+backgrounds. Each of WoW Forever's nine classes shows in one of them: `:ClassName(classFile)` (`"yellow"` for
+`ROGUE` by default), `:Class(classFile)` and `:ClassText(classFile)`. Don't read `RAID_CLASS_COLORS`; it stays
+Blizzard's.
+
+Players pick every tone (colour pickers) and each class's colour in Ordaen Core's settings; the defaults are the
+theme's (`color.palette.<name>` and `color.palette.<name>.text` in `themes.jsonc`, made by `art/palette.py`,
+balanced for dark backgrounds and weak monitors). A colour is `{ r, g, b }` with `.r .g .b`, `:GetRGB()` and
+`:Hex()` (`"ffRRGGBB"`); it can go straight into a UI spec's `color`. The tables are made once and updated in place
+when the player picks again, so keep them; listen to `"change"` (`:On(event, fn)` / `:Off(event, fn)`) to redraw.
+Unknown names and classes give nil.
 
 ## UI.Tooltip
 

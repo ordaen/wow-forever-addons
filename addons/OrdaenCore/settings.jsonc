@@ -22,6 +22,50 @@
       }
     },
     {
+      // The palette: every Ordaen addon's colours, a bar tone (white text on it) and a text tone each; the
+      // defaults are the theme's (art/palette.py). OrdaenCore.Colors reads them (Colors.lua).
+      "header": "HEADER_COLORS",
+      "settings": {
+        "palette.red": { "type": "color", "default": { "theme": "color.palette.red" }, "label": "PALETTE_RED", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.redText": { "type": "color", "default": { "theme": "color.palette.red.text" }, "label": "PALETTE_RED_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.orange": { "type": "color", "default": { "theme": "color.palette.orange" }, "label": "PALETTE_ORANGE", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.orangeText": { "type": "color", "default": { "theme": "color.palette.orange.text" }, "label": "PALETTE_ORANGE_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.yellow": { "type": "color", "default": { "theme": "color.palette.yellow" }, "label": "PALETTE_YELLOW", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.yellowText": { "type": "color", "default": { "theme": "color.palette.yellow.text" }, "label": "PALETTE_YELLOW_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.green": { "type": "color", "default": { "theme": "color.palette.green" }, "label": "PALETTE_GREEN", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.greenText": { "type": "color", "default": { "theme": "color.palette.green.text" }, "label": "PALETTE_GREEN_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.cyan": { "type": "color", "default": { "theme": "color.palette.cyan" }, "label": "PALETTE_CYAN", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.cyanText": { "type": "color", "default": { "theme": "color.palette.cyan.text" }, "label": "PALETTE_CYAN_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.blue": { "type": "color", "default": { "theme": "color.palette.blue" }, "label": "PALETTE_BLUE", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.blueText": { "type": "color", "default": { "theme": "color.palette.blue.text" }, "label": "PALETTE_BLUE_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.violet": { "type": "color", "default": { "theme": "color.palette.violet" }, "label": "PALETTE_VIOLET", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.violetText": { "type": "color", "default": { "theme": "color.palette.violet.text" }, "label": "PALETTE_VIOLET_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.pink": { "type": "color", "default": { "theme": "color.palette.pink" }, "label": "PALETTE_PINK", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.pinkText": { "type": "color", "default": { "theme": "color.palette.pink.text" }, "label": "PALETTE_PINK_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.tan": { "type": "color", "default": { "theme": "color.palette.tan" }, "label": "PALETTE_TAN", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.tanText": { "type": "color", "default": { "theme": "color.palette.tan.text" }, "label": "PALETTE_TAN_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.white": { "type": "color", "default": { "theme": "color.palette.white" }, "label": "PALETTE_WHITE", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.whiteText": { "type": "color", "default": { "theme": "color.palette.white.text" }, "label": "PALETTE_WHITE_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" },
+        "palette.grey": { "type": "color", "default": { "theme": "color.palette.grey" }, "label": "PALETTE_GREY", "tooltip": "PALETTE_FILL_TOOLTIP" },
+        "palette.greyText": { "type": "color", "default": { "theme": "color.palette.grey.text" }, "label": "PALETTE_GREY_TEXT", "tooltip": "PALETTE_TEXT_TOOLTIP" }
+      }
+    },
+    {
+      // Each class's colour: one of the palette's.
+      "header": "HEADER_CLASS_COLORS",
+      "settings": {
+        "class.WARRIOR": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "tan", "label": "CLASS_WARRIOR", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.PALADIN": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "pink", "label": "CLASS_PALADIN", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.HUNTER": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "green", "label": "CLASS_HUNTER", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.ROGUE": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "yellow", "label": "CLASS_ROGUE", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.PRIEST": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "white", "label": "CLASS_PRIEST", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.SHAMAN": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "blue", "label": "CLASS_SHAMAN", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.MAGE": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "cyan", "label": "CLASS_MAGE", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.WARLOCK": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "violet", "label": "CLASS_WARLOCK", "tooltip": "CLASS_COLOR_TOOLTIP" },
+        "class.DRUID": { "type": "choice", "choices": [{ "id": "red", "label": "PALETTE_RED" }, { "id": "orange", "label": "PALETTE_ORANGE" }, { "id": "yellow", "label": "PALETTE_YELLOW" }, { "id": "green", "label": "PALETTE_GREEN" }, { "id": "cyan", "label": "PALETTE_CYAN" }, { "id": "blue", "label": "PALETTE_BLUE" }, { "id": "violet", "label": "PALETTE_VIOLET" }, { "id": "pink", "label": "PALETTE_PINK" }, { "id": "tan", "label": "PALETTE_TAN" }, { "id": "white", "label": "PALETTE_WHITE" }, { "id": "grey", "label": "PALETTE_GREY" }], "default": "orange", "label": "CLASS_DRUID", "tooltip": "CLASS_COLOR_TOOLTIP" }
+      }
+    },
+    {
       "settings": {
         // "<ours>:<theirs>" -> true: the player kept both addons of a conflict (Conflict.lua; at most 50)
         "keptConflicts": { "type": "map", "of": "boolean", "default": {}, "page": false }

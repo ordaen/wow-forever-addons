@@ -265,6 +265,6 @@ player changed).
   theme's own colour, or Blizzard's Defaults, forgets the player's choice; the picker has no alpha, a saved alpha
   is kept), `enabledBy` greys a control out; the other types aren't on the page yet. A page drawn with OrdaenCore.UI
   components is planned (roadmap).
-- **Ordaen Core** has a manifest too (`OrdaenCore/settings.jsonc`: `ui.theme`, `ui.textSize`, `keptConflicts`).
+- **Ordaen Core** has a manifest too (`OrdaenCore/settings.jsonc`: `ui.theme`, `ui.textSize`, the palette `palette.<name>` and `palette.<name>Text`, each class's colour `class.<CLASS>`, `keptConflicts`; `OrdaenCore.Colors` reads the palette).
   Its theme is applied when it loads, before the addons that depend on it bind; a theme change from its page
   moves every addon's untouched settings, then OrdaenCore.UI redraws.
