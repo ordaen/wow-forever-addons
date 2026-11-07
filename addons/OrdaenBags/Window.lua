@@ -43,6 +43,7 @@ local sidebar ---@type OrdaenUIComponent|nil
 local itemsPane ---@type OrdaenUIComponent|nil
 local sortButton ---@type OrdaenUIComponent|nil
 local bagStrip ---@type OrdaenUIComponent|nil
+local bagStripCell = { colSpan = 2, hidden = true } -- the bag strip's cell in the window: hidden until asked for
 local selected = "all" -- the tab shown (not saved: the window opens on all items)
 local litBag = nil -- the bag whose items the bag strip lights up (hovered)
 
@@ -115,7 +116,10 @@ local function capitalized(text)
 	elseif b1 == 0xD1 and b2 == 0x91 then
 		return string.char(0xD0, 0x81) .. text:sub(3)
 	end
-	return text:sub(1, 1):upper() .. text:sub(2)
+	if b1 and b1 < 0x80 then
+		return text:sub(1, 1):upper() .. text:sub(2)
+	end
+	return text -- already a capital (or a letter with no case): left as it is
 end
 View.Capitalized = capitalized -- specs
 
@@ -453,8 +457,12 @@ end
 
 local function onToggleBags()
 	if bagStrip and win then
-		bagStrip.block.hidden = not bagStrip.block.hidden
-		bagStrip:Refresh()
+		bagStripCell.hidden = not bagStripCell.hidden
+		if bagStripCell.hidden then
+			bagStrip:Hide()
+		else
+			bagStrip:Show()
+		end
 		win:Refresh()
 	end
 end
@@ -508,7 +516,7 @@ local function bagLeave()
 end
 
 local function buildBagStrip()
-	local strip = { hidden = true, gap = "sm", rowAlign = "center" }
+	local strip = { gap = "sm", rowAlign = "center" }
 	local columns = {}
 	for bag = BACKPACK_CONTAINER, NUM_BAG_SLOTS do
 		local icon = { image = bag == BACKPACK_CONTAINER and "Interface\\Buttons\\Button-Backpack-Up" or nil,
@@ -567,6 +575,8 @@ local function build()
 	if not (sidebar and itemsPane and bagStrip) then
 		return false
 	end
+	bagStripCell.embed = bagStrip
+	bagStrip:Hide()
 	local top = {
 		colSpan = 2, columns = { "auto", "1fr", "auto", "auto", "auto", "auto", "auto" }, gap = "sm", rowAlign = "center",
 		{ embed = search },
@@ -581,13 +591,22 @@ local function build()
 	win = UI.Window({
 		-- the tabs as wide as their labels, touching the page (no gap between them); the page takes the rest
 		name = "OrdaenBagsWindow", columns = { "auto", "1fr" }, gap = { 0, "md" }, padding = { 28, "lg", "lg", "lg" },
-		top, { embed = bagStrip, colSpan = 2 }, { embed = sidebar }, { embed = itemsPane }, footer,
+		top, bagStripCell, { embed = sidebar }, { embed = itemsPane }, footer,
 	}, { point = "BOTTOMRIGHT", x = -80, y = 120 })
 	if not win then
 		return false
 	end
 	itemsPane:On("render", onRender)
 	win.frame:HookScript("OnHide", onHidden)
+	local Debug = ns.Debug
+	if Debug:IsEnabled() then
+		local probe = itemsPane.frame:CreateTexture()
+		for _, name in ipairs({ "sort", "bag", "close", "settings" }) do
+			probe:SetTexture(ICON .. name)
+			Debug:Logf("bags: icon-%s -> file %s", name, tostring(probe:GetTextureFileID()))
+		end
+		probe:SetTexture(nil)
+	end
 	Slots.SetHost(itemsPane.frame)
 	return true
 end
