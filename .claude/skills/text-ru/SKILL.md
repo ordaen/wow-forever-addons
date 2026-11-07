@@ -29,6 +29,8 @@ exact and natural Russian, never a word-for-word translation of the English.
    space, not words.
 8. **Placeholders.** `%s`, `%d` stay in the same order and count as in enUS (the build refuses a mismatch); build
    the sentence so case endings work for any value (`Модификация %s` rather than `%s модификации`).
+9. **NPC stays NPC** (user's rule, 2026-11-07): write the English abbreviation `NPC` in Russian text, never «НПЦ»
+   (`Подсказки NPC`).
 
 ## Examples
 
@@ -38,3 +40,4 @@ exact and natural Russian, never a word-for-word translation of the English.
 | Правый щелчок: настройки часов | ПКМ: настройки часов |
 | Эта опция позволяет вам скрыть кнопку модификаций | Скрыть кнопку модификаций Blizzard |
 | Пожалуйста, перезагрузите интерфейс! | Введите /reload. |
+| Подсказки НПЦ | Подсказки NPC |

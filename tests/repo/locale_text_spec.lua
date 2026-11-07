@@ -39,6 +39,7 @@ local RULES = {
 		{ "!", "no exclamation marks" },
 		{ "позволяет", 'no fluff: say what it does ("позволяет …")' },
 		{ "[Зз]десь вы можете", "no fluff" },
+		{ "НПЦ", 'write "NPC", never "НПЦ"' },
 	},
 }
 
