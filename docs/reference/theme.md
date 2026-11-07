@@ -9,7 +9,7 @@ How themes work: [Themes](/guide/themes).
 | Style | For | `ordaen` |
 |---|---|---|
 | `tooltip` | tooltips (`UI.Tooltip` sets it) | Blizzard's window art at the small scale (see below), padding `lg` |
-| `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges |
+| `header` | the first block of a tooltip (`UI.Header`) | accent band to the tooltip's edges, its content in line with the text below (no side padding) |
 | `button` | clickable text without a surface | |
 | `iconButton` | a small square icon button (a 20 px icon makes 28 px) | dark fill, accent edges, warm highlight |
 | `slot` | a cell in a grid of icons (the drawer) | highlight only |
