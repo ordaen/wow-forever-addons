@@ -9,7 +9,7 @@ addons/OrdaenCore/
     Layout.lua              grid engine, pure Lua
     Theme.lua               default theme, data only
     Render.lua              the only drawing code: measures and draws
-    Component.lua           Block and Button: instances, :On events, the shared game-event frame
+    Component.lua           Block and Button: instances, :On events (game events on each component's frame)
     Tooltip.lua             the tooltip surface and placement; hands everything to UI.lua
 tests/OrdaenCore/
   layout_spec.lua           the engine with a fake text measurer
@@ -55,8 +55,9 @@ UI.Button(spec)
 - **User events:** `:On("click", fn)` turns the mouse on, registers clicks, and sets the frame's `OnClick` to a
   dispatcher made once at load (one per event name). The dispatcher finds the instance by frame and runs its
   listeners. No closure per instance or per `:On`.
-- **Game events:** one shared frame for all components. An event is registered while at least one instance listens
-  and unregistered after the last `:Off`.
+- **Game events:** each component's own frame registers the game events it listens to, from its first `:On` to
+  its last `:Off`, with one dispatcher made at load. The frame was made when the addon built the component, so
+  WoW's profiler bills the events to that addon, not to the framework.
 - **Listeners** run through `securecallfunction` when the client has it, so one failing listener doesn't stop the
   others.
 

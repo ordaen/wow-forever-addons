@@ -299,8 +299,8 @@ those. Core API names become permanent at the first release of OrdaenCore; until
   when the framework draws or the UI scale changes, so code following a block's size listens to it and nothing
   watches frame sizes); system events are
   Blizzard's own UPPER_CASE event names (`CALENDAR_UPDATE_PENDING_INVITES`) and get Blizzard's arguments unchanged.
-  Listeners get the instance first. No bubbling: only the block with the listener gets it (as in native WoW). One
-  shared event frame registers a game event only while some instance listens and unregisters it after the last; a
+  Listeners get the instance first. No bubbling: only the block with the listener gets it (as in native WoW). Each
+  component's own frame registers a game event only while it listens (so the profiler bills its addon); a
   frame takes the mouse only once it has a user listener. WoW scripts are set to dispatchers made once at load, so
   `:On` creates no closure. High-frequency game events are allowed but must exit early.
 - **The framework waits for the loading screen** (user's decision): things it shows on its own initiative, such as

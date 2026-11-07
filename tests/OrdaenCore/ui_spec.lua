@@ -394,6 +394,9 @@ local function fakeFrame(name, log, parent)
 			fn(...)
 		end or fn
 	end
+	function f:GetScript(script)
+		return self.scripts[script]
+	end
 	function f:RegisterEvent(event)
 		self.events[event] = true
 	end
@@ -782,7 +785,7 @@ describe("OrdaenCore.UI", function()
 			assert.is_function(button.frame.scripts.OnDragStart)
 		end)
 
-		it("game events use one shared frame, registered only while someone listens", function()
+		it("game events go to the component's own frame (billed to its addon), only while listened to", function()
 			local one = UI.Block({ name = "One", { text = "1" } })
 			local two = UI.Block({ name = "Two", { text = "2" } })
 			local got = {}
@@ -791,20 +794,18 @@ describe("OrdaenCore.UI", function()
 			end
 			one:On("ZONE_CHANGED", onZone)
 			two:On("ZONE_CHANGED", onZone)
-			local shared
 			for _, f in ipairs(frames) do
 				if f.events.ZONE_CHANGED then
-					assert.is_nil(shared, "only one frame registers the event")
-					shared = f
+					assert.is_true(f == one.frame or f == two.frame, "no shared frame")
 				end
 			end
-			shared.scripts.OnEvent(shared, "ZONE_CHANGED", "payload")
+			one.frame.scripts.OnEvent(one.frame, "ZONE_CHANGED", "payload")
+			two.frame.scripts.OnEvent(two.frame, "ZONE_CHANGED", "payload")
 			assert.same({ { one, "payload" }, { two, "payload" } }, got)
 			assert.is_false(one.frame.mouse) -- game events don't make a block take the mouse
 			one:Off("ZONE_CHANGED", onZone)
-			assert.is_true(shared.events.ZONE_CHANGED)
-			two:Off("ZONE_CHANGED", onZone)
-			assert.is_nil(shared.events.ZONE_CHANGED)
+			assert.is_nil(one.frame.events.ZONE_CHANGED)
+			assert.is_true(two.frame.events.ZONE_CHANGED)
 		end)
 
 		it("refuses events it doesn't know", function()

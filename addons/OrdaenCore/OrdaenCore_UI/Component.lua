@@ -142,58 +142,27 @@ local function prepare(instance, event)
 end
 
 -- Game events ------------------------------------------------------------------------------------
+-- Each component's own frame registers the game events it listens to (only while it does), with one dispatcher made
+-- at load. The frame was made when the addon built the component, so WoW's profiler bills the events to that addon,
+-- not to the framework (one shared frame made them all OrdaenCore_UI's).
 
-local eventFrame
-local gameListeners = {} -- event -> array of instances listening (replaced, never changed, while dispatching)
-
-local function onGameEvent(_, event, ...)
-	local list = gameListeners[event]
-	if list then
-		for i = 1, #list do
-			local instance = list[i]
-			run(instance.listeners[event], instance, ...)
-		end
+local function onGameEvent(frame, event, ...)
+	local instance = byFrame[frame]
+	if instance then
+		run(instance.listeners[event], instance, ...)
 	end
 end
 
 local function listenGame(instance, event)
-	local old = gameListeners[event]
-	local list = {}
-	if old then
-		for i = 1, #old do
-			if old[i] == instance then
-				return -- already listening; its own handler list holds the new function
-			end
-			list[i] = old[i]
-		end
-	else
-		if not eventFrame then
-			eventFrame = CreateFrame("Frame")
-			eventFrame:SetScript("OnEvent", onGameEvent)
-		end
-		eventFrame:RegisterEvent(event)
+	local frame = instance.frame
+	if not frame:GetScript("OnEvent") then
+		frame:SetScript("OnEvent", onGameEvent)
 	end
-	list[#list + 1] = instance
-	gameListeners[event] = list
+	frame:RegisterEvent(event)
 end
 
 local function stopGame(instance, event)
-	local old = gameListeners[event]
-	if not old then
-		return
-	end
-	local list = {}
-	for i = 1, #old do
-		if old[i] ~= instance then
-			list[#list + 1] = old[i]
-		end
-	end
-	if #list == 0 then
-		gameListeners[event] = nil
-		eventFrame:UnregisterEvent(event)
-	else
-		gameListeners[event] = list
-	end
+	instance.frame:UnregisterEvent(event)
 end
 
 local function isGameEvent(event)
