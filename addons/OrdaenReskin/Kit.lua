@@ -66,7 +66,8 @@ function Kit.AddRegions(art, frame)
 	end
 end
 
-local SLICE_PARTS = { "Left", "Middle", "Center", "Right" } -- Forever's push buttons (game menu, AddOn List) name the middle Center
+-- Forever's push buttons (game menu, AddOn List) name the middle Center
+local SLICE_PARTS = { "Left", "Middle", "Center", "Right" }
 local TAB_PARTS = {
 	"Left", "Middle", "Right", "LeftActive", "MiddleActive", "RightActive", "LeftHighlight", "MiddleHighlight",
 	"RightHighlight", "LeftDisabled", "MiddleDisabled", "RightDisabled",
@@ -106,6 +107,13 @@ function Kit.Dress(control, role, art, opts)
 		collect(dress)
 	end
 	return dress
+end
+
+--- The dress the kit made for `control`, or nil.
+---@param control table
+---@return OrdaenUIDress|nil
+function Kit.DressOf(control)
+	return dressed[control] or nil
 end
 
 --- While `fn` runs, every new dress is passed to `into` (a window collecting what it made); nested calls restore.

@@ -18,6 +18,8 @@ ns.Windows = Windows
 -- the square icon tabs), the keys of children that hold content only (not scanned for controls), and `spacing`: a
 -- spacing token (the theme's scale) for a window Blizzard lays out with a layout frame. Our controls' art fills them
 -- edge to edge, so the space between them is the container's (the user's rule, 2026-11-07: no margin in textures).
+-- `newLabels`: keys of Blizzard's floating «new» labels, which it anchors to a control while that control holds
+-- something new: hidden, and the control's dress shows the theme's new marker instead (the user's pick: a gem).
 local PACKS = {
 	{ name = "CharacterFrame", kind = "window", tabs = "sideTab" },
 	{ name = "PlayerSpellsFrame", kind = "window", tabs = "tab" },
@@ -35,7 +37,8 @@ local PACKS = {
 	{ name = "SettingsPanel", kind = "window", tabs = "tab" },
 	{ name = "AddonList", kind = "window" },
 	{ name = "MacroFrame", kind = "window", tabs = "tab" },
-	{ name = "GameMenuFrame", kind = "dialog", spacing = "xs" },
+	{ name = "GameMenuFrame", kind = "dialog", spacing = "xs",
+		newLabels = { "NewOptionsFrame", "NewExternalEventFrame" } },
 	{ name = "AddFriendFrame", kind = "dialog" },
 	{ name = "ChatConfigFrame", kind = "dialog", tabs = "tab" },
 	{ name = "StaticPopup1", kind = "dialog" },
@@ -51,6 +54,8 @@ local PACKS = {
 ---@field skip table<table, boolean> children not scanned
 ---@field skinned boolean|nil
 ---@field removed boolean|nil its dresses were undressed (its kind turned off)
+---@field marked OrdaenUIDress[]|nil dresses showing the new marker (MarkNew)
+---@field markedNow OrdaenUIDress[]|nil MarkNew's scratch list, reused
 ---@field collect fun(dress: OrdaenUIDress) made once: adds a new dress to `dresses`
 local Window = {}
 Window.__index = Window
@@ -146,10 +151,30 @@ function Window:Collect(dress)
 	self.dresses[#self.dresses + 1] = dress
 end
 
+-- Blizzard's title plate on a dialog (the game menu's Header: three plate pieces and the text): the plate goes with
+-- the rest of the art and the text becomes the look's engraved title (the user's pick, 2026-11-07: preview
+-- title.html B). Nil when the frame has none.
+local PLATE_PIECES = { "LeftBG", "CenterBG", "RightBG" }
+
+---@return table|nil text Blizzard's title FontString
+function Window:Title(art)
+	local header = rawget(self.frame, "Header")
+	local text = type(header) == "table" and rawget(header, "Text")
+	if type(text) ~= "table" then
+		return nil
+	end
+	for i = 1, #PLATE_PIECES do
+		ns.Kit.Add(art, rawget(header, PLATE_PIECES[i]))
+	end
+	return text
+end
+
 -- The frame's own look, its tabs and close button, then every standard control inside it.
 function Window:SkinAll()
 	local frame = self.frame
-	ns.Kit.Dress(frame, self:Style(), self:Art(), { borderAbove = true })
+	local art = self:Art()
+	local title = self:Title(art)
+	ns.Kit.Dress(frame, self:Style(), art, { borderAbove = true, title = title })
 	local tabs = self:Tabs()
 	for i = 1, #tabs do
 		if not tabs[i]:IsForbidden() then
@@ -184,6 +209,7 @@ function Window:Apply()
 		ns.Kit.CollectInto(self.collect, self.SkinAll, self)
 		self:Space(true)
 		self.skinned = true
+		self:MarkNew()
 		return
 	end
 	if self.removed then
@@ -195,6 +221,7 @@ function Window:Apply()
 		self:Space(true)
 	end
 	ns.Kit.CollectInto(self.collect, ns.Kit.ControlsIn, self.frame, self.skip)
+	self:MarkNew()
 end
 
 --- Give the window and its controls Blizzard's look back.
@@ -205,6 +232,60 @@ function Window:Remove()
 		ns.Kit.Label(self.dresses[i].frame, false)
 	end
 	self:Space(false)
+	for i = 1, #(self.marked or {}) do
+		self.marked[i]:SetNew(false)
+		self.marked[i] = nil
+	end
+	for _, key in ipairs(self.pack.newLabels or {}) do
+		local label = rawget(self.frame, key)
+		if type(label) == "table" then
+			label:SetAlpha(1)
+		end
+	end
+end
+
+--- Follow Blizzard's «new» labels (pack.newLabels): each one shown and anchored to a control we dressed is hidden
+--- (alpha 0) and that control's dress shows the new marker; controls marked last time and not now lose it (the game
+--- menu reuses its pooled buttons). Runs after each skin and show, when Blizzard has placed its labels.
+function Window:MarkNew()
+	local keys = self.pack.newLabels
+	if not keys then
+		return
+	end
+	local marked = self.marked or {}
+	self.marked = marked
+	local now = self.markedNow or {}
+	self.markedNow = now
+	for i = #now, 1, -1 do
+		now[i] = nil
+	end
+	for i = 1, #keys do
+		local label = rawget(self.frame, keys[i])
+		if type(label) == "table" and label:IsShown() then
+			local _, control = label:GetPoint(1)
+			local dress = type(control) == "table" and ns.Kit.DressOf(control)
+			if dress then
+				label:SetAlpha(0)
+				dress:SetNew(true)
+				now[#now + 1] = dress
+			end
+		end
+	end
+	for i = 1, #marked do
+		local dress, still = marked[i], false
+		for j = 1, #now do
+			still = still or now[j] == dress
+		end
+		if not still then
+			dress:SetNew(false)
+		end
+	end
+	for i = #marked, 1, -1 do
+		marked[i] = nil
+	end
+	for i = 1, #now do
+		marked[i] = now[i]
+	end
 end
 
 local spacingBefore = setmetatable({}, { __mode = "k" }) -- frame -> Blizzard's spacing, while ours is set
