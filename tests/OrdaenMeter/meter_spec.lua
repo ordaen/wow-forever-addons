@@ -159,6 +159,12 @@ local function sessionWindow(name)
 	function window:IsMinimized()
 		return self.minimized
 	end
+	-- Its rectangle (left, right, top, bottom), once a spec places it; none before (not laid out yet).
+	for i, edge in ipairs({ "GetLeft", "GetRight", "GetTop", "GetBottom" }) do
+		window[edge] = function(self)
+			return self.rect and self.rect[i]
+		end
+	end
 	function window:SetMinimized(minimized)
 		self.minimized = minimized
 	end
@@ -235,6 +241,10 @@ describe("Ordaen Meter", function()
 				self.on = false
 			end
 			function dress:Refresh()
+				self.look:Draw()
+			end
+			function dress:SetOpen(sides)
+				self.open = { top = sides.top, right = sides.right, bottom = sides.bottom, left = sides.left }
 				self.look:Draw()
 			end
 			dressed[frame] = dress
@@ -396,6 +406,29 @@ describe("Ordaen Meter", function()
 		window:SetMinimized(false)
 		assert.matches("icon%-minimize$", row[5][1].image)
 		assert.is_false(row.edges.bottom)
+	end)
+
+	it("opens the sides where header and body touch and where the window is flush with a screen edge", function()
+		local window = sessionWindow("DamageMeterSessionWindow1")
+		meter:SetupSessionWindow(window)
+		load(true)
+		local ui = rawget(_G, "UIParent")
+		ui.GetWidth = function()
+			return 1000
+		end
+		ui.GetHeight = function()
+			return 800
+		end
+		window.rect = { 0, 300, 500, 200 } -- against the left edge, nowhere else
+		window.scripts.OnShow(window)
+		local head, body = dressed[window], dressed[window.container]
+		assert.same({ top = false, right = false, bottom = true, left = true }, head.open)
+		assert.same({ top = true, right = false, bottom = false, left = true }, body.open)
+		window:SetMinimized(true)
+		assert.is_false(head.open.bottom, "minimized: the header closes its bottom side")
+		window.rect = { 700, 1000, 800, 500 } -- moved in Edit Mode to the top-right corner
+		ns.Look.Edges()
+		assert.same({ top = true, right = true, bottom = false, left = false }, head.open)
 	end)
 
 	it("gives the bars the theme's texture and fonts, the windows' bars at login and each one shown later", function()

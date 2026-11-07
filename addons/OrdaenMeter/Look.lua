@@ -9,6 +9,9 @@
 --     as tall as the strip; touching cells share one line. Blizzard's buttons keep working: their art is hidden and
 --     each sits invisibly over its cell (placed after every draw), and its cell lights while it's hovered.
 --   the body: the theme's panel under the bars (on Blizzard's container, so it hides when the window is minimized).
+--   open sides: header and body touch, so neither draws its border there (the header's bottom is closed while the
+--     window is minimized); a side flush with a screen edge has none either (checked when the window shows, is
+--     drawn, and when Edit Mode closes).
 --   the bars: the bar texture (UI.DressBar: the theme's, or the barTexture setting), the class's palette colour
 --     (OrdaenCore.Colors), the theme's fonts with a 1 px outline, and a faint scrim under the texts.
 -- Cost: no events and nothing per frame. Post-hooks on each window's InitEntry/SetupEntry (a bar shown, or reused
@@ -212,6 +215,8 @@ end
 ---@field body OrdaenUIDress|nil the panel under the bars
 ---@field dresses table<table, OrdaenUIDress> each control's dress (its art hidden)
 ---@field homes table<table, table> each moved control or text -> where Blizzard put it
+---@field headOpen table the header's open sides (top/right/bottom/left = true), reused
+---@field bodyOpen table the body's open sides, reused
 ---@field typeName FontString
 ---@field timer FontString
 local WindowLook = {}
@@ -246,6 +251,13 @@ local function onDrawn(dressLook)
 	end
 end
 
+local function onWindowShown(window)
+	local look = looks[window]
+	if look then
+		look:Edges()
+	end
+end
+
 local function onMinimized(window)
 	local look = looks[window]
 	if look then
@@ -259,7 +271,8 @@ end
 function WindowLook.New(window)
 	local header = window:GetHeader()
 	local size = math.floor(header:GetHeight() + 0.5)
-	local self = setmetatable({ window = window, size = size, homes = {}, dresses = {} }, WindowLookMeta)
+	local self = setmetatable({ window = window, size = size, homes = {}, dresses = {}, headOpen = {}, bodyOpen = {} },
+		WindowLookMeta)
 	-- The controls, left to right, and their cells.
 	self.buttons = { window:GetDamageMeterTypeDropdown(), window:GetSessionDropdown(), window:GetSettingsDropdown(),
 		window:GetMinimizeButton() }
@@ -296,6 +309,7 @@ function WindowLook.New(window)
 	hooksecurefunc(window, "InitEntry", onSetupEntry)
 	hooksecurefunc(window, "SetupEntry", onSetupEntry)
 	hooksecurefunc(window, "SetMinimized", onMinimized)
+	window:HookScript("OnShow", onWindowShown)
 	looks[window] = self -- before the first draw: its "render" listener finds the look through the window
 	self:Minimized()
 	return self
@@ -326,6 +340,38 @@ function WindowLook:Place()
 	end
 end
 
+local EDGE = 1 -- UI units: a window this close to a screen edge is flush with it
+
+-- Set a dress's open sides when they changed (setting them redraws the look, whose "render" places the controls).
+local function setOpen(dress, sides, top, right, bottom, left)
+	if sides.top == top and sides.right == right and sides.bottom == bottom and sides.left == left then
+		return
+	end
+	sides.top, sides.right, sides.bottom, sides.left = top, right, bottom, left
+	dress:SetOpen(sides)
+end
+
+--- Open the sides where the header and body touch each other or a screen edge. The window's rectangle is Edit
+--- Mode's and never secret; without one yet (not laid out) nothing changes.
+function WindowLook:Edges()
+	if not on then
+		return
+	end
+	local window = self.window
+	local left, right, top, bottom = window:GetLeft(), window:GetRight(), window:GetTop(), window:GetBottom()
+	if not (left and right and top and bottom) or issecretvalue(left) or issecretvalue(top) then
+		return
+	end
+	local width, height = UIParent:GetWidth(), UIParent:GetHeight()
+	local flushLeft, flushRight = left <= EDGE, right >= width - EDGE
+	local flushTop, flushBottom = top >= height - EDGE, bottom <= EDGE
+	local minimized = window:IsMinimized() and true or false
+	setOpen(self.head, self.headOpen, flushTop, flushRight, not minimized or flushBottom, flushLeft)
+	if self.body then
+		setOpen(self.body, self.bodyOpen, true, flushRight, flushBottom, flushLeft)
+	end
+end
+
 --- Light a control's cell while Blizzard's (invisible) button is hovered.
 function WindowLook:Light(button, lit)
 	for i, b in ipairs(self.buttons) do
@@ -343,6 +389,7 @@ function WindowLook:Minimized()
 	self.cells[4][1].image = ICON .. (minimized and "expand" or "minimize")
 	self.row.edges.bottom = minimized
 	self.head:Refresh()
+	self:Edges()
 end
 
 function WindowLook:Apply()
@@ -392,6 +439,15 @@ local function dressWindows()
 	end
 end
 
+--- Check every window's open sides again (after Edit Mode closed).
+function Look.Edges()
+	for _, look in pairs(looks) do
+		if look then
+			look:Edges()
+		end
+	end
+end
+
 --- Hook the meter once it exists (at Enable, or when Blizzard_DamageMeter loads later), and dress what it has.
 function Look.Hook()
 	local meter = _G.DamageMeter
@@ -401,6 +457,9 @@ function Look.Hook()
 	if not hookedMeter then
 		hookedMeter = true
 		hooksecurefunc(meter, "SetupSessionWindow", dressWindows) -- a window was added
+		if EditModeManagerFrame and EditModeManagerFrame.ExitEditMode then
+			hooksecurefunc(EditModeManagerFrame, "ExitEditMode", Look.Edges) -- the player may have moved a window
+		end
 		Colors:On("change", repaint) -- the player picked a colour in Ordaen Core's settings
 	end
 	dressWindows()
