@@ -117,7 +117,7 @@ describe("Ordaen Reskin", function()
 	local ns, frames, dressed, windows, styles, errors
 
 	local function fire(event, arg)
-		frames[1].scripts.OnEvent(frames[1], event, arg)
+		helpers.fireOn(frames, event, arg)
 	end
 
 	-- The theme's dressing, recorded: which frame got which style, art and options; Apply/Undress switch it.

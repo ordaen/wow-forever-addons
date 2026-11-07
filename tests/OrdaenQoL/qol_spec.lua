@@ -35,7 +35,7 @@ describe("Ordaen QoL", function()
 	local ns, frames, chat, vendor
 
 	local function fire(event, ...)
-		frames[1].scripts.OnEvent(frames[1], event, ...)
+		helpers.fireOn(frames, event, ...)
 	end
 
 	local function login()

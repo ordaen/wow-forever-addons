@@ -4,18 +4,8 @@ local helpers = require("tests.OrdaenCore.helpers")
 describe("OrdaenCore.NewAddon", function()
 	local Core, chat
 
-	-- The framework's one event frame: the newest frame with an OnEvent script (the Core registers itself through
-	-- the framework while loading, so each loadCore makes one).
-	local function fire(event, ...)
-		for i = #helpers.created, 1, -1 do
-			local frame = helpers.created[i]
-			if frame.scripts.OnEvent then
-				frame.scripts.OnEvent(frame, event, ...)
-				return
-			end
-		end
-		error("no event frame yet")
-	end
+	-- A game event, to every frame registered for it (each addon has its own).
+	local fire = helpers.fire
 
 	local function newAddon(spec, ns)
 		return Core.NewAddon("TestAddon", ns or {}, spec or {})
@@ -42,6 +32,30 @@ describe("OrdaenCore.NewAddon", function()
 		assert.truthy(chat[1]:find("Test Addon", 1, true))
 		helpers.metadata.TestAddon["X-Ordaen-MinCore"] = nil
 	end)
+
+	it("gives each addon its own event frame, made in NewAddon (WoW bills a handler to the addon that made its frame)",
+		function()
+			local A = newAddon()
+			local framesBefore = #helpers.created
+			local B = Core.NewAddon("OtherAddon", {}, {})
+			assert.equals(framesBefore + 1, #helpers.created, "NewAddon makes the frame, not the first On")
+			local own = helpers.created[#helpers.created]
+			local got = {}
+			A:On("BAG_UPDATE", function()
+				got[#got + 1] = "A"
+			end)
+			B:On("BAG_UPDATE", function()
+				got[#got + 1] = "B"
+			end)
+			assert.is_true(own.registered.BAG_UPDATE)
+			local carriers = 0
+			for _, frame in ipairs(helpers.created) do
+				carriers = carriers + ((frame.registered or {}).BAG_UPDATE and 1 or 0)
+			end
+			assert.equals(2, carriers)
+			fire("BAG_UPDATE")
+			assert.same({ "A", "B" }, got)
+		end)
 
 	it("fills the SavedVariables with defaults on its ADDON_LOADED, keeping saved values", function()
 		rawset(_G, "TestAddonDB", { scale = 2 })

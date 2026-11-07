@@ -23,17 +23,8 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 		now = target
 	end
 
-	-- The framework's shared event frame: the newest frame with an OnEvent script and no unit.
-	local function fire(event, ...)
-		for i = #helpers.created, 1, -1 do
-			local frame = helpers.created[i]
-			if frame.scripts.OnEvent and not frame.unit then
-				frame.scripts.OnEvent(frame, event, ...)
-				return
-			end
-		end
-		error("no event frame yet")
-	end
+	-- A game event, to every frame registered for it (each addon has its own).
+	local fire = helpers.fire
 
 	local function frameFor(unit)
 		for i = #helpers.created, 1, -1 do
@@ -104,23 +95,6 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 			end,
 		})
 		stack, definers = "", {}
-		-- record what each frame registers (the shared fakes ignore it)
-		local createFrame = _G.CreateFrame
-		rawset(_G, "CreateFrame", function(...)
-			local f = createFrame(...)
-			f.registered = {}
-			f.RegisterEvent = function(self, event)
-				self.registered[event] = true
-			end
-			f.RegisterUnitEvent = function(self, event, unit)
-				self.registered[event] = true
-				self.unit = unit
-			end
-			f.UnregisterEvent = function(self, event)
-				self.registered[event] = nil
-			end
-			return f
-		end)
 		loadedAddons = {}
 		_G.C_AddOns.IsAddOnLoaded = function(name)
 			return loadedAddons[name] == true, loadedAddons[name] == true
@@ -189,6 +163,23 @@ describe("OrdaenCore features, ticker, unit events, migrations", function()
 	end)
 
 	describe("ticker", function()
+		it("gives each addon its own C_Timer chain (the profiler bills a chain to the addon that made its callback)",
+			function()
+				local A = start()
+				local B = Core.NewAddon("OtherAddon", {}, {})
+				local ticks = {}
+				A:Every(1, function()
+					ticks[#ticks + 1] = "A"
+				end)
+				B:Every(1, function()
+					ticks[#ticks + 1] = "B"
+				end)
+				assert.equals(2, #timers)
+				assert.are_not.equal(timers[1].fn, timers[2].fn)
+				advance(1)
+				assert.same({ "A", "B" }, ticks)
+			end)
+
 		it("runs every interval on one C_Timer chain, and stops", function()
 			local A = start()
 			local count = 0

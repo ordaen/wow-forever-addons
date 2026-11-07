@@ -196,7 +196,7 @@ describe("Ordaen Meter", function()
 	local ns, frames, dressed, fonts, bars, meter, Core
 
 	local function fire(event, arg)
-		frames[1].scripts.OnEvent(frames[1], event, arg)
+		helpers.fireOn(frames, event, arg)
 	end
 
 	-- The theme's dressing, recorded: which frames got a look (and with what), which texts a font, which bars a

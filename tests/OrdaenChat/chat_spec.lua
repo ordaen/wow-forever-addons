@@ -180,7 +180,7 @@ describe("Ordaen Chat", function()
 	local ns, frames, windows, cvars, menuButton, channelButton, art, loaded, stack, windowArt, selectedWindow
 
 	local function fire(event, ...)
-		frames[1].scripts.OnEvent(frames[1], event, ...)
+		helpers.fireOn(frames, event, ...)
 	end
 
 	local function login()

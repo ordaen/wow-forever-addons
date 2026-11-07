@@ -1,6 +1,7 @@
--- Ordaen Core: one clock for every Ordaen addon. `A:Every(seconds, fn)` (or a feature's `F:Every`) makes a ticker;
--- all running tickers share a single C_Timer.After chain, always set for the next one due, so nothing runs per
--- frame and idle tickers cost nothing.
+-- Ordaen Core: a clock per Ordaen addon. `A:Every(seconds, fn)` (or a feature's `F:Every`) makes a ticker; an
+-- addon's running tickers share one C_Timer.After chain, always set for the next one due, so nothing runs per frame
+-- and idle tickers cost nothing. Each addon's chain is its own, its callback made by NewAddon while the addon's file
+-- runs, so the profiler can bill the ticks to the addon (as with its event frame, Addon.lua).
 --
 --   local clock = A:Every(1, updateClock)      -- runs every second from now on
 --   local fast = F:Every(0.1, updateCoords)     -- runs while the feature is on (Feature.lua)
@@ -31,26 +32,29 @@ local EARLY = 0.001 -- C_Timer may fire this much before the time asked for
 local Ticker = {}
 Ticker.__index = Ticker
 
-local list = {} ---@type OrdaenTicker[] running tickers, plus stopped ones until the next tick removes them
-local pendingAt = huge -- when the scheduled C_Timer.After fires (huge: none scheduled)
-local tick -- forward
+--- One addon's clock: its tickers and its C_Timer chain.
+---@class OrdaenClock
+---@field list OrdaenTicker[] running tickers, plus stopped ones until the next tick removes them
+---@field pendingAt number when the scheduled C_Timer.After fires (huge: none scheduled)
+---@field tick fun() the chain's callback (made in the addon's context)
 
-local function schedule(at)
-	if at < pendingAt then
-		pendingAt = at
+local function schedule(clock, at)
+	if at < clock.pendingAt then
+		clock.pendingAt = at
 		local delay = at - GetTime()
-		C_Timer.After(delay > 0 and delay or 0, tick)
+		C_Timer.After(delay > 0 and delay or 0, clock.tick)
 	end
 end
 
 -- An earlier-due ticker schedules another C_Timer.After; the older one then fires before pendingAt and is
 -- ignored, so there is never more than one chain doing work.
-function tick()
+local function tick(clock)
 	local now = GetTime()
-	if now < pendingAt - EARLY then
+	if now < clock.pendingAt - EARLY then
 		return
 	end
-	pendingAt = huge
+	clock.pendingAt = huge
+	local list = clock.list
 	local n = #list
 	for i = 1, n do
 		local t = list[i]
@@ -78,9 +82,12 @@ function tick()
 		list[i] = nil
 	end
 	if nextAt < huge then
-		schedule(nextAt)
+		schedule(clock, nextAt)
 	end
 end
+
+-- A clock's C_Timer callback (made by NewAddon in the addon's context) calls this.
+Core._Tick = tick
 
 -- Whether the ticker should run now: started, and its feature (if any) is on.
 local function sync(t)
@@ -91,11 +98,12 @@ local function sync(t)
 	t.running = run
 	if run then
 		t.due = GetTime() + t.interval
+		local clock = t.owner._clock
 		if not t.listed then
 			t.listed = true
-			list[#list + 1] = t
+			clock.list[#clock.list + 1] = t
 		end
-		schedule(t.due)
+		schedule(clock, t.due)
 	end
 end
 Core._SyncTicker = sync

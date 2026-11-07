@@ -92,6 +92,26 @@ function M.stubObject(name)
 		CreateTexture = function()
 			return M.stubObject()
 		end,
+		-- Events a frame registered (like the game: M.fire delivers only to frames registered for the event).
+		RegisterEvent = function(self, event)
+			rawset(self, "registered", rawget(self, "registered") or {})
+			self.registered[event] = true
+		end,
+		RegisterUnitEvent = function(self, event, unit)
+			rawset(self, "registered", rawget(self, "registered") or {})
+			self.registered[event] = true
+			rawset(self, "unit", unit)
+		end,
+		UnregisterEvent = function(self, event)
+			local registered = rawget(self, "registered")
+			if registered then
+				registered[event] = nil
+			end
+		end,
+		IsEventRegistered = function(self, event)
+			local registered = rawget(self, "registered")
+			return registered ~= nil and registered[event] == true
+		end,
 	}
 	return setmetatable(obj, {
 		__index = function(_, key)
@@ -101,6 +121,48 @@ function M.stubObject(name)
 			return M.isStubMethod(key) and noop or nil
 		end,
 	})
+end
+
+-- Whether a fake frame registered an event: its `registered` map (stubObject), or the RegisterEvent /
+-- RegisterUnitEvent / UnregisterEvent calls a spec's own stub recorded in `calls`.
+local function registeredFor(frame, event)
+	local registered = rawget(frame, "registered")
+	if registered then
+		return registered[event] == true
+	end
+	local calls = rawget(frame, "calls")
+	if not calls then
+		return false
+	end
+	local n = 0
+	for _, method in ipairs({ "RegisterEvent", "RegisterUnitEvent" }) do
+		for _, args in ipairs(rawget(calls, method) or {}) do
+			n = n + (args[1] == event and 1 or 0)
+		end
+	end
+	for _, args in ipairs(rawget(calls, "UnregisterEvent") or {}) do
+		n = n - (args[1] == event and 1 or 0)
+	end
+	return n > 0
+end
+
+--- Deliver a game event the way WoW does: to every frame of `frames` (in creation order) that registered it and has
+--- an OnEvent script. Ordaen addons each have their own event frame (Addon.lua), so a spec can't pick one frame.
+---@param frames table[]
+---@param event string
+function M.fireOn(frames, event, ...)
+	for _, frame in ipairs(frames) do
+		local script = frame.scripts and frame.scripts.OnEvent
+		if script and registeredFor(frame, event) then
+			script(frame, event, ...)
+		end
+	end
+end
+
+--- M.fireOn for the frames made through the shared CreateFrame (M.created).
+---@param event string
+function M.fire(event, ...)
+	M.fireOn(M.created, event, ...)
 end
 
 -- The pieces Blizzard's NineSliceUtil puts on a frame.

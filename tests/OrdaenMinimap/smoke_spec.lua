@@ -38,6 +38,17 @@ local function stubObject(name, extra)
 	obj.SetScript = function(self, script, fn)
 		self.scripts[script] = fn
 	end
+	-- the events it registered (fire delivers to these, like the game)
+	obj.registered = {}
+	obj.RegisterEvent = function(self, event)
+		self.registered[event] = true
+	end
+	obj.RegisterUnitEvent = function(self, event)
+		self.registered[event] = true
+	end
+	obj.UnregisterEvent = function(self, event)
+		self.registered[event] = nil
+	end
 	obj.SetParent = function(self, parent)
 		self.calls.SetParent = self.calls.SetParent or {}
 		table.insert(self.calls.SetParent, { parent })
@@ -408,9 +419,10 @@ describe("OrdaenMinimap smoke", function()
 		return nil
 	end
 
+	-- Like the game: every frame registered for the event gets it, in creation order (each Ordaen addon has its own
+	-- event frame, Core's Addon.lua).
 	local function fire(event, arg)
-		local eventFrame = frames[1]
-		eventFrame.scripts.OnEvent(eventFrame, event, arg)
+		helpers.fireOn(frames, event, arg)
 	end
 
 	it("creates defaults and the settings page on ADDON_LOADED", function()

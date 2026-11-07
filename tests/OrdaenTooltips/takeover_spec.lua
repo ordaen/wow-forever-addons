@@ -91,7 +91,7 @@ describe("Ordaen Tooltips", function()
 	end
 
 	local function fire(event, arg)
-		frames[1].scripts.OnEvent(frames[1], event, arg)
+		helpers.fireOn(frames, event, arg)
 	end
 
 	before_each(function()

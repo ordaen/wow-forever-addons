@@ -5,16 +5,7 @@ local helpers = require("tests.OrdaenCore.helpers")
 describe("OrdaenCore.Colors", function()
 	local Core, Colors
 
-	local function fire(event, ...)
-		for i = #helpers.created, 1, -1 do
-			local frame = helpers.created[i]
-			if frame.scripts.OnEvent then
-				frame.scripts.OnEvent(frame, event, ...)
-				return
-			end
-		end
-		error("no event frame yet")
-	end
+	local fire = helpers.fire
 
 	-- Ordaen Core's own addon object (its settings).
 	local function coreAddon()

@@ -56,12 +56,14 @@ local L = ns.L
 ---@field private _wrapped table<function, function>
 ---@field private _printParts string[]
 ---@field _features OrdaenFeature[] Feature.lua
+---@field _events OrdaenEventFrame its own event frame (CPU billed to it)
+---@field _unitEvents table<string, OrdaenEventFrame> unit -> its own frame for that unit's events
+---@field _clock OrdaenClock its tickers and C_Timer chain (Timer.lua)
 ---@field _settingsCategory table|nil set by Settings.lua
 ---@field _store OrdaenSettingsStore|nil the values, for an addon with a settings manifest (SettingsStore.lua)
 local Addon = {}
 Addon.__index = Addon
 
-local byName = {} -- addon name -> addon object, for ADDON_LOADED
 local loggedIn = false
 local afterCombat -- array of functions waiting for PLAYER_REGEN_ENABLED
 
@@ -98,9 +100,12 @@ local function dispatch(self, event, ...)
 	end
 end
 
+-- Who pays for an event (CPU attribution, the AddOns profiler and wow_perf): WoW bills a script handler's whole call
+-- tree to the addon whose code was running when the frame carrying it was created (EllesmereUI's finding, tested in
+-- game). So each addon has its own event frames, made by NewAddon while the addon's own file runs, and the Core's
+-- shared frame only carries the framework's own handlers.
 ---@type OrdaenEventFrame
 local shared = { handlers = {} }
-local unitFrames = {} ---@type table<string, OrdaenEventFrame> unit -> its event frame
 
 local function frameOf(events)
 	local frame = events.frame
@@ -159,11 +164,14 @@ function Core._On(event, fn)
 	addHandler(event, fn, nil)
 end
 
-local function unitEvents(unit)
-	local events = unitFrames[unit]
+-- An addon's event frame for one unit's events, made on first use (units aren't known at load, so this one is
+-- created when its first handler is added: billed to whichever addon's code runs then, usually its own).
+local function unitEvents(addon, unit)
+	local frames = addon._unitEvents
+	local events = frames[unit]
 	if not events then
 		events = { handlers = {}, unit = unit }
-		unitFrames[unit] = events
+		frames[unit] = events
 	end
 	return events
 end
@@ -247,7 +255,7 @@ end
 function Addon:On(event, fn)
 	local wrapped = self._wrapped[fn] or self.Debug:Wrap(fn)
 	self._wrapped[fn] = wrapped
-	addHandler(event, wrapped, self)
+	addHandler(event, wrapped, self, self._events)
 end
 
 --- Stop running `fn` on `event`.
@@ -256,7 +264,7 @@ end
 function Addon:Off(event, fn)
 	local wrapped = self._wrapped[fn]
 	if wrapped then
-		removeHandler(event, wrapped)
+		removeHandler(event, wrapped, self._events)
 	end
 end
 
@@ -268,7 +276,7 @@ end
 function Addon:OnUnit(event, unit, fn)
 	local wrapped = self._wrapped[fn] or self.Debug:Wrap(fn)
 	self._wrapped[fn] = wrapped
-	addHandler(event, wrapped, self, unitEvents(unit))
+	addHandler(event, wrapped, self, unitEvents(self, unit))
 end
 
 --- Stop running `fn` on `event` for `unit`.
@@ -277,8 +285,9 @@ end
 ---@param fn fun(event: string, unit: string, ...) the function given to OnUnit
 function Addon:OffUnit(event, unit, fn)
 	local wrapped = self._wrapped[fn]
-	if wrapped and unitFrames[unit] then
-		removeHandler(event, wrapped, unitFrames[unit])
+	local events = self._unitEvents[unit]
+	if wrapped and events then
+		removeHandler(event, wrapped, events)
 	end
 end
 
@@ -525,6 +534,13 @@ local function bindSettings(addon, schema)
 	addon._store, addon.db, addon.charDb = store, db, charDb
 end
 
+local function login(addon)
+	addon:_CheckConflicts() -- Conflict.lua: the declared ones, before OnLogin
+	runAs(addon, addon._onLogin)
+	addon._onLogin = nil
+	addon:_SyncFeatures() -- features start after the addon's own OnLogin (it may decide what may run)
+end
+
 local function onAddonLoaded(addon)
 	local spec = addon.spec
 	local schema = addon.ns.SETTINGS_SCHEMA
@@ -555,39 +571,29 @@ local function onAddonLoaded(addon)
 	runAs(addon, addon._onLoad, addon.db, addon.charDb)
 	addon._onLoad = nil
 	if loggedIn then
-		addon:_CheckConflicts()
-		runAs(addon, addon._onLogin)
-		addon._onLogin = nil
-		addon:_SyncFeatures()
+		login(addon)
 	end
 end
 
-local waitingForLoad, waitingForLogin = false, false
-
-local function onLifecycle(event, arg1)
-	if event == "ADDON_LOADED" then
-		local addon = byName[arg1]
-		if addon then
-			byName[arg1] = nil
-			onAddonLoaded(addon)
-			if not next(byName) then
-				waitingForLoad = false
-				removeHandler("ADDON_LOADED", onLifecycle)
+-- An addon's ADDON_LOADED and PLAYER_LOGIN, on its own event frame (so its OnLoad, OnLogin and features' start are
+-- billed to it). One closure per addon, made in NewAddon.
+local function lifecycle(addon)
+	local handler
+	handler = function(event, arg1)
+		if event == "ADDON_LOADED" then
+			if arg1 == addon.name then
+				removeHandler("ADDON_LOADED", handler, addon._events)
+				onAddonLoaded(addon)
 			end
-		end
-	elseif event == "PLAYER_LOGIN" then
-		loggedIn = true
-		waitingForLogin = false
-		removeHandler("PLAYER_LOGIN", onLifecycle)
-		for _, addon in ipairs(Core._addons) do
+		elseif event == "PLAYER_LOGIN" then
+			removeHandler("PLAYER_LOGIN", handler, addon._events)
+			loggedIn = true
 			if addon.loaded then
-				addon:_CheckConflicts() -- Conflict.lua: the declared ones, before OnLogin
-				runAs(addon, addon._onLogin)
-				addon._onLogin = nil
-				addon:_SyncFeatures() -- features start after the addon's own OnLogin (it may decide what may run)
+				login(addon)
 			end
 		end
 	end
+	return handler
 end
 
 Core._addons = {}
@@ -664,25 +670,31 @@ function Core.NewAddon(addonName, addonNs, spec)
 		_onConflict = {},
 		_watching = {},
 		_asked = {},
+		_events = { handlers = {} },
+		_unitEvents = {},
 	}, Addon)
-	byName[addonName] = addon
 	Core._addons[#Core._addons + 1] = addon
-	if not waitingForLoad then
-		waitingForLoad = true
-		addHandler("ADDON_LOADED", onLifecycle)
+	-- Its own event frame and clock, made now: this runs in the addon's own file, so WoW bills them to the addon.
+	frameOf(addon._events)
+	-- its clock (Timer.lua): the C_Timer callback is made here, in the addon's context; Timer.lua does the ticking
+	local clock = { list = {}, pendingAt = math.huge }
+	clock.tick = function()
+		Core._Tick(clock)
 	end
+	addon._clock = clock
+	local onLifecycle = lifecycle(addon)
+	addHandler("ADDON_LOADED", onLifecycle, addon, addon._events)
 	if not watchingLoadingScreen then
 		watchingLoadingScreen = true
 		addHandler("LOADING_SCREEN_ENABLED", onLoadingScreen)
 		addHandler("LOADING_SCREEN_DISABLED", onLoadingScreen)
 		addHandler("PLAYER_ENTERING_WORLD", onLoadingScreen)
 	end
-	if not loggedIn and not waitingForLogin then
+	if not loggedIn then
 		loggedIn = IsLoggedIn() or false
-		if not loggedIn then
-			waitingForLogin = true
-			addHandler("PLAYER_LOGIN", onLifecycle)
-		end
+	end
+	if not loggedIn then
+		addHandler("PLAYER_LOGIN", onLifecycle, addon, addon._events)
 	end
 	return addon
 end
