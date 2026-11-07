@@ -81,9 +81,10 @@ local THEMES = {}
 -- small scale (the user's choice: half); dialogs in Blizzard's dialog frame.
 local WINDOW_ART = { border = "frame.border", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
--- Small surfaces: Blizzard's even metal without a title bar (GenericMetal), at the small scale.
+-- Small surfaces: the window metal at the small scale, its top drawn as its bottom mirrored (mirrorTop): a window's
+-- top edge carries the title bar, which on a strip read as two borders stacked (the user, 2026-11-07).
 local SMALL_ART = { border = "frame.borderSmall", background = "frame.background", scale = "frame.scale.small",
-	inset = { 6, 6, 6, 6 } }
+	inset = { 6, 6, 6, 6 }, mirrorTop = true }
 -- Windows with a portrait ring in the top-left corner (Blizzard's own windows that Ordaen Reskin dresses).
 local PORTRAIT_ART = { border = "frame.portrait", background = "frame.background", scale = "frame.scale.window",
 	inset = { 21, 2, 2, 2 } }
@@ -291,6 +292,7 @@ local function resolveArt(spec, themeName)
 		scale = tonumber(store.TokenIn(themeName, spec.scale)) or 1,
 		background = background and (background.atlas or background.file) and background or nil,
 		inset = spec.inset,
+		mirrorTop = spec.mirrorTop,
 	}
 end
 

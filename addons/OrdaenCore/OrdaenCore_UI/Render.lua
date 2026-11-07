@@ -892,6 +892,10 @@ local artFits = setmetatable({}, { __mode = "k" })
 
 -- An atlas's size and texture coordinates (C_Texture.GetAtlasInfo), once per atlas; false when the game has none.
 local atlasCache = {}
+-- The top corners a mirrored top takes from the bottom ones, and the point each sits at.
+local MIRRORED_CORNERS = { { "TopLeftCorner", "BottomLeftCorner", "TOPLEFT" },
+	{ "TopRightCorner", "BottomRightCorner", "TOPRIGHT" } }
+
 local function atlasOf(name)
 	local cached = atlasCache[name]
 	if cached == nil then
@@ -1025,6 +1029,33 @@ local function openSides(holder, bits)
 	re:SetPoint("BOTTOMRIGHT", br, bottom and "BOTTOMRIGHT" or "TOPRIGHT")
 end
 
+-- A small surface's top drawn as its bottom mirrored (frameArt.mirrorTop): the top corners take the bottom corners'
+-- atlases flipped upside down (their atlas coordinates, top and bottom swapped) at the bottom corners' offsets turned
+-- upwards, and the top edge takes the bottom edge's atlas turned half a circle (a repeating strip: the same as a flip,
+-- and it keeps tiling). A window's own top edge carries its title bar; on a strip that read as two borders stacked.
+local function mirrorTop(holder, layoutName)
+	local layout = NineSliceLayouts and NineSliceLayouts[layoutName]
+	if type(layout) ~= "table" then
+		return
+	end
+	for _, pair in ipairs(MIRRORED_CORNERS) do
+		local piece, from = holder[pair[1]], layout[pair[2]]
+		local atlas = type(from) == "table" and from.atlas
+		local coords = atlas and atlasOf(atlas)
+		if piece and coords then
+			piece:SetAtlas(atlas, true)
+			piece:SetTexCoord(coords[2], coords[3], coords[5], coords[4])
+			piece:ClearAllPoints()
+			piece:SetPoint(pair[3], holder, pair[3], from.x or 0, -(from.y or 0))
+		end
+	end
+	local edge, from = holder.TopEdge, layout.BottomEdge
+	if edge and type(from) == "table" and from.atlas then
+		edge:SetAtlas(from.atlas, true)
+		edge:SetRotation(math.pi)
+	end
+end
+
 local function drawFrameArt(surface, look, accent, open, width, height)
 	local art = look and look.frameArt or nil
 	local shown = artShown[surface]
@@ -1046,6 +1077,11 @@ local function drawFrameArt(surface, look, accent, open, width, height)
 			return
 		end
 		NineSliceUtil.ApplyLayoutByName(holder, art.layout)
+		if art.mirrorTop then
+			mirrorTop(holder, art.layout)
+		elseif holder.TopEdge then
+			holder.TopEdge:SetRotation(0) -- the same pieces may have worn a mirrored top before
+		end
 		NineSliceUtil.DisableSharpening(holder)
 		NineSliceUtil.ShowLayout(holder)
 		artOpen[surface] = bits
