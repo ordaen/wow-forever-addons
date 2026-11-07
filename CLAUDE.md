@@ -153,7 +153,7 @@ docs/                           OrdaenCore.UI docs site (VitePress, own package.
 
 Like EllesmereUI, but the modules load on demand. The approach and the inventory: the design site's
 `general/modules` (http://127.0.0.1:47860/preview/design/general/modules.html; source
-`../wow-dev-tools/design/general/modules.md`); the settings window's approved look: `reference/settings/`.
+`../wow-dev-tools/design/general/modules.md`); the settings window's approved look: `settings/` (http://127.0.0.1:47860/preview/design/settings/).
 
 - **Ordaen** (today's `OrdaenCore`, folder name unchanged) is the one addon the player installs: always loaded and
   small. It holds the shared code, the **global settings** and the one **Ordaen settings window** (`/ordaen`; each
