@@ -159,6 +159,19 @@ function Window:SkinAll()
 		ns.Kit.CloseButton(close)
 	end
 	ns.Kit.ControlsIn(frame, self.skip)
+	local Debug = ns.Addon.Debug
+	if Debug:IsEnabled() and self.pack.kind == "dialog" then
+		-- a dialog's children that aren't buttons (the game menu's «new» label hangs somewhere here): name, type,
+		-- shown, and what its first point is anchored to
+		for _, child in ipairs({ frame:GetChildren() }) do
+			if child:GetObjectType() ~= "Button" then
+				local _, relative = child:GetPoint(1)
+				Debug:Logf("dialog %s child %s %s shown %s anchored to %s", self.pack.name, child:GetDebugName(),
+					child:GetObjectType(), tostring(child:IsShown()),
+					relative and relative.GetDebugName and relative:GetDebugName() or "nothing")
+			end
+		end
+	end
 end
 
 --- Skin the window (until that has worked once: the kit dresses each control once, so a retry after a failure only
