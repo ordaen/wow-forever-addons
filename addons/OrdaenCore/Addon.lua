@@ -1,5 +1,5 @@
 -- Ordaen Core: the addon framework. An addon declares what it needs once and the framework does the wiring:
--- SavedVariables with defaults, its lifecycle, events on one shared frame, slash commands (help and reset built
+-- SavedVariables with defaults, its lifecycle, events on its own event frame, slash commands (help and reset built
 -- in), a settings page, an addon compartment entry, and work held back until combat ends.
 --
 --   local addonName, ns = ...
@@ -27,8 +27,8 @@
 -- it existed (`db._schema` counts the ones done; new SavedVariables start counted). Append only, never reorder.
 --
 -- The spec must be a table written in the file (the build reads `db`/`charDb` from it). Strings shown to players
--- (labels, help) are locale keys of the addon (`ns.L`). Cost: one event frame for all Ordaen addons (plus one per
--- unit with unit events), handlers in plain arrays (no tables or closures per event), nothing runs per frame.
+-- (labels, help) are locale keys of the addon (`ns.L`). Cost: one event frame per addon (plus one per unit it has
+-- unit events for), handlers in plain arrays (no tables or closures per event), nothing runs per frame.
 local _, ns = ...
 
 ---@class OrdaenCoreAPI
