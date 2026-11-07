@@ -18,7 +18,11 @@ describe("LuaLS definitions", function()
 			GetTime = { args = {}, returns = { { name = "seconds", type = "number", nilable = false } } },
 			Defaulted = { args = { { name = "end", type = "cstring", nilable = false, default = true } }, returns = {} },
 		},
-		namespaces = { C_Map = { GetBestMapForUnit = "function", GetMapInfo = "function" }, Enum = { Kind = "table" } },
+		namespaces = {
+			C_Map = { GetBestMapForUnit = "function", GetMapInfo = "function" },
+			Enum = { Kind = "table" },
+			ContainerFrameItemButtonMixin = { SetHasItem = "function" },
+		},
 		globals = {
 			C_Map = "table",
 			Enum = "table",
@@ -74,6 +78,13 @@ describe("LuaLS definitions", function()
 		assert.truthy(g:find('CLOSE = ""', 1, true))
 		assert.falsy(g:find("bad-name", 1, true))
 		assert.falsy(g:find("\nC_Map = ", 1, true)) -- namespaces live in functions.lua
+	end)
+
+	it("declares Blizzard's mixins as classes, so our types can inherit their methods", function()
+		local f = files["functions.lua"]
+		assert.truthy(f:find("---@class ContainerFrameItemButtonMixin\nContainerFrameItemButtonMixin = {}\n", 1, true))
+		assert.truthy(f:find("function ContainerFrameItemButtonMixin.SetHasItem(...) end", 1, true))
+		assert.falsy(f:find("---@class C_Map", 1, true)) -- a namespace isn't a class
 	end)
 
 	it("gives CreateFrame an overload per frame type", function()

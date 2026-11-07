@@ -501,6 +501,7 @@ APIDocumentation.systems = {}
 ---@type table
 APIDocumentation.tables = {}
 
+---@class APIDocumentationMixin
 APIDocumentationMixin = {}
 ---@return any ...
 function APIDocumentationMixin.AddAllMatches(...) end
@@ -965,6 +966,7 @@ AZERITE_SUBTEXT_COLOR.b = 0
 AZERITE_SUBTEXT_COLOR.g = 0
 AZERITE_SUBTEXT_COLOR.r = 0
 
+---@class AccessibilityFontPreviewMixin
 AccessibilityFontPreviewMixin = {}
 ---@return any ...
 function AccessibilityFontPreviewMixin.GetValue(...) end
@@ -983,6 +985,7 @@ function AccessibilityOverrides.CreateArachnophobiaSetting(...) end
 ---@return any ...
 function AccessibilityOverrides.CreatePhotosensitivitySetting(...) end
 
+---@class AccessibilitySettingsPreviewMixin
 AccessibilitySettingsPreviewMixin = {}
 ---@return any ...
 function AccessibilitySettingsPreviewMixin.GetValue(...) end
@@ -995,6 +998,7 @@ function AccessibilitySettingsPreviewMixin.SetValueAccessor(...) end
 ---@return any ...
 function AccessibilitySettingsPreviewMixin.UpdatePreview(...) end
 
+---@class AccumulatorMixin
 AccumulatorMixin = {}
 ---@return any ...
 function AccumulatorMixin.Add(...) end
@@ -1068,6 +1072,7 @@ AchievementAlertSystem.maxQueue = 0
 ---@return any ...
 function AchievementAlertSystem.setUpFunction(...) end
 
+---@class AchievementDisplayMixin
 AchievementDisplayMixin = {}
 ---@return any ...
 function AchievementDisplayMixin.OnLoad(...) end
@@ -1078,6 +1083,7 @@ function AchievementDisplayMixin.SetTitle(...) end
 ---@return any ...
 function AchievementDisplayMixin.SetupBulletAnchoring(...) end
 
+---@class AchievementDisplayOverviewBulletMixin
 AchievementDisplayOverviewBulletMixin = {}
 ---@return any ...
 function AchievementDisplayOverviewBulletMixin.OnEnter(...) end
@@ -1092,6 +1098,7 @@ function AchievementDisplayOverviewBulletMixin.SetUpCriteria(...) end
 ---@return any ...
 function AchievementDisplayOverviewBulletMixin.Setup(...) end
 
+---@class AchievementMicroButtonMixin
 AchievementMicroButtonMixin = {}
 ---@return any ...
 function AchievementMicroButtonMixin.OnClick(...) end
@@ -1102,6 +1109,7 @@ function AchievementMicroButtonMixin.OnLoad(...) end
 ---@return any ...
 function AchievementMicroButtonMixin.UpdateMicroButton(...) end
 
+---@class AchievementObjectiveTrackerMixin
 AchievementObjectiveTrackerMixin = {}
 ---@return any ...
 function AchievementObjectiveTrackerMixin.AcquireFrame(...) end
@@ -1293,6 +1301,7 @@ function AchievementUtil.IsCriteriaReputationGained(...) end
 ---@return any ...
 function AchievementUtil.IsFeatOfStrength(...) end
 
+---@class ActionBarActionButtonDerivedMixin
 ActionBarActionButtonDerivedMixin = {}
 ---@return any ...
 function ActionBarActionButtonDerivedMixin.ActionBarActionButtonDerivedMixin_OnAttributeChanged(...) end
@@ -1431,6 +1440,7 @@ function ActionBarActionButtonDerivedMixin.UpdateTypeOverlay(...) end
 ---@return any ...
 function ActionBarActionButtonDerivedMixin.UpdateUsable(...) end
 
+---@class ActionBarActionButtonMixin
 ActionBarActionButtonMixin = {}
 ---@return any ...
 function ActionBarActionButtonMixin.CheckNeedsUpdate(...) end
@@ -1545,6 +1555,7 @@ function ActionBarActionButtonMixin.UpdateTypeOverlay(...) end
 ---@return any ...
 function ActionBarActionButtonMixin.UpdateUsable(...) end
 
+---@class ActionBarActionEventsFrameMixin
 ActionBarActionEventsFrameMixin = {}
 ---@return any ...
 function ActionBarActionEventsFrameMixin.IsSpellcastEvent(...) end
@@ -1557,6 +1568,7 @@ function ActionBarActionEventsFrameMixin.RegisterFrame(...) end
 ---@return any ...
 function ActionBarActionEventsFrameMixin.UnregisterFrame(...) end
 
+---@class ActionBarButtonAssistedCombatRotationFrameMixin
 ActionBarButtonAssistedCombatRotationFrameMixin = {}
 ---@return any ...
 function ActionBarButtonAssistedCombatRotationFrameMixin.EvaluateTutorials(...) end
@@ -1575,6 +1587,7 @@ function ActionBarButtonAssistedCombatRotationFrameMixin.UpdateGlow(...) end
 ---@return any ...
 function ActionBarButtonAssistedCombatRotationFrameMixin.UpdateState(...) end
 
+---@class ActionBarButtonEventsDerivedFrameMixin
 ActionBarButtonEventsDerivedFrameMixin = {}
 ---@return any ...
 function ActionBarButtonEventsDerivedFrameMixin.ForEachFrame(...) end
@@ -1587,6 +1600,7 @@ function ActionBarButtonEventsDerivedFrameMixin.OnLoad(...) end
 ---@return any ...
 function ActionBarButtonEventsDerivedFrameMixin.RegisterFrame(...) end
 
+---@class ActionBarButtonEventsFrameMixin
 ActionBarButtonEventsFrameMixin = {}
 ---@return any ...
 function ActionBarButtonEventsFrameMixin.ForEachFrame(...) end
@@ -1599,6 +1613,7 @@ function ActionBarButtonEventsFrameMixin.OnLoad(...) end
 ---@return any ...
 function ActionBarButtonEventsFrameMixin.RegisterFrame(...) end
 
+---@class ActionBarButtonMixin
 ActionBarButtonMixin = {}
 ---@return any ...
 function ActionBarButtonMixin.ActionBarButtonMixin_OnDragStart(...) end
@@ -1609,6 +1624,7 @@ function ActionBarButtonMixin.ActionBarButtonMixin_OnLeave(...) end
 ---@return any ...
 function ActionBarButtonMixin.ActionBarButtonMixin_OnLoad(...) end
 
+---@class ActionBarButtonRangeCheckFrameMixin
 ActionBarButtonRangeCheckFrameMixin = {}
 ---@return any ...
 function ActionBarButtonRangeCheckFrameMixin.OnEvent(...) end
@@ -1619,6 +1635,7 @@ function ActionBarButtonRangeCheckFrameMixin.RegisterFrame(...) end
 ---@return any ...
 function ActionBarButtonRangeCheckFrameMixin.UnregisterFrame(...) end
 
+---@class ActionBarButtonUpdateFrameMixin
 ActionBarButtonUpdateFrameMixin = {}
 ---@return any ...
 function ActionBarButtonUpdateFrameMixin.OnLoad(...) end
@@ -1629,6 +1646,7 @@ function ActionBarButtonUpdateFrameMixin.RegisterFrame(...) end
 ---@return any ...
 function ActionBarButtonUpdateFrameMixin.UnregisterFrame(...) end
 
+---@class ActionBarButtonUsableWatcherFrameMixin
 ActionBarButtonUsableWatcherFrameMixin = {}
 ---@return any ...
 function ActionBarButtonUsableWatcherFrameMixin.OnEvent(...) end
@@ -1639,6 +1657,7 @@ function ActionBarButtonUsableWatcherFrameMixin.RegisterFrame(...) end
 ---@return any ...
 function ActionBarButtonUsableWatcherFrameMixin.UnregisterFrame(...) end
 
+---@class ActionBarMixin
 ActionBarMixin = {}
 ---@return any ...
 function ActionBarMixin.ActionBar_OnEvent(...) end
@@ -1665,6 +1684,7 @@ function ActionBarMixin.UpdateShownButtons(...) end
 ---@return any ...
 function ActionBarMixin.UpdateSpellFlyoutDirection(...) end
 
+---@class ActionBarOverlayGlowAnimInMixin
 ActionBarOverlayGlowAnimInMixin = {}
 ---@return any ...
 function ActionBarOverlayGlowAnimInMixin.OnFinished(...) end
@@ -1724,6 +1744,7 @@ ActionButtonBindingHighlightCallbackRegistry.deferredCallbacks = {}
 ActionButtonBindingHighlightCallbackRegistry.executingEvents = {}
 ActionButtonBindingHighlightCallbackRegistry.isUndefinedEventAllowed = false
 
+---@class ActionButtonCastingAnimFrameMixin
 ActionButtonCastingAnimFrameMixin = {}
 ---@return any ...
 function ActionButtonCastingAnimFrameMixin.FinishAnimAndPlayBurst(...) end
@@ -1736,26 +1757,32 @@ function ActionButtonCastingAnimFrameMixin.Setup(...) end
 ---@return any ...
 function ActionButtonCastingAnimFrameMixin.SetupAnimAtlases(...) end
 
+---@class ActionButtonCastingAnimationFillMixin
 ActionButtonCastingAnimationFillMixin = {}
 ---@return any ...
 function ActionButtonCastingAnimationFillMixin.OnFinished(...) end
 
+---@class ActionButtonCastingFinishAnimMixin
 ActionButtonCastingFinishAnimMixin = {}
 ---@return any ...
 function ActionButtonCastingFinishAnimMixin.OnFinished(...) end
 
+---@class ActionButtonCooldownFlashAnimMixin
 ActionButtonCooldownFlashAnimMixin = {}
 ---@return any ...
 function ActionButtonCooldownFlashAnimMixin.OnFinished(...) end
 
+---@class ActionButtonCooldownFlashMixin
 ActionButtonCooldownFlashMixin = {}
 ---@return any ...
 function ActionButtonCooldownFlashMixin.Setup(...) end
 
+---@class ActionButtonInterruptAnimInMixin
 ActionButtonInterruptAnimInMixin = {}
 ---@return any ...
 function ActionButtonInterruptAnimInMixin.OnFinished(...) end
 
+---@class ActionButtonInterruptFrameMixin
 ActionButtonInterruptFrameMixin = {}
 ---@return any ...
 function ActionButtonInterruptFrameMixin.OnHide(...) end
@@ -1775,6 +1802,7 @@ ActionButtonSpellAlertManager.SpellAlertType = {}
 ActionButtonSpellAlertManager.activeAlerts = {}
 ActionButtonSpellAlertManager.useAltGlow = false
 
+---@class ActionButtonSpellAlertMixin
 ActionButtonSpellAlertMixin = {}
 ---@return any ...
 function ActionButtonSpellAlertMixin.OnHide(...) end
@@ -1783,10 +1811,12 @@ function ActionButtonSpellAlertMixin.OnLoad(...) end
 ---@return any ...
 function ActionButtonSpellAlertMixin.OnShow(...) end
 
+---@class ActionButtonTargetReticleFrameMixin
 ActionButtonTargetReticleFrameMixin = {}
 ---@return any ...
 function ActionButtonTargetReticleFrameMixin.Setup(...) end
 
+---@class ActionButtonTextOverlayContainerMixin
 ActionButtonTextOverlayContainerMixin = {}
 ---@return any ...
 function ActionButtonTextOverlayContainerMixin.OnLoad(...) end
@@ -1841,6 +1871,7 @@ function ActionButtonUtil.ShowAllActionButtonGrids(...) end
 ---@return any ...
 function ActionButtonUtil.ShowAllQuickKeybindButtonHighlights(...) end
 
+---@class ActionStatusMixin
 ActionStatusMixin = {}
 ---@return any ...
 function ActionStatusMixin.ClearAlternateParentFrame(...) end
@@ -1859,10 +1890,12 @@ function ActionStatusMixin.SetAlternateParentFrame(...) end
 ---@return any ...
 function ActionStatusMixin.UpdateParent(...) end
 
+---@class AddFriendCloseButtonMixin
 AddFriendCloseButtonMixin = {}
 ---@return any ...
 function AddFriendCloseButtonMixin.OnClick(...) end
 
+---@class AddFriendEntryFrameInfoButtonMixin
 AddFriendEntryFrameInfoButtonMixin = {}
 ---@return any ...
 function AddFriendEntryFrameInfoButtonMixin.InitResizableTextures(...) end
@@ -1871,6 +1904,7 @@ function AddFriendEntryFrameInfoButtonMixin.OnClick(...) end
 ---@return any ...
 function AddFriendEntryFrameInfoButtonMixin.OnLoad(...) end
 
+---@class AddFriendFrameMixin
 AddFriendFrameMixin = {}
 ---@return any ...
 function AddFriendFrameMixin.OnHide(...) end
@@ -1887,6 +1921,7 @@ function AddFriendFrameMixin.ShowEntry(...) end
 ---@return any ...
 function AddFriendFrameMixin.ShowInfo(...) end
 
+---@class AddFriendIconHolderMixin
 AddFriendIconHolderMixin = {}
 ---@return any ...
 function AddFriendIconHolderMixin.OnLoad(...) end
@@ -1905,6 +1940,7 @@ AddOnPerformance.addOnHasPerformanceWarning = {}
 ---@type table
 AddOnPerformance.shownPerformanceMessages = {}
 
+---@class AddOnSettingMixin
 AddOnSettingMixin = {}
 ---@return any ...
 function AddOnSettingMixin.AddCommitFlag(...) end
@@ -1971,6 +2007,7 @@ function AddOnUtil.LoadAddOn(...) end
 ---@return any ...
 function AddOnUtil.SetEnableStateForAddOnAndDependencies(...) end
 
+---@class AddonCategoryCollapseExpandMixin
 AddonCategoryCollapseExpandMixin = {}
 ---@return any ...
 function AddonCategoryCollapseExpandMixin.OnClick(...) end
@@ -1981,6 +2018,7 @@ function AddonCategoryCollapseExpandMixin.ToggleState(...) end
 ---@return any ...
 function AddonCategoryCollapseExpandMixin.UpdateState(...) end
 
+---@class AddonCompartmentMixin
 AddonCompartmentMixin = {}
 ---@return any ...
 function AddonCompartmentMixin.DesaturateIfDisabled(...) end
@@ -2023,16 +2061,19 @@ function AddonCompartmentMixin.SetDisplacedRegions(...) end
 ---@return any ...
 function AddonCompartmentMixin.UpdateDisplay(...) end
 
+---@class AddonDialogMixin
 AddonDialogMixin = {}
 ---@return any ...
 function AddonDialogMixin.OnLoad(...) end
 
+---@class AddonListCategoryMixin
 AddonListCategoryMixin = {}
 ---@return any ...
 function AddonListCategoryMixin.OnClick(...) end
 ---@return any ...
 function AddonListCategoryMixin.SetEnabledAll(...) end
 
+---@class AddonListEntryMixin
 AddonListEntryMixin = {}
 ---@return any ...
 function AddonListEntryMixin.OnClick(...) end
@@ -2043,6 +2084,7 @@ function AddonListEntryMixin.SetEnabledAll(...) end
 ---@return any ...
 function AddonListEntryMixin.SetEnabledDependencies(...) end
 
+---@class AddonListMixin
 AddonListMixin = {}
 ---@return any ...
 function AddonListMixin.GetAddonMetricPercent(...) end
@@ -2063,6 +2105,7 @@ function AddonListMixin.UpdateOverallMetric(...) end
 ---@return any ...
 function AddonListMixin.UpdatePerformance(...) end
 
+---@class AddonListNodeMixin
 AddonListNodeMixin = {}
 ---@return any ...
 function AddonListNodeMixin.OnClick(...) end
@@ -2081,6 +2124,7 @@ function AdventureGuideUtil.OpenHyperLink(...) end
 ---@return any ...
 function AdventureGuideUtil.OpenJournalLink(...) end
 
+---@class AdventureObjectiveTrackerMixin
 AdventureObjectiveTrackerMixin = {}
 ---@return any ...
 function AdventureObjectiveTrackerMixin.AcquireFrame(...) end
@@ -2274,10 +2318,12 @@ AdventureObjectiveTrackerMixin.rightEdgeFrameSpacing = 0
 AdventureObjectiveTrackerMixin.state = 0
 AdventureObjectiveTrackerMixin.wasDisplayedLastLayout = false
 
+---@class AdventuresLevelPortraitMixin
 AdventuresLevelPortraitMixin = {}
 ---@return any ...
 function AdventuresLevelPortraitMixin.SetupPortrait(...) end
 
+---@class AlertContainerMixin
 AlertContainerMixin = {}
 ---@return any ...
 function AlertContainerMixin.AddAlertFrame(...) end
@@ -2332,6 +2378,7 @@ function AlertContainerMixin.UnblockLeftClickingAlerts(...) end
 ---@return any ...
 function AlertContainerMixin.UpdateAnchors(...) end
 
+---@class AlertFrameAutoAnchoredMixin
 AlertFrameAutoAnchoredMixin = {}
 ---@return any ...
 function AlertFrameAutoAnchoredMixin.AdjustAnchors(...) end
@@ -2346,6 +2393,7 @@ function AlertFrameAutoAnchoredMixin.OnLoad(...) end
 ---@return any ...
 function AlertFrameAutoAnchoredMixin.SetAlertContainer(...) end
 
+---@class AlertFrameExternallyAnchoredMixin
 AlertFrameExternallyAnchoredMixin = {}
 ---@return any ...
 function AlertFrameExternallyAnchoredMixin.AdjustAnchors(...) end
@@ -2360,6 +2408,7 @@ function AlertFrameExternallyAnchoredMixin.OnLoad(...) end
 ---@return any ...
 function AlertFrameExternallyAnchoredMixin.SetAlertContainer(...) end
 
+---@class AlertFrameMixin
 AlertFrameMixin = {}
 ---@return any ...
 function AlertFrameMixin.BuildLFGRewardData(...) end
@@ -2374,6 +2423,7 @@ function AlertFrameMixin.OnLoad(...) end
 ---@return any ...
 function AlertFrameMixin.ShouldSupressDungeonOrScenarioAlert(...) end
 
+---@class AlertFrameQueueMixin
 AlertFrameQueueMixin = {}
 ---@return any ...
 function AlertFrameQueueMixin.AddAlert(...) end
@@ -2424,6 +2474,7 @@ function AlertFrameQueueMixin.ShouldAlwaysReplace(...) end
 ---@return any ...
 function AlertFrameQueueMixin.ShowAlert(...) end
 
+---@class AlphaHighlightButtonMixin
 AlphaHighlightButtonMixin = {}
 ---@return any ...
 function AlphaHighlightButtonMixin.GetHighlightForState(...) end
@@ -2436,6 +2487,7 @@ function AlphaHighlightButtonMixin.SetPressed(...) end
 ---@return any ...
 function AlphaHighlightButtonMixin.UpdateHighlightForState(...) end
 
+---@class AlternatePowerBarBaseMixin
 AlternatePowerBarBaseMixin = {}
 ---@return any ...
 function AlternatePowerBarBaseMixin.AttachBarToUnitUI(...) end
@@ -2474,6 +2526,7 @@ function AlternatePowerBarBaseMixin.UpdateMinMaxPower(...) end
 ---@return any ...
 function AlternatePowerBarBaseMixin.UpdatePower(...) end
 
+---@class AlternatePowerBarMixin
 AlternatePowerBarMixin = {}
 ---@return any ...
 function AlternatePowerBarMixin.EvaluateUnit(...) end
@@ -2494,6 +2547,7 @@ function AlternatePowerBarMixin.SetPowerType(...) end
 ---@return any ...
 function AlternatePowerBarMixin.Update(...) end
 
+---@class AnchorMixin
 AnchorMixin = {}
 ---@return any ...
 function AnchorMixin.Get(...) end
@@ -2560,6 +2614,7 @@ function AnchorUtil.SetMirroredTexCoordAlongVerticalAxis(...) end
 ---@return any ...
 function AnchorUtil.VerticalLayout(...) end
 
+---@class AnimTransitionMixin
 AnimTransitionMixin = {}
 ---@return any ...
 function AnimTransitionMixin.CancelAnimTransition(...) end
@@ -2580,12 +2635,14 @@ AnimTransitionMixinTransitionType.SlideLeft = 0
 AnimTransitionMixinTransitionType.SlideRight = 0
 AnimTransitionMixinTransitionType.SlideTop = 0
 
+---@class AnimateWhileShownMixin
 AnimateWhileShownMixin = {}
 ---@return any ...
 function AnimateWhileShownMixin.PlayAnims(...) end
 ---@return any ...
 function AnimateWhileShownMixin.StopAnims(...) end
 
+---@class AnimatedHealthLossMixin
 AnimatedHealthLossMixin = {}
 ---@return any ...
 function AnimatedHealthLossMixin.BeginAnimation(...) end
@@ -2614,6 +2671,7 @@ function AnimatedHealthLossMixin.UpdateHealthMinMax(...) end
 ---@return any ...
 function AnimatedHealthLossMixin.UpdateLossAnimation(...) end
 
+---@class AnimatedNumericFontStringMixin
 AnimatedNumericFontStringMixin = {}
 ---@return any ...
 function AnimatedNumericFontStringMixin.GetAnimatedDurationTimeSec(...) end
@@ -2626,6 +2684,7 @@ function AnimatedNumericFontStringMixin.SnapToTarget(...) end
 ---@return any ...
 function AnimatedNumericFontStringMixin.UpdateAnimatedValue(...) end
 
+---@class AnimatedShineMixin
 AnimatedShineMixin = {}
 ---@return any ...
 function AnimatedShineMixin.Start(...) end
@@ -2634,6 +2693,7 @@ function AnimatedShineMixin.Stop(...) end
 ---@return any ...
 function AnimatedShineMixin.Update(...) end
 
+---@class AnimatedStatusBarMixin
 AnimatedStatusBarMixin = {}
 ---@return any ...
 function AnimatedStatusBarMixin.AcquireTileTemplate(...) end
@@ -2690,22 +2750,27 @@ function AnimatedStatusBarMixin.SetupAnimationGroupForValueChange(...) end
 ---@return any ...
 function AnimatedStatusBarMixin.StartTilingAnimation(...) end
 
+---@class ArachnophobiaMixin
 ArachnophobiaMixin = {}
 ---@return any ...
 function ArachnophobiaMixin.OnLoad(...) end
 
+---@class ArcheologyDigsiteProgressBarAnimOutAndTriggerToastMixin
 ArcheologyDigsiteProgressBarAnimOutAndTriggerToastMixin = {}
 ---@return any ...
 function ArcheologyDigsiteProgressBarAnimOutAndTriggerToastMixin.OnFinished(...) end
 
+---@class ArcheologyDigsiteProgressBarAnimOutMixin
 ArcheologyDigsiteProgressBarAnimOutMixin = {}
 ---@return any ...
 function ArcheologyDigsiteProgressBarAnimOutMixin.OnFinished(...) end
 
+---@class ArcheologyDigsiteProgressBarFlashAnimInMixin
 ArcheologyDigsiteProgressBarFlashAnimInMixin = {}
 ---@return any ...
 function ArcheologyDigsiteProgressBarFlashAnimInMixin.OnFinished(...) end
 
+---@class ArcheologyDigsiteProgressBarMixin
 ArcheologyDigsiteProgressBarMixin = {}
 ---@return any ...
 function ArcheologyDigsiteProgressBarMixin.OnArtifactDigsiteComplete(...) end
@@ -2728,10 +2793,12 @@ function ArcheologyDigsiteProgressBarMixin.SetIsInEditMode(...) end
 ---@return any ...
 function ArcheologyDigsiteProgressBarMixin.UpdateShownState(...) end
 
+---@class ArcheologyDigsiteProgressFillBarMixin
 ArcheologyDigsiteProgressFillBarMixin = {}
 ---@return any ...
 function ArcheologyDigsiteProgressFillBarMixin.OnUpdate(...) end
 
+---@class AreaLabelDataProviderMixin
 AreaLabelDataProviderMixin = {}
 ---@return any ...
 function AreaLabelDataProviderMixin.GetMap(...) end
@@ -2788,6 +2855,7 @@ function AreaLabelDataProviderMixin.UnregisterEvent(...) end
 ---@return any ...
 function AreaLabelDataProviderMixin.UpdatePing(...) end
 
+---@class AreaLabelFrameMixin
 AreaLabelFrameMixin = {}
 ---@return any ...
 function AreaLabelFrameMixin.ClearAllLabels(...) end
@@ -2806,6 +2874,7 @@ function AreaLabelFrameMixin.OnUpdate(...) end
 ---@return any ...
 function AreaLabelFrameMixin.SetLabel(...) end
 
+---@class AreaPOIDataProviderMixin
 AreaPOIDataProviderMixin = {}
 ---@return any ...
 function AreaPOIDataProviderMixin.GetBountyInfo(...) end
@@ -2860,6 +2929,7 @@ function AreaPOIDataProviderMixin.UnregisterEvent(...) end
 ---@return any ...
 function AreaPOIDataProviderMixin.UpdatePing(...) end
 
+---@class AreaPOIEventDataProviderMixin
 AreaPOIEventDataProviderMixin = {}
 ---@return any ...
 function AreaPOIEventDataProviderMixin.GetBountyInfo(...) end
@@ -2914,6 +2984,7 @@ function AreaPOIEventDataProviderMixin.UnregisterEvent(...) end
 ---@return any ...
 function AreaPOIEventDataProviderMixin.UpdatePing(...) end
 
+---@class AreaPOIEventPinMixin
 AreaPOIEventPinMixin = {}
 ---@return any ...
 function AreaPOIEventPinMixin.AddCustomTooltipData(...) end
@@ -3123,6 +3194,7 @@ function AreaPOIEventPinMixin.UseSetAreaLabel(...) end
 function AreaPOIEventPinMixin.UseTooltip(...) end
 AreaPOIEventPinMixin.pinFrameLevel = ""
 
+---@class AreaPOIPinMixin
 AreaPOIPinMixin = {}
 ---@return any ...
 function AreaPOIPinMixin.AddCustomTooltipData(...) end
@@ -3334,12 +3406,14 @@ AreaPoiUtil = {}
 ---@return any ...
 function AreaPoiUtil.TryShowTooltip(...) end
 
+---@class ArenaEnemyFramesContainerMixin
 ArenaEnemyFramesContainerMixin = {}
 ---@return any ...
 function ArenaEnemyFramesContainerMixin.Update(...) end
 ---@return any ...
 function ArenaEnemyFramesContainerMixin.UpdateShownState(...) end
 
+---@class ArenaEnemyMatchFrameMixin
 ArenaEnemyMatchFrameMixin = {}
 ---@return any ...
 function ArenaEnemyMatchFrameMixin.GetPetFrame(...) end
@@ -3362,6 +3436,7 @@ function ArenaEnemyMatchFrameMixin.UpdatePlayer(...) end
 ---@return any ...
 function ArenaEnemyMatchFrameMixin.UpdateShownState(...) end
 
+---@class ArenaEnemyMatchFramesContainerMixin
 ArenaEnemyMatchFramesContainerMixin = {}
 ---@return any ...
 function ArenaEnemyMatchFramesContainerMixin.CheckEffectiveEnableState(...) end
@@ -3382,6 +3457,7 @@ function ArenaEnemyMatchFramesContainerMixin.OnShow(...) end
 ---@return any ...
 function ArenaEnemyMatchFramesContainerMixin.ResetCrowdControlCooldownData(...) end
 
+---@class ArenaEnemyPetFrameMixin
 ArenaEnemyPetFrameMixin = {}
 ---@return any ...
 function ArenaEnemyPetFrameMixin.OnEvent(...) end
@@ -3394,12 +3470,14 @@ function ArenaEnemyPetFrameMixin.OnShow(...) end
 ---@return any ...
 function ArenaEnemyPetFrameMixin.Update(...) end
 
+---@class ArenaEnemyPrepFrameMixin
 ArenaEnemyPrepFrameMixin = {}
 ---@return any ...
 function ArenaEnemyPrepFrameMixin.OnHide(...) end
 ---@return any ...
 function ArenaEnemyPrepFrameMixin.OnShow(...) end
 
+---@class ArenaEnemyPrepFramesContainerMixin
 ArenaEnemyPrepFramesContainerMixin = {}
 ---@return any ...
 function ArenaEnemyPrepFramesContainerMixin.GetBestAnchorUnitFrameForOppponent(...) end
@@ -3422,6 +3500,7 @@ function ArenaUtil.UnitExists(...) end
 ---@type table
 ArenaUtil.unitExistsOverides = {}
 
+---@class ArtifactBarMixin
 ArtifactBarMixin = {}
 ---@return any ...
 function ArtifactBarMixin.AnimatedValueChangedCallback(...) end
@@ -3444,6 +3523,7 @@ function ArtifactBarMixin.UpdateOverlayFrameText(...) end
 ---@return any ...
 function ArtifactBarMixin.UpdateTick(...) end
 
+---@class ArtifactLevelUpToastMixin
 ArtifactLevelUpToastMixin = {}
 ---@return any ...
 function ArtifactLevelUpToastMixin.EvaluateTrigger(...) end
@@ -3458,6 +3538,7 @@ function ArtifactLevelUpToastMixin.PlayBanner(...) end
 ---@return any ...
 function ArtifactLevelUpToastMixin.StopBanner(...) end
 
+---@class ArtifactTickMixin
 ArtifactTickMixin = {}
 ---@return any ...
 function ArtifactTickMixin.OnEnter(...) end
@@ -3531,6 +3612,7 @@ AsyncCallbackAPIType.ASYNC_ITEM = 0
 AsyncCallbackAPIType.ASYNC_QUEST = 0
 AsyncCallbackAPIType.ASYNC_SPELL = 0
 
+---@class AsyncCallbackSystemMixin
 AsyncCallbackSystemMixin = {}
 ---@return any ...
 function AsyncCallbackSystemMixin.AddCallback(...) end
@@ -3565,6 +3647,7 @@ AuraButtonBorderStyle = {}
 AuraButtonBorderStyle.Atlas = 0
 AuraButtonBorderStyle.Color = 0
 
+---@class AuraButtonMixin
 AuraButtonMixin = {}
 ---@return any ...
 function AuraButtonMixin.CalculateTimeLeft(...) end
@@ -3623,6 +3706,7 @@ AuraContainerItemEnchantmentSortMethod = {}
 AuraContainerItemEnchantmentSortMethod.Duration = 0
 AuraContainerItemEnchantmentSortMethod.Slot = 0
 
+---@class AuraContainerMixin
 AuraContainerMixin = {}
 ---@return any ...
 function AuraContainerMixin.GetAuraWarningAlphaForDuration(...) end
@@ -3646,12 +3730,14 @@ AuraContainerSortMethod.Name = 0
 AuraContainerSortMethod.NameOnly = 0
 AuraContainerSortMethod.UnitFrameDebuff = 0
 
+---@class AuraContainerWarningFaderMixin
 AuraContainerWarningFaderMixin = {}
 ---@return any ...
 function AuraContainerWarningFaderMixin.GetSmoothAlpha(...) end
 ---@return any ...
 function AuraContainerWarningFaderMixin.Init(...) end
 
+---@class AuraFrameEditModeMixin
 AuraFrameEditModeMixin = {}
 ---@return any ...
 function AuraFrameEditModeMixin.AuraFrame_OnLoad(...) end
@@ -3688,12 +3774,14 @@ function AuraFrameEditModeMixin.UpdateShownState(...) end
 ---@return any ...
 function AuraFrameEditModeMixin.UpdateSize(...) end
 
+---@class AuraFrameEventListenerMixin
 AuraFrameEventListenerMixin = {}
 ---@return any ...
 function AuraFrameEventListenerMixin.AuraFrameEventListener_OnEvent(...) end
 ---@return any ...
 function AuraFrameEventListenerMixin.AuraFrameEventListener_OnLoad(...) end
 
+---@class AuraFrameMixin
 AuraFrameMixin = {}
 ---@return any ...
 function AuraFrameMixin.AuraFrame_OnLoad(...) end
@@ -3799,6 +3887,7 @@ AuraUtil.UnitFrameDebuffType = {}
 ---@return any ...
 function AuraUtil.UnpackAuraData(...) end
 
+---@class AutoCastOverlayMixin
 AutoCastOverlayMixin = {}
 ---@return any ...
 function AutoCastOverlayMixin.OnHide(...) end
@@ -3809,6 +3898,7 @@ function AutoCastOverlayMixin.ShowAutoCastEnabled(...) end
 ---@return any ...
 function AutoCastOverlayMixin.UpdateShineAnim(...) end
 
+---@class AutoCommitTraitFrameMixin
 AutoCommitTraitFrameMixin = {}
 ---@return any ...
 function AutoCommitTraitFrameMixin.AttemptConfigOperation(...) end
@@ -3841,6 +3931,7 @@ AutoCommitTraitUtil = {}
 ---@return any ...
 function AutoCommitTraitUtil.GetEdgeTemplateType(...) end
 
+---@class AutoLootDropdownControlMixin
 AutoLootDropdownControlMixin = {}
 ---@return any ...
 function AutoLootDropdownControlMixin.DisplayEnabled(...) end
@@ -3901,6 +3992,7 @@ function AutoLootDropdownControlMixin.UpdateLabel(...) end
 ---@type table
 AutoLootDropdownControlMixin.settingsDropdownControlFooter = {}
 
+---@class AutoQuestPopupBlockMixin
 AutoQuestPopupBlockMixin = {}
 ---@return any ...
 function AutoQuestPopupBlockMixin.AddCustomRegion(...) end
@@ -3973,6 +4065,7 @@ function AutoQuestPopupBlockMixin.UpdateIcon(...) end
 ---@return any ...
 function AutoQuestPopupBlockMixin.UpdateSlideProgress(...) end
 
+---@class AutoQuestPopupFlashFrameMixin
 AutoQuestPopupFlashFrameMixin = {}
 ---@return any ...
 function AutoQuestPopupFlashFrameMixin.OnHide(...) end
@@ -3981,6 +4074,7 @@ function AutoQuestPopupFlashFrameMixin.OnLoad(...) end
 ---@return any ...
 function AutoQuestPopupFlashFrameMixin.OnShow(...) end
 
+---@class AutoQuestPopupTrackerMixin
 AutoQuestPopupTrackerMixin = {}
 ---@return any ...
 function AutoQuestPopupTrackerMixin.AddAutoQuestObjectives(...) end
@@ -3991,6 +4085,7 @@ function AutoQuestPopupTrackerMixin.RemoveAutoQuestPopUp(...) end
 ---@return any ...
 function AutoQuestPopupTrackerMixin.ShouldDisplayAutoQuest(...) end
 
+---@class AutoScalingFontStringMixin
 AutoScalingFontStringMixin = {}
 ---@return any ...
 function AutoScalingFontStringMixin.ScaleTextToFit(...) end
@@ -4001,6 +4096,7 @@ function AutoScalingFontStringMixin.SetMinLineHeight(...) end
 ---@return any ...
 function AutoScalingFontStringMixin.SetText(...) end
 
+---@class AzeriteBarMixin
 AzeriteBarMixin = {}
 ---@return any ...
 function AzeriteBarMixin.AnimatedValueChangedCallback(...) end
@@ -4037,6 +4133,7 @@ function AzeriteEmpoweredItemDataSource.CreateFromFromItemLink(...) end
 ---@return any ...
 function AzeriteEmpoweredItemDataSource.CreateFromItemLocation(...) end
 
+---@class AzeriteEmpoweredItemDataSourceMixin
 AzeriteEmpoweredItemDataSourceMixin = {}
 ---@return any ...
 function AzeriteEmpoweredItemDataSourceMixin.Clear(...) end
@@ -4080,6 +4177,7 @@ function AzeriteEssenceUtil.GetMilestoneSpellInfo(...) end
 ---@return any ...
 function AzeriteEssenceUtil.HasAnyUnlockableMilestones(...) end
 
+---@class AzeriteIslandsToastAccumulatorMixin
 AzeriteIslandsToastAccumulatorMixin = {}
 ---@return any ...
 function AzeriteIslandsToastAccumulatorMixin.AddAzerite(...) end
@@ -4092,6 +4190,7 @@ function AzeriteIslandsToastAccumulatorMixin.IsTimeToDisplay(...) end
 ---@return any ...
 function AzeriteIslandsToastAccumulatorMixin.OnLoad(...) end
 
+---@class AzeriteIslandsToastMixin
 AzeriteIslandsToastMixin = {}
 ---@return any ...
 function AzeriteIslandsToastMixin.AcquireToastFrame(...) end
@@ -4120,6 +4219,7 @@ function AzeriteIslandsToastMixin.ShowToast(...) end
 ---@return any ...
 function AzeriteIslandsToastMixin.ShowWidgetGlow(...) end
 
+---@class AzeriteItemLevelUpToastMixin
 AzeriteItemLevelUpToastMixin = {}
 ---@return any ...
 function AzeriteItemLevelUpToastMixin.OnAnimFinished(...) end
@@ -4144,6 +4244,7 @@ function AzeriteItemLevelUpToastMixin.SetupModelScene(...) end
 ---@return any ...
 function AzeriteItemLevelUpToastMixin.StopBanner(...) end
 
+---@class AzeritePaperDollItemOverlayMixin
 AzeritePaperDollItemOverlayMixin = {}
 ---@return any ...
 function AzeritePaperDollItemOverlayMixin.DisplayAsAzeriteEmpoweredItem(...) end
@@ -4588,6 +4689,7 @@ BLUE_FONT_COLOR.b = 0
 BLUE_FONT_COLOR.g = 0
 BLUE_FONT_COLOR.r = 0
 
+---@class BNToastMixin
 BNToastMixin = {}
 ---@return any ...
 function BNToastMixin.AddToast(...) end
@@ -4626,6 +4728,7 @@ function BNToastMixin.ShowToast(...) end
 ---@return any ...
 function BNToastMixin.UpdateToastEvent(...) end
 
+---@class BNetTimeAlertMixin
 BNetTimeAlertMixin = {}
 ---@return any ...
 function BNetTimeAlertMixin.OnEvent(...) end
@@ -4738,6 +4841,7 @@ BRONZE_MATERIAL_TITLETEXT_COLOR.b = 0
 BRONZE_MATERIAL_TITLETEXT_COLOR.g = 0
 BRONZE_MATERIAL_TITLETEXT_COLOR.r = 0
 
+---@class BackdropTemplateMixin
 BackdropTemplateMixin = {}
 ---@return any ...
 function BackdropTemplateMixin.ApplyBackdrop(...) end
@@ -4770,12 +4874,14 @@ function BackdropTemplateMixin.SetupPieceVisuals(...) end
 ---@return any ...
 function BackdropTemplateMixin.SetupTextureCoordinates(...) end
 
+---@class BackpackCurrencyCheckboxMixin
 BackpackCurrencyCheckboxMixin = {}
 ---@return any ...
 function BackpackCurrencyCheckboxMixin.OnClick(...) end
 ---@return any ...
 function BackpackCurrencyCheckboxMixin.OnEnter(...) end
 
+---@class BackpackTokenFrameMixin
 BackpackTokenFrameMixin = {}
 ---@return any ...
 function BackpackTokenFrameMixin.CleanDirty(...) end
@@ -4810,6 +4916,7 @@ function BackpackTokenFrameMixin.UpdateIfVisible(...) end
 ---@return any ...
 function BackpackTokenFrameMixin.UpdateTokenAnchoring(...) end
 
+---@class BackpackTokenMixin
 BackpackTokenMixin = {}
 ---@return any ...
 function BackpackTokenMixin.OnClick(...) end
@@ -4818,6 +4925,7 @@ function BackpackTokenMixin.OnEnter(...) end
 ---@return any ...
 function BackpackTokenMixin.OnLeave(...) end
 
+---@class BagBarExpandToggleMixin
 BagBarExpandToggleMixin = {}
 ---@return any ...
 function BagBarExpandToggleMixin.GetRotation(...) end
@@ -4826,12 +4934,14 @@ function BagBarExpandToggleMixin.OnClick(...) end
 ---@return any ...
 function BagBarExpandToggleMixin.UpdateOrientation(...) end
 
+---@class BagSlotItemFlyInMixin
 BagSlotItemFlyInMixin = {}
 ---@return any ...
 function BagSlotItemFlyInMixin.OnFinished(...) end
 ---@return any ...
 function BagSlotItemFlyInMixin.OnPlay(...) end
 
+---@class BagTutorialBaseMixin
 BagTutorialBaseMixin = {}
 ---@return any ...
 function BagTutorialBaseMixin.AcknowledgeTutorial(...) end
@@ -4912,6 +5022,7 @@ function BagTutorialQueue.StartNext(...) end
 ---@type table
 BagTutorialQueue.queue = {}
 
+---@class BagsBarMixin
 BagsBarMixin = {}
 ---@return any ...
 function BagsBarMixin.GetBagBarLength(...) end
@@ -4936,6 +5047,7 @@ function BagsBarMixin.ShouldShowExpandToggle(...) end
 ---@return any ...
 function BagsBarMixin.UpdateDividers(...) end
 
+---@class BankAutoSortButtonMixin
 BankAutoSortButtonMixin = {}
 ---@return any ...
 function BankAutoSortButtonMixin.AutoSortBank(...) end
@@ -4956,6 +5068,7 @@ function BankAutoSortButtonMixin.OnLeave(...) end
 ---@return any ...
 function BankAutoSortButtonMixin.ShowBestTooltipForBankType(...) end
 
+---@class BankBagCostMoneyDisplayMixin
 BankBagCostMoneyDisplayMixin = {}
 ---@return any ...
 function BankBagCostMoneyDisplayMixin.OnEvent(...) end
@@ -4968,6 +5081,7 @@ function BankBagCostMoneyDisplayMixin.OnShow(...) end
 ---@return any ...
 function BankBagCostMoneyDisplayMixin.Refresh(...) end
 
+---@class BankCleanUpConfirmationPopupMixin
 BankCleanUpConfirmationPopupMixin = {}
 ---@return any ...
 function BankCleanUpConfirmationPopupMixin.GetActiveBankType(...) end
@@ -4984,6 +5098,7 @@ function BankCleanUpConfirmationPopupMixin.OnShow(...) end
 ---@return any ...
 function BankCleanUpConfirmationPopupMixin.RefreshConfirmationText(...) end
 
+---@class BankFrameBaseMixin
 BankFrameBaseMixin = {}
 ---@return any ...
 function BankFrameBaseMixin.CopyDeferredCallbacks(...) end
@@ -5048,6 +5163,7 @@ function BankFrameBaseMixin.UnregisterEventsByEventTable(...) end
 ---@return any ...
 function BankFrameBaseMixin.UpdateWidthForSelectedTab(...) end
 
+---@class BankFrameMixin
 BankFrameMixin = {}
 ---@return any ...
 function BankFrameMixin.GetNumPagesForBankType(...) end
@@ -5080,10 +5196,12 @@ function BankFrameMixin.RefreshPageTabs(...) end
 ---@return any ...
 function BankFrameMixin.SetTab(...) end
 
+---@class BankFramePurchaseButtonMixin
 BankFramePurchaseButtonMixin = {}
 ---@return any ...
 function BankFramePurchaseButtonMixin.OnClick(...) end
 
+---@class BankItemButtonBagMixin
 BankItemButtonBagMixin = {}
 ---@return any ...
 function BankItemButtonBagMixin.BagInventorySlot(...) end
@@ -5110,6 +5228,7 @@ function BankItemButtonBagMixin.OnShow(...) end
 ---@return any ...
 function BankItemButtonBagMixin.Pickup(...) end
 
+---@class BankPageTabMixin
 BankPageTabMixin = {}
 ---@return any ...
 function BankPageTabMixin.CalculateTabSizeBasedOnTabArt(...) end
@@ -5150,6 +5269,7 @@ function BankPageTabMixin.SetTabGlowAnimationPlaying(...) end
 ---@return any ...
 function BankPageTabMixin.UpdateIconInterior(...) end
 
+---@class BankPanelAutoDepositFrameMixin
 BankPanelAutoDepositFrameMixin = {}
 ---@return any ...
 function BankPanelAutoDepositFrameMixin.GetActiveBankType(...) end
@@ -5162,6 +5282,7 @@ function BankPanelAutoDepositFrameMixin.IsActiveBankTypeLocked(...) end
 ---@return any ...
 function BankPanelAutoDepositFrameMixin.SetEnabled(...) end
 
+---@class BankPanelCheckboxMixin
 BankPanelCheckboxMixin = {}
 ---@return any ...
 function BankPanelCheckboxMixin.Init(...) end
@@ -5170,6 +5291,7 @@ function BankPanelCheckboxMixin.OnClick(...) end
 ---@return any ...
 function BankPanelCheckboxMixin.OnShow(...) end
 
+---@class BankPanelDepositMoneyButtonMixin
 BankPanelDepositMoneyButtonMixin = {}
 ---@return any ...
 function BankPanelDepositMoneyButtonMixin.GetActiveBankType(...) end
@@ -5184,6 +5306,7 @@ function BankPanelDepositMoneyButtonMixin.OnClick(...) end
 ---@return any ...
 function BankPanelDepositMoneyButtonMixin.Refresh(...) end
 
+---@class BankPanelIncludeReagentsCheckboxMixin
 BankPanelIncludeReagentsCheckboxMixin = {}
 ---@return any ...
 function BankPanelIncludeReagentsCheckboxMixin.Init(...) end
@@ -5196,6 +5319,7 @@ function BankPanelIncludeReagentsCheckboxMixin.Refresh(...) end
 ---@return any ...
 function BankPanelIncludeReagentsCheckboxMixin.SetEnabledState(...) end
 
+---@class BankPanelItemButtonMixin
 BankPanelItemButtonMixin = {}
 ---@return any ...
 function BankPanelItemButtonMixin.GetBankTabID(...) end
@@ -5252,6 +5376,7 @@ function BankPanelItemButtonMixin.UpdateLocked(...) end
 ---@return any ...
 function BankPanelItemButtonMixin.UpdateVisualsForBankType(...) end
 
+---@class BankPanelItemDepositButtonMixin
 BankPanelItemDepositButtonMixin = {}
 ---@return any ...
 function BankPanelItemDepositButtonMixin.AutoDepositItems(...) end
@@ -5276,6 +5401,7 @@ function BankPanelItemDepositButtonMixin.SetEnabledState(...) end
 ---@return any ...
 function BankPanelItemDepositButtonMixin.UpdateTextForBankType(...) end
 
+---@class BankPanelLockPromptMixin
 BankPanelLockPromptMixin = {}
 ---@return any ...
 function BankPanelLockPromptMixin.GetActiveBankType(...) end
@@ -5300,6 +5426,7 @@ function BankPanelLockPromptMixin.SetPromptWidth(...) end
 ---@return any ...
 function BankPanelLockPromptMixin.SetTitle(...) end
 
+---@class BankPanelMixin
 BankPanelMixin = {}
 ---@return any ...
 function BankPanelMixin.Clean(...) end
@@ -5428,6 +5555,7 @@ function BankPanelMixin.UnregisterEventsByEventTable(...) end
 ---@return any ...
 function BankPanelMixin.UpdateSearchResults(...) end
 
+---@class BankPanelMoneyFrameMixin
 BankPanelMoneyFrameMixin = {}
 ---@return any ...
 function BankPanelMoneyFrameMixin.GetActiveBankType(...) end
@@ -5448,6 +5576,7 @@ function BankPanelMoneyFrameMixin.SetEnabled(...) end
 ---@return any ...
 function BankPanelMoneyFrameMixin.UpdateMoneyDisplayAnchoring(...) end
 
+---@class BankPanelMoneyFrameMoneyDisplayMixin
 BankPanelMoneyFrameMoneyDisplayMixin = {}
 ---@return any ...
 function BankPanelMoneyFrameMoneyDisplayMixin.DisableMoneyPopupFunctionality(...) end
@@ -5466,6 +5595,7 @@ function BankPanelMoneyFrameMoneyDisplayMixin.OnLoad(...) end
 ---@return any ...
 function BankPanelMoneyFrameMoneyDisplayMixin.Refresh(...) end
 
+---@class BankPanelPromptMixin
 BankPanelPromptMixin = {}
 ---@return any ...
 function BankPanelPromptMixin.GetActiveBankType(...) end
@@ -5486,6 +5616,7 @@ function BankPanelPromptMixin.SetPromptWidth(...) end
 ---@return any ...
 function BankPanelPromptMixin.SetTitle(...) end
 
+---@class BankPanelPurchasePromptMixin
 BankPanelPurchasePromptMixin = {}
 ---@return any ...
 function BankPanelPurchasePromptMixin.GetActiveBankType(...) end
@@ -5512,6 +5643,7 @@ function BankPanelPurchasePromptMixin.SetPromptWidth(...) end
 ---@return any ...
 function BankPanelPurchasePromptMixin.SetTitle(...) end
 
+---@class BankPanelPurchaseTabButtonMixin
 BankPanelPurchaseTabButtonMixin = {}
 ---@return any ...
 function BankPanelPurchaseTabButtonMixin.GetActiveBankType(...) end
@@ -5526,6 +5658,7 @@ function BankPanelPurchaseTabButtonMixin.IsActiveBankTypeLocked(...) end
 ---@return any ...
 function BankPanelPurchaseTabButtonMixin.OnClick(...) end
 
+---@class BankPanelSystemMixin
 BankPanelSystemMixin = {}
 ---@return any ...
 function BankPanelSystemMixin.GetActiveBankType(...) end
@@ -5536,10 +5669,12 @@ function BankPanelSystemMixin.GetBankTabSettingsMenu(...) end
 ---@return any ...
 function BankPanelSystemMixin.IsActiveBankTypeLocked(...) end
 
+---@class BankPanelTabCostMoneyDisplayMixin
 BankPanelTabCostMoneyDisplayMixin = {}
 ---@return any ...
 function BankPanelTabCostMoneyDisplayMixin.OnLoad(...) end
 
+---@class BankPanelTabMixin
 BankPanelTabMixin = {}
 ---@return any ...
 function BankPanelTabMixin.GetActiveBankType(...) end
@@ -5580,6 +5715,7 @@ function BankPanelTabMixin.SetEnabledState(...) end
 ---@return any ...
 function BankPanelTabMixin.ShowTooltip(...) end
 
+---@class BankPanelTabSettingsExpansionFilterDropdownMixin
 BankPanelTabSettingsExpansionFilterDropdownMixin = {}
 ---@return any ...
 function BankPanelTabSettingsExpansionFilterDropdownMixin.GetFilterValue(...) end
@@ -5590,6 +5726,7 @@ function BankPanelTabSettingsExpansionFilterDropdownMixin.Refresh(...) end
 ---@return any ...
 function BankPanelTabSettingsExpansionFilterDropdownMixin.SetFilterValue(...) end
 
+---@class BankPanelTabSettingsMenuMixin
 BankPanelTabSettingsMenuMixin = {}
 ---@return any ...
 function BankPanelTabSettingsMenuMixin.CancelButton_OnClick(...) end
@@ -5672,6 +5809,7 @@ function BankPanelTabSettingsMenuMixin.Update(...) end
 ---@return any ...
 function BankPanelTabSettingsMenuMixin.UpdateBankTabSettings(...) end
 
+---@class BankPanelWithdrawMoneyButtonMixin
 BankPanelWithdrawMoneyButtonMixin = {}
 ---@return any ...
 function BankPanelWithdrawMoneyButtonMixin.GetActiveBankType(...) end
@@ -5686,6 +5824,7 @@ function BankPanelWithdrawMoneyButtonMixin.OnClick(...) end
 ---@return any ...
 function BankPanelWithdrawMoneyButtonMixin.Refresh(...) end
 
+---@class BankTabDepositSettingsMenuMixin
 BankTabDepositSettingsMenuMixin = {}
 ---@return any ...
 function BankTabDepositSettingsMenuMixin.OnLoad(...) end
@@ -5742,12 +5881,14 @@ function BannerDataProvider.UnregisterEvent(...) end
 ---@return any ...
 function BannerDataProvider.UpdatePing(...) end
 
+---@class BarDividerMixin
 BarDividerMixin = {}
 ---@return any ...
 function BarDividerMixin.SetHeaderText(...) end
 ---@return any ...
 function BarDividerMixin.SetMarginSpacing(...) end
 
+---@class BaseAPIMixin
 BaseAPIMixin = {}
 ---@return any ...
 function BaseAPIMixin.AddDocumentationTags(...) end
@@ -5788,12 +5929,14 @@ function BaseAPIMixin.MatchesNameCaseInsenstive(...) end
 ---@return any ...
 function BaseAPIMixin.MatchesSearchString(...) end
 
+---@class BaseActionButtonInfoMixin
 BaseActionButtonInfoMixin = {}
 ---@return any ...
 function BaseActionButtonInfoMixin.GetActionButtonInfo(...) end
 ---@return any ...
 function BaseActionButtonInfoMixin.HasAction(...) end
 
+---@class BaseActionButtonMixin
 BaseActionButtonMixin = {}
 ---@return any ...
 function BaseActionButtonMixin.BaseActionButtonMixin_OnAttributeChanged(...) end
@@ -5820,6 +5963,7 @@ function BaseActionButtonMixin.UpdateFlyout(...) end
 ---@return any ...
 function BaseActionButtonMixin.UpdateFlyoutPopup(...) end
 
+---@class BaseAuraFrameMixin
 BaseAuraFrameMixin = {}
 ---@return any ...
 function BaseAuraFrameMixin.ClearGamepadFocus(...) end
@@ -5832,6 +5976,7 @@ function BaseAuraFrameMixin.UpdateAuraContainerAnchor(...) end
 ---@return any ...
 function BaseAuraFrameMixin.UpdateGridLayout(...) end
 
+---@class BaseBagSlotButtonMixin
 BaseBagSlotButtonMixin = {}
 ---@return any ...
 function BaseBagSlotButtonMixin.BagSlotOnClick(...) end
@@ -5886,6 +6031,7 @@ function BaseBagSlotButtonMixin.UpdateItemContextOverlayTextures(...) end
 ---@return any ...
 function BaseBagSlotButtonMixin.UpdateTextures(...) end
 
+---@class BaseButtonTrayMixin
 BaseButtonTrayMixin = {}
 ---@return any ...
 function BaseButtonTrayMixin.AddControl(...) end
@@ -5898,6 +6044,7 @@ function BaseButtonTrayMixin.SetButtonSetup(...) end
 ---@return any ...
 function BaseButtonTrayMixin.SetFramePoolSetup(...) end
 
+---@class BaseContainerFrameMixin
 BaseContainerFrameMixin = {}
 ---@return any ...
 function BaseContainerFrameMixin.EnumerateItems(...) end
@@ -5916,12 +6063,14 @@ function BaseContainerFrameMixin.SetBagSize(...) end
 ---@return any ...
 function BaseContainerFrameMixin.UpdateSearchResults(...) end
 
+---@class BaseExpandableDialogMixin
 BaseExpandableDialogMixin = {}
 ---@return any ...
 function BaseExpandableDialogMixin.OnCloseClick(...) end
 ---@return any ...
 function BaseExpandableDialogMixin.SetupTextureKit(...) end
 
+---@class BaseLayoutMixin
 BaseLayoutMixin = {}
 ---@return any ...
 function BaseLayoutMixin.AddLayoutChildren(...) end
@@ -5980,6 +6129,7 @@ function BaseLayoutMixin.SetWidthPadding(...) end
 ---@return any ...
 function BaseLayoutMixin.ShouldClearOnUpdateAfterClean(...) end
 
+---@class BaseMapPoiPinMixin
 BaseMapPoiPinMixin = {}
 ---@return any ...
 function BaseMapPoiPinMixin.AddIconWidgets(...) end
@@ -6170,6 +6320,7 @@ function BaseMapPoiPinMixin.UseSetAreaLabel(...) end
 ---@return any ...
 function BaseMapPoiPinMixin.UseTooltip(...) end
 
+---@class BaseNineSliceDialogMixin
 BaseNineSliceDialogMixin = {}
 ---@return any ...
 function BaseNineSliceDialogMixin.Display(...) end
@@ -6180,6 +6331,7 @@ function BaseNineSliceDialogMixin.OnLoad(...) end
 ---@return any ...
 function BaseNineSliceDialogMixin.OnShow(...) end
 
+---@class BasePagedGridContentFrameMixin
 BasePagedGridContentFrameMixin = {}
 ---@return any ...
 function BasePagedGridContentFrameMixin.ApplyLayout(...) end
@@ -6318,6 +6470,7 @@ function BasePagedGridContentFrameMixin.UpdateLayouts(...) end
 ---@return any ...
 function BasePagedGridContentFrameMixin.WillElementUseTrackedViewSpace(...) end
 
+---@class BasePagedListContentFrameMixin
 BasePagedListContentFrameMixin = {}
 ---@return any ...
 function BasePagedListContentFrameMixin.ApplyLayout(...) end
@@ -6456,6 +6609,7 @@ function BasePagedListContentFrameMixin.UpdateLayouts(...) end
 ---@return any ...
 function BasePagedListContentFrameMixin.WillElementUseTrackedViewSpace(...) end
 
+---@class BasePrivateAuraBehaviorMixin
 BasePrivateAuraBehaviorMixin = {}
 ---@return any ...
 function BasePrivateAuraBehaviorMixin.GetAuraOrganizationType(...) end
@@ -6494,6 +6648,7 @@ BaseScrollBoxEvents.OnLayout = ""
 BaseScrollBoxEvents.OnScroll = ""
 BaseScrollBoxEvents.OnSizeChanged = ""
 
+---@class BaseSpellSearchFilterMixin
 BaseSpellSearchFilterMixin = {}
 ---@return any ...
 function BaseSpellSearchFilterMixin.ClearSearchResults(...) end
@@ -6542,6 +6697,7 @@ function BaseSpellSearchFilterMixin.SetSearchParams(...) end
 ---@return any ...
 function BaseSpellSearchFilterMixin.UpdateSearchResults(...) end
 
+---@class BaseTextTimerMixin
 BaseTextTimerMixin = {}
 ---@return any ...
 function BaseTextTimerMixin.OnUpdate(...) end
@@ -6568,6 +6724,7 @@ BattleNetFriendPartyInviteRestrictionType.Realm = 0
 BattleNetFriendPartyInviteRestrictionType.WowProjectClassic = 0
 BattleNetFriendPartyInviteRestrictionType.WowProjectMainline = 0
 
+---@class BattleNetInviteFrameMixin
 BattleNetInviteFrameMixin = {}
 ---@return any ...
 function BattleNetInviteFrameMixin.OnBattleTagFriendInviteByIDRequested(...) end
@@ -6586,6 +6743,7 @@ function BattleNetInviteFrameMixin.SetTextForFriendLevel(...) end
 ---@return any ...
 function BattleNetInviteFrameMixin.ShowInviteConfirmation(...) end
 
+---@class BattlefieldFlagDataProviderMixin
 BattlefieldFlagDataProviderMixin = {}
 ---@return any ...
 function BattlefieldFlagDataProviderMixin.GetMap(...) end
@@ -6634,6 +6792,7 @@ function BattlefieldFlagDataProviderMixin.UnregisterEvent(...) end
 ---@return any ...
 function BattlefieldFlagDataProviderMixin.UpdatePing(...) end
 
+---@class BattlefieldFlagMixin
 BattlefieldFlagMixin = {}
 ---@return any ...
 function BattlefieldFlagMixin.AddIconWidgets(...) end
@@ -6816,6 +6975,7 @@ BindingUtil = {}
 ---@return any ...
 function BindingUtil.UsingMouseoverCasting(...) end
 
+---@class BlackColorStyleMenuMixin
 BlackColorStyleMenuMixin = {}
 ---@return any ...
 function BlackColorStyleMenuMixin.Generate(...) end
@@ -6859,6 +7019,7 @@ Blizzard_Console_SavedVars.isShown = false
 Blizzard_Console_SavedVars.messageHistory = {}
 Blizzard_Console_SavedVars.version = 0
 
+---@class BonusObjectiveBlockMixin
 BonusObjectiveBlockMixin = {}
 ---@return any ...
 function BonusObjectiveBlockMixin.AddCustomRegion(...) end
@@ -6953,6 +7114,7 @@ function BonusObjectiveBlockMixin.UpdateHighlight(...) end
 ---@return any ...
 function BonusObjectiveBlockMixin.UpdateSlideProgress(...) end
 
+---@class BonusObjectiveDataProviderMixin
 BonusObjectiveDataProviderMixin = {}
 ---@return any ...
 function BonusObjectiveDataProviderMixin.CancelCallbacks(...) end
@@ -7013,6 +7175,7 @@ function BonusObjectiveDataProviderMixin.UnregisterEvent(...) end
 ---@return any ...
 function BonusObjectiveDataProviderMixin.UpdatePing(...) end
 
+---@class BonusObjectivePinMixin
 BonusObjectivePinMixin = {}
 ---@return any ...
 function BonusObjectivePinMixin.AddIconWidgets(...) end
@@ -7179,6 +7342,7 @@ function BonusObjectivePinMixin.UseFrameLevelType(...) end
 ---@return any ...
 function BonusObjectivePinMixin.UseFrameLevelTypeFromRangeTop(...) end
 
+---@class BonusObjectiveTrackerMixin
 BonusObjectiveTrackerMixin = {}
 ---@return any ...
 function BonusObjectiveTrackerMixin.AcquireFrame(...) end
@@ -7377,6 +7541,7 @@ BonusObjectiveTrackerMixin.showWorldQuests = false
 BonusObjectiveTrackerMixin.state = 0
 BonusObjectiveTrackerMixin.wasDisplayedLastLayout = false
 
+---@class BonusObjectiveTrackerProgressBarMixin
 BonusObjectiveTrackerProgressBarMixin = {}
 ---@return any ...
 function BonusObjectiveTrackerProgressBarMixin.OnFree(...) end
@@ -7393,6 +7558,7 @@ function BonusObjectiveTrackerProgressBarMixin.SetValue(...) end
 ---@return any ...
 function BonusObjectiveTrackerProgressBarMixin.UpdateReward(...) end
 
+---@class BossSpellBarMixin
 BossSpellBarMixin = {}
 ---@return any ...
 function BossSpellBarMixin.AddStages(...) end
@@ -7511,6 +7677,7 @@ function BossSpellBarMixin.UpdateStage(...) end
 ---@return any ...
 function BossSpellBarMixin.UpdateTargetNameText(...) end
 
+---@class BossTargetFrameContainerMixin
 BossTargetFrameContainerMixin = {}
 ---@return any ...
 function BossTargetFrameContainerMixin.OnEvent(...) end
@@ -7525,6 +7692,7 @@ function BossTargetFrameContainerMixin.SetSmallSize(...) end
 ---@return any ...
 function BossTargetFrameContainerMixin.UpdateSize(...) end
 
+---@class BossTargetFrameMixin
 BossTargetFrameMixin = {}
 ---@return any ...
 function BossTargetFrameMixin.BossTarget_OnHide(...) end
@@ -7539,6 +7707,7 @@ function BossTargetFrameMixin.ShouldShow(...) end
 ---@return any ...
 function BossTargetFrameMixin.UpdateShownState(...) end
 
+---@class BountyFrameMixin
 BountyFrameMixin = {}
 ---@return any ...
 function BountyFrameMixin.CacheMapsForSelectionBounty(...) end
@@ -7557,6 +7726,7 @@ BountyFrameType = {}
 BountyFrameType.ActivityTracker = 0
 BountyFrameType.BountyBoard = 0
 
+---@class BuffBarCooldownViewerMixin
 BuffBarCooldownViewerMixin = {}
 ---@return any ...
 function BuffBarCooldownViewerMixin.AddExtraButtons(...) end
@@ -7877,6 +8047,7 @@ function BuffBarCooldownViewerMixin.UpdateSystemSettingVisibleSetting(...) end
 ---@return any ...
 function BuffBarCooldownViewerMixin.UseSettingAltName(...) end
 
+---@class BuffFrameMixin
 BuffFrameMixin = {}
 ---@return any ...
 function BuffFrameMixin.AddAuraForTooltip(...) end
@@ -7949,10 +8120,12 @@ function BuffFrameMixin.UpdatePlayerBuffs(...) end
 ---@return any ...
 function BuffFrameMixin.UpdateTemporaryEnchantmentBuffs(...) end
 
+---@class BuffFramePrivateAuraAnchorMixin
 BuffFramePrivateAuraAnchorMixin = {}
 ---@return any ...
 function BuffFramePrivateAuraAnchorMixin.SetUnit(...) end
 
+---@class BuffIconCooldownViewerMixin
 BuffIconCooldownViewerMixin = {}
 ---@return any ...
 function BuffIconCooldownViewerMixin.AddExtraButtons(...) end
@@ -8291,6 +8464,7 @@ function BuilderSpender.StartFeedbackAnim(...) end
 ---@return any ...
 function BuilderSpender.StopFeedbackAnim(...) end
 
+---@class BulletPointMixin
 BulletPointMixin = {}
 ---@return any ...
 function BulletPointMixin.GetEffectiveHeight(...) end
@@ -8305,6 +8479,7 @@ function BulletPointMixin.SetContent(...) end
 ---@return any ...
 function BulletPointMixin.UpdateHeight(...) end
 
+---@class BulletPointWithTextureMixin
 BulletPointWithTextureMixin = {}
 ---@return any ...
 function BulletPointWithTextureMixin.GetEffectiveHeight(...) end
@@ -8321,16 +8496,19 @@ function BulletPointWithTextureMixin.SetContent(...) end
 ---@return any ...
 function BulletPointWithTextureMixin.UpdateHeight(...) end
 
+---@class BurstFlipbookAnimMixin
 BurstFlipbookAnimMixin = {}
 ---@return any ...
 function BurstFlipbookAnimMixin.OnAnimFinished(...) end
 
+---@class ButtonControllerMixin
 ButtonControllerMixin = {}
 ---@return any ...
 function ButtonControllerMixin.OnLoad(...) end
 ---@return any ...
 function ButtonControllerMixin.OnShow(...) end
 
+---@class ButtonGroupBaseMixin
 ButtonGroupBaseMixin = {}
 ---@return any ...
 function ButtonGroupBaseMixin.AddButton(...) end
@@ -8415,6 +8593,7 @@ function ButtonGroupBaseMixin.Unselect(...) end
 ---@return any ...
 function ButtonGroupBaseMixin.UnselectAtIndex(...) end
 
+---@class ButtonGroupMixin
 ButtonGroupMixin = {}
 ---@return any ...
 function ButtonGroupMixin.AddButton(...) end
@@ -8501,6 +8680,7 @@ function ButtonGroupMixin.Unselect(...) end
 ---@return any ...
 function ButtonGroupMixin.UnselectAtIndex(...) end
 
+---@class ButtonStateBehaviorMixin
 ButtonStateBehaviorMixin = {}
 ---@return any ...
 function ButtonStateBehaviorMixin.DesaturateIfDisabled(...) end
@@ -8541,6 +8721,7 @@ function ButtonTrayUtil.TestDropdownTraySetup(...) end
 ---@return any ...
 function ButtonTrayUtil.TestSliderTraySetup(...) end
 
+---@class ButtonWithDisableMixin
 ButtonWithDisableMixin = {}
 ---@return any ...
 function ButtonWithDisableMixin.OnEnter(...) end
@@ -9568,6 +9749,7 @@ COVENANT_COLORS.NightFae = {}
 ---@type table
 COVENANT_COLORS.Venthyr = {}
 
+---@class CRFM_ButtonStateBehaviorMixin
 CRFM_ButtonStateBehaviorMixin = {}
 ---@return any ...
 function CRFM_ButtonStateBehaviorMixin.DesaturateIfDisabled(...) end
@@ -9598,6 +9780,7 @@ function CRFM_ButtonStateBehaviorMixin.OnShow(...) end
 ---@return any ...
 function CRFM_ButtonStateBehaviorMixin.SetDisplacedRegions(...) end
 
+---@class CRFM_DifficultyDropdownMixin
 CRFM_DifficultyDropdownMixin = {}
 ---@return any ...
 function CRFM_DifficultyDropdownMixin.DesaturateIfDisabled(...) end
@@ -9632,6 +9815,7 @@ function CRFM_DifficultyDropdownMixin.OnShow(...) end
 ---@return any ...
 function CRFM_DifficultyDropdownMixin.SetDisplacedRegions(...) end
 
+---@class CRFM_ToolbarButtonMixin
 CRFM_ToolbarButtonMixin = {}
 ---@return any ...
 function CRFM_ToolbarButtonMixin.DesaturateIfDisabled(...) end
@@ -9662,12 +9846,14 @@ function CRFM_ToolbarButtonMixin.OnShow(...) end
 ---@return any ...
 function CRFM_ToolbarButtonMixin.SetDisplacedRegions(...) end
 
+---@class CRFM_TooltipMixin
 CRFM_TooltipMixin = {}
 ---@return any ...
 function CRFM_TooltipMixin.OnEnter(...) end
 ---@return any ...
 function CRFM_TooltipMixin.OnLeave(...) end
 
+---@class CRFManagerFilterGroupButtonMixin
 CRFManagerFilterGroupButtonMixin = {}
 ---@return any ...
 function CRFManagerFilterGroupButtonMixin.OnClick(...) end
@@ -9676,6 +9862,7 @@ function CRFManagerFilterGroupButtonMixin.OnEnter(...) end
 ---@return any ...
 function CRFManagerFilterGroupButtonMixin.OnLeave(...) end
 
+---@class CRFManagerFilterRoleButtonMixin
 CRFManagerFilterRoleButtonMixin = {}
 ---@return any ...
 function CRFManagerFilterRoleButtonMixin.OnClick(...) end
@@ -9684,10 +9871,12 @@ function CRFManagerFilterRoleButtonMixin.OnEnter(...) end
 ---@return any ...
 function CRFManagerFilterRoleButtonMixin.OnLeave(...) end
 
+---@class CRFManagerMarkerTabMixin
 CRFManagerMarkerTabMixin = {}
 ---@return any ...
 function CRFManagerMarkerTabMixin.OnClick(...) end
 
+---@class CRFManagerRaidIconButtonMixin
 CRFManagerRaidIconButtonMixin = {}
 ---@return any ...
 function CRFManagerRaidIconButtonMixin.GetMarker(...) end
@@ -9706,10 +9895,12 @@ function CRFManagerRaidIconButtonMixin.OnShow(...) end
 ---@return any ...
 function CRFManagerRaidIconButtonMixin.UpdateRaidIcon(...) end
 
+---@class CRFManagerRoleMarkerCheckMixin
 CRFManagerRoleMarkerCheckMixin = {}
 ---@return any ...
 function CRFManagerRoleMarkerCheckMixin.OnLoad(...) end
 
+---@class CRFRaidMarkersMixin
 CRFRaidMarkersMixin = {}
 ---@return any ...
 function CRFRaidMarkersMixin.OnLoad(...) end
@@ -9891,10 +10082,12 @@ CUSTOMIZATION_CHOICE_INELIGIBLE_COLOR.b = 0
 CUSTOMIZATION_CHOICE_INELIGIBLE_COLOR.g = 0
 CUSTOMIZATION_CHOICE_INELIGIBLE_COLOR.r = 0
 
+---@class CVarAccessorMixin
 CVarAccessorMixin = {}
 ---@return any ...
 function CVarAccessorMixin.Init(...) end
 
+---@class CVarMapCanvasDataProviderMixin
 CVarMapCanvasDataProviderMixin = {}
 ---@return any ...
 function CVarMapCanvasDataProviderMixin.GetMap(...) end
@@ -9947,6 +10140,7 @@ function CVarMapCanvasDataProviderMixin.UnregisterEvent(...) end
 ---@return any ...
 function CVarMapCanvasDataProviderMixin.UpdatePing(...) end
 
+---@class CVarSettingMixin
 CVarSettingMixin = {}
 ---@return any ...
 function CVarSettingMixin.AddCommitFlag(...) end
@@ -10820,178 +11014,3 @@ function C_AuctionHouse.CloseAuctionHouse() end
 ---@param itemID number
 ---@param quantity number
 function C_AuctionHouse.ConfirmCommoditiesPurchase(itemID, quantity) end
----@param item ItemLocation
----@param duration integer
----@param quantity number
----@param unitPrice BigUInteger
-function C_AuctionHouse.ConfirmPostCommodity(item, duration, quantity, unitPrice) end
----@param item ItemLocation
----@param duration integer
----@param quantity number
----@param bid? BigUInteger
----@param buyout? BigUInteger
-function C_AuctionHouse.ConfirmPostItem(item, duration, quantity, bid, buyout) end
----@return boolean favoritesAreAvailable
-function C_AuctionHouse.FavoritesAreAvailable() end
----@param auctionID number
----@return AuctionInfo? priceInfo
-function C_AuctionHouse.GetAuctionInfoByID(auctionID) end
----@param classID number
----@return table subClasses
-function C_AuctionHouse.GetAuctionItemSubClasses(classID) end
----@param item ItemLocation
----@return number listCount
-function C_AuctionHouse.GetAvailablePostCount(item) end
----@param bidIndex integer
----@return BidInfo? bid
-function C_AuctionHouse.GetBidInfo(bidIndex) end
----@param bidTypeIndex integer
----@return ItemKey? typeItemKey
-function C_AuctionHouse.GetBidType(bidTypeIndex) end
----@return table bids
-function C_AuctionHouse.GetBids() end
----@return table browseResults
-function C_AuctionHouse.GetBrowseResults() end
----@param ownedAuctionID number
----@return BigUInteger cancelCost
-function C_AuctionHouse.GetCancelCost(ownedAuctionID) end
----@param itemID number
----@param commoditySearchResultIndex integer
----@return CommoditySearchResultInfo? result
-function C_AuctionHouse.GetCommoditySearchResultInfo(itemID, commoditySearchResultIndex) end
----@param itemID number
----@return number totalQuantity
-function C_AuctionHouse.GetCommoditySearchResultsQuantity(itemID) end
----@param itemKey ItemKey
----@return number extraInfo
-function C_AuctionHouse.GetExtraBrowseInfo(itemKey) end
----@return table filterGroups
-function C_AuctionHouse.GetFilterGroups() end
----@param item ItemLocation
----@return ItemCommodityStatus isCommodity
-function C_AuctionHouse.GetItemCommodityStatus(item) end
----@param item ItemLocation
----@return ItemKey itemKey
-function C_AuctionHouse.GetItemKeyFromItem(item) end
----@param itemKey ItemKey
----@param restrictQualityToFilter? boolean
----@return ItemKeyInfo? itemKeyInfo
-function C_AuctionHouse.GetItemKeyInfo(itemKey, restrictQualityToFilter) end
----@param itemKey ItemKey
----@return number requiredLevel
-function C_AuctionHouse.GetItemKeyRequiredLevel(itemKey) end
----@param itemKey ItemKey
----@return string? sampleItemLink
-function C_AuctionHouse.GetItemKeySampleLink(itemKey) end
----@param itemKey ItemKey
----@param itemSearchResultIndex integer
----@return ItemSearchResultInfo? result
-function C_AuctionHouse.GetItemSearchResultInfo(itemKey, itemSearchResultIndex) end
----@param itemKey ItemKey
----@return number totalQuantity
-function C_AuctionHouse.GetItemSearchResultsQuantity(itemKey) end
----@return BigUInteger? maxBid
-function C_AuctionHouse.GetMaxBidItemBid() end
----@return BigUInteger? maxBuyout
-function C_AuctionHouse.GetMaxBidItemBuyout() end
----@param itemID number
----@return BigUInteger? maxUnitPrice
-function C_AuctionHouse.GetMaxCommoditySearchResultPrice(itemID) end
----@param itemKey ItemKey
----@return BigUInteger? maxBid
-function C_AuctionHouse.GetMaxItemSearchResultBid(itemKey) end
----@param itemKey ItemKey
----@return BigUInteger? maxBuyout
-function C_AuctionHouse.GetMaxItemSearchResultBuyout(itemKey) end
----@return BigUInteger? maxBid
-function C_AuctionHouse.GetMaxOwnedAuctionBid() end
----@return BigUInteger? maxBuyout
-function C_AuctionHouse.GetMaxOwnedAuctionBuyout() end
----@return number numBidTypes
-function C_AuctionHouse.GetNumBidTypes() end
----@return number numBids
-function C_AuctionHouse.GetNumBids() end
----@param itemID number
----@return number numSearchResults
-function C_AuctionHouse.GetNumCommoditySearchResults(itemID) end
----@param itemKey ItemKey
----@return number numItemSearchResults
-function C_AuctionHouse.GetNumItemSearchResults(itemKey) end
----@return number numOwnedAuctionTypes
-function C_AuctionHouse.GetNumOwnedAuctionTypes() end
----@return number numOwnedAuctions
-function C_AuctionHouse.GetNumOwnedAuctions() end
----@return number numReplicateItems
-function C_AuctionHouse.GetNumReplicateItems() end
----@param ownedAuctionIndex integer
----@return OwnedAuctionInfo? ownedAuction
-function C_AuctionHouse.GetOwnedAuctionInfo(ownedAuctionIndex) end
----@param ownedAuctionTypeIndex integer
----@return ItemKey? typeItemKey
-function C_AuctionHouse.GetOwnedAuctionType(ownedAuctionTypeIndex) end
----@return table ownedAuctions
-function C_AuctionHouse.GetOwnedAuctions() end
----@return number quoteDurationSeconds
-function C_AuctionHouse.GetQuoteDurationRemaining() end
----@param index number
----@return number creatureID
----@return number displayID
-function C_AuctionHouse.GetReplicateItemBattlePetInfo(index) end
----@param index number
----@return string? name
----@return integer? texture
----@return number count
----@return number qualityID
----@return boolean? usable
----@return number level
----@return string? levelType
----@return BigUInteger minBid
----@return BigUInteger minIncrement
----@return BigUInteger buyoutPrice
----@return BigUInteger bidAmount
----@return string? highBidder
----@return string? bidderFullName
----@return string? owner
----@return string? ownerFullName
----@return number saleStatus
----@return number itemID
----@return boolean? hasAllInfo
-function C_AuctionHouse.GetReplicateItemInfo(index) end
----@param index number
----@return string? itemLink
-function C_AuctionHouse.GetReplicateItemLink(index) end
----@param index number
----@return number timeLeft
-function C_AuctionHouse.GetReplicateItemTimeLeft(index) end
----@param timeLeftBand AuctionHouseTimeLeftBand
----@return number timeLeftMinSeconds
----@return number timeLeftMaxSeconds
-function C_AuctionHouse.GetTimeLeftBandInfo(timeLeftBand) end
----@return boolean hasFavorites
-function C_AuctionHouse.HasFavorites() end
----@return boolean hasFullBidResults
-function C_AuctionHouse.HasFullBidResults() end
----@return boolean hasFullBrowseResults
-function C_AuctionHouse.HasFullBrowseResults() end
----@param itemID number
----@return boolean hasFullResults
-function C_AuctionHouse.HasFullCommoditySearchResults(itemID) end
----@param itemKey ItemKey
----@return boolean hasFullResults
-function C_AuctionHouse.HasFullItemSearchResults(itemKey) end
----@return boolean hasFullOwnedAuctionResults
-function C_AuctionHouse.HasFullOwnedAuctionResults() end
----@return boolean hasMaxFavorites
-function C_AuctionHouse.HasMaxFavorites() end
----@param itemKey ItemKey
----@return boolean hasSearchResults
-function C_AuctionHouse.HasSearchResults(itemKey) end
----@param itemKey ItemKey
----@return boolean isFavorite
-function C_AuctionHouse.IsFavoriteItem(itemKey) end
----@param item ItemLocation
----@param displayError? boolean
----@return boolean valid
-function C_AuctionHouse.IsSellItemValid(item, displayError) end
----@return boolean canSendThrottledMessage
-function C_AuctionHouse.IsThrottledMessageSystemReady() end

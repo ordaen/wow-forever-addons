@@ -218,12 +218,17 @@ function M.Generate(api, folder)
 		files["widgets.lua"] = table.concat(out, "\n")
 	end
 
-	-- functions.lua: namespaces (C_Map, Enum...) with their members; documented ones typed.
+	-- functions.lua: namespaces (C_Map, Enum...) with their members; documented ones typed. Blizzard's mixins
+	-- (ContainerFrameItemButtonMixin...) are classes too, so our own types can inherit their methods:
+	-- ---@class OrdaenBagsSlot : ItemButton, ContainerFrameItemButtonMixin
 	local functions = api.functions or {}
 	do
 		local out, write = newWriter(source)
 		for _, ns in ipairs(sortedKeys(api.namespaces)) do
 			if isIdentifier(ns) then
+				if ns:find("Mixin$") then
+					write("---@class " .. ns)
+				end
 				write(ns .. " = {}")
 				for _, key in ipairs(sortedKeys(api.namespaces[ns])) do
 					if isIdentifier(key) then
