@@ -1,7 +1,9 @@
 -- Ordaen Tooltips, the button a tooltip belongs to: its key binding (shown as the tooltip's hotkey) and whether its
 -- tooltip goes beside it. Buttons are the micro menu's and the action bars' (Blizzard's and bar addons').
 --   micro and Blizzard action buttons carry their binding command (`commandName`: "TOGGLECHARACTER0",
---   "ACTIONBUTTON1"); bar addons bind a click ("CLICK BT4Button1:Keybind", LibActionButton's "...:LeftButton").
+--   "ACTIONBUTTON1"); LibActionButton's (Bartender) keep theirs in `config.keyBoundTarget` (Bartender maps its
+--   bars to Blizzard's: bar 1 is "ACTIONBUTTON1", the others "MULTIACTIONBAR..."; seen missing, 2026-11-07), else
+--   bind a click ("CLICK BT4Button1:Keybind", "...:LeftButton").
 -- Cost: the binding commands of a button are built once (cached per button); a show calls GetBindingKey and reads
 -- the key's text from a cache, so it creates no strings.
 local _, ns = ...
@@ -21,6 +23,11 @@ local function commandsOf(button)
 		local command = rawget(button, "commandName")
 		if type(command) == "string" and command ~= "" then
 			list[#list + 1] = command
+		end
+		local config = rawget(button, "config")
+		local target = type(config) == "table" and rawget(config, "keyBoundTarget")
+		if type(target) == "string" and target ~= "" then
+			list[#list + 1] = target
 		end
 		local name = button:GetName()
 		if name then

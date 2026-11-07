@@ -311,6 +311,14 @@ describe("Ordaen Tooltips", function()
 			assert.is_false(ns.Takeover.Describe().GameTooltip.hotkey)
 		end)
 
+		it("find a Bartender button's key where LibActionButton keeps it (bar 1 uses Blizzard's ACTIONBUTTON1)", function()
+			hoverOver(button("CheckButton", { name = "BT4Button1", action = 1,
+				config = { keyBoundTarget = "ACTIONBUTTON1", keyBoundClickButton = "LeftButton" } }, 20))
+			bindings.ACTIONBUTTON1 = "1"
+			show({ { "Fireball" } })
+			assert.equals("1", ns.Takeover.Describe().GameTooltip.hotkey)
+		end)
+
 		it("go beside the button: above it low on the screen, below it high up; off goes back to Blizzard's place", function()
 			local low = button("CheckButton", { name = "ActionButton1", commandName = "ACTIONBUTTON1", action = 1 }, 20)
 			hoverOver(low)
